@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
   <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download data</a></li>
   <li><a href="#c.-request-a-us-census-bureau-api-key" id="toc-c.-request-a-us-census-bureau-api-key" class="nav-link" data-scroll-target="#c.-request-a-us-census-bureau-api-key">C. Request a US Census Bureau API key</a></li>
-  <li><a href="#c.-download-todays-.qmd-template-review-initial-data-wragling-code" id="toc-c.-download-todays-.qmd-template-review-initial-data-wragling-code" class="nav-link" data-scroll-target="#c.-download-todays-.qmd-template-review-initial-data-wragling-code">C. Download today’s <code>.qmd</code> template &amp; review initial data wragling code</a></li>
+  <li><a href="#c.-download-.qmd-templates-review-initial-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-initial-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-initial-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a></li>
@@ -307,36 +307,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a.-install-required-packages" class="level3">
 <h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"chron"</span>) <span class="co"># for working with dates / times</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggridges"</span>) <span class="co"># {ggplot2} extension for creating ridgeline plots</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gghighlight"</span>) <span class="co"># {ggplot2} extension for highlighting geoms</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggbeeswarm"</span>) <span class="co"># {ggplot2} extension for creating categorical scatter (violin point) plots</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"see"</span>) <span class="co"># {ggplot2} extension for model visualization (we'll be using it for it's geom, geom_violindot())</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"chron"</span>) <span class="co"># for working with dates / times</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggridges"</span>) <span class="co"># {ggplot2} extension for creating ridgeline plots</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gghighlight"</span>) <span class="co"># {ggplot2} extension for highlighting geoms</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggbeeswarm"</span>) <span class="co"># {ggplot2} extension for creating categorical scatter (violin point) plots</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"see"</span>) <span class="co"># {ggplot2} extension for model visualization (we'll be using it for it's geom, geom_violindot())</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="b.-download-data" class="level3">
 <h3 class="anchored" data-anchor-id="b.-download-data">B. Download data</h3>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TODO:
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>data links broken :(</p>
-</div>
-</div>
 <ul>
-<li><a href="https://www.cdc.gov/lyme/resources/datasurveillance/LD-Case-Counts-by-County-01-20.csv" target="_blank">County-level Lyme disease data from 2001-2020</a>, made available by the CDC (read more on <a href="https://www.cdc.gov/lyme/stats/survfaq.html" target="&quot;_blank">this CDC web page</a>)
+<li><strong>Lyme Disease Cases by State or Locality (<a href="https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv">download link</a>)</strong>, made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under the “Dashboard data files” section)
 <ul>
-<li>save the downloaded data (<code>LD-Case-Counts-by-County-01-20.csv</code>) to your class repo at the file path: <code>EDS-240-class-examples/week2/data/LD-Case-Counts-by-County-01-20.csv</code></li>
+<li>save the downloaded data (<code>Lyme_Disease_Cases_by_State_or_Locality.csv</code>) to your class repo at the file path: <code>EDS-240-class-examples/week2/data/Lyme_Disease_Cases_by_State_or_Locality.csv</code></li>
 </ul></li>
 </ul>
 </section>
@@ -346,40 +334,58 @@ TODO:
 <li><p>To use the <a href="https://walker-data.com/tidycensus/" target="&quot;_blank"><code>{tidycensus}</code> package</a> to access US Census Bureau data, you’ll first need to <strong>request and activate an API key</strong>. Do so by following these steps:</p>
 <ol type="a">
 <li>Request an API key at <a href="http://api.census.gov/data/key_signup.html" target="&quot;_blank">http://api.census.gov/data/key_signup.html</a></li>
-<li>After a short period of time, you should receive an email with your key (it may be helpful to star/bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again)</li>
+<li>After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again)</li>
 </ol></li>
-<li><p><strong>For security purposes, you should never push any API keys to GitHub.</strong> To prevent us from accidentally pushing our key(s), we can save it to a separate file which we’ll add to our <code>.gitignore</code>. Do so by following these steps:</p></li>
-</ol>
+<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to our <code>.Renviron</code> file. Follow these steps:</p>
 <ol type="a">
-<li><p>Create a <code>week3/</code> folder in the root directory of your class repo</p></li>
-<li><p>Add a file to your <code>week2/</code> folder called <code>KEYS.R</code>, and save your API key to an object name like this:</p></li>
+<li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one)</li>
+<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.</li>
+</ol></li>
 </ol>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>~/week2/KEYS.R</strong></pre>
+<pre><strong>.Renviron</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>censusKEY <span class="ot">&lt;-</span> <span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ol start="2" type="a">
-<li>Add <code>KEYS.R</code> to your <code>.gitignore</code></li>
-</ol>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.gitignore</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="sc">/</span>week2<span class="sc">/</span>KEYS.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>censusKEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<ol start="3" type="a">
-<li>Save <code>.gitignore</code> (once saved, you should see the newly added <code>KEYS.R</code> file disappear from your <strong>Git</strong> pane in RStudio, and a modified <code>.gitignore</code> appear). Stage/add, commit, and push this <code>.gitignore</code> file to GitHub</li>
-</ol>
-<p>In class, we’ll source our key (by running <code>source(here::here("week2", "KEYS.R"))</code>) into any scripts / Qmd files, where required.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is <code>.Renviron</code>?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> are hidden files (preceded by a dot, <code>.</code>), which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other <code>.gitconfig</code> and <code>.gitignore</code>.</p>
+<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use.</p>
+</div>
+</div>
+</div>
+<!-- To prevent us from accidentally pushing our key(s), we can save it to a separate file which we'll add to our `.gitignore`. Do so by following these steps: -->
+<!--   a. Create a `week2/` folder in the root directory of your class repo -->
+<!--   b. Add a file to your `week2/` folder called `KEYS.R`, and save your API key to an object name like this: -->
+<!-- ```{r filename="~/week2/KEYS.R"} -->
+<!-- #| eval: false -->
+<!-- #| echo: true -->
+<!-- censusKEY <- "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+<!-- ``` -->
+<!--   b. Add `KEYS.R` to your `.gitignore` -->
+<!-- ```{r filename=".gitignore"} -->
+<!-- #| eval: false -->
+<!-- #| echo: true -->
+<!-- /week2/KEYS.R -->
+<!-- ``` -->
+<!--   c. Save `.gitignore` (once saved, you should see the newly added `KEYS.R` file disappear from your **Git** pane in RStudio, and a modified `.gitignore` appear). Stage/add, commit, and push this `.gitignore` file to GitHub -->
+<!-- In class, we'll source our key (by running `source(here::here("week2", "KEYS.R"))`) into any scripts / Qmd files, where required.  -->
 </section>
-<section id="c.-download-todays-.qmd-template-review-initial-data-wragling-code" class="level3">
-<h3 class="anchored" data-anchor-id="c.-download-todays-.qmd-template-review-initial-data-wragling-code">C. Download today’s <code>.qmd</code> template &amp; review initial data wragling code</h3>
+<section id="c.-download-.qmd-templates-review-initial-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-initial-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

@@ -2,7 +2,6 @@
 format: 
   revealjs:
     slide-number: true
-    # code-link: true
     highlight-style: a11y
     chalkboard: true
     theme: 
@@ -122,7 +121,7 @@ In this lesson, we'll explore two primary chart types:
 
 <hr>
 
-[Lyme disease has been a nationally notifiable condition in the United States since 1991. Reports of Lyme disease are collected and verified by local and state health departments, anonymized by the [National Notifiable Diseases Surveillance System](https://www.cdc.gov/nndss/index.html) (NNDSS), then shared with [Centers for Disease Control and Prevention](https://www.cdc.gov/) (CDC). The CDC has developed a public use data set for [download](https://www.cdc.gov/lyme/stats/survfaq.html) to facilitate the public health and research community’s access to NNDSS data on Lyme disease.]{.body-text-s}
+[Lyme disease has been a nationally notifiable condition in the United States since 1991. Reports of Lyme disease are collected and verified by local and state health departments, anonymized by the [National Notifiable Diseases Surveillance System](https://www.cdc.gov/nndss/index.html){target="_blank"} (NNDSS), then shared with [Centers for Disease Control and Prevention](https://www.cdc.gov/){target="_blank"} (CDC). The CDC has developed a public use data set for [download](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"} to facilitate the public health and research community’s access to NNDSS data on Lyme disease.]{.body-text-s}
 
 :::: columns
 
@@ -133,7 +132,7 @@ In this lesson, we'll explore two primary chart types:
 #| echo: false
 #| fig-align: "center"
 #| out-width: "80%"
-knitr::include_graphics("images/week3/cdc-logo.png")
+knitr::include_graphics("images/week2/cdc-logo.png")
 ```
 :::
 
@@ -143,7 +142,7 @@ knitr::include_graphics("images/week3/cdc-logo.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "80%"
-knitr::include_graphics("images/week3/tick-cartoon.png")
+knitr::include_graphics("images/week2/tick-cartoon.png")
 ```
 :::
 
@@ -157,13 +156,13 @@ knitr::include_graphics("images/week3/tick-cartoon.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "80%"
-knitr::include_graphics("images/week3/census-bureau-logo.png")
+knitr::include_graphics("images/week2/census-bureau-logo.png")
 ```
 :::
 
 ::::
 
-[Using the publicly-available CDC data on Lyme disease and population estimates from the [US Census Bureau](https://www.census.gov/) (via the [`{tidycensus}` package]()), we'll explore **changes in Lyme disease incidence (cases/100k people) over time**, by state.]{.body-text-s}
+[Using the publicly-available CDC data on Lyme disease and population estimates from the [US Census Bureau](https://www.census.gov/){target="_blank"} (via the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank"}), we'll explore **changes in Lyme disease incidence (cases/100k people) over time**, by state.]{.body-text-s}
 
 ::: notes
 NNDSS is a nationwide collaboration that enables all levels of public health to share health information to monitor, control, and prevent the occurrence and spread of state-reportable and nationally notifiable infectious (and some noninfectious) diseases and conditions.
@@ -185,11 +184,11 @@ NNDSS is a nationwide collaboration that enables all levels of public health to 
 <br>
 <br>
 
-The [`{tidycensus}` package](https://walker-data.com/tidycensus/) allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames.
+The [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank"} allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames.
 
 <br>
 
-Using `{tidycensus}` requires that you first have an API key. **Be sure to follow the Pre-Course setup [instructions for requesting and activating your key](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week3.html#request-a-us-census-bureau-api-key) before proceeding.**
+Using `{tidycensus}` requires that you first have an API key. **Be sure to follow the Pre-Course setup [instructions for requesting and activating your key](../week2.qmd#request-a-us-census-bureau-api-key){target="_blank"} before proceeding.**
 :::
 
 ::: {.column width="50%"}
@@ -198,7 +197,7 @@ Using `{tidycensus}` requires that you first have an API key. **Be sure to follo
 #| echo: false
 #| fig-align: "center"
 #| out-width: "90%"
-knitr::include_graphics("images/week3/tidycensus.png")
+knitr::include_graphics("images/week2/tidycensus.png")
 ```
 :::
 
@@ -212,9 +211,9 @@ knitr::include_graphics("images/week3/tidycensus.png")
 
 <hr>
 
-{{< include sections/3.3-lyme.qmd >}}
+{{< include sections/2.3-lyme.qmd >}}
 
-See the [online documentation](https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.) for more information on downloading and parsing population data using the `{tidycensus}` package.
+See the [online documentation](https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.){target="_blank"} for more information on downloading and parsing population data using the `{tidycensus}` package.
 ```{r}
 #| eval: false
 #| echo: true
@@ -225,15 +224,14 @@ See the [online documentation](https://walker-data.com/tidycensus/articles/other
 #.........................load libraries.........................
 library(tidycensus)
 library(tidyverse)
-library(janitor)
 library(gghighlight)
 
 #.........................source API key.........................
-source(here::here("week3", "KEYS.R"))
+source(here::here("week2", "KEYS.R"))
 census_api_key(censusKEY)
 
 #..........................import data...........................
-lyme <- read_csv(here::here("week3", "data", "LD-Case-Counts-by-County-01-20.csv"))
+lyme <- read_csv(here::here("week2", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                          wrangle lyme disease data                       ----
@@ -242,54 +240,47 @@ lyme <- read_csv(here::here("week3", "data", "LD-Case-Counts-by-County-01-20.csv
 #............wide to long (plus some other wrangling)............
 lyme_clean <- lyme |> 
   
-  # make col names snake_case ----
-  janitor::clean_names() |> 
+  rename(state = State) |> 
   
-  # rename columns ----
-  rename(city = ctyname, state = stname, status = ststatus) |> 
+  # remove special character from State names that have it ----
+  mutate(state = str_replace(string = state, pattern = "\x86", replacement = "")) |> 
   
-  # wide to long (tidy) years
-  pivot_longer(cols = 6:25, names_to = "city_year", values_to = "reported_cases") |> 
+  # remove total cases row ----
+  filter(state != "U.S. Total") |> 
   
-  # remove "cases" from the year & coerce year from chr to factor ----
-  mutate(year = str_remove(city_year, pattern = "cases"),
-         year = as.factor(year)) |> 
+  # wide to long (tidy) years ----
+  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
   
-  # select necessary cols ----
-  select(year, city, state, status, reported_cases)
-
-#................calculate total cases per state.................
-lyme_by_state <- lyme_clean |> 
-  group_by(year, state) |> 
-  summarize(total_cases = sum(reported_cases)) 
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                      request / wrangle population data                   ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+  # reorder columns ----
+  relocate(year, state, reported_cases) |> 
+  
+  # filter for years 2010 - 2020 ----
+  filter(year %in% c(2010:2020))
+  
 #...................get pop estimates by state...................
 us_state_pop <- get_estimates(geography = "state", 
                               product = "population",
                               state = NULL, 
-                              year = 2019) |> 
+                              year = 2019) |> # request 2019 vintage for the 2010s (see documentation)
   filter(variable == "POP") |> 
-  select(state = NAME, population = value) 
+  select(state = NAME, population = value) |> 
+  filter(state != "Puerto Rico")
 
 #........................write data to csv.......................
 # optional, but recommended in case you want to work offline, the API is down, etc. (you can then read in your saved data file rather than run the above code)
-# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop.csv"))
+# write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            join lyme & pop dfs                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-lyme_pop <- left_join(lyme_by_state, us_state_pop) |> 
+lyme_pop <- left_join(lyme_clean, us_state_pop) |>  
   
   # add col with num of 100k people per state ----
   mutate(pop100k = population/100000) |> 
   
   # calculate num cases per 100k people (common way of reporting disease incidence) ----
-  mutate(cases_per100k = total_cases/pop100k) 
+  mutate(cases_per100k = reported_cases/pop100k) 
 ```
 
 ---
@@ -302,7 +293,7 @@ lyme_pop <- left_join(lyme_by_state, us_state_pop) |>
 
 [Line graphs display the **evolution of one or several *numeric* variables**. They are similar to scatter plots, but the measurement points are **ordered** (typically by their x-axis value) and joined with straight line segments. They are often used to visualize a trend in data over intervals of time. For example, changes in Lyme disease incidence (# cases / 100k people) from 2010 - 2020, by state:]{.body-text-s}
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -313,9 +304,7 @@ A basic line graph using `geom_line()`
 ```{r}
 #| eval: true
 #| echo: true
-lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
-  ggplot(aes(x = year, y = cases_per100k, group = state)) + 
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
   geom_line()
 ```
 :::
@@ -347,9 +336,7 @@ A basic line graph using `geom_line()`
 ```{r}
 #| eval: true
 #| echo: true
-lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
-  ggplot(aes(x = year, y = cases_per100k, group = state)) + 
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
   geom_line()
 ```
 :::
@@ -363,9 +350,7 @@ A line + scatter plot created by layering `geom_line()` & `geom_point()`
 ```{r}
 #| eval: true
 #| echo: true
-lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
-  ggplot(aes(x = year, y = cases_per100k, group = state)) + 
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
   geom_line() +
   geom_point()
 ```
@@ -381,7 +366,7 @@ lyme_pop |>
 
 <hr>
 
-A line plot with many lines displayed together can be hard to read / overwhelming to interpret. Consider highlighting a group(s) of interest (the [`{gghighlight}` package](https://yutannihilation.github.io/gghighlight/) comes in handy):
+A line plot with many lines displayed together can be hard to read / overwhelming to interpret. Consider highlighting a group(s) of interest (the [`{gghighlight}` package](https://yutannihilation.github.io/gghighlight/){target="_blank"} comes in handy):
 
 :::: columns
 
@@ -394,11 +379,9 @@ E.g. I'm interested in how Lyme disease in New Jersey compares to other states.
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5"
+#| code-line-numbers: "3"
 #| fig-align: "center"
-lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
-  ggplot(aes(x = year, y = cases_per100k, group = state)) +
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
   geom_line() +
   gghighlight::gghighlight(state == "New Jersey") 
 ```
@@ -413,11 +396,9 @@ E.g. I'm interested in states where Lyme disease incidence is (or at one point w
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "3,5"
+#| code-line-numbers: "1,3"
 #| fig-align: "center"
-lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
-  ggplot(aes(x = year, y = cases_per100k, group = state, color = state)) +
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state)) +
   geom_line() +
   gghighlight::gghighlight(max(cases_per100k) > 100) 
 ```
@@ -498,7 +479,7 @@ lyme_pop |>
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/dow-uncut-y.png")
+knitr::include_graphics("images/week2/dow-uncut-y.png")
 ```
 :::
 
@@ -508,14 +489,14 @@ knitr::include_graphics("images/week3/dow-uncut-y.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/dow-cut-y.png")
+knitr::include_graphics("images/week2/dow-cut-y.png")
 ```
 :::
 
 ::::
 
 ::: footer
-Example from [Meghan Hall](https://meghan.rbind.io/)'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/) course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1).
+Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/){target="_blank"} course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1){target="_blank"}.
 :::
 
 ---
@@ -536,7 +517,7 @@ Example from [Meghan Hall](https://meghan.rbind.io/)'s [Statistical Graphics & V
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/temps-uncut-y.png")
+knitr::include_graphics("images/week2/temps-uncut-y.png")
 ```
 :::
 
@@ -546,14 +527,14 @@ knitr::include_graphics("images/week3/temps-uncut-y.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/temps-cut-y.png")
+knitr::include_graphics("images/week2/temps-cut-y.png")
 ```
 :::
 
 ::::
 
 ::: footer
-Example from [Meghan Hall](https://meghan.rbind.io/)'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/) course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1).
+Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/){target="_blank"} course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1){target="_blank"}.
 :::
 
 --- 
@@ -571,14 +552,14 @@ Example from [Meghan Hall](https://meghan.rbind.io/)'s [Statistical Graphics & V
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/aspect-ratio.png")
+knitr::include_graphics("images/week2/aspect-ratio.png")
 ```
 
 ::: {.center-text}
-[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.)]{.gray-text}
+[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.){target="_blank"}]{.gray-text}
 :::
 
-[There's **no exact rule** for what aspect ratio to use for a given graphic (but see [Cleveland et al. 1988](https://www.jstor.org/stable/2288843) to read about the "banking to 45 degrees" rule) -- it depends on the nature of the variable and your goal with the visualization. *However* it's important to keep mind that **manipulating the aspect ratio can mislead readers, and so you should do so carefully**.]{.body-text-s}
+[There's **no exact rule** for what aspect ratio to use for a given graphic (but see [Cleveland et al. 1988](https://www.jstor.org/stable/2288843){target="_blank"} to read about the "banking to 45 degrees" rule) -- it depends on the nature of the variable and your goal with the visualization. *However* it's important to keep mind that **manipulating the aspect ratio can mislead readers, and so you should do so carefully**.]{.body-text-s}
 
 --- 
 
@@ -588,18 +569,18 @@ knitr::include_graphics("images/week3/aspect-ratio.png")
 
 <hr>
 
-Consider this line graph of sunspot activity from 1700 - 2015. It was created using [Stata](https://www.stata.com/)'s default aspect ratio. Can you easily identify where in time sunspot activity rises more quickly / sharply than others?
+Consider this line graph of sunspot activity from 1700 - 2015. It was created using [Stata](https://www.stata.com/){target="_blank"}'s default aspect ratio. Can you easily identify where in time sunspot activity rises more quickly / sharply than others?
 
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/sunspot-default-ar.png")
+knitr::include_graphics("images/week2/sunspot-default-ar.png")
 ```
 
 ::: {.center-text}
-[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.)]{.gray-text}
+[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.){target="_blank"}]{.gray-text}
 :::
 
 --- 
@@ -615,7 +596,7 @@ knitr::include_graphics("images/week3/sunspot-default-ar.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week3/sunspot-wide-ar.png")
+knitr::include_graphics("images/week2/sunspot-wide-ar.png")
 ```
 
 :::: columns
@@ -626,7 +607,7 @@ knitr::include_graphics("images/week3/sunspot-wide-ar.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "70%"
-knitr::include_graphics("images/week3/sunspot-wide-ar-panels.png")
+knitr::include_graphics("images/week2/sunspot-wide-ar-panels.png")
 ```
 :::
 
@@ -642,7 +623,7 @@ With a wider aspect ratio, we can more clearly see the differences in rates of c
 ::::
 
 ::: {.center-text}
-[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.)]{.gray-text}
+[Image source: [Graph workflow](https://graphworkflow.com/enhancement/aspect/#:~:text=The%20aspect%20ratio%20of%20a,%3A10%20or%2016%3A9.){target="_blank"}]{.gray-text}
 :::
 
 ---
@@ -660,7 +641,6 @@ Let's first look at Lyme disease incidence for Vermont from 2010 - 2020 without 
 #| echo: true
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_line()
@@ -690,7 +670,6 @@ lyme_pop |>
 #| code-line-numbers: "6"
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_line() +
@@ -722,7 +701,6 @@ lyme_pop |>
 #| fig-align: "center"
 lyme_pop |> 
   filter(state == "Vermont") |> 
-  filter(year %in% c(2010:2020)) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_line() +
   scale_y_continuous(breaks = seq(0, 190, by = 1)) +
@@ -747,7 +725,6 @@ lyme_pop |>
 #| out-width: "100%"
 lyme_pop |> 
   filter(state == "Vermont") |> 
-  filter(year %in% c(2010:2020)) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_line() + 
   coord_fixed(ratio = 1/50)
@@ -765,7 +742,7 @@ Playing around with the `ratio` value yourself is the best way to get a sense fo
 
 <hr>
 
-[Instead of just a line or scatter plot to indicate the change in a numeric variable through time, the space between the line and the x-axis is colored or shaded in. Area plots are sometimes criticized for **violating the [data-ink ratio](https://infovis-wiki.net/wiki/Data-Ink_Ratio) rule**, which argues that any non-data-ink should be omitted wherever possible. If the number of observations is low (as in this example) a connected scatter plot may more clearly show when each observation was made.]{.body-text-s}
+[Instead of just a line or scatter plot to indicate the change in a numeric variable through time, the space between the line and the x-axis is colored or shaded in. Area plots are sometimes criticized for **violating the [data-ink ratio](https://infovis-wiki.net/wiki/Data-Ink_Ratio){target="_blank"} rule**, which argues that any non-data-ink should be omitted wherever possible. If the number of observations is low (as in this example) a connected scatter plot may more clearly show when each observation was made.]{.body-text-s}
 
 :::: columns
 
@@ -780,7 +757,6 @@ A basic area plot (New Jersey)
 #| echo: true
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state == "New Jersey") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_area() 
@@ -797,10 +773,9 @@ Update the fill color
 #| eval: true
 #| echo: true
 #| out-width: "80%"
-#| code-line-numbers: "4,6-7"
+#| code-line-numbers: "3,5-6"
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state == "New Jersey") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area() +
@@ -819,10 +794,9 @@ Expand area to panel margins
 #| eval: true
 #| echo: true
 #| out-width: "80%"
-#| code-line-numbers: "7-8"
+#| code-line-numbers: "6-7"
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state == "New Jersey") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area() +
@@ -850,7 +824,6 @@ lyme_pop |>
 #| echo: true
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area()
@@ -869,10 +842,9 @@ Proportional stacked area charts **plot percentage contribution instead of absol
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5-6"
+#| code-line-numbers: "4-5"
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area(position = "fill") +
@@ -887,7 +859,7 @@ lyme_pop |>
 
 <hr>
 
-[Group order (from bottom to top) can have an influence -- oftentimes, you'll want to **put the most important group on the bottom (closest to the x-axis)**, since your audience will have an easier time reading values for that group. For example, [US Drought Monitor](https://droughtmonitor.unl.edu/) likely wanted to draw attention to what percentage of land area in CA experienced the highest-severity drought level (D4, Exceptional). By plotting that group on the bottom of the graph below, we can more easily identify that ~60% of CA experienced the worst level of drought in 2014-2015.]{.body-text-s}
+[Group order (from bottom to top) can have an influence -- oftentimes, you'll want to **put the most important group on the bottom (closest to the x-axis)**, since your audience will have an easier time reading values for that group. For example, [US Drought Monitor](https://droughtmonitor.unl.edu/){target="_blank"} likely wanted to draw attention to what percentage of land area in CA experienced the highest-severity drought level (D4, Exceptional). By plotting that group on the bottom of the graph below, we can more easily identify that ~60% of CA experienced the worst level of drought in 2014-2015.]{.body-text-s}
 
 :::: columns 
 
@@ -898,7 +870,7 @@ lyme_pop |>
 #| fig-align: "center"
 #| out-width: "70%"
 #| fig-alt: "Percentage area of California in U.S. drought monitor categories"
-knitr::include_graphics("images/week3/usdm.png")
+knitr::include_graphics("images/week2/usdm.png")
 ```
 :::
 
@@ -907,12 +879,12 @@ knitr::include_graphics("images/week3/usdm.png")
 <br>
 <br>
 
-{{< fa arrow-left title="an arrow pointing to the left" >}} You'll be recreating this graph (original source US Drought Monitor, via [Wikipedia](https://en.wikipedia.org/wiki/Droughts_in_California#:~:text=County%20municipal%20rates.-,Dry%20years,2017%2C%20and%202020%E2%80%932022.)) in discussion section this week!
+{{< fa arrow-left title="an arrow pointing to the left" >}} You'll be recreating this graph (original source US Drought Monitor, via [Wikipedia](https://en.wikipedia.org/wiki/Droughts_in_California#:~:text=County%20municipal%20rates.-,Dry%20years,2017%2C%20and%202020%E2%80%932022.){target="_blank"}) in discussion section this week!
 :::
 
 ::::
 
-[[This article](https://inforiver.com/insights/stacked-area-charts-when-to-use-and-avoid/) by Info River nicely outlines situations where using a stacked area chart is great, when not to use them, and important considerations.]{.body-text-s}
+[[This article](https://inforiver.com/insights/stacked-area-charts-when-to-use-and-avoid/){target="_blank"} by Info River nicely outlines situations where using a stacked area chart is great, when not to use them, and important considerations.]{.body-text-s}
 
 ---
 
@@ -932,7 +904,6 @@ It is super **challenging to subtract the height of groups from one another at a
 #| echo: true
 #| fig-align: "center"
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area()
@@ -944,7 +915,6 @@ lyme_pop |>
 #| eval: true
 #| echo: true
 lyme_pop |> 
-  filter(year %in% c(2010:2020)) |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, color = state)) +
   geom_line() +
@@ -962,29 +932,4 @@ lyme_pop |>
 <p class="custom-subtitle bottombr">See you next week!</p>
 <p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p>
 </div>
-
-<!-- --- -->
-
-<!-- ##  {#assignments data-menu-title="Assignments" background="#D8E7E7"} -->
-
-<!-- ::: {.center-text} -->
-<!-- [Assignments]{.slide-title .dark-blue-text} -->
-<!-- ::: -->
-
-<!-- <hr> -->
-
-<!-- <br> -->
-
-<!-- [**End-of-class Survey week 3 (EOC #2)** -- *Due [Mon 01/22]{.magenta-text} at 11:55pm*]{.body-text-m} -->
-
-<!-- - 2 multiple choice + 2 short answer + 1 optional question -->
-
-<!-- . . .  -->
-
-<!-- [**Homework Assignment #2 (HW #2)** -- *Due [Sat 02/03]{.magenta-text} at 11:59pm*]{.body-text-m} -->
-
-<!-- - 2 parts: -->
-<!--   - choosing the right graphic form (SBC LTER data) -->
-<!--   - data wrangling & exploratory data viz using your own data (HW #4) -->
-
 
