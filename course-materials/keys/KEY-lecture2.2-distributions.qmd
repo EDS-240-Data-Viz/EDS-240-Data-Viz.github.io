@@ -17,6 +17,10 @@ This template follows [lecture 2.2 slides](../lecture-slides/lecture2.2-distribu
 #| echo: true
 #| message: false
 #| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #..........................load packages.........................
 library(tidyverse)
 library(chron)
@@ -25,7 +29,10 @@ library(naniar)
 #..........................import data...........................
 mko <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
 
-#..........................wrangle data..........................
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 mko_clean <- mko |>
 
   # keep only necessary columns ----
@@ -53,15 +60,17 @@ mko_clean <- mko |>
   # select/reorder desired columns ----
   select(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)
 
-#......................explore missing data......................
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            explore missing data                          ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# counts and percentage of missing data by year ----
+#..........counts & percentages of missing data by year..........
 see_NAs <- mko_clean |> 
   group_by(year) |> 
   naniar::miss_var_summary() |>
   filter(variable == "Temp_bot")
 
-# visualize missing Temp_bot ----
+#...................visualize missing Temp_bot...................
 bottom <- mko_clean |> select(Temp_bot)
 missing_temps <- naniar::vis_miss(bottom)
 ```

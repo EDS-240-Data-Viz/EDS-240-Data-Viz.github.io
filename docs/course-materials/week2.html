@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
   <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download data</a></li>
-  <li><a href="#c.-request-a-us-census-bureau-api-key" id="toc-c.-request-a-us-census-bureau-api-key" class="nav-link" data-scroll-target="#c.-request-a-us-census-bureau-api-key">C. Request a US Census Bureau API key</a></li>
+  <li><a href="#c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" id="toc-c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" class="nav-link" data-scroll-target="#c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</a></li>
   <li><a href="#c.-download-.qmd-templates-review-initial-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-initial-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-initial-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
@@ -328,15 +328,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </section>
-<section id="c.-request-a-us-census-bureau-api-key" class="level3">
-<h3 class="anchored" data-anchor-id="c.-request-a-us-census-bureau-api-key">C. Request a US Census Bureau API key</h3>
+<section id="c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" class="level3">
+<h3 class="anchored" data-anchor-id="c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</h3>
 <ol type="1">
 <li><p>To use the <a href="https://walker-data.com/tidycensus/" target="&quot;_blank"><code>{tidycensus}</code> package</a> to access US Census Bureau data, you’ll first need to <strong>request and activate an API key</strong>. Do so by following these steps:</p>
 <ol type="a">
 <li>Request an API key at <a href="http://api.census.gov/data/key_signup.html" target="&quot;_blank">http://api.census.gov/data/key_signup.html</a></li>
 <li>After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again)</li>
 </ol></li>
-<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to our <code>.Renviron</code> file. Follow these steps:</p>
+<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our <code>.Renviron</code> file. Follow these steps:</p>
 <ol type="a">
 <li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one)</li>
 <li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.</li>
@@ -347,23 +347,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-with-filename-file">
 <pre><strong>.Renviron</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>censusKEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<ul>
+<li><strong>Note:</strong> You may also consider storing your API key in a password manager for safe keeping (e.g.&nbsp;in case your computer decides to call a quits, is lost, etc.)</li>
+</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What is <code>.Renviron</code>?
+What exactly is <code>.Renviron</code>?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> are hidden files (preceded by a dot, <code>.</code>), which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other <code>.gitconfig</code> and <code>.gitignore</code>.</p>
-<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use.</p>
+<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> (files which are preceded by a dot, <code>.</code>) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other <code>.gitconfig</code> and <code>.gitignore</code>.</p>
+<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Access them using <code>Sys.getenv("KEY_NAME")</code>.</p>
+<p>Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your <code>.Renviron</code> file (e.g.&nbsp;see <a href="https://walker-data.com/tidycensus/reference/census_api_key.html" target="_blank"><code>tidycensus::census_api_key()</code></a>). You may choose to use these helper functions in place of <code>usethis::edit_r_environ()</code>, if you prefer.</p>
 </div>
 </div>
 </div>
@@ -399,7 +404,7 @@ TODO
 <p>add more instructions about data wrangling review</p>
 </div>
 </div>
-<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week2</code> folder.</p>
+<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week2/</code> folder.</p>
 </section>
 </section>
 <section id="lecture-materials" class="level2">
@@ -425,12 +430,12 @@ TODO
 </tr>
 <tr class="even">
 <td><a href="../course-materials/lecture-slides/lecture2.2-distributions-slides.html" target="_blank">Lecture 2.2: visualizing distributions</a></td>
-<td><a href="" target="_blank">2.2 template</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.2-distributions.qmd" target="_blank">2.2 template</a></td>
 <td><a href="../course-materials/keys/KEY-lecture2.2-distributions.html" target="_blank">2.2 key</a></td>
 </tr>
 <tr class="odd">
 <td><a href="../course-materials/lecture-slides/lecture2.3-evolution-slides.html" target="_blank">Lecture 2.3: visualizing evolution</a></td>
-<td>2.3 template</td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd" target="_blank">2.3 template</a></td>
 <td><a href="../course-materials/keys/KEY-lecture2.3-evolution.html" target="_blank">2.3 key</a></td>
 </tr>
 </tbody>

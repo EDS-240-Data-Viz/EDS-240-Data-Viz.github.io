@@ -121,7 +121,7 @@ In this lesson, we'll explore two primary chart types:
 
 <hr>
 
-[Lyme disease has been a nationally notifiable condition in the United States since 1991. Reports of Lyme disease are collected and verified by local and state health departments, anonymized by the [National Notifiable Diseases Surveillance System](https://www.cdc.gov/nndss/index.html){target="_blank"} (NNDSS), then shared with [Centers for Disease Control and Prevention](https://www.cdc.gov/){target="_blank"} (CDC). The CDC has developed a public use data set for [download](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"} to facilitate the public health and research community’s access to NNDSS data on Lyme disease.]{.body-text-s}
+[Lyme disease has been a nationally notifiable condition in the United States since 1991. Reports of Lyme disease are collected and verified by local and state health departments, anonymized by the [National Notifiable Diseases Surveillance System](https://www.cdc.gov/nndss/index.html){target="_blank"} (NNDSS), then shared with [Centers for Disease Control and Prevention](https://www.cdc.gov/){target="_blank"} (CDC). The CDC has developed [public use data sets](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"} for download to facilitate the public health and research community's access to NNDSS data on Lyme disease.]{.body-text-s}
 
 :::: columns
 
@@ -162,7 +162,7 @@ knitr::include_graphics("images/week2/census-bureau-logo.png")
 
 ::::
 
-[Using the publicly-available CDC data on Lyme disease and population estimates from the [US Census Bureau](https://www.census.gov/){target="_blank"} (via the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank"}), we'll explore **changes in Lyme disease incidence (cases/100k people) over time**, by state.]{.body-text-s}
+[Using CDC data on Lyme disease and population estimates from the [US Census Bureau](https://www.census.gov/){target="_blank"} (via the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank"}), we'll explore **changes in Lyme disease incidence (cases/100k people) over time**, by state.]{.body-text-s}
 
 ::: notes
 NNDSS is a nationwide collaboration that enables all levels of public health to share health information to monitor, control, and prevent the occurrence and spread of state-reportable and nationally notifiable infectious (and some noninfectious) diseases and conditions.
@@ -211,9 +211,10 @@ knitr::include_graphics("images/week2/tidycensus.png")
 
 <hr>
 
+See the [online documentation](https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.){target="_blank"} for more information on downloading and parsing population data using the `{tidycensus}` package.
+
 {{< include sections/2.3-lyme.qmd >}}
 
-See the [online documentation](https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.){target="_blank"} for more information on downloading and parsing population data using the `{tidycensus}` package.
 ```{r}
 #| eval: false
 #| echo: true
@@ -225,10 +226,6 @@ See the [online documentation](https://walker-data.com/tidycensus/articles/other
 library(tidycensus)
 library(tidyverse)
 library(gghighlight)
-
-#.........................source API key.........................
-source(here::here("week2", "KEYS.R"))
-census_api_key(censusKEY)
 
 #..........................import data...........................
 lyme <- read_csv(here::here("week2", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
@@ -257,6 +254,13 @@ lyme_clean <- lyme |>
   # filter for years 2010 - 2020 ----
   filter(year %in% c(2010:2020))
   
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          get & wrangle census data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# NOTE: {tidycensus} functions (e.g. `get_estimates()`) internally call `Sys.getenv("CENSUS_API_KEY)` to retrieve your key from `.Renviron` 
+# Meaning you don't need to explicitly call `Sys.getenv("CENSUS_API_KEY)` in your code -- `{tidycensus}` handles that for you!
+
 #...................get pop estimates by state...................
 us_state_pop <- get_estimates(geography = "state", 
                               product = "population",
@@ -267,7 +271,8 @@ us_state_pop <- get_estimates(geography = "state",
   filter(state != "Puerto Rico")
 
 #........................write data to csv.......................
-# optional, but recommended in case you want to work offline, the API is down, etc. (you can then read in your saved data file rather than run the above code)
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (you can then read in your saved data file rather than run the above code)
 # write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

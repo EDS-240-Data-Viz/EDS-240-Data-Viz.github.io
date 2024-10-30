@@ -33,10 +33,6 @@ library(tidycensus)
 library(tidyverse)
 library(gghighlight)
 
-#......................get US Census API key.....................
-source(here::here("course-materials", "lecture-slides", "sections", "KEYS.R"))
-census_api_key(censusKEY)
-
 #..........................import data...........................
 lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
 
@@ -74,7 +70,8 @@ us_state_pop <- get_estimates(geography = "state",
   filter(state != "Puerto Rico")
 
 #........................write data to csv.......................
-# optional, but recommended in case you want to work offline, the API is down, etc. (you can then read in your saved data file rather than run the above code)
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (you can then read in your saved data file rather than run the above code)
 # write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,10 +123,6 @@ library(tidycensus)
 library(tidyverse)
 library(gghighlight)
 
-#......................get US Census API key.....................
-source(here::here("course-materials", "lecture-slides", "sections", "KEYS.R"))
-census_api_key(censusKEY)
-
 #..........................import data...........................
 lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "LD-Case-Counts-by-County-01-20.csv"))
 
@@ -140,61 +133,58 @@ lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "LD-Ca
 #............wide to long (plus some other wrangling)............
 lyme_clean <- lyme |> 
   
-  # make col names snake_case ----
-  janitor::clean_names() |> 
+  rename(state = State) |> 
   
-  # rename columns ----
-  rename(city = ctyname, state = stname, status = ststatus) |> 
+  # remove special character from State names that have it ----
+  mutate(state = str_replace(string = state, pattern = "\x86", replacement = "")) |> 
   
-  # wide to long (tidy) years
-  pivot_longer(cols = 6:25, names_to = "city_year", values_to = "reported_cases") |> 
+  # remove total cases row ----
+  filter(state != "U.S. Total") |> 
   
-  # remove "cases" from the year & coerce year from chr to factor ----
-  mutate(year = str_remove(city_year, pattern = "cases"),
-         year = as.factor(year)) |> 
+  # wide to long (tidy) years ----
+  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
   
-  # select necessary cols ----
-  select(year, city, state, status, reported_cases)
-
-#................calculate total cases per state.................
-lyme_states <- lyme_clean |> 
-  group_by(year, state) |> 
-  summarize(total_cases = sum(reported_cases)) 
-
+  # reorder columns ----
+  relocate(year, state, reported_cases) |> 
+  
+  # filter for years 2010 - 2020 ----
+  filter(year %in% c(2010:2020))
+  
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                      request / wrangle population data                   ----
+##                          get & wrangle census data                       ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #...................get pop estimates by state...................
-# See: https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.
 us_state_pop <- get_estimates(geography = "state", 
                               product = "population",
                               state = NULL, 
-                              year = 2019) |> 
+                              year = 2019) |> # request 2019 vintage for the 2010s (see documentation)
   filter(variable == "POP") |> 
-  select(state = NAME, population = value) 
+  select(state = NAME, population = value) |> 
+  filter(state != "Puerto Rico")
 
-# write_csv(us_state_pop, file = here::here("slides", "data", "us_state_pop.csv"))
+#........................write data to csv.......................
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            join lyme & pop dfs                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-lyme_pop <- left_join(lyme_states, us_state_pop) |>  
+lyme_pop <- left_join(lyme_clean, us_state_pop) |>  
   
   # add col with num of 100k people per state ----
   mutate(pop100k = population/100000) |> 
   
   # calculate num cases per 100k people (common way of reporting disease incidence) ----
-  mutate(cases_per100k = total_cases/pop100k) 
-
+  mutate(cases_per100k = reported_cases/pop100k) 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                  save as csv file for use in lecture 5.1                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # write_csv(lyme_pop, here::here("slides", "data", "lyme.csv"))
-
 ```
 
 

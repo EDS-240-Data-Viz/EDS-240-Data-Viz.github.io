@@ -44,14 +44,14 @@ install.packages("scales") # provides the internal scaling infrastructure used b
 - **Lyme Disease Cases by State or Locality ([download link](https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv))**, made available by the CDC (read more on the CDC's [Lyme Disease Surveillance Data page](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"}; see other available data under the "Dashboard data files" section)
   - save the downloaded data (`Lyme_Disease_Cases_by_State_or_Locality.csv`) to your class repo at the file path: `EDS-240-class-examples/week2/data/Lyme_Disease_Cases_by_State_or_Locality.csv`
 
-### C. Request a US Census Bureau API key
+### C. Request a US Census Bureau API key & add it to your `.Renviron` file
 
 1. To use the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank} to access US Census Bureau data, you'll first need to **request and activate an API key**. Do so by following these steps:
 
     a. Request an API key at <http://api.census.gov/data/key_signup.html>{target="_blank}
     b. After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (**Note:** if you get an error when activating your key, close your browser window and try clicking the activation link again)
 
-2. **Add your API key to your `.Renviron` file**. For security purposes, you should *NEVER* push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to our `.Renviron` file. Follow these steps:
+2. **Add your API key to your `.Renviron` file**. For security purposes, you should *NEVER* push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our `.Renviron` file. Follow these steps:
 
     a. Run `usethis::edit_r_environ()` in your Console, which will open up your `.Renviron` file (it will create it if you don't already have one)
     b. Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.
@@ -60,15 +60,20 @@ install.packages("scales") # provides the internal scaling infrastructure used b
 #| eval: false
 #| echo: true
 #| code-line-numbers: false
-censusKEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# be sure to name it exactly as written here (all caps) 
+CENSUS_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
-    
+
+- **Note:** You may also consider storing your API key in a password manager for safe keeping (e.g. in case your computer decides to call a quits, is lost, etc.) 
+
 ::: {.callout-note collapse=true}
-## What is `.Renviron`?
+## What exactly is `.Renviron`?
 
-[Dotfiles](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory){target="_blank"} are hidden files (preceded by a dot, `.`), which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other `.gitconfig` and `.gitignore`.
+[Dotfiles](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory){target="_blank"} (files which are preceded by a dot, `.`) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other `.gitconfig` and `.gitignore`.
 
-**The `.Renviron` file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.** It lives in your computer's home directory (e.g. `/Users/yourUserName` on macOS, or `C:/Users/yourUserName/Documents` on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use.
+**The `.Renviron` file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.** It lives in your computer's home directory (e.g. `/Users/yourUserName` on macOS, or `C:/Users/yourUserName/Documents` on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Access them using `Sys.getenv("KEY_NAME")`.
+
+Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your `.Renviron` file (e.g. see [`tidycensus::census_api_key()`](https://walker-data.com/tidycensus/reference/census_api_key.html){target="_blank"}). You may choose to use these helper functions in place of `usethis::edit_r_environ()`, if you prefer.
 :::
     
 <!-- To prevent us from accidentally pushing our key(s), we can save it to a separate file which we'll add to our `.gitignore`. Do so by following these steps: -->
@@ -103,15 +108,15 @@ censusKEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 add more instructions about data wrangling review
 :::
 
-Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2` folder. 
+Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
 |------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
 | [Lecture 2.1: choosing graphic forms](lecture-slides/lecture2.1-choosing-graphic-forms-slides.qmd){target="_blank"}  | *NA* | *NA* |
-| [Lecture 2.2: visualizing distributions](lecture-slides/lecture2.2-distributions-slides.qmd){target="_blank"}  | [2.2 template](){target="_blank"} | [2.2 key](keys/KEY-lecture2.2-distributions.qmd){target="_blank"} |
-| [Lecture 2.3: visualizing evolution](lecture-slides/lecture2.3-evolution-slides.qmd){target="_blank"}  | 2.3 template | [2.3 key](keys/KEY-lecture2.3-evolution.qmd){target="_blank"} |
+| [Lecture 2.2: visualizing distributions](lecture-slides/lecture2.2-distributions-slides.qmd){target="_blank"}  | [2.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.2-distributions.qmd){target="_blank"} | [2.2 key](keys/KEY-lecture2.2-distributions.qmd){target="_blank"} |
+| [Lecture 2.3: visualizing evolution](lecture-slides/lecture2.3-evolution-slides.qmd){target="_blank"}  | [2.3 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd){target="_blank"} | [2.3 key](keys/KEY-lecture2.3-evolution.qmd){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
 <!-- [*Today's lectures are inspired by and draw largely on materials created by a number of other educators, including [Albert Cairo](https://www.albertocairo.com/) and his book [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20), [Meghan Hall](https://meghan.rbind.io/) and her course, [CMU 36-315: Statistical Graphics & Visualization](https://cmu-36315.netlify.app/#lectures), as well as information curated by [Yan Holtz](https://github.com/holtzy) & [Conor Healy](https://www.linkedin.com/in/conor-healy-b0299810a/) as part of their [From Data to Viz](https://www.data-to-viz.com/) project.*]{.gray-text .body-text-s} -->
