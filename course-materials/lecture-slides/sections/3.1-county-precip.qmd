@@ -1,5 +1,10 @@
 ---
-format: revealjs
+format: 
+  revealjs:
+    slide-number: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: ../../../meds-slides-styles.scss
 editor_options: 
   chunk_output_type: console
 ---
@@ -118,12 +123,12 @@ base_map +
 joined_precip_geom |>
   filter(state == "California") |>
   mutate(county = str_remove(county, " County")) |>
-  slice_max(n = 20, order_by = precip) |>
+  slice_max(n = 10, order_by = precip) |>
   ggplot(aes(x = reorder(county, precip), y = precip)) +
   geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
   coord_flip() +
   labs(x = "", y = "Total Precipitation (inches)",
-       title = "Top 20 California counties to recieve the most rainfall, Jan 2019 - Dec 2023") +
+       title = "Top 10 California counties to recieve the most rainfall, Jan 2019 - Dec 2023") +
   theme_classic() +
   theme(
     plot.title.position = "plot"

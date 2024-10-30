@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -234,8 +268,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
+  <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download data</a></li>
+  <li><a href="#c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" id="toc-c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" class="nav-link" data-scroll-target="#c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</a></li>
+  <li><a href="#c.-download-.qmd-templates-review-initial-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-initial-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-initial-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
+  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a></li>
   <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials">Discussion Materials</a></li>
   <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
   </ul>
@@ -258,40 +299,83 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="gray-text center-text">
-<p><em>Artwork by <a href="https://allisonhorst.com/">Allison Horst</a></em></p>
+<p><em>Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>Coming soon!</em></p>
-<!-- Before coming to class, you'll need to install some packages, download data, and request a US Census Bureau API key. For step-by-step instructions, unfold the following note (collapsed to save space): -->
-<!-- ::: {.callout-note collapse=true icon=false} -->
-<!-- ## Step-by-step pre-class prep instructions -->
-<!-- ### A. Install required packages -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("chron") # for working with dates / times -->
-<!-- install.packages("naniar") # tools for exploring & handing missing data -->
-<!-- install.packages("tidytuesdayR") # used to download TidyTuesday data -->
-<!-- install.packages("tidycensus") # an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames -->
-<!-- install.packages("ggridges") # {ggplot2} extension for creating ridgeline plots -->
-<!-- install.packages("gghighlight") # {ggplot2} extension for highlighting geoms -->
-<!-- install.packages("ggbeeswarm") # {ggplot2} extension for creating categorical scatter (violin point) plots -->
-<!-- install.packages("see") # {ggplot2} extension for model visualization (we'll be using it for it's geom, geom_violindot()) -->
-<!-- install.packages("scales") # provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse}) -->
-<!-- ``` -->
-<!-- ### B. Download data -->
-<!-- - [County-level Lyme disease data from 2001-2020](https://www.cdc.gov/lyme/resources/datasurveillance/LD-Case-Counts-by-County-01-20.csv), made available by the CDC (read more on [this CDC web page](https://www.cdc.gov/lyme/stats/survfaq.html)) -->
-<!--   - save the downloaded data (`LD-Case-Counts-by-County-01-20.csv`) to your class repo at the file path: `EDS-240-class-examples/week3/data/LD-Case-Counts-by-County-01-20.csv` -->
-<!-- ### C. Request a US Census Bureau API key -->
-<!-- 1. To use the [`{tidycensus}` package](https://walker-data.com/tidycensus/) to access US Census Bureau data, you'll first need to **request and activate an API key**. Do so by following these steps: -->
-<!--     a. Request an API key at <http://api.census.gov/data/key_signup.html> -->
-<!--     b. After a short period of time, you should receive an email with your key (it may be helpful to star/bookmark that email), and click the included link to activate your key (**Note:** if you get an error when activating your key, close your browser window and try clicking the activation link again) -->
-<!-- 2. **For security purposes, you should never push any API keys to GitHub.** To prevent us from accidentally pushing our key(s), we can save it to a separate file which we'll add to our `.gitignore`. Do so by following these steps: -->
-<!--   a. Create a `week3/` folder in the root directory of your class repo  -->
-<!--   b. Add a file to your `week3/` folder called `KEYS.R`, and save your API key to an object name like this: -->
-<!-- ```{r filename="~/week3/KEYS.R"} -->
+<p>Please be sure to complete the following before class:</p>
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"chron"</span>) <span class="co"># for working with dates / times</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggridges"</span>) <span class="co"># {ggplot2} extension for creating ridgeline plots</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gghighlight"</span>) <span class="co"># {ggplot2} extension for highlighting geoms</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggbeeswarm"</span>) <span class="co"># {ggplot2} extension for creating categorical scatter (violin point) plots</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"see"</span>) <span class="co"># {ggplot2} extension for model visualization (we'll be using it for it's geom, geom_violindot())</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-download-data" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-data">B. Download data</h3>
+<ul>
+<li><strong>Lyme Disease Cases by State or Locality (<a href="https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv">download link</a>)</strong>, made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under the “Dashboard data files” section)
+<ul>
+<li>save the downloaded data (<code>Lyme_Disease_Cases_by_State_or_Locality.csv</code>) to your class repo at the file path: <code>EDS-240-class-examples/week2/data/Lyme_Disease_Cases_by_State_or_Locality.csv</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file" class="level3">
+<h3 class="anchored" data-anchor-id="c.-request-a-us-census-bureau-api-key-add-it-to-your-.renviron-file">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</h3>
+<ol type="1">
+<li><p>To use the <a href="https://walker-data.com/tidycensus/" target="&quot;_blank"><code>{tidycensus}</code> package</a> to access US Census Bureau data, you’ll first need to <strong>request and activate an API key</strong>. Do so by following these steps:</p>
+<ol type="a">
+<li>Request an API key at <a href="http://api.census.gov/data/key_signup.html" target="&quot;_blank">http://api.census.gov/data/key_signup.html</a></li>
+<li>After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again)</li>
+</ol></li>
+<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our <code>.Renviron</code> file. Follow these steps:</p>
+<ol type="a">
+<li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one)</li>
+<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.</li>
+</ol></li>
+</ol>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>.Renviron</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li><strong>Note:</strong> You may also consider storing your API key in a password manager for safe keeping (e.g.&nbsp;in case your computer decides to call a quits, is lost, etc.)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What exactly is <code>.Renviron</code>?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> (files which are preceded by a dot, <code>.</code>) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other <code>.gitconfig</code> and <code>.gitignore</code>.</p>
+<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Access them using <code>Sys.getenv("KEY_NAME")</code>.</p>
+<p>Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your <code>.Renviron</code> file (e.g.&nbsp;see <a href="https://walker-data.com/tidycensus/reference/census_api_key.html" target="_blank"><code>tidycensus::census_api_key()</code></a>). You may choose to use these helper functions in place of <code>usethis::edit_r_environ()</code>, if you prefer.</p>
+</div>
+</div>
+</div>
+<!-- To prevent us from accidentally pushing our key(s), we can save it to a separate file which we'll add to our `.gitignore`. Do so by following these steps: -->
+<!--   a. Create a `week2/` folder in the root directory of your class repo -->
+<!--   b. Add a file to your `week2/` folder called `KEYS.R`, and save your API key to an object name like this: -->
+<!-- ```{r filename="~/week2/KEYS.R"} -->
 <!-- #| eval: false -->
 <!-- #| echo: true -->
 <!-- censusKEY <- "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
@@ -300,38 +384,67 @@ ul.task-list li input[type="checkbox"] {
 <!-- ```{r filename=".gitignore"} -->
 <!-- #| eval: false -->
 <!-- #| echo: true -->
-<!-- /week3/KEYS.R -->
+<!-- /week2/KEYS.R -->
 <!-- ``` -->
 <!--   c. Save `.gitignore` (once saved, you should see the newly added `KEYS.R` file disappear from your **Git** pane in RStudio, and a modified `.gitignore` appear). Stage/add, commit, and push this `.gitignore` file to GitHub -->
-<!-- In class, we'll source our key (by running `source(here::here("week3", "KEYS.R"))`) into any scripts / Qmd files, where required. -->
-<!-- ::: -->
+<!-- In class, we'll source our key (by running `source(here::here("week2", "KEYS.R"))`) into any scripts / Qmd files, where required.  -->
+</section>
+<section id="c.-download-.qmd-templates-review-initial-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-initial-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add more instructions about data wrangling review</p>
+</div>
+</div>
+<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week2/</code> folder.</p>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<p><em>Coming soon!</em></p>
-<!-- Week 3 instruction is broken down into three lessons: -->
-<!-- ::: {.grid} -->
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**Choosing graphic forms**]{.teal-text .body-text-m} -->
-<!-- [ lecture 3.1 slides](lecture-slides/week3.1-choosing-graphic-forms-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**Visualizing distributions**]{.teal-text .body-text-m} -->
-<!-- [ lecture 3.2 slides](lecture-slides/week3.2-distributions-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**Visualizing evolution**]{.teal-text .body-text-m} -->
-<!-- [ lecture 3.3 slides](lecture-slides/week3.3-evolution-slides.qmd){.btn role="button" target="_blank"} -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- <br> -->
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
+<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
+<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../course-materials/lecture-slides/lecture2.1-choosing-graphic-forms-slides.html" target="_blank">Lecture 2.1: choosing graphic forms</a></td>
+<td><em>NA</em></td>
+<td><em>NA</em></td>
+</tr>
+<tr class="even">
+<td><a href="../course-materials/lecture-slides/lecture2.2-distributions-slides.html" target="_blank">Lecture 2.2: visualizing distributions</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.2-distributions.qmd" target="_blank">2.2 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture2.2-distributions.html" target="_blank">2.2 key</a></td>
+</tr>
+<tr class="odd">
+<td><a href="../course-materials/lecture-slides/lecture2.3-evolution-slides.html" target="_blank">Lecture 2.3: visualizing evolution</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd" target="_blank">2.3 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture2.3-evolution.html" target="_blank">2.3 key</a></td>
+</tr>
+</tbody>
+</table>
 <!-- [*Today's lectures are inspired by and draw largely on materials created by a number of other educators, including [Albert Cairo](https://www.albertocairo.com/) and his book [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20), [Meghan Hall](https://meghan.rbind.io/) and her course, [CMU 36-315: Statistical Graphics & Visualization](https://cmu-36315.netlify.app/#lectures), as well as information curated by [Yan Holtz](https://github.com/holtzy) & [Conor Healy](https://www.linkedin.com/in/conor-healy-b0299810a/) as part of their [From Data to Viz](https://www.data-to-viz.com/) project.*]{.gray-text .body-text-s} -->
+</section>
+<section id="pre-discussion-prep" class="level2">
+<h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
+<p><em>Coming soon!</em></p>
 </section>
 <section id="discussion-materials" class="level2">
 <h2 class="anchored" data-anchor-id="discussion-materials">Discussion Materials</h2>

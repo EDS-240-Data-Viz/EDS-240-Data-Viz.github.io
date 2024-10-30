@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.56">
+
+  <title>EDS 240 – lecture4.2-relationships-slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
+<h2></h2>
+<p><span class="custom-title">EDS 240: Lecture 4.2</span></p>
+<p><span class="custom-subtitle"><em>Visualizing numerical relationships</em></span></p>
+<hr class="hr-teal">
+<p><span class="custom-subtitle3">Week 4 | January 29<sup>th</sup>, 2024</span></p>
+</section>
+<section id="numerical-relationships" class="slide level2" data-menu-title="Visualizing numerical relationships">
+<h2></h2>
+<p><span class="slide-title">Visualizing <em>numerical relationships</em>?</span></p>
+<hr>
+<p><br></p>
+<div class="center-text body-text-m">
+<p>For visualizing the relationship between (typically) two <strong>numeric variables</strong>.</p>
+</div>
+
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p><br></p>
+<div class="footer">
+<p>Line graphs (from week 3) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.</p>
+</div>
+</section>
+<section id="roadmap1" class="slide level2" data-menu-title="Roadmap">
+<h2></h2>
+<p><span class="slide-title">Roadmap</span></p>
+<hr>
+<p><br></p>
+<p>In this lesson, we’ll be exploring two main primary chart types:</p>
+<p><br></p>
+<p><span class="body-text-m">1. scatter plots</span></p>
+<p><span class="body-text-m">2. 2d density plots</span></p>
+</section>
+<section id="roadmap" class="slide level2" data-menu-title="Roadmap">
+<h2></h2>
+<p><span class="slide-title">Roadmap</span></p>
+<hr>
+<p><br></p>
+<p><span class="gray-text">In this lesson, we’ll be exploring two main primary chart types:</span></p>
+<p><br></p>
+<p><span class="body-text-m gray-text">1. scatter plots</span></p>
+<ul>
+<li>adding rug or marginal density plots to visualize distribution</li>
+<li>adding trend lines</li>
+<li>adding a third numeric variable (challenges &amp; considerations)</li>
+</ul>
+<p><span class="body-text-m gray-text">2. 2d density plots</span></p>
+<ul>
+<li>strategies for dealing with overplotting</li>
+</ul>
+</section>
+<section id="stream-data" class="slide level2" data-menu-title="About the data">
+<h2></h2>
+<p><span class="slide-title3">The data: Hubbard Brook Watershed stream chemistry</span></p>
+<hr>
+<p><span class="body-text-s">The <a href="https://hubbardbrook.org/">Hubbard Brook Experimenatal Forest</a> is a 8,700-acre hardwood research forest in the White Mountains of New Hampshire and home to a series of small watersheds occupying the valley’s north- and south-facing slopes.</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week4/hbef-map.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><em>Map of Hubbard Brook Experimental Forest, downloaded from the Hubbard Brook Ecosystem Study <a href="http://data.hubbardbrook.org/photos/">Photo Galleries</a></em></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<p><span class="body-text-s">Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest’s watersheds. <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F9">Read about these long term data on DataOne</a>.</span></p>
+<p><span class="body-text-s">These long-term data have contributed to important research, including the <strong>discovery of acid rain</strong> in North America.</span></p>
+<p><span class="body-text-s">In this lesson, we’ll explore the <strong>effects of various compounds on stream water pH</strong> (a lower pH = more acidic).</span></p>
+</div></div>
+<div class="footer">
+<p><em>I admittedly don’t know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They’ll be linked as referenced.</em></p>
+</div>
+</section>
+<section id="data-wrangling" class="slide level2" data-menu-title="Data wrangling">
+<h2></h2>
+<p><span class="slide-title">Data wrangling</span></p>
+<hr>
+<p><span class="body-text-s">Our data don’t require much wrangling, though we will practice using the <a href="https://github.com/NCEAS/metajam"><code>{metajam}</code> package</a> for downloading and reading in data from repositories in the <a href="https://www.dataone.org/">DataOne</a> network.</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-2"><a></a><span class="do">##                                    setup                                 ----</span></span>
+<span id="cb1-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-4"><a></a></span>
+<span id="cb1-5"><a></a><span class="co">#..........................load packages.........................</span></span>
+<span id="cb1-6"><a></a><span class="fu">library</span>(metajam) </span>
+<span id="cb1-7"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a><span class="co">#...................download data from DataOne...................</span></span>
+<span id="cb1-10"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
+<span id="cb1-11"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
+<span id="cb1-12"><a></a></span>
+<span id="cb1-13"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: I recommend renaming the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a><span class="co">#....................read in downloaded files....................</span></span>
+<span id="cb1-16"><a></a>stream_chem_all <span class="ot">&lt;-</span> <span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
+<span id="cb1-17"><a></a></span>
+<span id="cb1-18"><a></a><span class="co">#........................get the data file.......................</span></span>
+<span id="cb1-19"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="basic-scatter" class="slide level2" data-menu-title="Basic scatter plot">
+<h2></h2>
+<p><span class="slide-title">Basic scatter plot</span></p>
+<hr>
+<p>The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g.&nbsp;see <a href="https://doi.org/10.1029/2009JG001082">Erlandsson et al.&nbsp;2010</a> &amp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019">Zhou et al.&nbsp;2019</a>.)). To start, let’s look at the <strong>effects of DOC on pH</strong> for just the most recent water year (2021):</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb2-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<section id="rug-plot" class="slide level2" data-menu-title="Add a rug plot">
+<h2></h2>
+<p><span class="slide-title2">Rug plots help to visualize the distribution of data</span></p>
+<hr>
+<p>Rug plots add distribution marks (one narrow line for each data point) along the x and y axes of your plot:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb3-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a></a>  <span class="fu">geom_rug</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<section id="ggMarginal" class="slide level2" data-menu-title="Marginal plots">
+<h2></h2>
+<p><span class="slide-title3">Try marginal plots as an alternative to <code>geom_rug()</code></span></p>
+<hr>
+<p>The <a href="https://cran.r-project.org/web/packages/ggExtra/vignettes/ggExtra.html"><code>{ggExtra}</code> package</a> can be used to add marginal histograms / boxplots / density plots to ggplot scatter plots:</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb4-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(p1, <span class="at">type =</span> <span class="st">"histogram"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb5-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(p1, <span class="at">type =</span> <span class="st">"density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb6-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb6-5"><a></a></span>
+<span id="cb6-6"><a></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(p1, <span class="at">type =</span> <span class="st">"boxplot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><span class="body-text-s">Explore a variety of other parameters to adjust the appearance of your marginal plots (e.g.&nbsp;<code>col</code>, <code>fill</code>, <code>binwidth</code>, etc.). You can add marginal plots on just a single axis (e.g.&nbsp;<code>margins = "x"</code> for just a marginal plot along the x-axis), or separately adjust the appearance of marginal plots (e.g.&nbsp;<code>xparams = list(fill = "red")</code>)</span></p>
+</section>
+<section id="ggMarginal-groups" class="slide level2" data-menu-title="Marginal plots (with groups)">
+<h2></h2>
+<p><span class="slide-title">Marginal plots also work with groups</span></p>
+<hr>
+<p>Here, we color points by <code>site</code>. It can be helpful to move the legend above or below the plot so that the marginal plot sit cleanly against the right-hand side of graph:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3,5,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>p2 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
+<span id="cb7-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb7-6"><a></a></span>
+<span id="cb7-7"><a></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(p2, <span class="at">type =</span> <span class="st">"density"</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="trend-lines1" class="slide level2" data-menu-title="Trend lines (defaults)">
+<h2></h2>
+<p><span class="slide-title">Adding trend lines – default behavior</span></p>
+<hr>
+<p><span class="body-text-s">You may consider adding a best fit line to help you readers more easily identify trends in your data. Let’s do that for a subset of our data (site W8, year 2021).</span></p>
+<div class="fragment">
+<p><span class="body-text-s">If you have &lt;1000 data points, <strong><code>geom_smooth()</code> defaults to using a method called “<a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a>” (locally estimated scatter plot smoothing)</strong>, which draws a line that’s similar to a moving average. It will also include a confidence interval ribbon:</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W8"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb8-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:45.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="trend-lines2" class="slide level2" data-menu-title="Trend lines (lm)">
+<h2></h2>
+<p><span class="slide-title">Update method &amp; remove CI</span></p>
+<hr>
+<p><span class="body-text-s">Oftentimes, you’ll want a <strong>line of best fit</strong>. Specify a linear model using the <code>method</code> argument.</span></p>
+<p><span class="body-text-s">It’s also best to <strong>remove the confidence interval band</strong> – it can make it a bit clearer to your audience that this is <em>just</em> a trend line and not a properly analyzed linear model (e.g.&nbsp;we haven’t checked for equal variances, normality of residuals).</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W8"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb9-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%"><p><br></p>
+<div class="footer">
+<p>Check out <a href="https://intro2r.com/the-start-of-the-end.html#the-purest-of-ggplots">chapter 5.2</a> &amp; <a href="https://intro2r.com/simple_lm.html">chapter 6.3</a> in <a href="https://intro2r.com/">An Introduction to R</a>, by Alex Douglas, Deon Roos, Francesca Mancini, Ana Couto &amp; David Lusseau, for a great (re)introduction to <code>geom_smooth()</code> and simple linear modeling.</p>
+</div>
+</section>
+<section id="third-var" class="slide level2" data-menu-title="Third variable">
+<h2></h2>
+<p><span class="slide-title3">Bubble charts for visualizing a third numeric variable</span></p>
+<hr>
+<p><span class="body-text-s">Low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can <a href="https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/">limit the growth and reproduction</a> of aquatic species.</span></p>
+<p><span class="body-text-s">We can use a bubble chart to represent this third numeric variable (Al) through the size of our scatter plot points. Here, we also update our x-axis and legend titles:</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="3,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
+<span id="cb10-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="third-var-difficult" class="slide level2" data-menu-title="Use size cautiously">
+<h2></h2>
+<p><span class="slide-title3">Use size to represent a third numeric variable cautiously</span></p>
+<hr>
+<p><br></p>
+<p><span class="body-text-m">Bubble charts encode values based on both position (within the Cartesian coordinate system) <em>and</em> size. <strong>Some challenges</strong> with this:</span></p>
+<div>
+<ul>
+<li class="fragment">we (humans) generally have an easier time perceiving differences in position rather than size – the <strong>relationship between your x- and y-axis variables will be the primary focus</strong></li>
+<li class="fragment">it can be <strong>hard to compare the strengths of different associations</strong> – is there an alternative (e.g.&nbsp;2+ separate scatter plots) way of presenting your data to better highlight this?</li>
+<li class="fragment">it’s difficult to see small differences in size – <strong>if the range of values mapped to size is small, your bubbles will look indistinguishable from one another</strong></li>
+<li class="fragment">it can be difficult to match a bubble’s size to the scale of difference in the legend – <strong>consider adjusting the size range of your scale</strong></li>
+</ul>
+</div>
+</section>
+<section id="bub-size" class="slide level2" data-menu-title="Adjust bubble size">
+<h2></h2>
+<p><span class="slide-title">Adjust the size range of bubbles</span></p>
+<hr>
+<p>Use <code>scale_size()</code> to adjust the <strong>area</strong> range of the bubbles:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
+<span id="cb11-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb11-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>Alternatively, using <code>scale_size_area()</code> ensures that <a href="https://community.rstudio.com/t/ggplot2-scale-size-area-not-mapping-zero-to-zero-area/173705">the value of 0 is mapped to a size of 0</a>.</p>
+</section>
+<section id="bub-size-area" class="slide level2" data-menu-title="Sizing best practices">
+<h2></h2>
+<p><span class="slide-title">Always scale bubble <em>area</em> by value</span></p>
+<hr>
+<p>By default, ggplot scales bubble <em>area</em> by value, rather than radius or diameter. <strong>Scaling the radius or diameter by value can be deceiving</strong> – a point with 2x the value of another point would end up having 4x the area, making it’s value appear larger than warranted:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text gray-text body-text-s">
+<p>Scaling size by area using <code>scale_size()</code></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
+<span id="cb12-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb12-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="center-text gray-text body-text-s">
+<p>Scaling size by radius using <code>scale_radius()</code></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
+<span id="cb13-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a></a>  <span class="fu">scale_radius</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb13-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="2-scatter-plots" class="slide level2" data-menu-title="2 scatter plots">
+<h2></h2>
+<p><span class="slide-title2">Alternatively, just use 2 separate scatter plots</span></p>
+<hr>
+<p><br></p>
+<p>Rather than mapping a third numeric variable to point size, consider if just creating two separate scatter plots may help to more effectively visualize the relationships:</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text body-text-s gray-text">
+<p>Visualizing the effect of <code>DOC</code> on <code>pH</code></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="center-text body-text-s gray-text">
+<p>Visualizing the effect of <code>Al_ICP</code> on <code>pH</code></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="scale-by-color" class="slide level2" data-menu-title="Scale by color">
+<h2></h2>
+<p><span class="slide-title2">Visualizing a third numeric variable using color</span></p>
+<hr>
+<p>Rather than coloring points by <code>site</code>, we can map color to them based on our third continuous numeric variable, <code>Al_ICP</code>. We’ll also apply the viridis color map:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="3,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> Al_ICP)) <span class="sc">+</span> </span>
+<span id="cb14-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb14-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Al (mg/L)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<!-- --- -->
+<!-- ## {#highlighting data-menu-title="Highlighting"}  -->
+<!-- [Highlighting]{.slide-title2} -->
+<!-- <hr> -->
+<!-- <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> -->
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="overplotting" class="slide level2" data-menu-title="Overplotting">
+<h2></h2>
+<p><span class="slide-title">Overplotting can disguise trends</span></p>
+<hr>
+<p>Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot <em>all</em> data (not just the 2021 water year subset)? Here, we plot <strong>sulfate concentration (<code>SO4</code>) against pH</strong>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="initial-strategies" class="slide level2" data-menu-title="Initial strategies for overplotting">
+<h2></h2>
+<p><span class="slide-title">Some initial strategies</span></p>
+<hr>
+<p>Depending on how many points you have and the message you want to convey, you may consider the following:</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="center-text gray-text body-text-s">
+<p>Smaller points and / or transparency</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="center-text gray-text body-text-s">
+<p>Add a rug plot</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
+<span id="cb17-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a></a>  <span class="fu">geom_rug</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="center-text gray-text body-text-s">
+<p>Color by group</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
+<span id="cb18-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div class="center-text body-text-m">
+<p>But with a really large number of points, these strategies may not make interpretation much easier…</p>
+</div>
+</div>
+</section>
+<section id="heatmaps" class="slide level2" data-menu-title="Heatmaps">
+<h2></h2>
+<p><span class="slide-title">Alternatively, try a heatmap</span></p>
+<hr>
+<p>You might imagine that you’re looking down on a histogram, where lighter areas indicate a higher density of points.</p>
+<div class="columns">
+<div class="column" style="width:&quot;50%;">
+<div class="center-text gray-text body-text-s">
+<p>heatmap of 2d bin counts</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">geom_bin2d</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">scale_fill_viridis_c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:&quot;50%;">
+<div class="center-text gray-text body-text-s">
+<p>hexagonal heatmap of 2d bin counts</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">geom_hex</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">scale_fill_viridis_c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p>Similar to a histogram, you can update the number of <code>bins</code> or <code>binwidth</code>.</p>
+</section>
+<section id="cont-legend" class="slide level2" data-menu-title="Legend appearance">
+<h2></h2>
+<p><span class="slide-title">Adjust legend appearance using <code>guides()</code></span></p>
+<hr>
+<p>Check out the <code>guides()</code> function for tweaking the appearance of your legend (e.g.&nbsp;increasing the height can help readers more easily read the continuous color scale):</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">geom_hex</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span> </span>
+<span id="cb21-4"><a></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colourbar</span>(<span class="at">title =</span> <span class="st">"Count"</span>, </span>
+<span id="cb21-5"><a></a>                                <span class="at">barwidth =</span> <span class="dv">1</span>, <span class="at">barheight =</span> <span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="2d-density" class="slide level2" data-menu-title="2d density plot">
+<h2></h2>
+<p><span class="slide-title">Another option: 2d density / contour plots</span></p>
+<hr>
+<p>These are the 2d equivalents to creating a density plot using <code>geom_density()</code> (see <a href="https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.2-distributions-slides.html#/density-overview">week 3 materials</a>).</p>
+<div class="columns">
+<div class="column" style="width:&quot;50%;">
+<div class="center-text gray-text body-text-s">
+<p>contours of a 2d density estimate</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">geom_density_2d</span>() <span class="co"># include `aes(color = ..level..)` if you want to color contours by level of density</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:&quot;50%;">
+<div class="center-text gray-text body-text-s">
+<p>filled in contours</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb23-2"><a></a>  <span class="fu">geom_density_2d_filled</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div class="center-text body-text-m">
+<p>These can be a bit confusing to read / interpret</p>
+</div>
+</div>
+</section>
+<section id="2d-density-interpretation" class="slide level2" data-menu-title="2d density interpretation">
+<h2></h2>
+<p><span class="slide-title">What’s up with that legend?</span></p>
+<hr>
+<p>The legend provides us with an estimate of the proportion of data points fall within a colored region. The density of the distribution of points sums to 1.</p>
+
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>In this example, 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region.</p>
+</section>
+<section id="ggdensity" class="slide level2" data-menu-title="{ggdensity}">
+<h2></h2>
+<p><span class="slide-title3">Consider using the <code>{ggdensity}</code> equivalent geoms</span></p>
+<hr>
+<p><span class="body-text-s">The <a href="https://jamesotto852.github.io/ggdensity/index.html"><code>{ggdensity}</code> package</a> provides alternative functions, <code>geom_hdr_lines()</code> and <code>geom_hdr()</code>, as drop-in replacements for <code>geom_density_2d()</code> and <code>geom_density_2d_filled()</code> (respectively).</span></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text gray-text body-text-s">
+<p>contour lines using <code>geom_hdr_lines()</code></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb24-2"><a></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr_lines</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="center-text gray-text body-text-s">
+<p>filled contours using <code>geom_hdr()</code></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb25-2"><a></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="interpret-ggdensity" class="slide level2" data-menu-title="Interpret {ggdensity} plots">
+<h2></h2>
+<p><span class="slide-title">Interpreting <code>{ggdensity}</code> plots</span></p>
+<hr>
+<p><span class="body-text-s">These geoms similarly perform 2D density estimation, then compute and plot the resulting <strong>highest density regions (HDRs)</strong>. These HDRs are computed to be the smallest such regions that bound that level of probability. By default, regions show the 50%, 80%, 95%, and 99% HDRs of the estimated density (though this can be updated using the <code>probs</code> argument).</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span></span>
+<span id="cb26-2"><a></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr</span>() <span class="co"># update prob level e.g. `probs = c(0.99, 0.75, 0.5, 0.25)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-32-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="end-break" class="slide level2" data-menu-title="# END #" data-background="#047C90">
+<h2></h2>
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">
+See you next week!
+</p>
+<p class="caption-text">
+<em>~ This is the end of Lesson 2 (of 2) ~</em>
+</p>
+</div>
+<!-- ##  {#end-break data-menu-title="# Break #" background="#047C90"} -->
+<!-- <div class="page-center vertical-center"> -->
+<!-- <p class="custom-subtitle bottombr"> Take a Break</p> -->
+<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
+<!-- </div> -->
+<!-- ```{r} -->
+<!-- countdown::countdown( -->
+<!--   minutes = 5, -->
+<!--   # left = 0, right = 0, -->
+<!--   # Fanfare when it's over -->
+<!--   play_sound = TRUE, -->
+<!--   color_border              = "#FFFFFF", -->
+<!--   color_text                = "#7aa81e", -->
+<!--   color_running_background  = "#7aa81e", -->
+<!--   color_running_text        = "#FFFFFF", -->
+<!--   color_finished_background = "#ffa07a", -->
+<!--   color_finished_text       = "#FFFFFF", -->
+<!--   font_size = "2em", -->
+<!--   ) -->
+<!-- ``` -->
+
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

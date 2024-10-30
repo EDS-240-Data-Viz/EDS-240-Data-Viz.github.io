@@ -1,0 +1,190 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- FROM WINTER 2025 -->
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    info                                  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# USED IN WINTER 2025 (because 2024 data links broke)
+
+# data downloaded from <https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html> (`Lyme Disease  Cases by State or Locality` - see `Case counts and incidence tables` dropdown, under the `Dashboard data files section`)
+
+# request API key at: <http://api.census.gov/data/key_signup.html>
+# will receive an email with key (save this email) and a link to activate key
+# if you get an error when activating, close browser window and try clicking link again
+# store keys in a separate file and add to gitignore
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................load libraries.........................
+library(tidycensus)
+library(tidyverse)
+library(gghighlight)
+
+#..........................import data...........................
+lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          wrangle lyme disease data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#............wide to long (plus some other wrangling)............
+lyme_clean <- lyme |> 
+  
+  rename(state = State) |> 
+  
+  # remove special character from State names that have it ----
+  mutate(state = str_replace(string = state, pattern = "\x86", replacement = "")) |> 
+  
+  # remove total cases row ----
+  filter(state != "U.S. Total") |> 
+  
+  # wide to long (tidy) years ----
+  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
+  
+  # reorder columns ----
+  relocate(year, state, reported_cases) |> 
+  
+  # filter for years 2010 - 2020 ----
+  filter(year %in% c(2010:2020))
+  
+#...................get pop estimates by state...................
+us_state_pop <- get_estimates(geography = "state", 
+                              product = "population",
+                              state = NULL, 
+                              year = 2019) |> # request 2019 vintage for the 2010s (see documentation)
+  filter(variable == "POP") |> 
+  select(state = NAME, population = value) |> 
+  filter(state != "Puerto Rico")
+
+#........................write data to csv.......................
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop.csv"))  
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            join lyme & pop dfs                           ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+lyme_pop <- left_join(lyme_clean, us_state_pop) |>  
+  
+  # add col with num of 100k people per state ----
+  mutate(pop100k = population/100000) |> 
+  
+  # calculate num cases per 100k people (common way of reporting disease incidence) ----
+  mutate(cases_per100k = reported_cases/pop100k) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                  save as csv file for use in lecture 5.1                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# write_csv(lyme_pop, here::here("course-materials", "lecture-slides", "data", "lyme.csv"))
+```
+
+<!-- FROM WINTER 2024 -->
+
+```{r}
+#| eval: false
+#| echo: false
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    info                                  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# USED IN WINTER 2024
+# DATA NO LONGER AVAILABLE ONLINE AS OF 2024-10-24
+
+# data downloaded from: <https://www.cdc.gov/lyme/stats/survfaq.html> (found via <https://www.epa.gov/climate-indicators/health-society>; also see <https://wonder.cdc.gov/nndss/nndss_weekly_tables_menu.asp>)
+
+# request API key at: <http://api.census.gov/data/key_signup.html>
+# will receive an email with key (save this email) and a link to activate key
+# if you get an error when activating, close browser window and try clicking link again
+# store keys in a separate file and add to gitignore
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................load libraries.........................
+library(tidycensus)
+library(tidyverse)
+library(gghighlight)
+
+#..........................import data...........................
+lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "LD-Case-Counts-by-County-01-20.csv"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          wrangle lyme disease data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#............wide to long (plus some other wrangling)............
+lyme_clean <- lyme |> 
+  
+  rename(state = State) |> 
+  
+  # remove special character from State names that have it ----
+  mutate(state = str_replace(string = state, pattern = "\x86", replacement = "")) |> 
+  
+  # remove total cases row ----
+  filter(state != "U.S. Total") |> 
+  
+  # wide to long (tidy) years ----
+  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
+  
+  # reorder columns ----
+  relocate(year, state, reported_cases) |> 
+  
+  # filter for years 2010 - 2020 ----
+  filter(year %in% c(2010:2020))
+  
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          get & wrangle census data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#...................get pop estimates by state...................
+us_state_pop <- get_estimates(geography = "state", 
+                              product = "population",
+                              state = NULL, 
+                              year = 2019) |> # request 2019 vintage for the 2010s (see documentation)
+  filter(variable == "POP") |> 
+  select(state = NAME, population = value) |> 
+  filter(state != "Puerto Rico")
+
+#........................write data to csv.......................
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            join lyme & pop dfs                           ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+lyme_pop <- left_join(lyme_clean, us_state_pop) |>  
+  
+  # add col with num of 100k people per state ----
+  mutate(pop100k = population/100000) |> 
+  
+  # calculate num cases per 100k people (common way of reporting disease incidence) ----
+  mutate(cases_per100k = reported_cases/pop100k) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                  save as csv file for use in lecture 5.1                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# write_csv(lyme_pop, here::here("slides", "data", "lyme.csv"))
+```
+
+
