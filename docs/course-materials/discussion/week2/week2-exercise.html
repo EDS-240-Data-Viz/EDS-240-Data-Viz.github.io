@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Tuesday January 14th, 2025">
 
-<title>ca-drought – EDS 240</title>
+<title>Week 2 Discussion: Exercise – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -237,7 +238,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Week 2 Discussion: Exercise</h1>
+            <p class="subtitle lead">Recreating the USDM visualization</p>
+                  <div>
+        <div class="description">
+          Tuesday January 14<sup>th</sup>, 2025
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
@@ -249,7 +272,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<!-- recreaating US Drought Monitor plot, as seen on Wikipedia: <https://en.wikipedia.org/wiki/Droughts_in_California> -->
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s up to you to organize your own <code>week2-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
+</div>
+</div>
+<ol type="1">
+<li>Begin by copying the following setup and data wrangling code into your <code>week2-discussion.qmd</code> file. Run through and review the code, and explore the resulting <code>drought_clean</code> data frame.</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                    setup                                 ----</span></span>
@@ -268,11 +307,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15"></a></span>
 <span id="cb1-16"><a href="#cb1-16"></a>drought_clean <span class="ot">&lt;-</span> drought <span class="sc">|&gt;</span></span>
 <span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>  <span class="co"># select cols of interest &amp; update names as needed ----</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="co"># select cols of interest &amp; update names for clarity (as needed) ----</span></span>
 <span id="cb1-19"><a href="#cb1-19"></a>  <span class="fu">select</span>(<span class="at">date =</span> valid_start, state_abb, drought_lvl, area_pct) <span class="sc">|&gt;</span> </span>
 <span id="cb1-20"><a href="#cb1-20"></a></span>
 <span id="cb1-21"><a href="#cb1-21"></a>  <span class="co"># add year, month &amp; day cols using {lubridate} fxns ----</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate}~ ----</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----</span></span>
 <span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
 <span id="cb1-24"><a href="#cb1-24"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb1-25"><a href="#cb1-25"></a>         <span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
@@ -281,64 +320,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">mutate</span>(<span class="at">drought_lvl_long =</span> <span class="fu">factor</span>(drought_lvl,</span>
 <span id="cb1-29"><a href="#cb1-29"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"D4"</span>, <span class="st">"D3"</span>, <span class="st">"D2"</span>, <span class="st">"D1"</span>,<span class="st">"D0"</span>, <span class="st">"None"</span>),</span>
 <span id="cb1-30"><a href="#cb1-30"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"(D4) Exceptional"</span>, <span class="st">"(D3) Extreme"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, <span class="st">"(D0) Abnormally Dry"</span>, </span>
-<span id="cb1-32"><a href="#cb1-32"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a>  </span>
-<span id="cb1-34"><a href="#cb1-34"></a>  <span class="co"># reorder cols ----</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">select</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span>
-<span id="cb1-36"><a href="#cb1-36"></a></span>
-<span id="cb1-37"><a href="#cb1-37"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a><span class="do">##       create stacked area plot of CA drought conditions through time     ----</span></span>
-<span id="cb1-39"><a href="#cb1-39"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-40"><a href="#cb1-40"></a></span>
-<span id="cb1-41"><a href="#cb1-41"></a>drought_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-42"><a href="#cb1-42"></a>  </span>
-<span id="cb1-43"><a href="#cb1-43"></a>  <span class="co"># remove drought_lvl "None" &amp; filter for just CA ----</span></span>
-<span id="cb1-44"><a href="#cb1-44"></a>  <span class="fu">filter</span>(drought_lvl <span class="sc">!=</span> <span class="st">"None"</span>,</span>
-<span id="cb1-45"><a href="#cb1-45"></a>         state_abb <span class="sc">==</span> <span class="st">"CA"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-46"><a href="#cb1-46"></a>  </span>
-<span id="cb1-47"><a href="#cb1-47"></a>  <span class="co"># create ggplot ----</span></span>
-<span id="cb1-48"><a href="#cb1-48"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> area_pct, <span class="at">fill =</span> drought_lvl_long)) <span class="sc">+</span></span>
-<span id="cb1-49"><a href="#cb1-49"></a>  </span>
-<span id="cb1-50"><a href="#cb1-50"></a>  <span class="co"># reverse order of groups so level D4 is closest to x-axis ----</span></span>
-<span id="cb1-51"><a href="#cb1-51"></a>  <span class="fu">geom_area</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
-<span id="cb1-52"><a href="#cb1-52"></a>  </span>
-<span id="cb1-53"><a href="#cb1-53"></a>  <span class="co"># update colors to match US Drought Monitor (colors selected using ColorPick Eyedropper from original USDM data viz) ----</span></span>
-<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#853904"</span>, <span class="st">"#FF0000"</span>, <span class="st">"#FFC100"</span>, <span class="st">"#FFD965"</span>, <span class="st">"#FFFF00"</span>)) <span class="sc">+</span></span>
-<span id="cb1-55"><a href="#cb1-55"></a>  </span>
-<span id="cb1-56"><a href="#cb1-56"></a>  <span class="co"># set x-axis breaks &amp; remove padding between data and x-axis ----</span></span>
-<span id="cb1-57"><a href="#cb1-57"></a>  <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_pretty</span>(<span class="at">n =</span> <span class="dv">10</span>),</span>
-<span id="cb1-58"><a href="#cb1-58"></a>               <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb1-59"><a href="#cb1-59"></a></span>
-<span id="cb1-60"><a href="#cb1-60"></a>  <span class="co"># set y-axis breaks &amp; convert values to percentages &amp; &amp; remove padding between data and y-axis----</span></span>
-<span id="cb1-61"><a href="#cb1-61"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb1-62"><a href="#cb1-62"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb1-63"><a href="#cb1-63"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb1-64"><a href="#cb1-64"></a>  </span>
-<span id="cb1-65"><a href="#cb1-65"></a>  <span class="co"># add title ----</span></span>
-<span id="cb1-66"><a href="#cb1-66"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Drought area in California"</span>) </span>
-<span id="cb1-67"><a href="#cb1-67"></a></span>
-<span id="cb1-68"><a href="#cb1-68"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-69"><a href="#cb1-69"></a><span class="do">##            BONUS: using {geofacet} to plot data for all states           ----</span></span>
-<span id="cb1-70"><a href="#cb1-70"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-71"><a href="#cb1-71"></a></span>
-<span id="cb1-72"><a href="#cb1-72"></a><span class="co"># </span><span class="al">NOTE</span><span class="co"> 2024-01-24: The following code works for Sam, but apparently no one else! I'll keep digging into this and update folks when I have a solution</span></span>
-<span id="cb1-73"><a href="#cb1-73"></a></span>
-<span id="cb1-74"><a href="#cb1-74"></a><span class="co">#......remove HI &amp; AK (no data) and also DC from preset grid.....</span></span>
-<span id="cb1-75"><a href="#cb1-75"></a>mygrid <span class="ot">&lt;-</span> geofacet<span class="sc">::</span>us_state_grid1 <span class="sc">|&gt;</span></span>
-<span id="cb1-76"><a href="#cb1-76"></a>  <span class="fu">filter</span>(<span class="sc">!</span>code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DC"</span>, <span class="st">"HI"</span>, <span class="st">"AK"</span>))</span>
-<span id="cb1-77"><a href="#cb1-77"></a></span>
-<span id="cb1-78"><a href="#cb1-78"></a><span class="co">#..............................plot..............................</span></span>
-<span id="cb1-79"><a href="#cb1-79"></a></span>
-<span id="cb1-80"><a href="#cb1-80"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: this takes a minute to render!</span></span>
-<span id="cb1-81"><a href="#cb1-81"></a></span>
-<span id="cb1-82"><a href="#cb1-82"></a>drought_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-83"><a href="#cb1-83"></a>  <span class="fu">filter</span>(drought_lvl <span class="sc">!=</span> <span class="st">"None"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-84"><a href="#cb1-84"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> area_pct, <span class="at">fill =</span> drought_lvl_long)) <span class="sc">+</span></span>
-<span id="cb1-85"><a href="#cb1-85"></a>  <span class="fu">geom_area</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
-<span id="cb1-86"><a href="#cb1-86"></a>  geofacet<span class="sc">::</span><span class="fu">facet_geo</span>(<span class="sc">~</span>state_abb, <span class="at">grid =</span> mygrid) <span class="sc">+</span></span>
-<span id="cb1-87"><a href="#cb1-87"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#853904"</span>, <span class="st">"#FF0000"</span>, <span class="st">"#FFC100"</span>, <span class="st">"#FFD965"</span>, <span class="st">"#FFFF00"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-31"><a href="#cb1-31"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, </span>
+<span id="cb1-32"><a href="#cb1-32"></a>                                       <span class="st">"(D0) Abnormally Dry"</span>, </span>
+<span id="cb1-33"><a href="#cb1-33"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  </span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="co"># reorder cols ----</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a>  <span class="fu">relocate</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ol start="2" type="1">
+<li>We still need to filter for just California data and remove any observations where <code>drought_lvl</code> is <code>"None"</code>. It makes some sense to perform these filters separate from our data wrangling code (in case we ever want to use <code>drought_clean</code> to make a similar plot for a different state(s)). Let’s filter <code>drought_clean</code>, then pipe directly into our gpplot:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="do">##       create stacked area plot of CA drought conditions through time     ----</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>drought_clean <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="co"># remove drought_lvl "None" &amp; filter for just CA ----</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">filter</span>(drought_lvl <span class="sc">!=</span> <span class="st">"None"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>         state_abb <span class="sc">==</span> <span class="st">"CA"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a href="#cb2-10"></a>  </span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="co"># pipe into ggplot here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Build that ggplot! Here’s the original plot that we want to create (we’re only focusing on the data layer, geometric layer, and scales today):</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/usdm.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="640"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It can be helpful to tackle one small(ish) thing at a time. Consider the following “stages”:</p>
+<ol type="a">
+<li>Create a stacked area chart (take a look back at <a href="../../../course-materials/lecture-slides/lecture2.3-evolution-slides.html" target="_blank">lecture 2.3 slides</a> for examples)</li>
+<li>Figure out how to order the drought level groups in the same way as the USDM version (i.e.&nbsp;level <code>D4</code> on the bottom, closet to the x-axis, and level <code>D0</code> at the top) – <strong>Hint:</strong> explore the <code>position</code> argument</li>
+<li>Update the colors so that they match the USDM version (use Colorpick Eyedropper to grab HEX codes from the original visualization) – <strong>Hint:</strong> use <code>scale_fill_manual()</code> to set your new colors</li>
+<li>Adjust your x-axis “breaks” (i.e.&nbsp;the tick mark values that represent years) – <strong>Hint:</strong> check out <code>scale_x_date()</code> and <code>scales::breaks_pretty()</code></li>
+<li>Adjust your y-axis “breaks” (i.e.&nbsp;the tick mark value that represent percentage of affected area) – <strong>Hint:</strong> check out <code>scale_y_continous()</code> and <code>scales::label_percent()</code></li>
+<li>Remove the “padding” (i.e.&nbsp;space) between your area chart and the x- and y-axes – <strong>Hint:</strong> check out the <code>expand</code> argument in <code>scale_x_date()</code> and <code>scale_y_continuous()</code></li>
+<li>update the plot title</li>
+</ol>
 
 
 

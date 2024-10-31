@@ -49,11 +49,11 @@ install.packages("scales") # provides the internal scaling infrastructure used b
 1. To use the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank} to access US Census Bureau data, you'll first need to **request and activate an API key**. Do so by following these steps:
 
     a. Request an API key at <http://api.census.gov/data/key_signup.html>{target="_blank}
-    b. After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (**Note:** if you get an error when activating your key, close your browser window and try clicking the activation link again)
+    b. After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (**Note:** if you get an error when activating your key, close your browser window and try clicking the activation link again).
 
 2. **Add your API key to your `.Renviron` file**. For security purposes, you should *NEVER* push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our `.Renviron` file. Follow these steps:
 
-    a. Run `usethis::edit_r_environ()` in your Console, which will open up your `.Renviron` file (it will create it if you don't already have one)
+    a. Run `usethis::edit_r_environ()` in your Console, which will open up your `.Renviron` file (it will create it if you don't already have one).
     b. Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.
     
 ```{r filename=".Renviron"}
@@ -69,9 +69,9 @@ CENSUS_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ::: {.callout-note collapse=true}
 ## What exactly is `.Renviron`?
 
-[Dotfiles](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory){target="_blank"} (files which are preceded by a dot, `.`) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as other `.gitconfig` and `.gitignore`.
+[Dotfiles](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory){target="_blank"} (files which are preceded by a dot, `.`) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as `.gitconfig` and `.gitignore`.
 
-**The `.Renviron` file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.** It lives in your computer's home directory (e.g. `/Users/yourUserName` on macOS, or `C:/Users/yourUserName/Documents` on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Access them using `Sys.getenv("KEY_NAME")`.
+**The `.Renviron` file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.** It lives in your computer's home directory (e.g. `/Users/yourUserName` on macOS, or `C:/Users/yourUserName/Documents` on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Variables should be stored as key / value pairs (e.g. `KEY_NAME="VALUE"`. Access them using `Sys.getenv("KEY_NAME")`.
 
 Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your `.Renviron` file (e.g. see [`tidycensus::census_api_key()`](https://walker-data.com/tidycensus/reference/census_api_key.html){target="_blank"}). You may choose to use these helper functions in place of `usethis::edit_r_environ()`, if you prefer.
 :::
@@ -102,13 +102,9 @@ Oftentimes, packages that are built to interface with APIs will include their ow
 
 ### C. Download `.qmd` templates & review initial data wrangling code
 
-::: {.callout-important}
-## TODO
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
 
-add more instructions about data wrangling review
-:::
-
-Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
+2. Review the data wrangling code under the `# Setup` section of each template file and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through the data wrangling code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
@@ -119,63 +115,21 @@ Download all necessary templates (links in the table below) and save them to a `
 | [Lecture 2.3: visualizing evolution](lecture-slides/lecture2.3-evolution-slides.qmd){target="_blank"}  | [2.3 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd){target="_blank"} | [2.3 key](keys/KEY-lecture2.3-evolution.qmd){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
-<!-- [*Today's lectures are inspired by and draw largely on materials created by a number of other educators, including [Albert Cairo](https://www.albertocairo.com/) and his book [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20), [Meghan Hall](https://meghan.rbind.io/) and her course, [CMU 36-315: Statistical Graphics & Visualization](https://cmu-36315.netlify.app/#lectures), as well as information curated by [Yan Holtz](https://github.com/holtzy) & [Conor Healy](https://www.linkedin.com/in/conor-healy-b0299810a/) as part of their [From Data to Viz](https://www.data-to-viz.com/) project.*]{.gray-text .body-text-s} -->
-
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
+### A. Prepare a `week2-discussion.qmd` file
 
-*Coming soon!*
+Add a new blank file to your class repo at the following location: `EDS-240-class-examples/week2/week2-discussion.qmd.` Fill out the necessary YAML information (title, author, date + any other information you find helpful).
+
+### B. (OPTIONAL) Install Google Chrome extension(s)
+
+Install the [ColorPick Eyedropper](https://chrome.google.com/webstore/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg) Google Chrome extension, which makes it easy to select color values from webpages.
 
 ## Discussion Materials
 
-*Coming soon!*
-
-<!-- ### Pre-discussion Prep -->
-
-<!-- **Before coming to section, please be sure to:** -->
-
-<!-- 1. Install the following packages: -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("geofacet") # facet data for different geographical regions using panels arranged in shapes that mimic geographic topology -->
-<!-- ``` -->
-
-<!-- 2. **(Optional)** Install the [ColorPick Eyedropper](https://chrome.google.com/webstore/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg) Google Chrome extension, which makes it easy to select color values from webpages. -->
-
-<!-- ### Background -->
-
-<!-- The [U.S. Drought Monitor](https://droughtmonitor.unl.edu/) (USDM) is a collection of measures that allows experts to assess droughts in the United States. It is produced through a partnership between the [National Drought Mitigation Center at the University of Nebraska-Lincoln](https://drought.unl.edu/), the [United States Department of Agriculture](https://www.usda.gov/) and the [National Oceanic and Atmospheric Administration](https://www.noaa.gov/). You can download and explore comprehensive statistics through their [data portal](https://droughtmonitor.unl.edu/DmData/DataDownload/ComprehensiveStatistics.aspx). -->
-
-<!-- The [TidyTuesday](https://github.com/rfordatascience/tidytuesday) community wrangled and visualized USDM data back in 2021 ([2021-07-20, week 30](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md)), so we'll use the `{tidytuesdayR}` package to import some minimally-tidied data (TidyTuesday always provides the [cleaning script](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md#cleaning-script) that the organizers used to pre-process any of the data provided -- these data comprise three separate data sets, which were converted from wide to long format, joined together, and had some columns renamed). -->
-
-<!-- [**Over the course of the next two discussion sections (week 3 & week 4), you'll be recreating the following data visualization produced by U.S. Drought Monitor, which you can find on the [*Droughts in California* Wikipedia page](https://en.wikipedia.org/wiki/Droughts_in_California):**]{.teal-text} -->
-
-<!-- <br> -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "75%" -->
-<!-- knitr::include_graphics(here::here("images", "usdm.png")) -->
-<!-- ``` -->
-
-<!-- <br> -->
-
-<!-- [**This week, we'll focus on the data layer, geometric layer, and scales. Next week, we'll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor's version.**]{.teal-text} -->
-
-<!-- ### Solution -->
-
-<!-- You'll get the most out of discussion section if you physically type out the code yourself (rather than copying / pasting)! -->
-
-<!-- ::: {.callout-tip icon=false collapse=true} -->
-<!-- ## Complete code for week 3 discussion -->
-<!-- {{< include discussion/week3/CA-drought.qmd >}} -->
-<!-- ::: -->
-
-<!-- <br> -->
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Discussion Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
+|-------------------|-------------------|--------------|
+| [D2 slides: USDM](discussion/week2/week2-USDM-slides.qmd) | [D2 exercise: recreate USDM viz](discussion/week2/week2-exercise.qmd) | [D2 solution](discussion/week2/week2-solution.qmd) |
+: {.hover .bordered tbl-colwidths="[35,35,30]"} 
 
 ## {{< fa pencil title="pencil" >}} Assignment Reminders {#assignment-reminders}
 
@@ -190,5 +144,3 @@ Download all necessary templates (links in the table below) and save them to a `
 <!-- | EOC             | [EOC (week 2)](https://forms.gle/G5DbEAxKCxyaCZyB8)  | Mon 01/13/2024 | Mon 01/13/2024, 11:55pm PT | -->
 <!-- | HW              | [Homework Assignment #1](assignments/HW1.qmd)  | Mon 01/06/2025 | Sat 01/18/2025, 11:59pm PT | -->
 <!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"}  -->
-
-

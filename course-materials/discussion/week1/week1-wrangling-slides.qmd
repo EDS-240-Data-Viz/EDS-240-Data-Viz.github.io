@@ -43,11 +43,13 @@ editor_options:
 - **restructuring data** (e.g. tidying data (i.e. convert from wide > long format))
 - **combining data sets** (e.g. using key values to merge two related data sets)
 
-<br>
-
 . . . 
 
 [Wrangling is a critical first step in building any sort of data visualization!]{.body-text-m}
+
+::: {.footer}
+You may have heard something like, "Data scientists spend 80% of their time preparing their data for analysis and / or visualization." And while that may not be totally accurate for all data scientists or all projects, you *will* spend lots of time wrestling with data.
+:::
 
 ---
 
@@ -115,7 +117,7 @@ The data science workflow, as described by Hadley Wickham, Mine Çetinkaya-Runde
 ```{r}
 #| eval: true
 #| echo: false
-#| out-width: "100%"
+#| out-width: "80%"
 #| fig-align: "center"
 knitr::include_graphics("images/fracfocus.png")
 ```
@@ -124,6 +126,10 @@ knitr::include_graphics("images/fracfocus.png")
 
 ::: {.right-align-text .body-text-s}
 -Jeremy Singer-Vine on [Data is Plural](https://www.data-is-plural.com/) ([2023.09.27 edition](https://www.data-is-plural.com/archive/2023-09-27-edition/))
+:::
+
+::: {.footer}
+Interested in reading more about fracking? Check out [this communications piece](https://www.usgs.gov/news/national-news-release/water-used-hydraulic-fracturing-varies-widely-across-united-states){target="_blank"} from USGS.
 :::
 
 ---
@@ -149,27 +155,3 @@ I *happened* to snag these data back in November 2023 when they were still *quit
 ::: {.center-text .body-text-l}
 Open up the [Week 1 Discussion: Exercise](week1-exercise.qmd) for instructions / next steps.
 :::
-
-<!-- Begin by reading `registryupload_1.csv` into your `week1-discussion.qmd` file. Check out the metadata file and perform some basic data exploration. -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- library(tidyverse) -->
-<!-- library(DT) -->
-
-<!-- fracking <- read_csv(here::here("course-materials", "discussion", "week1", "data", "registryupload_1.csv")) |>  -->
-<!--   head() -->
-
-<!-- DT::datatable(fracking) -->
-<!-- ``` -->
-
----
-
-Goals: 
-
-- format date/time column correctly (should be recognized as a datetime object, rather than a character string)
-- add a new 'year' column with just the year
-- clean up state names (which are *very* messy)
-- add a new column of state abbreviations
-- get rid of any observations that have missing values in the 
