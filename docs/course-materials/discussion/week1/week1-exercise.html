@@ -249,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
+    <div class="quarto-title column-page">
       <h1 class="title">Week 1 Discussion: Exercise</h1>
             <p class="subtitle lead">Data wrangling with the <code>{tidyverse}</code></p>
                   <div>
@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta column-page">
 
       
     
@@ -272,34 +272,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
 
 
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>By now, you may have heard / read something like, “Data scientists spend 80% of their time preparing their data for analysis and / or visualization.” And while that may not be totally accurate for all data scientists or all projects, you <em>will</em> spend lots of time wrestling with data. <span class="teal-text"><strong>You’ll spend this week’s discussion cleaning up a messy data set on hydraulic fracturing (aka <a href="https://en.wikipedia.org/wiki/Fracking" target="_blank">fracking</a>), with the goal of (re)familiarizing yourselves with some commonly-used tidyverse functions.</strong></span></p>
-<p>This week’s data comes courtesy of Jeremy Singer-Vine’s <a href="https://www.data-is-plural.com/" target="_blank">Data is Plural</a> weekly newsletter of useful / curious data sets (the <a href="https://www.data-is-plural.com/archive/2023-09-27-edition/" target="_blank">2023.09.27 edition</a>). Singer-Vine’s description:</p>
-<blockquote class="blockquote">
-<p>Since <a href="https://www.fracfocus.org/learn/about-fracfocus" target="_blank">launching in 2011</a>, <a href="https://fracfocus.org/" target="_blank">FracFocus</a> has become the largest registry of <a href="https://en.wikipedia.org/wiki/Fracking" target="_blank">hydraulic fracturing</a> chemical disclosures in the US. The database, available to explore online and <a href="https://fracfocus.org/data-download" target="_blank">download in bulk</a>, contains 210,000+ such disclosures from fracking operators; it details the location, timing, and water volume of each fracking job, plus the names and amounts of chemicals used. The project is <a href="https://fracfocus.org/about-us" target="_blank">managed</a> by the <a href="https://www.gwpc.org/overview/" target="_blank">Ground Water Protection Council</a>, “a nonprofit 501(c)6 organization whose members consist of state ground water regulatory agencies”. As seen in: The latest <a href="https://www.nytimes.com/interactive/2023/09/25/climate/fracking-oil-gas-wells-water.html" target="_blank">installment</a> of the New York Times’ <a href="https://www.nytimes.com/series/uncharted-waters" target="_blank">Uncharted Water series</a>.</p>
-</blockquote>
-<p>Interested in reading more about fracking? Check out <a href="https://www.usgs.gov/news/national-news-release/water-used-hydraulic-fracturing-varies-widely-across-united-states" target="_blank">this communications piece</a> from USGS to start.</p>
-</section>
-<section id="exercise" class="level2">
-<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -316,8 +298,8 @@ Note
 <p><span class="teal-text"><strong>Your goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6746478cecc1b0a7e9a2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6746478cecc1b0a7e9a2">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fe88a9ed37ae480d911e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fe88a9ed37ae480d911e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br></p>
@@ -399,7 +381,6 @@ Expand for code to fix misspelled state names
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
