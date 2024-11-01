@@ -1,0 +1,62 @@
+---
+title: "Week 3 Discussion: Exercise"
+subtitle: "Writing alt text"
+description: "Tuesday January 21^st^, 2025"
+---
+
+::: {.callout-note}
+It's up to you to organize your own `week3-discussion.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+:::
+
+## Example 1
+
+Add alt text using the `fig-alt:` code chunk option:
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-align: "center"
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram(alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Body mass (g)",
+       y = "Frequency",
+       title = "Penguin body masses")
+```
+
+## Example 2: 
+
+1. Download this viz (right click > Save Image As... > save to your class repo)
+2. 
+
+```{md}
+#| eval: false
+#| echo: true
+![Figure caption goes here](images/ingeman-etal-2019.png){fig-alt="Alt text goes here"}
+```
+
+![Figure caption goes here](images/ingeman-etal-2019.png){fig-alt="Alt text goes here"}
+
+::: {.center-text}
+Fig 3A from [Ingeman et al. 2019](https://www.science.org/doi/10.1126/science.aav1004)
+:::
+
+## Example 3:
+
+```{html}
+#| eval: false
+#| echo: true
+<img src="file/path/to/image" alt="Alt text goes here">
+```
+
+<img src="images/verisk-maplecroft-climate-change.png" alt="Alt text goes here">
+
+::: {.center-text}
+Image source: [Verisk Maplecroft](https://www.maplecroft.com/insights/analysis/84-of-worlds-fastest-growing-cities-face-extreme-climate-change-risks/)
+:::
