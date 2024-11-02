@@ -8,16 +8,19 @@ description: "Tuesday January 21^st^, 2025"
 It's up to you to organize your own `week3-discussion.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
 :::
 
-## Example 1
+## Example 1: `{palmerpenguins}` ggplot
 
-Add alt text using the `fig-alt:` code chunk option:
+1. Copy the following code into your `week3-discussion.qmd` file and add code chunk options that:
+    - render the output (i.e. plot), but not the code
+    - suppress any warnings or messages
+2. Add alt text using the `fig-alt:` code chunk option
+3. "Inspect" your plot (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
 #| message: false
-#| fig-align: "center"
 library(ggplot2)
 library(palmerpenguins)
 
@@ -30,33 +33,49 @@ ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
        title = "Penguin body masses")
 ```
 
-## Example 2: 
+## Example 2 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
 
 1. Download this viz (right click > Save Image As... > save to your class repo)
-2. 
+2. Embed the viz in `week3-discussion.qmd` using Markdown syntax *and* add alt text:
 
 ```{md}
 #| eval: false
 #| echo: true
-![Figure caption goes here](images/ingeman-etal-2019.png){fig-alt="Alt text goes here"}
+#| code-line-numbers: false
+![](file/path/to/your/image){fig-alt="Alt text goes here"}
 ```
 
-![Figure caption goes here](images/ingeman-etal-2019.png){fig-alt="Alt text goes here"}
+3. "Inspect" your image (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML 
 
-::: {.center-text}
-Fig 3A from [Ingeman et al. 2019](https://www.science.org/doi/10.1126/science.aav1004)
+::: {.callout-note}
+This graphic form is called a [**dot plot**](https://en.wikipedia.org/wiki/Dot_plot_(statistics)){target="_blank"}. 
+
+Dot plots are particularly useful for visualizing variability within a single measured numerical variable -- here, that's how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.
+
+It's easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables.
 :::
 
-## Example 3:
+![](images/nyt-monthly-temp.png){fig-alt="Alt text goes here"}
+
+## Example 3 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
+
+1. Download this viz (right click > Save Image As... > save to your class repo)
+2. Embed the viz in `week3-discussion.qmd` using HTML syntax *and* add alt text (you'll also need to include the `width` attribute to make the image a bit smaller):
 
 ```{html}
 #| eval: false
 #| echo: true
-<img src="file/path/to/image" alt="Alt text goes here">
+#| code-line-numbers: false
+<img src="file/path/to/image" alt="Alt text goes here" width="700px">
 ```
 
-<img src="images/verisk-maplecroft-climate-change.png" alt="Alt text goes here">
+3. "Inspect" your image (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
 
-::: {.center-text}
-Image source: [Verisk Maplecroft](https://www.maplecroft.com/insights/analysis/84-of-worlds-fastest-growing-cities-face-extreme-climate-change-risks/)
+::: {.callout-note}
+The associated figure caption for this figure: 
+
+>The >2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries.
 :::
+ 
+<img src="images/chapman-etal-2024.png" alt="Alt text goes here" width="700px">
+

@@ -268,9 +268,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-1" id="toc-example-1" class="nav-link active" data-scroll-target="#example-1">Example 1</a></li>
-  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2:</a></li>
-  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3:</a></li>
+  <li><a href="#example-1-palmerpenguins-ggplot" id="toc-example-1-palmerpenguins-ggplot" class="nav-link active" data-scroll-target="#example-1-palmerpenguins-ggplot">Example 1: <code>{palmerpenguins}</code> ggplot</a></li>
+  <li><a href="#example-2-from-the-new-york-times" id="toc-example-2-from-the-new-york-times" class="nav-link" data-scroll-target="#example-2-from-the-new-york-times">Example 2 (from The New York Times):</a></li>
+  <li><a href="#example-3-fig-1a-from-chapman-et-al.-2024" id="toc-example-3-fig-1a-from-chapman-et-al.-2024" class="nav-link" data-scroll-target="#example-3-fig-1a-from-chapman-et-al.-2024">Example 3 (Fig 1A from Chapman et al.&nbsp;2024):</a></li>
   </ul>
 </nav>
     </div>
@@ -294,10 +294,18 @@ Note
 <p>It’s up to you to organize your own <code>week3-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
 </div>
 </div>
-<section id="example-1" class="level2">
-<h2 class="anchored" data-anchor-id="example-1">Example 1</h2>
-<p>Add alt text using the <code>fig-alt:</code> code chunk option:</p>
-<div class="cell" data-layout-align="center">
+<section id="example-1-palmerpenguins-ggplot" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-palmerpenguins-ggplot">Example 1: <code>{palmerpenguins}</code> ggplot</h2>
+<ol type="1">
+<li>Copy the following code into your <code>week3-discussion.qmd</code> file and add code chunk options that:
+<ul>
+<li>render the output (i.e.&nbsp;plot), but not the code</li>
+<li>suppress any warnings or messages</li>
+</ul></li>
+<li>Add alt text using the <code>fig-alt:</code> code chunk option</li>
+<li>“Inspect” your plot (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
+</ol>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -309,42 +317,72 @@ Note
 <span id="cb1-9"><a href="#cb1-9"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
 <span id="cb1-10"><a href="#cb1-10"></a>       <span class="at">title =</span> <span class="st">"Penguin body masses"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="week3-exercise_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="week3-exercise_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="example-2" class="level2">
-<h2 class="anchored" data-anchor-id="example-2">Example 2:</h2>
+<section id="example-2-from-the-new-york-times" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-from-the-new-york-times">Example 2 (from <a href="https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html" target="_blank">The New York Times</a>):</h2>
 <ol type="1">
 <li>Download this viz (right click &gt; Save Image As… &gt; save to your class repo)</li>
-<li></li>
+<li>Embed the viz in <code>week3-discussion.qmd</code> using Markdown syntax <em>and</em> add alt text:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="al">![Figure caption goes here](images/ingeman-etal-2019.png)</span>{fig-alt="Alt text goes here"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="al">![](file/path/to/your/image)</span>{fig-alt="Alt text goes here"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ingeman-etal-2019.png" class="img-fluid figure-img" alt="Alt text goes here"></p>
-<figcaption>Figure caption goes here</figcaption>
-</figure>
+<ol start="3" type="1">
+<li>“Inspect” your image (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="center-text">
-<p>Fig 3A from <a href="https://www.science.org/doi/10.1126/science.aav1004">Ingeman et al.&nbsp;2019</a></p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This graphic form is called a <a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)" target="_blank"><strong>dot plot</strong></a>.</p>
+<p>Dot plots are particularly useful for visualizing variability within a single measured numerical variable – here, that’s how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.</p>
+<p>It’s easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables.</p>
+</div>
+</div>
+<p><img src="images/nyt-monthly-temp.png" class="img-fluid" alt="Alt text goes here"></p>
 </section>
-<section id="example-3" class="level2">
-<h2 class="anchored" data-anchor-id="example-3">Example 3:</h2>
+<section id="example-3-fig-1a-from-chapman-et-al.-2024" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-fig-1a-from-chapman-et-al.-2024">Example 3 (Fig 1A from <a href="https://www.science.org/doi/full/10.1126/science.adh8874" target="_blank">Chapman et al.&nbsp;2024</a>):</h2>
+<ol type="1">
+<li>Download this viz (right click &gt; Save Image As… &gt; save to your class repo)</li>
+<li>Embed the viz in <code>week3-discussion.qmd</code> using HTML syntax <em>and</em> add alt text (you’ll also need to include the <code>width</code> attribute to make the image a bit smaller):</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"file/path/to/image"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Alt text goes here"</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"file/path/to/image"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Alt text goes here"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"700px"</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="images/verisk-maplecroft-climate-change.png" alt="Alt text goes here"></p>
-<div class="center-text">
-<p>Image source: <a href="https://www.maplecroft.com/insights/analysis/84-of-worlds-fastest-growing-cities-face-extreme-climate-change-risks/">Verisk Maplecroft</a></p>
+<ol start="3" type="1">
+<li>“Inspect” your image (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The associated figure caption for this figure:</p>
+<blockquote class="blockquote">
+<p>The &gt;2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries.</p>
+</blockquote>
+</div>
+</div>
+<p><img src="images/chapman-etal-2024.png" alt="Alt text goes here" width="700px"></p>
 
 
 </section>
