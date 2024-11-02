@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Tuesday January 7th, 2025">
+<meta name="description" content="Tuesday January 21st, 2025">
 
-<title>Week 1 Discussion: Exercise – EDS 240</title>
+<title>Week 3 Discussion: Exercise – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,15 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../../../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../../../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="../../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 </head>
@@ -249,19 +240,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">Week 1 Discussion: Exercise</h1>
-            <p class="subtitle lead">Data wrangling with the <code>{tidyverse}</code></p>
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Week 3 Discussion: Exercise</h1>
+            <p class="subtitle lead">Writing alt text</p>
                   <div>
         <div class="description">
-          Tuesday January 7<sup>th</sup>, 2025
+          Tuesday January 21<sup>st</sup>, 2025
         </div>
       </div>
                 </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta column-page-left">
 
       
     
@@ -272,11 +263,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#example-1-palmerpenguins-ggplot" id="toc-example-1-palmerpenguins-ggplot" class="nav-link active" data-scroll-target="#example-1-palmerpenguins-ggplot">Example 1: <code>{palmerpenguins}</code> ggplot</a></li>
+  <li><a href="#example-2-from-the-new-york-times" id="toc-example-2-from-the-new-york-times" class="nav-link" data-scroll-target="#example-2-from-the-new-york-times">Example 2 (from The New York Times):</a></li>
+  <li><a href="#example-3-fig-1a-from-chapman-et-al.-2024" id="toc-example-3-fig-1a-from-chapman-et-al.-2024" class="nav-link" data-scroll-target="#example-3-fig-1a-from-chapman-et-al.-2024">Example 3 (Fig 1A from Chapman et al.&nbsp;2024):</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
@@ -292,95 +291,101 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It’s up to you to organize your own <code>week1-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
+<p>It’s up to you to organize your own <code>week3-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
 </div>
 </div>
-<p><span class="teal-text"><strong>Your goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b0767a7263f1094ad49d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b0767a7263f1094ad49d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<p><br></p>
+<section id="example-1-palmerpenguins-ggplot" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-palmerpenguins-ggplot">Example 1: <code>{palmerpenguins}</code> ggplot</h2>
 <ol type="1">
-<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code>, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
-<li><p><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</p></li>
+<li>Copy the following code into your <code>week3-discussion.qmd</code> file and add code chunk options that:
+<ul>
+<li>render the output (i.e.&nbsp;plot), but not the code</li>
+<li>suppress any warnings or messages</li>
+</ul></li>
+<li>Add alt text using the <code>fig-alt:</code> code chunk option</li>
+<li>“Inspect” your plot (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
 </ol>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb1-6"><a href="#cb1-6"></a>                 <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>       <span class="at">title =</span> <span class="st">"Penguin body masses"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week3-exercise_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-from-the-new-york-times" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-from-the-new-york-times">Example 2 (from <a href="https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html" target="_blank">The New York Times</a>):</h2>
+<ol type="1">
+<li>Download this viz (right click &gt; Save Image As… &gt; save to your class repo)</li>
+<li>Embed the viz in <code>week3-discussion.qmd</code> using Markdown syntax <em>and</em> add alt text:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="al">![](file/path/to/your/image)</span>{fig-alt="Alt text goes here"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>“Inspect” your image (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pause for class discussion
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Take a moment to share some of your findings with the rest of the class!</p>
+<p>This graphic form is called a <a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)" target="_blank"><strong>dot plot</strong></a>.</p>
+<p>Dot plots are particularly useful for visualizing variability within a single measured numerical variable – here, that’s how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.</p>
+<p>It’s easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables.</p>
 </div>
+</div>
+<p><img src="images/nyt-monthly-temp.png" class="img-fluid" alt="Alt text goes here"></p>
+</section>
+<section id="example-3-fig-1a-from-chapman-et-al.-2024" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-fig-1a-from-chapman-et-al.-2024">Example 3 (Fig 1A from <a href="https://www.science.org/doi/full/10.1126/science.adh8874" target="_blank">Chapman et al.&nbsp;2024</a>):</h2>
+<ol type="1">
+<li>Download this viz (right click &gt; Save Image As… &gt; save to your class repo)</li>
+<li>Embed the viz in <code>week3-discussion.qmd</code> using HTML syntax <em>and</em> add alt text (you’ll also need to include the <code>width</code> attribute to make the image a bit smaller):</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"file/path/to/image"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Alt text goes here"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"700px"</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
-<li><span class="teal-text"><strong>Clean / wrangle the data!</strong></span> Using the packages loaded in step 1, perform the following operations (<em><strong>NOTE:</strong> Each step below corresponds to a single line of code</em>):
-<ol type="a">
-<li>convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names">Tidyverse style guide</a> recommendation)</li>
-<li>remove <code>"AM"</code> from the <code>job_start_date</code> column observations</li>
-<li>convert observations in the <code>job_start_date</code> column from character strings to datetime objects and save them to a new column named <code>datetime_start</code></li>
-<li>add a column named <code>year</code> that contains only the year from <code>datetime_start</code></li>
-<li>keep only the necessary columns (<code>datetime_start</code>, <code>year</code>, <code>state_name</code>, <code>well_name</code>, <code>total_base_water_volume</code>)</li>
-<li>convert all observations in the <code>state_name</code> column to Title Case</li>
-<li>remove any rows where the state name ends in <code>?</code></li>
-<li>convert any state abbreviations to full names in the <code>state_name</code> column (<strong>Hint:</strong> use a combination of the <code>mutate()</code>, <code>ifelse()</code> &amp; <code>usdata::abbr2state()</code> functions)</li>
-<li>correct any misspelled state names in the <code>state_name</code> column (<strong>Note:</strong> figure out how to update the names of a few misspelled states, the feel free to copy the complete code for this step from the expandable section, below)</li>
-<li>remove any rows that do not have a true US state name in the <code>state_name</code> column</li>
-<li>add a column named <code>state_abb</code> with just US state abbreviations</li>
-<li>move the <code>state_abb</code> column so that it sits immediately after the <code>state_name</code> column</li>
-<li>rename <code>total_base_water_volume</code> as <code>total_base_water_volume_gal</code> for clarity</li>
-<li>remove any observations that don’t have a measurement for <code>total_base_water_volume_gal</code> (i.e.&nbsp;NA)</li>
-<li>reorder rows from earliest to most recent <code>datetime_start</code> values</li>
-</ol></li>
+<li>“Inspect” your image (right click &gt; Inspect) to verify that the <code>alt</code> attribute and text is added to the HTML</li>
 </ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Expand for code to fix misspelled state names
+Note
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">mutate</span>(<span class="at">state_name =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    state_name <span class="sc">==</span> <span class="st">"Colordao"</span> <span class="sc">~</span> <span class="st">"Colorado"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    state_name <span class="sc">==</span> <span class="st">"Loiusiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4"></a>    state_name <span class="sc">==</span> <span class="st">"Louisianna"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    state_name <span class="sc">==</span> <span class="st">"Lousiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6"></a>    state_name <span class="sc">==</span> <span class="st">"New Mexcio"</span> <span class="sc">~</span> <span class="st">"New Mexico"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    state_name <span class="sc">==</span> <span class="st">"Norh Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    state_name <span class="sc">==</span> <span class="st">"Norht Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    state_name <span class="sc">==</span> <span class="st">"North  Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakata"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakotta"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    state_name <span class="sc">==</span> <span class="st">"Noth Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    state_name <span class="sc">==</span> <span class="st">"Pennslvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylavania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylvanya"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    state_name <span class="sc">==</span> <span class="st">"Penssylvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17"></a>    state_name <span class="sc">==</span> <span class="st">"Texasa"</span> <span class="sc">~</span> <span class="st">"Texas"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    state_name <span class="sc">==</span> <span class="st">"Texs"</span> <span class="sc">~</span> <span class="st">"Texas"</span>, </span>
-<span id="cb1-19"><a href="#cb1-19"></a>    state_name <span class="sc">==</span> <span class="st">"West Viginia"</span> <span class="sc">~</span> <span class="st">"West Virginia"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    state_name <span class="sc">==</span> <span class="st">"Wyominng"</span> <span class="sc">~</span> <span class="st">"Wyoming"</span>, </span>
-<span id="cb1-21"><a href="#cb1-21"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> state_name <span class="co"># copy over rest of state names from as-is</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The associated figure caption for this figure:</p>
+<blockquote class="blockquote">
+<p>The &gt;2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries.</p>
+</blockquote>
 </div>
 </div>
-</div>
-</div>
+<p><img src="images/chapman-etal-2024.png" alt="Alt text goes here" width="700px"></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
