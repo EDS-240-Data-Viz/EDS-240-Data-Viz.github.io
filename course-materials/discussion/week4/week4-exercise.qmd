@@ -1,16 +1,20 @@
 ---
-title: "Week 2 Discussion: Solution"
-subtitle: "Recreating the USDM visualization (graphic form)"
-description: "Tuesday January 14^th^, 2025"
+title: "Week 4 Discussion: Exercise"
+subtitle: "Recreating the USDM visualization (theme)"
+description: "Tuesday January 28^th^, 2025"
 ---
 
+::: {.callout-note}
+It's up to you to organize your own `week3-discussion.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+:::
+
+1. Begin by copying the following setup, data wrangling, and ggplot code from [week 2 discussion section](../week2/week2-solution.qmd){target="_blank"} into your `week4-discussion.qmd` file. 
+
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: true
 #| warning: false
 #| message: false
-#| fig-align: "center"
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +82,15 @@ drought_clean |>
                      labels = scales::label_percent(scale = 1)) +
   
   # add title ----
-  labs(title = "Drought area in California") 
-
+  labs(title = "Drought area in California")
 ```
+
+2. Iterate on this ggplot until it closely resembles the [original USDM plot](week4-slides.qmd#recreate-plot){target="_blank"}. **Tip:** begin with a [complete theme](https://ggplot2.tidyverse.org/reference/ggtheme.html){target="_blank"}, then use `theme()` to tweak plot elements from there.
+
+::: {.callout-important}
+## Use the Zoom button to check out your plot as you iterate
+
+Your plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc -- I recommend checking it out in the zoom window while you iterate. 
+
+**Importantly, how you theme a data visualization depends on how you plan to package / present it.** For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc.
+:::

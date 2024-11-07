@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
-  <title>EDS 240 – week2-usdm-slides</title>
+  <title>EDS 240 – week4-slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -329,64 +329,70 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#047C91">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Discussion 2</span></p>
+<p><span class="custom-title">EDS 240: Discussion 4</span></p>
 <p><span class="custom-subtitle"><em>Recreating US Drought Monitor viz</em></span></p>
-<p><span class="custom-subtitle2"><em>Part 1: graphic form</em></span></p>
+<p><span class="custom-subtitle2"><em>Part 2: ggplot themes</em></span></p>
 <hr class="hr-dark-blue">
-<p><span class="custom-subtitle3">Week 2 | January 14<sup>th</sup>, 2024</span></p>
+<p><span class="custom-subtitle3">Week 4 | January 27<sup>th</sup>, 2024</span></p>
 </section>
-<section id="what-is-USDM" class="slide level2" data-menu-title="What is USDM?">
+<section id="ggplot-theme" class="slide level2" data-menu-title="ggplot theme">
 <h2></h2>
-<p><span class="slide-title">What is the U.S. Drought Monitor?</span></p>
+<p><span class="slide-title">Themes modify <em>non-data</em> plot elements</span></p>
 <hr>
 <p><br></p>
-<p><span class="body-text-m">The <a href="https://droughtmonitor.unl.edu/" target="_blank">U.S. Drought Monitor</a> (USDM) is a collection of measures that allows experts to assess droughts in the United States.</span></p>
+<div class="body-text-m">
+<p><strong>Themes</strong> are used to modify the <strong>non-data components</strong> of plots (e.g.&nbsp;titles, labels, fonts, background, gridlines, legend).</p>
 <p><br></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br> It is produced through a partnership between the <a href="https://drought.unl.edu/" target="_blank">National Drought Mitigation Center at the University of Nebraska-Lincoln</a>, the <a href="https://www.usda.gov/" target="_blank">United States Department of Agriculture</a> and the <a href="https://www.noaa.gov/" target="_blank">National Oceanic and Atmospheric Administration</a>. You can download and explore comprehensive statistics through their <a href="https://droughtmonitor.unl.edu/DmData/DataDownload/ComprehensiveStatistics.aspx" target="_blank">data portal</a>.</p>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/usdm-website.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="what-is-tidytuesday" class="slide level2" data-menu-title="What is tidytuesday?">
-<h2></h2>
-<p><span class="slide-title">What is the TidyTuesday?</span></p>
-<hr>
-<p><a href="https://github.com/rfordatascience/tidytuesday" target="_blank">TidyTuesday</a> is a “weekly social data project” organized by the <a href="https://dslc.io/" target="_blank">Data Science Learning Community</a>. It’s goal is to <strong>“make it easier to learn to work with data, by providing real-world datasets.”</strong></p>
-
-<img data-src="images/tidytuesday.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p>Since 2018, participants of all skill levels have imported, wrangled, and visualized weekly data sets, then shared their creations + code on social media. It’s a fun, low-stakes way to learn new data visualization skills and approaches from one another – check it out!</p>
-</section>
-<section id="usdm-tidytuesday" class="slide level2" data-menu-title="USDM x TidyTuesday">
-<h2></h2>
-<p><span class="slide-title">USDM x TidyTuesday</span></p>
-<hr>
-<p>The TidyTuesday community wrangled and visualized USDM data back in 2021 (<a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md" target="_blank">2021-07-20, week 30</a>), so we’ll use the <code>{tidytuesdayR}</code> package to import some <sup>*</sup>minimally-tidied data.</p>
-
-<img data-src="images/tidytuesday-usdm.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><br></p>
-<div class="footer">
-<p><sup>*</sup>TidyTuesday always provides the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md#cleaning-script" target="_blank">cleaning script</a> that the organizers used to pre-process any of the data provided – these USDM data comprise three separate data sets, which were converted from wide to long format, joined together, and had some columns renamed.</p>
+<p>In addition to using <strong>pre-built themes</strong> (available via the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" target="_blank"><code>{ggplot2}</code> package</a> and also from extension packages), you can <strong>fine-tune</strong> the appearance of your plots theme by making adjustments using the <strong><a href="https://ggplot2.tidyverse.org/reference/theme.html" target="_blank"><code>theme()</code> function</a></strong>.</p>
 </div>
 </section>
-<section id="gameplan" class="slide level2" data-menu-title="Our gameplan">
+<section id="prebuilt-themes" class="slide level2" data-menu-title="Pre-built themes">
 <h2></h2>
-<p><span class="slide-title">Let’s recreate this USDM viz!</span></p>
+<p><span class="slide-title">Pre-built themes</span></p>
 <hr>
-<p>We’ll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the <a href="https://en.wikipedia.org/wiki/Droughts_in_California"><em>Droughts in California</em> Wikipedia page</a>!):</p>
+<p><code>{ggplot2}</code> comes with <strong>eight <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" target="_blank">complete themes</a></strong>, which can be applied as-is, or further modified using <code>theme()</code>. There are also <em>many</em> <strong>additional themes</strong> which can be applied via <strong>ggplot extension packages</strong>. A small handful of packages with additional themes:</p>
+<ul>
+<li><span class="body-text-s"><strong><a href="https://jrnold.github.io/ggthemes/" target="_blank"><code>{ggthemes}</code></a></strong>: a collection of popular themes, some of which also come with corresponding color scales</span></li>
+<li><span class="body-text-s"><strong><a href="https://cinc.rud.is/web/packages/hrbrthemes/index.html" target="_blank"><code>{hrbrthemes}</code></a></strong>: typographic-centric themes and theme components</span> -<span class="body-text-s"><strong><a href="https://github.com/Mikata-Project/ggthemr" target="_blank"><code>{ggthemr}</code></a></strong>: a collection of color palettes and plot layouts for quickly setting a ggplot theme</span></li>
+<li><span class="body-text-s"><strong><a href="https://github.com/ricardo-bion/ggtech" target="_blank"><code>{ggtech}</code></a></strong>: themes based off large tech company color palettes</span></li>
+<li><span class="body-text-s"><strong><a href="https://github.com/nsgrantham/ggdark" target="_blank"><code>{ggdark}</code></a></strong>: dark mode for ggplot complete themes</span></li>
+<li><span class="body-text-s"><strong><a href="https://github.com/vankesteren/firatheme" target="_blank"><code>{firatheme}</code></a></strong>: a ggplot theme with <a href="https://fonts.google.com/?query=fira" target="_blank">Fira font</a></span></li>
+<li><span class="body-text-s"><strong><a href="https://urbaninstitute.github.io/urbnthemes/index.html" target="_blank"><code>{urbnthemes}</code></a></strong>: tools for creating <a href="https://www.urban.org/" target="_blank">Urban Institute</a>-themed plots and maps in R (also check out the <a href="https://urbaninstitute.github.io/graphics-styleguide/" target="_blank">Urban Institute Data Visualization Style Guide</a> for a really great example of how an organization enforces a cohesive style across all published data viz content)</span></li>
+<li><span class="body-text-s"><strong><a href="https://github.com/bbc/bbplot/" target="_blank"><code>{bbplot}</code></a></strong>: tools for creating ggplots in the style used by the <a href="https://www.bbc.com/news">BBC News</a> data team</span></li>
+<li><span class="body-text-s"><strong><a href="https://www.garrickadenbuie.com/project/ggpomological/" target="_blank"><code>{ggpomological}</code></a></strong>: a ggplot2 theme based on the <a href="https://search.nal.usda.gov/discovery/collectionDiscovery?vid=01NAL_INST:MAIN&amp;collectionId=81279629860007426">USDA Pomological Watercolor Collection</a></span></li>
+<li><span class="body-text-s"><strong><a href="https://ryo-n7.github.io/2019-05-16-introducing-tvthemes-package/" target="_blank"><code>{tvthemes}</code></a></strong>: a collection of ggplot themes and color / fill palettes based on everybody’s favorite TV shows</span></li>
+</ul>
+</section>
+<section id="plot-specific-themes" class="slide level2" data-menu-title="Plot-specific themes">
+<h2></h2>
+<p><span class="slide-title">Keep an eye out for plot-specific themes</span></p>
+<hr>
+<p>Keep your eye out for extension <strong>packages that supply both a geom(s) <em>and</em> a pre-build theme(s) designed specifically to work with that geom</strong>. For example, the <a href="https://wilkelab.org/ggridges/index.html" target="_blank"><code>{ggridges}</code> package</a> provides both a few different ridgeline plot geoms and a <a href="https://wilkelab.org/ggridges/articles/introduction.html#themes" target="_blank">pre-built <code>theme_ridges()</code> theme</a> to pair with them:</p>
+<p><br></p>
 
-<img data-src="images/usdm.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><strong>This week, we’ll focus on the data layer, geometric layer, and scales.</strong> During week 4 discussion, we’ll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor’s version.</p>
+<img data-src="week4-slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="theme" class="slide level2" data-menu-title="theme()">
+<h2></h2>
+<p><span class="slide-title2">Use <code>ggplot2::theme()</code> for fine-tune control</span></p>
+<hr>
+
+<img data-src="images/ggplot-theme.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p><em>Adapted from <a href="https://bookdown.org/alapo/learnr/data-visualisation.html#anatomy-of-a-ggplot" target="_blank">Reproducible Science for Busy Researchers: How to Save Time using Literate Programming</a>, by Andrew P. Lapointe</em></p>
+</div>
+</section>
+<section id="recreate-plot" class="slide level2" data-menu-title="Recreate plot">
+<h2></h2>
+<p><span class="slide-title">Recreate this USDM plot</span></p>
+<hr>
+<p>Reference the graphic on the previous slide (and of course, documentation – run <code>?theme</code> or check out <a href="https://ggplot2.tidyverse.org/reference/theme.html" target="_blank">online documentation</a>) to start tweaking plot elements until it matches the original USDM graphic (below). It’s common to start with a pre-built theme and modify from there.</p>
+
+<img data-src="../week2/images/usdm.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>Image source: <a href="https://en.wikipedia.org/wiki/Droughts_in_California" target="_blank">US Drought Monitor via Wikipedia</a></p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </div>
 </section>

@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
-  <title>EDS 240 – week2-usdm-slides</title>
+  <title>EDS 240 – week4-ggplot-theme-slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -329,60 +329,15 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#047C91">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Discussion 2</span></p>
+<p><span class="custom-title">EDS 240: Discussion 4</span></p>
 <p><span class="custom-subtitle"><em>Recreating US Drought Monitor viz</em></span></p>
-<p><span class="custom-subtitle2"><em>Part 1: graphic form</em></span></p>
+<p><span class="custom-subtitle2"><em>Part 2: ggplot themes</em></span></p>
 <hr class="hr-dark-blue">
-<p><span class="custom-subtitle3">Week 2 | January 14<sup>th</sup>, 2024</span></p>
+<p><span class="custom-subtitle3">Week 4 | January 27<sup>th</sup>, 2024</span></p>
 </section>
 <section id="what-is-USDM" class="slide level2" data-menu-title="What is USDM?">
 <h2></h2>
 <p><span class="slide-title">What is the U.S. Drought Monitor?</span></p>
-<hr>
-<p><br></p>
-<p><span class="body-text-m">The <a href="https://droughtmonitor.unl.edu/" target="_blank">U.S. Drought Monitor</a> (USDM) is a collection of measures that allows experts to assess droughts in the United States.</span></p>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br> It is produced through a partnership between the <a href="https://drought.unl.edu/" target="_blank">National Drought Mitigation Center at the University of Nebraska-Lincoln</a>, the <a href="https://www.usda.gov/" target="_blank">United States Department of Agriculture</a> and the <a href="https://www.noaa.gov/" target="_blank">National Oceanic and Atmospheric Administration</a>. You can download and explore comprehensive statistics through their <a href="https://droughtmonitor.unl.edu/DmData/DataDownload/ComprehensiveStatistics.aspx" target="_blank">data portal</a>.</p>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/usdm-website.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="what-is-tidytuesday" class="slide level2" data-menu-title="What is tidytuesday?">
-<h2></h2>
-<p><span class="slide-title">What is the TidyTuesday?</span></p>
-<hr>
-<p><a href="https://github.com/rfordatascience/tidytuesday" target="_blank">TidyTuesday</a> is a “weekly social data project” organized by the <a href="https://dslc.io/" target="_blank">Data Science Learning Community</a>. It’s goal is to <strong>“make it easier to learn to work with data, by providing real-world datasets.”</strong></p>
-
-<img data-src="images/tidytuesday.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p>Since 2018, participants of all skill levels have imported, wrangled, and visualized weekly data sets, then shared their creations + code on social media. It’s a fun, low-stakes way to learn new data visualization skills and approaches from one another – check it out!</p>
-</section>
-<section id="usdm-tidytuesday" class="slide level2" data-menu-title="USDM x TidyTuesday">
-<h2></h2>
-<p><span class="slide-title">USDM x TidyTuesday</span></p>
-<hr>
-<p>The TidyTuesday community wrangled and visualized USDM data back in 2021 (<a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md" target="_blank">2021-07-20, week 30</a>), so we’ll use the <code>{tidytuesdayR}</code> package to import some <sup>*</sup>minimally-tidied data.</p>
-
-<img data-src="images/tidytuesday-usdm.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><br></p>
-<div class="footer">
-<p><sup>*</sup>TidyTuesday always provides the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md#cleaning-script" target="_blank">cleaning script</a> that the organizers used to pre-process any of the data provided – these USDM data comprise three separate data sets, which were converted from wide to long format, joined together, and had some columns renamed.</p>
-</div>
-</section>
-<section id="gameplan" class="slide level2" data-menu-title="Our gameplan">
-<h2></h2>
-<p><span class="slide-title">Let’s recreate this USDM viz!</span></p>
-<hr>
-<p>We’ll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the <a href="https://en.wikipedia.org/wiki/Droughts_in_California"><em>Droughts in California</em> Wikipedia page</a>!):</p>
-
-<img data-src="images/usdm.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><strong>This week, we’ll focus on the data layer, geometric layer, and scales.</strong> During week 4 discussion, we’ll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor’s version.</p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
@@ -602,44 +557,6 @@
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
