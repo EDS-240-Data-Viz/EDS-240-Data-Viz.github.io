@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
       <h1 class="title">Assignment #2 (HW #2)</h1>
-            <p class="subtitle lead">Assigned Mon 01/22/2024 | Due Sat 02/03/2024</p>
+            <p class="subtitle lead">Assigned Mon 01/20/2025 | Due Sat 02/01/2025</p>
                       </div>
   </div>
     
@@ -265,7 +265,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-i-choosing-the-right-graphic-form" id="toc-part-i-choosing-the-right-graphic-form" class="nav-link active" data-scroll-target="#part-i-choosing-the-right-graphic-form"><span class="pink-text">Part I: Choosing the right graphic form</span></a>
   <ul class="collapse">
   <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes">Learning Outcomes</a></li>
-  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a>
+  <ul class="collapse">
+  <li><a href="#a.-background-reading" id="toc-a.-background-reading" class="nav-link" data-scroll-target="#a.-background-reading">1a. Background reading</a></li>
+  <li><a href="#b.-data-wrangling" id="toc-b.-data-wrangling" class="nav-link" data-scroll-target="#b.-data-wrangling">1b. Data wrangling</a></li>
+  <li><a href="#c.-answer-questions" id="toc-c.-answer-questions" class="nav-link" data-scroll-target="#c.-answer-questions">1c. Answer questions</a></li>
+  <li><a href="#d.-create-data-viz" id="toc-d.-create-data-viz" class="nav-link" data-scroll-target="#d.-create-data-viz">1d. Create data viz</a></li>
+  </ul></li>
   <li><a href="#rubric-specifications" id="toc-rubric-specifications" class="nav-link" data-scroll-target="#rubric-specifications">Rubric (specifications)</a></li>
   </ul></li>
   <li><a href="#part-ii-data-wrangling-exploratory-data-viz-using-your-own-data" id="toc-part-ii-data-wrangling-exploratory-data-viz-using-your-own-data" class="nav-link" data-scroll-target="#part-ii-data-wrangling-exploratory-data-viz-using-your-own-data"><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your own data</span></a>
@@ -284,9 +290,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="center-text">
-<div class="pink-box">
-<p><strong><em>You must earn a “Satisfactory” mark for each individual Part (I and II) to earn a “Satisfactory” mark for Assignment #2.</em></strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+You must earn a “Satisfactory” mark for each individual Part (I and II) to earn a “Satisfactory” mark for Assignment #1.
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>NOTE:</strong> Assignments are to be submitted via GitHub Classrooms, unless otherwise noted. Each student receives one “free pass” for not submitting assignments via specified channels, after which you will receive a “Not Yet” mark.</p>
 <p><strong>Read each part of the assignment carefully</strong>, and use the check boxes to ensure you’ve addressed all elements of the assignment!</p>
 </div>
@@ -303,9 +316,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
-<p>In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’ve learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the <a href="https://sbclter.msi.ucsb.edu/">Santa Barbara Coastal LTER</a>. <strong>Unfold the following note to read more about the data before continuing on (collapsed to save space):</strong></p>
+<p>In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’ve learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the <a href="https://sbclter.msi.ucsb.edu/" target="_blank">Santa Barbara Coastal LTER</a>.</p>
+<section id="a.-background-reading" class="level3">
+<h3 class="anchored" data-anchor-id="a.-background-reading">1a. Background reading</h3>
+<p>Unfold the following note to read more about the data before continuing on (collapsed to save space):</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -314,11 +330,11 @@ Learn about the data:
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <section id="about-sbc-lter" class="level4">
 <h4 class="anchored" data-anchor-id="about-sbc-lter">About SBC LTER</h4>
-<p>The <a href="https://sbclter.msi.ucsb.edu/">Santa Barbara Coastal Long Term Ecological Research</a> (SBC LTER) site was established in 2000 as part of the <a href="https://lternet.edu/">LTER Network</a> to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full <a href="https://sbclter.msi.ucsb.edu/data/catalog/">data catalog</a>.</p>
+<p>The <a href="https://sbclter.msi.ucsb.edu/" target="_blank">Santa Barbara Coastal Long Term Ecological Research</a> (SBC LTER) site was established in 2000 as part of the <a href="https://lternet.edu/" target="_blank">LTER Network</a> to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full <a href="https://sbclter.msi.ucsb.edu/data/catalog/" target="_blank">data catalog</a>.</p>
 </section>
 <section id="about-the-data-set" class="level4">
 <h4 class="anchored" data-anchor-id="about-the-data-set">About the data set</h4>
@@ -330,7 +346,7 @@ Learn about the data:
 <li>Mohawk Reef (MOHK)</li>
 <li>Carpinteria Reef (CARP)</li>
 </ul>
-<p>In January 2012, <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples">Naples Reef</a> and <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point">Isla Vista Reef</a> were <a href="https://www.parks.ca.gov/?page_id=27928">designated as Marine Protected Areas</a> (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77">metadata</a> for more information.</p>
+<p>In January 2012, <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples" target="_blank">Naples Reef</a> and <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point" target="_blank">Isla Vista Reef</a> were <a href="https://www.parks.ca.gov/?page_id=27928" target="_blank">designated as Marine Protected Areas</a> (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77" target="_blank">metadata</a> for more information.</p>
 </section>
 <section id="data-citation" class="level4">
 <h4 class="anchored" data-anchor-id="data-citation">Data citation</h4>
@@ -340,9 +356,9 @@ Learn about the data:
 <h4 class="anchored" data-anchor-id="finding-this-data-set">Finding this data set</h4>
 <p><em>Knowing how to search for data can be tricky! Here’s how I accessed this particular data set, should you want to search for LTER data yourself, in the future:</em></p>
 <ol type="1">
-<li><strong>Filter the <a href="https://sbclter.msi.ucsb.edu/data/catalog/">SBC LTER Data Catalog</a></strong> for data sets related to <strong>Reef/Kelp Forest</strong> habitats (check the box next to the habitat type of interest, or filter by measurement type or LTER Core Research Area). This produces a table of data collections, descriptions, and links to individual data and metadata records.</li>
-<li><strong>Choose a data set of interest.</strong> I was interested in the <em>SBC LTER: Spiny lobster in California</em> Collection, which includes three different data sets. I specifically chose, <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77">Lobster abundace, size, and fishing pressure</a> – here, you’ll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you’ll see a link to the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77">EDI Data Portal</a> (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected – each update receives a new DOI).</li>
-<li><strong>Download or import the data.</strong> You can download the data file from either the <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77">SBC LTER Data Catalog</a> <em>or</em> the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77">EDI Data Package</a>. <em>However</em> I prefer reading in the data directly from online (that way, I don’t need to worry about storing large data files). I recommend doing this from the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77">EDI Data Package</a> (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the <em>Download Data</em> button, then select <em>Copy Link Address</em>.</li>
+<li><strong>Filter the <a href="https://sbclter.msi.ucsb.edu/data/catalog/" target="_blank">SBC LTER Data Catalog</a></strong> for data sets related to <strong>Reef/Kelp Forest</strong> habitats by checking the appropriate box. This produces a table of data collections, descriptions, and links to individual data and metadata records.</li>
+<li><strong>Choose a data set of interest.</strong> I was interested in the <em>SBC LTER: Spiny lobster in California</em> Collection, which includes three different data sets. I specifically chose, <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77" target="_blank">Lobster abundace, size, and fishing pressure</a> – here, you’ll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you’ll see a link to the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77" target="_blank">EDI Data Portal</a> (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected – each update receives a new DOI).</li>
+<li><strong>Download or import the data.</strong> You can download the data file from either the <a href="https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77" target="_blank">SBC LTER Data Catalog</a> <em>or</em> the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77" target="_blank">EDI Data Package</a>. <em>However</em> I prefer reading in the data directly from online (that way, I don’t need to worry about storing large data files). I recommend doing this from the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=77" target="_blank">EDI Data Package</a> (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the <em>Download Data</em> button, then select <em>Copy Link Address</em>.</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -361,10 +377,13 @@ Learn about the data:
 </div>
 </div>
 </div>
-<p><strong><em>Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).</em></strong></p>
+</section>
+<section id="b.-data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="b.-data-wrangling">1b. Data wrangling</h3>
+<p><strong>Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).</strong></p>
 <p>This will first require some data exploration and wrangling. Some tips (unfold below):</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -373,17 +392,20 @@ Data exploration &amp; wrangling tips
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="body-text-l dark-blue-text"><strong>Data exploration tips:</strong></span></p>
+<section id="data-exploration-tips" class="level4">
+<h4 class="anchored" data-anchor-id="data-exploration-tips">Data exploration tips:</h4>
 <ul>
 <li>Use <code>glimpse()</code> and / or <code>str()</code> to check out your variables and data types</li>
 <li>Use <code>names()</code> to return all column names</li>
 <li>Extract unique elements using <code>unique(df$column_name)</code></li>
 <li>Open up the spreadsheet-style data viewer using <code>View(df)</code></li>
-<li>Be sure to review the <a href="https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9">metadata</a> (including methods &amp; protocols) to fully understand the data</li>
+<li>Be sure to review the <a href="https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9" target="_blank">metadata</a> (including methods &amp; protocols) to fully understand the data</li>
 </ul>
-<p><span class="body-text-l dark-blue-text"><strong>Data wrangling tips:</strong></span></p>
+</section>
+<section id="data-wrangling-tips" class="level4">
+<h4 class="anchored" data-anchor-id="data-wrangling-tips">Data wrangling tips:</h4>
 <ul>
 <li>I love starting all my cleaning pipelines with <code>janitor::clean_names()</code> to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)</li>
 <li>You’ll want to keep just the years of interest</li>
@@ -391,18 +413,22 @@ Data exploration &amp; wrangling tips
 <li>Each row is <strong>not</strong> always a single observation, but rather summed lobster counts at each size observed within a site / transect / replicate. You’ll want to wrangle the data such that each row represents a single lobster observation. You may need to do some Googling to figure out a solution for this (HINT: you’re looking to perform the opposite of <code>count()</code>).</li>
 <li>I often find that I’ll need to return to my data wrangling pipeline again <em>after</em> I start plotting my data – it’s at this stage that I’ll often catch variables that are the wrong data type (e.g.&nbsp;numeric, factor, character) for plotting and need to make the appropriate updates.</li>
 </ul>
+</section>
 </div>
 </div>
 </div>
-<p><span class="teal-text"><strong>(Part 1a) After exploring and wrangling your data, answer the following questions:</strong></span></p>
+</section>
+<section id="c.-answer-questions" class="level3">
+<h3 class="anchored" data-anchor-id="c.-answer-questions">1c. Answer questions</h3>
+<!-- [**(Part 1a) After exploring and wrangling your data, answer the following questions:**]{.teal-text} -->
 <ul class="task-list">
 <li><label><input type="checkbox"><strong>1.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they? <span class="peach-text"><strong>(a bullet point list here is fine)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>2.</strong> Using <a href="https://www.data-to-viz.com/">From Data to Viz</a>, identify which graphic forms / geoms are appropriate, given your data. List them out. <span class="peach-text"><strong>(a bullet point list here is fine)</strong></span></label></li>
+<li><label><input type="checkbox"><strong>2.</strong> Using <a href="https://www.data-to-viz.com/" target="_blank">From Data to Viz</a>, identify which graphic forms / geoms are appropriate, given your data. List them out. <span class="peach-text"><strong>(a bullet point list here is fine)</strong></span></label></li>
 <li><label><input type="checkbox"><strong>3.</strong> Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc. <span class="peach-text"><strong>(3-4 sentences)</strong></span></label></li>
 </ul>
 <p>Now that you’ve explored and starting wrangling your data, it’s time to create some plots. It’s often important to try out multiple graphic forms (e.g.&nbsp;<code>geom_*()</code>s) as you decide which is the most effective way of presenting your data. This process is commonly referred to as <strong>Exploratory Data Analysis or Exploratory Data Visualization</strong>. Some tips (unfold below):</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -411,7 +437,7 @@ Data viz creation tips
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="body-text-l dark-blue-text"><strong>Data viz creation tips:</strong></span></p>
 <ul>
@@ -422,15 +448,19 @@ Data viz creation tips
 </div>
 </div>
 </div>
-<p><span class="teal-text"><strong>(Part 1b) Complete the following:</strong></span></p>
+</section>
+<section id="d.-create-data-viz" class="level3">
+<h3 class="anchored" data-anchor-id="d.-create-data-viz">1d. Create data viz</h3>
+<!-- [**(Part 1b) Complete the following:**]{.teal-text} -->
 <ul class="task-list">
 <li><label><input type="checkbox">Create at least <strong>three</strong> different plots as part of your exploratory data visualization phase to test out which graphic forms / geoms works best. Your last plot should be the version that you feel is best suited for presenting your data. (<em><strong>NOTE:</strong> Your first two plots do not need to be at all polished – during the exploratory data visualization phase, we’re most concerned with choosing a graphic form / geom(s) for effectively presenting our data.</em>)</label></li>
 <li><label><input type="checkbox"><strong>1.</strong> Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3. <span class="peach-text"><strong>(5-8 sentences)</strong></span></label></li>
 <li><label><input type="checkbox"><strong>2.</strong> (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g.&nbsp;updating colors, moving or removing legends, highlighting groups, ordering groups) – be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not? <span class="peach-text"><strong>(2-5 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>3.</strong> Polish your third (final) plot by updating the labels and theme (we’ll cover theme modifications during <a href="https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week4.html#discussion-materials">week 4 discussion section</a>, so you may consider waiting until then). List out the changes you made to your plot’s theme (e.g.&nbsp;“updated axis text size”, “removed minor gridlines”, etc.). <span class="peach-text"><strong>(a bullet list here is fine)</strong></span></label></li>
+<li><label><input type="checkbox"><strong>3.</strong> Polish your third (final) plot by updating the labels and theme (we’ll cover theme modifications during <a href="../../course-materials/discussion/week4/week4-slides.html#theme" target="_blank">week 4 discussion section</a>, so you may consider waiting until then). List out the changes you made to your plot’s theme (e.g.&nbsp;“updated axis text size”, “removed minor gridlines”, etc.). <span class="peach-text"><strong>(a bullet list here is fine)</strong></span></label></li>
 <li><label><input type="checkbox"><strong>4.</strong> Describe two or more challenges you encountered while deciding on / creating your plots – these can be conceptual (e.g.&nbsp;challenges in determining how to best represent your data) and / or technical (e.g.&nbsp;code-based challenges). <span class="peach-text"><strong>(4-8 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>5.</strong> Add alt text to your final visualization following the formula discussed during <a href="https://samanthacsik.github.io/EDS-240-data-viz/course-materials/discussion/week2/week2-alt-text.html#/title-slide">week 2’s discussion section</a> and using the <code>#| fig-alt:</code> code chunk option.</label></li>
+<li><label><input type="checkbox"><strong>5.</strong> Add alt text to your final visualization following the formula discussed during <a href="../../course-materials/discussion/week3/week3-slides.html#alt-text-formula" target="_blank">week 3’s discussion section</a> and using the <code>#| fig-alt:</code> code chunk option.</label></li>
 </ul>
+</section>
 </section>
 <section id="rubric-specifications" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-specifications">Rubric (specifications)</h2>
@@ -440,12 +470,12 @@ Data viz creation tips
 <li><label><input type="checkbox">include your preferred name, and if you feel comfortable, your preferred pronouns in the author field of the <code>Part1.qmd</code> YAML</label></li>
 <li><label><input type="checkbox">answer the three Part 1a questions, adhering to the length requirements specified at the end of each question prompt</label></li>
 <li><label><input type="checkbox">create three different plots (two unpolished exploratory data visualizations and one polished final plot) in accordance with Part 1b instructions (<strong>NOTE:</strong> there isn’t necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses)</label></li>
-<li><label><input type="checkbox">code should be clearly organized and annotated following conventions and guidelines outlined in the <a href="https://samanthacsik.github.io/EDS-240-data-viz/clean-code-guide.html">Writing clean code</a> page on the course website</label></li>
+<li><label><input type="checkbox">code should be clearly organized and annotated following conventions and guidelines outlined in the <a href="../../clean-code-guide.html" target="_blank">Writing clean code</a> page on the course website</label></li>
 <li><label><input type="checkbox">answer the five Part 1b questions, adhering to the length requirements specified at the end of each question prompt</label></li>
 <li><label><input type="checkbox">add alt text to your final visualization in accordance with Part 1b instructions</label></li>
 <li><label><input type="checkbox">we should be able to run individual lines / chunks of code <em>and</em> render <code>Part1.qmd</code> without errors</label></li>
 <li><label><input type="checkbox">all three plot outputs should appear in your rendered doc</label></li>
-<li><label><input type="checkbox">push your completed <code>Part1.qmd</code> to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/03/2024</label></li>
+<li><label><input type="checkbox">push your completed <code>Part1.qmd</code> to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025</label></li>
 </ul>
 <p><br></p>
 <div class="center-text large-fa-icon teal-text">
@@ -458,7 +488,7 @@ Data viz creation tips
 <h1><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your own data</span></h1>
 <section id="learning-outcomes-1" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes-1">Learning Outcomes</h2>
-<p><strong>Note:</strong> This part of HW #2 is a continuation of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a> and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):</p>
+<p><strong>Note:</strong> This part of HW #2 is a continuation of <a href="../../course-materials/assignments/HW1.html#hw1-p2" target="_blank">HW #1, Part II</a> and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):</p>
 <ul>
 <li>identify which types of visualizations are most appropriate for your data and your audience</li>
 <li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>

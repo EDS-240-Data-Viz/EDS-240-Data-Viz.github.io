@@ -1,16 +1,14 @@
 ---
 title: "Assignment #2 (HW #2)"
-subtitle: "Assigned Mon 01/22/2024 | Due Sat 02/03/2024"
+subtitle: "Assigned Mon 01/20/2025 | Due Sat 02/01/2025"
 ---
 
-::: {.center-text}
-<div class="pink-box">
-***You must earn a "Satisfactory" mark for each individual Part (I and II) to earn a "Satisfactory" mark for Assignment #2.***
+::: {.callout-important}
+## You must earn a "Satisfactory" mark for each individual Part (I and II) to earn a "Satisfactory" mark for Assignment #1.
 
 **NOTE:** Assignments are to be submitted via GitHub Classrooms, unless otherwise noted. Each student receives one "free pass" for not submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
 
 **Read each part of the assignment carefully**, and use the check boxes to ensure you've addressed all elements of the assignment!
-</div>
 :::
 
 # [Part I: Choosing the right graphic form]{.pink-text}
@@ -23,13 +21,17 @@ subtitle: "Assigned Mon 01/22/2024 | Due Sat 02/03/2024"
 
 ## Description 
 
-In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we've learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the [Santa Barbara Coastal LTER](https://sbclter.msi.ucsb.edu/). **Unfold the following note to read more about the data before continuing on (collapsed to save space):**
+In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we've learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the [Santa Barbara Coastal LTER](https://sbclter.msi.ucsb.edu/){target="_blank"}. 
+
+### 1a. Background reading
+
+Unfold the following note to read more about the data before continuing on (collapsed to save space):
 
 ::: {.callout-note icon=false collapse=true}
 ## Learn about the data:
 
 #### About SBC LTER
-The [Santa Barbara Coastal Long Term Ecological Research](https://sbclter.msi.ucsb.edu/) (SBC LTER) site was established in 2000 as part of the [LTER Network](https://lternet.edu/) to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full [data catalog](https://sbclter.msi.ucsb.edu/data/catalog/).
+The [Santa Barbara Coastal Long Term Ecological Research](https://sbclter.msi.ucsb.edu/){target="_blank"} (SBC LTER) site was established in 2000 as part of the [LTER Network](https://lternet.edu/){target="_blank"} to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full [data catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}.
 
 #### About the data set
 
@@ -41,7 +43,7 @@ There are five coastal rocky reef research sites at which the SBC LTER collects 
 - Mohawk Reef (MOHK)
 - Carpinteria Reef (CARP)
 
-In January 2012, [Naples Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples) and [Isla Vista Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point) were [designated as Marine Protected Areas](https://www.parks.ca.gov/?page_id=27928) (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the [metadata](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77) for more information.  
+In January 2012, [Naples Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples){target="_blank"} and [Isla Vista Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point){target="_blank"} were [designated as Marine Protected Areas](https://www.parks.ca.gov/?page_id=27928){target="_blank"} (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the [metadata](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} for more information.  
 
 #### Data citation
 
@@ -51,9 +53,9 @@ Reed, D, R. Miller. 2023. SBC LTER: Reef: Abundance, size and fishing effort for
 
 *Knowing how to search for data can be tricky! Here's how I accessed this particular data set, should you want to search for LTER data yourself, in the future:*
 
-1. **Filter the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/)** for data sets related to **Reef/Kelp Forest** habitats (check the box next to the habitat type of interest, or filter by measurement type or LTER Core Research Area). This produces a table of data collections, descriptions, and links to individual data and metadata records.
-2. **Choose a data set of interest.** I was interested in the *SBC LTER: Spiny lobster in California* Collection, which includes three different data sets. I specifically chose, [Lobster abundace, size, and fishing pressure](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77) -- here, you'll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you'll see a link to the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77) (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected -- each update receives a new DOI).
-3. **Download or import the data.** You can download the data file from either the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77) *or* the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77). *However* I prefer reading in the data directly from online (that way, I don't need to worry about storing large data files). I recommend doing this from the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77) (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the *Download Data* button, then select *Copy Link Address*.
+1. **Filter the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}** for data sets related to **Reef/Kelp Forest** habitats by checking the appropriate box. This produces a table of data collections, descriptions, and links to individual data and metadata records.
+2. **Choose a data set of interest.** I was interested in the *SBC LTER: Spiny lobster in California* Collection, which includes three different data sets. I specifically chose, [Lobster abundace, size, and fishing pressure](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} -- here, you'll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you'll see a link to the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected -- each update receives a new DOI).
+3. **Download or import the data.** You can download the data file from either the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} *or* the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"}. *However* I prefer reading in the data directly from online (that way, I don't need to worry about storing large data files). I recommend doing this from the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the *Download Data* button, then select *Copy Link Address*.
 
 ```{r}
 #| eval: true
@@ -73,22 +75,24 @@ lobster_data <- read_csv("https://portal.edirepository.org/nis/dataviewer?packag
 
 :::
 
-***Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).*** 
+### 1b. Data wrangling
+
+**Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).**
 
 This will first require some data exploration and wrangling. Some tips (unfold below):
 
 ::: {.callout-tip icon=false collapse=true}
 ## Data exploration & wrangling tips
 
-[**Data exploration tips:**]{.body-text-l .dark-blue-text}
+#### Data exploration tips: 
 
 - Use `glimpse()` and / or `str()` to check out your variables and data types
 - Use `names()` to return all column names
 - Extract unique elements using `unique(df$column_name)`
 - Open up the spreadsheet-style data viewer using `View(df)`
-- Be sure to review the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9) (including methods & protocols) to fully understand the data
+- Be sure to review the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9){target="_blank"} (including methods & protocols) to fully understand the data
 
-[**Data wrangling tips:**]{.body-text-l .dark-blue-text}
+#### Data wrangling tips:
 
 - I love starting all my cleaning pipelines with `janitor::clean_names()` to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)
 - You'll want to keep just the years of interest
@@ -97,10 +101,12 @@ This will first require some data exploration and wrangling. Some tips (unfold b
 - I often find that I'll need to return to my data wrangling pipeline again *after* I start plotting my data --  it's at this stage that I'll often catch variables that are the wrong data type (e.g. numeric, factor, character) for plotting and need to make the appropriate updates.
 :::
 
-[**(Part 1a) After exploring and wrangling your data, answer the following questions:**]{.teal-text}
+### 1c. Answer questions
+
+<!-- [**(Part 1a) After exploring and wrangling your data, answer the following questions:**]{.teal-text} -->
 
 - [ ] **1.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they? [**(a bullet point list here is fine)**]{.peach-text}
-- [ ] **2.** Using [From Data to Viz](https://www.data-to-viz.com/), identify which graphic forms / geoms are appropriate, given your data. List them out. [**(a bullet point list here is fine)**]{.peach-text}
+- [ ] **2.** Using [From Data to Viz](https://www.data-to-viz.com/){target="_blank"}, identify which graphic forms / geoms are appropriate, given your data. List them out. [**(a bullet point list here is fine)**]{.peach-text}
 - [ ] **3.** Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc. [**(3-4 sentences)**]{.peach-text}
 
 Now that you've explored and starting wrangling your data, it's time to create some plots. It's often important to try out multiple graphic forms (e.g. `geom_*()`s) as you decide which is the most effective way of presenting your data. This process is commonly referred to as **Exploratory Data Analysis or Exploratory Data Visualization**. Some tips (unfold below):
@@ -115,14 +121,16 @@ Now that you've explored and starting wrangling your data, it's time to create s
 - We created a number of different plot types together in class, exploring different geoms and some of the arguments that each ggplot layer can take. Be sure to take a look back at the lecture materials, but also know that you may need to reference documentation and / or online examples to create / modify your intended visualizations.
 :::
 
-[**(Part 1b) Complete the following:**]{.teal-text}
+### 1d. Create data viz
+
+<!-- [**(Part 1b) Complete the following:**]{.teal-text} -->
 
 - [ ] Create at least **three** different plots as part of your exploratory data visualization phase to test out which graphic forms / geoms works best. Your last plot should be the version that you feel is best suited for presenting your data. (***NOTE:** Your first two plots do not need to be at all polished -- during the exploratory data visualization phase, we're most concerned with choosing a graphic form / geom(s) for effectively presenting our data.*) 
 -  [ ] **1.** Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3. [**(5-8 sentences)**]{.peach-text}
 - [ ] **2.** (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g. updating colors, moving or removing legends, highlighting groups, ordering groups) -- be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not? [**(2-5 sentences)**]{.peach-text}
-- [ ] **3.** Polish your third (final) plot by updating the labels and theme (we'll cover theme modifications during [week 4 discussion section](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week4.html#discussion-materials), so you may consider waiting until then). List out the changes you made to your plot's theme (e.g. "updated axis text size", "removed minor gridlines", etc.). [**(a bullet list here is fine)**]{.peach-text}
+- [ ] **3.** Polish your third (final) plot by updating the labels and theme (we'll cover theme modifications during [week 4 discussion section](../discussion/week4/week4-slides.qmd#theme){target="_blank"}, so you may consider waiting until then). List out the changes you made to your plot's theme (e.g. "updated axis text size", "removed minor gridlines", etc.). [**(a bullet list here is fine)**]{.peach-text}
 - [ ] **4.** Describe two or more challenges you encountered while deciding on / creating your plots -- these can be conceptual (e.g. challenges in determining how to best represent your data) and / or technical (e.g. code-based challenges). [**(4-8 sentences)**]{.peach-text}
-- [ ] **5.** Add alt text to your final visualization following the formula discussed during [week 2's discussion section](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/discussion/week2/week2-alt-text.html#/title-slide) and using the `#| fig-alt:` code chunk option.
+- [ ] **5.** Add alt text to your final visualization following the formula discussed during [week 3's discussion section](../discussion/week3/week3-slides.qmd#alt-text-formula){target="_blank"} and using the `#| fig-alt:` code chunk option.
 
 ## Rubric (specifications)
 
@@ -133,12 +141,12 @@ You must complete the following, as detailed below, to receive a "Satisfactory" 
 - [ ] include your preferred name, and if you feel comfortable, your preferred pronouns in the author field of the `Part1.qmd` YAML
 - [ ] answer the three Part 1a questions, adhering to the length requirements specified at the end of each question prompt
 - [ ] create three different plots (two unpolished exploratory data visualizations and one polished final plot) in accordance with Part 1b instructions (**NOTE:** there isn't necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses)
-- [ ] code should be clearly organized and annotated following conventions and guidelines outlined in the [Writing clean code](https://samanthacsik.github.io/EDS-240-data-viz/clean-code-guide.html) page on the course website
+- [ ] code should be clearly organized and annotated following conventions and guidelines outlined in the [Writing clean code](../../clean-code-guide.qmd){target="_blank"} page on the course website
 - [ ] answer the five Part 1b questions, adhering to the length requirements specified at the end of each question prompt
 - [ ] add alt text to your final visualization in accordance with Part 1b instructions
 - [ ] we should be able to run individual lines / chunks of code *and* render `Part1.qmd` without errors
 - [ ] all three plot outputs should appear in your rendered doc
-- [ ] push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/03/2024
+- [ ] push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025
 
 <br>
 
@@ -152,7 +160,7 @@ You must complete the following, as detailed below, to receive a "Satisfactory" 
 
 ## Learning Outcomes
 
-**Note:** This part of HW #2 is a continuation of [HW #1, Part II](HW1.qmd#hw1-p2) and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):
+**Note:** This part of HW #2 is a continuation of [HW #1, Part II](HW1.qmd#hw1-p2){target="_blank"} and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):
 
 - identify which types of visualizations are most appropriate for your data and your audience
 - prepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations
