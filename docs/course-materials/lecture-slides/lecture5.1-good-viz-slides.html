@@ -401,7 +401,7 @@
 <p><span class="custom-title">EDS 240: Lecture 5.1</span></p>
 <p><span class="custom-subtitle"><em>What makes a good data viz?</em></span></p>
 <hr class="hr-teal">
-<p><span class="custom-subtitle3">Week 5 | February 5<sup>th</sup>, 2024</span></p>
+<p><span class="custom-subtitle3">Week 5 | February 3<sup>rd</sup>, 2025</span></p>
 </section>
 <section id="looking-forward" class="slide level2" data-menu-title="Looking forward">
 <h2></h2>
@@ -459,7 +459,7 @@
 <li class="fragment"><strong>color choices</strong> (incl.&nbsp;palette types, emotions, readability)</li>
 <li class="fragment">how to <strong>tell an interesting story</strong></li>
 <li class="fragment">how to <strong>center the people and communities</strong> represented in your data</li>
-<li class="fragment"><strong>accessibility</strong> through colorblind-friendly palettes &amp; alt text (see <a href="https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials">week 2 discussion</a>)</li>
+<li class="fragment"><strong>accessibility</strong> through colorblind-friendly palettes &amp; alt text</li>
 </ul>
 </div>
 <div class="fragment">
@@ -483,7 +483,7 @@
 <li><span class="gray-text"><strong>color choices</strong> (incl.&nbsp;palette types, emotions, readability)</span></li>
 <li><span class="gray-text">how to <strong>tell an interesting story</strong></span></li>
 <li><span class="gray-text">how to <strong>center the people and communities</strong> represented in your data</span></li>
-<li><span class="gray-text"><strong>accessibility</strong> through colorblind-friendly palettes &amp; alt text (see <a href="https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials">week 2 discussion</a>)</span></li>
+<li><span class="gray-text"><strong>accessibility</strong> through colorblind-friendly palettes &amp; alt text</span></li>
 </ul>
 <div class="center-text teal-text">
 <p><strong>We’re going to talk about these first few points, to start.</strong></p>
@@ -501,7 +501,7 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 <h2></h2>
 <p><span class="slide-title">Data-Ink ratio: remove non-data ink</span></p>
 <hr>
-<p><span class="body-text-s">The <a href="https://infovis-wiki.net/wiki/Data-Ink_Ratio">Data-Ink ratio</a> was introduced by Edward Tufte (<a href="https://faculty.salisbury.edu/~jtanderson/teaching/cosc311/fa21/files/tufte.pdf">1983</a>) and argues that <strong>non-data-ink</strong> (i.e.&nbsp;ink used for for everything <em>except</em> the presentation of data itself) <strong>should be removed wherever possible</strong>.</span></p>
+<p><span class="body-text-s">The <a href="https://infovis-wiki.net/wiki/Data-Ink_Ratio" target="_blank">Data-Ink ratio</a> was introduced by Edward Tufte (<a href="https://www.edwardtufte.com/book/the-visual-display-of-quantitative-information/" target="_blank">1983</a>) and argues that <strong>non-data-ink</strong> (i.e.&nbsp;ink used for for everything <em>except</em> the presentation of data itself) <strong>should be removed wherever possible</strong>.</span></p>
 <p><span class="math display">\[
 \text{Data-ink ratio} = \frac{\text{Data-ink}}{\text{Total ink used to print the graphic}}
 \]</span></p>
@@ -548,7 +548,7 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 <ul>
 <li><p>Eliminating lots of non-data ink <strong>may render visualizations difficult to read</strong></p>
 <ul>
-<li><a href="https://doi.org/10.1145/1362550.1362587">Inbar et al.&nbsp;(2007)</a> found that students preferred a more maximalist visualization design over the minimalist version proposed by Tufte</li>
+<li><a href="https://doi.org/10.1145/1362550.1362587" target="_blank">Inbar et al.&nbsp;(2007)</a> found that students preferred a more maximalist visualization design over the minimalist version proposed by Tufte</li>
 </ul></li>
 </ul>
 </div>
@@ -631,9 +631,9 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 </div>
 </div></div>
 <div class="fragment">
-<p>Of course, a visualization like this wouldn’t be appropriate for all audiences / contexts (e.g.&nbsp;scientific journal). <em>But</em>, despite the removal of axes / text / legend, a reader could still walk away with the same type of information.</p>
+<p>A visualization like this might not be appropriate for all audiences / contexts (e.g.&nbsp;scientific journal) – <em>but</em> the takeaways remain clear, despite the removal of axes / text / legend.</p>
 <div class="footer">
-<p>See the third visualization in <a href="https://www.bbc.com/future/article/20240206-hannah-ritchie-sustainability-data-spreads-hope-not-doomism">this BBC article</a> for an “in the wild” example.</p>
+<p>See the third visualization in <a href="https://www.bbc.com/future/article/20240206-hannah-ritchie-sustainability-data-spreads-hope-not-doomism" target="_blank">this BBC article</a> for an “in the wild” example.</p>
 </div>
 </div>
 </section>
@@ -676,13 +676,13 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 </div>
 </div>
 </div></div>
-<p><span class="body-text-s">Also note the redundant <code>species</code> mapping (color and shape) – sometime redundancy is important for accessibility!</span></p>
+<p>Also note the redundant <code>species</code> mapping (color and shape) – sometime redundancy is important for accessibility!</p>
 </section>
 <section id="legend-ggtext" class="slide level2" data-menu-title="Move the legend (ggtext)">
 <h2></h2>
 <p><span class="slide-title2">Move the legend (incorporate into title text)</span></p>
 <hr>
-<p><span class="body-text-s">Reduce eye movement and excess ink by including legend info in the plot (sub)title (here, using the <a href="https://wilkelab.org/ggtext/"><code>{ggtext}</code> package</a>; minimal code example, below):</span></p>
+<p>Reduce eye movement and excess ink by including legend info in the plot (sub)title (here, using the <a href="https://wilkelab.org/ggtext/" target="_blank"><code>{ggtext}</code> package</a>; minimal code example, below):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>plot <span class="sc">+</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Some subtitle text where &lt;span style='color:red;'&gt;**these words**&lt;/span&gt; are bolded and red"</span>) <span class="sc">+</span></span>
@@ -722,7 +722,7 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 <h2></h2>
 <p><span class="slide-title">Move the legend (use direct labels)</span></p>
 <hr>
-<p><span class="body-text-s">Reduce eye movement and excess ink by including legend info as direct labels on the plot (here, using the <a href="https://allancameron.github.io/geomtextpath/"><code>{geomtextpath}</code> package</a>; minimal code example, below):</span></p>
+<p>Reduce eye movement and excess ink by including legend info as direct labels on the plot (here, using the <a href="https://allancameron.github.io/geomtextpath/" target="_blank"><code>{geomtextpath}</code> package</a>; minimal code example, below):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
@@ -786,11 +786,11 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 </div>
 </div></div>
 <div class="center-text gray-text body-text-s">
-<p><a href="https://questionsindataviz.com/2018/01/06/is-white-space-always-your-friend/">Is white space always your friend?</a>, by Neil Richards</p>
+<p><a href="https://questionsindataviz.com/2018/01/06/is-white-space-always-your-friend/" target="_blank">Is white space always your friend?</a>, by Neil Richards</p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_35e340f2" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_176308ee" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -805,13 +805,12 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 <p>“The key thing we do is to add a title to the chart, as an entry point and to explain what is going on. <strong>Text and other annotations add enourmous value for non-chart people.</strong>”</p>
 </blockquote>
 <div class="right-align-text body-text-s">
-<p>-<a href="https://www.ft.com/john-burn-murdoch">John Burn-Murdoch</a>, Financial Times</p>
+<p>-<a href="https://www.ft.com/john-burn-murdoch" target="_blank">John Burn-Murdoch</a>, Financial Times</p>
 </div>
 <p><br></p>
 
-<img data-src="images/week5/burn-murdoch-covid.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><br></p>
-<div class="center-text body-text-s gray-text">
-<p><a href="https://www.ft.com/content/e26c93a0-90e7-4dec-a796-3e25e94bc59b">Vaccines and Omicron mean Covid now less deadly than flu in England</a>, by John Burn-Murdoch</p>
+<img data-src="images/week5/burn-murdoch-covid.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="footer">
+<p><a href="https://www.ft.com/content/e26c93a0-90e7-4dec-a796-3e25e94bc59b" target="_blank">Vaccines and Omicron mean Covid now less deadly than flu in England</a>, by John Burn-Murdoch</p>
 </div>
 </section>
 <section id="put-in-context" class="slide level2" data-menu-title="# Provide context #" data-background="#047C90">
@@ -821,31 +820,9 @@ Simplify plots to reduce eye movement &amp; improve readability / interpretabili
 Consider ways to provide additional context for your data
 </p>
 </div>
-<!-- --- -->
-<!-- ## {#wilke-context data-menu-title="Provide context"}  -->
-<!-- [Plot groups against the whole when faceting]{.slide-title2} -->
-<!-- <hr> -->
-<!-- <br> -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week4/wilke-context-overlapping.png") -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: {.column width="50%"} -->
-<!-- ::: -->
-<!-- :::: -->
-<!-- ::: {.center-text .gray-text .body-text-s} -->
-<!-- *Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/histograms-density-plots.html), by Claus Wilke* -->
-<!-- ::: -->
 </section>
 <section id="wilke-context" class="slide level2" data-menu-title="Provide context">
 <h2></h2>
-<!-- visibility="uncounted" -->
 <p><span class="slide-title2">Plot groups against the whole when faceting</span></p>
 <hr>
 <p>Facets (aka small multiples) allow us to more easily view individual groups. Here, the author plots individual groups (male vs.&nbsp;female passenger distributions on the Titanic) against the data set total (distribution of all passengers):</p>
@@ -879,7 +856,7 @@ Consider ways to provide additional context for your data
 </div>
 </div></div>
 <div class="footer">
-<p>Example from <a href="https://clauswilke.com/dataviz/histograms-density-plots.html">Fundamentals of Data Visualization</a>, by Claus Wilke. For an example with code, check out <a href="https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.2-distributions-slides.html#/scaled-density">this slide</a> from Lecture 3.2</p>
+<p>Example from <a href="https://clauswilke.com/dataviz/histograms-density-plots.html" target="_blank">Fundamentals of Data Visualization</a>, by Claus Wilke. For an example with code, check out <a href="../../course-materials/lecture-slides/lecture2.2-distributions-slides.html#scaled-density" target="_blank">this slide</a> from Lecture 2.2</p>
 </div>
 </section>
 <section id="benchmark-values" class="slide level2" data-menu-title="Benchmark values">
@@ -908,7 +885,7 @@ Consider ways to provide additional context for your data
 <span id="cb5-4"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">21</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
-<p><span class="body-text-s"><strong>Fig cap:</strong> Temporal Variation in Bottom Temperature. Monthly bottom (4.5 m depth) temperatures at Mohawk Reef (34.396290, -119.731297) in Santa Barbara, CA compiled from 2005-2017. Vertical dashed lines represent three of four treatment temperatures (11, 16, 21°C). Data Source: Santa Barbara Coastal Long-Term Ecological Research group (adapted from <a href="https://doi.org/10.3389/fmars.2023.1072807">Csik et al.&nbsp;2023</a>)</span></p>
+<p><span class="body-text-s"><strong>Fig cap:</strong> Temporal Variation in Bottom Temperature. Monthly bottom (4.5 m depth) temperatures at Mohawk Reef (34.396290, -119.731297) in Santa Barbara, CA compiled from 2005-2017. Vertical dashed lines represent three of four treatment temperatures (11, 16, 21°C). Data Source: Santa Barbara Coastal Long-Term Ecological Research group (adapted from <a href="https://doi.org/10.3389/fmars.2023.1072807" target="_blank">Csik et al.&nbsp;2023</a>)</span></p>
 </section>
 <section id="1-1-line" class="slide level2" data-menu-title="1:1 line">
 <h2></h2>
@@ -959,7 +936,7 @@ Consider ways to provide additional context for your data
 </div>
 </div></div>
 <div class="footer">
-<p>Example from <a href="https://clauswilke.com/dataviz/balance-data-context.html">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
+<p>Example from <a href="https://clauswilke.com/dataviz/balance-data-context.html" target="_blank">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
 </div>
 </section>
 <section id="draw-attention" class="slide level2" data-menu-title="# Draw attention #" data-background="#047C90">
@@ -974,7 +951,7 @@ Draw attention to important information / values
 <h2></h2>
 <p><span class="slide-title">Use color to highlight groups / values</span></p>
 <hr>
-<p>Highlight data by coloring groups of interest either manually or by using helpful packages, like <code>{gghighlight}</code> (we saw an example of this in <a href="https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.3-evolution-slides.html#/spaghetti-plot">lecture 3.3</a>):</p>
+<p>Highlight data by coloring groups of interest either manually or by using helpful packages, like <code>{gghighlight}</code> (we saw an example of this in <a href="../../course-materials/lecture-slides/lecture2.3-evolution-slides.html#spaghetti-plot" target="_blank">lecture 2.3</a>):</p>
 <p><br></p>
 
 <img data-src="lecture5.1-good-viz-slides_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
@@ -982,7 +959,7 @@ Draw attention to important information / values
 <h2></h2>
 <p><span class="slide-title2">Use annotations to highlight groups / values</span></p>
 <hr>
-<p>Or add annotations to your plots to call attention to data of interest (here, shown using the <a href="https://ggforce.data-imaginist.com/index.html"><code>{ggforce}</code> package</a>; minimal code example, below):</p>
+<p>Or add annotations to your plots to call attention to data of interest (here, shown using the <a href="https://ggforce.data-imaginist.com/index.html" target="_blank"><code>{ggforce}</code> package</a>; minimal code example, below):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>plot <span class="sc">+</span> </span>
 <span id="cb6-2"><a></a>  ggforce<span class="sc">::</span><span class="fu">geom_mark_ellipse</span>(<span class="fu">aes</span>(<span class="at">filter =</span> species <span class="sc">==</span> <span class="st">"Gentoo"</span>, <span class="at">label =</span> <span class="st">"Gentoo penguins"</span>, </span>
@@ -1068,7 +1045,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div>
 </div>
 <div class="fragment">
-<p><br> <br> <br></p>
+<p><br></p>
 <div class="center-text body-text-m">
 <p>There <em>may</em> be circumstances where the above are executed well…but more often than not, you’re safest avoiding them.</p>
 </div>
@@ -1078,30 +1055,30 @@ What <em>doesn’t</em> work so well in data visualization?
 <h2></h2>
 <p><span class="slide-title">Information overload is no fun . . .</span></p>
 <hr>
-<p>It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
+<p>It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
 
 <img data-src="images/week5/overload-map.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="center-text body-text-s gray-text">
-<p><em>Source: <a href="https://gis.stackexchange.com/a/3132">Stack Exchange</a></em></p>
+<p><em>Source: <a href="https://gis.stackexchange.com/a/3132" target="_blank">Stack Exchange</a></em></p>
 </div>
 </section>
 <section id="info-overload-scatter" class="slide level2" data-menu-title="Info overload" data-visibility="uncounted">
 <h2></h2>
 <p><span class="slide-title">Information overload is no fun . . .</span></p>
 <hr>
-<p>It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
+<p>It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
 
 <img data-src="images/week5/idk-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="center-text body-text-s gray-text">
-<p><em>Source: Unknown, but borrowed from Allison Horst’s <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_25">lecture</a></em></p>
+<p><em>Source: Unknown, but borrowed from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_25" target="_blank">EDS 221</a></em></p>
 </div>
 </section>
 <section id="info-overload-parallel" class="slide level2" data-menu-title="Info overload" data-visibility="uncounted">
 <h2></h2>
 <p><span class="slide-title">Information overload is no fun . . .</span></p>
 <hr>
-<p>It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
+<p>It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won’t want to take the time to even try):</p>
 
 <img data-src="images/week5/parallel-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="center-text body-text-s gray-text">
-<p><em>Source: Unknown, but borrowed from Allison Horst’s <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_30">lecture</a></em></p>
+<p><em>Source: Unknown, but borrowed from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_25" target="_blank">EDS 221</a></em></p>
 </div>
 </section>
 <section id="info-overload-fixes" class="slide level2" data-menu-title="Overwhelming map">
@@ -1120,10 +1097,10 @@ What <em>doesn’t</em> work so well in data visualization?
 <div class="fragment">
 <p><span class="body-text-m">Or some that we haven’t covered:</span></p>
 <ul>
-<li>create <strong>interactive</strong> tables and / or visualizations using <a href="https://www.htmlwidgets.org/">htmlwidgets</a> (e.g.&nbsp;<a href="https://rstudio.github.io/leaflet/">leaflet</a> maps, <a href="https://plotly.com/r/">plotly</a>, charts, <a href="https://rstudio.github.io/DT/">DT</a> data tables)</li>
-<li>create <strong>reactive</strong> outputs using tools like <a href="https://shiny.posit.co/"><code>{shiny}</code></a>
+<li>create <strong>interactive</strong> tables and / or visualizations using <a href="https://www.htmlwidgets.org/" target="_blank">htmlwidgets</a> (e.g.&nbsp;<a href="https://rstudio.github.io/leaflet/" target="_blank">leaflet</a> maps, <a href="https://plotly.com/r/" target="_blank">plotly</a>, charts, <a href="https://rstudio.github.io/DT/" target="_blank">DT</a> data tables)</li>
+<li>create <strong>reactive</strong> outputs using tools like <a href="https://shiny.posit.co/" target="_blank"><code>{shiny}</code></a>
 <ul>
-<li>check out the <a href="https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/">EDS 430 (Intro to Shiny)</a> materials as a starting point!</li>
+<li>check out the <a href="https://ucsb-meds.github.io/EDS-296-Intro-to-Shiny/" target="_blank">EDS 296 (Intro to Shiny)</a> materials as a starting point!</li>
 </ul></li>
 </ul>
 </div>
@@ -1132,7 +1109,7 @@ What <em>doesn’t</em> work so well in data visualization?
 <h2></h2>
 <p><span class="slide-title2">Dual y-axes can deliberately mislead readers</span></p>
 <hr>
-<p><span class="body-text-s"><strong>The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.</strong> Let’s take this example using real <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&amp;start=1960&amp;view=chart">Worldbank data</a> for the German GDP and the global GDP between 2004 and 2016:</span></p>
+<p><span class="body-text-s"><strong>The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.</strong> Let’s take this example using real <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&amp;start=1960&amp;view=chart" target="_blank">Worldbank data</a> for the German GDP and the global GDP between 2004 and 2016:</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br> <br></p>
@@ -1149,14 +1126,14 @@ What <em>doesn’t</em> work so well in data visualization?
 
 </div></div>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="dual-axes2" class="slide level2" data-menu-title="Dual axes 2" data-visibility="uncounted">
 <h2></h2>
 <p><span class="slide-title2">Dual y-axes can deliberately mislead readers</span></p>
 <hr>
-<p><span class="body-text-s"><strong>The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.</strong> Let’s take this example using real <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&amp;start=1960&amp;view=chart">Worldbank data</a> for the German GDP and the global GDP between 2004 and 2016:</span></p>
+<p><span class="body-text-s"><strong>The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.</strong> Let’s take this example using real <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&amp;start=1960&amp;view=chart" target="_blank">Worldbank data</a> for the German GDP and the global GDP between 2004 and 2016:</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br> <br></p>
@@ -1182,7 +1159,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div></div>
 <p><span class="body-text-s">While both GDPs may appear to increase at the about same rate, they actually don’t – global GDP increased by 80% until 2014, while the German GDP increased by 40%.</span></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 <aside class="notes">
 <p>The proportions of the two scales are often different from each other in dual axis charts. If the left axis would go down to zero, the chart would be twice as long. If the right axis would go down to zero, the chart would be almost three times as long. This is how both axes look like when we extend them to zero.</p>
@@ -1243,19 +1220,19 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/dual-two-charts.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="dual-axes-alt-indexed" class="slide level2" data-menu-title="Dual axes (alt: indexed)">
 <h2></h2>
 <p><span class="slide-title2">Alternatives to dual y-axes: indexed charts</span></p>
 <hr>
-<p><strong>Indexed charts</strong> show the <em>relative change</em> (percentage increase or decrease) of a data series over time. Consider adding labels or tooltips (e.g.&nbsp;using <a href="https://plotly.com/r/"><code>{plotly}</code></a>) to include important absolute numbers.</p>
+<p><strong>Indexed charts</strong> show the <em>relative change</em> (percentage increase or decrease) of a data series over time. Consider adding labels or tooltips (e.g.&nbsp;using <a href="https://plotly.com/r/" target="_blank"><code>{plotly}</code></a>) to include important absolute numbers.</p>
 <p><br></p>
 
 <img data-src="images/week5/dual-axes-indexed.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="dual-axes-alt-prioritize" class="slide level2" data-menu-title="Dual axes (alt: prioritize / label)">
@@ -1267,7 +1244,7 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/dual-labeling.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="dual-axes-alt-connected-scatter" class="slide level2" data-menu-title="Dual axes (alt: connected scatterplot)">
@@ -1279,7 +1256,7 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/connected-scatterplot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/dualaxis/">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
+<p>Example from <a href="https://blog.datawrapper.de/dualaxis/" target="_blank">Why not to use two axes, and what to use instead</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="pie-charts1" class="slide level2" data-menu-title="Pie charts (single pie)">
@@ -1304,7 +1281,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div></div>
 <p><br></p>
 <div class="footer">
-<p>Examples from <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_66">Allison Horst</a>, who adapted from <a href="https://www.data-to-viz.com/caveat/pie.html">From Data to Viz</a></p>
+<p>Examples from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66" target="_blank">EDS 221</a>, adapted from <a href="https://www.data-to-viz.com/caveat/pie.html" target="_blank">From Data to Viz</a></p>
 </div>
 </section>
 <section id="pie-charts2" class="slide level2" data-menu-title="Pie charts (single pie + bar)" data-visibility="uncounted">
@@ -1337,7 +1314,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div></div>
 <p><br></p>
 <div class="footer">
-<p>Examples from <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_66">Allison Horst</a>, who adapted from <a href="https://www.data-to-viz.com/caveat/pie.html">From Data to Viz</a></p>
+<p>Examples from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66" target="_blank">221</a>, adapted from <a href="https://www.data-to-viz.com/caveat/pie.html" target="_blank">From Data to Viz</a></p>
 </div>
 </section>
 <section id="pie-charts3" class="slide level2" data-menu-title="Pie charts (multiple)">
@@ -1349,7 +1326,7 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/multiple-pies.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p><br></p>
 <div class="footer">
-<p>Examples from <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_66">Allison Horst</a>, who adapted from <a href="https://www.data-to-viz.com/caveat/pie.html">From Data to Viz</a></p>
+<p>Examples from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66" target="_blank">EDS 221</a>, adapted from <a href="https://www.data-to-viz.com/caveat/pie.html" target="_blank">From Data to Viz</a></p>
 </div>
 </section>
 <section id="good-pie" class="slide level2" data-menu-title="Good pie">
@@ -1369,7 +1346,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div>
 </div>
 <div class="center-text body-text-s gray-text">
-<p><em>ABC Enterprise Sales. Source: <a href="https://www.mindtools.com/ahb9niu/how-to-use-charts-and-graphs-effectively">How to Use Charts and Graphs Effectively</a>, by MindTools</em></p>
+<p><em>ABC Enterprise Sales. Source: <a href="https://www.mindtools.com/ahb9niu/how-to-use-charts-and-graphs-effectively" target="_blank">How to Use Charts and Graphs Effectively</a>, by MindTools</em></p>
 </div>
 </div><div class="column" style="width:50%;">
 <p><strong>IF</strong> you decide a pie chart is the right option, consider:</p>
@@ -1386,7 +1363,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div></div>
 <p><br></p>
 <div class="footer">
-<p>Examples from <a href="https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.ge99f105fe7_0_66">Allison Horst</a>, who adapted from <a href="https://www.data-to-viz.com/caveat/pie.html">From Data to Viz</a></p>
+<p>Examples from <a href="https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66" target="_blank">EDS 221</a>, adapted from <a href="https://www.data-to-viz.com/caveat/pie.html" target="_blank">From Data to Viz</a></p>
 </div>
 </section>
 <section id="treemap" class="slide level2" data-menu-title="Pie (alt: treemap)">
@@ -1394,7 +1371,7 @@ What <em>doesn’t</em> work so well in data visualization?
 <p><span class="slide-title">Pie chart alternative: treemap</span></p>
 <hr>
 <p><br></p>
-<p>As an alternative to a pie chart, consider <a href="https://www.data-to-viz.com/graph/treemap.html"><strong>treemaps</strong></a>. Treemaps display hierarchical data as a set of nested rectangles – simpler versions can be used to display parts of a whole using rectangles (which are easier for us to estimate than angles).</p>
+<p>As an alternative to a pie chart, consider <a href="https://www.data-to-viz.com/graph/treemap.html" target="_blank"><strong>treemaps</strong></a>. Treemaps display hierarchical data as a set of nested rectangles – simpler versions can be used to display parts of a whole using rectangles (which are easier for us to estimate than angles).</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br></p>
@@ -1408,7 +1385,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div>
 </div>
 <div class="center-text body-text-s gray-text">
-<p><em>Source: <a href="https://www.data-to-viz.com/caveat/pie.html">From Data to Viz</a></em></p>
+<p><em>Source: <a href="https://www.data-to-viz.com/caveat/pie.html" target="_blank">From Data to Viz</a></em></p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -1421,7 +1398,7 @@ What <em>doesn’t</em> work so well in data visualization?
 </div>
 </div>
 <div class="center-text body-text-s gray-text">
-<p><em>Source: <a href="https://wilkox.org/treemapify/"><code>{treemapify}</code> pkgdown site</a></em></p>
+<p><em>Source: <a href="https://wilkox.org/treemapify/" target="_blank"><code>{treemapify}</code> pkgdown site</a></em></p>
 </div>
 </div></div>
 </section>
@@ -1434,19 +1411,19 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/occlusion.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e">Data Visualization: Why 3D charts are a terrible idea</a></p>
+<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e" target="_blank">Data Visualization: Why 3D charts are a terrible idea</a></p>
 </div>
 </section>
 <section id="3d-charts-pers-dist" class="slide level2" data-menu-title="3D charts (perspective distortion)">
 <h2></h2>
-<p><span class="slide-title2">3D charts distort perspective</span></p>
+<p><span class="slide-title">3D charts distort perspective</span></p>
 <hr>
 <p><span class="teal-text"><strong>Perspective distortion:</strong></span> When we view objects in 3D, the objects farther away appear smaller, but our brain perceives them to be of larger size than in the picture:</p>
 <p><br></p>
 
 <img data-src="images/week5/perspective-distortion.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e">Data Visualization: Why 3D charts are a terrible idea</a></p>
+<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e" target="_blank">Data Visualization: Why 3D charts are a terrible idea</a></p>
 </div>
 </section>
 <section id="gratuitous-3d" class="slide level2" data-menu-title="Gratuitous 3D">
@@ -1457,9 +1434,9 @@ What <em>doesn’t</em> work so well in data visualization?
 <p><br></p>
 
 <img data-src="images/week5/3d-pie.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<p><strong>The pie chart on the right is an example of using 3D purely for decorative purposes.</strong> Here, the third dimension doesn’t actually convey any additional data. Claus Wilke <a href="https://clauswilke.com/dataviz/no-3d.html">calls this</a> <strong>gratuitous 3D</strong>, and you should always avoid it.</p>
+<p><strong>The pie chart on the right is an example of using 3D purely for decorative purposes.</strong> Here, the third dimension doesn’t actually convey any additional data. Claus Wilke <a href="https://clauswilke.com/dataviz/no-3d.html" target="_blank">calls this</a> <strong>gratuitous 3D</strong>, and you should always avoid it.</p>
 <div class="footer">
-<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e">Data Visualization: Why 3D charts are a terrible idea</a></p>
+<p>Source: <a href="https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e" target="_blank">Data Visualization: Why 3D charts are a terrible idea</a></p>
 </div>
 </section>
 <section id="3d-position-scales" class="slide level2" data-menu-title="3D charts (Ex: 3D position scales)">
@@ -1469,7 +1446,7 @@ What <em>doesn’t</em> work so well in data visualization?
 <p>A plot with three genuine position scales (x, y, and z) to represent <code>mtcars</code> data (viewed from four different perspectives:</p>
 
 <img data-src="images/week5/3d-fuel-eff.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
+<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html" target="_blank">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
 </div>
 </section>
 <section id="3d-position-scales-alt1" class="slide level2" data-menu-title="3D charts (alt 1)">
@@ -1481,7 +1458,7 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/2d-fuel-eff.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
+<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html" target="_blank">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
 </div>
 </section>
 <section id="3d-position-scales-alt2" class="slide level2" data-menu-title="3D charts (alt 2)">
@@ -1493,7 +1470,7 @@ What <em>doesn’t</em> work so well in data visualization?
 
 <img data-src="images/week5/bubble-fuel-eff.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
+<p>Source: <a href="https://clauswilke.com/dataviz/no-3d.html" target="_blank">Fundamentals of Data Visualization</a>, by Claus Wilke</p>
 </div>
 </section>
 <section id="break-rules" class="slide level2" data-menu-title="# Breaking rules #" data-background="#047C90">
@@ -1514,9 +1491,9 @@ Are there ever opportunties to bend / break the rules &amp; guidelines for creat
 <p><em>However,</em> there are arguments for bending (or breaking) the rules every now and again. Consider the following posts:</p>
 <p><br></p>
 <ul>
-<li><a href="https://medium.economist.com/why-you-sometimes-need-to-break-the-rules-in-data-viz-4d8ece284919">Why you sometimes need to break the rules in data viz</a>, by Rosamund Pearce</li>
-<li><a href="https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.">Master the rules - then break them</a>, by Dieuwertje van Dijk</li>
-<li><a href="https://nightingaledvs.com/does-data-visualization-have-rules-or-is-it-all-just-it-depends/">Does Data Visualization Have Rules? Or Is It All Just “It Depends”?</a>, by Nick Desbarats</li>
+<li><a href="https://medium.economist.com/why-you-sometimes-need-to-break-the-rules-in-data-viz-4d8ece284919" target="_blank">Why you sometimes need to break the rules in data viz</a>, by Rosamund Pearce</li>
+<li><a href="https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way." target="_blank">Master the rules - then break them</a>, by Dieuwertje van Dijk</li>
+<li><a href="https://nightingaledvs.com/does-data-visualization-have-rules-or-is-it-all-just-it-depends/" target="_blank">Does Data Visualization Have Rules? Or Is It All Just “It Depends”?</a>, by Nick Desbarats</li>
 </ul>
 </section>
 <section id="iraq-war" class="slide level2" data-menu-title="Iraq's bloody toll">
@@ -1525,8 +1502,8 @@ Are there ever opportunties to bend / break the rules &amp; guidelines for creat
 <hr>
 
 <img data-src="images/week5/iraq-bloody-toll-alt.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text body-text-s gray-text">
-<p>Award-winning data visualization by <a href="https://www.simonscarr.com/iraqs-bloody-toll#:~:text=This%20graphic%20was%20created%20to,the%20visual%20metaphor%20of%20blood.">Simon Scarr</a> (left), and a copy / remake of that visualization which follows the rules, created by <a href="https://www.infoworld.com/article/3088166/why-how-to-lie-with-statistics-did-us-a-disservice.html">Andy Cotgreave</a> (right).</p>
-<p>Image &amp; caption source: <a href="https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.">Master the rules - then break them</a></p>
+<p>Award-winning data visualization by <a href="https://www.simonscarr.com/iraqs-bloody-toll#:~:text=This%20graphic%20was%20created%20to,the%20visual%20metaphor%20of%20blood." target="_blank">Simon Scarr</a> (left), and a copy / remake of that visualization which follows the rules, created by <a href="https://www.infoworld.com/article/3088166/why-how-to-lie-with-statistics-did-us-a-disservice.html" target="_blank">Andy Cotgreave</a> (right).</p>
+<p>Image &amp; caption source: <a href="https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way." target="_blank">Master the rules - then break them</a></p>
 </div>
 </section>
 <section id="examples" class="slide level2" data-menu-title="# Data Viz Examples #" data-background="#047C90">
@@ -1553,7 +1530,7 @@ Let’s consider some example data visualizations together
 </div>
 </div>
 <div class="center-text gray-text body-text-s">
-<p>Clearing the Air, by <a href="https://www.washingtonpost.com/people/christopher-ingraham/">Christopher Ingraham</a>, writing for <a href="https://www.washingtonpost.com/business/2019/06/06/why-crowded-meetings-conference-rooms-make-you-so-so-tired/">The Washington Post</a></p>
+<p>Clearing the Air, by <a href="https://www.washingtonpost.com/people/christopher-ingraham/" target="_blank">Christopher Ingraham</a>, writing for <a href="https://www.washingtonpost.com/business/2019/06/06/why-crowded-meetings-conference-rooms-make-you-so-so-tired/" target="_blank">The Washington Post</a></p>
 </div>
 </div><div class="column" style="width:50%;">
 <p><br> <br></p>
@@ -1567,7 +1544,7 @@ Let’s consider some example data visualizations together
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_d98fc5c1" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_62a4faac" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1578,7 +1555,7 @@ Let’s consider some example data visualizations together
 <h2></h2>
 
 <img data-src="images/week5/clearing-air-annotated.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text gray-text body-text-s">
-<p>Annotations adapted from <a href="https://twitter.com/chezVoila/status/1136631524919513088"><span class="citation" data-cites="chezVoila">@chezVoila</span></a></p>
+<p>Annotations adapted from <a href="https://twitter.com/chezVoila/status/1136631524919513088" target="_blank"><span class="citation" data-cites="chezVoila">@chezVoila</span></a></p>
 </div>
 </section>
 <section id="penguins" class="slide level2" data-menu-title="Palmer penguin classification">
@@ -1597,7 +1574,7 @@ Let’s consider some example data visualizations together
 </div>
 </div>
 <div class="center-text gray-text body-text-s">
-<p>Perfectly Proportional Penguins, by <a href="https://www.cararthompson.com/">Cara Thompson</a> as part of <a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a> (<a href="https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007d_penguins.R">code</a>)</p>
+<p>Perfectly Proportional Penguins, by <a href="https://www.cararthompson.com/" target="_blank">Cara Thompson</a> as part of <a href="https://github.com/rfordatascience/tidytuesday" target="_blank">TidyTuesday</a> (<a href="https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007d_penguins.R" target="_blank">code</a>)</p>
 </div>
 </div><div class="column" style="width:50%;">
 <p><br> <br></p>
@@ -1611,7 +1588,7 @@ Let’s consider some example data visualizations together
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_cc1f98da" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_6cc9f75f" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1634,7 +1611,7 @@ Let’s consider some example data visualizations together
 </div>
 </div>
 <div class="body-text-xs gray-text">
-<p><a href="https://www.nature.com/articles/s41598-022-13671-7/figures/3">Fig. 3</a>, by <a href="https://www.nature.com/articles/s41598-022-13671-7">Ingeman et al.&nbsp;2022</a>: <strong>Glimmers of hope and critical cases.</strong> Distribution of large carnivore species across categories of current IUCN status (x-axis) and population trend (y-axis). Improvements in status are indicated by gold and declines by blue, with bubble size indicating the number of status category changes. The majority of species have not undergone any changes in status (shown in light gray). Note: No change in status may indicate lack of recent assessment, insufficient data, or, in the case of species designated Least Concern, effective conservation efforts.</p>
+<p><a href="https://www.nature.com/articles/s41598-022-13671-7/figures/3" target="_blank">Fig. 3</a>, by <a href="https://www.nature.com/articles/s41598-022-13671-7" target="_blank">Ingeman et al.&nbsp;2022</a>: <strong>Glimmers of hope and critical cases.</strong> Distribution of large carnivore species across categories of current IUCN status (x-axis) and population trend (y-axis). Improvements in status are indicated by gold and declines by blue, with bubble size indicating the number of status category changes. The majority of species have not undergone any changes in status (shown in light gray). Note: No change in status may indicate lack of recent assessment, insufficient data, or, in the case of species designated Least Concern, effective conservation efforts.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <p><br> <br></p>
@@ -1648,7 +1625,7 @@ Let’s consider some example data visualizations together
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_346a339c" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_1e02d956" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1711,7 +1688,7 @@ Let’s consider some example data visualizations together
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_4b90768d" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_5aee5655" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
