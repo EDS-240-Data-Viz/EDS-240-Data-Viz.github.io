@@ -267,17 +267,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes">Learning Outcomes</a></li>
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a>
   <ul class="collapse">
-  <li><a href="#a.-background-reading" id="toc-a.-background-reading" class="nav-link" data-scroll-target="#a.-background-reading">1a. Background reading</a></li>
+  <li><a href="#a.-background-reading-importing-data" id="toc-a.-background-reading-importing-data" class="nav-link" data-scroll-target="#a.-background-reading-importing-data">1a. Background reading &amp; importing data</a></li>
   <li><a href="#b.-data-wrangling" id="toc-b.-data-wrangling" class="nav-link" data-scroll-target="#b.-data-wrangling">1b. Data wrangling</a></li>
   <li><a href="#c.-answer-questions" id="toc-c.-answer-questions" class="nav-link" data-scroll-target="#c.-answer-questions">1c. Answer questions</a></li>
   <li><a href="#d.-create-data-viz" id="toc-d.-create-data-viz" class="nav-link" data-scroll-target="#d.-create-data-viz">1d. Create data viz</a></li>
+  <li><a href="#e.-answer-a-few-more-questions" id="toc-e.-answer-a-few-more-questions" class="nav-link" data-scroll-target="#e.-answer-a-few-more-questions">1e. Answer (a few more) questions</a></li>
   </ul></li>
   <li><a href="#rubric-specifications" id="toc-rubric-specifications" class="nav-link" data-scroll-target="#rubric-specifications">Rubric (specifications)</a></li>
   </ul></li>
-  <li><a href="#part-ii-data-wrangling-exploratory-data-viz-using-your-own-data" id="toc-part-ii-data-wrangling-exploratory-data-viz-using-your-own-data" class="nav-link" data-scroll-target="#part-ii-data-wrangling-exploratory-data-viz-using-your-own-data"><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your own data</span></a>
+  <li><a href="#part-ii-data-wrangling-exploratory-data-viz-using-your-chosen-data" id="toc-part-ii-data-wrangling-exploratory-data-viz-using-your-chosen-data" class="nav-link" data-scroll-target="#part-ii-data-wrangling-exploratory-data-viz-using-your-chosen-data"><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your chosen data</span></a>
   <ul class="collapse">
   <li><a href="#learning-outcomes-1" id="toc-learning-outcomes-1" class="nav-link" data-scroll-target="#learning-outcomes-1">Learning Outcomes</a></li>
-  <li><a href="#description-1" id="toc-description-1" class="nav-link" data-scroll-target="#description-1">Description</a></li>
+  <li><a href="#description-1" id="toc-description-1" class="nav-link" data-scroll-target="#description-1">Description</a>
+  <ul class="collapse">
+  <li><a href="#a.-review-hw-4-instructions" id="toc-a.-review-hw-4-instructions" class="nav-link" data-scroll-target="#a.-review-hw-4-instructions">2a. Review HW #4 instructions</a></li>
+  <li><a href="#b.-import-wrangle-data-then-create-exploratory-data-viz" id="toc-b.-import-wrangle-data-then-create-exploratory-data-viz" class="nav-link" data-scroll-target="#b.-import-wrangle-data-then-create-exploratory-data-viz">2b. Import &amp; wrangle data, then create exploratory data viz</a></li>
+  <li><a href="#c.-answer-questions-1" id="toc-c.-answer-questions-1" class="nav-link" data-scroll-target="#c.-answer-questions-1">2c. Answer questions</a></li>
+  </ul></li>
   <li><a href="#rubric-specifications-1" id="toc-rubric-specifications-1" class="nav-link" data-scroll-target="#rubric-specifications-1">Rubric (specifications)</a></li>
   </ul></li>
   </ul>
@@ -300,7 +306,6 @@ You must earn a “Satisfactory” mark for each individual Part (I and II) to e
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>NOTE:</strong> Assignments are to be submitted via GitHub Classrooms, unless otherwise noted. Each student receives one “free pass” for not submitting assignments via specified channels, after which you will receive a “Not Yet” mark.</p>
 <p><strong>Read each part of the assignment carefully</strong>, and use the check boxes to ensure you’ve addressed all elements of the assignment!</p>
 </div>
 </div>
@@ -317,8 +322,8 @@ You must earn a “Satisfactory” mark for each individual Part (I and II) to e
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’ve learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the <a href="https://sbclter.msi.ucsb.edu/" target="_blank">Santa Barbara Coastal LTER</a>.</p>
-<section id="a.-background-reading" class="level3">
-<h3 class="anchored" data-anchor-id="a.-background-reading">1a. Background reading</h3>
+<section id="a.-background-reading-importing-data" class="level3">
+<h3 class="anchored" data-anchor-id="a.-background-reading-importing-data">1a. Background reading &amp; importing data</h3>
 <p>Unfold the following note to read more about the data before continuing on (collapsed to save space):</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -394,8 +399,8 @@ Data exploration &amp; wrangling tips
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<section id="data-exploration-tips" class="level4">
-<h4 class="anchored" data-anchor-id="data-exploration-tips">Data exploration tips:</h4>
+<section id="exploration-tips" class="level4">
+<h4 class="anchored" data-anchor-id="exploration-tips">Exploration tips:</h4>
 <ul>
 <li>Use <code>glimpse()</code> and / or <code>str()</code> to check out your variables and data types</li>
 <li>Use <code>names()</code> to return all column names</li>
@@ -404,10 +409,10 @@ Data exploration &amp; wrangling tips
 <li>Be sure to review the <a href="https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9" target="_blank">metadata</a> (including methods &amp; protocols) to fully understand the data</li>
 </ul>
 </section>
-<section id="data-wrangling-tips" class="level4">
-<h4 class="anchored" data-anchor-id="data-wrangling-tips">Data wrangling tips:</h4>
+<section id="wrangling-tips" class="level4">
+<h4 class="anchored" data-anchor-id="wrangling-tips">Wrangling tips:</h4>
 <ul>
-<li>I love starting all my cleaning pipelines with <code>janitor::clean_names()</code> to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)</li>
+<li>I love starting my cleaning pipelines with <code>janitor::clean_names()</code> to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)</li>
 <li>You’ll want to keep just the years of interest</li>
 <li>Missing size measurements are denoted with <code>-99999</code> – you do not want to leave those values as-is (what’s a lobster with -9999 mm carapace length?? <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>); consider how to deal with these</li>
 <li>Each row is <strong>not</strong> always a single observation, but rather summed lobster counts at each size observed within a site / transect / replicate. You’ll want to wrangle the data such that each row represents a single lobster observation. You may need to do some Googling to figure out a solution for this (HINT: you’re looking to perform the opposite of <code>count()</code>).</li>
@@ -420,12 +425,14 @@ Data exploration &amp; wrangling tips
 </section>
 <section id="c.-answer-questions" class="level3">
 <h3 class="anchored" data-anchor-id="c.-answer-questions">1c. Answer questions</h3>
-<!-- [**(Part 1a) After exploring and wrangling your data, answer the following questions:**]{.teal-text} -->
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they? <span class="peach-text"><strong>(a bullet point list here is fine)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>2.</strong> Using <a href="https://www.data-to-viz.com/" target="_blank">From Data to Viz</a>, identify which graphic forms / geoms are appropriate, given your data. List them out. <span class="peach-text"><strong>(a bullet point list here is fine)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>3.</strong> Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc. <span class="peach-text"><strong>(3-4 sentences)</strong></span></label></li>
+<li><label><input type="checkbox"><strong>1.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> Using <a href="https://www.data-to-viz.com/" target="_blank">From Data to Viz</a>, identify and list which graphic forms / geoms are appropriate, given your data (a bullet point list here is fine).</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc.</label></li>
 </ul>
+</section>
+<section id="d.-create-data-viz" class="level3">
+<h3 class="anchored" data-anchor-id="d.-create-data-viz">1d. Create data viz</h3>
 <p>Now that you’ve explored and starting wrangling your data, it’s time to create some plots. It’s often important to try out multiple graphic forms (e.g.&nbsp;<code>geom_*()</code>s) as you decide which is the most effective way of presenting your data. This process is commonly referred to as <strong>Exploratory Data Analysis or Exploratory Data Visualization</strong>. Some tips (unfold below):</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -439,7 +446,6 @@ Data viz creation tips
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="body-text-l dark-blue-text"><strong>Data viz creation tips:</strong></span></p>
 <ul>
 <li>I always find it helpful to sketch things out on paper first</li>
 <li>There’s no need to create anything special or particularly visually-pleasing during this exploratory visualization phase. It <em>can</em> be helpful to make minor modifications, (e.g.&nbsp;rearranging groups in a logical order, color groups, etc.) to help you identify any emerging patterns</li>
@@ -448,16 +454,17 @@ Data viz creation tips
 </div>
 </div>
 </div>
-</section>
-<section id="d.-create-data-viz" class="level3">
-<h3 class="anchored" data-anchor-id="d.-create-data-viz">1d. Create data viz</h3>
-<!-- [**(Part 1b) Complete the following:**]{.teal-text} -->
 <ul class="task-list">
 <li><label><input type="checkbox">Create at least <strong>three</strong> different plots as part of your exploratory data visualization phase to test out which graphic forms / geoms works best. Your last plot should be the version that you feel is best suited for presenting your data. (<em><strong>NOTE:</strong> Your first two plots do not need to be at all polished – during the exploratory data visualization phase, we’re most concerned with choosing a graphic form / geom(s) for effectively presenting our data.</em>)</label></li>
-<li><label><input type="checkbox"><strong>1.</strong> Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3. <span class="peach-text"><strong>(5-8 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>2.</strong> (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g.&nbsp;updating colors, moving or removing legends, highlighting groups, ordering groups) – be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not? <span class="peach-text"><strong>(2-5 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>3.</strong> Polish your third (final) plot by updating the labels and theme (we’ll cover theme modifications during <a href="../../course-materials/discussion/week4/week4-slides.html#theme" target="_blank">week 4 discussion section</a>, so you may consider waiting until then). List out the changes you made to your plot’s theme (e.g.&nbsp;“updated axis text size”, “removed minor gridlines”, etc.). <span class="peach-text"><strong>(a bullet list here is fine)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>4.</strong> Describe two or more challenges you encountered while deciding on / creating your plots – these can be conceptual (e.g.&nbsp;challenges in determining how to best represent your data) and / or technical (e.g.&nbsp;code-based challenges). <span class="peach-text"><strong>(4-8 sentences)</strong></span></label></li>
+</ul>
+</section>
+<section id="e.-answer-a-few-more-questions" class="level3">
+<h3 class="anchored" data-anchor-id="e.-answer-a-few-more-questions">1e. Answer (a few more) questions</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>1.</strong> Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3.</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g.&nbsp;updating colors, moving or removing legends, highlighting groups, ordering groups) – be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not?</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> Polish plot #3 by updating the labels and theme (we’ll cover theme modifications during <a href="../../course-materials/discussion/week4/week4-slides.html#theme" target="_blank">week 4 discussion section</a>, so you may consider holding off completing this step until then). List out the changes you made to your plot’s theme (e.g.&nbsp;“updated axis text size”, “removed minor gridlines”, etc.; a bullet list is fine).</label></li>
+<li><label><input type="checkbox"><strong>4.</strong> Describe two or more challenges you encountered while deciding on / creating your plots – these can be conceptual (e.g.&nbsp;challenges in determining how to best represent your data) and / or technical (e.g.&nbsp;code-based challenges).</label></li>
 <li><label><input type="checkbox"><strong>5.</strong> Add alt text to your final visualization following the formula discussed during <a href="../../course-materials/discussion/week3/week3-slides.html#alt-text-formula" target="_blank">week 3’s discussion section</a> and using the <code>#| fig-alt:</code> code chunk option.</label></li>
 </ul>
 </section>
@@ -465,17 +472,48 @@ Data viz creation tips
 <section id="rubric-specifications" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-specifications">Rubric (specifications)</h2>
 <p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part I:</p>
-<p><strong>Complete the following steps in your GitHub Classroom repo (<code>eds240-hw2-username/Part1.qmd</code>):</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Complete the following steps in your <strong>GitHub Classroom repo</strong> (<code>eds240-hw2-username/Part1.qmd</code>):
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Everyone receives one “free pass” for not submitting assignments via specified channels, after which you will receive a “Not Yet” mark.</p>
+</div>
+</div>
 <ul class="task-list">
-<li><label><input type="checkbox">include your preferred name, and if you feel comfortable, your preferred pronouns in the author field of the <code>Part1.qmd</code> YAML</label></li>
-<li><label><input type="checkbox">answer the three Part 1a questions, adhering to the length requirements specified at the end of each question prompt</label></li>
-<li><label><input type="checkbox">create three different plots (two unpolished exploratory data visualizations and one polished final plot) in accordance with Part 1b instructions (<strong>NOTE:</strong> there isn’t necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses)</label></li>
-<li><label><input type="checkbox">code should be clearly organized and annotated following conventions and guidelines outlined in the <a href="../../clean-code-guide.html" target="_blank">Writing clean code</a> page on the course website</label></li>
-<li><label><input type="checkbox">answer the five Part 1b questions, adhering to the length requirements specified at the end of each question prompt</label></li>
-<li><label><input type="checkbox">add alt text to your final visualization in accordance with Part 1b instructions</label></li>
-<li><label><input type="checkbox">we should be able to run individual lines / chunks of code <em>and</em> render <code>Part1.qmd</code> without errors</label></li>
-<li><label><input type="checkbox">all three plot outputs should appear in your rendered doc</label></li>
-<li><label><input type="checkbox">push your completed <code>Part1.qmd</code> to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025</label></li>
+<li><label><input type="checkbox">Include your preferred name in the author field of the <code>Part1.qmd</code> YAML.</label></li>
+<li><label><input type="checkbox">Review the background information provided in Part 1a, then import the data directly from the EDI data portal (as described)</label></li>
+<li><label><input type="checkbox">Wrangle the data so that it’s structured appropriately for addressing the question described in Part 1b (How does lobster size differ across each of the five coastal rocky reef SBC LTER sites for the years 2012 and 2022?).</label></li>
+<li><label><input type="checkbox">Answer the three Part 1c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
+<li><label><input type="checkbox">Create three different plots (two can remain as unpolished exploratory data visualizations; one must be a polished final plot) in accordance with Part 1d instructions.</label></li>
+</ul>
+<!-- (**NOTE:** there isn't necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses). -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+You must choose an appropriate graphic form, given these data, <em>but</em> there isn’t one single correct answer.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Choosing an incorrect graphic form to present these data will result in a “Not Yet” score. However, there are numerous graphic forms that are appropriate! Your final plot should clearly display the variables of interest, and you should be able to justify your choice in your written responses.</p>
+</div>
+</div>
+<ul class="task-list">
+<li><label><input type="checkbox">Answer the five Part 1e questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
+<li><label><input type="checkbox">Add appropriate alt text to your finalized visualization in accordance with Part 1e instructions.</label></li>
+<li><label><input type="checkbox">All code (setup, data exploration, wrangling, and plotting code) should be clearly organized and annotated following conventions and guidelines outlined in the <a href="../../clean-code-guide.html" target="_blank">Writing clean code</a> page on the course website.</label></li>
+<li><label><input type="checkbox">Code chunks should have the appropriate chunk options specified (e.g.&nbsp;suppress warnings and messages; don’t print out long data frames, etc.).</label></li>
+<li><label><input type="checkbox">We (instructor &amp; TA) should be able to run individual lines / chunks of code <em>and</em> render <code>Part1.qmd</code> without errors.</label></li>
+<li><label><input type="checkbox">All three plot outputs should appear in your rendered doc.</label></li>
+<li><label><input type="checkbox">Push your completed <code>Part1.qmd</code> to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025.</label></li>
 </ul>
 <p><br></p>
 <div class="center-text large-fa-icon teal-text">
@@ -484,8 +522,8 @@ Data viz creation tips
 <p><br></p>
 </section>
 </section>
-<section id="part-ii-data-wrangling-exploratory-data-viz-using-your-own-data" class="level1">
-<h1><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your own data</span></h1>
+<section id="part-ii-data-wrangling-exploratory-data-viz-using-your-chosen-data" class="level1">
+<h1><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your chosen data</span></h1>
 <section id="learning-outcomes-1" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes-1">Learning Outcomes</h2>
 <p><strong>Note:</strong> This part of HW #2 is a continuation of <a href="../../course-materials/assignments/HW1.html#hw1-p2" target="_blank">HW #1, Part II</a> and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):</p>
@@ -496,40 +534,57 @@ Data viz creation tips
 <li>write code from scratch and read and adapt code written by others</li>
 <li>apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</li>
 </ul>
-<p>Read the description, below, for details on what to work on this week.</p>
 </section>
 <section id="description-1" class="level2">
 <h2 class="anchored" data-anchor-id="description-1">Description</h2>
+<section id="a.-review-hw-4-instructions" class="level3">
+<h3 class="anchored" data-anchor-id="a.-review-hw-4-instructions">2a. Review HW #4 instructions</h3>
 <p><span class="teal-text"><strong>Please begin by re-reading <a href="../../course-materials/assignments/HW4.html">HW #4</a> in full</strong></span> as a reminder of the options, goals, and requirements for your final class assignment.</p>
-<!-- *A small part of each homework assignment will be dedicated to working on a series of data visualizations which will be due as part of Assignment #4 at the end of the quarter.* Assignment #4 will ask you to build three related, but different data visualizations -- all which will use the same data set(s), but present those data differently for three different audiences / purposes: -->
-<!-- 1. **a visualization for a general audience (i.e. without domain expertise)** -- this data visualization may be designed to prompt conversation, clearly display findings (without the use of jargon), display findings in an atypical but creative way,  and / or may blend both art and science -->
-<!-- 2. **a visualization to be included in a paper, technical documentation, or report** -- this visualization should tell a story, but can include much more detail, more data, more domain-specific language, etc. -->
-<!-- 3. **a visualization that you could include in a presentation** -- you might imagine an audience with familiarity with your domain, but they only have a brief amount of time to process the information being presented; key takeaways should be clearly highlighted, and you may have multiple versions, each with an added layer (as if you're animating pieces of your visualization onto a slide)  -->
-<p><span class="teal-text"><strong>(Part 2a) This week, you’ll focus on importing / wrangling / and beginning the exploratory data visualization phase, using the data you found as part of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a>. Complete the following:</strong></span></p>
+</section>
+<section id="b.-import-wrangle-data-then-create-exploratory-data-viz" class="level3">
+<h3 class="anchored" data-anchor-id="b.-import-wrangle-data-then-create-exploratory-data-viz">2b. Import &amp; wrangle data, then create exploratory data viz</h3>
+<p><span class="teal-text"><strong>This week, you’ll focus on importing and wrangling your data (found as part of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a>), followed by the exploratory data visualization phase. Complete the following:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox">Create an file named, <code>HW2-exploration.qmd</code> within your <code>lastName-eds240-HW4</code> repo and add appropriate YAML fields</label></li>
-<li><label><input type="checkbox">Load necessary packages and read in your data</label></li>
-<li><label><input type="checkbox">Clean &amp; wrangle your data</label></li>
+<li><label><input type="checkbox">Create an file named, <code>HW2-exploration.qmd</code> within your <code>lastName-eds240-HW4</code> repo and add appropriate YAML fields.</label></li>
+<li><label><input type="checkbox">Load necessary packages and read in your data.</label></li>
+<li><label><input type="checkbox">Clean &amp; wrangle your data.</label></li>
 <li><label><input type="checkbox">Create at least <strong>three</strong> (but of course feel free to create more!) exploratory visualizations (similar to plot #1 and #2 in Part I of this assignment).</label></li>
 <li><label><input type="checkbox"><strong>IMPORTANT:</strong> If you have a downloaded data file saved to your repo (e.g.&nbsp;you’re not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your <code>.gitignore</code>, particularly if this file is large.</label></li>
 </ul>
-<p><span class="teal-text"><strong>(Part 2b) After completing the above steps, answer the following questions:</strong></span></p>
+</section>
+<section id="c.-answer-questions-1" class="level3">
+<h3 class="anchored" data-anchor-id="c.-answer-questions-1">2c. Answer questions</h3>
+<p><span class="teal-text"><strong>After completing the above steps, answer the following questions:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged? <span class="peach-text"><strong>(5-8 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>2.</strong> In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? <span class="peach-text"><strong>(8-12 sentences)</strong></span></label></li>
-<li><label><input type="checkbox"><strong>3.</strong> What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges. <span class="peach-text"><strong>(4-6 sentences)</strong></span></label></li>
+<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged?</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)?</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges.</label></li>
 </ul>
+</section>
 </section>
 <section id="rubric-specifications-1" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-specifications-1">Rubric (specifications)</h2>
 <p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part II:</p>
-<p><strong>Complete the following steps under your <code>lastName-eds240-HW4</code> repo, <em>not</em> in GitHub Classrooms:</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Complete the following steps under your <code>lastName-eds240-HW4</code> repo, <em>not</em> in GitHub Classroom:</strong>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See details below.</p>
+</div>
+</div>
 <ul class="task-list">
-<li><label><input type="checkbox">perform all Part 2a steps, as described above, in <code>HW2-exploration.qmd</code></label></li>
-<li><label><input type="checkbox">answer Part 2b questions, also in <code>HW2-exploration.qmd</code>, adhering to the length requirements specified at the end of each question prompt</label></li>
-<li><label><input type="checkbox">all three plot outputs should appear in your rendered doc</label></li>
+<li><label><input type="checkbox">Perform all Part 2b steps (as described above) in your <code>HW2-exploration.qmd</code> file.</label></li>
+<li><label><input type="checkbox">Answer Part 2c questions in your <code>HW2-exploration.qmd</code> file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
+<li><label><input type="checkbox">All three plot outputs should appear in your rendered doc.</label></li>
 <li><label><input type="checkbox"><code>HW2-exploration.qmd</code> should be neatly organized – this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.</label></li>
-<li><label><input type="checkbox">send Sam &amp; Sevan a rendered version <code>HW2-exploration.qmd</code> by 11:59pm PT on Sat 02/03/2024 following these steps:</label>
+<li><label><input type="checkbox">Code chunks should have appropriate chunk options set (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).</label></li>
+<li><label><input type="checkbox">Send your instructor and TA a rendered version of your <code>HW2-exploration.qmd</code> file by 11:59pm PT on Sat 02/01/2025 following these steps:</label>
 <ul class="task-list">
 <li><label><input type="checkbox">ensure that your YAML specifies these options, at a minimum:</label></li>
 </ul></li>
@@ -545,18 +600,13 @@ Data viz creation tips
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>render</strong> your <code>HW2-exploration.qmd</code> file and <strong>verify</strong> that you can open the resulting <code>HW2-exploration.html</code> file in your browser and that all formatting looks good</label></li>
-<li><label><input type="checkbox"><strong>rename</strong> your <code>.html</code> file so that it has your first initial / last name at the start (e.g.&nbsp;<code>SCsik-HW3-drafting-viz.html</code>), then <strong>send</strong> it to both Sevan and Sam on Slack via direct message</label></li>
+<li><label><input type="checkbox"><strong>render</strong> your <code>HW2-exploration.qmd</code> file, <strong>verify</strong> that you can open the resulting <code>HW2-exploration.html</code> file in your browser, and that all formatting looks good</label></li>
+<li><label><input type="checkbox"><strong>rename</strong> your <code>.html</code> file so that it has your first initial / last name at the start (e.g.&nbsp;<code>SCsik-HW3-drafting-viz.html</code>), then <strong>send</strong> it to both your instructor and TA on Slack via direct message</label></li>
 </ul>
-<!-- - [ ] push your completed `HW2-exploration.qmd` to your repo by 11:59pm PT on Sat 02/03/2024 -->
 <p><br></p>
 <div class="center-text large-fa-icon teal-text">
 <p><i class="fa-solid fa-chart-column" title="A column chart" aria-label="chart-column"></i> End Part II <i class="fa-solid fa-chart-area" title="An area chart" aria-label="chart-area"></i></p>
 </div>
-<!-- <br> -->
-<!-- ::: {.center-text .body-text-m} -->
-<!-- **GitHub Classroom URL: <https://classroom.github.com/a/bb_tAOlI>** -->
-<!-- ::: -->
 
 
 </section>

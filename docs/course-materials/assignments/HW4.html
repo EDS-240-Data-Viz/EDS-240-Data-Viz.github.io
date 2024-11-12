@@ -366,21 +366,54 @@ Option 3 (propose an alternative) details
 <li>organize and annotate code (see <a href="../../clean-code-guide.html#annotating-code" target="_blank">these recommendations</a>)</li>
 <li>apply the appropriate code chunk options (e.g.&nbsp;in most cases, code and outputs should be rendered but warnings and messages should not) – see the Quarto documentation on <a href="https://quarto.org/docs/output-formats/html-code.html" target="_blank">HTML Code Blocks</a> and <a href="https://quarto.org/docs/computations/execution-options.html" target="_blank">Execution Options</a> for more
 <ul>
-<li>(optional) you may consider applying the <a href="https://quarto.org/docs/output-formats/html-code.html#folding-code" target="_blank"><code>code-fold</code> option</a>, which can make scrolling past long code chunks easier</li>
+<li>(optional) I recommend also applying the <a href="https://quarto.org/docs/output-formats/html-code.html#folding-code" target="_blank"><code>code-fold: true</code> option</a>, which collapses code chunks and makes it easier for readers to focus on your writing and embedded visualizations (while still allowing them to explore your code)</li>
 </ul></li>
 </ul>
-<p><span class="teal-text"><strong>You will also document your data design process and decisions in a short 1-2 page (~500-1,000 words) write up. Your writing should:</strong></span></p>
+<p><span class="teal-text"><strong>You will also share your data design process and decisions in a short, 1-2 page (~500-1,000 words) science communication blog post-style write up. Your writing should:</strong></span></p>
 <ol type="1">
-<li>clearly state your question(s)</li>
-<li>describe your data (including your data source)</li>
+<li>include an engaging introduction paragraph(s), which states your motivation, question(s), data / data source(s), and goal(s) of your visualization. A few great examples:
+<ul>
+<li><a href="https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/" target="_blank">Relationship between bee behavior and vineyard types in Germany</a>, by Melissa Widas (MEDS 2024)</li>
+<li><a href="https://www.visualcinnamon.com/portfolio/urbanization/" target="_blank">Visualizing Millions of People on the Move</a>, by Nadieh Bremer</li>
+<li><a href="https://www.studioterp.nl/my-family-a-visualization/" target="_blank">the Kuijpers familytree</a>, by Sonja Kuijpers</li>
+</ul></li>
 <li>address your approach and decisions for each of the ten design elements listed above (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your visualizations do not include or consider a listed element(s), please comment on why (it’s possible that not all ten elements will be applicable to <em>your</em> visualizations).</li>
 </ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Storytelling helps to engage your readers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be sure to review the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html" target="_blank">EDS 296</a> materials on <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide" target="_blank">writing data science blog posts</a> for tips on crafting a story and engaging your readers!</p>
+</div>
+</div>
 <p><span class="teal-text"><strong>You may submit your assignment in one of two ways:</strong></span></p>
 <ol type="1">
+<li>As a blog post on your personal website – check out the <a href="https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/">Adding a blog to your existing Quarto website</a> materials for a refresher, if needed</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remember, this is an opportunity to grow your professional portfolio!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Regardless of which of the two publishing options you choose, consider storytelling strategies for effective and engaging data science writing – review the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide" target="_blank">Blogging for data science slides</a> from the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/" target="_blank">EDS 296-1F course materials</a> for guidance. <strong>Remember</strong>, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz <em>and</em> writing).</p>
+</div>
+</div>
+<ol start="2" type="1">
 <li>A published Quarto document that is deployed using GitHub Pages</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -389,7 +422,7 @@ Instructions for publishing a Quarto doc using GitHub Pages
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Your Quarto doc must be named <code>index.qmd</code> <em>and</em> live in your repository’s root directory. Be sure to rename / move it, if necessary.</li>
@@ -424,22 +457,6 @@ Instructions for publishing a Quarto doc using GitHub Pages
 </div>
 </div>
 </div>
-<ol start="2" type="1">
-<li>As a blog post on your personal website – check out the <a href="https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/">Adding a blog to your existing Quarto website</a> workshop materials for a refresher, if needed</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Remember, this is an opportunity to grow your professional portfolio!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Regardless of which of the two publishing options you choose, consider storytelling strategies for effective and engaging data science writing – review the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide" target="_blank">Blogging for data science slides</a> from the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/" target="_blank">EDS 296-1F course materials</a> for guidance. <strong>Remember</strong>, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz <em>and</em> writing).</p>
-</div>
-</div>
 </section>
 </section>
 <section id="rubric-specifications" class="level2">
@@ -447,11 +464,13 @@ Remember, this is an opportunity to grow your professional portfolio!
 <p>You must complete the following to receive a “Satisfactory” mark for Assignment #4:</p>
 <ul class="task-list">
 <li><label><input type="checkbox">Complete <a href="../../course-materials/assignments/HW4.html#option1-infographic">option 1</a>, <a href="../../course-materials/assignments/HW4.html#option2-diff-audiences">option 2</a>, or a pre-approved <a href="../../course-materials/assignments/HW4.html#option3-alternative">option 3</a>.</label></li>
-<li><label><input type="checkbox">All data visualizations should implement and / or address the ten design elements (listed above). It’s up to you to decide how to consider, include, omit, and / or modify any of these elements.</label></li>
+<li><label><input type="checkbox">All data visualizations should consider and implement (as appropriate) the ten design elements (listed above). It’s up to you to decide how to consider, include, omit, and / or modify any of these elements.</label></li>
+<li><label><input type="checkbox">You work must incorporate (or otherwise address in writing) any prior feedback from the instructor / TA.</label></li>
 <li><label><input type="checkbox">All code should be appropriately formatted and annotated, and code chunks should have the appropriate chunk options specified (e.g.&nbsp;suppress warnings and messages).</label></li>
-<li><label><input type="checkbox">Describe your design process and decisions in a 1-2 page write-up, as described above</label></li>
+<li><label><input type="checkbox">Describe your design process and decisions in a 1-2 page write-up, as described above.</label></li>
 <li><label><input type="checkbox">Submit your work as either a published Quarto doc or as a blog post on your personal website.</label></li>
-<li><label><input type="checkbox">Add the link to your published Quarto doc / blog post to <a href="https://docs.google.com/spreadsheets/d/1tv32Ng_-QI1-eB5ws59HgCN0EoOpHe4UHX6qHhbQGds/edit#gid=0">this Google Sheet</a> by Saturday, 03/08/2025 11:59pm <!-- - [ ] present your visualizations to the class on [date] (finals week) --></label></li>
+<li><label><input type="checkbox">Add the link to your published Quarto doc / blog post to <a href="https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing" target="_blank">this Google Sheet</a> by Saturday, 03/08/2025 11:59pm.</label></li>
+<li><label><input type="checkbox">Present your visualizations to the class on [date TBD] (finals week).</label></li>
 </ul>
 
 
