@@ -19,6 +19,7 @@ editor_options:
 library(tidyverse)
 
 #..........................import data...........................
+# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,14 +29,14 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 jobs_clean <- jobs |> 
   
   # add cols (needed for dumbbell plot) ----
-  mutate(percent_male = 100 - percent_female, # % of females within each industry was already included
-         difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
+  mutate(percent_male = 100 - percent_female) |>  # % of females within each industry was already included
+        # difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
   
   # rearrange columns ----
   relocate(year, major_category, minor_category, occupation,
           total_workers, workers_male, workers_female,
           percent_male, percent_female,
-          total_earnings, total_earnings_male, total_earnings_female, difference_earnings,
+          total_earnings, total_earnings_male, total_earnings_female, #difference_earnings,
           wage_percent_of_male) |> 
   
   # drop rows with missing earning data ----

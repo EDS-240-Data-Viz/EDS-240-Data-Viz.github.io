@@ -4,8 +4,6 @@ subtitle: "Week 4"
 description: "Monday January 27^th^, 2025"
 ---
 
-<!-- , What makes a good data viz? (used to be part of the planned week 4 title)-->
-
 ```{r}
 #| eval: true 
 #| echo: false
@@ -16,121 +14,47 @@ knitr::include_graphics(here::here("images", "horst-ggplot-explore-dataviz.png")
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/)*
+*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
 :::
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*Coming soon!*
+### A. Install required packages
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+install.packages("ggalt") # extra coordinate systems, geoms, statistical transformations, scales and fonts for 'ggplot2' (includes `geom_lollipop()`)
+install.packages("ggExtra") # {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots
+install.packages("ggdensity") # {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)
+```
 
-<!-- Please be sure to complete the following before class: -->
+### B. Download `.qmd` templates & review data wrangling code
 
-<!-- ### A. Install required packages -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("ggalt") # extra coordinate systems, geoms, statistical transformations, scales and fonts for 'ggplot2' (includes `geom_lollipop()`) -->
-<!-- install.packages("ggExtra") # {ggplot2} extension2222 which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots -->
-<!-- install.packages("ggdensity") # {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs) -->
-<!-- ``` -->
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week4/` folder.
 
-<!-- ### B. Review data wrangling code  -->
-
-<!-- In lecture 4.1, we'll be exploring income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script) by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05).  -->
-
-<!-- Please review the necessary background information (see [slide 4](https://samanthacsik.github.io/EDS-240-data-viz/slides/week4.1-rankings-slides.html#/job-data)) *and* walk through the data wrangling code on [slide 5](https://samanthacsik.github.io/EDS-240-data-viz/slides/week4.1-rankings-slides.html#/data-wrangling) ahead of class. Come prepared with any questions you may have about the code -- we'll set aside ~10 minutes to discuss before jumping into building our data visualizations. -->
+2. Review the data wrangling code under the `# Setup` section of each template file and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through the data wrangling code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
-*Coming soon!*
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
+|------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
+| [Lecture 4.1: visualizing rankings](lecture-slides/lecture4.1-rankings-slides.qmd){target="_blank"}  | [4.1 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week4/TEMPLATE-lecture4.1-rankings.qmd){target="_blank"} | [4.2 key](keys/KEY-lecture4.1-rankings.qmd){target="_blank"} |
+| [Lecture 4.2: visualizing relationships](lecture-slides/lecture4.2-relationships-slides.qmd){target="_blank"}  | [4.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week4/TEMPLATE-lecture4.2-relationships.qmd){target="_blank"} | [4.2 key](keys/KEY-lecture4.2-relationships.qmd){target="_blank"} |
+: {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
-<!-- Week 4 instruction is broken down into two lessons: -->
+## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
 
-<!-- ::: {.grid} -->
+### A. Prepare a `week4-discussion.qmd` file
 
-<!-- ::: {.g-col-12 .g-col-md-6} -->
-<!-- ::: {.center-text} -->
-<!-- [**Visualizing rankings**]{.teal-text .body-text-m} -->
-
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} lecture 4.1 slides](lecture-slides/week4.1-rankings-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: {.g-col-12 .g-col-md-6} -->
-<!-- ::: {.center-text} -->
-<!-- [**Visualizing relationships**]{.teal-text .body-text-m} -->
-
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} lecture 4.2 slides](lecture-slides/week4.2-relationships-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: -->
+Add a new blank file to your class repo at the following location: `EDS-240-class-examples/week4/week4-discussion.qmd.` Fill out the necessary YAML information (title, author, date + any other information you find helpful).
 
 ## {{< fa comments title="two speech bubbles" >}} Discussion Materials {#discussion-materials}
 
-*Coming soon!*
-
-<!-- Last week's discussion focused on recreating the data layers of the U.S. Drought Monitor's [visualization](https://en.wikipedia.org/wiki/Droughts_in_California#/media/File:Drought_area_in_California.svg) of CA drought conditions through time. [**This week, you'll focus on refining the theme (non-data plot elements) to match the original visualization as closely as possible.**]{.teal-text} -->
-
-<!-- ::: {.center-text} -->
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Week 4 discussion slides](https://docs.google.com/presentation/d/1D1JXHEsdMJoIbUJVa3byNn6qPTgQc7aeXvHgyIiOseo/edit#slide=id.p){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-
-<!-- ### Background -->
-
-<!-- **Themes** are used to modify the non-data components of plots (e.g. titles, labels, fonts, background, gridlines, legend). In addition to using pre-built themes (available via the [`{ggplot2}` package](https://ggplot2.tidyverse.org/reference/ggtheme.html) and also from extension packages), you can fine-tune the appearance of your plots theme by making adjustments using the [`theme()` function](https://ggplot2.tidyverse.org/reference/theme.html).  -->
-
-<!-- #### Applying pre-built themes: -->
-
-<!-- `{ggplot2}` comes with eight [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html), which can be applied as-is, or further modified using `theme()` (see next section, below). There are also *many* additional themes which can be applied via ggplot extension packages. A small handful of packages are listed in the expandable note, below: -->
-
-<!-- ::: {.callout-tip icon=false collapse=true} -->
-<!-- ## A non-exhaustive list of ggplot theme extension packages -->
-
-<!-- - **[`{ggthemes}`](https://jrnold.github.io/ggthemes/)**: a collection of popular themes, some of which also come with corresponding color scales -->
-<!-- - **[`{hrbrthemes}`](https://cinc.rud.is/web/packages/hrbrthemes/index.html)**: typographic-centric themes and theme components -->
-<!-- - **[`{ggthemr}`](https://github.com/Mikata-Project/ggthemr)**: a collection of color palettes and plot layouts for quickly setting a ggplot theme  -->
-<!-- - **[`{ggtech}`](https://github.com/ricardo-bion/ggtech)**: themes based off large tech company color palettes -->
-<!-- - **[`{ggdark}`](https://github.com/nsgrantham/ggdark)**: dark mode for ggplot complete themes -->
-<!-- - **[`{firatheme}`](https://github.com/vankesteren/firatheme)**: a ggplot theme with [Fira font](https://fonts.google.com/?query=fira) -->
-<!-- - **[`{urbnthemes}`](https://urbaninstitute.github.io/urbnthemes/index.html)**: tools for creating [Urban Institute](https://www.urban.org/)-themed plots and maps in R (also check out the [Urban Institute Data Visualization Style Guide](https://urbaninstitute.github.io/graphics-styleguide/) for a really great example of how an organization enforces a cohesive style across all published data viz content) -->
-<!-- - **[`{bbplot}`](https://github.com/bbc/bbplot/)**: tools for creating ggplots in the style used by the [BBC News](https://www.bbc.com/news) data team -->
-<!-- - **[`{ggpomological}`](https://www.garrickadenbuie.com/project/ggpomological/)**: a ggplot2 theme based on the [USDA Pomological Watercolor Collection](https://search.nal.usda.gov/discovery/collectionDiscovery?vid=01NAL_INST:MAIN&collectionId=81279629860007426) -->
-<!-- - **[`{tvthemes}`](https://ryo-n7.github.io/2019-05-16-introducing-tvthemes-package/)**: a collection of ggplot themes and color / fill palettes based on everybody’s favorite TV shows -->
-
-<!-- Keep your eye out for extension packages that supply both a geom(s) *and* a pre-build theme(s) designed specifically to work with that geom. For example, the [`{ggridges}` package](https://wilkelab.org/ggridges/index.html) provides both a few different ridgeline plot geoms and a [pre-built `theme_ridges()` theme](https://wilkelab.org/ggridges/articles/introduction.html#themes) to pair with them. -->
-<!-- ::: -->
-
-<!-- #### Using `ggplot2::theme()` to control plot elements: -->
-
-<!-- Use this (non-exhaustive) list to start tweaking elements of your plot's appearance. It's most common to start with a pre-built theme (see above) and modify from there. For a complete list of elements, explore the documentation for [`ggplot::theme()`](https://ggplot2.tidyverse.org/reference/theme.html). -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-alt: "A ggplot scatterplot of penguin bill dimensions (bill depth by bill length), with arrows pointing to different non-data elements that can be adjusted using ggplot2 theme controls" -->
-<!-- knitr::include_graphics(here::here("images", "ggplot-theme.png")) -->
-<!-- ``` -->
-
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- *Adapted from [Reproducible Science for Busy Researchers: How to Save Time using Literate Programming](https://bookdown.org/alapo/learnr/data-visualisation.html#anatomy-of-a-ggplot), by Andrew P. Lapointe* -->
-<!-- ::: -->
-
-<!-- ### Solution -->
-
-<!-- You'll get the most out of discussion section if you physically type out the code yourself (rather than copying / pasting)! -->
-
-<!-- **Note:** Much of the following code (data wrangling and ggplot code) was copied over from last week's discussion materials. [**Newly added theme code begins below the comment, `NEWLY ADDED THEME CODE!`.**]{.teal-text} -->
-
-<!-- ::: {.callout-tip icon=false collapse=true} -->
-<!-- ## Complete code for week 4 discussion -->
-<!-- {{< include discussion/week4/CA-drought-theme.qmd >}} -->
-<!-- ::: -->
-
-<!-- <br> -->
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Discussion Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
+|-------------------|-------------------|--------------|
+| [D4 slides: ggplot themes](discussion/week4/week4-slides.qmd) | [D4 exercise: USDM plot theme](discussion/week4/week4-exercise.qmd) | [D4 solution](discussion/week4/week4-solution.qmd) |
+: {.hover .bordered tbl-colwidths="[35,35,30]"} 
 
 ## {{< fa pencil title="pencil" >}} Assignment Reminders {#assignment-reminders}
 

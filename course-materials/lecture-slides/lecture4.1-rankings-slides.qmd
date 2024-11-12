@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 4 | January 29^th^, 2024]{.custom-subtitle3}
+[Week 4 | January 27^th^, 2024]{.custom-subtitle3}
 
 ---
 
@@ -134,6 +134,7 @@ Be sure to check out the [data dictionary](https://github.com/rfordatascience/ti
 library(tidyverse)
 
 #..........................import data...........................
+# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,26 +143,23 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |> 
   
-  # add cols (needed for dumbbell plot) ----
-  mutate(percent_male = 100 - percent_female, # % of females within each industry was already included
-         difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
-  
+  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  mutate(percent_male = 100 - percent_female) |>
+         
   # rearrange columns ----
   relocate(year, major_category, minor_category, occupation,
           total_workers, workers_male, workers_female,
           percent_male, percent_female,
-          total_earnings, total_earnings_male, total_earnings_female, difference_earnings,
+          total_earnings, total_earnings_male, total_earnings_female, 
           wage_percent_of_male) |> 
   
-  # drop rows with missing earning data ----
+  # drop rows with missing earnings data ----
   drop_na(total_earnings_male, total_earnings_female) |> 
   
-  # make occupation a factor ----
+  # make occupation a factor (necessary for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
-  
-  # ---- this next step is for creating our dumbbell plots ----
-
-  # classify jobs by percentage male or female ----
+ 
+  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -725,8 +723,10 @@ f50 <- jobs_clean |>
 
 #.......combine dfs & relevel factors (for plotting order).......
 subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", 
-                                   "Occupations that are 45-55% female", "Occupations that are 75%+ male")) 
+  mutate(group_label = fct_relevel(group_label, 
+                                   "Occupations that are 75%+ female", 
+                                   "Occupations that are 45-55% female", 
+                                   "Occupations that are 75%+ male")) 
 ```
 
 ---
@@ -742,7 +742,6 @@ See the output on the next slide.
 ```{r}
 #| eval: false
 #| echo: true
-
 # initialize plot (we'll map our aesthetics locally for each geom, below) ----
 ggplot(subset_jobs) +
   

@@ -399,7 +399,7 @@
 <p><span class="custom-title">EDS 240: Lecture 4.2</span></p>
 <p><span class="custom-subtitle"><em>Visualizing numerical relationships</em></span></p>
 <hr class="hr-teal">
-<p><span class="custom-subtitle3">Week 4 | January 29<sup>th</sup>, 2024</span></p>
+<p><span class="custom-subtitle3">Week 4 | January 27<sup>th</sup>, 2024</span></p>
 </section>
 <section id="numerical-relationships" class="slide level2" data-menu-title="Visualizing numerical relationships">
 <h2></h2>
@@ -477,6 +477,7 @@
 <p><span class="slide-title">Data wrangling</span></p>
 <hr>
 <p><span class="body-text-s">Our data don’t require much wrangling, though we will practice using the <a href="https://github.com/NCEAS/metajam"><code>{metajam}</code> package</a> for downloading and reading in data from repositories in the <a href="https://www.dataone.org/">DataOne</a> network.</span></p>
+<!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a></a><span class="do">##                                    setup                                 ----</span></span>
@@ -487,10 +488,10 @@
 <span id="cb1-7"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-8"><a></a></span>
 <span id="cb1-9"><a></a><span class="co">#...................download data from DataOne...................</span></span>
-<span id="cb1-10"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
+<span id="cb1-10"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
 <span id="cb1-11"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
 <span id="cb1-12"><a></a></span>
-<span id="cb1-13"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: I recommend renaming the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
+<span id="cb1-13"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
 <span id="cb1-14"><a></a></span>
 <span id="cb1-15"><a></a><span class="co">#....................read in downloaded files....................</span></span>
 <span id="cb1-16"><a></a>stream_chem_all <span class="ot">&lt;-</span> <span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
@@ -498,6 +499,7 @@
 <span id="cb1-18"><a></a><span class="co">#........................get the data file.......................</span></span>
 <span id="cb1-19"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
 </section>
 <section id="basic-scatter" class="slide level2" data-menu-title="Basic scatter plot">
 <h2></h2>
@@ -735,42 +737,6 @@
 </div>
 </div></div>
 </section>
-<section id="2-scatter-plots" class="slide level2" data-menu-title="2 scatter plots">
-<h2></h2>
-<p><span class="slide-title2">Alternatively, just use 2 separate scatter plots</span></p>
-<hr>
-<p><br></p>
-<p>Rather than mapping a third numeric variable to point size, consider if just creating two separate scatter plots may help to more effectively visualize the relationships:</p>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p>Visualizing the effect of <code>DOC</code> on <code>pH</code></p>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p>Visualizing the effect of <code>Al_ICP</code> on <code>pH</code></p>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
 <section id="scale-by-color" class="slide level2" data-menu-title="Scale by color">
 <h2></h2>
 <p><span class="slide-title2">Visualizing a third numeric variable using color</span></p>
@@ -785,12 +751,48 @@
 <span id="cb14-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Al (mg/L)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
+<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="2-scatter-plots" class="slide level2" data-menu-title="2 scatter plots">
+<h2></h2>
+<p><span class="slide-title2">Alternatively, just use 2 separate scatter plots</span></p>
+<hr>
+<p><br></p>
+<p>Rather than mapping a third numeric variable to point size or color, consider if just creating two separate scatter plots may help to more effectively visualize the relationships:</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text body-text-s gray-text">
+<p>Visualizing the effect of <code>DOC</code> on <code>pH</code></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="center-text body-text-s gray-text">
+<p>Visualizing the effect of <code>Al_ICP</code> on <code>pH</code></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 <!-- --- -->
 <!-- ## {#highlighting data-menu-title="Highlighting"}  -->
 <!-- [Highlighting]{.slide-title2} -->
 <!-- <hr> -->
 <!-- <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> -->
-<img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+</section>
 <section id="overplotting" class="slide level2" data-menu-title="Overplotting">
 <h2></h2>
 <p><span class="slide-title">Overplotting can disguise trends</span></p>

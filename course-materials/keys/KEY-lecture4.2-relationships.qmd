@@ -1,0 +1,348 @@
+---
+title: "Lecture 4.2 KEY"
+subtitle: "Visualizing relationships"
+author: "Your Name"
+date: 2025-01-27
+toc: true
+---
+
+::: {.callout-note}
+This template follows [lecture 4.2 slides](../lecture-slides/lecture4.2-relationships-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+:::
+
+## Setup
+
+```{r}
+#| eval: false
+#| echo: true
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(metajam) 
+library(tidyverse)
+
+#...................download data from DataOne...................
+download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
+                 path = here::here("week4")) 
+
+#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
+
+#....................read in downloaded files....................
+stream_chem_all <- read_d1_files(here::here("week4", "data"))
+
+#........................get the data file.......................
+stream_chem_data <- stream_chem_all$data
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(metajam) 
+library(tidyverse)
+
+#...................download data from DataOne...................
+# download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
+#                  path = here::here("course-materials", "lecture-slides", "data"))
+
+#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
+
+#....................read in downloaded files....................
+stream_chem_all <- read_d1_files(here::here("course-materials", "lecture-slides", "data", "https_pasta.lternet.edu_package_metadata_eml_knb-lter-hbr_208_11__HubbardBrook_weekly_stream_chemistry__csv"))
+
+#........................get the data file.......................
+stream_chem_data <- stream_chem_all$data
+```
+
+## Scatter plots
+
+### Basic scatter plot
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# basic scatter plot ----
+p1 <- stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5)
+
+p1
+```
+
+### Alt 1: add a rug plot
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# scatter + rug plot ----
+p1 +
+  geom_rug()
+```
+
+### Alt 2: marginal plot alternatives using `{ggExtra}`
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# add marginal plots with {ggExtra} ----
+# also try "density", "boxplot"
+ggExtra::ggMarginal(p1, type = "histogram")
+```
+
+### Alt 3: scatter + marginal plot with 2+ groups
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# scatter plot with points colored by site ----
+p2 <- stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = site)) + 
+  geom_point(alpha = 0.5) +
+  theme(legend.position = "bottom")
+
+# add marginal density plot ----
+ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
+```
+
+## Trend lines
+
+### Default: LOESS method
+
+- similar to a moving average
+
+```{r}
+#| eval: true
+#| echo: true
+# add a smoothed line ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  filter(site == "W8") |> 
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+### Line of best fit
+
+```{r}
+#| eval: true
+#| echo: true
+# add a trend line ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  filter(site == "W8") |> 
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+## Visualizing a third numeric variable
+
+### Bubble charts
+
+- variation of a scatter plot for visualizing a third numeric variable
+- be extra mindful:
+    - primary focus = relationship between your x- and y-axis variables 
+    - hard to compare the strengths of different associations (is there a better alternative graphic form?)
+    - if the range of values mapped to size is small, your bubbles will look indistinguishable from one another
+    - consider adjusting the size range of your scale
+    
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# bubble chart ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
+  geom_point(alpha = 0.5) +
+  labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
+```
+
+- adjust size range of bubbles
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# scale size by area ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
+  geom_point(alpha = 0.5) +
+  scale_size(range = c(1, 10)) +
+  labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
+```
+
+- IMPORTANT: don't scale size by radius (can be deceptive)
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# don't scale size by radius ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
+  geom_point(alpha = 0.5) +
+  scale_radius(range = c(1, 10)) +
+  labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
+```
+
+### Use color for third variable
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + 
+  geom_point(alpha = 0.5, size = 2) +
+  scale_color_viridis_c() +
+  labs(x = "DOC (mg/L)", color = "Al (mg/L)")
+```
+
+### But oftentimes best to just create two different plots
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| layout-ncol: 2
+# effect of DOC on pH ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = DOC, y = pH, color = site)) + 
+  geom_point(alpha = 0.5)
+
+# effect of DOC on Al_ICP ----
+stream_chem_data |> 
+  filter(waterYr == 2021) |> 
+  ggplot(aes(x = Al_ICP, y = pH, color = site)) + 
+  geom_point(alpha = 0.5)
+```
+
+## Overplotting
+
+- if you have too many points, scatter plots can be ineffective
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# wayyyy too many points ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
+  geom_point()
+```
+
+### Initial strategies
+
+- adjust size / transparency of points
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# smaller + more transparent points ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
+  geom_point(size = 0.5, alpha = 0.3) 
+```
+
+- add a rug plot (or marginal plot)
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# added rug plot ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
+  geom_point(size = 0.5, alpha = 0.3) +
+  geom_rug()
+```
+
+- color by group
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# added rug plot ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH, color = site)) + 
+  geom_point(size = 0.5, alpha = 0.3) 
+```
+
+### Alt 1: heatmaps
+
+- e.g. like you're looking down on a histogram
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# heatmap of 2d bin counts ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
+  geom_bin2d() +
+  scale_fill_viridis_c()
+```
+
+- or use hexagonal shapes
+- also increase height of legend can make continuous scale easier to read
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# heatmap of 2d bin counts ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
+  geom_hex() +
+  scale_fill_viridis_c() +
+  guides(fill = guide_colourbar(title = "Count", 
+                                barwidth = 1, barheight = 15))
+```
+
+### Alt 2: 2d density / contour plots
+
+- e.g. like you're looking down on a density plot
+- legend provides an estimate of the proportion of data points fall within a colored region (density of distribution of points sums to 1)
+    - interpreting legend: 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+# contour plot ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
+  geom_density_2d_filled()
+```
+
+### Alt 3: 2d density plots using `{ggdensity}`
+
+- can be easier to interpret
+- compute and plot the resulting highest density regions (HDRs)
+- HDRs are computed to be the smallest such regions that bound that level of probability
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#  ----
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
+  ggdensity::geom_hdr() # update prob level e.g. `probs = c(0.99, 0.75, 0.5, 0.25)`
+```
+
+

@@ -1,0 +1,231 @@
+---
+title: "Lecture 4.1 KEY"
+subtitle: "Visualizing rankings"
+author: "Your Name"
+date: 2025-01-27
+toc: true
+---
+
+::: {.callout-note}
+This template follows [lecture 4.1 slides](../lecture-slides/lecture4.1-rankings-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+:::
+
+## Setup
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+
+#..........................import data...........................
+# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
+jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jobs_clean <- jobs |> 
+  
+  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  mutate(percent_male = 100 - percent_female) |>
+         
+  # rearrange columns ----
+  relocate(year, major_category, minor_category, occupation,
+          total_workers, workers_male, workers_female,
+          percent_male, percent_female,
+          total_earnings, total_earnings_male, total_earnings_female, 
+          wage_percent_of_male) |> 
+  
+  # drop rows with missing earnings data ----
+  drop_na(total_earnings_male, total_earnings_female) |> 
+  
+  # make occupation a factor (necessary for reordering groups in our plot) ----
+  mutate(occupation = as.factor(occupation)) |> 
+ 
+  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  mutate(group_label = case_when(
+    percent_female >= 75 ~ "Occupations that are 75%+ female",
+    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
+    percent_male >= 75 ~ "Occupations that are 75%+ male"
+  )) 
+```
+
+## Bar chart vs. Lolliplot chart
+
+- for both examples, we'll: 
+    - flip axes to make space for labels
+    - reorder groups
+    - add scales labels
+    - add direct labels
+
+### Bar chart
+
+```{r}
+#| eval: true
+#| echo: true
+# bar chart ----
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> # keep top 10 jobs with most `total_earnings`
+  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  geom_col() +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") +
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) +
+  coord_flip()
+```
+
+### Lollipop chart
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+# lollipop chart ----
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  ggalt::geom_lollipop() +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) +
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
+                     limits = c(0, 250000)) +
+  coord_flip()
+```
+
+## An aside: when to use `geom_col()` vs. `geom_bar()`
+
+- use `geom_col()` when you have data that's already summarized
+
+```{r}
+#| eval: true
+#| echo: true
+# geom_col() ----
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
+  geom_col() +
+  coord_flip()
+```
+
+- use `geom_bar()` when you need ggplot to count up the number of rows for you
+
+```{r}
+#| eval: true
+#| echo: true
+# geom_bar() ----
+ggplot(jobs_clean, aes(x = major_category)) +
+  geom_bar() + 
+  coord_flip()
+```
+
+## Visualizing 2+ groups
+
+- for both examples, we'll: 
+    - transform data from long to wide format
+    - color by sex
+    - dodge by sex
+
+### Bar chart (2 groups)
+
+```{r}
+#| eval: true
+#| echo: true
+# bar chart ----
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
+  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, fill = sex)) +
+  geom_col(position = position_dodge()) +
+  coord_flip()
+```
+
+### Lollipop chart (2 groups)
+
+```{r}
+#| eval: true
+#| echo: true
+# lollipop chart ----
+jobs_clean |>
+  filter(year == 2016) |>
+  slice_max(order_by = total_earnings, n = 10) |>
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
+  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, color = sex)) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_linerange(aes(xmin = occupation, xmax = occupation, 
+                     ymin = 0, ymax = earnings_by_group),
+                 position = position_dodge(width = 0.5)) +
+  coord_flip()
+```
+
+## Dumbbell plot
+
+### (More) data wrangling
+
+- there are too many occupations to reasonably plot at once, so let's take just 10 random occupations from each group (female-dominated, male-dominated, and evenly(ish) split); we'll also only use 2016 data
+
+```{r}
+#| eval: true
+#| echo: true
+#....guarantee the same random samples each time we run code.....
+set.seed(0)
+
+#.........get 10 random jobs that are 75%+ female (2016).........
+f75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
+  slice_sample(n = 10)
+
+#..........get 10 random jobs that are 75%+ male (2016)..........
+m75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
+  slice_sample(n = 10)
+
+#........get 10 random jobs that are 45-55%+ female (2016).......
+f50 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
+  slice_sample(n = 10)
+
+#.......combine dfs & relevel factors (for plotting order).......
+subset_jobs <- rbind(f75, m75, f50) |> 
+  mutate(group_label = fct_relevel(group_label, 
+                                   "Occupations that are 75%+ female", 
+                                   "Occupations that are 45-55% female", 
+                                   "Occupations that are 75%+ male")) 
+```
+
+### Build dumbbell plot
+
+```{r}
+#| eval: true
+#| echo: true
+#| out-width: "100%"
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
+ggplot(subset_jobs) +
+  
+  # create dumbbells ----
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
+                   y = fct_reorder(occupation, total_earnings), yend = occupation)) + # reorder occupation by avg_salary here
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000))
+```
+

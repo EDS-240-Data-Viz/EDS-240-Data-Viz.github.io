@@ -1,0 +1,205 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- NEW see this code from Bren Student Data Explorer https://github.com/UCSB-MEDS/shiny-dashboard/blob/main/r/salary_plot.R -->
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+
+#..........................import data...........................
+jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jobs_clean <- jobs |> 
+  
+  # # add cols (needed for dumbbell plot) ----
+  # mutate(percent_male = 100 - percent_female, # % of females within each industry was already included
+  #       difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
+  
+  # # rearrange columns ----
+  # select(year, major_category, minor_category, occupation,
+  #       total_earnings_male, total_earnings_female, difference_earnings) |> 
+  
+  # relocate(year, major_category, minor_category, occupation,
+  #         total_workers, workers_male, workers_female,
+  #         percent_female,
+  #         total_earnings, total_earnings_male, total_earnings_female,
+  #         wage_percent_of_male) |>
+  
+  # drop rows with missing earning data ----
+  drop_na(total_earnings_male, total_earnings_female) |> 
+  
+  # make occupation a factor ----
+  mutate(occupation = as.factor(occupation)) #|> 
+  
+  # # this next step creates a column with group labels that we'll use in our ggplot (classify jobs as male- or female-dominated) ----
+  # mutate(group_label = case_when(
+  #   percent_female >= 75 ~ "Occupations that are 75%+ female",
+  #   percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
+  #   percent_male >= 75 ~ "Occupations that are 75%+ male"
+  # )) #|> 
+    # 
+    # pivot_longer(cols = c(),
+    #             names_to = "", values_to = "total_earnings")
+```
+
+Data Viz
+
+```{r}
+# bar plot
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> # keep top 10 jobs with most `total_earnings`
+  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  geom_col() +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") +
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) +
+  coord_flip()
+
+# lollipop
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  ggalt::geom_lollipop() +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) +
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
+                     limits = c(0, 250000)) +
+  coord_flip()
+```
+
+```{r}
+# geom_col()
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
+  geom_col() +
+  coord_flip()
+
+# geom_bar()
+ggplot(jobs_clean, aes(x = major_category)) +
+  geom_bar() + 
+  coord_flip()
+```
+
+2+ groups
+
+```{r}
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
+  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, fill = sex)) + 
+  geom_col(position = position_dodge()) + # default `position = "stack"`
+  coord_flip()
+
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
+  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, color = sex)) +
+  geom_point(position = position_dodge(width = 0.5)) + # default `position = "stack"`
+  geom_linerange(aes(xmin = occupation, xmax = occupation, 
+                     ymin = 0, ymax = earnings_by_group),
+                 position = position_dodge(width = 0.5)) + # default `position = "stack"`
+  coord_flip()
+```
+
+
+```{r}
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jobs_clean <- jobs |> 
+  
+  # add cols (needed for dumbbell plot) ----
+  mutate(percent_male = 100 - percent_female) |>   # % of females within each industry was already included
+        # difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
+  
+  # rearrange columns ----
+  relocate(year, major_category, minor_category, occupation,
+          total_workers, workers_male, workers_female,
+          percent_male, percent_female,
+          total_earnings, total_earnings_male, total_earnings_female,
+          wage_percent_of_male) |>
+  
+  # drop rows with missing earning data ----
+  drop_na(total_earnings_male, total_earnings_female) |> 
+  
+  # make occupation a factor ----
+  mutate(occupation = as.factor(occupation)) |> 
+  
+  # ---- this next step is for creating our dumbbell plots ----
+
+  # classify jobs by percentage male or female ----
+  mutate(group_label = case_when(
+    percent_female >= 75 ~ "Occupations that are 75%+ female",
+    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
+    percent_male >= 75 ~ "Occupations that are 75%+ male"
+  ))  
+```
+
+```{r}
+set.seed(0)
+
+#.........get 10 random jobs that are 75%+ female (2016).........
+f75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
+  slice_sample(n = 10)
+
+#..........get 10 random jobs that are 75%+ male (2016)..........
+m75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
+  slice_sample(n = 10)
+
+#........get 10 random jobs that are 45-55%+ female (2016).......
+f50 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
+  slice_sample(n = 10)
+
+#.......combine dfs & relevel factors (for plotting order).......
+subset_jobs <- rbind(f75, m75, f50) |> 
+  mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", 
+                                   "Occupations that are 45-55% female", "Occupations that are 75%+ male")) 
+```
+
+```{r}
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
+ggplot(subset_jobs) +
+  
+  # create dumbbells ----
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
+                   y = fct_reorder(occupation, total_earnings), yend = occupation)) + # reorder occupation by avg_salary here
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000))
+
+```
+
