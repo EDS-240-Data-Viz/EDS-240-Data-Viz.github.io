@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -234,7 +268,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
+  <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download data</a></li>
+  <li><a href="#c.-download-.qmd-templates-review-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-data-wrangling-code">C. Download .qmd templates &amp; review data wrangling code</a></li>
+  <li><a href="#d.-optional-but-highly-recommended-install-google-chrome-extensions" id="toc-d.-optional-but-highly-recommended-install-google-chrome-extensions" class="nav-link" data-scroll-target="#d.-optional-but-highly-recommended-install-google-chrome-extensions">D. (OPTIONAL, but highly recommended) Install Google Chrome extensions</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a></li>
   <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
@@ -263,30 +303,41 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>Coming soon!</em></p>
-<!-- Please be sure to complete the following before class: -->
-<!-- ### A. Install required packages -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("paletteer") # a comprehensive collection of color palettes in R using a common interface -->
-<!-- install.packages("viridis") # Colorblind-Friendly Color Maps for R -->
-<!-- install.packages("RColorBrewer") # ColorBrewer Palettes -->
-<!-- install.packages("tigris") # for downloading and using Census TIGER/Line shapefiles in R -->
-<!-- ``` -->
-<!-- ### B. Download data -->
-<!-- - [County-level precipitation data (Jan 2019 - Dec 2023) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value), made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/) (the download buttons are located just beneath the rendered map -- **choose the CSV option**) -->
-<!--   - rename the data file as `county-jan19-dec23-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/county-jan19-dec23-precip.csv` -->
-<!-- ### C. Install Google Chrome extensions (optional, but recommended) -->
-<!-- I'll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them! -->
-<!-- 1. **[Let's get color blind](https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck)**: simulates different color deficiencies in the browser -->
-<!-- 2. **[Grayscale the Web](https://chromewebstore.google.com/detail/grayscale-the-web-save-si/mblmpdpfppogibmoobibfannckeeleag)**: turn specific sites or tabs grayscale -->
-<!-- 3. **[ColorPick Eyedropper](https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg)**: a browser-based color chooser tool (I recommended that you install this for week 3 discussion, so you may already have it!) -->
-<!-- ~DID NOT USE THIS IN 2024 BUT KEEPING JUST IN CASE~ -->
-<!-- ### Review data wrangling code  -->
-<!-- In lecture 5.2, we'll be building a choropleth map to visualize county-level precipitation data across the contiguous U.S. To do so, we need to join our precipitation data (which you can download [above](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week5.html#download-data)) with spatial data, which we'll access via the [`{maps}` package](https://cran.r-project.org/web/packages/maps/index.html). Joining these two data sets requires a fair amount of cleaning (namely, ensuring county names match).  -->
-<!-- Please review the background information about our precipitation data on [slide 65](https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.1-colors-slides.html#/data) *and* walk through the data wrangling code on [slide 66](https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.1-colors-slides.html#/data-wrangling) ahead of class. Come prepared with any questions you may have about the code -- we'll set aside ~10 minutes to discuss before jumping into building our data visualization. -->
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"paletteer"</span>) <span class="co"># a comprehensive collection of color palettes in R using a common interface</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"viridis"</span>) <span class="co"># Colorblind-Friendly Color Maps for R</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RColorBrewer"</span>) <span class="co"># ColorBrewer Palettes</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tigris"</span>) <span class="co"># for downloading and using Census TIGER/Line shapefiles in R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-download-data" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-data">B. Download data</h3>
+<ul>
+<li><a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202401/60/value" target="_blank">County-level precipitation data (Feb 2019 - Jan 2024) for the contiguous U.S</a>, made available by <a href="https://www.ncei.noaa.gov/" target="_blank">NOAA National Centers for Environmental Information (NCEI)</a> (the download buttons are located just beneath the rendered map – <strong>choose the CSV option</strong>)
+<ul>
+<li>rename the data file as <code>county-feb19-jan24-precip.csv</code> and save it to your class repo at the file path: <code>EDS-240-class-examples/week5/data/county-feb19-jan24-precip.csv</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="c.-download-.qmd-templates-review-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-data-wrangling-code">C. Download .qmd templates &amp; review data wrangling code</h3>
+<ol type="1">
+<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week5/</code> folder.</p></li>
+<li><p>Review the data wrangling code under the <code># Setup</code> section of <sup>1</sup>each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
+</ol>
+<p><em><sup>1</sup>We will walk through the 5.3 template setup / wrangling code together in class, but it will still benefit you to review it a bit beforehand!</em></p>
+</section>
+<section id="d.-optional-but-highly-recommended-install-google-chrome-extensions" class="level3">
+<h3 class="anchored" data-anchor-id="d.-optional-but-highly-recommended-install-google-chrome-extensions">D. (OPTIONAL, but highly recommended) Install Google Chrome extensions</h3>
+<p>I’ll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them!</p>
+<ol type="1">
+<li><strong><a href="https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck" target="_blank">Let’s get color blind</a></strong>: simulates different color deficiencies in the browser</li>
+<li><strong><a href="https://chromewebstore.google.com/detail/grayscale-the-web-save-si/mblmpdpfppogibmoobibfannckeeleag" target="_blank">Grayscale the Web</a></strong>: turn specific sites or tabs grayscale</li>
+<li><strong><a href="https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg" target="_blank">ColorPick Eyedropper</a></strong>: a browser-based color chooser tool (I recommended that you install this for week 2 discussion, so you may already have it!)</li>
+</ol>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
@@ -306,18 +357,18 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="../course-materials/lecture-slides/lecture5.1-good-viz-slides.html" target="_blank">Lecture 5.1: good data viz</a></td>
-<td>NA</td>
-<td>NA</td>
+<td><em>NA</em></td>
+<td><em>NA</em></td>
 </tr>
 <tr class="even">
 <td><a href="../course-materials/lecture-slides/lecture5.2-colors-slides.html" target="_blank">Lecture 5.2: colors</a></td>
-<td><a href="" target="_blank">5.2 template</a></td>
-<td><a href="keys/KEY-lecture5.2-colors.qmd" target="_blank">5.2 key</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week5/TEMPLATE-lecture5.2-colors.qmd" target="_blank">5.2 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture5.2-colors.html" target="_blank">5.2 key</a></td>
 </tr>
 <tr class="odd">
 <td><a href="../course-materials/lecture-slides/lecture5.3-choropleth-slides.html" target="_blank">Lecture 5.3: choropleth</a></td>
-<td><a href="" target="_blank">5.3 template</a></td>
-<td><a href="keys/KEY-lecture5.3-choropleth.qmd" target="_blank">5.3 key</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week5/TEMPLATE-lecture5.3-choropleth.qmd" target="_blank">5.3 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture5.3-choropleth.html" target="_blank">5.3 key</a></td>
 </tr>
 </tbody>
 </table>

@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 5 | February 5^th^, 2024]{.custom-subtitle3}
+[Week 5 | February 3^rd^, 2025]{.custom-subtitle3}
 
 ---
 
@@ -39,7 +39,7 @@ editor_options:
 - **color choices** (incl. palette types, emotions, readability)
 - [how to **tell an interesting story**]{.gray-text}
 - [how to **center the people and communities** represented in your data]{.gray-text}
-- **accessibility** through colorblind-friendly palettes & alt text (see [week 2 discussion](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials))
+- **accessibility** through colorblind-friendly palettes & alt text
 
 ::: {.center-text .teal-text}
 **This lesson will focus on the use of colors in a good data visualization.**
@@ -110,15 +110,15 @@ You'll probably iterate on them as you sit with your visualization and of course
 
 **Some places to start / things to consider:**
 
-- is using color the best and / or only way to visually represent your variable(s)?
+- is using [**color the best and / or only way**]{.teal-text} to visually represent your variable(s)?
 
 . . . 
 
-- are you designing for a particular organization / brand?
-- what emotions are you trying (or not trying) to elicit?
-- who is your audience?
-- are your data commonly represented using a particular color scheme?
-- what data types (e.g. numeric vs. categorical, discrete vs. continuous?) are you working with?
+- are you designing for a particular [**organization / brand**]{.teal-text}?
+- what [**emotions**]{.teal-text} are you trying (or not trying) to elicit?
+- who is your [**audience**]{.teal-text}?
+- are your [**data commonly represented**]{.teal-text} using a particular color scheme?
+- what [**data types**]{.teal-text} (e.g. numeric vs. categorical, discrete vs. continuous?) are you working with?
 
 ---
 
@@ -128,9 +128,7 @@ You'll probably iterate on them as you sit with your visualization and of course
 
 <hr>
 
-[There are a number of **different color spaces that are used to represent and define color**. [HSV and HSL](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.) are used commonly in color pickers (e.g. [Google color picker](https://www.google.com/search?q=google+color+picker&oq=google+color+picker&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYQDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBCDIwMDhqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8)). [HCL](https://en.wikipedia.org/wiki/HCL_color_space) underlies some default `{ggplot2}` parameters. You don't need to worry much about the underlying theory of color spaces, but know that **changing any of the parameters (e.g. hue, saturation, etc.) can influence how we perceive information in a data visualization.**]{.body-text-s}
-
-<!-- Changing **hue** (the pure color), **saturation** (aka chroma; the intensity / purity of a color) and / or **value** (degree of lightness / darkness) can influence how readers perceive information in a data visualization. -->
+There are a number of **different [*color spaces*](https://en.wikipedia.org/wiki/Color_space){target="_blank"} that are used to represent and define color**. [HSV and HSL](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} are used commonly in color pickers (e.g. [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"}). [HCL](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"} underlies some default `{ggplot2}` parameters.
 
 :::: {.columns}
 
@@ -142,13 +140,10 @@ HSV
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "80%"
+#| out-width: "65%"
 knitr::include_graphics("images/week5/hue-sat-val.png")
 ```
 
-::: {.center-text .body-text-s .gray-text}
-Image source: [medium.com](https://medium.com/awkbit/choosing-a-color-scheme-for-your-website-awkbit-59ab750151dc)
-:::
 :::
 
 ::: {.column width="50%"}
@@ -160,16 +155,23 @@ HCL
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "80%"
+#| out-width: "65%"
 knitr::include_graphics("images/week5/hcl.png")
 ```
 
-::: {.center-text .body-text-s .gray-text}
-Image source: Stauffer et al. (2015) <https://doi.org/10.1175/BAMS-D-13-00155.1>
 :::
+::::
+
+. . . 
+
+::: {.center-text}
+You don't need to worry much about the underlying theory of color spaces, but know that **changing any of the parameters (e.g. hue, saturation, etc.) can influence how we perceive information in a data visualization.**
 :::
 
-::::
+
+::: {.footer}
+Image sources: [medium.com](https://medium.com/awkbit/choosing-a-color-scheme-for-your-website-awkbit-59ab750151dc){target="_blank"} (left), Stauffer et al. (2015) [https://doi.org/10.1175/BAMS-D-13-00155.1](https://doi.org/10.1175/BAMS-D-13-00155.1){target="_blank"} (right)
+:::
 
 ::: {.notes}
 - Hue ranges from 0 to 360 (an angle) and gives the “colour” of the colour (blue, red, orange, etc).
@@ -196,6 +198,7 @@ Source: <https://ggplot2-book.org/scales-colour>
 <hr>
 
 <br>
+<br>
 
 ```{r}
 #| eval: true
@@ -207,8 +210,10 @@ knitr::include_graphics("images/week5/palette-types.png")
 
 <br>
 
-::: {.center-text .gray-text .body-text-s}
-Image source: [Which color scale to use when visualizing data](https://blog.datawrapper.de/which-color-scale-to-use-in-data-vis/), by Lisa Charlottte Muth. This is the first article of a 4 part series ([Part 2](https://blog.datawrapper.de/quantitative-vs-qualitative-color-scales/) / [Part 3](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/) / [Part 4](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/)) -- I highly recommend reading!
+::: {.footer}
+Image source: [Which color scale to use when visualizing data](https://blog.datawrapper.de/which-color-scale-to-use-in-data-vis/){target="_blank"}, by Lisa Charlottte Muth. 
+
+This is the first article of a 4 part series ([Part 2](https://blog.datawrapper.de/quantitative-vs-qualitative-color-scales/){target="_blank"} / [Part 3](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/){target="_blank"} / [Part 4](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/){target="_blank"}) -- I highly recommend reading!
 :::
 
 ---
@@ -219,10 +224,10 @@ Image source: [Which color scale to use when visualizing data](https://blog.data
 
 <hr>
 
-  - [mainly formed by selecting differet *hues*]{.body-text-s}
-  - [hues assigned to each group must be distinct and ideally have different lightnesses]{.body-text-s}
-  - [groups don't have an intrinsic order]{.body-text-s}
-  - [limit to no more than 7 hues]{.body-text-s}
+  - mainly formed by selecting [**different *hues***]{.teal-text}
+  - hues assigned to each group must be [**distinct**]{.teal-text} and ideally have [**different lightnesses**]{.teal-text}
+  - groups [**don't have an intrinsic order**]{.teal-text}
+  - limit to [**no more than 7 hues**]{.teal-text}
 
 ```{r}
 #| eval: true
@@ -233,7 +238,7 @@ knitr::include_graphics("images/week5/categorical-scales.png")
 ```
 
 ::: {.footer}
-Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.html), by Kyle Walker
+Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.html){target="_blank"}, by Kyle Walker
 :::
 
 ---
@@ -244,12 +249,9 @@ Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.ht
 
 <hr>
 
-  - [colors assigned to data values in a continuum, based on lightness, hue, or both]{.body-text-s}
-  - [lower values typically associated with lighter colors & higher values associated with darker colors]{.body-text-s}
-  - [can use a single hue *or* two hues]{.body-text-s}
-
-<!-- (light to dark) -->
-<!-- (typically a warmer / brighter hue for lower values and cooler / darker hue for higher values...but not always) -->
+  - colors assigned to data values in [**a continuum, based on lightness, hue, or both**]{.teal-text}
+  - [**lower values**]{.teal-text} typically associated with [**lighter colors**]{.teal-text} & [**higher values**]{.teal-text} associated with [**darker colors**]{.teal-text} (though not a hard and fast rule; make choices clear with legend)
+  - can use a [**single hue *or* two hues**]{.teal-text}
 
 ```{r}
 #| eval: true
@@ -260,7 +262,7 @@ knitr::include_graphics("images/week5/sequential-scales.png")
 ```
 
 ::: {.footer}
-Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.html), by Kyle Walker
+Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.html){target="_blank"}, by Kyle Walker
 :::
 
 ---
@@ -271,9 +273,9 @@ Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.ht
 
 <hr>
 
-  - [combination of two sequential palettes with a shared endpoint at the central value]{.body-text-s}
-  - [central value is assigned a light color (light gray is best)]{.body-text-s}
-  - [use a distinctive hue for each of the component palettes]{.body-text-s}
+  - combination of [**two sequential palettes with a shared endpoint**]{.teal-text} at the central value
+  - [**central value**]{.teal-text} is assigned a [**light color**]{.teal-text} (light gray is best)
+  - use a [**distinctive hue**]{.teal-text} for each of the [**component palettes**]{.teal-text}
 
 ```{r}
 #| eval: true
@@ -284,7 +286,7 @@ knitr::include_graphics("images/week5/diverging-scales.png")
 ```
 
 ::: {.footer}
-Map source: [2020 U.S. Election Mapped: TrumpLand vs Biden Archipelago](https://vividmaps.com/us-election-2020/), by Vivid Maps
+Map source: [2020 U.S. Election Mapped: TrumpLand vs Biden Archipelago](https://vividmaps.com/us-election-2020/){target="_blank"}, by Vivid Maps
 :::
 
 ---
@@ -295,7 +297,7 @@ Map source: [2020 U.S. Election Mapped: TrumpLand vs Biden Archipelago](https://
 
 <hr>
 
-[We'll be testing out different palettes throughout this lesson. Instead of having to retype the code for our plots each time, let's create and save two versions of a penguin scatterplot. We can then call either of these plot objects to modify with different color scales:]{.body-text-s}
+[We'll be testing out different palettes throughout this lesson. Instead of having to retype the code for our plots each time, let's create and save two versions of a penguin scatter plot. We can then call either of these plot objects to modify with different color scales:]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -358,7 +360,7 @@ cont_color_plot
 
 <hr>
 
-Color vision deficiency aka colorblindness is the decreased ability to see color or differences in color. It's estimated that about 1 in 12 men (8%) and 1 in 200 women (0.5%) are affected ([Wikipedia](https://en.wikipedia.org/wiki/Color_blindness)).
+Color vision deficiency aka colorblindness is the decreased ability to see color or differences in color. It's estimated that about 1 in 12 men (8%) and 1 in 200 women (0.5%) are affected ([Wikipedia](https://en.wikipedia.org/wiki/Color_blindness){target="_blank"}).
 
 ```{r}
 #| eval: true
@@ -369,7 +371,7 @@ knitr::include_graphics("images/week5/color-test-plates.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Color plate tests are used to help identify different forms of color blindness. Try using the [Let's get color blind](https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck) Chrome extension to emulate different forms of colorblindness while looking at the above plates. Image source: [American Optometric Association](https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/color-vision-deficiency?sso=y)
+Color plate tests are used to help identify different forms of color blindness. Try using the [Let's get color blind](https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck){target="_blank"} Chrome extension to emulate different forms of colorblindness while looking at the above plates. Image source: [American Optometric Association](https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/color-vision-deficiency?sso=y){target="_blank"}
 :::
 
 ---
@@ -401,11 +403,11 @@ knitr::include_graphics("images/week5/noaa-weathermap.png")
 :::
 
 ::: {.column width="50%"}
-- [colors don't follow any natural perceived ordering (no innate sense of higher or lower)]{.body-text-s}
+- colors don't follow any natural perceived ordering (no innate sense of higher or lower)
 
-- [perceptual changes in rainbow colors are not uniform (e.g. colors appear to change faster in yellow region than green region)]{.body-text-s}
+- perceptual changes in rainbow colors are not uniform (e.g. colors appear to change faster in yellow region than green region)
 
-- [insensitive to color vision deficiencies]{.body-text-s}
+- insensitive to color vision deficiencies
 :::
 
 ::::
@@ -413,7 +415,7 @@ knitr::include_graphics("images/week5/noaa-weathermap.png")
 <br>
 
 ::: {.footer}
-Top image source: [Why we use bad color maps and what you cando about it](https://www.kennethmoreland.com/color-advice/BadColorMaps.pdf) | Bottom left image source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 [10.1109/MCG.2023.3246111](https://www.computer.org/csdl/magazine/cg/2023/03/10128890/1NdJMHqISnS) | For another example of poor use of rainbow color maps, see this [world map with binned colors](https://en.wikipedia.org/wiki/Poverty#/media/File:Countries_by_Human_Development_Index_(2020).png)
+Top image source: [Why we use bad color maps and what you cando about it](https://www.kennethmoreland.com/color-advice/BadColorMaps.pdf){target="_blank"} | Bottom left image source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 [10.1109/MCG.2023.3246111](https://www.computer.org/csdl/magazine/cg/2023/03/10128890/1NdJMHqISnS){target="_blank"} | For another example of poor use of rainbow color maps, see this [world map with binned colors](https://en.wikipedia.org/wiki/Poverty#/media/File:Countries_by_Human_Development_Index_(2020).png){target="_blank"}
 :::
 
 ---
@@ -425,12 +427,13 @@ Top image source: [Why we use bad color maps and what you cando about it](https:
 <hr>
 
 <br>
+<br>
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Problematic, perceptually nonuniform and unordered rainbow colormaps
 :::
 
@@ -445,7 +448,7 @@ knitr::include_graphics("images/week5/bad-rainbow.png")
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Improved, perceptual uniform and diverging rainbow colormaps
 :::
 
@@ -460,23 +463,21 @@ knitr::include_graphics("images/week5/better-rainbow.png")
 
 ::::
 
-::: {.center-text .body-text-s .gray-text}
-Image source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 [10.1109/MCG.2023.3246111](https://www.computer.org/csdl/magazine/cg/2023/03/10128890/1NdJMHqISnS)
-:::
-
 ::: {.footer}
-Also check out [Stoelzle & Stein (2021)](https://doi.org/10.5194/hess-25-4549-2021) (Figure 1 is particularly helpful!) and [Crameri et al. (2020)](https://doi.org/10.1038/s41467-020-19160-7) for some really great supplemental reading 
+Image source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 [10.1109/MCG.2023.3246111](https://www.computer.org/csdl/magazine/cg/2023/03/10128890/1NdJMHqISnS){target="_blank"}
+
+Also check out [Stoelzle & Stein (2021)](https://doi.org/10.5194/hess-25-4549-2021){target="_blank"} (Figure 1 is particularly helpful!) and [Crameri et al. (2020)](https://doi.org/10.1038/s41467-020-19160-7){target="_blank"} for some really great supplemental reading 
 :::
 
 ---
 
 ## {#viridis data-menu-title="Viridis"} 
 
-[Alternative: Viridis]{.slide-title}
+[ALTERNATIVE: Viridis]{.slide-title}
 
 <hr>
 
-[The `viridis` color scales](https://ggplot2.tidyverse.org/reference/scale_viridis.html) are perceptually-uniform (even when printed in gray scale) and colorblindness-friendly:
+[The `viridis` color scales](https://ggplot2.tidyverse.org/reference/scale_viridis.html){target="_blank"} are perceptually-uniform (even when printed in gray scale) and colorblindness-friendly:
 
 <br>
 
@@ -484,7 +485,7 @@ Also check out [Stoelzle & Stein (2021)](https://doi.org/10.5194/hess-25-4549-20
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Continuous viridis scales
 :::
 
@@ -499,7 +500,7 @@ knitr::include_graphics("images/week5/viridis-continuous.png")
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Binned viridis scales
 :::
 
@@ -514,7 +515,7 @@ knitr::include_graphics("images/week5/viridis-binned.png")
 
 ::::
 
-There are a number of different ways to apply `viridis` color scales, but I often opt for [`scale_*_viridis_*()` functions](https://ggplot2.tidyverse.org/reference/scale_viridis.html), which come pre-loaded with `{ggplot}`.
+There are a number of different ways to apply `viridis` color scales, but I often opt for [`scale_*_viridis_*()` functions](https://ggplot2.tidyverse.org/reference/scale_viridis.html){target="_blank"}, which come pre-loaded with `{ggplot}`.
 
 ---
 
@@ -524,11 +525,15 @@ There are a number of different ways to apply `viridis` color scales, but I ofte
 
 <hr>
 
+Try out the palette options below, then check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_viridis.html){target="_blank"} and play around with some alternative options as well.
+
+<br>
+
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Discrete viridis scales
 :::
 
@@ -544,7 +549,7 @@ cat_color_plot +
 
 ::: {.column width="50%"}
 
-::: {.center-text .body-text-s .gray-text}
+::: {.center-text .gray-text}
 Continuous viridis scales
 :::
 
@@ -559,10 +564,6 @@ cont_color_plot +
 :::
 
 ::::
-
-::: {.center-text}
-Check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_viridis.html) and play around with some alternative options.
-:::
 
 ```{r}
 countdown::countdown(
@@ -584,33 +585,14 @@ countdown::countdown(
 
 ## {#color-brewer data-menu-title="ColorBrewer"} 
 
-[Alternative: RColorBrewer]{.slide-title}
+[ALTERNATIVE: RColorBrewer]{.slide-title}
 
 <hr>
 
-[The [ColorBrewer color scales](https://ggplot2.tidyverse.org/reference/scale_brewer.html) provides color schemes for maps and other graphics. There is also a [web-based interface](http://colorbrewer2.org) for generating palettes.]{.body-text-s}
+[ColorBrewer](https://ggplot2.tidyverse.org/reference/scale_brewer.html){target="_blank"} offers a number of colorblind-friendly color schemes for maps and other graphics. Check them out using `{RColorBrewer}` or the [web-based interface](http://colorbrewer2.org){target="_blank"}.
 
-:::: {.columns}
+<br>
 
-::: {.column width="50%"}
-```{r}
-#| eval: false
-#| echo: true
-#| fig-align: "center"
-#| out-width: "100%"
-RColorBrewer::display.brewer.all()
-```
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "80%"
-knitr::include_graphics("images/week5/brewer-all.png")
-```
-:::
-
-::: {.column width="50%"}
 ```{r}
 #| eval: false
 #| echo: true
@@ -619,12 +601,35 @@ knitr::include_graphics("images/week5/brewer-all.png")
 RColorBrewer::display.brewer.all(colorblindFriendly = TRUE)
 ```
 
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s .gray-text}
+Colorblind-friendly palettes, viewed using `display.brewer.all()`
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "70%"
+knitr::include_graphics("images/week5/brewer-colorblind.png")
+```
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s .gray-text}
+ColorBrewer's web-based interface for exploring palettes
+:::
+
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| out-width: "80%"
-knitr::include_graphics("images/week5/brewer-colorblind.png")
+knitr::include_graphics("images/week5/ColorBrewer-web.png")
 ```
 :::
 
@@ -634,7 +639,7 @@ knitr::include_graphics("images/week5/brewer-colorblind.png")
 
 ## {#color-brewer-pal data-menu-title="Show RColorBrewer palette"} 
 
-[Alternative: RColorBrewer]{.slide-title}
+[ALTERNATIVE: RColorBrewer]{.slide-title}
 
 <hr>
 
@@ -647,7 +652,7 @@ knitr::include_graphics("images/week5/brewer-colorblind.png")
 :::: {.columns}
 
 ::: {.column width="50%"}
-::: {.center-text .gray-text .body-text-s}
+::: {.center-text .body-text-s .gray-text}
 Preview a palette with your number of desired colors:
 :::
 
@@ -662,7 +667,7 @@ RColorBrewer::display.brewer.pal(n = 4, name = 'Dark2')
 :::
 
 ::: {.column width="50%"}
-::: {.center-text .gray-text .body-text-s}
+::: {.center-text .body-text-s .gray-text}
 Print the HEX codes of your palette:
 :::
 
@@ -682,7 +687,7 @@ RColorBrewer::brewer.pal(n = 4, name = 'Dark2')
 
 ## {#use-RColorBrewer data-menu-title="Use RColorBrewer"} 
 
-[Using RColorBrewer color palettes]{.slide-title}
+[Using RColorBrewer color scales]{.slide-title}
 
 <hr>
 
@@ -711,7 +716,7 @@ cat_color_plot +
 ::: {.column width="33%"}
 
 ::: {.center-text .body-text-s .gray-text}
-Use `scale_color_distiller()` for **unclassed** versions of **continuous color scales**
+Use `scale_color_distiller()` for **unclassed continuous color scales**
 :::
 
 ```{r}
@@ -727,7 +732,7 @@ cont_color_plot +
 ::: {.column width="33%"}
 
 ::: {.center-text .body-text-s .gray-text}
-Use `scale_color_fermenter()` for **classed** versions of **continuous color scales**
+Use `scale_color_fermenter()` for **classed continuous color scales**
 :::
 
 ```{r}
@@ -742,7 +747,7 @@ cont_color_plot +
 
 ::::
 
-Check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_brewer.html) and play around with some alternative options.
+Check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_brewer.html){target="_blank"} and play around with some alternative options.
 
 ```{r}
 countdown::countdown(
@@ -764,38 +769,37 @@ countdown::countdown(
 
 ## {#outline-points data-menu-title="Tip: outline points"} 
 
-[Tip: outline points to make light colors more visible]{.slide-title2}
+[Accessibility tip: outline points to make light colors more visible]{.slide-title2}
 
 <hr>
 
-Rather than `color` points by `body_mass_g`, we can `fill` points by `body_mass_g`. Then, we need to change the [`shape` of our points to `21`](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec), which is the code for an outlined, fill-able point: 
+Rather than `color` points by `body_mass_g`, we can `fill` points by `body_mass_g`. Then, we need to change the [`shape` of our points to `21`](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec){target="_blank"}, which is the code for an outlined, fill-able point: 
 
 ```{r}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
 #| out-width: "100%"
-library(palmerpenguins)
-library(tidyverse)
-
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, fill = body_mass_g)) +
   geom_point(shape = 21, size = 4, alpha = 0.8) +
   scale_fill_distiller(palette = "BuPu")
 ```
 
 ::: {.footer}
-Trick comes courtesy of [Albert Rapp](https://albert-rapp.de/) and his [How to Use Better Colors in ggplot (3 Easy Ways)](https://www.youtube.com/watch?v=ZVSbY4z7tMY) video tutorial. Check out his [YouTube channel](https://www.youtube.com/@rappa753) for *tons* of great R content.
+Trick comes courtesy of [Albert Rapp](https://albert-rapp.de/){target="_blank"} and his [How to Use Better Colors in ggplot (3 Easy Ways)](https://www.youtube.com/watch?v=ZVSbY4z7tMY){target="_blank"} video tutorial. Check out his [YouTube channel](https://www.youtube.com/@rappa753){target="_blank"} for *tons* of great R content.
 :::
 
 ---
 
 ## {#redundant-mapping data-menu-title="Redundant mapping"} 
 
-[Use redundant mapping whenever possible]{.slide-title}
+[Accessibility tip: use redundant mapping whenever possible]{.slide-title}
 
 <hr>
 
-Recall that colors are [low on the hierarchy of elementary perceptual tasks](https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.1-choosing-graphic-forms-slides.html#/hierarchy). **When possible, avoid conveying important information purely through color** -- consider how you might additionally use shapes, symbols, typography, or annotations.
+Recall that colors are [low on the hierarchy of elementary perceptual tasks](lecture2.1-choosing-graphic-forms-slides.html#/hierarchy){target="_blank"}. **When possible, avoid conveying important information purely through color** -- consider how you might additionally use shapes, symbols, typography, or annotations.
+
+<br>
 
 ```{r}
 #| eval: true
@@ -805,8 +809,10 @@ Recall that colors are [low on the hierarchy of elementary perceptual tasks](htt
 knitr::include_graphics("images/week5/apigo2022.png")
 ```
 
-::: {.center-text .body-text-s .gray-text}
-Figure 2 from Apigo A and Oono R (2022) Plant abundance, but not plant evolutionary history, shapes patterns of host specificity in foliar fungal endophytes. Ecosphere. 13(1):e03879. [https://doi.org/10.1002/ecs2.3879](https://doi.org/10.1002/ecs2.3879)
+<br>
+
+::: {.footer}
+Figure 2 from Apigo A and Oono R (2022) Plant abundance, but not plant evolutionary history, shapes patterns of host specificity in foliar fungal endophytes. Ecosphere. 13(1):e03879. [https://doi.org/10.1002/ecs2.3879](https://doi.org/10.1002/ecs2.3879){target="_blank"}
 :::
 
 ---
@@ -821,9 +827,11 @@ Figure 2 from Apigo A and Oono R (2022) Plant abundance, but not plant evolution
 
 ## {#paletteer data-menu-title="Paletteer"} 
 
-[Use paletteer to access TONS of palettes]{.slide-title}
+[Use paletteer to access TONS of pre-made palettes]{.slide-title2}
 
 <hr>
+
+The [`{paletteer}` package](https://emilhvitfeldt.github.io/paletteer/){target="_blank"}  provides a **common interface** for accessing a near-comprehensive **list of palettes (over 2,500!!) across various packages**.
 
 <br>
 
@@ -842,48 +850,37 @@ knitr::include_graphics("images/week5/paletteer.png")
 ::: {.column width="50%"}
 
 <br>
-
-It would be impossible to list out on one slide all the palette packages available for use, but the [`{paletteer}` package](https://emilhvitfeldt.github.io/paletteer/) gets close to doing just that.
-
 <br>
 
-It provides **a common interface for accessing a near-comprehensive list of palettes ([over 2,000!!]{.teal-text}) across various packages**.
+- two groups of palettes: **discrete** and **continuous**
+- discrete palettes can be **fixed** (have a set # of colors) or **dynamic** (adjustable # of colors based on your specifications)
 :::
 
 ::::
 
-::: {.center-text .body-text-m}
-Explore the extensive list of [supported palette packages](https://emilhvitfeldt.github.io/paletteer/#included-packages)!
-:::
-
 ---
 
-## {#paletteer-fxns data-menu-title="Paletteer functions"} 
+## {#explore-paletteer data-menu-title="Explore paletteer"} 
 
-[Use `{paletteer}` to generate HEX codes *or* apply palettes directly]{.slide-title3}
+[Take a couple minutes to explore palettes]{.slide-title}
 
 <hr>
 
-::: {.incremental}
-- **Generate a list of HEX codes** using one of [three `paletteer_*()` functions](https://emilhvitfeldt.github.io/paletteer/#examples) 
-- **Apply a palette directly to your ggplot** using one of [three `scale_*_paletteer_*()`  functions](https://emilhvitfeldt.github.io/paletteer/#ggplot2-scales)
-:::
-
-. . . 
+Browse the extensive list of supported palette packages in the [**`{paletter}` documentation**](https://emilhvitfeldt.github.io/paletteer/#included-packages){target="_blank"}, on the [**r-color-palettes**](https://github.com/EmilHvitfeldt/r-color-palettes){target="_blank"} GitHub repo, or on the [**R Color Palettes**](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"} website.
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s .gray-text}
-Find most palettes on the **[R Color Palettes](https://emilhvitfeldt.github.io/r-color-palettes/) website**
+Find discrete palettes on the **[R Color Palettes](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"}** website
 :::
 
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "70%"
+#| out-width: "60%"
 knitr::include_graphics("images/week5/r-color-palettes.png")
 ```
 :::
@@ -898,42 +895,8 @@ Click on any palette for more information & example plots
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "70%"
+#| out-width: "60%"
 knitr::include_graphics("images/week5/wesanderson.png")
-```
-:::
-
-::::
-
----
-
-## {#try-paletteer data-menu-title="Try paletteer"} 
-
-[Give `{paletteer}` a try (or use any package directly)!]{.slide-title3}
-
-<hr>
-
-Update the colors of the plots below, either by using the `{paletteer}` package *or* by following the documentation for any specific package. It's helpful to start by looking over the [list of supported packages](https://emilhvitfeldt.github.io/paletteer/#included-packages).
-
-:::: {.columns}
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| out-width: "90%"
-cat_color_plot
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| out-width: "590%"
-cont_color_plot
 ```
 :::
 
@@ -941,7 +904,7 @@ cont_color_plot
 
 ```{r}
 countdown::countdown(
-  minutes = 3,
+  minutes = 2,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -955,47 +918,245 @@ countdown::countdown(
   )
 ```
 
+. . .
+
+::: {.center-text}
+**`{paletteer}` is useful in a number of ways -- let's consider [two options]{.teal-text} next**
+:::
+
+::: {.footer}
+TIP: Information about supported palettes and packages can be found in these data frames: `palettes_c_names`, `palettes_d_names` and `palettes_dynamic_names`
+:::
+
 ---
 
-## {#try-paletteer-ex data-menu-title="Try paletteer (examples)"} 
+## {#1-scale-paletteer data-menu-title="1. scale_*_paletteer()"} 
 
-[Examples]{.slide-title}
+[1. Apply a palette using `scale_*_paletteer_*()`]{.slide-title2}
 
 <hr>
 
-<br>
+- where `scale_*` can be `scale_color` or `scale_fill`
+- and `paletteer_*` can be `paletteer_d` (discrete), `paletteer_c` (continuous), or `paletteer_binned`
 
 :::: {.columns}
 
 ::: {.column width="50%"}
-::: {.center-text .gray-text .body-text-s}
-**superbloom3** palette from [`{calecopal}`](https://github.com/an-bui/calecopal), applied using the `paletteer::scale_color_paletteer_d()`
+::: {.center-text .body-text-s .gray-text}
+**superbloom3** palette from `{calecopal}`
 :::
 
 ```{r}
 #| eval: true
 #| echo: true
-#| fig-align: "center"
-#| out-width: "90%"
+#| warning: false
 cat_color_plot +
   paletteer::scale_color_paletteer_d("calecopal::superbloom3")
 ```
 :::
 
 ::: {.column width="50%"}
-::: {.center-text .gray-text .body-text-s}
-**WindCave** palette from [`{NatParksPalette}`](https://github.com/kevinsblake/NatParksPalettes), created using `{NatParksPalette}` & applied using `scale_color_gradientn()`
+::: {.center-text .body-text-s .gray-text}
+**bartlow** palette from `{scico}`
 :::
 
 ```{r}
 #| eval: true
 #| echo: true
-#| fig-align: "center"
-#| out-width: "90%"
-my_parks_palette <- NatParksPalettes::natparks.pals(name = "WindCave", n = 20, type = "continuous")
-
+#| warning: false
 cont_color_plot +
-  scale_color_gradientn(colors = rev(my_parks_palette))
+  paletteer::scale_color_paletteer_c("scico::batlow", direction = -1)
+```
+:::
+
+::::
+
+::: {.footer}
+Also try using `scale_color_paletteer_binned()` to apply the **bartlow** palette, above.
+:::
+
+---
+
+## {#2a-generate-hex-codes data-menu-title="2a. Generate HEX codes"} 
+
+[2a. Create vector of HEX codes using `paletteer_*()`]{.slide-title3}
+
+<hr>
+
+- be sure to specify the number of colors to number of desired colors (`n`), and optionally, the `direction`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s .gray-text}
+**GrandBudapest1** palette from `{wesanderson}` 
+
+(discrete, with 3 colors)
+:::
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+pal_d <- paletteer::paletteer_d("wesanderson::GrandBudapest1", n = 3)
+pal_d
+```
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s .gray-text}
+**Gold-Purple Diverging** palette from `{ggthemes}` 
+
+(continuous, with 5 colors)
+:::
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+pal_c <- paletteer::paletteer_c("ggthemes::Gold-Purple Diverging", n = 5)
+pal_c
+```
+:::
+
+::::
+
+. . .
+
+<br>
+
+::: {.body-text-m .center-text}
+**We can now apply our palette to our plot using the appropriate `ggplot2::scale_*()` function.**
+
+See the next slide for some commonly used options. 
+:::
+
+---
+
+## {#common-scaling-fxns data-menu-title="Common scaling functions"} 
+
+[Some common functions for scaling colors]{.slide-title2}
+
+<hr>
+
+**For qualitative (categorical) data <img src="images/week5/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :**
+
+- [`scale_*_manual()`]{.body-text-s}
+
+**For quantitative (numeric) data:**
+
+Unclassed palettes <img src="images/week5/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
+
+- [`scale_*_gradient()`: creates a two color gradient (low-high)]{.body-text-s}
+- [`scale_*_gradient2()`: creates a diverging color gradient (low-mid-high)]{.body-text-s}
+- [`scale_*_gradientn()`: creates a n-color gradient]{.body-text-s}
+
+Classed palettes <img src="images/week5/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
+
+- [`scale_*steps()`: creates a two color binned gradient (low-high)]{.body-text-s}
+- [`scale_*_steps2()`: creates a diverging binned color gradient (low-mid-high)]{.body-text-s}
+- [`scale_*_stepsn()`: creates a n-color binned gradient]{.body-text-s}
+
+::: {.center-text .body-text-s}
+**Use the `fill` variant of the above functions for areas, bars, etc. and the `color` variant for points, lines, etc.**
+:::
+
+---
+
+## {#2b-apply-palettes_d data-menu-title="2b. Apply palettes using scale_*()"} 
+
+[2b. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
+
+<hr>
+
+**Examples using our discrete color palette:**
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+pal_d <- paletteer::paletteer_d("wesanderson::GrandBudapest1", n = 3)
+```
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+apply to scatter plot using the `color` variant
+:::
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+cat_color_plot + 
+  scale_color_manual(values = pal_d)
+```
+:::
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+apply to histogram using the `fill` variant
+:::
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  scale_fill_manual(values = pal_d)
+```
+:::
+
+::::
+
+---
+
+## {#2b-apply-palettes_c data-menu-title="2b. Apply palettes using scale_*()"} 
+
+[2b. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
+
+<hr>
+
+**Examples using our continuous color palette:**
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+pal_c <- paletteer::paletteer_c("ggthemes::Gold-Purple Diverging", n = 5)
+```
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+apply to scatter plot as an unclassed palette (use `gradientn` variant)
+:::
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+cont_color_plot + 
+  scale_color_gradientn(colors = pal_c)
+```
+:::
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+apply to scatter plot as a classed (binned) palette (use `stepsn` variant)
+:::
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+cont_color_plot + 
+  scale_color_stepsn(colors = pal_c)
 ```
 :::
 
@@ -1011,7 +1172,7 @@ cont_color_plot +
 
 ---
 
-## {#suggested-colors data-menu-title="Kaye et al. 2012"} 
+## {#climate-palettes data-menu-title="Kaye et al. 2012"} 
 
 [Some widely-used climate science palettes]{.slide-title}
 
@@ -1030,13 +1191,68 @@ knitr::include_graphics("images/week5/kaye-etal-2012-colors.png")
 <br>
 
 ::: {.center-text .body-text-s}
-**Figure 4.** Appropriate diverging and sequential colour schemes for the following climate data (a), absolute temperature (b), absolute precipitation (c), temperature anomaly (d), precipitation or runoff anomaly (e and f) other climate variables with no symbolic association . Schemes in this figure are 7 class ones designed by Cynthia Brewer, ([Brewer et al. 2003](https://tizmogollon.weebly.com/uploads/1/5/4/7/15475746/brewer_etal_2003_colorbrewer_in_print.pdf))
+**Figure 4.** Appropriate diverging and sequential colour schemes for the following climate data (a), absolute temperature (b), absolute precipitation (c), temperature anomaly (d), precipitation or runoff anomaly (e and f) other climate variables with no symbolic association . Schemes in this figure are 7 class ones designed by Cynthia Brewer, ([Brewer et al. 2003](https://tizmogollon.weebly.com/uploads/1/5/4/7/15475746/brewer_etal_2003_colorbrewer_in_print.pdf){target="_blank"})
 :::
 
 <br>
 
 ::: {.footer}
-**Citation:** Kaye NR, Hartley A, Hemming D (2012) Mapping the climate: guidance on appropriate techniques to map climate variables and their uncertainty. Geoscientific Model Development. 5:245-256. www.geosci-model-dev.net/5/245/2012/ ([PDF download](https://www.researchgate.net/publication/307824079_Mapping_the_climate_guidance_on_appropriate_techniques_to_map_climate_variables_and_their_uncertainty))
+**Citation:** Kaye NR, Hartley A, Hemming D (2012) Mapping the climate: guidance on appropriate techniques to map climate variables and their uncertainty. Geoscientific Model Development. 5:245-256. www.geosci-model-dev.net/5/245/2012/ ([PDF download](https://www.researchgate.net/publication/307824079_Mapping_the_climate_guidance_on_appropriate_techniques_to_map_climate_variables_and_their_uncertainty){target="_blank"})
+:::
+
+---
+
+## {#cc-abs-temp data-menu-title="Absolute temp palette example"} 
+
+<br>
+<br>
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week5/abs-temp-palette.png")
+```
+
+::: {.footer}
+Source: Zittis, G., Lazoglou, G., Hadjinicolaou, P. et al. Emerging extreme heat conditions as part of the new climate normal. Theor Appl Climatol 155, 143–150 (2024). [https://doi.org/10.1007/s00704-023-04605-y](https://doi.org/10.1007/s00704-023-04605-y){target="_blank"}
+:::
+
+---
+
+## {#cc-temp-precip-anomaly data-menu-title="Temp & precip anomaly palette examples"} 
+
+<br>
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week5/temp-anomaly-palette.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week5/precip-anomaly-palette.png")
+```
+:::
+
+::::
+
+::: {.footer}
+Source: [C3S seasonal lookback: summer 2024](https://climate.copernicus.eu/c3s-seasonal-lookback-summer-2024){target="_blank"}, by [Copernicus](https://www.copernicus.eu/en){target=_"blank"}
 :::
 
 ---
@@ -1085,7 +1301,7 @@ knitr::include_graphics("images/week5/color-wheels.png")
 <br>
 
 ::: {.center-text .body-text-s .gray-text}
-Common color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: [medium.com](https://broworks.medium.com/color-guide-terms-definitions-and-useful-websites-6fa4f13bcb85)
+Common color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: [medium.com](https://broworks.medium.com/color-guide-terms-definitions-and-useful-websites-6fa4f13bcb85){target="_blank"}
 :::
 :::
 
@@ -1103,29 +1319,13 @@ When using a color picker, **adjust the HEX code sliding scale** to pick a hue a
 knitr::include_graphics("images/week5/google-color-picker.png")
 ```
 ::: {.center-text .body-text-s .gray-text}
-There are lots of great color pickers out there, though [Google color picker](https://www.google.com/search?q=google+color+picker&sca_esv=598283965&ei=uVyjZdXpLtL3kPIPhdaOaA&ved=0ahUKEwiVqoat_9uDAxXSO0QIHQWrAw0Q4dUDCBA&uact=5&oq=google+color+picker&gs_lp=Egxnd3Mtd2l6LXNlcnAiE2dvb2dsZSBjb2xvciBwaWNrZXIyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyChAAGEcY1gQYsAMyDRAAGIAEGIoFGEMYsAMyDRAuGIAEGIoFGEMYsANI6QRQAFgAcAF4AZABAJgBAKABAKoBALgBA8gBAOIDBBgAIEGIBgGQBgo&sclient=gws-wiz-serp) is a quick one to navigate to. [HTML color codes](https://htmlcolorcodes.com/) is my personal favorite.
+There are lots of great color pickers out there, though [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"} is a quick one to navigate to. [HTML color codes](https://htmlcolorcodes.com/){target="_blank"} is my personal favorite.
 :::
 :::
 
 ::::
 
 <br>
-
-<!-- ::: {.footer} -->
-<!-- Common color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: [medium.com](https://broworks.medium.com/color-guide-terms-definitions-and-useful-websites-6fa4f13bcb85) -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%" .center-text .body-text-m .teal-text} -->
-<!-- We **associate meaning** with different hues (e.g. cold / sadness = blue, hot / anger = red). -->
-
-<!-- These associations can **[differ among cultures](https://informationisbeautiful.net/visualizations/colours-in-cultures/)**. -->
-<!-- ::: -->
-<!-- :::: -->
-
-<!-- ::: {.footer} -->
-<!-- Fun side note: the primary colors of *print* are [cyan]{style="background-color:#00FFFF"}, [magenta]{style="background-color:#FF00FF" .white-text}, [yellow]{style="background-color:#FFFF00"} -- next time you reload your printer's ink, check out the colors printed on the calibration test page -->
-<!-- ::: -->
 
 ::: {.notes}
 - RGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)
@@ -1150,7 +1350,7 @@ knitr::include_graphics("images/week5/color-harmonies.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Image source: [htmlcolorcodes.com](https://htmlcolorcodes.com/color-picker/)
+Image source: [htmlcolorcodes.com](https://htmlcolorcodes.com/color-picker/){target="_blank"}
 :::
 
 . . . 
@@ -1167,7 +1367,7 @@ Image source: [htmlcolorcodes.com](https://htmlcolorcodes.com/color-picker/)
 :::
 
 ::: {.center-text .body-text-s}
-Find descriptions of [blue-green](https://htmlcolorcodes.com/colors/blue-green/) & [red-orange](https://htmlcolorcodes.com/colors/red-orange/) on [htmlcolorcodes.com](https://htmlcolorcodes.com/)
+Find descriptions of [blue-green](https://htmlcolorcodes.com/colors/blue-green/){target="_blank"} & [red-orange](https://htmlcolorcodes.com/colors/red-orange/){target="_blank"} on [htmlcolorcodes.com](https://htmlcolorcodes.com/){target="_blank"}
 :::
 
 :::
@@ -1197,7 +1397,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 <hr>
 
 ::: {.center-text}
-We associate meaning with different hues (e.g. cold / sad = blue, hot / angry = red), and *importantly,* these [**associations can differ among cultures**]{.teal-text}.
+We associate meaning with different hues (e.g. [cold / sad = blue]{style="color:#0015fa"}, [hot / angry = red]{style="color:#fa0202"}), and *importantly,* these [**associations can differ among cultures**]{.teal-text}.
 :::
 
 ```{r}
@@ -1209,7 +1409,7 @@ knitr::include_graphics("images/week5/colors-cultures.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Source: [Information is Beautiful](https://informationisbeautiful.net/visualizations/colours-in-cultures/)
+Source: [Information is Beautiful](https://informationisbeautiful.net/visualizations/colours-in-cultures/){target="_blank"}
 :::
 
 ---
@@ -1235,7 +1435,7 @@ knitr::include_graphics("images/week5/colors-cultures-highlights.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Source: [Information is Beautiful](https://informationisbeautiful.net/visualizations/colours-in-cultures/)
+Source: [Information is Beautiful](https://informationisbeautiful.net/visualizations/colours-in-cultures/){target="_blank"}
 :::
 
 :::
@@ -1253,7 +1453,7 @@ knitr::include_graphics("images/week5/hawkins-warming-stripes.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Source: Ed Hawkins [(showyourstripes.info)](https://showyourstripes.info/)
+Source: Ed Hawkins [(showyourstripes.info)](https://showyourstripes.info/){target="_blank"}
 :::
 
 :::
@@ -1268,7 +1468,7 @@ Source: Ed Hawkins [(showyourstripes.info)](https://showyourstripes.info/)
 
 <hr>
 
-["lightness, brightness, and saturation can communicate the level of seriousness, intensity, and emotional weight in a visual work" ([Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/))]{.body-text-s}
+>*"lightness, brightness, and saturation can communicate the level of seriousness, intensity, and emotional weight in a visual work"* -[Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/){target="_blank"}
 
 :::: {.columns}
 
@@ -1282,7 +1482,7 @@ knitr::include_graphics("images/week5/thompson-bake-off.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-[The Great British Bake Off | Race to the Top](https://github.com/cararthompson/tidytuesdays?tab=readme-ov-file#2022-09---gbbo), by [Cara Thompson](https://www.cararthompson.com/) ([source code](https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202210_gbbo.R))
+[The Great British Bake Off | Race to the Top](https://github.com/cararthompson/tidytuesdays?tab=readme-ov-file#2022-09---gbbo){target="_blank"}, by [Cara Thompson](https://www.cararthompson.com/){target="_blank"} ([source code](https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202210_gbbo.R){target="_blank"})
 :::
 :::
 
@@ -1297,7 +1497,7 @@ knitr::include_graphics("images/week5/scherer-legos.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-[The LEGO Color Explosion](https://github.com/z3tt/TidyTuesday?tab=readme-ov-file#202236--lego-database-by-rebrickable), by [Cédric Scherer](https://www.cedricscherer.com/) ([source code](https://github.com/z3tt/TidyTuesday/blob/main/R/2022_36_LEGO_bricks.qmd))
+[The LEGO Color Explosion](https://github.com/z3tt/TidyTuesday?tab=readme-ov-file#202236--lego-database-by-rebrickable){target="_blank"}, by [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"} ([source code](https://github.com/z3tt/TidyTuesday/blob/main/R/2022_36_LEGO_bricks.qmd){target="_blank"})
 :::
 :::
 
@@ -1310,7 +1510,7 @@ knitr::include_graphics("images/week5/scherer-legos.png")
 
 <hr>
 
-["lightness, brightness, and saturation can communicate the level of seriousness, intensity, and emotional weight in a visual work" ([Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/))]{.body-text-s}
+>*"lightness, brightness, and saturation can communicate the level of seriousness, intensity, and emotional weight in a visual work"* -[Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/){target="_blank"}
 
 <br>
 
@@ -1323,7 +1523,7 @@ knitr::include_graphics("images/week5/jh-covid.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-(Right) [COVID-19 tracker](https://coronavirus.jhu.edu/map.html) by the Johns Hopkins University (screenshot from 2020-07-27, courtesy of [Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/)). Red tends to elicit panic / fear. (Left) A map of confirmed COVID-19 cases by Datawrapper (screenshot from 2020-07-27, courtesy of [Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/)). Blues and greens help to avoid such a strong fearful emotional response.
+(Right) [COVID-19 tracker](https://coronavirus.jhu.edu/map.html){target="_blank"} by the Johns Hopkins University (screenshot from 2020-07-27, courtesy of [Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/){target="_blank"}). Red tends to elicit panic / fear. (Left) A map of confirmed COVID-19 cases by Datawrapper (screenshot from 2020-07-27, courtesy of [Cédric Scherer](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/){target="_blank"}). Blues and greens help to avoid such a strong fearful emotional response.
 :::
 
 ---
@@ -1342,7 +1542,7 @@ knitr::include_graphics("images/week5/jh-covid.png")
 :::
 
 ::: {.right-align-text .body-text-s}
--Lisa Charlotte Muth in [17 (or so) responsible live visualizations about the coronavirus, for you to use](https://blog.datawrapper.de/coronaviruscharts/), 
+-Lisa Charlotte Muth in [17 (or so) responsible live visualizations about the coronavirus, for you to use](https://blog.datawrapper.de/coronaviruscharts/){target="_blank"}, 
 
 published March 3, 2020
 :::
@@ -1360,7 +1560,7 @@ knitr::include_graphics("images/week5/one-million-deaths.png")
 <br>
 
 ::: {.footer}
-Learn more about this award-winning visualization in an interview with Carrie Mifsud: [Capturing One Million Deaths on a Page: A Chat with NYT’s Carrie Mifsud](https://nightingaledvs.com/capturing-one-million-deaths-on-a-page-carrie-mifsud/)
+Learn more about this award-winning visualization in an interview with Carrie Mifsud: [Capturing One Million Deaths on a Page: A Chat with NYT’s Carrie Mifsud](https://nightingaledvs.com/capturing-one-million-deaths-on-a-page-carrie-mifsud/){target="_blank"}
 :::
 
 ---
@@ -1382,7 +1582,7 @@ knitr::include_graphics("images/week5/pure-hue1.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Image source: [5 pitfalls to avoid when working with color in data visualization](https://flourish.studio/blog/color-in-data-visualization/)
+Image source: [5 pitfalls to avoid when working with color in data visualization](https://flourish.studio/blog/color-in-data-visualization/){target="_blank"}
 :::
 
 ---
@@ -1404,7 +1604,7 @@ knitr::include_graphics("images/week5/pure-hue2.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Image source: [5 pitfalls to avoid when working with color in data visualization](https://flourish.studio/blog/color-in-data-visualization/)
+Image source: [5 pitfalls to avoid when working with color in data visualization](https://flourish.studio/blog/color-in-data-visualization/){target="_blank"}
 :::
 
 ---
@@ -1456,7 +1656,7 @@ knitr::include_graphics("images/week5/green-40sat.png")
 ::::
 
 ::: {.footer}
-Saturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.) if you want a deeper dive.
+Saturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} if you want a deeper dive.
 :::
 
 ---
@@ -1512,7 +1712,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 ::::
 
 ::: {.footer}
-`scale_*_hue()` uses colors based on the [HCL color model](https://en.wikipedia.org/wiki/HCL_color_space).
+`scale_*_hue()` uses colors based on the [HCL color model](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}.
 :::
 
 ---
@@ -1564,7 +1764,7 @@ knitr::include_graphics("images/week5/green-shade.png")
 ::::
 
 ::: {.footer}
-Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.) if you want a deeper dive.
+Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} if you want a deeper dive.
 :::
 
 ---
@@ -1620,7 +1820,7 @@ ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex
 ::::
 
 ::: {.footer}
-`scale_*_hue()` uses colors based on the [HCL color space](https://en.wikipedia.org/wiki/HCL_color_space). The default lightness value of 65(%) is good for filled areas but may be a bit light for points and lines.
+`scale_*_hue()` uses colors based on the [HCL color space](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}. The default lightness value of 65(%) is good for filled areas but may be a bit light for points and lines.
 :::
 
 ---
@@ -1694,10 +1894,10 @@ ggplot(data, aes(x = group, y = value)) +
 
 Be sure to consider what we've already discussed:
 
-- [ensure that you're picking colorblind-friendly color combos]{.body-text-s}
-- [use color wheels to identify color harmonies]{.body-text-s}
-- [think carefully about what emotions / messages your color choices will convey]{.body-text-s}
-- [avoid lots of pure / fully-saturated hues]{.body-text-s}
+- [ensure that you're picking **colorblind-friendly** color combos]{.body-text-s}
+- [use color wheels to identify **color harmonies**]{.body-text-s}
+- [think carefully about what **emotions / messages** your color choices will convey]{.body-text-s}
+- [**avoid** lots of **pure** / fully-saturated **hues**]{.body-text-s}
 
 . . . 
 
@@ -1707,9 +1907,9 @@ Be sure to consider what we've already discussed:
 <br>
 And also consider some other important sources of inspiration: 
 
-- [your company or organization's brand / logo]{.body-text-s}
-- [steal colors from your favorite / relevant images using tools like [Color Thief](https://lokeshdhakar.com/projects/color-thief/)]{.body-text-s}
-- [use a randomized palette generator, like [coolers.co](https://coolors.co/?home) {{< fa arrow-right title="an arrow pointing to the right" >}}]{.body-text-s}
+- [your company or organization's **brand / logo**]{.body-text-s}
+- [**steal colors** from your favorite / relevant images using tools like [Color Thief](https://lokeshdhakar.com/projects/color-thief/){target="_blank"}]{.body-text-s}
+- [use a randomized **palette generator**, like [coolers.co](https://coolors.co/?home){target="_blank"} {{< fa arrow-right title="an arrow pointing to the right" >}}]{.body-text-s}
 :::
 
 ::: {.column width="50%"}
@@ -1725,65 +1925,35 @@ knitr::include_graphics("images/week5/coolers.png")
 
 ---
 
-## {#apply-palettes data-menu-title="Applying your palette"} 
-
-[Some common functions for scaling colors]{.slide-title2}
-
-<hr>
-
-**For qualitative (categorical) data <img src="images/week5/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :**
-
-- [`scale_*_manual()`]{.body-text-s}
-
-**For quantitative (numeric) data:**
-
-Unclassed palettes <img src="images/week5/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
-
-- [`scale_*_gradient()`: creates a two color gradient (low-high)]{.body-text-s}
-- [`scale_*_gradient2()`: creates a diverging color gradient (low-mid-high)]{.body-text-s}
-- [`scale_*_gradientn()`: creates a n-color gradient]{.body-text-s}
-
-Classed palettes <img src="images/week5/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
-
-- [`scale_*steps()`: creates a two color binned gradient (low-high)]{.body-text-s}
-- [`scale_*_steps2()`: creates a diverging binned color gradient (low-mid-high)]{.body-text-s}
-- [`scale_*_stepsn()`: creates a n-color binned gradient]{.body-text-s}
-
-::: {.center-text .body-text-s}
-**Use the `fill` variant of the above functions for areas, bars, etc. and the `color` variant for points, lines, etc.**
-:::
-
----
-
 ## {#save-palette data-menu-title="Save palette outside plot"} 
 
-[Tip: Save your palette outside of your ggplot]{.slide-title2}
+[TIP: Save your palette outside of your ggplot]{.slide-title2}
 
 <hr>
 
-[I recommend saving your palette to a named vector *outside* of your ggplot -- this prevents lengthy palettes from creating cluttered ggplot code *and* allows you to reuse your palette across multiple plots:]{.body-text-s}
-
-```{r}
-#| eval: true
-#| echo: true
-my_palette <- c("#32DE8A", "#E36414", "#0F4C5C")
-```
-
-[Here, we scale our colors for a categorical variable (species) using `scale_color_manual()`:]{.body-text-s}
+I recommend saving your palette to a named vector *outside* of your ggplot -- this prevents lengthy palettes from creating cluttered ggplot code *and* allows you to reuse your palette across multiple plots:
 
 ```{r}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
+# create palette ----
+my_palette <- c("#32DE8A", "#E36414", "#0F4C5C")
+
+# apply to plot ----
 cat_color_plot +
-  scale_color_manual(values = my_palette)
+  scale_color_manual(values = my_palette) # alternatively, `scale_color_manual(values = c("#32DE8A", "#E36414", "#0F4C5C"))`
 ```
+
+::: {.footer}
+Refer back to the [common `{ggplot2}` scaling functions](lecture5.2-colors-slides.qmd#common-scaling-fxns){target="_blank"}, to determine which is appropriate for your data / plot.
+:::
 
 ---
 
 ## {#set-color-names1 data-menu-title="Set color names 1"} 
 
-[Tip: Set color names (1/2)]{.slide-title}
+[TIP: Set color names (1/2)]{.slide-title}
 
 <hr>
 
@@ -1836,7 +2006,7 @@ penguins |>
 
 ## {#set-color-names2 data-menu-title="Set color names 2"} 
 
-[Tip: Set color names (2/2)]{.slide-title}
+[TIP: Set color names (2/2)]{.slide-title}
 
 <hr>
 
@@ -1893,7 +2063,7 @@ penguins |>
 
 <hr>
 
-[The [`scale_*_identity()` functions](https://ggplot2.tidyverse.org/reference/scale_identity.html) allows you to map aesthetic values from your data frame to individual points. They will not produce a legend unless specified using `guide = "legend"`.]{.body-text-s}
+[The [`scale_*_identity()` functions](https://ggplot2.tidyverse.org/reference/scale_identity.html){target="_blank"} allows you to map aesthetic values from your data frame to individual points. They will not produce a legend unless specified using `guide = "legend"`.]{.body-text-s}
 
 :::: {.columns}
 
@@ -1945,65 +2115,65 @@ penguins |>
 This isn't the only way to do this! Try creating a `highlight` variable in your data frame. See <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> and
 :::
 
----
+<!-- --- -->
 
-## {#create-palette data-menu-title="Create your own palette"} 
+<!-- ## {#create-palette data-menu-title="Create your own palette"}  -->
 
-[Create your own palettes!]{.slide-title}
+<!-- [Create your own palettes!]{.slide-title} -->
 
-<hr>
+<!-- <hr> -->
 
-Create your own palettes and use them to scale colors in the plots below: 
+<!-- Create your own palettes and use them to scale colors in the plots below:  -->
 
-<br>
+<!-- <br> -->
 
-:::: {.columns}
+<!-- :::: {.columns} -->
 
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| out-width: "90%"
-library(palmerpenguins)
-library(tidyverse)
+<!-- ::: {.column width="50%"} -->
+<!-- ```{r} -->
+<!-- #| eval: true -->
+<!-- #| echo: true -->
+<!-- #| fig-align: "center" -->
+<!-- #| out-width: "90%" -->
+<!-- library(palmerpenguins) -->
+<!-- library(tidyverse) -->
 
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
-  geom_point(size = 4, alpha = 0.8) 
-```
-:::
+<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + -->
+<!--   geom_point(size = 4, alpha = 0.8)  -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| out-width: "590%"
-library(palmerpenguins)
-library(tidyverse)
+<!-- ::: {.column width="50%"} -->
+<!-- ```{r} -->
+<!-- #| eval: true -->
+<!-- #| echo: true -->
+<!-- #| fig-align: "center" -->
+<!-- #| out-width: "590%" -->
+<!-- library(palmerpenguins) -->
+<!-- library(tidyverse) -->
 
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +
-  geom_point(size = 4, alpha = 0.8) 
-```
-:::
+<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + -->
+<!--   geom_point(size = 4, alpha = 0.8)  -->
+<!-- ``` -->
+<!-- ::: -->
 
-::::
+<!-- :::: -->
 
-```{r}
-countdown::countdown(
-  minutes = 5,
-  # left = 0, right = 0,
-  # Fanfare when it's over
-  play_sound = TRUE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "2em",
-  )
-```
+<!-- ```{r} -->
+<!-- countdown::countdown( -->
+<!--   minutes = 5, -->
+<!--   # left = 0, right = 0, -->
+<!--   # Fanfare when it's over -->
+<!--   play_sound = TRUE, -->
+<!--   color_border              = "#FFFFFF", -->
+<!--   color_text                = "#7aa81e", -->
+<!--   color_running_background  = "#7aa81e", -->
+<!--   color_running_text        = "#FFFFFF", -->
+<!--   color_finished_background = "#ffa07a", -->
+<!--   color_finished_text       = "#FFFFFF", -->
+<!--   font_size = "2em", -->
+<!--   ) -->
+<!-- ``` -->
 
 ---
 
@@ -2041,7 +2211,7 @@ knitr::include_graphics("images/week5/2020-election.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Image source: [New York Times](https://www.nytimes.com/interactive/2021/upshot/2020-election-map.html)
+Image source: [New York Times](https://www.nytimes.com/interactive/2021/upshot/2020-election-map.html){target="_blank"}
 :::
 :::
 
@@ -2055,7 +2225,7 @@ knitr::include_graphics("images/week5/ggdensity-saturation.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Image source: [`{ggdensity}` pkgdown site](https://jamesotto852.github.io/ggdensity/index.html). 
+Image source: [`{ggdensity}` pkgdown site](https://jamesotto852.github.io/ggdensity/index.html){target="_blank"}. 
 :::
 :::
 
@@ -2086,7 +2256,7 @@ knitr::include_graphics("images/week5/7colors.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2115,7 +2285,7 @@ knitr::include_graphics("images/week5/consistent-colors.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2143,7 +2313,7 @@ knitr::include_graphics("images/week5/legend.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2171,7 +2341,7 @@ knitr::include_graphics("images/week5/use-gray.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2200,13 +2370,13 @@ knitr::include_graphics("images/week5/intuitive-colors.png")
 <br>
 
 ::: {.center-text}
-Try a cold color for men (e.g. blue or purple) and a warmer color for women (e.g. yellow, orange or a warm green).
+Try a cold color for men (e.g. blue or purple) and a warmer color for women (e.g. yellow, orange or a warm green; see  [this great blog post](https://blog.datawrapper.de/gendercolor/){target="_blank"} for more information). 
 :::
 
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2234,7 +2404,7 @@ knitr::include_graphics("images/week5/low-high-choropleth.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -2245,7 +2415,7 @@ knitr::include_graphics("images/week5/low-high-choropleth.png")
 
 <hr>
 
->"humans perceive bright colors on elevation maps to represent a high altitude, with darker colors representing naturally low-lying and shady areas like valley" (Cédric Scherer, [Colors and Emotions in Data Visualization](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/#:~:text=Dark%20and%20saturated%20colors%20are,perceived%20differently%20in%20different%20cultures.)) 
+>"humans perceive bright colors on elevation maps to represent a high altitude, with darker colors representing naturally low-lying and shady areas like valley" (Cédric Scherer, [Colors and Emotions in Data Visualization](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/#:~:text=Dark%20and%20saturated%20colors%20are,perceived%20differently%20in%20different%20cultures.){target="_blank"}) 
 
 :::: {.columns}
 
@@ -2259,7 +2429,7 @@ knitr::include_graphics("images/week5/shasta.png")
 ```
 
 ::: {.center-text .body-text-s .gray-test}
-Filled contour plot of Mt. Shasta. Image source: [EarthLab](https://www.earthdatascience.org/tutorials/visualize-digital-elevation-model-contours-matplotlib/)
+Filled contour plot of Mt. Shasta. Image source: [EarthLab](https://www.earthdatascience.org/tutorials/visualize-digital-elevation-model-contours-matplotlib/){target="_blank"}
 :::
 :::
 
@@ -2273,7 +2443,7 @@ knitr::include_graphics("images/week5/pohnpei.png")
 ```
 
 ::: {.center-text .body-text-s .gray-test}
-USGS Digital Elevation Model of Pohnpei (Micronesia). Image source: [PacIOOS](https://www.pacioos.hawaii.edu/voyager-news/digital-elevation-models/)
+USGS Digital Elevation Model of Pohnpei (Micronesia). Image source: [PacIOOS](https://www.pacioos.hawaii.edu/voyager-news/digital-elevation-models/){target="_blank"}
 :::
 :::
 
@@ -2304,7 +2474,7 @@ knitr::include_graphics("images/week5/no-gradient-for-discrete.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
 :::
 
 ---
@@ -2332,7 +2502,7 @@ knitr::include_graphics("images/week5/lightness-gradient.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
 :::
 
 ---
@@ -2360,7 +2530,7 @@ knitr::include_graphics("images/week5/1-or-2-hues.png")
 <br>
 
 ::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/), by Lisa Charlotte Muth*
+*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
 :::
 
 ---
@@ -2369,7 +2539,7 @@ knitr::include_graphics("images/week5/1-or-2-hues.png")
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 2 (of 3) -- A coding exercise is up next! ~*</p>
+<p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p>
 </div>
 
 ```{r}

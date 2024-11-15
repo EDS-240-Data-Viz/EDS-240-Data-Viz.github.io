@@ -55,7 +55,7 @@ knitr::include_graphics("images/week5/geopandas-choropleth.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Choropleth by [Ramiro Gómez](https://ramiro.org/) using [GeoPandas](https://geopandas.org/en/stable/index.html) ([blog post](https://ramiro.org/notebook/geopandas-choropleth/))
+Choropleth by [Ramiro Gómez](https://ramiro.org/){target="_blank"} using [GeoPandas](https://geopandas.org/en/stable/index.html){target="_blank"} ([blog post](https://ramiro.org/notebook/geopandas-choropleth/){target="_blank"})
 :::
 
 :::
@@ -70,7 +70,7 @@ knitr::include_graphics("images/week5/hanna-farnsworth-2013.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Choropleth by [Hanna & Farnsworth (2013)](https://www.researchgate.net/publication/263851588_Visualizing_Virginia'_s_Changing_Electorate_Mapping_Presidential_Elections_from_2000_to_2012)
+Choropleth by [Hanna & Farnsworth (2013)](https://www.researchgate.net/publication/263851588_Visualizing_Virginia'_s_Changing_Electorate_Mapping_Presidential_Elections_from_2000_to_2012){target="_blank"}
 :::
 
 :::
@@ -91,7 +91,7 @@ Choosing the right color palette *and* scale type are critically important. Ofte
 
 <hr>
 
-[[NOAA National Centers for Environmental Information](https://www.ncei.noaa.gov/) (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation's geophysical data and information.]{.body-text-s}
+[[NOAA National Centers for Environmental Information](https://www.ncei.noaa.gov/){target="_blank"} (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation's geophysical data and information.]{.body-text-s}
 
 :::: {.columns}
 
@@ -118,7 +118,7 @@ knitr::include_graphics("images/week5/ncei-logo2.png")
 
 ::::
 
-[Find public access to a massive inventory of climate data on their [Climate Monitoring](https://www.ncei.noaa.gov/access/monitoring/products/) page. Today's lesson will use the [Climate at a Glance](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/) collection. Specifically, **we'll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.** To do so, we'll work with county-level precipitation data, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value) portal.]{.body-text-s}
+[Find public access to a massive inventory of climate data on their [Climate Monitoring](https://www.ncei.noaa.gov/access/monitoring/products/){target="_blank"} page. Today's lesson will use the [Climate at a Glance](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/){target="_blank"} collection. Specifically, **we'll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.** To do so, we'll work with county-level precipitation data, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value){target="_blank"} portal.]{.body-text-s}
 
 <!-- **we'll be exploring county-level precipitation data from October 2023, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value) portal -- UPDATE THIS** -->
 
@@ -134,7 +134,7 @@ knitr::include_graphics("images/week5/ncei-logo2.png")
 
 <hr>
 
-We can use the [`{tigris}` package](https://github.com/walkerke/tigris) to download and use Census [TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) in R.
+We can use the [`{tigris}` package](https://github.com/walkerke/tigris){target="_blank"} to download and use Census [TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html){target="_blank"} in R.
 
 <br>
 
@@ -159,13 +159,13 @@ knitr::include_graphics("images/week5/tigris.png")
 
 - Shapefiles contain information for spatially describing features (e.g. points, lines, polygons), as well as any associated attribute information. 
 
-- You can find / download shapefiles online (e.g. from the [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2023.html#list-tab-790442341)), or depending on the tools available, access them via packages (like we're doing today).
+- You can find / download shapefiles online (e.g. from the [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2023.html#list-tab-790442341){target="_blank"}), or depending on the tools available, access them via packages (like we're doing today).
 :::
 
 ::::
 
 ::: {.footer}
-Check out [Ch. 5](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html) of [Analyzing US Census Data: Methods, Mpas, and Models in R](https://walker-data.com/census-r/index.html) by [Kyle E. Walker](https://personal.tcu.edu/kylewalker/) for a great intro to `{tigris}`
+Check out [Ch. 5](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html){target="_blank"} of [Analyzing US Census Data: Methods, Mpas, and Models in R](https://walker-data.com/census-r/index.html){target="_blank"} by [Kyle E. Walker](https://personal.tcu.edu/kylewalker/){target="_blank"} for a great intro to `{tigris}`
 :::
 
 ---
@@ -182,71 +182,25 @@ Spatial data can take many forms -- **[simple features]{.teal-text} is a standar
 
 <br>
 
-. . . 
+. . .   
 
 **Simple features are comprised of:**
 
-[1. a geometry object (e.g. a point, line, polygon) that describes where on Earth the feature is located]{.body-text-s}
+[1. [**a geometry object**]{.teal-text} (e.g. a point, line, polygon) that describes where on Earth the feature is located]{.body-text-s}
 
-[2. attribute data associated with the geometry object (e.g. the precipitation across a county during the last 5 years)]{.body-text-s}
-
-<br>
-
-. . . 
-
-[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/) provide tools for working with simple features (`sf` objects), but we'll only need to rely on `{ggplot2}`s built-in `geom_sf()` geometry to plot our data.]{.body-text-s}
+[2. [**attribute data**]{.teal-text} associated with the geometry object (e.g. the precipitation across a county during the last 5 years)]{.body-text-s}
 
 <br>
 
 . . . 
 
-When we download our shapefile using `{tigris}`, **it'll be loaded as a simple features (`sf`) object** with geometries that allow us to plot county lines. We'll join our county-level precipitation data to our `sf` object so that we can color counties by precipitation.
+[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/){target="_blank"} provide tools for working with simple features (`sf` objects), but we'll only need to rely on `{ggplot2}`s built-in `geom_sf()` geometry to plot our data.]{.body-text-s}
 
-<!-- --- -->
+<br>
 
-<!-- ## {#shapefiles-simple-features data-menu-title="shapefiles & simple features"}  -->
+. . . 
 
-<!-- [Working with shapefiles & simple features in R]{.slide-title2} -->
-
-<!-- <hr> -->
-
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-
-<!-- ::: {.center-text .body-text-s} -->
-<!-- We can use the [`{tigris}` package](https://github.com/walkerke/tigris) to download and use Census [TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) in R. -->
-<!-- ::: -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "60%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week5/tigris.png") -->
-<!-- ``` -->
-
-<!-- ::: {.center-text .gray-text .body-text-s} -->
-<!-- A **shapefile** is a vector data file format commonly used for geospatial analysis. The contain information for spatially describing features likes points, lines, and polygons, as well as any associated attribute information. You can find / download shapefiles online, or sometimes access them via packages (like we're doing today). -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "70%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week5/sf.gif") -->
-<!-- ``` -->
-
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- The [`{sf}` package](https://r-spatial.github.io/sf/) provides tools for working with [simple features](https://r-spatial.github.io/sf/articles/sf1.html) in R.  -->
-<!-- ::: -->
-
-<!-- ::: -->
-
-<!-- :::: -->
+When we download our shapefile using `{tigris}`, **it'll be loaded as a simple features (`sf`) object** with geometries that allow us to plot county lines. We'll **join our county-level precipitation data to our `sf` object** so that we can color counties by precipitation.
 
 ---
 
@@ -279,7 +233,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |> # cb = TRUE to use ca
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("week5", "data", "county-jan19-dec23-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("week5", "data", "county-feb19-jan24-precip.csv"), skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -356,7 +310,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared with the 20th century average",
-       subtitle = "January 2019 - December 2023",
+       subtitle = "February 2019 - January 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
@@ -371,85 +325,13 @@ base_map
 
 . . . 
 
-<br>
-
 ::: {.center-text}
 Because we want to map precipitation relative to the 20th century average (e.g. has precipitation for a given region over the last 5 years been *above* or *below* the average), a **divering color palette** makes a lot of sense.
 :::
 
 ::: {.footer}
-You may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the [UC Census Bureau Notice on 06/06/2022](https://www.federalregister.gov/documents/2022/06/06/2022-12063/change-to-county-equivalents-in-the-state-of-connecticut)). I couldn't quite make sense of how to match old county names to new planning regions, as there's a decent amount of [geographic overlap](https://en.wikipedia.org/wiki/List_of_counties_in_Connecticut#/media/File:CT_Planning_vs_County_Census.png), soooo I gave up (for now) {{< fa face-grin-beam-sweat title="grinning face with sweat dripping from forehead" >}}. 
+You may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the [UC Census Bureau Notice on 06/06/2022](https://www.federalregister.gov/documents/2022/06/06/2022-12063/change-to-county-equivalents-in-the-state-of-connecticut){target="_blank"}). I couldn't quite make sense of how to match old county names to new planning regions, as there's a decent amount of [geographic overlap](https://en.wikipedia.org/wiki/List_of_counties_in_Connecticut#/media/File:CT_Planning_vs_County_Census.png){target="_blank"}, soooo I gave up (for now) {{< fa face-grin-beam-sweat title="grinning face with sweat dripping from forehead" >}}. 
 :::
-
-<!-- --- -->
-
-<!-- OLD  -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- #| output-location: column -->
-<!-- # 'group' controls whether adjacent points are connected by lines (each county is a "group," therefore points are connected) ---- -->
-<!-- base_map <- ggplot(data = states, mapping = aes(x = long, y = lat, group = group)) + -->
-
-<!--   # plot precip values by county; geom_polygon() drawn lines between points and “closes them up” (i.e. draws a line from the last point back to the first point) ---- -->
-<!--   geom_polygon(data = joined_precip_us_counties, aes(fill = perc_change)) + -->
-
-<!--   # darken state lines ---- -->
-<!--   geom_polygon(color = "#2F2D2C", fill = NA, linewidth = 0.1) + -->
-
-<!--   # update labels ---- -->
-<!--   labs(title = "5-year precipitation compared with the 20th century average", -->
-<!--        caption = "Source: National Centers for Environmental Information") + -->
-
-<!--   # set theme to clean up appearance ---- -->
-<!--   theme_void() + -->
-
-<!--   # theme adjustments ---- -->
-<!--   theme( -->
-<!--     legend.position = "bottom", -->
-<!--     legend.title = element_blank(), -->
-<!--     plot.caption = element_text(face = "italic", margin = margin(t = 20, r = 0, b = 0, l = 0)) -->
-<!--   ) -->
-
-<!-- base_map -->
-<!-- ``` -->
-
-<!-- ::: {.center-text} -->
-<!-- This looks a bit wonky, so we'll need to specify a projection, next. -->
-<!-- ::: -->
-
-<!-- ::: {.footer} -->
-<!-- [Eric C. Anderson's](https://github.com/eriqande) [Making Maps with R](https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html) tutorial was a wonderful resource in getting started with the `{maps}` package. -->
-<!-- ::: -->
-
-<!-- --- -->
-
-<!-- ## {#map-projection data-menu-title="Map projection"} -->
-
-<!-- [Apply a Mercator projection]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- [Lambert conformal conic](https://en.wikipedia.org/wiki/Lambert_conformal_conic_projection) and [Mercator projections](https://en.wikipedia.org/wiki/Mercator_projection) are both commonly used for mapping the United States. Here, we'll apply the latter: -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- base_map_proj <- base_map + -->
-<!--   coord_map(projection = "mercator") -->
-
-<!-- base_map_proj -->
-<!-- ``` -->
-
-<!-- ::: {.notes} -->
-<!-- Alternatively: -->
-
-<!-- - fix the relationship between lat & long by using `coord_fixed(1.3)` -->
-<!-- - apply a Lambert conformal projection, conic projection, using `coord_fixed(projection = "conic", lat0 = 30)` -->
-<!-- - NOTE: `coord_map()` has been been superceded by `coord_sf()`: https://ggplot2.tidyverse.org/reference/coord_map.html -->
-<!-- ::: -->
 
 ---
 
@@ -479,9 +361,9 @@ We've landed on a **diverging color palette**, but should we use a classed (aka 
   - [best if you don't want to interpret for your reader -- it makes it easier to see outliers, transitions to and comparisons with neighboring regions]{.body-text-s}
   
 ::: {.footer}
-Adapted from [When to use classed and when to use unclassed color scales](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/), by Lisa Charlotte Muth
+Adapted from [When to use classed and when to use unclassed color scales](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/){target="_blank"}, by Lisa Charlotte Muth
 
-For another great read on building color scales for choropleth maps, check out this [article](https://www.axismaps.com/guide/choropleth) in Axis Map's Cartography Guide.
+For another great read on building color scales for choropleth maps, check out this [article](https://www.axismaps.com/guide/choropleth){target="_blank"} in Axis Map's Cartography Guide.
 :::
 
 ---
@@ -497,7 +379,7 @@ For another great read on building color scales for choropleth maps, check out t
 >“The unclassed choropleth is the most exact representation of the data model possible,” 
 
 ::: {.right-align-text}
--Judith A. Tyner, in [Priciples of Map Design](https://www.amazon.com/Principles-Map-Design-Judith-Tyner/dp/1462517129)
+-Judith A. Tyner, in [Priciples of Map Design](https://www.amazon.com/Principles-Map-Design-Judith-Tyner/dp/1462517129){target="_blank"}
 :::
   
 <br>
@@ -507,7 +389,7 @@ For another great read on building color scales for choropleth maps, check out t
 > "No matter if you decide for a classed map at the end, you should **start your process by looking at an unclassed map**. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them."
 
 ::: {.right-align-text}
--Lisa Charlotte Muth, in [When to use classed and when to use unclassed color scales](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/)
+-Lisa Charlotte Muth, in [When to use classed and when to use unclassed color scales](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/){target="_blank"}
 :::
 
 . . . 
@@ -526,7 +408,7 @@ For another great read on building color scales for choropleth maps, check out t
 
 <hr>
 
-Recall [from earlier](https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.2-colors-slides.html#/suggested-colors) that precipitation data is often encoded using a **brown / blue** color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side). 
+Recall [from earlier](lecture5.2-colors-slides.qmd#climate-palettes){target="_blank"} that precipitation data is often encoded using a **brown / blue** color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side). 
 
 Lucky for us, **RColorBrewer** has this exact palette. **Let's use [all 11 hues]{.teal-text} for our unclassed map**:
 
@@ -884,7 +766,7 @@ knitr::include_graphics("images/week5/nyt-precip.png")
 ```
 
 ::: {.footer}
-[What's Going On in This Graph? | New Normal U.S. Precipitation](https://www.nytimes.com/2021/09/16/learning/whats-going-on-in-this-graph-new-normal-us-precipitation.html) (New York Times)
+[What's Going On in This Graph? | New Normal U.S. Precipitation](https://www.nytimes.com/2021/09/16/learning/whats-going-on-in-this-graph-new-normal-us-precipitation.html){target="_blank"} (New York Times)
 :::
 
 ---
@@ -896,27 +778,4 @@ knitr::include_graphics("images/week5/nyt-precip.png")
 <p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p>
 </div>
 
-
-<!-- ##  {#end-break data-menu-title="# Break #" background="#047C90"} -->
-
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p> -->
-<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
-<!-- </div> -->
-
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
 

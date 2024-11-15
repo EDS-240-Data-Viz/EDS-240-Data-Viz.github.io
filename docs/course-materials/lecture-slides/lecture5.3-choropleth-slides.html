@@ -429,7 +429,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 </div>
 </div>
 <div class="center-text gray-text body-text-s">
-<p>Choropleth by <a href="https://ramiro.org/">Ramiro Gómez</a> using <a href="https://geopandas.org/en/stable/index.html">GeoPandas</a> (<a href="https://ramiro.org/notebook/geopandas-choropleth/">blog post</a>)</p>
+<p>Choropleth by <a href="https://ramiro.org/" target="_blank">Ramiro Gómez</a> using <a href="https://geopandas.org/en/stable/index.html" target="_blank">GeoPandas</a> (<a href="https://ramiro.org/notebook/geopandas-choropleth/" target="_blank">blog post</a>)</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -442,7 +442,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 </div>
 </div>
 <div class="center-text gray-text body-text-s">
-<p>Choropleth by <a href="https://www.researchgate.net/publication/263851588_Visualizing_Virginia'_s_Changing_Electorate_Mapping_Presidential_Elections_from_2000_to_2012">Hanna &amp; Farnsworth (2013)</a></p>
+<p>Choropleth by <a href="https://www.researchgate.net/publication/263851588_Visualizing_Virginia'_s_Changing_Electorate_Mapping_Presidential_Elections_from_2000_to_2012" target="_blank">Hanna &amp; Farnsworth (2013)</a></p>
 </div>
 </div></div>
 <div class="fragment">
@@ -455,7 +455,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <h2></h2>
 <p><span class="slide-title">The Data</span></p>
 <hr>
-<p><span class="body-text-s"><a href="https://www.ncei.noaa.gov/">NOAA National Centers for Environmental Information</a> (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation’s geophysical data and information.</span></p>
+<p><span class="body-text-s"><a href="https://www.ncei.noaa.gov/" target="_blank">NOAA National Centers for Environmental Information</a> (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation’s geophysical data and information.</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br></p>
@@ -479,7 +479,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 </div>
 </div>
 </div></div>
-<p><span class="body-text-s">Find public access to a massive inventory of climate data on their <a href="https://www.ncei.noaa.gov/access/monitoring/products/">Climate Monitoring</a> page. Today’s lesson will use the <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/">Climate at a Glance</a> collection. Specifically, <strong>we’ll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.</strong> To do so, we’ll work with county-level precipitation data, accessed via the <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value">County Mapping</a> portal.</span></p>
+<p><span class="body-text-s">Find public access to a massive inventory of climate data on their <a href="https://www.ncei.noaa.gov/access/monitoring/products/" target="_blank">Climate Monitoring</a> page. Today’s lesson will use the <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/" target="_blank">Climate at a Glance</a> collection. Specifically, <strong>we’ll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.</strong> To do so, we’ll work with county-level precipitation data, accessed via the <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value" target="_blank">County Mapping</a> portal.</span></p>
 <!-- **we'll be exploring county-level precipitation data from October 2023, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value) portal -- UPDATE THIS** -->
 <!-- https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value -->
 <!-- 5-year precip: https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value -->
@@ -488,7 +488,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <h2></h2>
 <p><span class="slide-title2">Use <code>{tigris}</code> to download shapefiles</span></p>
 <hr>
-<p>We can use the <a href="https://github.com/walkerke/tigris"><code>{tigris}</code> package</a> to download and use Census <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line shapefiles</a> in R.</p>
+<p>We can use the <a href="https://github.com/walkerke/tigris" target="_blank"><code>{tigris}</code> package</a> to download and use Census <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html" target="_blank">TIGER/Line shapefiles</a> in R.</p>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -506,11 +506,11 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <ul>
 <li><p>A <strong>shapefile</strong> is a vector data file format commonly used for geospatial analysis.</p></li>
 <li><p>Shapefiles contain information for spatially describing features (e.g.&nbsp;points, lines, polygons), as well as any associated attribute information.</p></li>
-<li><p>You can find / download shapefiles online (e.g.&nbsp;from the <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2023.html#list-tab-790442341">US Census Bureau</a>), or depending on the tools available, access them via packages (like we’re doing today).</p></li>
+<li><p>You can find / download shapefiles online (e.g.&nbsp;from the <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2023.html#list-tab-790442341" target="_blank">US Census Bureau</a>), or depending on the tools available, access them via packages (like we’re doing today).</p></li>
 </ul>
 </div></div>
 <div class="footer">
-<p>Check out <a href="https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html">Ch. 5</a> of <a href="https://walker-data.com/census-r/index.html">Analyzing US Census Data: Methods, Mpas, and Models in R</a> by <a href="https://personal.tcu.edu/kylewalker/">Kyle E. Walker</a> for a great intro to <code>{tigris}</code></p>
+<p>Check out <a href="https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html" target="_blank">Ch. 5</a> of <a href="https://walker-data.com/census-r/index.html" target="_blank">Analyzing US Census Data: Methods, Mpas, and Models in R</a> by <a href="https://personal.tcu.edu/kylewalker/" target="_blank">Kyle E. Walker</a> for a great intro to <code>{tigris}</code></p>
 </div>
 </section>
 <section id="sf" class="slide level2" data-menu-title="simple features">
@@ -523,49 +523,16 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p><br></p>
 <div class="fragment">
 <p><strong>Simple features are comprised of:</strong></p>
-<p><span class="body-text-s">1. a geometry object (e.g.&nbsp;a point, line, polygon) that describes where on Earth the feature is located</span></p>
-<p><span class="body-text-s">2. attribute data associated with the geometry object (e.g.&nbsp;the precipitation across a county during the last 5 years)</span></p>
+<p><span class="body-text-s">1. <span class="teal-text"><strong>a geometry object</strong></span> (e.g.&nbsp;a point, line, polygon) that describes where on Earth the feature is located</span></p>
+<p><span class="body-text-s">2. <span class="teal-text"><strong>attribute data</strong></span> associated with the geometry object (e.g.&nbsp;the precipitation across a county during the last 5 years)</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="body-text-s">Because of how simple feature (<code>sf</code>) objects are represented in R (they look like data frames!), <strong>simple features can be maniupulated and plotted by other well-known packages like <code>{dplyr}</code> and <code>{ggplot2}</code></strong>. Packages like <a href="https://r-spatial.github.io/sf/"><code>{sf}</code></a> provide tools for working with simple features (<code>sf</code> objects), but we’ll only need to rely on <code>{ggplot2}</code>s built-in <code>geom_sf()</code> geometry to plot our data.</span></p>
+<p><span class="body-text-s">Because of how simple feature (<code>sf</code>) objects are represented in R (they look like data frames!), <strong>simple features can be maniupulated and plotted by other well-known packages like <code>{dplyr}</code> and <code>{ggplot2}</code></strong>. Packages like <a href="https://r-spatial.github.io/sf/" target="_blank"><code>{sf}</code></a> provide tools for working with simple features (<code>sf</code> objects), but we’ll only need to rely on <code>{ggplot2}</code>s built-in <code>geom_sf()</code> geometry to plot our data.</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>When we download our shapefile using <code>{tigris}</code>, <strong>it’ll be loaded as a simple features (<code>sf</code>) object</strong> with geometries that allow us to plot county lines. We’ll join our county-level precipitation data to our <code>sf</code> object so that we can color counties by precipitation.</p>
-<!-- --- -->
-<!-- ## {#shapefiles-simple-features data-menu-title="shapefiles & simple features"}  -->
-<!-- [Working with shapefiles & simple features in R]{.slide-title2} -->
-<!-- <hr> -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="50%"} -->
-<!-- ::: {.center-text .body-text-s} -->
-<!-- We can use the [`{tigris}` package](https://github.com/walkerke/tigris) to download and use Census [TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) in R. -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "60%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week5/tigris.png") -->
-<!-- ``` -->
-<!-- ::: {.center-text .gray-text .body-text-s} -->
-<!-- A **shapefile** is a vector data file format commonly used for geospatial analysis. The contain information for spatially describing features likes points, lines, and polygons, as well as any associated attribute information. You can find / download shapefiles online, or sometimes access them via packages (like we're doing today). -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "70%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week5/sf.gif") -->
-<!-- ``` -->
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- The [`{sf}` package](https://r-spatial.github.io/sf/) provides tools for working with [simple features](https://r-spatial.github.io/sf/articles/sf1.html) in R.  -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- :::: -->
+<p>When we download our shapefile using <code>{tigris}</code>, <strong>it’ll be loaded as a simple features (<code>sf</code>) object</strong> with geometries that allow us to plot county lines. We’ll <strong>join our county-level precipitation data to our <code>sf</code> object</strong> so that we can color counties by precipitation.</p>
 </div>
 </section>
 <section id="data-wrangling" class="slide level2" data-menu-title="Data wrangling">
@@ -802,7 +769,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <span id="cb1-13"><a></a>  <span class="fu">shift_geometry</span>()</span>
 <span id="cb1-14"><a></a></span>
 <span id="cb1-15"><a></a><span class="co">#....................import precipitation data...................</span></span>
-<span id="cb1-16"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"county-jan19-dec23-precip.csv"</span>), <span class="at">skip =</span> <span class="dv">4</span>)</span>
+<span id="cb1-16"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"county-feb19-jan24-precip.csv"</span>), <span class="at">skip =</span> <span class="dv">4</span>)</span>
 <span id="cb1-17"><a></a></span>
 <span id="cb1-18"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-19"><a></a><span class="do">##                               data wrangling                             ----</span></span>
@@ -873,7 +840,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>base_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(joined_precip_geom) <span class="sc">+</span></span>
 <span id="cb2-2"><a></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> perc_change), <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb2-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"5-year precipitation compared with the 20th century average"</span>,</span>
-<span id="cb2-4"><a></a>       <span class="at">subtitle =</span> <span class="st">"January 2019 - December 2023"</span>,</span>
+<span id="cb2-4"><a></a>       <span class="at">subtitle =</span> <span class="st">"February 2019 - January 2024"</span>,</span>
 <span id="cb2-5"><a></a>       <span class="at">caption =</span> <span class="st">"Source: National Centers for Environmental Information"</span>) <span class="sc">+</span></span>
 <span id="cb2-6"><a></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb2-7"><a></a>  <span class="fu">theme</span>(</span>
@@ -894,63 +861,12 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 </div>
 </div></div>
 <div class="fragment">
-<p><br></p>
 <div class="center-text">
 <p>Because we want to map precipitation relative to the 20th century average (e.g.&nbsp;has precipitation for a given region over the last 5 years been <em>above</em> or <em>below</em> the average), a <strong>divering color palette</strong> makes a lot of sense.</p>
 </div>
 <div class="footer">
-<p>You may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the <a href="https://www.federalregister.gov/documents/2022/06/06/2022-12063/change-to-county-equivalents-in-the-state-of-connecticut">UC Census Bureau Notice on 06/06/2022</a>). I couldn’t quite make sense of how to match old county names to new planning regions, as there’s a decent amount of <a href="https://en.wikipedia.org/wiki/List_of_counties_in_Connecticut#/media/File:CT_Planning_vs_County_Census.png">geographic overlap</a>, soooo I gave up (for now) <i class="fa-solid fa-face-grin-beam-sweat" title="grinning face with sweat dripping from forehead" aria-label="face-grin-beam-sweat"></i>.</p>
+<p>You may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the <a href="https://www.federalregister.gov/documents/2022/06/06/2022-12063/change-to-county-equivalents-in-the-state-of-connecticut" target="_blank">UC Census Bureau Notice on 06/06/2022</a>). I couldn’t quite make sense of how to match old county names to new planning regions, as there’s a decent amount of <a href="https://en.wikipedia.org/wiki/List_of_counties_in_Connecticut#/media/File:CT_Planning_vs_County_Census.png" target="_blank">geographic overlap</a>, soooo I gave up (for now) <i class="fa-solid fa-face-grin-beam-sweat" title="grinning face with sweat dripping from forehead" aria-label="face-grin-beam-sweat"></i>.</p>
 </div>
-<!-- --- -->
-<!-- OLD  -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- #| output-location: column -->
-<!-- # 'group' controls whether adjacent points are connected by lines (each county is a "group," therefore points are connected) ---- -->
-<!-- base_map <- ggplot(data = states, mapping = aes(x = long, y = lat, group = group)) + -->
-<!--   # plot precip values by county; geom_polygon() drawn lines between points and “closes them up” (i.e. draws a line from the last point back to the first point) ---- -->
-<!--   geom_polygon(data = joined_precip_us_counties, aes(fill = perc_change)) + -->
-<!--   # darken state lines ---- -->
-<!--   geom_polygon(color = "#2F2D2C", fill = NA, linewidth = 0.1) + -->
-<!--   # update labels ---- -->
-<!--   labs(title = "5-year precipitation compared with the 20th century average", -->
-<!--        caption = "Source: National Centers for Environmental Information") + -->
-<!--   # set theme to clean up appearance ---- -->
-<!--   theme_void() + -->
-<!--   # theme adjustments ---- -->
-<!--   theme( -->
-<!--     legend.position = "bottom", -->
-<!--     legend.title = element_blank(), -->
-<!--     plot.caption = element_text(face = "italic", margin = margin(t = 20, r = 0, b = 0, l = 0)) -->
-<!--   ) -->
-<!-- base_map -->
-<!-- ``` -->
-<!-- ::: {.center-text} -->
-<!-- This looks a bit wonky, so we'll need to specify a projection, next. -->
-<!-- ::: -->
-<!-- ::: {.footer} -->
-<!-- [Eric C. Anderson's](https://github.com/eriqande) [Making Maps with R](https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html) tutorial was a wonderful resource in getting started with the `{maps}` package. -->
-<!-- ::: -->
-<!-- --- -->
-<!-- ## {#map-projection data-menu-title="Map projection"} -->
-<!-- [Apply a Mercator projection]{.slide-title} -->
-<!-- <hr> -->
-<!-- [Lambert conformal conic](https://en.wikipedia.org/wiki/Lambert_conformal_conic_projection) and [Mercator projections](https://en.wikipedia.org/wiki/Mercator_projection) are both commonly used for mapping the United States. Here, we'll apply the latter: -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- base_map_proj <- base_map + -->
-<!--   coord_map(projection = "mercator") -->
-<!-- base_map_proj -->
-<!-- ``` -->
-<!-- ::: {.notes} -->
-<!-- Alternatively: -->
-<!-- - fix the relationship between lat & long by using `coord_fixed(1.3)` -->
-<!-- - apply a Lambert conformal projection, conic projection, using `coord_fixed(projection = "conic", lat0 = 30)` -->
-<!-- - NOTE: `coord_map()` has been been superceded by `coord_sf()`: https://ggplot2.tidyverse.org/reference/coord_map.html -->
-<!-- ::: -->
 </div>
 </section>
 <section id="decide-on-scale-type" class="slide level2" data-menu-title="Decide on scale type">
@@ -974,8 +890,8 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <li><span class="body-text-s">best if you don’t want to interpret for your reader – it makes it easier to see outliers, transitions to and comparisons with neighboring regions</span></li>
 </ul>
 <div class="footer">
-<p>Adapted from <a href="https://blog.datawrapper.de/classed-vs-unclassed-color-scales/">When to use classed and when to use unclassed color scales</a>, by Lisa Charlotte Muth</p>
-<p>For another great read on building color scales for choropleth maps, check out this <a href="https://www.axismaps.com/guide/choropleth">article</a> in Axis Map’s Cartography Guide.</p>
+<p>Adapted from <a href="https://blog.datawrapper.de/classed-vs-unclassed-color-scales/" target="_blank">When to use classed and when to use unclassed color scales</a>, by Lisa Charlotte Muth</p>
+<p>For another great read on building color scales for choropleth maps, check out this <a href="https://www.axismaps.com/guide/choropleth" target="_blank">article</a> in Axis Map’s Cartography Guide.</p>
 </div>
 </div>
 </section>
@@ -988,7 +904,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>“The unclassed choropleth is the most exact representation of the data model possible,”</p>
 </blockquote>
 <div class="right-align-text">
-<p>-Judith A. Tyner, in <a href="https://www.amazon.com/Principles-Map-Design-Judith-Tyner/dp/1462517129">Priciples of Map Design</a></p>
+<p>-Judith A. Tyner, in <a href="https://www.amazon.com/Principles-Map-Design-Judith-Tyner/dp/1462517129" target="_blank">Priciples of Map Design</a></p>
 </div>
 <p><br></p>
 <div class="fragment">
@@ -996,7 +912,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>“No matter if you decide for a classed map at the end, you should <strong>start your process by looking at an unclassed map</strong>. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them.”</p>
 </blockquote>
 <div class="right-align-text">
-<p>-Lisa Charlotte Muth, in <a href="https://blog.datawrapper.de/classed-vs-unclassed-color-scales/">When to use classed and when to use unclassed color scales</a></p>
+<p>-Lisa Charlotte Muth, in <a href="https://blog.datawrapper.de/classed-vs-unclassed-color-scales/" target="_blank">When to use classed and when to use unclassed color scales</a></p>
 </div>
 </div>
 <div class="fragment">
@@ -1010,7 +926,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <h2></h2>
 <p><span class="slide-title">Pick a color palette!</span></p>
 <hr>
-<p>Recall <a href="https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.2-colors-slides.html#/suggested-colors">from earlier</a> that precipitation data is often encoded using a <strong>brown / blue</strong> color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side).</p>
+<p>Recall <a href="../../course-materials/lecture-slides/lecture5.2-colors-slides.html#climate-palettes" target="_blank">from earlier</a> that precipitation data is often encoded using a <strong>brown / blue</strong> color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side).</p>
 <p>Lucky for us, <strong>RColorBrewer</strong> has this exact palette. <strong>Let’s use <span class="teal-text">all 11 hues</span> for our unclassed map</strong>:</p>
 <p><br></p>
 <div class="columns">
@@ -1236,7 +1152,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>Several maps side-by-side can help you better spot important patterns and tell a more complete story.</p>
 
 <img data-src="images/week5/nyt-precip.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p><a href="https://www.nytimes.com/2021/09/16/learning/whats-going-on-in-this-graph-new-normal-us-precipitation.html">What’s Going On in This Graph? | New Normal U.S. Precipitation</a> (New York Times)</p>
+<p><a href="https://www.nytimes.com/2021/09/16/learning/whats-going-on-in-this-graph-new-normal-us-precipitation.html" target="_blank">What’s Going On in This Graph? | New Normal U.S. Precipitation</a> (New York Times)</p>
 </div>
 </section>
 <section id="end-break" class="slide level2" data-menu-title="# END #" data-background="#047C90">
@@ -1249,26 +1165,6 @@ See you next week!
 <em>~ This is the end of Lesson 3 (of 3) ~</em>
 </p>
 </div>
-<!-- ##  {#end-break data-menu-title="# Break #" background="#047C90"} -->
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr"> Take a Break</p> -->
-<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
-<!-- </div> -->
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
