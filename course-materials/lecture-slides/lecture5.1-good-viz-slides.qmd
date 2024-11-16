@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 5 | February 5^th^, 2024]{.custom-subtitle3}
+[Week 5 | February 3^rd^, 2025]{.custom-subtitle3}
 
 ---
 
@@ -92,7 +92,7 @@ We'll start by familiarizing ourselves with a general set of rules and best prac
 - **color choices** (incl. palette types, emotions, readability)
 - how to **tell an interesting story**
 - how to **center the people and communities** represented in your data
-- **accessibility** through colorblind-friendly palettes & alt text (see [week 2 discussion](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials))
+- **accessibility** through colorblind-friendly palettes & alt text
 ::::
 
 . . . 
@@ -119,7 +119,7 @@ We'll start by familiarizing ourselves with a general set of rules and best prac
 - [**color choices** (incl. palette types, emotions, readability)]{.gray-text}
 - [how to **tell an interesting story**]{.gray-text}
 - [how to **center the people and communities** represented in your data]{.gray-text}
-- [**accessibility** through colorblind-friendly palettes & alt text (see [week 2 discussion](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials))]{.gray-text}
+- [**accessibility** through colorblind-friendly palettes & alt text]{.gray-text}
 
 ::: {.center-text .teal-text}
 **We're going to talk about these first few points, to start.**
@@ -141,7 +141,7 @@ We'll start by familiarizing ourselves with a general set of rules and best prac
 
 <hr>
 
-[The [Data-Ink ratio](https://infovis-wiki.net/wiki/Data-Ink_Ratio) was introduced by Edward Tufte ([1983](https://faculty.salisbury.edu/~jtanderson/teaching/cosc311/fa21/files/tufte.pdf)) and argues that **non-data-ink** (i.e. ink used for for everything *except* the presentation of data itself) **should be removed wherever possible**.]{.body-text-s} 
+[The [Data-Ink ratio](https://infovis-wiki.net/wiki/Data-Ink_Ratio){target="_blank"} was introduced by Edward Tufte ([1983](https://www.edwardtufte.com/book/the-visual-display-of-quantitative-information/){target="_blank"}) and argues that **non-data-ink** (i.e. ink used for for everything *except* the presentation of data itself) **should be removed wherever possible**.]{.body-text-s} 
 
 $$
 \text{Data-ink ratio} = \frac{\text{Data-ink}}{\text{Total ink used to print the graphic}}
@@ -225,7 +225,7 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 
 - Eliminating lots of non-data ink **may render visualizations difficult to read**
 
-    - [Inbar et al. (2007)](https://doi.org/10.1145/1362550.1362587) found that students preferred a more maximalist visualization design over the minimalist version proposed by Tufte
+    - [Inbar et al. (2007)](https://doi.org/10.1145/1362550.1362587){target="_blank"} found that students preferred a more maximalist visualization design over the minimalist version proposed by Tufte
 
 . . . 
 
@@ -398,10 +398,10 @@ ggplot(penguins, aes(x = fct_rev(fct_infreq(species)), fill = species)) +
 
 . . .
 
-Of course, a visualization like this wouldn't be appropriate for all audiences / contexts (e.g. scientific journal). *But*, despite the removal of axes / text / legend, a reader could still walk away with the same type of information.
+A visualization like this might not be appropriate for all audiences / contexts (e.g. scientific journal) -- *but* the takeaways remain clear, despite the removal of axes / text / legend.
 
 ::: {.footer}
-See the third visualization in [this BBC article](https://www.bbc.com/future/article/20240206-hannah-ritchie-sustainability-data-spreads-hope-not-doomism) for an "in the wild" example.
+See the third visualization in [this BBC article](https://www.bbc.com/future/article/20240206-hannah-ritchie-sustainability-data-spreads-hope-not-doomism){target="_blank"} for an "in the wild" example.
 :::
 
 ---
@@ -490,7 +490,7 @@ ggplot(data = penguins,aes(x = bill_length_mm,y = bill_depth_mm, group = species
 
 ::::
 
-[Also note the redundant `species` mapping (color and shape) -- sometime redundancy is important for accessibility!]{.body-text-s}
+Also note the redundant `species` mapping (color and shape) -- sometime redundancy is important for accessibility!
 
 ---
 
@@ -500,7 +500,7 @@ ggplot(data = penguins,aes(x = bill_length_mm,y = bill_depth_mm, group = species
 
 <hr>
 
-[Reduce eye movement and excess ink by including legend info in the plot (sub)title (here, using the [`{ggtext}` package](https://wilkelab.org/ggtext/); minimal code example, below):]{.body-text-s}
+Reduce eye movement and excess ink by including legend info in the plot (sub)title (here, using the [`{ggtext}` package](https://wilkelab.org/ggtext/){target="_blank"}; minimal code example, below):
 
 ```{r}
 #| eval: false
@@ -597,7 +597,7 @@ ggplot(data = penguins,aes(x = bill_length_mm,y = bill_depth_mm, group = species
 
 <hr>
 
-[Reduce eye movement and excess ink by including legend info as direct labels on the plot (here, using the [`{geomtextpath}` package](https://allancameron.github.io/geomtextpath/); minimal code example, below):]{.body-text-s}
+Reduce eye movement and excess ink by including legend info as direct labels on the plot (here, using the [`{geomtextpath}` package](https://allancameron.github.io/geomtextpath/){target="_blank"}; minimal code example, below):
 
 ```{r}
 #| eval: false
@@ -715,7 +715,7 @@ knitr::include_graphics("images/week5/neil-with-annotations.png")
 ::::
 
 ::: {.center-text .gray-text .body-text-s}
-[Is white space always your friend?](https://questionsindataviz.com/2018/01/06/is-white-space-always-your-friend/), by Neil Richards
+[Is white space always your friend?](https://questionsindataviz.com/2018/01/06/is-white-space-always-your-friend/){target="_blank"}, by Neil Richards
 :::
 
 ```{r}
@@ -745,7 +745,7 @@ countdown::countdown(
 > "The key thing we do is to add a title to the chart, as an entry point and to explain what is going on. **Text and other annotations add enourmous value for non-chart people.**"
 
 ::: {.right-align-text .body-text-s}
--[John Burn-Murdoch](https://www.ft.com/john-burn-murdoch), Financial Times
+-[John Burn-Murdoch](https://www.ft.com/john-burn-murdoch){target="_blank"}, Financial Times
 :::
 
 <br>
@@ -758,10 +758,8 @@ countdown::countdown(
 knitr::include_graphics("images/week5/burn-murdoch-covid.png")
 ```
 
-<br>
-
-::: {.center-text .body-text-s .gray-text}
-[Vaccines and Omicron mean Covid now less deadly than flu in England](https://www.ft.com/content/e26c93a0-90e7-4dec-a796-3e25e94bc59b), by John Burn-Murdoch
+::: {.footer}
+[Vaccines and Omicron mean Covid now less deadly than flu in England](https://www.ft.com/content/e26c93a0-90e7-4dec-a796-3e25e94bc59b){target="_blank"}, by John Burn-Murdoch
 :::
 
 ---
@@ -772,42 +770,9 @@ knitr::include_graphics("images/week5/burn-murdoch-covid.png")
 <p class="custom-subtitle bottombr">Consider ways to provide additional context for your data</p>
 </div>
 
-<!-- --- -->
-
-<!-- ## {#wilke-context data-menu-title="Provide context"}  -->
-
-<!-- [Plot groups against the whole when faceting]{.slide-title2} -->
-
-<!-- <hr> -->
-
-<!-- <br> -->
-
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week4/wilke-context-overlapping.png") -->
-<!-- ``` -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-
-<!-- ::: -->
-
-<!-- :::: -->
-
-<!-- ::: {.center-text .gray-text .body-text-s} -->
-<!-- *Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/histograms-density-plots.html), by Claus Wilke* -->
-<!-- ::: -->
-
 ---
 
 ## {#wilke-context data-menu-title="Provide context"} 
-<!-- visibility="uncounted" -->
 
 [Plot groups against the whole when faceting]{.slide-title2}
 
@@ -852,7 +817,7 @@ knitr::include_graphics("images/week5/wilke-context-separate.png")
 ::::
 
 ::: {.footer}
-Example from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/histograms-density-plots.html), by Claus Wilke. For an example with code, check out [this slide](https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.2-distributions-slides.html#/scaled-density) from Lecture 3.2
+Example from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/histograms-density-plots.html){target="_blank"}, by Claus Wilke. For an example with code, check out [this slide](lecture2.2-distributions-slides.qmd#scaled-density){target="_blank"} from Lecture 2.2
 :::
 
 ---
@@ -893,7 +858,7 @@ plot +
 
 ::::
 
-[**Fig cap:** Temporal Variation in Bottom Temperature. Monthly bottom (4.5 m depth) temperatures at Mohawk Reef (34.396290, -119.731297) in Santa Barbara, CA compiled from 2005-2017. Vertical dashed lines represent three of four treatment temperatures (11, 16, 21°C). Data Source: Santa Barbara Coastal Long-Term Ecological Research group (adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807))]{.body-text-s}
+[**Fig cap:** Temporal Variation in Bottom Temperature. Monthly bottom (4.5 m depth) temperatures at Mohawk Reef (34.396290, -119.731297) in Santa Barbara, CA compiled from 2005-2017. Vertical dashed lines represent three of four treatment temperatures (11, 16, 21°C). Data Source: Santa Barbara Coastal Long-Term Ecological Research group (adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807){target="_blank"})]{.body-text-s}
 
 ---
 
@@ -953,7 +918,7 @@ knitr::include_graphics("images/week5/x-y-best.png")
 ::::
 
 ::: {.footer}
-Example from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/balance-data-context.html), by Claus Wilke
+Example from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/balance-data-context.html){target="_blank"}, by Claus Wilke
 :::
 
 
@@ -973,7 +938,7 @@ Example from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz
 
 <hr>
 
-Highlight data by coloring groups of interest either manually or by using helpful packages, like `{gghighlight}` (we saw an example of this in [lecture 3.3](https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.3-evolution-slides.html#/spaghetti-plot)):
+Highlight data by coloring groups of interest either manually or by using helpful packages, like `{gghighlight}` (we saw an example of this in [lecture 2.3](lecture2.3-evolution-slides.qmd#spaghetti-plot){target="_blank"}):
 
 <br>
 
@@ -1021,7 +986,7 @@ ggplot() +
 
 <hr>
 
-Or add annotations to your plots to call attention to data of interest (here, shown using the [`{ggforce}` package](https://ggforce.data-imaginist.com/index.html); minimal code example, below):
+Or add annotations to your plots to call attention to data of interest (here, shown using the [`{ggforce}` package](https://ggforce.data-imaginist.com/index.html){target="_blank"}; minimal code example, below):
 
 ```{r}
 #| eval: false
@@ -1167,8 +1132,6 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, color = species)) +
 . . . 
 
 <br>
-<br>
-<br>
 
 ::: {.center-text .body-text-m}
 There *may* be circumstances where the above are executed well...but more often than not, you're safest avoiding them.
@@ -1182,7 +1145,7 @@ There *may* be circumstances where the above are executed well...but more often 
 
 <hr>
 
-It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
+It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
 
 ```{r}
 #| eval: true
@@ -1193,7 +1156,7 @@ knitr::include_graphics("images/week5/overload-map.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*Source: [Stack Exchange](https://gis.stackexchange.com/a/3132)*
+*Source: [Stack Exchange](https://gis.stackexchange.com/a/3132){target="_blank"}*
 :::
 
 ---
@@ -1204,7 +1167,7 @@ knitr::include_graphics("images/week5/overload-map.png")
 
 <hr>
 
-It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
+It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
 
 ```{r}
 #| eval: true
@@ -1215,7 +1178,7 @@ knitr::include_graphics("images/week5/idk-plot.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*Source: Unknown, but borrowed from Allison Horst's [lecture](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_25)*
+*Source: Unknown, but borrowed from [EDS 221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_25){target="_blank"}*
 :::
 
 ---
@@ -1226,7 +1189,7 @@ knitr::include_graphics("images/week5/idk-plot.png")
 
 <hr>
 
-It can be nearly impossible to easily process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
+It can be nearly impossible to process many different variables, colors, shapes, etc. on the same visualization (and realistically, most people won't want to take the time to even try):
 
 ```{r}
 #| eval: true
@@ -1237,7 +1200,7 @@ knitr::include_graphics("images/week5/parallel-plot.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*Source: Unknown, but borrowed from Allison Horst's [lecture](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_30)*
+*Source: Unknown, but borrowed from [EDS 221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_25){target="_blank"}*
 :::
 
 ---
@@ -1263,9 +1226,9 @@ knitr::include_graphics("images/week5/parallel-plot.png")
 
 [Or some that we haven't covered:]{.body-text-m}
 
-- create **interactive** tables and / or visualizations using [htmlwidgets](https://www.htmlwidgets.org/) (e.g. [leaflet](https://rstudio.github.io/leaflet/) maps, [plotly](https://plotly.com/r/), charts, [DT](https://rstudio.github.io/DT/) data tables)
-- create **reactive** outputs using tools like [`{shiny}`](https://shiny.posit.co/)
-  - check out the [EDS 430 (Intro to Shiny)](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/) materials as a starting point!
+- create **interactive** tables and / or visualizations using [htmlwidgets](https://www.htmlwidgets.org/){target="_blank"} (e.g. [leaflet](https://rstudio.github.io/leaflet/){target="_blank"} maps, [plotly](https://plotly.com/r/){target="_blank"}, charts, [DT](https://rstudio.github.io/DT/){target="_blank"} data tables)
+- create **reactive** outputs using tools like [`{shiny}`](https://shiny.posit.co/){target="_blank"}
+  - check out the [EDS 296 (Intro to Shiny)](https://ucsb-meds.github.io/EDS-296-Intro-to-Shiny/){target="_blank"} materials as a starting point!
 
 ---
 
@@ -1275,7 +1238,7 @@ knitr::include_graphics("images/week5/parallel-plot.png")
 
 <hr>
 
-[**The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.** Let's take this example using real [Worldbank data](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&start=1960&view=chart) for the German GDP and the global GDP between 2004 and 2016:]{.body-text-s}
+[**The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.** Let's take this example using real [Worldbank data](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&start=1960&view=chart){target="_blank"} for the German GDP and the global GDP between 2004 and 2016:]{.body-text-s}
 
 :::: {.columns}
 
@@ -1298,7 +1261,7 @@ knitr::include_graphics("images/week5/dual-axis1.png")
 ::::
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -1309,7 +1272,7 @@ Example from [Why not to use two axes, and what to use instead](https://blog.dat
 
 <hr>
 
-[**The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.** Let's take this example using real [Worldbank data](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&start=1960&view=chart) for the German GDP and the global GDP between 2004 and 2016:]{.body-text-s}
+[**The scales of dual axis charts are arbitrary and therefore can (deliberately) mislead readers about the relationship between the two data series.** Let's take this example using real [Worldbank data](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2016&start=1960&view=chart){target="_blank"} for the German GDP and the global GDP between 2004 and 2016:]{.body-text-s}
 
 :::: {.columns}
 
@@ -1340,7 +1303,7 @@ knitr::include_graphics("images/week5/dual-axis2.png")
 [While both GDPs may appear to increase at the about same rate, they actually don't -- global GDP increased by 80% until 2014, while the German GDP increased by 40%.]{.body-text-s}
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ::: notes
@@ -1419,7 +1382,7 @@ knitr::include_graphics("images/week5/dual-two-charts.png")
 <br>
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -1430,7 +1393,7 @@ Example from [Why not to use two axes, and what to use instead](https://blog.dat
 
 <hr>
 
-**Indexed charts** show the *relative change* (percentage increase or decrease) of a data series over time. Consider adding labels or tooltips (e.g. using [`{plotly}`](https://plotly.com/r/)) to include important absolute numbers.
+**Indexed charts** show the *relative change* (percentage increase or decrease) of a data series over time. Consider adding labels or tooltips (e.g. using [`{plotly}`](https://plotly.com/r/){target="_blank"}) to include important absolute numbers.
 
 <br>
 
@@ -1445,7 +1408,7 @@ knitr::include_graphics("images/week5/dual-axes-indexed.png")
 <br>
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -1471,7 +1434,7 @@ knitr::include_graphics("images/week5/dual-labeling.png")
 <br>
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -1497,7 +1460,7 @@ knitr::include_graphics("images/week5/connected-scatterplot.png")
 <br>
 
 ::: {.footer}
-Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/), by Lisa Charlotte Muth
+Example from [Why not to use two axes, and what to use instead](https://blog.datawrapper.de/dualaxis/){target="_blank"}, by Lisa Charlotte Muth
 :::
 
 ---
@@ -1532,7 +1495,7 @@ knitr::include_graphics("images/week5/single-pie.png")
 <br>
 
 ::: {.footer}
-Examples from [Allison Horst](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_66), who adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html)
+Examples from [EDS 221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66){target="_blank"}, adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html){target="_blank"}
 :::
 
 ---
@@ -1574,7 +1537,7 @@ knitr::include_graphics("images/week5/single-bar.png")
 <br>
 
 ::: {.footer}
-Examples from [Allison Horst](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_66), who adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html)
+Examples from [221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66){target="_blank"}, adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html){target="_blank"}
 :::
 
 ---
@@ -1600,7 +1563,7 @@ knitr::include_graphics("images/week5/multiple-pies.png")
 <br>
 
 ::: {.footer}
-Examples from [Allison Horst](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_66), who adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html)
+Examples from [EDS 221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66){target="_blank"}, adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html){target="_blank"}
 :::
 
 ---
@@ -1625,7 +1588,7 @@ knitr::include_graphics("images/week5/good-pie.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*ABC Enterprise Sales. Source: [How to Use Charts and Graphs Effectively](https://www.mindtools.com/ahb9niu/how-to-use-charts-and-graphs-effectively), by MindTools*
+*ABC Enterprise Sales. Source: [How to Use Charts and Graphs Effectively](https://www.mindtools.com/ahb9niu/how-to-use-charts-and-graphs-effectively){target="_blank"}, by MindTools*
 :::
 :::
 
@@ -1648,7 +1611,7 @@ knitr::include_graphics("images/week5/good-pie.png")
 <br>
 
 ::: {.footer}
-Examples from [Allison Horst](https://docs.google.com/presentation/d/e/2PACX-1vSpUdai7BTXprh3dwSNBpJymNGUIOFhEgQn5XbQWZhWy8EpUyd64Lem08YK_kc6tP0iyoJ5wRAVvSYe/pub?start=false&loop=false&delayms=3000&slide=id.ge99f105fe7_0_66), who adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html)
+Examples from [EDS 221](https://docs.google.com/presentation/d/1MzyYCAzae8IU43UYc9ERgGdGUQ0mttlDgZQO8tG4oTA/present?slide=id.ge99f105fe7_0_66){target="_blank"}, adapted from [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html){target="_blank"}
 :::
 
 ---
@@ -1661,7 +1624,7 @@ Examples from [Allison Horst](https://docs.google.com/presentation/d/e/2PACX-1vS
 
 <br>
 
-As an alternative to a pie chart, consider [**treemaps**](https://www.data-to-viz.com/graph/treemap.html). Treemaps display hierarchical data as a set of nested rectangles -- simpler versions can be used to display parts of a whole using rectangles (which are easier for us to estimate than angles).
+As an alternative to a pie chart, consider [**treemaps**](https://www.data-to-viz.com/graph/treemap.html){target="_blank"}. Treemaps display hierarchical data as a set of nested rectangles -- simpler versions can be used to display parts of a whole using rectangles (which are easier for us to estimate than angles).
 
 :::: {.columns}
 
@@ -1676,7 +1639,7 @@ knitr::include_graphics("images/week5/treemap-simple.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*Source: [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html)*
+*Source: [From Data to Viz](https://www.data-to-viz.com/caveat/pie.html){target="_blank"}*
 :::
 :::
 
@@ -1690,7 +1653,7 @@ knitr::include_graphics("images/week5/treemap-nested.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-*Source: [`{treemapify}` pkgdown site](https://wilkox.org/treemapify/)*
+*Source: [`{treemapify}` pkgdown site](https://wilkox.org/treemapify/){target="_blank"}*
 :::
 :::
 
@@ -1719,14 +1682,14 @@ knitr::include_graphics("images/week5/occlusion.png")
 <br>
 
 ::: {.footer}
-Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e)
+Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e){target="_blank"}
 :::
 
 ---
 
 ## {#3d-charts-pers-dist data-menu-title="3D charts (perspective distortion)"}
 
-[3D charts distort perspective]{.slide-title2}
+[3D charts distort perspective]{.slide-title}
 
 <hr>
 
@@ -1745,7 +1708,7 @@ knitr::include_graphics("images/week5/perspective-distortion.png")
 <br>
 
 ::: {.footer}
-Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e)
+Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e){target="_blank"}
 :::
 
 ---
@@ -1770,10 +1733,10 @@ knitr::include_graphics("images/week5/3d-pie.png")
 
 <br>
  
-**The pie chart on the right is an example of using 3D purely for decorative purposes.** Here, the third dimension doesn't actually convey any additional data. Claus Wilke [calls this](https://clauswilke.com/dataviz/no-3d.html) **gratuitous 3D**, and you should always avoid it.
+**The pie chart on the right is an example of using 3D purely for decorative purposes.** Here, the third dimension doesn't actually convey any additional data. Claus Wilke [calls this](https://clauswilke.com/dataviz/no-3d.html){target="_blank"} **gratuitous 3D**, and you should always avoid it.
 
 ::: {.footer}
-Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e)
+Source: [Data Visualization: Why 3D charts are a terrible idea](https://medium.com/@purohitpraveen/data-vizualization-why-3d-charts-are-a-terrible-idea-32657fbb928e){target="_blank"}
 :::
 
 ---
@@ -1795,7 +1758,7 @@ knitr::include_graphics("images/week5/3d-fuel-eff.png")
 ```
 
 ::: {.footer}
-Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html), by Claus Wilke
+Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html){target="_blank"}, by Claus Wilke
 :::
 
 ---
@@ -1821,7 +1784,7 @@ knitr::include_graphics("images/week5/2d-fuel-eff.png")
 <br>
 
 ::: {.footer}
-Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html), by Claus Wilke
+Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html){target="_blank"}, by Claus Wilke
 :::
 
 ---
@@ -1847,7 +1810,7 @@ knitr::include_graphics("images/week5/bubble-fuel-eff.png")
 <br>
 
 ::: {.footer}
-Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html), by Claus Wilke
+Source: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/no-3d.html){target="_blank"}, by Claus Wilke
 :::
 
 ---
@@ -1876,9 +1839,9 @@ Data visualization is both a science and an *art*. **Following these rules / bes
 
 <br>
 
-- [Why you sometimes need to break the rules in data viz](https://medium.economist.com/why-you-sometimes-need-to-break-the-rules-in-data-viz-4d8ece284919), by Rosamund Pearce
-- [Master the rules - then break them](https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.), by Dieuwertje van Dijk
-- [Does Data Visualization Have Rules? Or Is It All Just “It Depends”?](https://nightingaledvs.com/does-data-visualization-have-rules-or-is-it-all-just-it-depends/), by Nick Desbarats
+- [Why you sometimes need to break the rules in data viz](https://medium.economist.com/why-you-sometimes-need-to-break-the-rules-in-data-viz-4d8ece284919){target="_blank"}, by Rosamund Pearce
+- [Master the rules - then break them](https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.){target="_blank"}, by Dieuwertje van Dijk
+- [Does Data Visualization Have Rules? Or Is It All Just “It Depends”?](https://nightingaledvs.com/does-data-visualization-have-rules-or-is-it-all-just-it-depends/){target="_blank"}, by Nick Desbarats
 
 ---
 
@@ -1897,9 +1860,9 @@ knitr::include_graphics("images/week5/iraq-bloody-toll-alt.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Award-winning data visualization by [Simon Scarr](https://www.simonscarr.com/iraqs-bloody-toll#:~:text=This%20graphic%20was%20created%20to,the%20visual%20metaphor%20of%20blood.) (left), and a copy / remake of that visualization which follows the rules, created by [Andy Cotgreave](https://www.infoworld.com/article/3088166/why-how-to-lie-with-statistics-did-us-a-disservice.html) (right).
+Award-winning data visualization by [Simon Scarr](https://www.simonscarr.com/iraqs-bloody-toll#:~:text=This%20graphic%20was%20created%20to,the%20visual%20metaphor%20of%20blood.){target="_blank"} (left), and a copy / remake of that visualization which follows the rules, created by [Andy Cotgreave](https://www.infoworld.com/article/3088166/why-how-to-lie-with-statistics-did-us-a-disservice.html){target="_blank"} (right).
 
-Image & caption source: [Master the rules - then break them](https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.)
+Image & caption source: [Master the rules - then break them](https://www.datylon.com/blog/master-and-break-data-visualization-rules#:~:text=The%20key%20take%2Dout%20is,a%20better%2C%20more%20engaging%20way.){target="_blank"}
 :::
 
 ---
@@ -1930,7 +1893,7 @@ knitr::include_graphics("images/week5/clearing-air.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Clearing the Air, by [Christopher Ingraham](https://www.washingtonpost.com/people/christopher-ingraham/), writing for [The Washington Post](https://www.washingtonpost.com/business/2019/06/06/why-crowded-meetings-conference-rooms-make-you-so-so-tired/)
+Clearing the Air, by [Christopher Ingraham](https://www.washingtonpost.com/people/christopher-ingraham/){target="_blank"}, writing for [The Washington Post](https://www.washingtonpost.com/business/2019/06/06/why-crowded-meetings-conference-rooms-make-you-so-so-tired/){target="_blank"}
 :::
 :::
 
@@ -1978,7 +1941,7 @@ knitr::include_graphics("images/week5/clearing-air-annotated.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Annotations adapted from [@chezVoila](https://twitter.com/chezVoila/status/1136631524919513088)
+Annotations adapted from [@chezVoila](https://twitter.com/chezVoila/status/1136631524919513088){target="_blank"}
 :::
 
 ---
@@ -2001,7 +1964,7 @@ knitr::include_graphics("images/week5/thompson-penguins.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-Perfectly Proportional Penguins, by [Cara Thompson](https://www.cararthompson.com/) as part of [TidyTuesday](https://github.com/rfordatascience/tidytuesday) ([code](https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007d_penguins.R))
+Perfectly Proportional Penguins, by [Cara Thompson](https://www.cararthompson.com/){target="_blank"} as part of [TidyTuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"} ([code](https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007d_penguins.R){target="_blank"})
 :::
 :::
 
@@ -2056,7 +2019,7 @@ knitr::include_graphics("images/week5/ingeman-etal-fig3.png")
 ```
 
 ::: {.body-text-xs .gray-text}
-[Fig. 3](https://www.nature.com/articles/s41598-022-13671-7/figures/3), by [Ingeman et al. 2022](https://www.nature.com/articles/s41598-022-13671-7): **Glimmers of hope and critical cases.** Distribution of large carnivore species across categories of current IUCN status (x-axis) and population trend (y-axis). Improvements in status are indicated by gold and declines by blue, with bubble size indicating the number of status category changes. The majority of species have not undergone any changes in status (shown in light gray). Note: No change in status may indicate lack of recent assessment, insufficient data, or, in the case of species designated Least Concern, effective conservation efforts.
+[Fig. 3](https://www.nature.com/articles/s41598-022-13671-7/figures/3){target="_blank"}, by [Ingeman et al. 2022](https://www.nature.com/articles/s41598-022-13671-7){target="_blank"}: **Glimmers of hope and critical cases.** Distribution of large carnivore species across categories of current IUCN status (x-axis) and population trend (y-axis). Improvements in status are indicated by gold and declines by blue, with bubble size indicating the number of status category changes. The majority of species have not undergone any changes in status (shown in light gray). Note: No change in status may indicate lack of recent assessment, insufficient data, or, in the case of species designated Least Concern, effective conservation efforts.
 :::
 
 :::

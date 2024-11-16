@@ -28,7 +28,8 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan19-dec23-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-feb19-jan24-precip.csv"), 
+                        skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -86,7 +87,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared with the 20th century average",
-       subtitle = "January 2019 - December 2023",
+       subtitle = "February 2019 - January 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
@@ -128,7 +129,7 @@ joined_precip_geom |>
   geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
   coord_flip() +
   labs(x = "", y = "Total Precipitation (inches)",
-       title = "Top 10 California counties to recieve the most rainfall, Jan 2019 - Dec 2023") +
+       title = "Top 10 California counties to recieve the most rainfall, Feb 2019 - Jan 2024") +
   theme_classic() +
   theme(
     plot.title.position = "plot"

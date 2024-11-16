@@ -19,76 +19,51 @@ knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*Coming soon!*
+### A. Install required packages
 
-<!-- Please be sure to complete the following before class: -->
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+install.packages("paletteer") # a comprehensive collection of color palettes in R using a common interface
+install.packages("viridis") # Colorblind-Friendly Color Maps for R
+install.packages("RColorBrewer") # ColorBrewer Palettes
+install.packages("tigris") # for downloading and using Census TIGER/Line shapefiles in R
+```
 
-<!-- ### A. Install required packages -->
+### B. Download data
 
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("paletteer") # a comprehensive collection of color palettes in R using a common interface -->
-<!-- install.packages("viridis") # Colorblind-Friendly Color Maps for R -->
-<!-- install.packages("RColorBrewer") # ColorBrewer Palettes -->
-<!-- install.packages("tigris") # for downloading and using Census TIGER/Line shapefiles in R -->
-<!-- ``` -->
+- [County-level precipitation data (Feb 2019 - Jan 2024) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202401/60/value){target="_blank"}, made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/){target="_blank"} (the download buttons are located just beneath the rendered map -- **choose the CSV option**)
+  - rename the data file as `county-feb19-jan24-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/county-feb19-jan24-precip.csv`
+  
+### C. Download .qmd templates & review data wrangling code
 
-<!-- ### B. Download data -->
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week5/` folder.
 
-<!-- - [County-level precipitation data (Jan 2019 - Dec 2023) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value), made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/) (the download buttons are located just beneath the rendered map -- **choose the CSV option**) -->
-<!--   - rename the data file as `county-jan19-dec23-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/county-jan19-dec23-precip.csv` -->
+2. Review the data wrangling code under the `# Setup` section of <sup>1</sup>each template file and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through the data wrangling code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}. 
 
-<!-- ### C. Install Google Chrome extensions (optional, but recommended) -->
+*<sup>1</sup>We will walk through the 5.3 template setup / wrangling code together in class, but it will still benefit you to review it a bit beforehand!*
 
-<!-- I'll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them! -->
+### D. (OPTIONAL, but highly recommended) Install Google Chrome extensions
 
-<!-- 1. **[Let's get color blind](https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck)**: simulates different color deficiencies in the browser -->
-<!-- 2. **[Grayscale the Web](https://chromewebstore.google.com/detail/grayscale-the-web-save-si/mblmpdpfppogibmoobibfannckeeleag)**: turn specific sites or tabs grayscale -->
-<!-- 3. **[ColorPick Eyedropper](https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg)**: a browser-based color chooser tool (I recommended that you install this for week 3 discussion, so you may already have it!) -->
+I'll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them!
 
-
-<!-- ~DID NOT USE THIS IN 2024 BUT KEEPING JUST IN CASE~ -->
-<!-- ### Review data wrangling code  -->
-
-<!-- In lecture 5.2, we'll be building a choropleth map to visualize county-level precipitation data across the contiguous U.S. To do so, we need to join our precipitation data (which you can download [above](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week5.html#download-data)) with spatial data, which we'll access via the [`{maps}` package](https://cran.r-project.org/web/packages/maps/index.html). Joining these two data sets requires a fair amount of cleaning (namely, ensuring county names match).  -->
-
-<!-- Please review the background information about our precipitation data on [slide 65](https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.1-colors-slides.html#/data) *and* walk through the data wrangling code on [slide 66](https://samanthacsik.github.io/EDS-240-data-viz/slides/week5.1-colors-slides.html#/data-wrangling) ahead of class. Come prepared with any questions you may have about the code -- we'll set aside ~10 minutes to discuss before jumping into building our data visualization. -->
+1. **[Let's get color blind](https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck){target="_blank"}**: simulates different color deficiencies in the browser
+2. **[Grayscale the Web](https://chromewebstore.google.com/detail/grayscale-the-web-save-si/mblmpdpfppogibmoobibfannckeeleag){target="_blank"}**: turn specific sites or tabs grayscale
+3. **[ColorPick Eyedropper](https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg){target="_blank"}**: a browser-based color chooser tool (I recommended that you install this for week 2 discussion, so you may already have it!)
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
+|------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
+| [Lecture 5.1: good data viz](lecture-slides/lecture5.1-good-viz-slides.qmd){target="_blank"}  | *NA* | *NA* |
+| [Lecture 5.2: colors](lecture-slides/lecture5.2-colors-slides.qmd){target="_blank"} | [5.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week5/TEMPLATE-lecture5.2-colors.qmd){target="_blank"} | [5.2 key](keys/KEY-lecture5.2-colors.qmd){target="_blank"} |
+| [Lecture 5.3: choropleth](lecture-slides/lecture5.3-choropleth-slides.qmd){target="_blank"} | [5.3 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week5/TEMPLATE-lecture5.3-choropleth.qmd){target="_blank"} | [5.3 key](keys/KEY-lecture5.3-choropleth.qmd){target="_blank"} |
+: {.hover .bordered tbl-colwidths="[50,25,25]"} 
+
+## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
+
 *Coming soon!*
-
-<!-- Week 5 instruction is broken down into three lessons: -->
-
-<!-- ::: {.grid} -->
-
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**What makes a good viz?**]{.teal-text .body-text-m} -->
-
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} lecture 5.1 slides](lecture-slides/week5.1-good-viz-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**Colors**]{.teal-text .body-text-m} -->
-
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} lecture 5.2 slides](lecture-slides/week5.2-colors-slides.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: {.g-col-12 .g-col-md-4} -->
-<!-- ::: {.center-text} -->
-<!-- [**Colors & Choropleths**]{.teal-text .body-text-m} -->
-
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} lecture 5.3 slides](lecture-slides/week5.3-choropleth.qmd){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-<!-- ::: -->
-
-<!-- ::: -->
 
 ## {{< fa comments title="two speech bubbles" >}} Discussion Materials {#discussion-materials}
 
