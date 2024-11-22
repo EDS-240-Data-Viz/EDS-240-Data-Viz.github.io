@@ -39,7 +39,7 @@ editor_options:
 - [**color choices** (incl. palette types, emotions, readability)]{.gray-text}
 - how to **tell an interesting story**
 - [how to **center the people and communities** represented in your data]{.gray-text}
-- [**accessibility** through colorblind-friendly palettes & alt text (see [week 2 discussion](https://samanthacsik.github.io/EDS-240-data-viz/course-materials/week2.html#discussion-materials))]{.gray-text}
+- [**accessibility** through colorblind-friendly palettes & alt text]{.gray-text}
 
 ::: {.center-text .teal-text}
 **This lesson will focus on the use of annotations in a good data visualization.**
@@ -58,12 +58,12 @@ knitr::include_graphics("images/week6/arctic-ice.png")
 ```
 
 ::: {.footer}
-**Source:** [Arctic Ice Reaches a
-Low Winter Maximum](https://www.nytimes.com/interactive/2015/03/24/science/earth/arctic-ice-low-winter-maximum.html?_r=0) (New York Times). 
+Source: [Arctic Ice Reaches a
+Low Winter Maximum](https://www.nytimes.com/interactive/2015/03/24/science/earth/arctic-ice-low-winter-maximum.html?_r=0){target="_blank"} (New York Times). 
 
-Also check out this great commentary on the above visualization, [Respect your readers' time](https://blog.datawrapper.de/readers-time/) (DataWrapper).
+Also check out this great commentary on the above visualization, [Respect your readers' time](https://blog.datawrapper.de/readers-time/){target="_blank"} (DataWrapper).
 
-Enjoy the y-axis units on this data viz? Be sure to check out [The Measure of Things](https://www.themeasureofthings.com/default.php), a search engine for comparative measurements.
+Enjoy the y-axis units on this data viz? Be sure to check out [The Measure of Things](https://www.themeasureofthings.com/default.php){target="_blank"}, a search engine for comparative measurements.
 :::
 
 ```{r}
@@ -109,7 +109,7 @@ knitr::include_graphics("images/week6/ridgeline-hot2023.png")
 ::::
 
 ::: {.footer}
-**Source:**  [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954) (BBC)
+Source: [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954){target="_blank"} (BBC)
 :::
 
 ```{r}
@@ -158,7 +158,7 @@ knitr::include_graphics("images/week6/global-ocean-temps.png")
 ::::
 
 ::: {.footer}
-**Source:** [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954) (BBC)
+Source: [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954){target="_blank"} (BBC)
 :::
 
 ```{r}
@@ -188,7 +188,7 @@ knitr::include_graphics("images/week6/co2-levels.png")
 ```
 
 ::: {.footer}
-**Source:** [What is climate change? A really simple guide](https://www.bbc.com/news/science-environment-24021772) (BBC)
+Source: [What is climate change? A really simple guide](https://www.bbc.com/news/science-environment-24021772){target="_blank"} (BBC)
 :::
 
 ```{r}
@@ -223,9 +223,11 @@ countdown::countdown(
 
 . . . 
 
-The average attention span of an internet user is [~8 seconds](https://www.linkedin.com/pulse/shrinking-attention-span-online-users-what-means-your-avinash-sharma/) (shorter than a goldfish!). It's imperative that we respect our readers' time.
+The average attention span of an internet user is [~8 seconds](https://www.linkedin.com/pulse/shrinking-attention-span-online-users-what-means-your-avinash-sharma/){target="_blank"} (shorter than a goldfish!). It's imperative that we **respect our readers' time**.
 
 . . . 
+
+<br>
 
 [**Aim to:**]{.body-text-m}
 
@@ -233,10 +235,10 @@ The average attention span of an internet user is [~8 seconds](https://www.linke
 - [guide your readers eyes & attention]{.body-text-s}
 - [remind your readers what they're looking at]{.body-text-s}
 
-The more time you spend making your visualization crystal clear, the more time you save your readers needing to decipher it.
+The more time you spend making your visualization crystal clear, **the more time you save your readers needing to decipher it**.
 
 ::: {.footer}
-Read these two *great* posts: [What to consider when using text in data visualizations](https://blog.datawrapper.de/text-in-data-visualizations/) & [Respect your readers’ time](https://blog.datawrapper.de/readers-time/), both by Lisa Charlotte Muth
+Read these two *great* posts: [What to consider when using text in data visualizations](https://blog.datawrapper.de/text-in-data-visualizations/){target="_blank"} & [Respect your readers’ time](https://blog.datawrapper.de/readers-time/){target="_blank"}, both by Lisa Charlotte Muth
 :::
 
 ---
@@ -272,36 +274,56 @@ library(tidyverse)
 #..........................read in data..........................
 
 # read in Google Sheet ----
-# lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
-#   mutate(temp = as.factor(temp))
+lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
+  mutate(temp = as.factor(temp))
 
 # alternatively, read in downloaded files ----
 # lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |> 
   # mutate(temp = as.factor(temp))
-lobs <- read_csv(here::here("course-materials", "lecture-slides", "data", "metabolism-foraging-data.csv")) |> 
-  mutate(temp = as.factor(temp))
+# lobs <- read_csv(here::here("course-materials", "lecture-slides", "data", "metabolism-foraging-data.csv")) |> 
+#   mutate(temp = as.factor(temp))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #..........................create theme..........................
+# lob_theme <- function(){
+#   theme_light() +
+#     theme(
+#       axis.title.x = ggtext::element_markdown(size = 13,
+#                                               margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
+#       axis.title.y = ggtext::element_markdown(size = 13,
+#                                               margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
+#       axis.text = element_text(color = "black", size = 12),
+#       panel.border = element_rect(colour = "black", size = 0.7),
+#       panel.grid = element_blank(),
+#       legend.title = element_text(size = 11),
+#       legend.text = element_text(size = 10),
+#       legend.position = c(0.95, 0.95),
+#       legend.justification = c(0.95, 0.95),
+#       legend.box.background = element_rect(color = "black", size = 1.1)
+# 
+#     )
+# }
+
 lob_theme <- function(){
   theme_light() +
     theme(
-      axis.title.x = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
-      axis.title.y = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
-      axis.text = element_text(color = "black", size = 12),
-      panel.border = element_rect(colour = "black", size = 0.7),
+      axis.title.x = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.title.y = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.text = element_text(color = "black", size = 14),
+      panel.border = element_rect(colour = "black", linewidth = 0.7),
       panel.grid = element_blank(),
-      legend.title = element_text(size = 11),
-      legend.text = element_text(size = 10),
+      legend.title = element_text(size = 15),
+      legend.text = element_text(size = 13),
       legend.position = c(0.95, 0.95),
       legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", size = 1.1)
-
+      legend.box.background = element_rect(color = "black", linewidth = 1.1)
     )
 }
 
@@ -330,7 +352,7 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
-                 color = temp, shape = temp, size = temp)) +
+                             color = temp, shape = temp, size = temp)) +
   geom_point() +
   scale_color_manual(values = lob_palette, name = "Temperature (ºC)") +
   scale_shape_manual(values = lob_shapes, name = "Temperature (ºC)") +
@@ -345,7 +367,7 @@ lob_plot
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807), [Figure 5](https://www.frontiersin.org/files/Articles/1072807/fmars-10-1072807-HTML/image_m/fmars-10-1072807-g005.jpg)
+Adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807){target="_blank"}, [Figure 5](https://www.frontiersin.org/files/Articles/1072807/fmars-10-1072807-HTML/image_m/fmars-10-1072807-g005.jpg){target="_blank"}
 :::
 
 :::
@@ -371,11 +393,11 @@ library(tidyverse)
 #..........................read in data..........................
 
 # read in Google Sheet
-# mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
+mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
 
 # alternatively, read in downloaded files ----
 # lobs <- read_csv(here::here("week6", "data", "mono.csv")) 
-mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv")) 
+# mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv")) 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create Mono Lake plot                         ----
@@ -402,15 +424,15 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
   theme_light() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(size = 16),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    plot.caption = element_text(face = "italic")
+    plot.title = element_text(size = 18),
+    axis.title = element_text(size = 15),
+    axis.text = element_text(size = 13),
+    plot.caption = element_text(face = "italic", size = 11)
     ) 
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html) materials
+Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html){target="_blank"} materials
 :::
 
 :::
@@ -457,8 +479,8 @@ lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVc
   mutate(temp = as.factor(temp))
 
 # alternatively, read in csv file ----
-lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |>
-  mutate(temp = as.factor(temp))
+# lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |>
+#   mutate(temp = as.factor(temp))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
@@ -468,19 +490,20 @@ lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |>
 lob_theme <- function(){
   theme_light() +
     theme(
-      axis.title.x = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
-      axis.title.y = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
-      axis.text = element_text(color = "black", size = 12),
-      panel.border = element_rect(colour = "black", size = 0.7),
+      axis.title.x = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.title.y = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.text = element_text(color = "black", size = 14),
+      panel.border = element_rect(colour = "black", linewidth = 0.7),
       panel.grid = element_blank(),
-      legend.title = element_text(size = 11),
-      legend.text = element_text(size = 10),
+      legend.title = element_text(size = 15),
+      legend.text = element_text(size = 13),
       legend.position = c(0.95, 0.95),
       legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", size = 1.1)
-
+      legend.box.background = element_rect(color = "black", linewidth = 0.9)
     )
 }
 
@@ -509,7 +532,7 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
-                 color = temp, shape = temp, size = temp)) +
+                             color = temp, shape = temp, size = temp)) +
   geom_point() +
   scale_color_manual(values = lob_palette, name = "Temperature (ºC)") +
   scale_shape_manual(values = lob_shapes, name = "Temperature (ºC)") +
@@ -540,12 +563,9 @@ library(tidyverse)
 #..........................read in data..........................
 
 # read in Google Sheet ----
-# lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
-#   mutate(temp = as.factor(temp))
-
-# alternatively, read in csv file ----
-lobs <- read_csv(here::here("course-materials", "lecture-slides", "data", "metabolism-foraging-data.csv")) |> 
+lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
   mutate(temp = as.factor(temp))
+
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
@@ -555,19 +575,20 @@ lobs <- read_csv(here::here("course-materials", "lecture-slides", "data", "metab
 lob_theme <- function(){
   theme_light() +
     theme(
-      axis.title.x = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
-      axis.title.y = ggtext::element_markdown(size = 13,
-                                              margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
-      axis.text = element_text(color = "black", size = 12),
-      panel.border = element_rect(colour = "black", size = 0.7),
+      axis.title.x = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.title.y = ggtext::element_markdown(size = 16,
+                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.text = element_text(color = "black", size = 14),
+      panel.border = element_rect(colour = "black", linewidth = 0.7),
       panel.grid = element_blank(),
-      legend.title = element_text(size = 11),
-      legend.text = element_text(size = 10),
+      legend.title = element_text(size = 15),
+      legend.text = element_text(size = 13),
       legend.position = c(0.95, 0.95),
       legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", size = 1.1)
-
+      legend.box.background = element_rect(color = "black", linewidth = 0.9)
     )
 }
 
@@ -647,7 +668,7 @@ lob_plot
 :::
 
 ::: {.footer}
-I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annotation.html) super helpful!
+I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annotation.html){target="_blank"} super helpful!
 :::
 
 ---
@@ -729,7 +750,7 @@ scale_size_manual(values = lob_sizes, name = "Temperature (ºC)")
 
 <hr>
 
-[Unlike `geom_text()`, `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`). We can also remove the `show.lengend` argument, since `annotate()` doesn't produce a legend.]{.body-text-s}
+[Alternatively, `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`). We can also omit the `show.lengend` argument, since `annotate()` doesn't produce a legend.]{.body-text-s}
 
 ```{r}
 #| eval: true

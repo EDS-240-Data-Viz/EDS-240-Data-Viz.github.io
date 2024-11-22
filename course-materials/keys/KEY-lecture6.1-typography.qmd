@@ -4,6 +4,8 @@ subtitle: "Typography"
 author: "Your Name"
 date: 2025-02-03
 toc: true
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ::: {.callout-note}
@@ -39,12 +41,16 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 ## Setup 
 
-Code from [lecture 4.1](../lecture4.1-rankings-slides.qmd){target="_blank"}:
+::: {.callout-note}
+## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd){target="_blank"}
+Our "first draft" of this plot began in week 4 during our rankings lecture. We'll focus on improving colors and fonts today.
+:::
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
+#| message: false
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,7 +59,7 @@ Code from [lecture 4.1](../lecture4.1-rankings-slides.qmd){target="_blank"}:
 library(tidyverse)
 library(showtext)
 
-#..........................import fonts..........................
+#......................import Google fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
 # `family` is the user-specified id that you'll use to apply a font in your ggpplot
 font_add_google(name = "Josefin Sans", family = "josefin")
@@ -67,13 +73,23 @@ font_add(family = "fa-regular",
 font_add(family = "fa-solid",
          regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf"))
 
-#................enable {showtext} for rendering.................
+#......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
+showtext_opts(dpi = 300)
 
 #..........................import data...........................
 # find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+```
 
+## Wrangle data
+
+See lecture 4.1 slides [#4](../lecture-slides/lecture4.1-rankings-slides.qmd#job-data){target="_blank"}, [#5](../lecture-slides/lecture4.1-rankings-slides.qmd#data-wrangling){target="_blank"}, & [#17](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-subset){target="_blank"} as reminders of where we left off.
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -133,11 +149,17 @@ subset_jobs <- rbind(f75, m75, f50) |>
                                    "Occupations that are 75%+ female", 
                                    "Occupations that are 45-55% female", 
                                    "Occupations that are 75%+ male")) 
+```
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                      original plot (from lecture 4.1)                    ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Recreate original plot 
 
+See [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+# recreate original plot ----
 plot <- ggplot(subset_jobs) +
   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
                  y = fct_reorder(occupation, total_earnings), yend = occupation)) +
@@ -152,7 +174,7 @@ plot <- ggplot(subset_jobs) +
 plot
 ```
 
-## Create new (better) palette
+## Create new palette
 
 ```{r}
 #| eval: true
@@ -189,19 +211,20 @@ plot <- ggplot(subset_jobs) +
 plot
 ```
 
-## Add titles & theme
+## Add titles & theme {#titles-theme}
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
-
+#| out-width: "100%"
+#| fig-asp: 1
 #.........................create caption.........................
 github_icon <- "&#xf09b"
 github_username <- "samanthacsik"
 
 caption <- glue::glue(
-  "Data Source: TidyTuesday (March 5, 2019) |
+  "Data Source: TidyTuesday (March 5, 2019)<br>
   <span style='font-family:fa-brands;'>{github_icon};</span>
   {github_username}"
 )
@@ -211,38 +234,62 @@ money_icon <- "&#xf3d1"
 
 subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</span>
                        Median earnings of full-time 
-                       <span style='color:#2D7787;font-size:20pt;'>**male**</span> versus 
-                       <span style='color:#FC6B4B;font-size:20pt;'>**female**</span>
+                       <span style='color:#2D7787;'>**male**</span> versus 
+                       <span style='color:#FC6B4B;'>**female**</span>
                        workers by occupation in 2016")
 
 #..........................updated plot..........................
-plot +
+salary_plot <-plot +
   labs(title = "Males earn more than females across most occupations",
-       subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
-       caption = "Data Source: TidyTuesday (March 5, 2019)") +
+       subtitle = subtitle,
+       caption = caption) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "josefin", 
                               face = "bold",
-                              size = 25,
+                              size = 18,
                               color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox_simple(family = "sen",
-                                                   size = 17,
-                                                   color = earnings_pal["light_text"],
-                                                   margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
-    plot.caption = ggtext::element_textbox_simple(family = "sen", 
-                                                  face = "italic",
-                                                  color = earnings_pal["light_text"],
-                                                  margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = 12,
+                                            color = earnings_pal["light_text"],
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
+    plot.caption = ggtext::element_textbox(family = "sen", 
+                                           face = "italic",
+                                           color = earnings_pal["light_text"],
+                                           halign = 1,
+                                           lineheight = 1.5,
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
-    panel.spacing.y = unit(x = 1, "lines"),
-    axis.text = element_text(color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
+    panel.spacing.y = unit(x = 0.5, units = "cm"),
+    axis.text = element_text(size = 9,
+                             color = earnings_pal["light_text"]),
     axis.title = element_blank()
   )
+
+salary_plot
+```
+
+```{r}
+# ggsave(
+#   filename = here::here("course-materials", "discussion", "week6", "images", "salary-plot-thu.png"),
+#   plot = salary_plot,
+#   width = 8,
+#   height = 7
+# )
+```
+
+
+```{r}
+# ggsave(
+#   filename = here::here("course-materials", "discussion", "week6", "images", "salary-plot-thu.png"),
+#   plot = salary_plot,
+#   width = 8,    # Width in inches
+#   height = 7,   # Height in inches
+#   dpi = 300      # Match DPI in showtext_opts()
+# )
 ```
 

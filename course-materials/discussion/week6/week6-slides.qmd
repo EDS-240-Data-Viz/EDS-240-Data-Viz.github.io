@@ -1,0 +1,276 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#047C91"} 
+
+[EDS 240: Discussion 6]{.custom-title}
+
+[*Saving plots*]{.custom-subtitle}
+
+<hr class="hr-dark-blue">
+
+[Week 6 | February 11^th^, 2024]{.custom-subtitle3}
+
+---
+
+## {#tbd data-menu-title="tbd"}
+
+[Tbd]{.slide-title}
+
+<hr>
+
+Because of 
+
+Plots will look different (especially when using external fonts) depending on how you plan to share them (e.g. in a Quarto doc, saved as a raster (e.g. PNG, JPEG) or vector image (SVG), etc.)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+When rendering our plot in a Quarto slide
+:::
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/salary_plot_8x7_slide.png")
+```
+:::
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+When saving our plot as a PNG file
+:::
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/salary_plot_8x7.png")
+```
+:::
+
+::::
+
+
+---
+
+You'll need to consider how you plan to share your outputs so that you can prepare them appropriately.
+
+---
+
+For example, recall that we set the aspect ratio code chunk option (`fig-asp`) when embedding our salary plot in our Quarto doc template in lecture yesterday. This looked great when rendered in our doc! (for example, see [Lecture 6.1 key](../../keys/KEY-lecture6.1-typography.qmd#titles-theme){target="_blank"})
+
+- adjust font sizes in `theme()`
+- set `fig-asp` chunk option (works in Quarto docs, slides, websites, etc.)
+
+---
+
+things get trickier when you want to save your ggplot as an image file (e.g. png, jpeg, etc.), especially when you're using external fonts (e.g. using the `{showtext}` package to import Google Fonts)
+
+why?
+
+1. different output formats (e.g. PNG, PDF, SVG) handle fonts differently
+2. with `{showtext}`, you may need to adjust anti-aliasing settings and text scaling to ensure that fonts appear smooth and sized correctly. Differences in resolution between your R session and final saved image can result in unexpected text sizes or quality losses
+
+---
+
+things to help
+
+1. ensure `{showtext}` is active before saving using `showtext::showtext_auto()`
+2. ensure that the DPI settings are the same in both `showtext_opts()` and `ggsave()`: `dpi` using `showtext::showtext_opts(dpi = 300)` and `ggsave(dpi = 300)` so that it matches
+---
+
+## {#tbd data-menu-title="tbd"}
+
+[Tbd]{.slide-title}
+
+<hr>
+
+Ever experience something like this? If you haven't yet, you probably will :(
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+# knitr::include_graphics("images/tbd.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+# knitr::include_graphics("images/tbd.png")
+```
+:::
+
+::::
+
+::: {.footer}
+[Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"}
+:::
+
+---
+
+Screen dimension & resolution
+
+A screen is a matrix of pixels
+
+My computer: 
+
+- MacBook Air (M1, 2020)
+- Display: 13.3inches 
+- Resolution: 2560 x 1600 -- this means that my screen is a matrix of 2560 pixels width and 1600 pixels height. 
+
+Calculate: 
+
+- Pixels per inch (PPI) = (Square root of (Horizontal pixels^2 + Vertical pixels^2)) / Diagonal screen size (in inches) >  sqrt((2560^2+1600^2))/13.3 = 227
+- Aspect ratio: 2560/1600 = 16/10 (divide by 160)
+- Width: 2560 (px) / 227 (px/in) =  11.28 in
+- Height: 1600 (px) / 227 (px/in) = 7.05 in
+
+
+---
+
+Image saved on a disc is also a matrix of dots
+- ggplot and ggsave works in physical dimension (in, cm, mm)
+- to go from dimension in inches to a number of dots, ggsave uses the # of dots per inch (dpi)
+- if we create a ggplot and save it with a dimension of 12 x 10 with default dpi of 300, the file will be a matrix of 
+$(12\:inches \times 300 \frac{dots}{inch}) \times (10\:inches \times 300 \frac{dots}{inch}) = 3600 \times 3000\:dots$
+- when you open that file on your computer, each dot represents a pixel, which means that the image has a resolution of 3600 x 3000 px
+
+- relation: 
+  - (size in inches) = (screen size in pixel) / PPI
+  - (screen size in pixel) = DPI * (size in inches)
+
+---
+
+if we save in different dimensions, the plot itself will adapt and use the full size. If we save to larger dimensions, points and font look much smaller
+
+```{r}
+#| eval: false
+# open up new graphic device with `quartz()`, `windows()`, `x11()` ----
+# quartz()
+
+# create plot ----
+source(here::here("course-materials", "discussion", "week6", "salary-plot.R"))
+
+# # save it to disk ---
+# ggsave(
+#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot.png"),
+#   plot = test,
+#   width = 12, 
+#   height = 10,
+#   dpi = 300
+# )
+
+# turn off graphics device ----
+# dev.off()
+showtext_opts(dpi = 300)
+
+camcorder::gg_record(
+  device = "png",
+  width = 8,
+  height = 6,
+  unit = "in"
+)
+
+salary_plot
+
+camcorder::gg_stop_recording()
+# ggsave(
+#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot3.png"),
+#   plot = test,
+#   width = 3, 
+#   height = 3,
+#   units = "in",
+#   dpi = 300
+# )
+# 
+# ggsave(
+#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot5.png"),
+#   plot = test,
+#   width = 5, 
+#   height = 5,
+#   units = "in",
+#   dpi = 300
+# )
+
+
+ggsave(
+  filename = here::here("course-materials", "discussion", "week6", "images", "test-plot10.png"),
+  plot = test,
+  width = 15, 
+  height = 10,
+  units = "in",
+  dpi = 300
+)
+
+# using {ragg}
+
+ragg::agg_png(here::here("course-materials", "discussion", "week6", "images", "ragg_10x10_scaling2.png"),
+              width = 10,
+              height = 10, 
+              units = "in", 
+              scaling = 5,
+              res = 300)
+
+test
+dev.off()
+
+```
+
+- size of points and fonts look smaller as we increase the width & height
+- all three saved plots have the same size in inches
+
+---
+
+what happened?
+
+Image width (px) = width (in) * DPI
+Image height (px) = height (in) * DPI
+
+therefore:
+- width = 12in * 300 dpi = 3600 px
+- height = 10in * 300 dpi = 3000 px
+<!-- 1. plot dimension is converted to inches before saving to disk using screen PPI of 227 to make the conversion: $(2560\:px \div 227\frac{px}{in}) \times (1600\:px \div 227\frac{px}{in}) = 11.28\times7.05\:in$ (i.e. the size of our screen!) -->
+
+<!-- 2. THEN `ggsave()` uses this dimension in inches with the DPI of 3300 to save to disk, creating an image3 of $(11.28\:in \times 300 \frac{dots}{in}) \times (7.05\:in \times 300 \frac{dots}{in}) = 3384 \times 2115$ THIS ISN'T CORRECT, SHOULD BE 3600 X 3000??? -->
+
+---
+
+https://help.opencitiesplanner.bentley.com/index.html@p=2913.html#:~:text=Vector%20files%20are%20mathematical%2C%20made,or%20single%20points%20of%20colour.
+https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/
+
+- absolute size: physical dimensions of graphic measured in cm, in, or other absolute length unit
+- pixel size: graphics are recorded as a matrix of color values; each cell in the matrix is a pixel; pixel size is the number of rows and cols in the matrix; pixels don't hjav
+---
+
+Strategies: 
+
+- make sure `showtext_opts(dpi = 300)` matches the DPI set for `ggsave()`
+- adjust aspect ratio using `width` and `height` parameters of `ggsave()`
+- add manual line breaks in text using `<br>`
+- use `ggtext::element_textbox()`
+- use `lineheight` parameter to control vertical spacing between lines inside `ggtext::element_textbox()`
+- use `width = unit(8, "cm")` to set a fixed width for your `ggtext::element_textbox()`
+- add a `fill` color to `element_textbox()` so you can see it's size (remove once you've adjusted everything)
+- try reducing font `size`
+
+---

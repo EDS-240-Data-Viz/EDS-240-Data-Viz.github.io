@@ -8,7 +8,7 @@ format:
     theme: 
       - ../../meds-slides-styles.scss
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
@@ -678,7 +678,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 <hr>
 
-**A graphics device (GD) is something used to make a plot appear** -- everytime you create a plot in R, it needs to be sent to a specific GD to be rendered. There are two main device types:
+**A graphics device (GD) is something used to make a plot appear** -- every time you create a plot in R, it needs to be sent to a specific GD to be rendered. There are two main device types:
 
 <br>
 
@@ -694,7 +694,9 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 **Unfortunately, text drawing is handled differently by each graphics device**, which means that if we want a font to work everywhere, we need to configure all these different devices in different ways.
 
 ::: {.footer}
-Read a bit more about graphics devices in [Chapter 8](https://bookdown.org/rdpeng/exdata/graphics-devices.html){target="_blank"} of [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/), by [Roger Peng](https://rdpeng.org/){target="_blank"}
+Run `?Devices` in your console to see which devices are supported by your installation of R.
+
+Read a bit more about graphics devices in [Chapter 8](https://bookdown.org/rdpeng/exdata/graphics-devices.html){target="_blank"} of [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/){target="_blank"}, by [Roger Peng](https://rdpeng.org/){target="_blank"}
 :::
 
 ---
@@ -705,7 +707,7 @@ Read a bit more about graphics devices in [Chapter 8](https://bookdown.org/rdpen
 
 <hr>
 
-Fortunately, there are a couple super handy packages that make working with fonts relatively painless:
+Fortunately, there are a couple super handy packages that make working with fonts a little bit easier:
 
 - [`{showtext}`](https://github.com/yixuan/showtext){target="_blank"} 
 - [`{extrafont}`](https://github.com/wch/extrafont){target="_blank"}
@@ -727,7 +729,7 @@ knitr::include_graphics("images/week6/showtext.png")
 ::: {.column width="50%"}
 <br>
 
-[**We'll be using `{showtext}`** for a couple reasons: it supports more file formats *and* more graphics devices, and it also avoids using external software (`{extrafont}` requires that you install some additional software and packages first). `{showtext}` makes is *super* easy to import and use [Google Fonts](https://fonts.google.com/){target="_blank"}.]{.body-text-s}
+[**We'll be using `{showtext}`** for a couple reasons: it supports more file formats *and* more graphics devices, and it also avoids using external software (`{extrafont}` requires that you install some additional software and packages first). `{showtext}` makes is easy to import and use [Google Fonts](https://fonts.google.com/){target="_blank"}.]{.body-text-s}
 :::
 
 ::: {.footer}
@@ -863,12 +865,16 @@ This code was copied from [Lecture 4.1](lecture4.1-rankings-slides.qmd){target="
 #| fig-align: "center"
 #| out-width: "100%"
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                 y = fct_reorder(occupation, total_earnings), yend = occupation)) +
+  geom_segment(aes(x = total_earnings_female, 
+                   xend = total_earnings_male,
+                   y = fct_reorder(occupation, total_earnings), 
+                   yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
-             color = "#CD93D8", size = 3.25) +
+             color = "#CD93D8", 
+             size = 3.25) +
   geom_point(aes(x = total_earnings_female, y = occupation),
-             color = "#6A1E99", size = 3.25) +
+             color = "#6A1E99", 
+             size = 3.25) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
@@ -887,12 +893,16 @@ plot
 #| fig-asp: 0.7
 #| out-width: "100%"
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                 y = fct_reorder(occupation, total_earnings), yend = occupation)) +
+  geom_segment(aes(x = total_earnings_female, 
+                   xend = total_earnings_male,
+                   y = fct_reorder(occupation, total_earnings), 
+                   yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
-             color = "#CD93D8", size = 3.25) +
+             color = "#CD93D8", 
+             size = 3.25) +
   geom_point(aes(x = total_earnings_female, y = occupation),
-             color = "#6A1E99", size = 3.25) +
+             color = "#6A1E99", 
+             size = 3.25) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
@@ -908,7 +918,7 @@ plot
 
 <hr>
 
-[In last week's [lecture on colors](lecture5.2-colors-slides.qmd){target="_blank"}, we learned **to be predictable in our color choices, but to avoid stereotypes** ([Muth 2018](https://blog.datawrapper.de/colors/){target="_blank"}). It can be helpful for readers to choose a cool color for men (e.g. blues / purples) and warmer color for women (e.g. yellows, oranges, warm greens).]{.body-text-s}
+[In [lecture 5.2 (colors)](lecture5.2-colors-slides.qmd){target="_blank"}, we learned **to be predictable in our color choices, but to avoid stereotypes** ([Muth 2018](https://blog.datawrapper.de/colors/){target="_blank"}). It can be helpful for readers to choose a cool color for men (e.g. blues / purples) and warmer color for women (e.g. yellows, oranges, warm greens).]{.body-text-s}
 
 [We'll do that here, but this time, **let's create a named vector of colors** to call from. In addition to our point colors, we'll also include colors for our plot's text:]{.body-text-s}
 
@@ -917,8 +927,8 @@ plot
 #| echo: true
 earnings_pal <- c("males" = "#2D7787",
                   "females" = "#FC6B4B",
-                  dark_text = "#0C1509",
-                  light_text = "#4E514D") 
+                  "dark_text" = "#0C1509",
+                  "light_text" = "#4E514D") 
 ```
 
 [The primary purpose of the [`{monochromeR}` package](https://github.com/cararthompson/monochromeR){target="_blank"} is for creating monochrome colour palettes, however, it also includes a **helpful function for viewing our palette**:]{.body-text-s}
@@ -973,7 +983,7 @@ Resulting plot is rendered on the next slide!
 #| echo: true
 #| fig-align: "center"
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -985,18 +995,20 @@ plot +
                               color = earnings_pal["dark_text"]),
     plot.subtitle = element_text(size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(face = "italic",
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(face = "bold",
                                 size = 12,
                                 hjust = 0),
-    panel.spacing.y = unit(x = 1, "lines"),
+    panel.spacing.y = unit(x = 0.5, "cm"),
     axis.text = element_text(color = earnings_pal["light_text"]),
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ::: {.footer}
@@ -1013,7 +1025,7 @@ plot +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -1025,18 +1037,20 @@ plot +
                               color = earnings_pal["dark_text"]),
     plot.subtitle = element_text(size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(face = "italic",
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(face = "bold",
                                 size = 12,
                                 hjust = 0),
-    panel.spacing.y = unit(x = 1, "lines"),
+    panel.spacing.y = unit(x = 0.5, "cm"),
     axis.text = element_text(color = earnings_pal["light_text"]),
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ---
@@ -1122,7 +1136,7 @@ knitr::include_graphics("images/week6/sen.png")
 library(tidyverse)
 library(showtext)
 
-#..........................import fonts..........................
+#......................import Google fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
 # `family` is the user-specified id that you'll use to apply a font in your ggpplot
 font_add_google(name = "Josefin Sans", family = "josefin")
@@ -1148,7 +1162,7 @@ Resulting plot is rendered on the next slide!
 #| eval: false
 #| echo: true
 #| code-line-numbers: "8,12,16,20,25"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -1162,11 +1176,11 @@ plot +
     plot.subtitle = element_text(family = "sen",
                                  size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
                                 face = "italic", # NOTE: this no longer applies since the typeface "Sen" does not exist in an italic font style
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1177,6 +1191,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ::: {.footer}
@@ -1193,7 +1209,7 @@ plot +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -1207,11 +1223,11 @@ plot +
     plot.subtitle = element_text(family = "sen",
                                  size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
-                                face = "italic",
+                                face = "italic", # NOTE: this no longer applies since the typeface "Sen" does not exist in an italic font style
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1222,6 +1238,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ---
@@ -1260,7 +1278,7 @@ font_add(family = "fa-regular",
 font_add(family = "fa-solid",
          regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf"))
 
-#................enable {showtext} for rendering.................
+#......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
 
 # ~ additional setup code omitted for brevity ~
@@ -1302,7 +1320,7 @@ github_icon <- "&#xf09b"
 github_username <- "samanthacsik"
 
 caption <- glue::glue(
-  "Data Source: TidyTuesday (March 5, 2019) |
+  "Data Source: TidyTuesday (March 5, 2019)<br>
   <span style='font-family:fa-brands;'>{github_icon};</span>
   {github_username}"
 )
@@ -1348,7 +1366,7 @@ Resulting plot is rendered on the next slide!
 #| eval: false
 #| echo: true
 #| code-line-numbers: "3-4"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1361,11 +1379,11 @@ plot +
     plot.subtitle = element_text(family = "sen",
                                  size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
                                 face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1376,6 +1394,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ---
@@ -1388,7 +1408,7 @@ plot +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1401,11 +1421,11 @@ plot +
     plot.subtitle = element_text(family = "sen",
                                  size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
                                 face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1416,6 +1436,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ---
@@ -1452,8 +1474,8 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-#| code-line-numbers: "11,15"
-plot +
+#| code-line-numbers: "11,15,18,19"
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1463,14 +1485,16 @@ plot +
     plot.title = element_text(family = "josefin",
                               face = "bold",
                               size = 25),
-    plot.subtitle = ggtext::element_textbox_simple(family = "sen",
-                                                   size = 17,
-                                                   color = earnings_pal["light_text"],
-                                                   margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
-    plot.caption = ggtext::element_textbox_simple(family = "sen",
-                                                  face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                                  color = earnings_pal["light_text"],
-                                                  margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = 17,
+                                            color = earnings_pal["light_text"],
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
+    plot.caption = ggtext::element_textbox(family = "sen",
+                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
+                                           color = earnings_pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1481,10 +1505,12 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
-::: {.footer}
-**Tip:** highlight your updated plot code, then use the keyboard shortcut `Command / Ctrl` + `I` to realign your code!
+::: {.center-text}
+**Note:** Text rendered with `{ggtext}` doesn't appear correctly in the RStudio plots pane (or when using the Zoom window) -- see this separate, but potentially related [GitHub issue](https://github.com/wilkelab/ggtext/issues/84).
 :::
 
 ---
@@ -1497,8 +1523,8 @@ plot +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-#| code-line-numbers: "11,15"
-plot +
+#| code-line-numbers: "11,15,18,19"
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1508,14 +1534,16 @@ plot +
     plot.title = element_text(family = "josefin",
                               face = "bold",
                               size = 25),
-    plot.subtitle = ggtext::element_textbox_simple(family = "sen",
-                                 size = 17,
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = 17,
+                                            color = earnings_pal["light_text"],
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = ggtext::element_textbox(family = "sen",
-                                face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
+                                           color = earnings_pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1526,8 +1554,9 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
-```
 
+updated_plot
+```
 
 ---
 
@@ -1555,9 +1584,9 @@ money_icon <- "&#xf3d1"
 subtitle <- glue::glue("Median earnings 
                        <span style='font-family:fa-regular;'>{money_icon};</span>
                        of full-time
-                       <span style='color:#2D7787;font-size:20pt;'>**male**</span> 
+                       <span style='color:#2D7787;'>**male**</span> 
                        versus 
-                       <span style='color:#FC6B4B;font-size:20pt;'>**female**</span>
+                       <span style='color:#FC6B4B;'>**female**</span>
                        workers by occupation in 2016")
 ```
 
@@ -1575,7 +1604,7 @@ subtitle <- glue::glue("Median earnings
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1584,15 +1613,17 @@ plot +
     plot.title.position = "plot",
     plot.title = element_text(family = "josefin",
                               face = "bold",
-                              size = 25),
+                              size = 25), 
     plot.subtitle = ggtext::element_textbox_simple(family = "sen",
                                  size = 17,
                                  color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = ggtext::element_textbox(family = "sen",
                                 face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
                                 color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                halign = 1, 
+                                lineheight = 1.5,
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1603,6 +1634,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 
 ---
@@ -1645,7 +1678,7 @@ ggplot(subset_jobs) +
 #| fig-align: "center"
 #| fig-asp: 0.9
 #| out-height: "100%"
-plot +
+updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -1655,14 +1688,16 @@ plot +
     plot.title = element_text(family = "josefin",
                               face = "bold",
                               size = 25),
-    plot.subtitle = ggtext::element_textbox_simple(family = "sen",
-                                 size = 17,
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = 15,
+                                            color = earnings_pal["light_text"],
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = ggtext::element_textbox(family = "sen",
-                                face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                color = earnings_pal["light_text"],
-                                margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")),
+                                           face = "italic", 
+                                           color = earnings_pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
                                 size = 12,
@@ -1673,6 +1708,8 @@ plot +
     axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
+
+updated_plot
 ```
 :::
 
@@ -1680,46 +1717,129 @@ plot +
 
 ---
 
-## {#text-size-resolution data-menu-title="Text size & resolution woes"} 
+## {#ggsave data-menu-title="ggsave()"} 
 
-[Saving your plots can be a bit tricky]{.slide-title}
+[We can use `ggsave()` to save our plot as a PNG file]{.slide-title}
 
 <hr>
 
-Getting your fonts / plots to look just right when writing to a file device can be a bit tricky. Check out [Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"} to understand why and for solutions on how to fix / avoid this.
+`ggsave()` creates a new graphical device to write the output file -- here we specify a PNG device:
 
-<br>
+```{r}
+#| eval: false
+#| echo: true
+# save plot using ggsave ----
+ggsave(
+  filename = here::here("week6", "images", "salary_plot.png"),
+  plot = updated_plot,
+  device = "png",
+  width = 8, 
+  height = 7,
+  unit = "in"
+)
 
-:::: {.columns}
+# turn off showtext text rendering ----
+showtext_auto(FALSE)
+```
 
-::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-A very obviously not great saved ggplot
+```{r}
+#| eval: true
+#| echo: false
+# turn off showtext text rendering ----
+showtext_auto(FALSE)
+```
+
+<!-- ```{r} -->
+<!-- #| eval: true -->
+<!-- #| echo: false -->
+<!-- ggsave( -->
+<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7.png"), -->
+<!--   plot = updated_plot, -->
+<!--   device = "png", -->
+<!--   width = 8,  -->
+<!--   height = 7, -->
+<!--   unit = "in" -->
+<!-- ) -->
+
+<!-- ggsave( -->
+<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7_ragg.png"), -->
+<!--   plot = updated_plot, -->
+<!--   device = ragg::agg_png(), -->
+<!--   width = 8,  -->
+<!--   height = 7, -->
+<!--   unit = "in", -->
+<!--   dpi = 300 -->
+<!-- ) -->
+<!-- ``` -->
+
+---
+
+## {#ggsave-woes data-menu-title="ggsave() woes"} 
+
+[Uh oh . . . ?]{.slide-title}
+
+<hr>
+
+::: {.center-text}
+Saving ggplots with external fonts can still be surprisingly tricky....
 :::
 
 ```{r}
-#| evaL: true
+#| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week6/bigmac-bad.png")
+knitr::include_graphics("images/week6/salary_plot_8x7.png")
 ```
+
+. . . 
+
+::: {.center-text}
+You'll learn strategies for fixing this in discussion section!
 :::
 
-::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-Much better!
-:::
-```{r}
-#| evaL: true
-#| echo: false
-#| out-width: "100%"
-#| fig-align: "center"
-knitr::include_graphics("images/week6/bigmac-ok.png")
-```
-:::
+<!-- --- -->
 
-::::
+<!-- ## {#text-size-resolution data-menu-title="Text size & resolution woes"}  -->
+
+<!-- [Saving your plots can be a bit tricky]{.slide-title} -->
+
+<!-- <hr> -->
+
+<!-- Getting your fonts / plots to look just right when writing to a file device can be a bit tricky. Check out [Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"} to understand why and for solutions on how to fix / avoid this. -->
+
+<!-- <br> -->
+
+<!-- :::: {.columns} -->
+
+<!-- ::: {.column width="50%"} -->
+<!-- ::: {.center-text .body-text-s .gray-text} -->
+<!-- A very obviously not great saved ggplot -->
+<!-- ::: -->
+
+<!-- ```{r} -->
+<!-- #| evaL: true -->
+<!-- #| echo: false -->
+<!-- #| out-width: "100%" -->
+<!-- #| fig-align: "center" -->
+<!-- knitr::include_graphics("images/week6/bigmac-bad.png") -->
+<!-- ``` -->
+<!-- ::: -->
+
+<!-- ::: {.column width="50%"} -->
+<!-- ::: {.center-text .body-text-s .gray-text} -->
+<!-- Much better! -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| evaL: true -->
+<!-- #| echo: false -->
+<!-- #| out-width: "100%" -->
+<!-- #| fig-align: "center" -->
+<!-- knitr::include_graphics("images/week6/bigmac-ok.png") -->
+<!-- ``` -->
+<!-- ::: -->
+
+<!-- :::: -->
 
 ---
 

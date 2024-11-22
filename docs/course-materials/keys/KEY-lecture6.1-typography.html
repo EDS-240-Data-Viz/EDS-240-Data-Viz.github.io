@@ -278,9 +278,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#system-fonts" id="toc-system-fonts" class="nav-link active" data-scroll-target="#system-fonts">System fonts</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#create-new-better-palette" id="toc-create-new-better-palette" class="nav-link" data-scroll-target="#create-new-better-palette">Create new (better) palette</a></li>
+  <li><a href="#wrangle-data" id="toc-wrangle-data" class="nav-link" data-scroll-target="#wrangle-data">Wrangle data</a></li>
+  <li><a href="#recreate-original-plot" id="toc-recreate-original-plot" class="nav-link" data-scroll-target="#recreate-original-plot">Recreate original plot</a></li>
+  <li><a href="#create-new-palette" id="toc-create-new-palette" class="nav-link" data-scroll-target="#create-new-palette">Create new palette</a></li>
   <li><a href="#update-plot-colors" id="toc-update-plot-colors" class="nav-link" data-scroll-target="#update-plot-colors">Update plot colors</a></li>
-  <li><a href="#add-titles-theme" id="toc-add-titles-theme" class="nav-link" data-scroll-target="#add-titles-theme">Add titles &amp; theme</a></li>
+  <li><a href="#titles-theme" id="toc-titles-theme" class="nav-link" data-scroll-target="#titles-theme">Add titles &amp; theme</a></li>
   </ul>
 </nav>
     </div>
@@ -336,7 +338,19 @@ Note
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>Code from <a href="../lecture4.1-rankings-slides.qmd" target="_blank">lecture 4.1</a>:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Recall our original plot from <a href="../../course-materials/lecture-slides/lecture4.1-rankings-slides.html" target="_blank">lecture 4.1</a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our “first draft” of this plot began in week 4 during our rankings lecture. We’ll focus on improving colors and fonts today.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="do">##                                    setup                                 ----</span></span>
@@ -346,7 +360,7 @@ Note
 <span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#..........................import fonts..........................</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#......................import Google fonts.......................</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggpplot</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Josefin Sans"</span>, <span class="at">family =</span> <span class="st">"josefin"</span>)</span>
@@ -360,129 +374,92 @@ Note
 <span id="cb2-20"><a href="#cb2-20"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
 <span id="cb2-21"><a href="#cb2-21"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
 <span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#................enable {showtext} for rendering.................</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
 <span id="cb2-24"><a href="#cb2-24"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb2-25"><a href="#cb2-25"></a></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span>
-<span id="cb2-29"><a href="#cb2-29"></a></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a></span>
-<span id="cb2-34"><a href="#cb2-34"></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span> </span>
-<span id="cb2-35"><a href="#cb2-35"></a>  </span>
-<span id="cb2-36"><a href="#cb2-36"></a>  <span class="co"># add col with % men in a given occupation (% females in a given occupation was already included) ----</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
-<span id="cb2-38"><a href="#cb2-38"></a>         </span>
-<span id="cb2-39"><a href="#cb2-39"></a>  <span class="co"># rearrange columns ----</span></span>
-<span id="cb2-40"><a href="#cb2-40"></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
-<span id="cb2-41"><a href="#cb2-41"></a>          total_workers, workers_male, workers_female,</span>
-<span id="cb2-42"><a href="#cb2-42"></a>          percent_male, percent_female,</span>
-<span id="cb2-43"><a href="#cb2-43"></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
-<span id="cb2-44"><a href="#cb2-44"></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
-<span id="cb2-45"><a href="#cb2-45"></a>  </span>
-<span id="cb2-46"><a href="#cb2-46"></a>  <span class="co"># drop rows with missing earnings data ----</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span> </span>
-<span id="cb2-48"><a href="#cb2-48"></a>  </span>
-<span id="cb2-49"><a href="#cb2-49"></a>  <span class="co"># make occupation a factor (necessary for reordering groups in our plot) ----</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-51"><a href="#cb2-51"></a> </span>
-<span id="cb2-52"><a href="#cb2-52"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
-<span id="cb2-53"><a href="#cb2-53"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
-<span id="cb2-54"><a href="#cb2-54"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
-<span id="cb2-55"><a href="#cb2-55"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
-<span id="cb2-56"><a href="#cb2-56"></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a>  )) </span>
-<span id="cb2-58"><a href="#cb2-58"></a></span>
-<span id="cb2-59"><a href="#cb2-59"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a><span class="do">##                              create subset df                            ----</span></span>
-<span id="cb2-61"><a href="#cb2-61"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-62"><a href="#cb2-62"></a></span>
-<span id="cb2-63"><a href="#cb2-63"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
-<span id="cb2-64"><a href="#cb2-64"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb2-65"><a href="#cb2-65"></a></span>
-<span id="cb2-66"><a href="#cb2-66"></a><span class="co">#...............get random samples from each group...............</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a></span>
-<span id="cb2-68"><a href="#cb2-68"></a><span class="co"># 10 random jobs that are 75%+ female (2016) ----</span></span>
-<span id="cb2-69"><a href="#cb2-69"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb2-70"><a href="#cb2-70"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-71"><a href="#cb2-71"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-72"><a href="#cb2-72"></a></span>
-<span id="cb2-73"><a href="#cb2-73"></a><span class="co"># 10 random jobs that are 75%+ male (2016) ----</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb2-75"><a href="#cb2-75"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-76"><a href="#cb2-76"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-77"><a href="#cb2-77"></a></span>
-<span id="cb2-78"><a href="#cb2-78"></a><span class="co"># 10 random jobs that are 45-55%+ female (2016) ----</span></span>
-<span id="cb2-79"><a href="#cb2-79"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb2-80"><a href="#cb2-80"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-81"><a href="#cb2-81"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-82"><a href="#cb2-82"></a></span>
-<span id="cb2-83"><a href="#cb2-83"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
-<span id="cb2-84"><a href="#cb2-84"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
-<span id="cb2-85"><a href="#cb2-85"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
-<span id="cb2-86"><a href="#cb2-86"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
-<span id="cb2-87"><a href="#cb2-87"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb2-88"><a href="#cb2-88"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>)) </span>
-<span id="cb2-89"><a href="#cb2-89"></a></span>
-<span id="cb2-90"><a href="#cb2-90"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-91"><a href="#cb2-91"></a><span class="do">##                      original plot (from lecture 4.1)                    ----</span></span>
-<span id="cb2-92"><a href="#cb2-92"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-93"><a href="#cb2-93"></a></span>
-<span id="cb2-94"><a href="#cb2-94"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb2-95"><a href="#cb2-95"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
-<span id="cb2-96"><a href="#cb2-96"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
-<span id="cb2-97"><a href="#cb2-97"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
-<span id="cb2-98"><a href="#cb2-98"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
-<span id="cb2-99"><a href="#cb2-99"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
-<span id="cb2-100"><a href="#cb2-100"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
-<span id="cb2-101"><a href="#cb2-101"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb2-102"><a href="#cb2-102"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb2-103"><a href="#cb2-103"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
-<span id="cb2-104"><a href="#cb2-104"></a></span>
-<span id="cb2-105"><a href="#cb2-105"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-new-better-palette" class="level2">
-<h2 class="anchored" data-anchor-id="create-new-better-palette">Create new (better) palette</h2>
+<section id="wrangle-data" class="level2">
+<h2 class="anchored" data-anchor-id="wrangle-data">Wrangle data</h2>
+<p>See lecture 4.1 slides <a href="../../course-materials/lecture-slides/lecture4.1-rankings-slides.html#job-data" target="_blank">#4</a>, <a href="../../course-materials/lecture-slides/lecture4.1-rankings-slides.html#data-wrangling" target="_blank">#5</a>, &amp; <a href="../../course-materials/lecture-slides/lecture4.1-rankings-slides.html#dumbbell-plot-subset" target="_blank">#17</a> as reminders of where we left off.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># create a named color palette ----</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>earnings_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"males"</span> <span class="ot">=</span> <span class="st">"#2D7787"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3"></a>                  <span class="st">"females"</span> <span class="ot">=</span> <span class="st">"#FC6B4B"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>                  <span class="at">dark_text =</span> <span class="st">"#0C1509"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>                  <span class="at">light_text =</span> <span class="st">"#4E514D"</span>) </span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># preview it -----</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(earnings_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="co"># add col with % men in a given occupation (% females in a given occupation was already included) ----</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>         </span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="co"># rearrange columns ----</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>          total_workers, workers_male, workers_female,</span>
+<span id="cb3-13"><a href="#cb3-13"></a>          percent_male, percent_female,</span>
+<span id="cb3-14"><a href="#cb3-14"></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
+<span id="cb3-15"><a href="#cb3-15"></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
+<span id="cb3-16"><a href="#cb3-16"></a>  </span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="co"># drop rows with missing earnings data ----</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span> </span>
+<span id="cb3-19"><a href="#cb3-19"></a>  </span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="co"># make occupation a factor (necessary for reordering groups in our plot) ----</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-22"><a href="#cb3-22"></a> </span>
+<span id="cb3-23"><a href="#cb3-23"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27"></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>  )) </span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="do">##                              create subset df                            ----</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb3-36"><a href="#cb3-36"></a></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#...............get random samples from each group...............</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co"># 10 random jobs that are 75%+ female (2016) ----</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb3-41"><a href="#cb3-41"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-42"><a href="#cb3-42"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb3-43"><a href="#cb3-43"></a></span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="co"># 10 random jobs that are 75%+ male (2016) ----</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb3-46"><a href="#cb3-46"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-47"><a href="#cb3-47"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb3-48"><a href="#cb3-48"></a></span>
+<span id="cb3-49"><a href="#cb3-49"></a><span class="co"># 10 random jobs that are 45-55%+ female (2016) ----</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb3-51"><a href="#cb3-51"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-52"><a href="#cb3-52"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb3-53"><a href="#cb3-53"></a></span>
+<span id="cb3-54"><a href="#cb3-54"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
+<span id="cb3-56"><a href="#cb3-56"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
+<span id="cb3-57"><a href="#cb3-57"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
+<span id="cb3-58"><a href="#cb3-58"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
+<span id="cb3-59"><a href="#cb3-59"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="update-plot-colors" class="level2">
-<h2 class="anchored" data-anchor-id="update-plot-colors">Update plot colors</h2>
+<section id="recreate-original-plot" class="level2">
+<h2 class="anchored" data-anchor-id="recreate-original-plot">Recreate original plot</h2>
+<p>See <a href="../../course-materials/lecture-slides/lecture4.1-rankings-slides.html#dumbbell-plot-create" target="_blank">lecture 4.1</a> as a reminder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># update plot colors using palette ----</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># recreate original plot ----</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
 <span id="cb4-4"><a href="#cb4-4"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
-<span id="cb4-6"><a href="#cb4-6"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
-<span id="cb4-8"><a href="#cb4-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
 <span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
 <span id="cb4-11"><a href="#cb4-11"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
@@ -497,57 +474,17 @@ Note
 </div>
 </div>
 </section>
-<section id="add-titles-theme" class="level2">
-<h2 class="anchored" data-anchor-id="add-titles-theme">Add titles &amp; theme</h2>
+<section id="create-new-palette" class="level2">
+<h2 class="anchored" data-anchor-id="create-new-palette">Create new palette</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#.........................create caption.........................</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="st">"Data Source: TidyTuesday (March 5, 2019) |</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  {github_username}"</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>)</span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#........................create subtitle.........................</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>money_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf3d1"</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a></span>
-<span id="cb5-14"><a href="#cb5-14"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="st">                       Median earnings of full-time </span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="st">                       &lt;span style='color:#2D7787;font-size:20pt;'&gt;**male**&lt;/span&gt; versus </span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="st">                       &lt;span style='color:#FC6B4B;font-size:20pt;'&gt;**female**&lt;/span&gt;</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="st">                       workers by occupation in 2016"</span>)</span>
-<span id="cb5-19"><a href="#cb5-19"></a></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#..........................updated plot..........................</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a>plot <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
-<span id="cb5-23"><a href="#cb5-23"></a>       <span class="at">subtitle =</span> <span class="st">"Median earnings of full-time male vs. female workers by occupation in 2016"</span>,</span>
-<span id="cb5-24"><a href="#cb5-24"></a>       <span class="at">caption =</span> <span class="st">"Data Source: TidyTuesday (March 5, 2019)"</span>) <span class="sc">+</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-27"><a href="#cb5-27"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb5-28"><a href="#cb5-28"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>, </span>
-<span id="cb5-29"><a href="#cb5-29"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb5-30"><a href="#cb5-30"></a>                              <span class="at">size =</span> <span class="dv">25</span>,</span>
-<span id="cb5-31"><a href="#cb5-31"></a>                              <span class="at">color =</span> earnings_pal[<span class="st">"dark_text"</span>]),</span>
-<span id="cb5-32"><a href="#cb5-32"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox_simple</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb5-33"><a href="#cb5-33"></a>                                                   <span class="at">size =</span> <span class="dv">17</span>,</span>
-<span id="cb5-34"><a href="#cb5-34"></a>                                                   <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
-<span id="cb5-35"><a href="#cb5-35"></a>                                                   <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="fl">0.5</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="at">unit =</span> <span class="st">"lines"</span>)),</span>
-<span id="cb5-36"><a href="#cb5-36"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox_simple</span>(<span class="at">family =</span> <span class="st">"sen"</span>, </span>
-<span id="cb5-37"><a href="#cb5-37"></a>                                                  <span class="at">face =</span> <span class="st">"italic"</span>,</span>
-<span id="cb5-38"><a href="#cb5-38"></a>                                                  <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
-<span id="cb5-39"><a href="#cb5-39"></a>                                                  <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="at">unit =</span> <span class="st">"lines"</span>)),</span>
-<span id="cb5-40"><a href="#cb5-40"></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
-<span id="cb5-41"><a href="#cb5-41"></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb5-42"><a href="#cb5-42"></a>                                <span class="at">size =</span> <span class="dv">12</span>,</span>
-<span id="cb5-43"><a href="#cb5-43"></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb5-44"><a href="#cb5-44"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="st">"lines"</span>),</span>
-<span id="cb5-45"><a href="#cb5-45"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb5-46"><a href="#cb5-46"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb5-47"><a href="#cb5-47"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb5-48"><a href="#cb5-48"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># create a named color palette ----</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>earnings_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"males"</span> <span class="ot">=</span> <span class="st">"#2D7787"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                  <span class="st">"females"</span> <span class="ot">=</span> <span class="st">"#FC6B4B"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>                  <span class="at">dark_text =</span> <span class="st">"#0C1509"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                  <span class="at">light_text =</span> <span class="st">"#4E514D"</span>) </span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># preview it -----</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(earnings_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -555,6 +492,112 @@ Note
 </figure>
 </div>
 </div>
+</div>
+</section>
+<section id="update-plot-colors" class="level2">
+<h2 class="anchored" data-anchor-id="update-plot-colors">Update plot colors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># update plot colors using palette ----</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
+<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="titles-theme" class="level2">
+<h2 class="anchored" data-anchor-id="titles-theme">Add titles &amp; theme</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#.........................create caption.........................</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="st">"Data Source: TidyTuesday (March 5, 2019)&lt;br&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  {github_username}"</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#........................create subtitle.........................</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>money_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf3d1"</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="st">                       Median earnings of full-time </span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="st">                       &lt;span style='color:#2D7787;'&gt;**male**&lt;/span&gt; versus </span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="st">                       &lt;span style='color:#FC6B4B;'&gt;**female**&lt;/span&gt;</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="st">                       workers by occupation in 2016"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#..........................updated plot..........................</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>salary_plot <span class="ot">&lt;-</span>plot <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
+<span id="cb7-23"><a href="#cb7-23"></a>       <span class="at">subtitle =</span> subtitle,</span>
+<span id="cb7-24"><a href="#cb7-24"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-27"><a href="#cb7-27"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>, </span>
+<span id="cb7-29"><a href="#cb7-29"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb7-30"><a href="#cb7-30"></a>                              <span class="at">size =</span> <span class="dv">18</span>,</span>
+<span id="cb7-31"><a href="#cb7-31"></a>                              <span class="at">color =</span> earnings_pal[<span class="st">"dark_text"</span>]),</span>
+<span id="cb7-32"><a href="#cb7-32"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33"></a>                                            <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb7-34"><a href="#cb7-34"></a>                                            <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
+<span id="cb7-35"><a href="#cb7-35"></a>                                            <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb7-36"><a href="#cb7-36"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>, </span>
+<span id="cb7-37"><a href="#cb7-37"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
+<span id="cb7-38"><a href="#cb7-38"></a>                                           <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
+<span id="cb7-39"><a href="#cb7-39"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>,</span>
+<span id="cb7-40"><a href="#cb7-40"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
+<span id="cb7-41"><a href="#cb7-41"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb7-42"><a href="#cb7-42"></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="cb7-43"><a href="#cb7-43"></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb7-44"><a href="#cb7-44"></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
+<span id="cb7-45"><a href="#cb7-45"></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb7-46"><a href="#cb7-46"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">units =</span> <span class="st">"cm"</span>),</span>
+<span id="cb7-47"><a href="#cb7-47"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb7-48"><a href="#cb7-48"></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
+<span id="cb7-49"><a href="#cb7-49"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb7-50"><a href="#cb7-50"></a>  )</span>
+<span id="cb7-51"><a href="#cb7-51"></a></span>
+<span id="cb7-52"><a href="#cb7-52"></a>salary_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># ggsave(</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#   filename = here::here("course-materials", "discussion", "week6", "images", "salary-plot-thu.png"),</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#   plot = salary_plot,</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#   width = 8,</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#   height = 7</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># ggsave(</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#   filename = here::here("course-materials", "discussion", "week6", "images", "salary-plot-thu.png"),</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#   plot = salary_plot,</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#   width = 8,    # Width in inches</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#   height = 7,   # Height in inches</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#   dpi = 300      # Match DPI in showtext_opts()</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
