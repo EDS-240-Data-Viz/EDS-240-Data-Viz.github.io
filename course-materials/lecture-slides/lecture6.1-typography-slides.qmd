@@ -788,26 +788,23 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |>
 
-  # add cols (needed for dumbbell plot) ----
-  mutate(percent_male = 100 - percent_female, # % of females within each industry was already included
-       difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F
-
+ # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  mutate(percent_male = 100 - percent_female) |>
+         
   # rearrange columns ----
   relocate(year, major_category, minor_category, occupation,
-           total_workers, workers_male, workers_female,
-           percent_male, percent_female,
-           total_earnings, total_earnings_male, total_earnings_female, difference_earnings,
-           wage_percent_of_male) |>
+          total_workers, workers_male, workers_female,
+          percent_male, percent_female,
+          total_earnings, total_earnings_male, total_earnings_female, 
+          wage_percent_of_male) |> 
 
   # drop rows with missing earning data ----
   drop_na(total_earnings_male, total_earnings_female) |>
 
-  # make occupation a factor ----
+  # make occupation a factor (necessary for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |>
 
-# ---- this next step is for creating our dumbbell plots ----
-
-# classify jobs by percentage male or female ----
+  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -955,8 +952,8 @@ monochromeR::view_palette(earnings_pal)
 #| out-width: "100%"
 #| code-line-numbers: "5,7"
 plot <- ggplot(subset_jobs) +
-geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                 y = fct_reorder(occupation, total_earnings), yend = occupation)) +
+  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
+                   y = fct_reorder(occupation, total_earnings), yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
              color = earnings_pal["males"], size = 3.25) +
   geom_point(aes(x = total_earnings_female, y = occupation),
@@ -978,6 +975,8 @@ plot
 
 Resulting plot is rendered on the next slide!
 
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -991,20 +990,20 @@ updated_plot <- plot +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 25,
+                              size = 18,
                               color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(size = 17,
+    plot.subtitle = element_text(size = 11.5,
                                  color = earnings_pal["light_text"],
                                  margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(face = "italic",
                                 color = earnings_pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
     panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
+    axis.text = element_text(size = 9,
+                             color = earnings_pal["light_text"]),
     axis.title = element_blank()
   )
 
@@ -1018,6 +1017,8 @@ updated_plot
 ---
 
 ## {#titles-theme-viz data-menu-title="Titles & theme (viz)"} 
+
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r}
 #| eval: true
@@ -1158,6 +1159,8 @@ showtext_auto()
 
 Resulting plot is rendered on the next slide!
 
+<!-- FOR LIVE-CODING (SHOWN ON SLIDE)  -->
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -1171,10 +1174,10 @@ updated_plot <- plot +
     plot.title.position = "plot",
     plot.title = element_text(family = "josefin",
                               face = "bold",
-                              size = 25,
+                              size = 18,
                               color = earnings_pal["dark_text"]),
     plot.subtitle = element_text(family = "sen",
-                                 size = 17,
+                                 size = 11.5,
                                  color = earnings_pal["light_text"],
                                  margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
@@ -1183,12 +1186,12 @@ updated_plot <- plot +
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
-    panel.spacing.y = unit(x = 1, "lines"),
+    panel.spacing.y = unit(x = 0.5, "cm"),
     axis.text = element_text(family = "sen",
+                             size = 9,
                              color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
 
@@ -1202,6 +1205,8 @@ updated_plot
 ---
 
 ## {#apply-google-fonts-viz data-menu-title="Apply Google Fonts (viz)"} 
+
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r}
 #| eval: true
@@ -1362,6 +1367,8 @@ subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</spa
 
 Resulting plot is rendered on the next slide!
 
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -1375,9 +1382,9 @@ updated_plot <- plot +
     plot.title.position = "plot",
     plot.title = element_text(family = "josefin",
                               face = "bold",
-                              size = 25),
+                              size = 18),
     plot.subtitle = element_text(family = "sen",
-                                 size = 17,
+                                 size = 11.5,
                                  color = earnings_pal["light_text"],
                                  margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(family = "sen",
@@ -1386,12 +1393,12 @@ updated_plot <- plot +
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
-    panel.spacing.y = unit(1, "lines"),
+    panel.spacing.y = unit(0.5, "cm"),
     axis.text = element_text(family = "sen",
+                             size = 9,
                              color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
 
@@ -1401,6 +1408,8 @@ updated_plot
 ---
 
 ## {#does-not-work data-menu-title="Doesn't quite work just yet"} 
+
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r}
 #| eval: true
@@ -1468,6 +1477,8 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 
 <hr>
 
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -1484,9 +1495,9 @@ updated_plot <- plot +
     plot.title.position = "plot",
     plot.title = element_text(family = "josefin",
                               face = "bold",
-                              size = 25),
+                              size = 18),
     plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 17,
+                                            size = 11.5,
                                             color = earnings_pal["light_text"],
                                             margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = ggtext::element_textbox(family = "sen",
@@ -1497,12 +1508,13 @@ updated_plot <- plot +
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(family = "josefin",
                                 face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
-    panel.spacing.y = unit(1, "lines"),
+    panel.spacing.y = unit(0.5, "cm"),
     axis.text = element_text(family = "sen",
+                             size = 9,
                              color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
+    #axis.text.x = element_text(size = 10),
     axis.title = element_blank()
   )
 
@@ -1516,6 +1528,8 @@ updated_plot
 ---
 
 ## {#update-theme-elements-viz data-menu-title="Update theme elements (viz)"} 
+
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r}
 #| eval: true
@@ -1597,6 +1611,8 @@ subtitle <- glue::glue("Median earnings
 ---
 
 ## {#updated-text data-menu-title="Voilà!"} 
+
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r}
 #| eval: true
@@ -1737,40 +1753,18 @@ ggsave(
   height = 7,
   unit = "in"
 )
-
-# turn off showtext text rendering ----
-showtext_auto(FALSE)
 ```
+
+<br>
+
+We can also turn off showtext rendering for future devices: 
 
 ```{r}
-#| eval: true
-#| echo: false
+#| eval: false
+#| echo: true
 # turn off showtext text rendering ----
 showtext_auto(FALSE)
 ```
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- ggsave( -->
-<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7.png"), -->
-<!--   plot = updated_plot, -->
-<!--   device = "png", -->
-<!--   width = 8,  -->
-<!--   height = 7, -->
-<!--   unit = "in" -->
-<!-- ) -->
-
-<!-- ggsave( -->
-<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7_ragg.png"), -->
-<!--   plot = updated_plot, -->
-<!--   device = ragg::agg_png(), -->
-<!--   width = 8,  -->
-<!--   height = 7, -->
-<!--   unit = "in", -->
-<!--   dpi = 300 -->
-<!-- ) -->
-<!-- ``` -->
 
 ---
 
@@ -1797,49 +1791,6 @@ knitr::include_graphics("images/week6/salary_plot_8x7.png")
 ::: {.center-text}
 You'll learn strategies for fixing this in discussion section!
 :::
-
-<!-- --- -->
-
-<!-- ## {#text-size-resolution data-menu-title="Text size & resolution woes"}  -->
-
-<!-- [Saving your plots can be a bit tricky]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- Getting your fonts / plots to look just right when writing to a file device can be a bit tricky. Check out [Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"} to understand why and for solutions on how to fix / avoid this. -->
-
-<!-- <br> -->
-
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- A very obviously not great saved ggplot -->
-<!-- ::: -->
-
-<!-- ```{r} -->
-<!-- #| evaL: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week6/bigmac-bad.png") -->
-<!-- ``` -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- Much better! -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| evaL: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week6/bigmac-ok.png") -->
-<!-- ``` -->
-<!-- ::: -->
-
-<!-- :::: -->
 
 ---
 

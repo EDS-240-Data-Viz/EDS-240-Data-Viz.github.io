@@ -990,19 +990,23 @@
 <span id="cb19-2"><a></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
 <span id="cb19-3"><a></a>  </span>
 <span id="cb19-4"><a></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb19-5"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male, </span>
-<span id="cb19-6"><a></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span> <span class="co"># reorder occupation by avg_salary here</span></span>
-<span id="cb19-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
-<span id="cb19-8"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb19-9"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
-<span id="cb19-10"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb19-11"><a></a>  </span>
-<span id="cb19-12"><a></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb19-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb19-14"><a></a>  </span>
-<span id="cb19-15"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb19-16"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb19-17"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, </span>
+<span id="cb19-6"><a></a>                   <span class="at">xend =</span> total_earnings_male, </span>
+<span id="cb19-7"><a></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), </span>
+<span id="cb19-8"><a></a>                   <span class="at">yend =</span> occupation)) <span class="sc">+</span> <span class="co"># reorder occupation by avg_salary here</span></span>
+<span id="cb19-9"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
+<span id="cb19-10"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
+<span id="cb19-11"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
+<span id="cb19-13"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
+<span id="cb19-14"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-15"><a></a>  </span>
+<span id="cb19-16"><a></a>  <span class="co"># facet wrap by group ----</span></span>
+<span id="cb19-17"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
+<span id="cb19-18"><a></a>  </span>
+<span id="cb19-19"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
+<span id="cb19-20"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb19-21"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dumbbell-plot-output" class="slide level2" data-menu-title="Dumbbell plot - M vs. F salaries (output)">
@@ -1024,7 +1028,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_4bf1df19" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_637adb62" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

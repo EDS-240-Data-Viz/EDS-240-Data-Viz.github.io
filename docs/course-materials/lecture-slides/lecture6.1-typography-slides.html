@@ -720,7 +720,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_feecd21e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_ba75ff7e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -735,7 +735,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_2f930fe8" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_52f56a73" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -750,7 +750,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_9023c0db" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_d87bd19e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -895,62 +895,59 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb2-14"><a></a></span>
 <span id="cb2-15"><a></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span></span>
 <span id="cb2-16"><a></a></span>
-<span id="cb2-17"><a></a>  <span class="co"># add cols (needed for dumbbell plot) ----</span></span>
-<span id="cb2-18"><a></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female, <span class="co"># % of females within each industry was already included</span></span>
-<span id="cb2-19"><a></a>       <span class="at">difference_earnings =</span> total_earnings_male <span class="sc">-</span> total_earnings_female) <span class="sc">|&gt;</span>  <span class="co"># diff in earnings between M &amp; F</span></span>
-<span id="cb2-20"><a></a></span>
-<span id="cb2-21"><a></a>  <span class="co"># rearrange columns ----</span></span>
-<span id="cb2-22"><a></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
-<span id="cb2-23"><a></a>           total_workers, workers_male, workers_female,</span>
-<span id="cb2-24"><a></a>           percent_male, percent_female,</span>
-<span id="cb2-25"><a></a>           total_earnings, total_earnings_male, total_earnings_female, difference_earnings,</span>
-<span id="cb2-26"><a></a>           wage_percent_of_male) <span class="sc">|&gt;</span></span>
-<span id="cb2-27"><a></a></span>
-<span id="cb2-28"><a></a>  <span class="co"># drop rows with missing earning data ----</span></span>
-<span id="cb2-29"><a></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span></span>
-<span id="cb2-30"><a></a></span>
-<span id="cb2-31"><a></a>  <span class="co"># make occupation a factor ----</span></span>
-<span id="cb2-32"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span></span>
-<span id="cb2-33"><a></a></span>
-<span id="cb2-34"><a></a><span class="co"># ---- this next step is for creating our dumbbell plots ----</span></span>
-<span id="cb2-35"><a></a></span>
-<span id="cb2-36"><a></a><span class="co"># classify jobs by percentage male or female ----</span></span>
-<span id="cb2-37"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
-<span id="cb2-38"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
-<span id="cb2-39"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
-<span id="cb2-40"><a></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
-<span id="cb2-41"><a></a>  ))</span>
-<span id="cb2-42"><a></a></span>
-<span id="cb2-43"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-44"><a></a><span class="do">##                              create subset df                            ----</span></span>
-<span id="cb2-45"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb2-17"><a></a> <span class="co"># add col with % men in a given occupation (% females in a given occupation was already included) ----</span></span>
+<span id="cb2-18"><a></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
+<span id="cb2-19"><a></a>         </span>
+<span id="cb2-20"><a></a>  <span class="co"># rearrange columns ----</span></span>
+<span id="cb2-21"><a></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
+<span id="cb2-22"><a></a>          total_workers, workers_male, workers_female,</span>
+<span id="cb2-23"><a></a>          percent_male, percent_female,</span>
+<span id="cb2-24"><a></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
+<span id="cb2-25"><a></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
+<span id="cb2-26"><a></a></span>
+<span id="cb2-27"><a></a>  <span class="co"># drop rows with missing earning data ----</span></span>
+<span id="cb2-28"><a></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span></span>
+<span id="cb2-29"><a></a></span>
+<span id="cb2-30"><a></a>  <span class="co"># make occupation a factor (necessary for reordering groups in our plot) ----</span></span>
+<span id="cb2-31"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span></span>
+<span id="cb2-32"><a></a></span>
+<span id="cb2-33"><a></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
+<span id="cb2-34"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-35"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb2-36"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
+<span id="cb2-37"><a></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
+<span id="cb2-38"><a></a>  ))</span>
+<span id="cb2-39"><a></a></span>
+<span id="cb2-40"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb2-41"><a></a><span class="do">##                              create subset df                            ----</span></span>
+<span id="cb2-42"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb2-43"><a></a></span>
+<span id="cb2-44"><a></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
+<span id="cb2-45"><a></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
 <span id="cb2-46"><a></a></span>
-<span id="cb2-47"><a></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
-<span id="cb2-48"><a></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb2-49"><a></a></span>
-<span id="cb2-50"><a></a><span class="co">#...............get random samples from each group...............</span></span>
-<span id="cb2-51"><a></a></span>
-<span id="cb2-52"><a></a><span class="co"># 10 random jobs that are 75%+ female (2016) ----</span></span>
-<span id="cb2-53"><a></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
-<span id="cb2-54"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-55"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-56"><a></a></span>
-<span id="cb2-57"><a></a><span class="co"># 10 random jobs that are 75%+ male (2016) ----</span></span>
-<span id="cb2-58"><a></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
-<span id="cb2-59"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-60"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-61"><a></a></span>
-<span id="cb2-62"><a></a><span class="co"># 10 random jobs that are 45-55%+ female (2016) ----</span></span>
-<span id="cb2-63"><a></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
-<span id="cb2-64"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-65"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb2-66"><a></a></span>
-<span id="cb2-67"><a></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
-<span id="cb2-68"><a></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span></span>
-<span id="cb2-69"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
-<span id="cb2-70"><a></a>                                   <span class="st">"Occupations that are 75%+ female"</span>,</span>
-<span id="cb2-71"><a></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb2-72"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-47"><a></a><span class="co">#...............get random samples from each group...............</span></span>
+<span id="cb2-48"><a></a></span>
+<span id="cb2-49"><a></a><span class="co"># 10 random jobs that are 75%+ female (2016) ----</span></span>
+<span id="cb2-50"><a></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb2-51"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-52"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb2-53"><a></a></span>
+<span id="cb2-54"><a></a><span class="co"># 10 random jobs that are 75%+ male (2016) ----</span></span>
+<span id="cb2-55"><a></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb2-56"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-57"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb2-58"><a></a></span>
+<span id="cb2-59"><a></a><span class="co"># 10 random jobs that are 45-55%+ female (2016) ----</span></span>
+<span id="cb2-60"><a></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb2-61"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-62"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb2-63"><a></a></span>
+<span id="cb2-64"><a></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
+<span id="cb2-65"><a></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span></span>
+<span id="cb2-66"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
+<span id="cb2-67"><a></a>                                   <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb2-68"><a></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
+<span id="cb2-69"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="original-plot-code" class="slide level2" data-menu-title="Original plot (code)">
@@ -1006,8 +1003,8 @@ Let’s learn how to use different fonts in our ggplots!
 <hr>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6" data-code-line-numbers="5,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb6-2"><a></a><span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
-<span id="cb6-3"><a></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
+<span id="cb6-3"><a></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
 <span id="cb6-4"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
 <span id="cb6-5"><a></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
 <span id="cb6-6"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
@@ -1025,6 +1022,7 @@ Let’s learn how to use different fonts in our ggplots!
 <p><span class="slide-title">Add titles / caption &amp; modify theme</span></p>
 <hr>
 <p>Resulting plot is rendered on the next slide!</p>
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>updated_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
 <span id="cb7-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
@@ -1034,20 +1032,20 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb7-6"><a></a>  <span class="fu">theme</span>(</span>
 <span id="cb7-7"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
 <span id="cb7-8"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb7-9"><a></a>                              <span class="at">size =</span> <span class="dv">25</span>,</span>
+<span id="cb7-9"><a></a>                              <span class="at">size =</span> <span class="dv">18</span>,</span>
 <span id="cb7-10"><a></a>                              <span class="at">color =</span> earnings_pal[<span class="st">"dark_text"</span>]),</span>
-<span id="cb7-11"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>,</span>
+<span id="cb7-11"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">11.5</span>,</span>
 <span id="cb7-12"><a></a>                                 <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
 <span id="cb7-13"><a></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb7-14"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>,</span>
 <span id="cb7-15"><a></a>                                <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
 <span id="cb7-16"><a></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb7-17"><a></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb7-18"><a></a>                                <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb7-18"><a></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
 <span id="cb7-19"><a></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
 <span id="cb7-20"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="st">"cm"</span>),</span>
-<span id="cb7-21"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb7-22"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb7-21"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb7-22"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
 <span id="cb7-23"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb7-24"><a></a>  )</span>
 <span id="cb7-25"><a></a></span>
@@ -1059,6 +1057,7 @@ Let’s learn how to use different fonts in our ggplots!
 </section>
 <section id="titles-theme-viz" class="slide level2" data-menu-title="Titles &amp; theme (viz)">
 <h2></h2>
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1141,6 +1140,7 @@ Let’s learn how to use different fonts in our ggplots!
 <p><span class="slide-title">Apply Google Fonts (code)</span></p>
 <hr>
 <p>Resulting plot is rendered on the next slide!</p>
+<!-- FOR LIVE-CODING (SHOWN ON SLIDE)  -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9" data-code-line-numbers="8,12,16,20,25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>updated_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
@@ -1151,10 +1151,10 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb9-7"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
 <span id="cb9-8"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb9-9"><a></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb9-10"><a></a>                              <span class="at">size =</span> <span class="dv">25</span>,</span>
+<span id="cb9-10"><a></a>                              <span class="at">size =</span> <span class="dv">18</span>,</span>
 <span id="cb9-11"><a></a>                              <span class="at">color =</span> earnings_pal[<span class="st">"dark_text"</span>]),</span>
 <span id="cb9-12"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb9-13"><a></a>                                 <span class="at">size =</span> <span class="dv">17</span>,</span>
+<span id="cb9-13"><a></a>                                 <span class="at">size =</span> <span class="fl">11.5</span>,</span>
 <span id="cb9-14"><a></a>                                 <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
 <span id="cb9-15"><a></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb9-16"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
@@ -1163,12 +1163,12 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb9-19"><a></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb9-20"><a></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb9-21"><a></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb9-22"><a></a>                                <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb9-22"><a></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
 <span id="cb9-23"><a></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb9-24"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="st">"lines"</span>),</span>
+<span id="cb9-24"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="st">"cm"</span>),</span>
 <span id="cb9-25"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb9-26"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb9-27"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb9-26"><a></a>                             <span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb9-27"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
 <span id="cb9-28"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb9-29"><a></a>  )</span>
 <span id="cb9-30"><a></a></span>
@@ -1180,6 +1180,7 @@ Let’s learn how to use different fonts in our ggplots!
 </section>
 <section id="apply-google-fonts-viz" class="slide level2" data-menu-title="Apply Google Fonts (viz)">
 <h2></h2>
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1270,6 +1271,7 @@ Let’s learn how to use different fonts in our ggplots!
 <p><span class="slide-title">Apply our new caption &amp; subtitle</span></p>
 <hr>
 <p>Resulting plot is rendered on the next slide!</p>
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13" data-code-line-numbers="3-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>updated_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
 <span id="cb13-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
@@ -1280,9 +1282,9 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb13-7"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
 <span id="cb13-8"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb13-9"><a></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb13-10"><a></a>                              <span class="at">size =</span> <span class="dv">25</span>),</span>
+<span id="cb13-10"><a></a>                              <span class="at">size =</span> <span class="dv">18</span>),</span>
 <span id="cb13-11"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb13-12"><a></a>                                 <span class="at">size =</span> <span class="dv">17</span>,</span>
+<span id="cb13-12"><a></a>                                 <span class="at">size =</span> <span class="fl">11.5</span>,</span>
 <span id="cb13-13"><a></a>                                 <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
 <span id="cb13-14"><a></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb13-15"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
@@ -1291,12 +1293,12 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb13-18"><a></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb13-19"><a></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb13-20"><a></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb13-21"><a></a>                                <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb13-21"><a></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
 <span id="cb13-22"><a></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb13-23"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>),</span>
+<span id="cb13-23"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>),</span>
 <span id="cb13-24"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb13-25"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb13-26"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb13-25"><a></a>                             <span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb13-26"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
 <span id="cb13-27"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb13-28"><a></a>  )</span>
 <span id="cb13-29"><a></a></span>
@@ -1305,6 +1307,7 @@ Let’s learn how to use different fonts in our ggplots!
 </section>
 <section id="does-not-work" class="slide level2" data-menu-title="Doesn't quite work just yet">
 <h2></h2>
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1333,6 +1336,7 @@ Let’s learn how to use different fonts in our ggplots!
 <h2></h2>
 <p><span class="slide-title">Update <code>theme()</code> elements to render styling</span></p>
 <hr>
+<!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14" data-code-line-numbers="11,15,18,19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>updated_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
 <span id="cb14-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
@@ -1343,9 +1347,9 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb14-7"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
 <span id="cb14-8"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb14-9"><a></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb14-10"><a></a>                              <span class="at">size =</span> <span class="dv">25</span>),</span>
+<span id="cb14-10"><a></a>                              <span class="at">size =</span> <span class="dv">18</span>),</span>
 <span id="cb14-11"><a></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb14-12"><a></a>                                            <span class="at">size =</span> <span class="dv">17</span>,</span>
+<span id="cb14-12"><a></a>                                            <span class="at">size =</span> <span class="fl">11.5</span>,</span>
 <span id="cb14-13"><a></a>                                            <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
 <span id="cb14-14"><a></a>                                            <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb14-15"><a></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
@@ -1356,16 +1360,17 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb14-20"><a></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
 <span id="cb14-21"><a></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
 <span id="cb14-22"><a></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb14-23"><a></a>                                <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb14-23"><a></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
 <span id="cb14-24"><a></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb14-25"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"lines"</span>),</span>
+<span id="cb14-25"><a></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>),</span>
 <span id="cb14-26"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb14-27"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb14-28"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb14-29"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb14-30"><a></a>  )</span>
-<span id="cb14-31"><a></a></span>
-<span id="cb14-32"><a></a>updated_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-27"><a></a>                             <span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="cb14-28"><a></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
+<span id="cb14-29"><a></a>    <span class="co">#axis.text.x = element_text(size = 10),</span></span>
+<span id="cb14-30"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb14-31"><a></a>  )</span>
+<span id="cb14-32"><a></a></span>
+<span id="cb14-33"><a></a>updated_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="center-text">
 <p><strong>Note:</strong> Text rendered with <code>{ggtext}</code> doesn’t appear correctly in the RStudio plots pane (or when using the Zoom window) – see this separate, but potentially related <a href="https://github.com/wilkelab/ggtext/issues/84">GitHub issue</a>.</p>
@@ -1373,6 +1378,7 @@ Let’s learn how to use different fonts in our ggplots!
 </section>
 <section id="update-theme-elements-viz" class="slide level2" data-menu-title="Update theme elements (viz)">
 <h2></h2>
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1410,6 +1416,7 @@ Let’s learn how to use different fonts in our ggplots!
 </section>
 <section id="updated-text" class="slide level2" data-menu-title="Voilà!">
 <h2></h2>
+<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1462,32 +1469,14 @@ Let’s learn how to use different fonts in our ggplots!
 <span id="cb16-6"><a></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
 <span id="cb16-7"><a></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
 <span id="cb16-8"><a></a>  <span class="at">unit =</span> <span class="st">"in"</span></span>
-<span id="cb16-9"><a></a>)</span>
-<span id="cb16-10"><a></a></span>
-<span id="cb16-11"><a></a><span class="co"># turn off showtext text rendering ----</span></span>
-<span id="cb16-12"><a></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-9"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- ggsave( -->
-<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7.png"), -->
-<!--   plot = updated_plot, -->
-<!--   device = "png", -->
-<!--   width = 8,  -->
-<!--   height = 7, -->
-<!--   unit = "in" -->
-<!-- ) -->
-<!-- ggsave( -->
-<!--   filename = here::here("course-materials", "lecture-slides", "images", "week6", "salary_plot_8x7_ragg.png"), -->
-<!--   plot = updated_plot, -->
-<!--   device = ragg::agg_png(), -->
-<!--   width = 8,  -->
-<!--   height = 7, -->
-<!--   unit = "in", -->
-<!--   dpi = 300 -->
-<!-- ) -->
-<!-- ``` -->
+<p><br></p>
+<p>We can also turn off showtext rendering for future devices:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># turn off showtext text rendering ----</span></span>
+<span id="cb17-2"><a></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="ggsave-woes" class="slide level2" data-menu-title="ggsave() woes">
 <h2></h2>
@@ -1501,38 +1490,6 @@ Let’s learn how to use different fonts in our ggplots!
 <div class="center-text">
 <p>You’ll learn strategies for fixing this in discussion section!</p>
 </div>
-<!-- --- -->
-<!-- ## {#text-size-resolution data-menu-title="Text size & resolution woes"}  -->
-<!-- [Saving your plots can be a bit tricky]{.slide-title} -->
-<!-- <hr> -->
-<!-- Getting your fonts / plots to look just right when writing to a file device can be a bit tricky. Check out [Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"} to understand why and for solutions on how to fix / avoid this. -->
-<!-- <br> -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="50%"} -->
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- A very obviously not great saved ggplot -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| evaL: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week6/bigmac-bad.png") -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: {.column width="50%"} -->
-<!-- ::: {.center-text .body-text-s .gray-text} -->
-<!-- Much better! -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| evaL: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- knitr::include_graphics("images/week6/bigmac-ok.png") -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
 </div>
 </section>
 <section id="break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
@@ -1547,7 +1504,7 @@ Let’s learn how to use different fonts in our ggplots!
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_82dfef61" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_2b887908" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
