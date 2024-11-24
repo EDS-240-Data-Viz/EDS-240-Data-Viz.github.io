@@ -79,23 +79,66 @@ knitr::include_graphics("images/0-needs-improvment-8x7.png")
 
 ::::
 
-::: {.center-text}
-To understand why this happens and how to fix this, we first need to understand a bit about image size and resolution.
+<!-- ::: {.center-text} -->
+<!-- To understand why this happens and how to fix this, we first need to understand a bit about image size and resolution. -->
+<!-- ::: -->
+
+---
+
+## {#scaling-challenges data-menu-title="Scaling challenges"}
+
+[Text scaling can be challenging]{.slide-title}
+
+<hr>
+
+<br>
+
+[There are a number of reasons why, but two big ones:]{.body-text-m} 
+
+<br>
+
+. . .
+
+::: {.incremental .body-text-m}
+1. **resolution differences** between devices (e.g. the on-screen device vs. file device)
+2. **absolute vs. relative sizing** of elements
+  <!-- - `{ggplot2}` theme elements (e.g. text sizes) -->
+  <!-- - `{ggtext}` `element_textbox()` lacks native support for relative sizing (so fixed heights/widths) -->
+:::
+
+<br>
+
+. . . 
+
+::: {.center-text .body-text-m}
+**NOTE:** Your computer's screen resolution may be different than mine. If you're plot doesn't appear exactly as mine does (either when plotted on-screen, or saved as a file), this might be why! You may need to tweak some sizes so that your plot looks as it should.
 :::
 
 ---
 
-## {#resolution data-menu-title="Resolution"}
+##  {#resolution-differences data-menu-title="# Resolution Differences #" background="#047C90"}
 
-[Understanding image size & resolution]{.slide-title}
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">Issue #1: resolution differences between devices</p>
+</div>
+
+---
+
+## {#definitions data-menu-title="Definitions"}
+
+[Some definitions first]{.slide-title}
 
 <hr>
 
-Digital image size is described in pixel (px) dimensions (e.g. 2400 x 2100 px). A pixel is a basic (and smallest) unit of programmable color on a computer display. To calculate pixel dimensions, we need to know:
+Digital image size is described in **pixel (px) dimensions** (e.g. 2400 x 2100 px). A pixel is a basic (and smallest) unit of programmable color on a computer display. To calculate pixel dimensions, we need to know:
 
-- the **height** of the image (e.g. in inches)
-- the **resolution** of the image (in pixels per inch, PPI)
-- the **width** of the image (e.g. in inches)
+- the **width** of the image (e.g. **8 inches** -- we've defined this is `ggsave()`)
+- the **height** of the image (e.g. **7 inches** -- we've also defined this is `ggsave()`)
+- the **resolution** of the image (in pixels per inch, e.g. **300 PPI**)
+
+::: {.center-text}
+**pixel dimensions** = $(8"W \times 300\:PPI) \times (7"H \times 300\:PPI) = 2400 \times 2100\:px$
+:::
 
 ```{r}
 #| eval: true 
@@ -135,11 +178,11 @@ Image source: [What is DPI?](https://www.printplace.com/blog/what-is-dpi/){targe
 
 ## {#different-dpi data-menu-title="Different DPI"}
 
-[Issue #1: mismatched DPIs]{.slide-title}
+[Make sure `{showtext}` and `ggsave()` DPIs match]{.slide-title2}
 
 <hr>
 
-`{showtext}` uses a default DPI value of 96 to render our plot on screen, while `ggsave()` uses a default DPI of 300 to write our plot to file. This mismatch in resolutions is one major cause of inconsistent font renderings across different devices. Ensure that these match:
+By default, `{showtext}` uses a resolution of 96 DPI when rendering our plot on screen, while `ggsave()` uses a default resolution of 300 DPI to write our plot to file. This mismatch is one major cause of inconsistent font renderings across different devices. Ensure that these match:
 
 . . . 
 
@@ -161,6 +204,7 @@ showtext_opts(dpi = 300)
 ```{r}
 #| eval: false
 #| echo: true
+#| code-line-numbers: "8"
 ggsave(
   filename = here::here("week6", "images", "salary-plot-8x7.png"),
   plot = updated_plot,
@@ -192,13 +236,21 @@ That largely took care of our font sizing issue! But our `{ggtext}` elements loo
 
 ---
 
-## {#debug-ggtext data-menu-title="Debug {ggtext}"}
+##  {#absolute-relative-sizes data-menu-title="# Absolute vs. relative sizes #" background="#047C90"}
 
-[Debug with `fill` color]{.slide-title}
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">Issue #2: absolute vs relative sizes of elements</p>
+</div>
+
+---
+
+## {#ggtext-absolute-units data-menu-title="{ggtext} absolute uits"}
+
+[`{ggtext}` elements rely on absolute units]{.slide-title}
 
 <hr>
 
-Recall that `ggtext::element_textbox()` enables Markdown text **in a box** with word wrap. Let's temporarily fill this box with color, then save using `ggsave()` to see its exact size:
+`{ggtext}` deals in absolute units (e.g. in, cm), which means elements (e.g. `element_textbox()`) don't scale dynamically with plot size. Let's temporarily `fill` our `element_textbox()`es with color to help visualize this:
 
 ```{r}
 #| eval: false
@@ -240,6 +292,21 @@ updated_plot <- plot +
 updated_plot
 ```
 
+<!-- --- -->
+
+<!-- ## {#debug-ggtext data-menu-title="Debug {ggtext}"} -->
+
+<!-- [Debug with `fill` color]{.slide-title} -->
+
+<!-- <hr> -->
+
+<!-- Recall that `ggtext::element_textbox()` enables Markdown text **in a box** with word wrap. Let's temporarily fill this box with color, then save using `ggsave()` to see its exact size: -->
+
+<!-- When we write our plot to file in different sizes, our `element_textbox()`es remain the same size -->
+<!-- element_textbox() allows you to set padding, margin, and alignment within the text box, often in absolute units. These settings are helpful for positioning but don’t dynamically resize with plot dimensions. -->
+<!-- Consequently, when the plot size changes, the internal padding and margins do not adjust proportionally, which can make the text box appear "off" relative to the new plot size. -->
+<!-- This limitation results in element_textbox() keeping a fixed size that does not adapt to the relative scaling used for other plot elements. -->
+
 ---
 
 ```{r}
@@ -251,7 +318,7 @@ knitr::include_graphics("images/2-fill.png")
 ```
 
 ::: {.center-text .body-text-m}
-When written to a PNG file, these `element_textbox()`es are much too small, causing our text to wrap onto itself.
+Our text wraps onto itself because these `element_textbox()`es don't scale to the size of our plot, when written to a PNG file.
 :::
 
 ---
@@ -397,281 +464,340 @@ knitr::include_graphics("images/5-remove-fill.png")
 ```
 
 ::: {.center-text .body-text-m}
-Our final saved PNG!
+Our final saved PNG (8 x 7", 300 DPI)!
 :::
 
 ---
 
-Now increase size to 14x12. What happens?
+## {#14x12 data-menu-title="14x12"}
 
-everything gets smaller again. Why?
-
----
-
-a. resize everything -- can get tedious
-b. add the `scale` parameter to `ggsave()`, which can increase or decrease plot size, while adjusting element sizes proportionally (e.g. `scale = 2` doubles the dimensions of the saved plot, `scale = 0.5` decreases the plots size by half) 
-  - also helpful when you want to maintain aspect ration and element sizeing while generatng higher or lower resoltuion images without having to resize each plot component individually
-  
----
-
-## {#tbd data-menu-title="tbd"}
-
-[Tbd]{.slide-title}
+[Now let's try saving a 14x12" plot]{.slide-title}
 
 <hr>
-
-Because of 
-
-Plots will look different (especially when using external fonts) depending on how you plan to share them (e.g. in a Quarto doc, saved as a raster (e.g. PNG, JPEG) or vector image (SVG), etc.)
-
-:::: {.columns}
-
-::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-When rendering our plot in a Quarto slide
-:::
-```{r}
-#| eval: true
-#| echo: false
-#| out-width: "100%"
-#| fig-align: "center"
-knitr::include_graphics("images/salary_plot_8x7_slide.png")
-```
-:::
-
-::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-When saving our plot as a PNG file
-:::
-```{r}
-#| eval: true
-#| echo: false
-#| out-width: "100%"
-#| fig-align: "center"
-knitr::include_graphics("images/salary_plot_8x7.png")
-```
-:::
-
-::::
-
-
----
-
-You'll need to consider how you plan to share your outputs so that you can prepare them appropriately.
-
----
-
-For example, recall that we set the aspect ratio code chunk option (`fig-asp`) when embedding our salary plot in our Quarto doc template in lecture yesterday. This looked great when rendered in our doc! (for example, see [Lecture 6.1 key](../../keys/KEY-lecture6.1-typography.qmd#titles-theme){target="_blank"})
-
-- adjust font sizes in `theme()`
-- set `fig-asp` chunk option (works in Quarto docs, slides, websites, etc.)
-
----
-
-things get trickier when you want to save your ggplot as an image file (e.g. png, jpeg, etc.), especially when you're using external fonts (e.g. using the `{showtext}` package to import Google Fonts)
-
-why?
-
-1. different output formats (e.g. PNG, PDF, SVG) handle fonts differently
-2. with `{showtext}`, you may need to adjust anti-aliasing settings and text scaling to ensure that fonts appear smooth and sized correctly. Differences in resolution between your R session and final saved image can result in unexpected text sizes or quality losses
-
----
-
-things to help
-
-1. ensure `{showtext}` is active before saving using `showtext::showtext_auto()`
-2. ensure that the DPI settings are the same in both `showtext_opts()` and `ggsave()`: `dpi` using `showtext::showtext_opts(dpi = 300)` and `ggsave(dpi = 300)` so that it matches
----
-
-## {#tbd data-menu-title="tbd"}
-
-[Tbd]{.slide-title}
-
-<hr>
-
-Ever experience something like this? If you haven't yet, you probably will :(
-
-:::: {.columns}
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-# knitr::include_graphics("images/tbd.png")
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-# knitr::include_graphics("images/tbd.png")
-```
-:::
-
-::::
-
-::: {.footer}
-[Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}, by [Christophe Nicault](https://www.christophenicault.com/){target="_blank"}
-:::
-
----
-
-Screen dimension & resolution
-
-A screen is a matrix of pixels
-
-My computer: 
-
-- MacBook Air (M1, 2020)
-- Display: 13.3inches 
-- Resolution: 2560 x 1600 -- this means that my screen is a matrix of 2560 pixels width and 1600 pixels height. 
-
-Calculate: 
-
-- Pixels per inch (PPI) = (Square root of (Horizontal pixels^2 + Vertical pixels^2)) / Diagonal screen size (in inches) >  sqrt((2560^2+1600^2))/13.3 = 227
-- Aspect ratio: 2560/1600 = 16/10 (divide by 160)
-- Width: 2560 (px) / 227 (px/in) =  11.28 in
-- Height: 1600 (px) / 227 (px/in) = 7.05 in
-
-
----
-
-Image saved on a disc is also a matrix of dots
-- ggplot and ggsave works in physical dimension (in, cm, mm)
-- to go from dimension in inches to a number of dots, ggsave uses the # of dots per inch (dpi)
-- if we create a ggplot and save it with a dimension of 12 x 10 with default dpi of 300, the file will be a matrix of 
-$(12\:inches \times 300 \frac{dots}{inch}) \times (10\:inches \times 300 \frac{dots}{inch}) = 3600 \times 3000\:dots$
-- when you open that file on your computer, each dot represents a pixel, which means that the image has a resolution of 3600 x 3000 px
-
-- relation: 
-  - (size in inches) = (screen size in pixel) / PPI
-  - (screen size in pixel) = DPI * (size in inches)
-
----
-
-if we save in different dimensions, the plot itself will adapt and use the full size. If we save to larger dimensions, points and font look much smaller
 
 ```{r}
 #| eval: false
-# open up new graphic device with `quartz()`, `windows()`, `x11()` ----
-# quartz()
-
-# create plot ----
-source(here::here("course-materials", "discussion", "week6", "salary-plot.R"))
-
-# # save it to disk ---
-# ggsave(
-#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot.png"),
-#   plot = test,
-#   width = 12, 
-#   height = 10,
-#   dpi = 300
-# )
-
-# turn off graphics device ----
-# dev.off()
-showtext_opts(dpi = 300)
-
-camcorder::gg_record(
-  device = "png",
-  width = 8,
-  height = 6,
-  unit = "in"
-)
-
-salary_plot
-
-camcorder::gg_stop_recording()
-# ggsave(
-#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot3.png"),
-#   plot = test,
-#   width = 3, 
-#   height = 3,
-#   units = "in",
-#   dpi = 300
-# )
-# 
-# ggsave(
-#   filename = here::here("course-materials", "discussion", "week6", "images", "test-plot5.png"),
-#   plot = test,
-#   width = 5, 
-#   height = 5,
-#   units = "in",
-#   dpi = 300
-# )
-
-
+#| echo: true
 ggsave(
-  filename = here::here("course-materials", "discussion", "week6", "images", "test-plot10.png"),
-  plot = test,
-  width = 15, 
-  height = 10,
-  units = "in",
+  filename = here::here("week6", "images", "salary-plot-14x12.png"),
+  plot = updated_plot,
+  device = "png",
+  width = 14,
+  height = 12,
+  unit = "in",
   dpi = 300
 )
-
-# using {ragg}
-
-ragg::agg_png(here::here("course-materials", "discussion", "week6", "images", "ragg_10x10_scaling2.png"),
-              width = 10,
-              height = 10, 
-              units = "in", 
-              scaling = 5,
-              res = 300)
-
-test
-dev.off()
-
 ```
 
-- size of points and fonts look smaller as we increase the width & height
-- all three saved plots have the same size in inches
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+::: {.center-text .body-text-m}
+What happens?
+:::
 
 ---
 
-what happened?
+```{r}
+#| eval: true 
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/0-made-larger-14x12.png")
+```
 
-Image width (px) = width (in) * DPI
-Image height (px) = height (in) * DPI
-
-therefore:
-- width = 12in * 300 dpi = 3600 px
-- height = 10in * 300 dpi = 3000 px
-<!-- 1. plot dimension is converted to inches before saving to disk using screen PPI of 227 to make the conversion: $(2560\:px \div 227\frac{px}{in}) \times (1600\:px \div 227\frac{px}{in}) = 11.28\times7.05\:in$ (i.e. the size of our screen!) -->
-
-<!-- 2. THEN `ggsave()` uses this dimension in inches with the DPI of 3300 to save to disk, creating an image3 of $(11.28\:in \times 300 \frac{dots}{in}) \times (7.05\:in \times 300 \frac{dots}{in}) = 3384 \times 2115$ THIS ISN'T CORRECT, SHOULD BE 3600 X 3000??? -->
-
----
-
-https://help.opencitiesplanner.bentley.com/index.html@p=2913.html#:~:text=Vector%20files%20are%20mathematical%2C%20made,or%20single%20points%20of%20colour.
-
-- absolute size: physical dimensions of graphic measured in cm, in, or other absolute length unit
-- pixel size: graphics are recorded as a matrix of color values; each cell in the matrix is a pixel; pixel size is the number of rows and cols in the matrix; pixels don't hjav
----
-
-Strategies: 
-
-- make sure `showtext_opts(dpi = 300)` matches the DPI set for `ggsave()`
-- adjust aspect ratio using `width` and `height` parameters of `ggsave()`
-- add manual line breaks in text using `<br>`
-- use `ggtext::element_textbox()`
-- use `lineheight` parameter to control vertical spacing between lines inside `ggtext::element_textbox()`
-- use `width = unit(8, "cm")` to set a fixed width for your `ggtext::element_textbox()`
-- add a `fill` color to `element_textbox()` so you can see it's size (remove once you've adjusted everything)
-- try reducing font `size`
+::: {.center-text .body-text-m}
+Our text shrunk again {{< fa face-frown title="a frowning face" >}}
+:::
 
 ---
 
-## {#additional-resources data-menu-title="Additional resources"}
+## {#absolute-text-sizes data-menu-title="Absolute text sizes"}
 
-[Additional resources:]{.slide-title}
+[We've set absolute text sizes]{.slide-title}
 
 <hr>
 
-- **[showtext: Using System Fonts in R Graphics](https://rjournal.github.io/articles/RJ-2015-008/)**, by Yixuan Qiu (an older article, but provides helpful context)
-- **[Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/)**{target="_blank"}, by Christophe Nicault
-- **[Taking Control of Plot Scaling](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/)**, by Thomas Lin Pedersen
+We've built our plot using absolute text sizes (where unit = "pt" = 0.33mm), which means our text sizes remain constant regardless of plot resizing (this is the case with any element defined in absolute units).
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "10,12,29,33"
+updated_plot <- plot +
+  labs(title = "Males earn more than females across most occupations",
+       subtitle = subtitle,
+       caption = caption) +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    plot.title = element_text(family = "josefin",
+                              face = "bold",
+                              size = 18),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = 11.5,
+                                            color = earnings_pal["light_text"],
+                                            # fill = "lightblue", # for debugging 
+                                            width = unit(25, "cm"),
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0),
+                                            padding = margin(t = 5, r = 0, b = 5, l = 0)),
+    plot.caption = ggtext::element_textbox(family = "sen",
+                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
+                                           color = earnings_pal["light_text"],
+                                           # fill = "lightblue", # for debugging
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           width = unit(25, "cm"),
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0),
+                                           padding = margin(t = 10, r = 0, b = 10, l = 0)),
+    strip.text.x = element_text(family = "josefin",
+                                face = "bold",
+                                size = 10,
+                                hjust = 0),
+    panel.spacing.y = unit(0.5, "cm"),
+    axis.text = element_text(family = "sen",
+                             size = 9,
+                             color = earnings_pal["light_text"]),
+    axis.title = element_blank()
+  )
+
+updated_plot
+```
+
+---
+
+## {#relative-text-sizes data-menu-title="Relative text sizes"}
+
+[Instead, we can set relative text sizes]{.slide-title}
+
+<hr>
+
+By setting `size = rel(value)`, our text size will scale relative to the `base_size`, which by default is 11. We can also update the default `base_size` inside `theme_minimal()` (or whichever complete theme you're using). 
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "5,10,12,29,33"
+updated_plot <- plot +
+  labs(title = "Males earn more than females across most occupations",
+       subtitle = subtitle,
+       caption = caption) +
+  theme_minimal(base_size = 18) +
+  theme(
+    plot.title.position = "plot",
+    plot.title = element_text(family = "josefin",
+                              face = "bold",
+                              size = rel(1.7)),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = rel(1.1),
+                                            color = earnings_pal["light_text"],
+                                            # fill = "lightblue", # for debugging 
+                                            width = unit(25, "cm"),
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0),
+                                            padding = margin(t = 5, r = 0, b = 5, l = 0)),
+    plot.caption = ggtext::element_textbox(family = "sen",
+                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
+                                           color = earnings_pal["light_text"],
+                                           # fill = "lightblue", # for debugging
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           width = unit(25, "cm"),
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0),
+                                           padding = margin(t = 10, r = 0, b = 10, l = 0)),
+    strip.text.x = element_text(family = "josefin",
+                                face = "bold",
+                                size = rel(1.1),
+                                hjust = 0),
+    panel.spacing.y = unit(0.5, "cm"),
+    axis.text = element_text(family = "sen",
+                             size = rel(0.8),
+                             color = earnings_pal["light_text"]),
+    axis.title = element_blank()
+  )
+
+updated_plot
+```
+
+::: {.center-text .body-text-m}
+
+:::
+
+---
+
+```{r}
+#| eval: true 
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/1-relative-14x12.png")
+```
+
+::: {.center-text .body-text-m}
+Our final saved PNG (14 x 12", 300 DPI)!
+:::
+
+---
+
+## {#5x5 data-menu-title="5x5"}
+
+[One final exercise -- save as 5x5" PNG]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: false
+#| echo: true
+ggsave(
+  filename = here::here("week6", "images", "salary-plot-5x5.png"),
+  plot = updated_plot,
+  device = "png",
+  width = 5,
+  height = 5,
+  unit = "in",
+  dpi = 300
+)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+::: {.center-text .body-text-m}
+What happens?
+:::
+
+---
+
+```{r}
+#| eval: true 
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/0-5x5.png")
+```
+
+::: {.center-text .body-text-m}
+Noooo not again {{< fa face-sad-cry title="a crying face" >}}
+:::
+
+---
+
+## {#adjust-basesize data-menu-title="Adjust basesize"}
+
+[Just adjust `basesize`!]{.slide-title}
+
+<hr>
+
+This can take a little trial and error, but adjusting your text `basesize` (in this case, you'll want to make it smaller) should do the trick -- all relative text sizes will scale accordingly.
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "5"
+updated_plot <- plot +
+  labs(title = "Males earn more than females across most occupations",
+       subtitle = subtitle,
+       caption = caption) +
+  theme_minimal(base_size = 7) +
+  theme(
+    plot.title.position = "plot",
+    plot.title = element_text(family = "josefin",
+                              face = "bold",
+                              size = rel(1.7)),
+    plot.subtitle = ggtext::element_textbox(family = "sen",
+                                            size = rel(1.1),
+                                            color = earnings_pal["light_text"],
+                                            # fill = "lightblue", # for debugging 
+                                            width = unit(25, "cm"),
+                                            margin = margin(t = 2, r = 0, b = 6, l = 0),
+                                            padding = margin(t = 5, r = 0, b = 5, l = 0)),
+    plot.caption = ggtext::element_textbox(family = "sen",
+                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
+                                           color = earnings_pal["light_text"],
+                                           # fill = "lightblue", # for debugging
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           width = unit(25, "cm"),
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0),
+                                           padding = margin(t = 10, r = 0, b = 10, l = 0)),
+    strip.text.x = element_text(family = "josefin",
+                                face = "bold",
+                                size = rel(1.1),
+                                hjust = 0),
+    panel.spacing.y = unit(0.5, "cm"),
+    axis.text = element_text(family = "sen",
+                             size = rel(0.8),
+                             color = earnings_pal["light_text"]),
+    axis.title = element_blank()
+  )
+
+updated_plot
+```
+
+---
+
+```{r}
+#| eval: true 
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/1-5x5-basesize7.png")
+```
+
+::: {.center-text .body-text-m}
+{{< fa face-laugh-beam title="a very happy face" >}} Note that we might consider adjusting our margins (e.g. between title and subtitle, between plot and caption), panel spacing, and point size which are defined in absolute units.
+:::
+
+::: {.footer}
+Margins use `unit = "pt"` = 0.35mm by default
+:::
+
+---
+
+## {#summary data-menu-title="Summary"}
+
+[To summarize:]{.slide-title}
+
+<hr>
+
+. . . 
+
+1. **Make sure the resolution used by `{showtext}` for text rendering matches the resolution used by `ggsave()` for saving your plot**
+    - `showtext_opts(dpi = 300)` 
+    - `ggsave(dpi = 300)`
+    - 300 DPI is generally recommended
+
+<br>
+
+. . . 
+
+2. **Use relative text sizes wherever possible**
+    - set a `basesize` in your complete theme
+    - use `rel()` to set relative text sizes
+
+<br>
+
+. . . 
+
+3. **Make absolute size adjustments as necessary** 
+    - e.g. to `{ggtext}` elements, margins, panel spacing, point sizes, etc.
+
+<!-- --- -->
+
+<!-- ## {#additional-resources data-menu-title="Additional resources"} -->
+
+<!-- [Additional resources:]{.slide-title} -->
+
+<!-- <hr> -->
+
+<!-- - **[showtext: Using System Fonts in R Graphics](https://rjournal.github.io/articles/RJ-2015-008/)**, by Yixuan Qiu (an older article, but provides helpful context) -->
+<!-- - **[Understanding text size and resolution in ggplot2](https://www.christophenicault.com/post/understand_size_dimension_ggplot2/){target="_blank"}**, by Christophe Nicault -->
+<!-- - **[Taking Control of Plot Scaling](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/)**, by Thomas Lin Pedersen -->
 

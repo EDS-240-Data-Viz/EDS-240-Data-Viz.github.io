@@ -1116,6 +1116,10 @@ knitr::include_graphics("images/week6/sen.png")
 
 ::::
 
+::: {.footer}
+**Important:** Pick typefaces that have all the *font styles* (e.g. bold, italic) that you want to use. [Sen](https://fonts.google.com/specimen/Sen?query=sen){target="_blank"} does *not* come in an italic style, meaning we won't be able to render any text in the typeface Sen and the font style italic (demonstrated in the next slides). 
+:::
+
 ---
 
 ## {#import-google-fonts data-menu-title="Import Google Fonts"} 
@@ -1164,7 +1168,7 @@ Resulting plot is rendered on the next slide!
 ```{r}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "8,12,16,20,25"
+#| code-line-numbers: "8,12,16,17,20,25"
 updated_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
@@ -1199,7 +1203,7 @@ updated_plot
 ```
 
 ::: {.footer}
-**Note:** Our previously italicized caption is no longer, since Sen does not come in an italicized font style
+**Note:** Our previously italicized caption is no longer, since Sen does not come in an italicized font style. You can choose to leave line 17 (it just won't work) or remove it altogether.
 :::
 
 ---
@@ -1775,7 +1779,7 @@ showtext_auto(FALSE)
 <hr>
 
 ::: {.center-text}
-Saving ggplots with external fonts can still be surprisingly tricky....
+Text elements can cause some annoyances when writing plots to file....
 :::
 
 ```{r}
