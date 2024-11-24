@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 4 | January 27^th^, 2024]{.custom-subtitle3}
+[Week 4 | January 27^th^, 2025]{.custom-subtitle3}
 
 ---
 
@@ -746,12 +746,16 @@ See the output on the next slide.
 ggplot(subset_jobs) +
   
   # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), yend = occupation)) + # reorder occupation by avg_salary here
+  geom_segment(aes(x = total_earnings_female, 
+                   xend = total_earnings_male, 
+                   y = fct_reorder(occupation, total_earnings), 
+                   yend = occupation)) + # reorder occupation by avg_salary here
   geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", size = 2.5) +
+             color = "#CD93D8", 
+             size = 2.5) +
   geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", size = 2.5) +
+             color = "#6A1E99", 
+             size = 2.5) +
   
   # facet wrap by group ----
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
@@ -778,10 +782,16 @@ There are definitely some additional modifications we would need to make before 
 ggplot(subset_jobs) +
   
   # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), yend = occupation)) + # reorder occupation by avg_salary here) 
-  geom_point(aes(x = total_earnings_male, y = occupation), color = "#CD93D8", size = 3) +
-  geom_point(aes(x = total_earnings_female, y = occupation), color = "#6A1E99", size = 3) +
+  geom_segment(aes(x = total_earnings_female, 
+                   xend = total_earnings_male, 
+                   y = fct_reorder(occupation, total_earnings), 
+                   yend = occupation)) + # reorder occupation by avg_salary here) 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", 
+             size = 3) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", 
+             size = 3) +
   
   # facet wrap by group ----
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
