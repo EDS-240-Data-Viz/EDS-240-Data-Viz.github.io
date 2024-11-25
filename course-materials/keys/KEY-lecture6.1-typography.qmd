@@ -160,8 +160,10 @@ See [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot
 #| warning: false
 # recreate original plot ----
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                 y = fct_reorder(occupation, total_earnings), yend = occupation)) +
+  geom_segment(aes(x = total_earnings_female, 
+                   xend = total_earnings_male,
+                   y = fct_reorder(occupation, total_earnings), 
+                   yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
              color = "#CD93D8", size = 3.25) +
   geom_point(aes(x = total_earnings_female, y = occupation),
