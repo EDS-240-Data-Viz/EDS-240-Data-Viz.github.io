@@ -62,7 +62,7 @@ editor_options:
 . . .
 
 ::: {.center-text}
-Familiarity with these chart types and when it's appropriate to use them is super important! They appear often in scientific literature.
+Familiarity with these chart types and when it's appropriate to use them is super important! They appear often in scientific literature, news / media outlets, reports, etc.
 :::
 
 . . . 
@@ -70,6 +70,17 @@ Familiarity with these chart types and when it's appropriate to use them is supe
 ::: {.center-text}
 But they only scratch the surface of data viz possibilities.
 :::
+
+---
+
+<!-- ## {#tbd data-menu-title="Discussion questions"} -->
+
+<!-- [Explore other ]{.slide-title} -->
+
+<!-- <hr> -->
+
+
+
 
 ---
 
@@ -84,7 +95,6 @@ Ranking
 
 Part to whole
 - diverging bar chart
-- waffle chart
 - icon array
 - donut chart
 - treemap
@@ -95,11 +105,162 @@ Distribution
 - strip plot
 
 Evolution
-- stream graph
 - bump chart
 - barcode chart
-- 
 
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/sankey-plastics.png")
+```
+
+::: {.footer}
+**Sankey Diagram**
+
+Source: [The Problem with Plastics](https://informationisbeautiful.net/visualizations/plastic-crisis-pollution-recycling-microplastics-bioplastics/#problem){target="_blank"}, by [David McCandless](https://davidmccandless.com/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/stream-coal.png")
+```
+
+<br>
+
+::: {.footer}
+**Stream graph**
+
+Source: [Coal production since 1900](https://github.com/nrennie/tidytuesday/tree/main/2024/2024-05-21){target="_blank"}, by [Nicola Rennie](https://nrennie.rbind.io/){target="_blank"} (also check out [this gif](https://github.com/nrennie/tidytuesday/blob/main/2024/2024-05-21/20240521.gif){target="_blank"} of her creative process!)
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/waffle-housing.png")
+```
+
+<br>
+
+::: {.footer}
+**Waffle chart**
+
+Source: [Affordable Housing](https://public.tableau.com/app/profile/filippo.mastroianni/viz/AffordableHousing_2/Dashboard1){target="_blank"}, by [Filippo Mastroianni](https://public.tableau.com/app/profile/filippo.mastroianni/vizzes){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/icon-bar-trash.png")
+```
+
+::: {.footer}
+**Pictogram / Icon Array**
+
+Source: [Over 45,000 homes powered by trash](https://github.com/nrennie/tidytuesday/tree/main/2024/2024-03-05){target="_blank"}, by [Nicola Rennie](https://nrennie.rbind.io/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/treemap-trash.png")
+```
+
+<br>
+
+::: {.footer}
+**Treemap** (using the same [#TidyTuesday data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-03-05/readme.md){target="_blank"} as previous viz!)
+
+Source: [The Baltimore Trash Wheel Family](https://github.com/Haclio/TidyTuesday/blob/main/2024/2024-W10/trash.png){target="_blank"}, by [Louis Nadalin](https://bsky.app/profile/louisnadalin.bsky.social){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/heatmap-road-verges.png")
+```
+
+<br>
+
+::: {.footer}
+**Heatmap**
+
+Source: [Stakeholder perceptions of the relative importance of urban services provided by road verges](https://www.researchgate.net/figure/Heatmap-visualisation-of-stakeholder-perceptions-of-the-relative-importance-of-urban_fig2_360983807){target="_blank"}, by [Ligtermoet et al. 2022](https://doi.org/10.1016/j.ufug.2022.127625){target="_blank"}
+:::
+
+---
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/heatmap-seattle-bikes.png")
+```
+
+<br>
+
+::: {.footer}
+**Heatmap**
+
+Source: [Seattle's Bike Counts per Time of Day and Weekday 2014-2019](https://github.com/spren9er/tidytuesday/blob/master/tidytuesday_201914_seattle_bike_counters.r){target="_blank"}, by [Torsten Sprenger](https://www.spren9er.de/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/petalplot-wildfires.png")
+```
+
+<br>
+
+::: {.footer}
+**Chart type?**
+
+Source: [Are California Wildfires Truly Getting Worse?](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/){target="_blank"}, by [Amanda Herbst](https://amandaherbst.github.io/){target="_blank"}
+:::
+
+---
+
+## {#discussion-questions data-menu-title="Discussion questions"}
+
+[Discussion]{.slide-title}
+
+<hr>
+
+- what do you find effective about this data viz?
+- is there any information that's lost when 
+
+- how does this chart type compare to other chart types for displaying similar information (e.g. waffle chart vs. pie chart vs. tree map)
 
 
 
