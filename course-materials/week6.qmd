@@ -19,20 +19,18 @@ knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*Coming soon!*
+### A. Install required packages
 
-<!-- ### A. Install required packages -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- install.packages("monochromeR") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions) -->
-<!-- install.packages("showtext") # for using fonts more easily in R graphs -->
-<!-- install.packages("ggtext") # improved text rendering support for ggplot2 -->
-<!-- install.packages("ggrepel") # ggplot2 extension to repel overlapping labels -->
-<!-- install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4 -->
-<!-- ``` -->
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+install.packages("monochromeR") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)
+install.packages("showtext") # for using fonts more easily in R graphs
+install.packages("ggtext") # improved text rendering support for ggplot2
+install.packages("ggrepel") # ggplot2 extension to repel overlapping labels
+install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4
+```
 
 <!-- ### B. Download Data -->
 
@@ -43,39 +41,43 @@ knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 
 <!-- If you choose (or need) to download and read in these files, be sure to save them to your class repo at `~/week6/data/`. -->
 
-<!-- ### C. Download Font Awesome fonts -->
+### B. Download Font Awesome fonts
 
-<!-- In addition to using Google Fonts in our ggplots, we will also be using some [Font Awesome](https://fontawesome.com/) icons! To do so, you'll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps: -->
+We'll learn how to use [Font Awesome](https://fontawesome.com/) icons in our ggplots. To do so, you'll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:
 
-<!-- 1. **Download Font Awesome fonts:** Go to <https://fontawesome.com/download> and download the latest release available. Choose the **Free For Desktop** option. -->
-<!-- 2. **Unzip the downloaded file:** You should see a folder inside called `otfs/` -- this contains three `.otf` files (aka OpenType font format files) -->
-<!-- 3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `~/fonts/*.otf`) -->
+1. **Download Font Awesome fonts:** Go to <https://fontawesome.com/download> and download the latest release available. Choose the **Free For Desktop** option.
+2. **Unzip the downloaded file:** You should see a folder inside called `otfs/` -- this contains three `.otf` files (aka OpenType font format files)
+3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `~/fonts/*.otf`)
+
+### C. Download .qmd templates & review data wrangling code
+
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week6/` folder.
+
+2. Review setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through all code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}. Specifically:
+    - Template 6.1 begins where we left off in creating our salary plot (in [lecture 4.1](lecture4.1-rankings-slides.qmd){target="_blank"}). Review the code under the `## Setup`, `## Wrangle Data` and `## Recreate original plot` sections to re-familiarize yourself.  
+    - Template 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the `### Setup` and `### Create base plot` sections for both these visualizations.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
 |------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
-| [Lecture 6.1: typography](lecture-slides/lecture6.1-typography-slides.qmd){target="_blank"}  | [6.1 template](){target="_blank"} | [6.1 key](keys/KEY-lecture6.1-typography.qmd){target="_blank"} |
-| [Lecture 6.2: annotations](lecture-slides/lecture6.2-annotations-slides.qmd){target="_blank"} | [6.2 template](){target="_blank"} | [6.2 key](keys/KEY-lecture6.2-annotations.qmd){target="_blank"} |
+| [Lecture 6.1: typography](lecture-slides/lecture6.1-typography-slides.qmd){target="_blank"}  | [6.1 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-lecture6.1-typography.qmd){target="_blank"} | [6.1 key](keys/KEY-lecture6.1-typography.qmd){target="_blank"} |
+| [Lecture 6.2: annotations](lecture-slides/lecture6.2-annotations-slides.qmd){target="_blank"} | [6.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-lecture6.2-annotations.qmd){target="_blank"} | [6.2 key](keys/KEY-lecture6.2-annotations.qmd){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
 
-*Coming soon!*
+### A. Prepare a `week6-discussion.qmd` file
+
+1. Add a new blank file to your class repo at the following location: `EDS-240-class-examples/week6/week6-discussion.qmd.` Fill out the necessary YAML information (title, author, date + any other information you find helpful).
+
+2. Copy over the contents from your `TEMPLATE-lecture6.1-typography.qmd` file -- we'll be iterating on this code during discussion section.
 
 ## {{< fa comments title="two speech bubbles" >}} Discussion Materials {#discussion-materials}
 
-*Coming soon!*
-
-<!-- This week, you'll move beyond the fundamental graphic forms that we covered in lecture and discuss some advanced chart types. These are great options to keep in mind as you continue working on your final project ([HW #4](https://samanthacsik.github.io/EDS-240-data-viz/assignments/HW4.html))! -->
-
-<!-- ::: {.center-text} -->
-<!-- [{{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Week 6 discussion slides](https://docs.google.com/presentation/d/10tk6XawtK0GD-XU4VCkupTOBK4tFW0JamKUeufiqlL0/edit#slide=id.p){.btn role="button" target="_blank"}  -->
-<!-- ::: -->
-
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Discussion Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
 |-------------------|-------------------|--------------|
-| [D6 slides: saving plots](discussion/week6/week6-slides.qmd){target="_blank"} | *see slides* | [D6 solution](discussion/week6/week6-solution.qmd) |
+| [D6 slides: saving plots](discussion/week6/week6-slides.qmd){target="_blank"} | *see pre-discussion prep* | *see D6 slides* |
 : {.hover .bordered tbl-colwidths="[35,35,30]"} 
 
 ## {{< fa pencil title="pencil" >}} Assignment Reminders {#assignment-reminders}
@@ -83,11 +85,11 @@ knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 | Assignment Type | Assignment Title        | Date Assigned  | Date Due                   |
 |-----------------|-------------------------|----------------|----------------------------|
 | EOC             | EOC (week 6)            | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT |
-| HW              | Homework Assignment #3  | Mon 02/10/2025 | Sat 02/22/2025, 11:59pm PT |
+| HW              | Homework Assignment #3  | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT |
 : {.hover .bordered tbl-colwidths="[20,30,20,30]"}
 
 <!-- | Assignment Type | Assignment Title                                     | Date Assigned  | Date Due                   | -->
 <!-- |-----------------|------------------------------------------------------|----------------|----------------------------| -->
 <!-- | EOC             | [EOC (week 6)](https://forms.gle/inCUJQHNCRVbcBBQ6)  | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT | -->
-<!-- | HW              | [Homework Assignment #3](assignments/HW3.qmd)        | Mon 02/10/2025 | Sat 02/22/2025, 11:59pm PT | -->
+<!-- | HW              | [Homework Assignment #3](assignments/HW3.qmd)        | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT | -->
 <!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->

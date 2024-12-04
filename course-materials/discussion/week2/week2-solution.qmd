@@ -19,8 +19,7 @@ description: "Tuesday January 14^th^, 2025"
 library(tidyverse)
 
 #..........................import data...........................
-tuesdata <- tidytuesdayR::tt_load('2021-07-20')
-drought <- tuesdata$drought
+drought <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            wrangle drought data                          ----

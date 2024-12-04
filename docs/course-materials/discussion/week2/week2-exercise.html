@@ -298,34 +298,33 @@ Note
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-7"><a href="#cb1-7"></a></span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">'2021-07-20'</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a>drought <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>drought</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="do">##                            wrangle drought data                          ----</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a>drought_clean <span class="ot">&lt;-</span> drought <span class="sc">|&gt;</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>  <span class="co"># select cols of interest &amp; update names for clarity (as needed) ----</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>  <span class="fu">select</span>(<span class="at">date =</span> valid_start, state_abb, drought_lvl, area_pct) <span class="sc">|&gt;</span> </span>
-<span id="cb1-20"><a href="#cb1-20"></a></span>
-<span id="cb1-21"><a href="#cb1-21"></a>  <span class="co"># add year, month &amp; day cols using {lubridate} fxns ----</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
-<span id="cb1-24"><a href="#cb1-24"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-25"><a href="#cb1-25"></a>         <span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a>  <span class="co"># add drought level conditions names ----</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">mutate</span>(<span class="at">drought_lvl_long =</span> <span class="fu">factor</span>(drought_lvl,</span>
-<span id="cb1-29"><a href="#cb1-29"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"D4"</span>, <span class="st">"D3"</span>, <span class="st">"D2"</span>, <span class="st">"D1"</span>,<span class="st">"D0"</span>, <span class="st">"None"</span>),</span>
-<span id="cb1-30"><a href="#cb1-30"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"(D4) Exceptional"</span>, <span class="st">"(D3) Extreme"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, </span>
-<span id="cb1-32"><a href="#cb1-32"></a>                                       <span class="st">"(D0) Abnormally Dry"</span>, </span>
-<span id="cb1-33"><a href="#cb1-33"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a>  </span>
-<span id="cb1-35"><a href="#cb1-35"></a>  <span class="co"># reorder cols ----</span></span>
-<span id="cb1-36"><a href="#cb1-36"></a>  <span class="fu">relocate</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9"></a>drought <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="do">##                            wrangle drought data                          ----</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>drought_clean <span class="ot">&lt;-</span> drought <span class="sc">|&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="co"># select cols of interest &amp; update names for clarity (as needed) ----</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">select</span>(<span class="at">date =</span> valid_start, state_abb, drought_lvl, area_pct) <span class="sc">|&gt;</span> </span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="co"># add year, month &amp; day cols using {lubridate} fxns ----</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
+<span id="cb1-23"><a href="#cb1-23"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-24"><a href="#cb1-24"></a>         <span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="co"># add drought level conditions names ----</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">mutate</span>(<span class="at">drought_lvl_long =</span> <span class="fu">factor</span>(drought_lvl,</span>
+<span id="cb1-28"><a href="#cb1-28"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"D4"</span>, <span class="st">"D3"</span>, <span class="st">"D2"</span>, <span class="st">"D1"</span>,<span class="st">"D0"</span>, <span class="st">"None"</span>),</span>
+<span id="cb1-29"><a href="#cb1-29"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"(D4) Exceptional"</span>, <span class="st">"(D3) Extreme"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, </span>
+<span id="cb1-31"><a href="#cb1-31"></a>                                       <span class="st">"(D0) Abnormally Dry"</span>, </span>
+<span id="cb1-32"><a href="#cb1-32"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  </span>
+<span id="cb1-34"><a href="#cb1-34"></a>  <span class="co"># reorder cols ----</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">relocate</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>We still need to filter for just California data and remove any observations where <code>drought_lvl</code> is <code>"None"</code>. It makes some sense to perform these filters separate from our data wrangling code (in case we ever want to use <code>drought_clean</code> to make a similar plot for a different state(s)). Let’s filter <code>drought_clean</code>, then pipe directly into our gpplot:</li>
