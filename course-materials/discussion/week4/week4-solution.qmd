@@ -25,8 +25,7 @@ Your plot will appear slightly different in the RStudio plot window vs. a zoom w
 library(tidyverse)
 
 #..........................import data...........................
-tuesdata <- tidytuesdayR::tt_load('2021-07-20')
-drought <- tuesdata$drought
+drought <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            wrangle drought data                          ----

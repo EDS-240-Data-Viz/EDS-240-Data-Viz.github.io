@@ -23,8 +23,7 @@ It's up to you to organize your own `week3-discussion.qmd` file (i.e. there is n
 library(tidyverse)
 
 #..........................import data...........................
-tuesdata <- tidytuesdayR::tt_load('2021-07-20')
-drought <- tuesdata$drought
+drought <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            wrangle drought data                          ----
