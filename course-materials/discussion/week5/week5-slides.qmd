@@ -15,7 +15,7 @@ editor_options:
 
 [EDS 240: Discussion 5]{.custom-title}
 
-[*Non-standard chart types*]{.custom-subtitle}
+[*Beyond fundamental chart types*]{.custom-subtitle}
 
 <hr class="hr-dark-blue">
 
@@ -73,40 +73,77 @@ But they only scratch the surface of data viz possibilities.
 
 ---
 
-<!-- ## {#tbd data-menu-title="Discussion questions"} -->
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/datylon-charts1.png")
+```
+:::
 
-<!-- [Explore other ]{.slide-title} -->
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/datylon-charts2.png")
+```
+:::
 
-<!-- <hr> -->
+::::
 
-
-
+::: {.footer}
+A non-exhaustive list of some familiar and some not-so-familiar chart types. Source: [Datylon](https://www.datylon.com/blog/types-of-charts-graphs-examples-data-visualization){target="_blank"}
+:::
 
 ---
 
-But there are so many more!
+## {#discussin data-menu-title="Discussion"}
 
-- ternary plot
+[Explore some cool new chart type!]{.slide-title}
 
-Ranking
-- radar plot
-- petal plot
-- dot plot
+<hr>
 
-Part to whole
-- diverging bar chart
-- icon array
-- donut chart
-- treemap
-- sunburst chart
+The following slides showcase some examples of chart types that we *haven't* explored yet in lecture, or are a sort of reimagination of the chart types we *have* discussed.
 
-Distribution
-- radial histogram
-- strip plot
+. . . 
 
-Evolution
-- bump chart
-- barcode chart
+<br>
+
+**With a partner, explore and discuss some of the following data viz** (**or bring your own**; check out the [resources page](../../../resources.qmd){target="_blank"} if you're looking for inspiration). Some question prompts to get you started:  
+
+<br>
+
+- what do you find effective about this data viz?
+- is there any information that's lost or difficult to gather when presenting data in this way?
+- what other chart types might you use to display these same data? what do you see as pros / cons of these various options?
+- what aspects do you really love? why?
+
+<br>
+
+::: {.center-text .body-text-m}
+**Everyone should be prepared to share your thoughts with the class!**
+:::
+
+```{r}
+countdown::countdown(
+  minutes = 25,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 
 ---
 
@@ -167,6 +204,24 @@ Source: [Affordable Housing](https://public.tableau.com/app/profile/filippo.mast
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
+knitr::include_graphics("images/radar-energy.gif")
+```
+
+<br>
+
+::: {.footer}
+**Radar / Spider Plot**
+
+Source: [Changing energy consumption across G7 countries 2000-2020](https://github.com/Rosie23/TidyTuesday/blob/main/EnergyRadarPlot.gif){target="_blank"}, by [Rosie Griffiths](https://github.com/Rosie23){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
 knitr::include_graphics("images/icon-bar-trash.png")
 ```
 
@@ -189,9 +244,27 @@ knitr::include_graphics("images/treemap-trash.png")
 <br>
 
 ::: {.footer}
-**Treemap** (using the same [#TidyTuesday data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-03-05/readme.md){target="_blank"} as previous viz!)
+**Treemap** 
+
+(using the same [#TidyTuesday data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-03-05/readme.md){target="_blank"} as previous viz!)
 
 Source: [The Baltimore Trash Wheel Family](https://github.com/Haclio/TidyTuesday/blob/main/2024/2024-W10/trash.png){target="_blank"}, by [Louis Nadalin](https://bsky.app/profile/louisnadalin.bsky.social){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/voronoi-treemap-time.png")
+```
+
+::: {.footer}
+**Voronoi Treemap**
+
+Source: [How do we spend our time?](https://github.com/nrennie/tidytuesday/tree/main/2023/2023-09-12){target="_blank"}, by [Nicola Rennie](https://nrennie.rbind.io/){target="_blank"}
 :::
 
 ---
@@ -238,6 +311,241 @@ Source: [Seattle's Bike Counts per Time of Day and Weekday 2014-2019](https://gi
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
+knitr::include_graphics("images/bump-data-sources.png")
+```
+
+<br>
+
+::: {.footer}
+**Bump Chart**
+
+Source: [Top domains fo TidyTuesday data sources](https://github.com/gkaramanis/tidytuesday/tree/master/2024/2024-week_27){target="_blank"}, by [Georgios Karamanis](https://karaman.is/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-asp: 0.6
+#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(ggbump)
+library(ggtext)
+library(showtext)
+
+#..........................import data...........................
+jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+
+#..........................import fonts..........................
+font_add_google(name = "Passion One", family = "passion")
+font_add_google(name = "Oxygen", family = "oxygen")
+
+#................enable {showtext} for rendering.................
+showtext_auto()
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#...................rank occupations by salary...................
+salary_rank_by_year <- jobs |> 
+  select(year, occupation, total_earnings) |> 
+  group_by(year) |> 
+  mutate(
+    rank = row_number(desc(total_earnings))
+  ) |> 
+  ungroup() |> 
+  arrange(rank, year)
+
+#..........get top 8 occupations for final year (2016)...........
+top2016 <- salary_rank_by_year |>  
+  filter(year == 2016, rank <= 8) |>  
+  pull(occupation) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                 bump chart                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.................create palette & assign colors.................
+occupations_palette <- viridisLite::magma(12)
+occupation_colors <- c(
+  "Physicians and surgeons" = occupations_palette[3],
+  "Nurse anesthetists" = occupations_palette[4],
+  "Dentists" = occupations_palette[5],
+  "Architectural and engineering managers" = occupations_palette[6],
+  "Lawyers" = occupations_palette[7], 
+  "Podiatrists" = occupations_palette[8],
+  "Chief executives" = occupations_palette[9],
+  "Petroleum engineers" = occupations_palette[10]
+)
+
+plot_palette <- c(dark_purple = "#2A114E", 
+                  dark_gray = "#6D6B71",
+                  light_pink = "#FFF8F4")
+
+#.......................create plot labels.......................
+title <- "Top eight highest paying occupations in 2016"
+subtitle <- "Medical professionals held onto the same top three spots across years, while <span style='color:#FEA873FF;'>**petroleum engineers**</span> steadily climbed the ranks from 10^th^ in 2013 to 4^th^ in 2016"
+caption <- "Data Source: Bureau of Labor Statistics"
+
+#........................create bump chart.......................
+salary_rank_by_year |>  
+  filter(occupation %in% top2016) |>  
+  ggplot(aes(x = year, y = rank, color = occupation)) + 
+  geom_point(shape = "|", size = 6) + 
+  geom_bump(linewidth = 1) +
+  geom_text(
+    data = salary_rank_by_year |> filter(year == 2013, occupation %in% top2016),
+    aes(label = occupation),
+    hjust = 1,
+    nudge_x = -0.1,
+    family = "oxygen",
+    fontface = "bold"
+  ) +
+  geom_text(
+    data = salary_rank_by_year |> filter(year == 2016, occupation %in% top2016),
+    aes(label = rank),
+    hjust = 0,
+    nudge_x = 0.1,
+    size = 5,
+    family = "oxygen",
+    fontface = "bold"
+  ) +
+  annotate(
+    geom = "text",
+    x = c(2013, 2016),
+    y = c(-0.2, -0.2),
+    label = c("2013", "2016"),
+    hjust = c(0, 1),
+    vjust = 1,
+    size = 5,
+    family = "oxygen",
+    fontface = "bold",
+    color = plot_palette["dark_gray"],
+  ) +
+  scale_y_reverse() +
+  scale_color_manual(values = occupation_colors) +
+  coord_cartesian(xlim = c(2010, 2016), ylim = c(11, 0.25), 
+                  clip = "off") +
+  labs(title = title,
+       subtitle = subtitle,
+       caption = caption) +
+  theme_void() +
+  theme(
+    legend.position = "blank",
+    plot.title = element_text(family = "passion",
+                              size = 25,
+                              color = plot_palette["dark_purple"],
+                              margin = margin(t = 0, r = 0, b = 0.3, l = 0, "cm")),
+    plot.subtitle = element_textbox_simple(family = "oxygen",
+                                           size = 15,
+                                           color = plot_palette["dark_gray"],
+                                           margin = margin(t = 0, r = 0, b = 1, l = 0, "cm")),
+    plot.caption = element_text(family = "oxygen",
+                                color = plot_palette["dark_gray"],
+                                margin = margin(t = 0.3, r = 0, b = 0, l = 0, "cm")),
+    plot.background = element_rect(fill = plot_palette["light_pink"],
+                                   color = plot_palette["light_pink"]),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
+  )
+
+```
+
+<br>
+
+::: {.footer}
+**Bump Chart**
+
+(using the same [TidyTuesday data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2019/2019-03-05/readme.md){target="_blank"} as our dumbbell chart from weeks [4](../../week4.qmd){target="_blank"} & [6](../../week6.qmd){target="_blank"})
+
+Source: [Top eight highest paying occupations in 2016](../../lecture-slides/lecture-10.1-misc-chart-slides.qmd){target="_blank"}, by [Sam Csik](https://samanthacsik.github.io){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/area-bump-refugees.png")
+```
+
+<br>
+
+::: {.footer}
+**Area Bump Chart**
+
+Source: [Where do the 22 millin refugees in Europe come from?](https://github.com/gkaramanis/tidytuesday/tree/master/2023/2023-week_34){target="_blank"}, by [Georgios Karamanis](https://karaman.is/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/bubble-life-expectency.png")
+```
+
+<br>
+
+::: {.footer}
+**Strip Plot x Bubble Chart**
+
+Source: [Global demographics: life expectency and population](https://github.com/gkaramanis/tidytuesday/tree/master/2024/2024-week_43){target="_blank"}, by [Georgios Karamanis](https://karaman.is/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/circular-bar-bees.png")
+```
+
+<br>
+
+::: {.footer}
+**Circular Bar Chart**
+
+Source: [Top 10 species present at vertically-oriented vinyard types](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/#what-are-the-top-10-species-present-at-a-vertically-oriented-vineyard-type){target="_blank"} (part of a larger [infographic](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/#the-product){target="_blank"}), by [Melissa Widas](https://mwidas.github.io/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/unknown-dot-protests.png")
+```
+
+<br>
+
+::: {.footer}
+**Chart type?**
+
+Source: [Mapping the conflict in Israel and Gaza](https://www.reuters.com/graphics/ISRAEL-PALESTINIANS/MAPS/movajdladpa/#closure-of-rafah-crossing-imperils-humanitarian-aid-in-gaza){target="_blank"}, by [Mariano Zafra](https://www.reuters.com/authors/mariano-zafra/){target="_blank"} & [John McClure](https://www.reuters.com/authors/jon-mcclure/){target="_blank"}
+:::
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
 knitr::include_graphics("images/petalplot-wildfires.png")
 ```
 
@@ -249,18 +557,8 @@ knitr::include_graphics("images/petalplot-wildfires.png")
 Source: [Are California Wildfires Truly Getting Worse?](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/){target="_blank"}, by [Amanda Herbst](https://amandaherbst.github.io/){target="_blank"}
 :::
 
----
 
-## {#discussion-questions data-menu-title="Discussion questions"}
 
-[Discussion]{.slide-title}
-
-<hr>
-
-- what do you find effective about this data viz?
-- is there any information that's lost when 
-
-- how does this chart type compare to other chart types for displaying similar information (e.g. waffle chart vs. pie chart vs. tree map)
 
 
 
