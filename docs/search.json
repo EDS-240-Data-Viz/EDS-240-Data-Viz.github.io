@@ -2965,7 +2965,7 @@
     "href": "course-materials/week8.html#discussion-materials",
     "title": "Data storytelling, People as data",
     "section": " Discussion Materials",
-    "text": "Discussion Materials\n\n\n\n\n\n\nTODO\n\n\n\nupdate D8 slides with tip\n\n\n\n\n\n\n\n\n\n\n Discussion Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nD8 slides: critiquing data viz\nNA\nNA\n\n\nGoogle Slides for the 1pm Section & 2pm Section\nNA\nNA"
+    "text": "Discussion Materials\n\n\n\n\n\n\n\n\n Discussion Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nD8 slides: critiquing data viz\nNA\nNA\n\n\nGoogle Slides for the 1pm Section & 2pm Section\nNA\nNA"
   },
   {
     "objectID": "course-materials/week8.html#assignment-reminders",
@@ -3010,67 +3010,46 @@
     "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nHW\nHomework Assignment #2\nTue 01/21/2025\nTue 02/04/2025, 11:59pm PT"
   },
   {
-    "objectID": "course-materials/discussion/week4/week4-solution.html",
-    "href": "course-materials/discussion/week4/week4-solution.html",
-    "title": "Week 4 Discussion: Solution",
+    "objectID": "course-materials/week10.html#pre-class-prep",
+    "href": "course-materials/week10.html#pre-class-prep",
+    "title": "Grab bag, Catch up & Review",
+    "section": " Pre-class Prep",
+    "text": "Pre-class Prep\nComing soon!"
+  },
+  {
+    "objectID": "course-materials/week10.html#lecture-materials",
+    "href": "course-materials/week10.html#lecture-materials",
+    "title": "Grab bag, Catch up & Review",
+    "section": " Lecture Materials",
+    "text": "Lecture Materials\nComing soon!"
+  },
+  {
+    "objectID": "course-materials/week10.html#discussion-materials",
+    "href": "course-materials/week10.html#discussion-materials",
+    "title": "Grab bag, Catch up & Review",
+    "section": " Discussion Materials",
+    "text": "Discussion Materials\nComing soon!"
+  },
+  {
+    "objectID": "course-materials/week10.html#assignment-reminders",
+    "href": "course-materials/week10.html#assignment-reminders",
+    "title": "Grab bag, Catch up & Review",
+    "section": " Assignment Reminders",
+    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nEOC\nEOC (week 10)\nMon 03/10/2025\nMon 03/10/2025, 11:55pm PT\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025, 11:59pm PT"
+  },
+  {
+    "objectID": "course-materials/discussion/week4/week4-exercise.html",
+    "href": "course-materials/discussion/week4/week4-exercise.html",
+    "title": "Week 4 Discussion: Exercise",
     "section": "",
-    "text": "NOTE: Use the Zoom button to check out your plot\n\n\n\nYour plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc – I recommend checking it out in the zoom window while you iterate.\nImportantly, how you theme a data visualization depends on how you plan to package / present it. For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc.\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n  # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\") +\n  \n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                                                            --\n##------------------------- NEWLY ADDED THEME CODE!-----------------------------\n##                                                                            --\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  # set theme minimal (includes major/minor grid lines, no axes) ----\n  theme_minimal() +\n  \n  # fine-tune adjustments to plot theme ----\n  theme(\n    \n    # update axis lines & ticks color ----\n    axis.line = element_line(color = \"#5A9CD6\"),\n    axis.ticks = element_line(color = \"#5A9CD6\"),\n    \n    # adjust length of axis ticks ----\n    axis.ticks.length = unit(.2, \"cm\"),\n    \n    # center plot title ----\n    plot.title = element_text(hjust = 0.5, color = \"#686868\", size = 20,\n                              margin = margin(t = 10, r = 0, b = 15, l = 0)),\n    \n    # remove axis & legend titles ----\n    axis.title = element_blank(),\n    legend.title = element_blank(),\n    \n    # axis text color & size ----\n    axis.text = element_text(color = \"#686868\", size = 12),\n    legend.text = element_text(color = \"#686868\", size = 12),\n    \n    # move legend below plot ----\n    legend.position = \"bottom\",\n    legend.key.width = unit(0.4, \"cm\"),\n    legend.key.height = unit(0.25, \"cm\"),\n    \n    plot.background = element_rect(color = \"#686868\"),\n    plot.margin = margin(t = 10, r = 10, b = 10, l = 10)\n  )"
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-discussion.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\n\nBegin by copying the following setup, data wrangling, and ggplot code from week 2 discussion section into your week4-discussion.qmd file.\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n  # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\")\n\n\nIterate on this ggplot until it closely resembles the original USDM plot. Tip: begin with a complete theme, then use theme() to tweak plot elements from there.\n\n\n\n\n\n\n\nUse the Zoom button to check out your plot as you iterate\n\n\n\nYour plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc – I recommend checking it out in the zoom window while you iterate.\nImportantly, how you theme a data visualization depends on how you plan to package / present it. For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc. We’ll explore this idea more during week 6 discussion!"
   },
   {
-    "objectID": "course-materials/discussion/week3/week3-solution.html",
-    "href": "course-materials/discussion/week3/week3-solution.html",
-    "title": "Week 3 Discussion: Solution",
+    "objectID": "course-materials/discussion/week2/week2-solution.html",
+    "href": "course-materials/discussion/week2/week2-solution.html",
+    "title": "Week 2 Discussion: Solution",
     "section": "",
-    "text": "Your answers might look a bit different! Discuss with your own answers with one another.\n\n\n\nWhile you should generally follow the alt text formula, your final answers may look a bit different than those listed here."
-  },
-  {
-    "objectID": "course-materials/discussion/week3/week3-solution.html#example-1-palmerpenguins-ggplot",
-    "href": "course-materials/discussion/week3/week3-solution.html#example-1-palmerpenguins-ggplot",
-    "title": "Week 3 Discussion: Solution",
-    "section": "Example 1: {palmerpenguins} ggplot",
-    "text": "Example 1: {palmerpenguins} ggplot\nAlt text: A histogram of penguin body masses where Gentoo penguins have body masses that are about 37% larger than Adelie and Chinstrap penguins."
-  },
-  {
-    "objectID": "course-materials/discussion/week3/week3-solution.html#example-2-from-the-new-york-times",
-    "href": "course-materials/discussion/week3/week3-solution.html#example-2-from-the-new-york-times",
-    "title": "Week 3 Discussion: Solution",
-    "section": "Example 2 (from The New York Times):",
-    "text": "Example 2 (from The New York Times):\nAlt text: A dot plot of monthly global temperatures compared to the 20th-century average, where monthly global temperatures are increasing over time. Nearly every month since the mid-1970s is warmer than the 20th-century average, with 12 record-breaking hot months occurring between 2015-2023."
-  },
-  {
-    "objectID": "course-materials/discussion/week3/week3-solution.html#example-3-fig-1a-from-chapman-et-al.-2024",
-    "href": "course-materials/discussion/week3/week3-solution.html#example-3-fig-1a-from-chapman-et-al.-2024",
-    "title": "Week 3 Discussion: Solution",
-    "section": "Example 3 (Fig 1A from Chapman et al. 2024):",
-    "text": "Example 3 (Fig 1A from Chapman et al. 2024):\nAlt text: A heatmap of global species observations where the highest concentration of observations occur in high-income countries, particularly in the USA and European nations."
-  },
-  {
-    "objectID": "assignments.html",
-    "href": "assignments.html",
-    "title": "Assignments",
-    "section": "",
-    "text": "Earning “Satisfactory” marks on Self-reflections (SRs) and Homework Assignments (HWs) will determine your letter grade (e.g. A, B, etc.) for this course. All SRs and HWs are due at 11:59pm on the dates specified, below:\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2025\nSat 01/11/2025\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nTue 01/21/2025\n\n\nHW\nHomework Assignment #2\nTue 01/21/2025\nTue 02/04/2025\n\n\nSR\nMid-course reflection (SR #2)\nMon 02/03/2025\nSat 02/08/2025\n\n\nHW\nHomework Assignment #3\nTue 02/11/2025\nTue 02/25/2025\n\n\nHW\nHomework Assignment #4\nTue 02/25/2025\nTue 03/11/2025\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025\n\n\nHW (final presentation)\nHomework Assignment #4 (presentation)\nNA\nTBD (finals week)"
-  },
-  {
-    "objectID": "assignments.html#assignments",
-    "href": "assignments.html#assignments",
-    "title": "Assignments",
-    "section": "",
-    "text": "Earning “Satisfactory” marks on Self-reflections (SRs) and Homework Assignments (HWs) will determine your letter grade (e.g. A, B, etc.) for this course. All SRs and HWs are due at 11:59pm on the dates specified, below:\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2025\nSat 01/11/2025\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nTue 01/21/2025\n\n\nHW\nHomework Assignment #2\nTue 01/21/2025\nTue 02/04/2025\n\n\nSR\nMid-course reflection (SR #2)\nMon 02/03/2025\nSat 02/08/2025\n\n\nHW\nHomework Assignment #3\nTue 02/11/2025\nTue 02/25/2025\n\n\nHW\nHomework Assignment #4\nTue 02/25/2025\nTue 03/11/2025\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025\n\n\nHW (final presentation)\nHomework Assignment #4 (presentation)\nNA\nTBD (finals week)"
-  },
-  {
-    "objectID": "assignments.html#end-of-class-surveys",
-    "href": "assignments.html#end-of-class-surveys",
-    "title": "Assignments",
-    "section": "End-of-class surveys",
-    "text": "End-of-class surveys\nEnd-of-class surveys (EOCs) will become available at the end of each class (Mondays) and are due by end-of-day (11:55pm PT). Completing EOCs by the due dates / times will, in-part (along with class attendance), determine whether you earn a +/- on your course grade.\n\n\n\nEOC link\nDate Assigned\nDate Due\n\n\n\n\nEOC (week 1)\nMon 01/06/2025\nMon 01/06/2025\n\n\nEOC (week 2)\nMon 01/13/2025\nMon 01/13/2025\n\n\nNo lecture or EOC (week 3)\nNA\nNA\n\n\nEOC (week 4)\nMon 01/27/2025\nMon 01/27/2025\n\n\nEOC (week 5)\nMon 02/03/2025\nMon 02/03/2025\n\n\nEOC (week 6)\nMon 02/10/2025\nMon 02/10/2025\n\n\nNo lecture or EOC (week 7)\nNA\nNA\n\n\nEOC (week 8)\nMon 02/24/2025\nMon 02/24/2025\n\n\nEOC (week 9)\nMon 03/03/2025\nMon 03/03/2025\n\n\nEOC (week 10)\nMon 03/10/2025\nMon 03/10/2025"
-  },
-  {
-    "objectID": "assignments.html#grade-tracker",
-    "href": "assignments.html#grade-tracker",
-    "title": "Assignments",
-    "section": "Grade Tracker",
-    "text": "Grade Tracker\nUse the Grade Tracker, below, to determine your course grade:\n\n\n\n\n\n\n\n\n\nRedeem tokens in exchange for assignment extensions, missing class, or to revise / resubmit an assignment that received a “Not Yet” mark."
+    "text": "##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\")"
   },
   {
     "objectID": "course-materials/discussion/week8/week8-slides.html#title-slide",
@@ -3105,7 +3084,14 @@
     "href": "course-materials/discussion/week8/week8-slides.html#context",
     "title": "EDS 240",
     "section": "",
-    "text": "Data viz tip / reminder of the week\n\ntbd"
+    "text": "Data viz thought exercise of the week\n\n\nLearn some simple tips on questioning, interpreting, and truly understanding what numbers are saying"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/old/random-notes.html",
+    "href": "course-materials/lecture-slides/old/random-notes.html",
+    "title": "random things to find a place for",
+    "section": "",
+    "text": "plot data directly\ne.g. plot income and expenses as separate lines or just plot a singe net income line? (latter) plot your data directly, if difference matters more, plot the difference! (need environmental example here)\n\nSOME TIPS\n\nbaselines\nbreaking up plots when data vary so much that presenting them all on a single chart renders it useless (e.g. use fracking data?)\nordering variables / categories – e.g. see trends across age groups by grouping bars by media (see pg 139) (NEED EDS EXAMPLE HERE)\n\n\nuse logical & meaningful baselines\n\nbar, lollipops, histograms, etc should always have a 0 baseline – cannot truncate when main visual cue is height/length measured from a common baseline\nscatterplot, line graph, ec. – can be okay to truncate axes since main visual cue is position, not height/length"
   },
   {
     "objectID": "course-materials/assignments/SR3-endcourse.html",
@@ -3171,13 +3157,6 @@
     "text": "Rubric (specifications)\nYou must complete the following, as detailed below, to receive a “Satisfactory” mark for this Mid-course reflection:\nComplete the following steps in your GitHub Classroom repo (eds240-sr2-username/SR2-midcourse-reflection.qmd):\n\nInclude your preferred name in the author field of the SR2-precourse-reflection.qmd YAML.\nAnswer all 8 questions, above. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.\nPush SR2-midcourse-reflection.qmd to GitHub using GitHub Classrooms by 11:59pm PT on Sat 02/03/2025"
   },
   {
-    "objectID": "course-materials/lecture-slides/old/random-notes.html",
-    "href": "course-materials/lecture-slides/old/random-notes.html",
-    "title": "random things to find a place for",
-    "section": "",
-    "text": "plot data directly\ne.g. plot income and expenses as separate lines or just plot a singe net income line? (latter) plot your data directly, if difference matters more, plot the difference! (need environmental example here)\n\nSOME TIPS\n\nbaselines\nbreaking up plots when data vary so much that presenting them all on a single chart renders it useless (e.g. use fracking data?)\nordering variables / categories – e.g. see trends across age groups by grouping bars by media (see pg 139) (NEED EDS EXAMPLE HERE)\n\n\nuse logical & meaningful baselines\n\nbar, lollipops, histograms, etc should always have a 0 baseline – cannot truncate when main visual cue is height/length measured from a common baseline\nscatterplot, line graph, ec. – can be okay to truncate axes since main visual cue is position, not height/length"
-  },
-  {
     "objectID": "course-materials/discussion/week7/week7-slides.html#title-slide",
     "href": "course-materials/discussion/week7/week7-slides.html#title-slide",
     "title": "EDS 240",
@@ -3210,49 +3189,77 @@
     "href": "course-materials/discussion/week7/week7-slides.html#context",
     "title": "EDS 240",
     "section": "",
-    "text": "Data viz tip / reminder of the week\n\n\nConsider how adding context can make your visualization more compelling / tell a more complete story"
+    "text": "Data viz thought exercise of the week\n\n\nConsider how adding context can make your visualization more compelling / tell a more complete story"
   },
   {
-    "objectID": "course-materials/discussion/week2/week2-solution.html",
-    "href": "course-materials/discussion/week2/week2-solution.html",
-    "title": "Week 2 Discussion: Solution",
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "Assignments",
     "section": "",
-    "text": "##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\")"
+    "text": "Earning “Satisfactory” marks on Self-reflections (SRs) and Homework Assignments (HWs) will determine your letter grade (e.g. A, B, etc.) for this course. All SRs and HWs are due at 11:59pm on the dates specified, below:\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2025\nSat 01/11/2025\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nTue 01/21/2025\n\n\nHW\nHomework Assignment #2\nTue 01/21/2025\nTue 02/04/2025\n\n\nSR\nMid-course reflection (SR #2)\nMon 02/03/2025\nSat 02/08/2025\n\n\nHW\nHomework Assignment #3\nTue 02/11/2025\nTue 02/25/2025\n\n\nHW\nHomework Assignment #4\nTue 02/25/2025\nTue 03/11/2025\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025\n\n\nHW (final presentation)\nHomework Assignment #4 (presentation)\nNA\nTBD (finals week)"
   },
   {
-    "objectID": "course-materials/discussion/week4/week4-exercise.html",
-    "href": "course-materials/discussion/week4/week4-exercise.html",
-    "title": "Week 4 Discussion: Exercise",
+    "objectID": "assignments.html#assignments",
+    "href": "assignments.html#assignments",
+    "title": "Assignments",
     "section": "",
-    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-discussion.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\n\nBegin by copying the following setup, data wrangling, and ggplot code from week 2 discussion section into your week4-discussion.qmd file.\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n  # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\")\n\n\nIterate on this ggplot until it closely resembles the original USDM plot. Tip: begin with a complete theme, then use theme() to tweak plot elements from there.\n\n\n\n\n\n\n\nUse the Zoom button to check out your plot as you iterate\n\n\n\nYour plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc – I recommend checking it out in the zoom window while you iterate.\nImportantly, how you theme a data visualization depends on how you plan to package / present it. For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc. We’ll explore this idea more during week 6 discussion!"
+    "text": "Earning “Satisfactory” marks on Self-reflections (SRs) and Homework Assignments (HWs) will determine your letter grade (e.g. A, B, etc.) for this course. All SRs and HWs are due at 11:59pm on the dates specified, below:\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2025\nSat 01/11/2025\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nTue 01/21/2025\n\n\nHW\nHomework Assignment #2\nTue 01/21/2025\nTue 02/04/2025\n\n\nSR\nMid-course reflection (SR #2)\nMon 02/03/2025\nSat 02/08/2025\n\n\nHW\nHomework Assignment #3\nTue 02/11/2025\nTue 02/25/2025\n\n\nHW\nHomework Assignment #4\nTue 02/25/2025\nTue 03/11/2025\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025\n\n\nHW (final presentation)\nHomework Assignment #4 (presentation)\nNA\nTBD (finals week)"
   },
   {
-    "objectID": "course-materials/week10.html#pre-class-prep",
-    "href": "course-materials/week10.html#pre-class-prep",
-    "title": "Grab bag, Catch up & Review",
-    "section": " Pre-class Prep",
-    "text": "Pre-class Prep\nComing soon!"
+    "objectID": "assignments.html#end-of-class-surveys",
+    "href": "assignments.html#end-of-class-surveys",
+    "title": "Assignments",
+    "section": "End-of-class surveys",
+    "text": "End-of-class surveys\nEnd-of-class surveys (EOCs) will become available at the end of each class (Mondays) and are due by end-of-day (11:55pm PT). Completing EOCs by the due dates / times will, in-part (along with class attendance), determine whether you earn a +/- on your course grade.\n\n\n\nEOC link\nDate Assigned\nDate Due\n\n\n\n\nEOC (week 1)\nMon 01/06/2025\nMon 01/06/2025\n\n\nEOC (week 2)\nMon 01/13/2025\nMon 01/13/2025\n\n\nNo lecture or EOC (week 3)\nNA\nNA\n\n\nEOC (week 4)\nMon 01/27/2025\nMon 01/27/2025\n\n\nEOC (week 5)\nMon 02/03/2025\nMon 02/03/2025\n\n\nEOC (week 6)\nMon 02/10/2025\nMon 02/10/2025\n\n\nNo lecture or EOC (week 7)\nNA\nNA\n\n\nEOC (week 8)\nMon 02/24/2025\nMon 02/24/2025\n\n\nEOC (week 9)\nMon 03/03/2025\nMon 03/03/2025\n\n\nEOC (week 10)\nMon 03/10/2025\nMon 03/10/2025"
   },
   {
-    "objectID": "course-materials/week10.html#lecture-materials",
-    "href": "course-materials/week10.html#lecture-materials",
-    "title": "Grab bag, Catch up & Review",
-    "section": " Lecture Materials",
-    "text": "Lecture Materials\nComing soon!"
+    "objectID": "assignments.html#grade-tracker",
+    "href": "assignments.html#grade-tracker",
+    "title": "Assignments",
+    "section": "Grade Tracker",
+    "text": "Grade Tracker\nUse the Grade Tracker, below, to determine your course grade:\n\n\n\n\n\n\n\n\n\nRedeem tokens in exchange for assignment extensions, missing class, or to revise / resubmit an assignment that received a “Not Yet” mark."
   },
   {
-    "objectID": "course-materials/week10.html#discussion-materials",
-    "href": "course-materials/week10.html#discussion-materials",
-    "title": "Grab bag, Catch up & Review",
-    "section": " Discussion Materials",
-    "text": "Discussion Materials\nComing soon!"
+    "objectID": "course-materials/discussion/week3/week3-solution.html",
+    "href": "course-materials/discussion/week3/week3-solution.html",
+    "title": "Week 3 Discussion: Solution",
+    "section": "",
+    "text": "Your answers might look a bit different! Discuss with your own answers with one another.\n\n\n\nWhile you should generally follow the alt text formula, your final answers may look a bit different than those listed here."
   },
   {
-    "objectID": "course-materials/week10.html#assignment-reminders",
-    "href": "course-materials/week10.html#assignment-reminders",
-    "title": "Grab bag, Catch up & Review",
-    "section": " Assignment Reminders",
-    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nEOC\nEOC (week 10)\nMon 03/10/2025\nMon 03/10/2025, 11:55pm PT\n\n\nSR\nEnd-of-course reflection (SR #3)\nMon 03/10/2025\nSat 03/15/2025, 11:59pm PT"
+    "objectID": "course-materials/discussion/week3/week3-solution.html#example-1-palmerpenguins-ggplot",
+    "href": "course-materials/discussion/week3/week3-solution.html#example-1-palmerpenguins-ggplot",
+    "title": "Week 3 Discussion: Solution",
+    "section": "Example 1: {palmerpenguins} ggplot",
+    "text": "Example 1: {palmerpenguins} ggplot\nAlt text: A histogram of penguin body masses where Gentoo penguins have body masses that are about 37% larger than Adelie and Chinstrap penguins."
+  },
+  {
+    "objectID": "course-materials/discussion/week3/week3-solution.html#example-2-from-the-new-york-times",
+    "href": "course-materials/discussion/week3/week3-solution.html#example-2-from-the-new-york-times",
+    "title": "Week 3 Discussion: Solution",
+    "section": "Example 2 (from The New York Times):",
+    "text": "Example 2 (from The New York Times):\nAlt text: A dot plot of monthly global temperatures compared to the 20th-century average, where monthly global temperatures are increasing over time. Nearly every month since the mid-1970s is warmer than the 20th-century average, with 12 record-breaking hot months occurring between 2015-2023."
+  },
+  {
+    "objectID": "course-materials/discussion/week3/week3-solution.html#example-3-fig-1a-from-chapman-et-al.-2024",
+    "href": "course-materials/discussion/week3/week3-solution.html#example-3-fig-1a-from-chapman-et-al.-2024",
+    "title": "Week 3 Discussion: Solution",
+    "section": "Example 3 (Fig 1A from Chapman et al. 2024):",
+    "text": "Example 3 (Fig 1A from Chapman et al. 2024):\nAlt text: A heatmap of global species observations where the highest concentration of observations occur in high-income countries, particularly in the USA and European nations."
+  },
+  {
+    "objectID": "course-materials/discussion/week4/week4-solution.html",
+    "href": "course-materials/discussion/week4/week4-solution.html",
+    "title": "Week 4 Discussion: Solution",
+    "section": "",
+    "text": "NOTE: Use the Zoom button to check out your plot\n\n\n\nYour plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc – I recommend checking it out in the zoom window while you iterate.\nImportantly, how you theme a data visualization depends on how you plan to package / present it. For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc.\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # initialize ggplot ----\n  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +\n  \n  # reverse order of groups so level D4 is closest to x-axis ----\n  geom_area(position = position_stack(reverse = TRUE)) +\n  \n  # update colors to match US Drought Monitor ----\n  # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) \n  scale_fill_manual(values = c(\"#853904\", \"#FF0000\", \"#FFC100\", \"#FFD965\", \"#FFFF00\")) +\n  \n  # set x-axis breaks & remove padding between data and x-axis ----\n  scale_x_date(breaks = scales::breaks_pretty(n = 10),\n               expand = c(0, 0)) +\n\n  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----\n  scale_y_continuous(breaks = seq(0, 100, by = 10),\n                     expand = c(0, 0),\n                     labels = scales::label_percent(scale = 1)) +\n  \n  # add title ----\n  labs(title = \"Drought area in California\") +\n  \n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                                                            --\n##------------------------- NEWLY ADDED THEME CODE!-----------------------------\n##                                                                            --\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  # set theme minimal (includes major/minor grid lines, no axes) ----\n  theme_minimal() +\n  \n  # fine-tune adjustments to plot theme ----\n  theme(\n    \n    # update axis lines & ticks color ----\n    axis.line = element_line(color = \"#5A9CD6\"),\n    axis.ticks = element_line(color = \"#5A9CD6\"),\n    \n    # adjust length of axis ticks ----\n    axis.ticks.length = unit(.2, \"cm\"),\n    \n    # center plot title ----\n    plot.title = element_text(hjust = 0.5, color = \"#686868\", size = 20,\n                              margin = margin(t = 10, r = 0, b = 15, l = 0)),\n    \n    # remove axis & legend titles ----\n    axis.title = element_blank(),\n    legend.title = element_blank(),\n    \n    # axis text color & size ----\n    axis.text = element_text(color = \"#686868\", size = 12),\n    legend.text = element_text(color = \"#686868\", size = 12),\n    \n    # move legend below plot ----\n    legend.position = \"bottom\",\n    legend.key.width = unit(0.4, \"cm\"),\n    legend.key.height = unit(0.25, \"cm\"),\n    \n    plot.background = element_rect(color = \"#686868\"),\n    plot.margin = margin(t = 10, r = 10, b = 10, l = 10)\n  )"
+  },
+  {
+    "objectID": "course-materials/week11.html",
+    "href": "course-materials/week11.html",
+    "title": "Finals week presentations",
+    "section": "",
+    "text": "Artwork by Allison Horst.\n\nComing soon!"
   },
   {
     "objectID": "course-materials/week7.html#pre-class-prep",
@@ -3304,11 +3311,18 @@
     "text": "Lecture Materials\nComing soon!"
   },
   {
+    "objectID": "course-materials/week9.html#pre-discussion-prep",
+    "href": "course-materials/week9.html#pre-discussion-prep",
+    "title": "Data visualization in JavaScript, with Dr. Allison Horst",
+    "section": " Pre-discussion Prep",
+    "text": "Pre-discussion Prep\nSimilar to last week’s discussion, we’ll be discussing progress on our data visualizations and providing constructive feedback to one another.\n\nA. Prepare your data viz slide\nFind your assigned slide from the correct Google Slide deck (see table, under the Discussion Materials section, below) and add the following:\n\n(the final) one of your three visualizations (i.e. don’t choose the same viz that you brought to the last two discussion section)\nthe question that you’re using your visualization to answer"
+  },
+  {
     "objectID": "course-materials/week9.html#discussion-materials",
     "href": "course-materials/week9.html#discussion-materials",
     "title": "Data visualization in JavaScript, with Dr. Allison Horst",
     "section": " Discussion Materials",
-    "text": "Discussion Materials\nNo discussion section this week!"
+    "text": "Discussion Materials\n\n\n\n\n\n\n\n\n Discussion Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nD9 slides: critiquing data viz\nNA\nNA\n\n\nGoogle Slides for the 1pm Section & 2pm Section\nNA\nNA"
   },
   {
     "objectID": "course-materials/week9.html#assignment-reminders",
