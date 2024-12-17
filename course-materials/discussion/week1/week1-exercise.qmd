@@ -110,7 +110,7 @@ DT::datatable(fracking_clean)
 
 <br>
 
-1. [**Load the `{tidyverse}`, `{janitor}`, and `{usdata}`, read in `registryupload_1.csv`, and perform some basic data exploration.**]{.teal-text} Use the `{here}` package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the [metadata](https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing), which accompanied our `registryupload_1.csv` file when downloaded from FracFocus.
+1. [**Load the `{tidyverse}`, `{janitor}`, and `{usdata}`, read in `registryupload_1.csv`, and perform some basic data exploration.**]{.teal-text} Use the `{here}` package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the [metadata](https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing){target="_blank"}, which accompanied our `registryupload_1.csv` file when downloaded from FracFocus.
 
 2. [**Consider what data *cleaning* you might need to perform.**]{.teal-text} Discuss any curious data formatting (e.g. data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?
 
@@ -120,7 +120,7 @@ Take a moment to share some of your findings with the rest of the class!
 :::
 
 3. [**Clean / wrangle the data!**]{.teal-text} Using the packages loaded in step 1, perform the following operations (***NOTE:** Each step below corresponds to a single line of code*):
-    a. convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the [Tidyverse style guide](https://style.tidyverse.org/syntax.html#object-names) recommendation)
+    a. convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the [Tidyverse style guide](https://style.tidyverse.org/syntax.html#object-names){target="_blank"} recommendation)
     b. remove `"AM"` from the `job_start_date` column observations
     c. convert observations in the `job_start_date` column from character strings to datetime objects and save them to a new column named `datetime_start`
     d. add a column named `year` that contains only the year from `datetime_start`

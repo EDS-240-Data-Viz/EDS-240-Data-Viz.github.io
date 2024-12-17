@@ -120,9 +120,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <div id="quarto-announcement" data-announcement-id="6eef83a8c230c85c8d68694b9bbce67a" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2025.</p>
-</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -306,13 +303,13 @@ Note
 <p><span class="teal-text"><strong>Your goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f498824b460c0a7efeef" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f498824b460c0a7efeef">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2480fde4a051db23067d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2480fde4a051db23067d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br></p>
 <ol type="1">
-<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code>, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
+<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code>, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing" target="_blank">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
 <li><p><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</p></li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -331,7 +328,7 @@ Pause for class discussion
 <ol start="3" type="1">
 <li><span class="teal-text"><strong>Clean / wrangle the data!</strong></span> Using the packages loaded in step 1, perform the following operations (<em><strong>NOTE:</strong> Each step below corresponds to a single line of code</em>):
 <ol type="a">
-<li>convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names">Tidyverse style guide</a> recommendation)</li>
+<li>convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names" target="_blank">Tidyverse style guide</a> recommendation)</li>
 <li>remove <code>"AM"</code> from the <code>job_start_date</code> column observations</li>
 <li>convert observations in the <code>job_start_date</code> column from character strings to datetime objects and save them to a new column named <code>datetime_start</code></li>
 <li>add a column named <code>year</code> that contains only the year from <code>datetime_start</code></li>
