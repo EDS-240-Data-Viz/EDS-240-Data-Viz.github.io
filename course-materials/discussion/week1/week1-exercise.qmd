@@ -8,7 +8,7 @@ description: "Tuesday January 7^th^, 2025"
 It's up to you to organize your own `week1-discussion.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
 :::
 
-[**Your goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):**]{.teal-text}
+[**Your goal is to transform the raw fracking data into a wrangled data frame that looks like this (only the first 6 rows are shown here):**]{.teal-text}
 
 ```{r}
 #| eval: true
@@ -110,13 +110,13 @@ DT::datatable(fracking_clean)
 
 <br>
 
-1. [**Load the `{tidyverse}`, `{janitor}`, and `{usdata}`, read in `registryupload_1.csv`, and perform some basic data exploration.**]{.teal-text} Use the `{here}` package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the [metadata](https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing){target="_blank"}, which accompanied our `registryupload_1.csv` file when downloaded from FracFocus.
+1. [**Load the `{tidyverse}`, `{janitor}`, and `{usdata}` packages, read in `registryupload_1.csv`, and perform some basic data exploration.**]{.teal-text} Use the `{here}` package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the [metadata](https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing){target="_blank"}, which accompanied our `registryupload_1.csv` file when downloaded from FracFocus.
 
 2. [**Consider what data *cleaning* you might need to perform.**]{.teal-text} Discuss any curious data formatting (e.g. data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?
 
 ::: {.callout-important}
 ## Pause for class discussion
-Take a moment to share some of your findings with the rest of the class!
+Take a moment to share some of your findings with the rest of the class.
 :::
 
 3. [**Clean / wrangle the data!**]{.teal-text} Using the packages loaded in step 1, perform the following operations (***NOTE:** Each step below corresponds to a single line of code*):

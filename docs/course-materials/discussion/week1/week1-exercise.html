@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../images/favicon.png" rel="icon" type="image/png">
+<link href="../../../images/EDS240-hex.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -301,16 +301,16 @@ Note
 <p>It’s up to you to organize your own <code>week1-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
 </div>
 </div>
-<p><span class="teal-text"><strong>Your goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
+<p><span class="teal-text"><strong>Your goal is to transform the raw fracking data into a wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cca094fb3f4ba71163fa" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cca094fb3f4ba71163fa">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d3233bf94e5fd3f6e458" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d3233bf94e5fd3f6e458">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br></p>
 <ol type="1">
-<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code>, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing" target="_blank">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
+<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code> packages, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing" target="_blank">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
 <li><p><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</p></li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -323,7 +323,7 @@ Pause for class discussion
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Take a moment to share some of your findings with the rest of the class!</p>
+<p>Take a moment to share some of your findings with the rest of the class.</p>
 </div>
 </div>
 <ol start="3" type="1">

@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 1 | January 6^th^, 2024]{.custom-subtitle3}
+[Week 1 | January 6^th^, 2025]{.custom-subtitle3}
 
 ---
 
@@ -38,8 +38,8 @@ editor_options:
 <br>
 
 ::: incremental
-- consistent underlying "grammar of graphics" ([Wilkinson 2005](https://link.springer.com/book/10.1007/0-387-28695-0))
-- super flexible, layered plot specification (see [Wickham 2008](http://vita.had.co.nz/papers/layered-grammar.pdf))
+- consistent underlying "grammar of graphics" ([Wilkinson 2005](https://link.springer.com/book/10.1007/0-387-28695-0){target="_blank"})
+- super flexible, layered plot specification (see [Wickham 2008](http://vita.had.co.nz/papers/layered-grammar.pdf){target="_blank"})
 - theme system for polishing plot appearance
 - lots of additional functionality thanks to extensions
 - active and helpful community 
@@ -63,7 +63,7 @@ knitr::include_graphics("images/week1/ggplot2.png")
 <br>
 
 ::: {.body-text-s .gray-text .center-text}
-adapted from [Cédric Scherer's](https://www.cedricscherer.com/) rstudio::conf(2022) workshop, [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/) 
+adapted from [Cédric Scherer's](https://www.cedricscherer.com/){target="_blank"} rstudio::conf(2022) workshop, [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/) {target="_blank"}
 :::
 
 ::: {.notes}
@@ -81,7 +81,7 @@ Grammar of graphics: provides a structure to combine graphical elements into fig
 >*“A grammar of graphics is a tool that enables us to concisely describe the components of a graphic. Such a grammar allows us to move beyond named graphics (e.g. the “scatterplot”) and gain insight into the deep structure that underlies statistical graphics.” *
 
 ::: {.right-align-text .body-text-s}
--from Hadley Wickham’s [A layered grammar of graphics](https://doi.org/10.1198/jcgs.2009.07098) in *Journal of Computational and Graphical Statistics*, vol. 19, no. 1 pp. 3-28, 2010.
+-from Hadley Wickham’s [A layered grammar of graphics](https://doi.org/10.1198/jcgs.2009.07098){target="_blank"} in *Journal of Computational and Graphical Statistics*, vol. 19, no. 1 pp. 3-28, 2010.
 :::
 
 <br>
@@ -91,7 +91,7 @@ Grammar of graphics: provides a structure to combine graphical elements into fig
 >*"In the grammar of a language, words have different parts of speech, which perform different roles in the sentence. Analagously, the grammar of graphics separates a graphic into different layers"*
 
 ::: {.right-align-text .body-text-s}
--from Liz Sander’s post [Telling stories with data using the grammar of graphics](https://codewords.recurse.com/issues/six/telling-stories-with-data-using-the-grammar-of-graphics)
+-from Liz Sander’s post [Telling stories with data using the grammar of graphics](https://codewords.recurse.com/issues/six/telling-stories-with-data-using-the-grammar-of-graphics){target="_blank"}
 :::
 
 ---
@@ -106,7 +106,7 @@ Grammar of graphics: provides a structure to combine graphical elements into fig
 
 [**First these:**]{.teal-text .body-text-m}
 
-**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10) format **+** define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)  
+**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10){target="_blank"} format **+** define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)  
 **2. geometric objects (aka geoms)** -- define the type of plot(s)  
 
 <br>
@@ -162,7 +162,7 @@ knitr::include_graphics("images/week1/horst-tidy-data-friends.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Art by [Allison Horst](https://allisonhorst.com/)
+Art by [Allison Horst](https://allisonhorst.com/){target="_blank"}
 :::
 
 ---
@@ -183,7 +183,7 @@ knitr::include_graphics("images/week1/horst-tidy-data-definition.png")
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/)*
+*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
 :::
 
 ---
@@ -204,7 +204,7 @@ knitr::include_graphics("images/week1/horst-untidy-data.png")
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/)*
+*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
 :::
 
 ---
@@ -221,7 +221,7 @@ knitr::include_graphics("images/week1/horst-untidy-data.png")
 library(tidyverse)
 ```
 
-Take this [tibble](https://tibble.tidyverse.org/) (very similar to a `data.frame`) of temperature recordings at three stations on three dates:
+Take this [tibble](https://tibble.tidyverse.org/){target="_blank"} (very similar to a `data.frame`) of temperature recordings at three stations on three dates:
 
 ```{r}
 #| eval: true
@@ -295,7 +295,7 @@ knitr::include_graphics("images/week1/untidy-multi-obs-per-row.png")
 <br>
 
 ::: {.center-text .gray-text}
-Want more examples of untidy data? Check out these [teaching materials](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_07.html#tidy-data) from the NCEAS Learning Hub showcasing real-world examples of *very* untidy data.
+Want more examples of untidy data? Check out these [teaching materials](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_07.html#tidy-data){target="_blank"} from the NCEAS Learning Hub showcasing real-world examples of *very* untidy data.
 :::
 
 ---
@@ -337,7 +337,7 @@ knitr::include_graphics("images/week1/horst-workbench.png")
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/)*
+*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
 :::
 
 ---
@@ -363,7 +363,7 @@ knitr::include_graphics("images/week1/core-tidyverse.png")
 ```
 
 ::: {.center-text .gray-text}
-Check out the [tidyverse website](the packages that you’re likely to use in everyday data analyses) to learn more about each of these packages
+Check out the [tidyverse website](the packages that you’re likely to use in everyday data analyses){target="_blank"} to learn more about each of these packages
 :::
 
 :::
@@ -379,7 +379,7 @@ knitr::include_graphics("images/week1/r4ds-cover.png")
 ```
 
 ::: {.center-text .gray-text}
-The best resource for learning all things [R for Data Science](https://r4ds.hadley.nz/)!
+The best resource for learning all things [R for Data Science](https://r4ds.hadley.nz/){target="_blank"}!
 :::
 
 :::
@@ -395,7 +395,7 @@ The best resource for learning all things [R for Data Science](https://r4ds.hadl
 <hr>
 
 ::: {.center-text}
-**Let's make some ggplots using data from [`{palmerpenguins}`](https://allisonhorst.github.io/palmerpenguins/) (which are already tidy)!**
+**Let's make some ggplots using data from [`{palmerpenguins}`](https://allisonhorst.github.io/palmerpenguins/){target="_blank"} (which are already tidy)!**
 :::
 
 ```{r}
@@ -408,11 +408,11 @@ knitr::include_graphics("images/week1/palmer-penguins.png")
 ```
 
 ::: {.center-text .gray-text}
-*Artwork by [Allison Horst](https://allisonhorst.github.io/palmerpenguins/articles/art.html)*
+*Artwork by [Allison Horst](https://allisonhorst.github.io/palmerpenguins/articles/art.html){target="_blank"}*
 :::
 
 ::: footer
-[*The examples on the following slides were adapted from R for Data Science, Chapters [2](https://r4ds.hadley.nz/data-visualize) and [10](https://r4ds.hadley.nz/layers).*]{.gray-text .center-text}
+[*The examples on the following slides were adapted from R for Data Science, Chapters [2](https://r4ds.hadley.nz/data-visualize){target="_blank"} and [10](https://r4ds.hadley.nz/layers){target="_blank"}.*]{.gray-text .center-text}
 :::
 
 ---
@@ -430,7 +430,7 @@ We'll start by exploring the relationship between penguin **bill length** and **
 
 [**{{< fa chart-line title="a line chart" >}} Graphic layers:**]{.teal-text}  
 
-[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10) format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
+[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10){target="_blank"} format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
 [**2. geometric objects (aka geoms)** -- define the type of plot(s)]{.body-text-s}     
 [3. statistical transformations -- algorithm used to calculate new values for a graph]{.body-text-s}     
 [4. position adjustments -- control the fine details of position when geoms might otherwise overlap]{.body-text-s}     
@@ -454,6 +454,7 @@ We'll start by exploring the relationship between penguin **bill length** and **
 <hr>
 
 Initialize your plot object using `ggplot()` -- this creates a graph that's primed to display the `penguins` data set, but empty since we haven't told ggplot how to map our data onto the graph yet (in other words: we haven't told ggplot what variables to display and where, as well as what *type* of plot to create):
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -477,6 +478,7 @@ ggplot(data = penguins)
 <hr>
 
 The `mapping` argument defines how variables in your data set are mapped to visual properties (aesthetics) of your plot. Here, we specify which variables map to our `x` and `y` axes:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -506,6 +508,7 @@ We've specified which variables map onto the x & y axes but still have not yet a
 <hr>
 
 The `data` and `mapping` arguments are often not explicitly written in `ggplot()`, as in the example below (makes for more concise code):
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -525,7 +528,8 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm))
 
 <hr>
 
-Next, we'll layer on a geometric object (aka geom) that our plot will use to represent our penguin data. There are many geoms (`geom_*()`) that are [built into `{ggplot2}` already](https://ggplot2.tidyverse.org/reference/#geoms) (and more when you use extension packages). To create a scatterplot:
+Next, we'll layer on a geometric object (aka geom) that our plot will use to represent our penguin data. There are many geoms (`geom_*()`) that are [built into `{ggplot2}` already](https://ggplot2.tidyverse.org/reference/#geoms){target="_blank"} (and more when you use extension packages). To create a scatter plot:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -548,10 +552,11 @@ data | [**geometric object**]{.teal-text} | statistical transformation | positio
 <hr>
 
 [If we'd like to represent species using another aesthetic (e.g. color, shape, size), we need to modify our plot's aesthetic (i.e. inside `aes()`) -- **any time we want to modify the appearance of our plotted data based on a variable in our data set, we do so within `aes()`.** This process is known as **scaling**. A legend will automatically be added to indicate which values (in this case, colors) correspond to which level of our variable (in this case, species):]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "2"
+#| code-line-numbers: "1"
 #| fig-align: "center"
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
   geom_point()
@@ -570,6 +575,7 @@ labels | annotations | [**scales**]{.teal-text} | themes | layout
 <hr>
 
 Here, we use `scale_color_manual()` to update the colors of our data points. Colors will be mapped from the levels in our data (i.e. `Adelie`, `Chinstrap`, `Gentoo`) to the order of the aethetic values supplied (`"darkorange"`,`"purple"`,`"cyan4"`):
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -593,6 +599,7 @@ labels | annotations | [**scales**]{.teal-text} | themes | layout
 <hr>
 
 In the previous example, we mapped color to a **categorical** variable (`species`). We can also map color to **continuous** variables (e.g. `body_mass_g`): 
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -634,7 +641,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 <hr>
 
-[You can also define the data and mapping layers within a `geom_*()` (i.e. locally) rather than in `ggplot()` (i.e. globally) -- this is helpful if you plan to have multiple geoms with different mappings (e.g. you’re plotting data from multiple data frames). You **must** include the `data` and `mapping` argument names if you specify them out of order (see [documentation](https://ggplot2.tidyverse.org/reference/geom_point.html)):]{.body-text-s}
+[You can also define the data and mapping layers within a `geom_*()` (i.e. locally) rather than in `ggplot()` (i.e. globally) -- this is helpful if you plan to have multiple geoms with different mappings (e.g. you’re plotting data from multiple data frames). You **must** include the `data` and `mapping` argument names if you specify them out of order (see [documentation](https://ggplot2.tidyverse.org/reference/geom_point.html){target="_blank"}):]{.body-text-s}
 
 <br>
 
@@ -723,6 +730,7 @@ labels | annotations | [**scales**]{.teal-text} | themes | layout
 
 ::: {.column width="50%"}
 [**Global** mappings are passed down to each subsequent geom layer. Therefore, the `color = species` mapping is also passed to `geom_smooth()`, resulting in a best fit line for each species.]{.body-text-s} 
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -736,6 +744,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 
 ::: {.column width="50%"}
 [**Local** mappings (e.g. within `geom_point()`) only apply to that particular layer. Therefore, the `color = species` mapping is *only* applied to `geom_point()`, and `geom_smooth()` fits a best fit line to the entire data set.]{.body-text-s} 
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -792,7 +801,7 @@ In this next example, we'll explore **penguin species counts**. For this example
 
 [**{{< fa chart-line title="a line chart" >}} Graphic layers:**]{.teal-text}  
 
-[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10) format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
+[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10){target="_blank"} format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
 [**2. geometric objects (aka geoms)** -- define the type of plot(s)]{.body-text-s}     
 [**3. statistical transformations** -- algorithm used to calculate new values for a graph]{.body-text-s}     
 [**4. position adjustments** -- control the fine details of position when geoms might otherwise overlap]{.body-text-s}     
@@ -816,6 +825,7 @@ In this next example, we'll explore **penguin species counts**. For this example
 <hr>
 
 Similar to our first scatterplot, we start by initializing our plot object with data, mapping our aesthetics, and defining a geometric object:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -842,6 +852,7 @@ Some geoms, like scatterplots, plot the raw values of your data set. Other geoms
 
 ::: {.column width="50%"}
 [Each point on our scatterplot represents a raw observation value (one point = one penguin)]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -853,6 +864,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
 
 ::: {.column width="50%"}
 [Each bar represents a species count (**note** the y-axis, `count`, which is not a variable in our penguins data set)]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -901,6 +913,7 @@ data | geometric object | [**statistical transformation**]{.teal-text} | positio
 <hr>
 
 [Let's say we have a data frame with calculated count values (e.g. `penguins_summary`) that we'd like to plot using `geom_bar()`. We can change `stat = "count"` (default) to `stat = "identity"` to generate bar heights based off the "identity" of values in the `n` column of `penguin_summary`.]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -927,6 +940,7 @@ data | geometric object | [**statistical transformation**]{.teal-text} | positio
 <hr>
 
 [Now let's say we'd like to display the same bar chart with y-axis values as proportions, rather than counts. We can override the default mapping of transformed variables to aesthetics with:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -977,6 +991,7 @@ data | geometric object | [**statistical transformation**]{.teal-text} | positio
 <hr>
 
 Position adjustments apply minor tweaks to the position of elements to resolve overlapping geoms. For example, let's say we would like to visualize penguin counts by species (bar height) and by island (color) using our bar chart from earlier. We could add the `fill` aesthetic:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -998,6 +1013,7 @@ data | geometric object | statistical transformation | [**position adjustment**]
 <hr>
 
 **Every geom has a default position.** The default position used in `geom_bar()` is **stack**, which stacks bars on top of one another, based on the `fill` value (here, that's `island`):
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1025,6 +1041,7 @@ Below are a few position options available for use with `geom_bar()`:
 
 ::: {.column width="50%"}
 [`position = "fill"` creates a set of stacked bars but makes each set the same height (easier to compare proportions across groups)]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1038,6 +1055,7 @@ ggplot(penguins, aes(x = species, fill = island)) +
 
 ::: {.column width="50%"}
 [`position = "dodge"` places overlapping bars directly beside one another (easier to compare individual values)]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1116,6 +1134,7 @@ Depending on the type of data, axis label length, etc. it may make sense to chan
 ::: {.column width="50%"}
 
 [`coord_flip()` switches the x and y axes.]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1131,6 +1150,7 @@ ggplot(penguins, aes(x = species)) +
 ::: {.column width="50%"}
 
 [`coord_polar()` uses polar coordinates.]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1157,12 +1177,13 @@ data | geometric object | statistical transformation | position adjustment | [**
 
 <hr>
 
-`{ggplot2}` comes with a number of [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html), which control all non-data display. See two examples below:
+`{ggplot2}` comes with a number of [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html){target="_blank"}, which control all non-data display. See two examples below:
 
 :::: columns
 
 ::: {.column width="50%"}
 [displays x and y axis lines and no gridlines]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1176,6 +1197,7 @@ ggplot(penguins, aes(x = species)) +
 
 ::: {.column width="50%"}
 [displays light grey lines and axes]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1201,12 +1223,13 @@ labels | annotations | scales | [**themes**]{.teal-text} | layout
 
 <hr>
 
-Further modify nearly any non-data element of your plot using [`theme()`](https://ggplot2.tidyverse.org/reference/theme.html).
+Further modify nearly any non-data element of your plot using [`theme()`](https://ggplot2.tidyverse.org/reference/theme.html){target="_blank"}.
 
 :::: columns
 
 ::: {.column width="50%"}
 [Start with `theme_light()`:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1220,6 +1243,7 @@ ggplot(penguins, aes(x = species)) +
 
 ::: {.column width="50%"}
 [Further modify with `theme()`:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1254,7 +1278,7 @@ In this next example, we'll explore **penguin flipper lengths**. For this exampl
 
 [**{{< fa chart-line title="a line chart" >}} Graphic layers:**]{.teal-text}  
 
-[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10) format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
+[**1. data** -- in [tidy](https://doi.org/10.18637/jss.v059.i10){target="_blank"} format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
 [**2. geometric objects (aka geoms)** -- define the type of plot(s)]{.body-text-s}     
 [3. statistical transformations -- algorithm used to calculate new values for a graph]{.body-text-s}     
 [**4. position adjustments** -- control the fine details of position when geoms might otherwise overlap]{.body-text-s}     
@@ -1300,6 +1324,7 @@ ggplot(penguins, aes(x = flipper_length_mm)) +
 <hr>
 
 [Just like in our scatterplot (Plot #1), we'll modify our plot's aesthetics (i.e. inside `aes()`) to color our histrogram bins according to the species variable. Unlike our scatterplot (which uses the `color` argument), we'll use the `fill` argument to *fill* the bars with color (rather than *outline* them with color). We'll also manually define our fill scale:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1323,6 +1348,7 @@ labels | annotations | [**scales**]{.teal-text} | themes | layout
 <hr>
 
 Let's update the position of our binned bars from `"stack"` to `"identity"` and also increase the transparency (using `alpha`) so that we can see overlapping bars:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1346,6 +1372,7 @@ data | geometric object | statistical transformation | [**position adjustment**]
 <hr>
 
 Update axis and legend titles and add a plot title using `labs()`:
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1371,6 +1398,7 @@ ggplot(penguins, aes(x = flipper_length_mm, fill = species)) +
 <hr>
 
 [Sometimes (particularly during the data exploration phase) it's helpful to create subplots (i.e. separate panels) of your data. Here we use `facet_wrap()` to separate our data by the `species` variable. By default, it creates a 1 x 3 matrix of plots. We can manually specify how many rows or columns we'd like using `nrow` or `ncol`:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -1407,7 +1435,7 @@ knitr::include_graphics("images/week1/scherer-evo-ggplot.gif")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-*Visualization by [Cédric Scherer](https://www.cedricscherer.com/top/about/), from his blog post, [The Evolution of a ggplot (Ep.1)](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/) -- create your own ggplot evolution gif using the [`{camcorder}` package](https://github.com/thebioengineer/camcorder)*
+*Visualization by [Cédric Scherer](https://www.cedricscherer.com/top/about/){target="_blank"}, from his blog post, [The Evolution of a ggplot (Ep.1)](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/){target="_blank"} -- create your own ggplot evolution gif using the [`{camcorder}` package](https://github.com/thebioengineer/camcorder){target="_blank"}*
 :::
 
 ---

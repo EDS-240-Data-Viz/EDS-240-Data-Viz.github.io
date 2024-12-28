@@ -1145,14 +1145,14 @@
     "href": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lecture 1.3\n{ggplot2} review\n\nWeek 1 | January 6th, 2024"
+    "text": "EDS 240: Lecture 1.3\n{ggplot2} review\n\nWeek 1 | January 6th, 2025"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#ggplot2-advantages",
     "href": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#ggplot2-advantages",
     "title": "EDS 240",
     "section": "",
-    "text": "Advantages of {ggplot2}\n\n\n\n\n\n\n\nconsistent underlying “grammar of graphics” (Wilkinson 2005)\nsuper flexible, layered plot specification (see Wickham 2008)\ntheme system for polishing plot appearance\nlots of additional functionality thanks to extensions\nactive and helpful community\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\nadapted from Cédric Scherer’s rstudio::conf(2022) workshop, Graphic Design with ggplot2\n\n\nGrammar of graphics: provides a structure to combine graphical elements into figures that display data in a meaningful way."
+    "text": "Advantages of {ggplot2}\n\n\n\n\n\n\n\nconsistent underlying “grammar of graphics” (Wilkinson 2005)\nsuper flexible, layered plot specification (see Wickham 2008)\ntheme system for polishing plot appearance\nlots of additional functionality thanks to extensions\nactive and helpful community\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\nadapted from Cédric Scherer’s rstudio::conf(2022) workshop, Graphic Design with ggplot2 {target=“_blank”}\n\n\nGrammar of graphics: provides a structure to combine graphical elements into figures that display data in a meaningful way."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#grammar-of-graphics",
@@ -1278,7 +1278,7 @@
     "href": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#geom",
     "title": "EDS 240",
     "section": "",
-    "text": "Define a geom to represent data\n\nNext, we’ll layer on a geometric object (aka geom) that our plot will use to represent our penguin data. There are many geoms (geom_*()) that are built into {ggplot2} already (and more when you use extension packages). To create a scatterplot:\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point()\n\n\n\ndata | geometric object | statistical transformation | position adjustment | coordinate system | facet"
+    "text": "Define a geom to represent data\n\nNext, we’ll layer on a geometric object (aka geom) that our plot will use to represent our penguin data. There are many geoms (geom_*()) that are built into {ggplot2} already (and more when you use extension packages). To create a scatter plot:\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point()\n\n\n\ndata | geometric object | statistical transformation | position adjustment | coordinate system | facet"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html#color-points-by-spp",
@@ -1495,7 +1495,7 @@
     "href": "course-materials/lecture-slides/lecture1.2-intro-slides.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lecture 1.2\nData visualization: an intro\n\nWeek 1 | January 6th, 2024"
+    "text": "EDS 240: Lecture 1.2\nData visualization: an intro\n\nWeek 1 | January 6th, 2025"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture1.2-intro-slides.html#what-is-visualization1",
@@ -2569,39 +2569,39 @@
     "text": "Create map\n\nCreate base map\n\n# create base map ----\nbase_map &lt;- ggplot(joined_precip_geom) +\n  geom_sf(aes(fill = perc_change), linewidth = 0.1) +\n  labs(title = \"5-year precipitation compared with the 20th century average\",\n       subtitle = \"February 2019 - January 2024\",\n       caption = \"Source: National Centers for Environmental Information\") +\n  theme_void() +\n  theme(\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    plot.caption = element_text(face = \"italic\",\n                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, \"lines\"))\n  )\n\nbase_map\n\n\n\n\n\n\n\n\n\n\nCreate an unclassed map\n\ncreate color palette\n\n\n# preview palette ----\nRColorBrewer::display.brewer.pal(n = 11, name = 'BrBG')\n\n\n\n\n\n\n\n# save HEX codes as vector ----\nmy_brew_palette11 &lt;- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')\n\n\nbuild map\n\n\n# create unclassed map ----\nbase_map + \n  scale_fill_gradientn(colors = my_brew_palette11,\n                       labels = scales::label_percent(scale = 1),\n                       breaks = scales::breaks_width(width = 10),\n                       values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change)))) +\n  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))\n\n\n\n\n\n\n\n\n\n\nCreate a classed map\n\ncreate color palette\n\n\n# preview palette ----\nRColorBrewer::display.brewer.pal(n = 10, name = 'BrBG')\n\n\n\n\n\n\n\n# save HEX codes as vector ----\nmy_brew_palette10 &lt;- RColorBrewer::brewer.pal(n = 10, name = 'BrBG')\n\n\nbuild map\n\n\n# classed map with default bins ----\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n# bins have width of 10 ----\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    breaks = scales::breaks_width(width = 10)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n# bins have width of 5 ---\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change))), \n                    breaks = scales::breaks_width(width = 5)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))"
   },
   {
-    "objectID": "course-materials/week1.html#pre-class-prep",
-    "href": "course-materials/week1.html#pre-class-prep",
-    "title": "Course logistics, Intro, {ggplot2} review",
-    "section": " Pre-lecture Prep",
-    "text": "Pre-lecture Prep\n\nA. Install required packages\n\ninstall.packages(\"palmerpenguins\") # a package containing the `penguins` data set, which we'll use for plotting practice\ninstall.packages(\"tidyverse\") # a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})\n\n\n\nB. Create your EDS-240-class-examples repository\nWe’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). Create and clone a GitHub repository named EDS-240-class-examples (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:\n\n\n\n\n\n\nStep-by-step instructions for creating and cloning a GitHub repo:\n\n\n\n\n\nCreate a remote (GitHub) repo:\n\nNavigate to your GitHub profile and click on Repositories (top menu bar)\nClick on the green New button in the upper right-hand corner\nGive it the name EDS-240-class-examples, and optionally, a short description. Select the radio button for Public repository (it should be selected by default). Initialize this repository with a README by checking the box and Add a .gitignore (select R from the .gitignore template drop down menu) boxes. Click Create repository.\nFrom your repo’s main page, click the green Code button and copy the URL to your clipboard\n\nClone your repo:\n\nOpen up RStudio\nClick on the drop down menu next to the R project icon (top right corner)\nClick New Project… &gt; Version Control &gt; Git &gt; paste your repo’s URL in the Repository URL: box and press Tab to auto fill the Project directory name field (it should automatically be named the same as your GitHub repo). Browse to select where on your computer you’d like your repo to be saved.\nClick Create Project\n\n\n\n\nYou should also create a folder for each week (e.g. week1/, week2/, week3/, etc.) inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g. data files) to your .gitignore (you’ll do this for the first time in this week’s pre-discussion prep).\nRemember to fill out your repo’s README, referencing the MEDS README Guidelines, as well.\n\n\nC. Download the .qmd template\nTemplate .qmd files will be provided alongside (most) lecture slides to help keep us organized and on track throughout class. They are available for download directly from GitHub at the link(s) provided in the Lecture Materials table (below). Look for the download button at the top right corner of the file (it looks similar to this, ). Please download all necessary templates and save them to the appropriate EDS-240-data-viz-examples/weekX folder before each class."
+    "objectID": "getting-unstuck.html",
+    "href": "getting-unstuck.html",
+    "title": "Getting unstuck",
+    "section": "",
+    "text": "A large part of being a data scientist is ~being okay~ with not immediately knowing the answers to your code challenges – troubleshooting errors, deciphering code, and trying new things (and likely failing at some…er many…of them) is all a part of the job. We all experience it, no matter how many years we’ve been at it."
   },
   {
-    "objectID": "course-materials/week1.html#lecture-materials",
-    "href": "course-materials/week1.html#lecture-materials",
-    "title": "Course logistics, Intro, {ggplot2} review",
-    "section": " Lecture Materials",
-    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 1.1: course logistics & syllabus\nNA\nNA\n\n\nLecture 1.2: data viz intro\nNA\nNA\n\n\nLecture 1.3: {ggplot2} review\n1.3 template\n1.3 key"
+    "objectID": "getting-unstuck.html#where-to-find-help",
+    "href": "getting-unstuck.html#where-to-find-help",
+    "title": "Getting unstuck",
+    "section": "Where to find help",
+    "text": "Where to find help\nWe often learn the most (and remember more of what we learned) when we take the time to troubleshoot on our own (or at least narrow down the potential problem(s)), so you should always plan to start there . The graphic below shows the order in which you should approach different resources for help:"
   },
   {
-    "objectID": "course-materials/week1.html#pre-discussion-prep",
-    "href": "course-materials/week1.html#pre-discussion-prep",
-    "title": "Course logistics, Intro, {ggplot2} review",
-    "section": " Pre-discussion Prep",
-    "text": "Pre-discussion Prep\n\n\nA. Install required packages\n\ninstall.packages(\"here\") # for reproducible, relative file paths\ninstall.packages(\"janitor\") # tools for cleaning dirty data\ninstall.packages(\"usdata\") # demographic data on the United States at the county and state levels spanning multiple years.\n\n\n\nB. Download necessary data\nDownload fracking data (registryupload_1.csv) from Google Drive and save it to your class repo in the following location: EDS-240-class-examples/week1/data/registryupload_1.csv\n\n\n\n\n\n\nWhy are we downloading from Google Drive and not directly from FracFocus?\n\n\n\n\n\nThese data were originally downloaded as a zip file from FracFocus in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise . For this reason, we’ll be working with this saved version of the data, rather than downloading directly from FracFocus’s data download page.\n\n\n\n\n\nC. Add data to .gitignore\nWe don’t want to push any data in our repo to GitHub (GitHub enforces file size limits, and you’ll run into some serious headaches when you try to push a file that’s too big). To avoid doing this, we can add our data files to our .gitignore file, which, as the name implies, is a collection of files that we want Git to ignore. Open up your .gitignore file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):\n\n\n\n.gitignore\n\n# ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)\n/week*/data/\n\n\nNotice that when you Save your modified .gitignore file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified .gitignore file appears in it’s place (this is what we want!). Stage / add, commit, and push .gitignore.\n\n\n\n\n\n\nA gif of this whole process (in case it’s helpful!)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAn example repo with three folders: week1/, week2/, and other-stuff/. Each of those folders has a subfolder named data/, and each data/ folder contains a .csv file. Adding the line, /week*/data/ to the .gitignore tells Git to ignore folders (and their contents) named data/ that are within a parent folder named week__ (the * acts as a wildcard). If we wanted to ignore all three data/ folders (including other-stuff/data/), we can instead include /*/data/ to our .gitignore.\n\n\n\n\n\n\nD. Prepare a week1-discussion.qmd file\nAdd a new blank file to your class repo – you’ll complete your discussion exercises here. For organization’s sake, it should live in the following location: EDS-240-class-examples/week1/week1-discussion.qmd. Fill out the necessary YAML information (title, author, date + any other information you find helpful)."
+    "objectID": "getting-unstuck.html#roadblock-checklist",
+    "href": "getting-unstuck.html#roadblock-checklist",
+    "title": "Getting unstuck",
+    "section": "Roadblock checklist",
+    "text": "Roadblock checklist\nIf you hit a roadblock, run through this checklist to make sure you’ve done your due diligence before bringing your question(s) to a peer, TA, or instructor:\n\nrevisit the course materials – your question may already be answered in the slides\nread the documentation – you can do so directly from RStudio by typing ?function_name in the console\nsearch for and read the package’s, vignette if available – these are often linked on CRAN under the Documents section (e.g. see {dplyr} on CRAN) or found by Googling package_name vignette (e.g. the result of Googling dplyr vignette leads to the dplyr vignette)\ntry Googling! – don’t forget to a look back some of our suggested troubleshooting and Googling tips in Teach Me How to Google:"
   },
   {
-    "objectID": "course-materials/week1.html#discussion-materials",
-    "href": "course-materials/week1.html#discussion-materials",
-    "title": "Course logistics, Intro, {ggplot2} review",
-    "section": " Discussion Materials",
-    "text": "Discussion Materials\n\n\n\n\n\n\n\n\n Discussion Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nD1 slides: data wrangling\nD1 exercise: wrangle fracking data\nD1 solution"
+    "objectID": "getting-unstuck.html#how-to-ask-questions",
+    "href": "getting-unstuck.html#how-to-ask-questions",
+    "title": "Getting unstuck",
+    "section": "How to ask questions",
+    "text": "How to ask questions\nWhen you decide you’re going to ask a question to a peer / TA / instructor, be sure to (borrowed from Dr. Allison Horst’s Troubleshooting 101 lecture, EDS 221):\n\nProvide context. For example, “I’m trying to do this…” or “I’m working on the task where we do this…”\nShare the specific challenge. “I’m specifically trying to [insert function / package] to do this thing.”\nShare what happens and what you’ve learned. “I repeatedly get an error message that says [this]. I’ve tried [this] and [this]”\nShow your code ideally with a reprex that they can run / test.\nValue and expect the Socratic method, especially in classes and workshops – our goal is to provide critical thinking that is transferable, not just to provide a quick fix for a single error."
   },
   {
-    "objectID": "course-materials/week1.html#assignment-reminders",
-    "href": "course-materials/week1.html#assignment-reminders",
-    "title": "Course logistics, Intro, {ggplot2} review",
-    "section": " Assignment Reminders",
-    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nEOC\nEnd-of-class survey (week 1)\nMon 01/06/2024\nMon 01/06/2024, 11:55pm PT\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2024\nSat 01/11/2024, 11:59pm PT\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nSat 01/18/2024, 11:59pm PT"
+    "objectID": "getting-unstuck.html#some-words-of-wisdom",
+    "href": "getting-unstuck.html#some-words-of-wisdom",
+    "title": "Getting unstuck",
+    "section": "Some words of wisdom",
+    "text": "Some words of wisdom\nFinally, Julia Evans shares some funny (and highly relatable) words of wisdom:"
   },
   {
     "objectID": "course-materials/lecture-slides/sections/4.1-jobs-NEW.html",
@@ -3434,7 +3434,7 @@
     "href": "course-materials/discussion/week1/week1-exercise.html",
     "title": "Week 1 Discussion: Exercise",
     "section": "",
-    "text": "Note\n\n\n\nIt’s up to you to organize your own week1-discussion.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\nYour goal is to transform our raw fracking data into a cleaned / wrangled data frame that looks like this (only the first 6 rows are shown here):\n\n\n\n\n\n\n\n\nLoad the {tidyverse}, {janitor}, and {usdata}, read in registryupload_1.csv, and perform some basic data exploration. Use the {here} package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the metadata, which accompanied our registryupload_1.csv file when downloaded from FracFocus.\nConsider what data cleaning you might need to perform. Discuss any curious data formatting (e.g. data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?\n\n\n\n\n\n\n\nPause for class discussion\n\n\n\nTake a moment to share some of your findings with the rest of the class!\n\n\n\nClean / wrangle the data! Using the packages loaded in step 1, perform the following operations (NOTE: Each step below corresponds to a single line of code):\n\nconvert all column names from CamelCase to snake_case (for ease of readability and to adhere to the Tidyverse style guide recommendation)\nremove \"AM\" from the job_start_date column observations\nconvert observations in the job_start_date column from character strings to datetime objects and save them to a new column named datetime_start\nadd a column named year that contains only the year from datetime_start\nkeep only the necessary columns (datetime_start, year, state_name, well_name, total_base_water_volume)\nconvert all observations in the state_name column to Title Case\nremove any rows where the state name ends in ?\nconvert any state abbreviations to full names in the state_name column (Hint: use a combination of the mutate(), ifelse() & usdata::abbr2state() functions)\ncorrect any misspelled state names in the state_name column (Note: figure out how to update the names of a few misspelled states, the feel free to copy the complete code for this step from the expandable section, below)\nremove any rows that do not have a true US state name in the state_name column\nadd a column named state_abb with just US state abbreviations\nmove the state_abb column so that it sits immediately after the state_name column\nrename total_base_water_volume as total_base_water_volume_gal for clarity\nremove any observations that don’t have a measurement for total_base_water_volume_gal (i.e. NA)\nreorder rows from earliest to most recent datetime_start values\n\n\n\n\n\n\n\n\nExpand for code to fix misspelled state names\n\n\n\n\n\n\nmutate(state_name = case_when(\n    state_name == \"Colordao\" ~ \"Colorado\",\n    state_name == \"Loiusiana\" ~ \"Louisiana\",\n    state_name == \"Louisianna\" ~ \"Louisiana\",\n    state_name == \"Lousiana\" ~ \"Louisiana\",\n    state_name == \"New Mexcio\" ~ \"New Mexico\",\n    state_name == \"Norh Dakota\" ~ \"North Dakota\",\n    state_name == \"Norht Dakota\" ~ \"North Dakota\",\n    state_name == \"North  Dakota\" ~ \"North Dakota\",\n    state_name == \"North Dakata\" ~ \"North Dakota\",\n    state_name == \"North Dakotta\" ~ \"North Dakota\",\n    state_name == \"Noth Dakota\" ~ \"North Dakota\",\n    state_name == \"Pennslvania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylavania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylvanya\" ~ \"Pennsylvania\",\n    state_name == \"Penssylvania\" ~ \"Pennsylvania\",\n    state_name == \"Texasa\" ~ \"Texas\",\n    state_name == \"Texs\" ~ \"Texas\", \n    state_name == \"West Viginia\" ~ \"West Virginia\",\n    state_name == \"Wyominng\" ~ \"Wyoming\", \n    TRUE ~ state_name # copy over rest of state names from as-is\n  ))"
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week1-discussion.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\nYour goal is to transform the raw fracking data into a wrangled data frame that looks like this (only the first 6 rows are shown here):\n\n\n\n\n\n\n\n\nLoad the {tidyverse}, {janitor}, and {usdata} packages, read in registryupload_1.csv, and perform some basic data exploration. Use the {here} package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the metadata, which accompanied our registryupload_1.csv file when downloaded from FracFocus.\nConsider what data cleaning you might need to perform. Discuss any curious data formatting (e.g. data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?\n\n\n\n\n\n\n\nPause for class discussion\n\n\n\nTake a moment to share some of your findings with the rest of the class.\n\n\n\nClean / wrangle the data! Using the packages loaded in step 1, perform the following operations (NOTE: Each step below corresponds to a single line of code):\n\nconvert all column names from CamelCase to snake_case (for ease of readability and to adhere to the Tidyverse style guide recommendation)\nremove \"AM\" from the job_start_date column observations\nconvert observations in the job_start_date column from character strings to datetime objects and save them to a new column named datetime_start\nadd a column named year that contains only the year from datetime_start\nkeep only the necessary columns (datetime_start, year, state_name, well_name, total_base_water_volume)\nconvert all observations in the state_name column to Title Case\nremove any rows where the state name ends in ?\nconvert any state abbreviations to full names in the state_name column (Hint: use a combination of the mutate(), ifelse() & usdata::abbr2state() functions)\ncorrect any misspelled state names in the state_name column (Note: figure out how to update the names of a few misspelled states, the feel free to copy the complete code for this step from the expandable section, below)\nremove any rows that do not have a true US state name in the state_name column\nadd a column named state_abb with just US state abbreviations\nmove the state_abb column so that it sits immediately after the state_name column\nrename total_base_water_volume as total_base_water_volume_gal for clarity\nremove any observations that don’t have a measurement for total_base_water_volume_gal (i.e. NA)\nreorder rows from earliest to most recent datetime_start values\n\n\n\n\n\n\n\n\nExpand for code to fix misspelled state names\n\n\n\n\n\n\nmutate(state_name = case_when(\n    state_name == \"Colordao\" ~ \"Colorado\",\n    state_name == \"Loiusiana\" ~ \"Louisiana\",\n    state_name == \"Louisianna\" ~ \"Louisiana\",\n    state_name == \"Lousiana\" ~ \"Louisiana\",\n    state_name == \"New Mexcio\" ~ \"New Mexico\",\n    state_name == \"Norh Dakota\" ~ \"North Dakota\",\n    state_name == \"Norht Dakota\" ~ \"North Dakota\",\n    state_name == \"North  Dakota\" ~ \"North Dakota\",\n    state_name == \"North Dakata\" ~ \"North Dakota\",\n    state_name == \"North Dakotta\" ~ \"North Dakota\",\n    state_name == \"Noth Dakota\" ~ \"North Dakota\",\n    state_name == \"Pennslvania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylavania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylvanya\" ~ \"Pennsylvania\",\n    state_name == \"Penssylvania\" ~ \"Pennsylvania\",\n    state_name == \"Texasa\" ~ \"Texas\",\n    state_name == \"Texs\" ~ \"Texas\", \n    state_name == \"West Viginia\" ~ \"West Virginia\",\n    state_name == \"Wyominng\" ~ \"Wyoming\", \n    TRUE ~ state_name # copy over rest of state names from as-is\n  ))"
   },
   {
     "objectID": "course-materials/week5.html#pre-class-prep",
@@ -3560,7 +3560,7 @@
     "href": "course-materials/discussion/week1/week1-slides.html#messy-data",
     "title": "EDS 240",
     "section": "",
-    "text": "Download fracking data from Google Drive!\n\n\n\nYou should already have downloaded these data from Google Drive\n\nI happened to snag these data back in November 2023 when they were still quite messy. Since then, (it seems that) FracFocus has done a bit more pre-processing of these data – meaning the data you download from their online portal is already a whole lot cleaner. This is great(!), but also defeats the purpose of this exercise .\n\n\n\nOpen up the Week 1 Discussion: Exercise for instructions / next steps."
+    "text": "Download fracking data from Google Drive!\n\n\n\nYou should already have downloaded these data from Google Drive\n\nWe snagged these data back in November 2023 when they were still quite messy. Since then, (it seems that) FracFocus has done a bit more pre-processing of these data – meaning the data you download from their online portal is already a whole lot cleaner. This is great(!), but also defeats the purpose of this exercise .\n\n\n\nOpen up the Week 1 Discussion: Exercise for instructions / next steps."
   },
   {
     "objectID": "course-materials/discussion/week3/week3-exercise.html",
@@ -3661,11 +3661,46 @@
     "text": "Let’s recreate this USDM viz!\n\nWe’ll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the Droughts in California Wikipedia page!):\n\nThis week, we’ll focus on the data layer, geometric layer, and scales. During week 4 discussion, we’ll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor’s version."
   },
   {
+    "objectID": "course-materials/week1.html#pre-class-prep",
+    "href": "course-materials/week1.html#pre-class-prep",
+    "title": "Course logistics, Intro, {ggplot2} review",
+    "section": " Pre-lecture Prep",
+    "text": "Pre-lecture Prep\n\nA. Install required packages\n\ninstall.packages(\"palmerpenguins\") # a package containing the `penguins` data set, which we'll use for plotting practice\ninstall.packages(\"tidyverse\") # a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})\n\n\n\nB. Create your EDS-240-class-examples repository\nWe’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). Create and clone a GitHub repository named EDS-240-class-examples (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:\n\n\n\n\n\n\nStep-by-step instructions for creating and cloning a GitHub repo:\n\n\n\n\n\nCreate a remote (GitHub) repo:\n\nNavigate to your GitHub profile and click on Repositories (top menu bar)\nClick on the green New button in the upper right-hand corner\nGive it the name EDS-240-class-examples, and optionally, a short description. Select the radio button for Public repository (it should be selected by default). Initialize this repository with a README by checking the box. Click Create repository.\nFrom your repo’s main page, click the green Code button and copy the URL to your clipboard\n\nClone your repo:\n\nOpen up RStudio\nClick on the drop down menu next to the R project icon (top right corner)\nClick New Project… &gt; Version Control &gt; Git &gt; paste your repo’s URL in the Repository URL: box and press Tab to auto fill the Project directory name field (it should automatically be named the same as your GitHub repo). Browse to select where on your computer you’d like your repo to be saved.\nClick Create Project\n\n\n\n\nYou should also create a folder for each week (e.g. week1/, week2/, week3/, etc.) inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g. data files) to your .gitignore file, which is automatically created when you clone your repo as an R project (you’ll add data to your .gitignore for the first time during this week’s pre-discussion prep).\nRemember to fill out your repo’s README, referencing the MEDS README Guidelines, as well.\n\n\nC. Download the .qmd template\nTemplate .qmd files will be provided alongside (most) lecture slides to help keep us organized and on track throughout class. They are available for download directly from GitHub at the link(s) provided in the Lecture Materials table (below). Look for the download button at the top right corner of the file (it looks similar to this, ). Please download all necessary templates and save them to the appropriate EDS-240-data-viz-examples/weekX folder before each class."
+  },
+  {
+    "objectID": "course-materials/week1.html#lecture-materials",
+    "href": "course-materials/week1.html#lecture-materials",
+    "title": "Course logistics, Intro, {ggplot2} review",
+    "section": " Lecture Materials",
+    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 1.1: course logistics & syllabus\nNA\nNA\n\n\nLecture 1.2: data viz intro\nNA\nNA\n\n\nLecture 1.3: {ggplot2} review\n1.3 template\n1.3 key"
+  },
+  {
+    "objectID": "course-materials/week1.html#pre-discussion-prep",
+    "href": "course-materials/week1.html#pre-discussion-prep",
+    "title": "Course logistics, Intro, {ggplot2} review",
+    "section": " Pre-discussion Prep",
+    "text": "Pre-discussion Prep\n\n\nA. Install required packages\n\ninstall.packages(\"here\") # for reproducible, relative file paths\ninstall.packages(\"janitor\") # tools for cleaning dirty data\ninstall.packages(\"usdata\") # demographic data on the United States at the county and state levels spanning multiple years.\n\n\n\nB. Download necessary data\nDownload fracking data (registryupload_1.csv) from Google Drive and save it to your class repo in the following location: EDS-240-class-examples/week1/data/registryupload_1.csv\n\n\n\n\n\n\nWhy are we downloading from Google Drive and not directly from FracFocus?\n\n\n\n\n\nThese data were originally downloaded as a zip file from FracFocus in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise . For this reason, we’ll be working with this saved version of the data, rather than downloading directly from FracFocus’s data download page.\n\n\n\n\n\nC. Add data to .gitignore\nWe don’t want to push any data in our repo to GitHub (GitHub enforces file size limits, and you’ll run into some serious headaches when you try to push a file that’s too big). To avoid doing this, we can add our data files to our .gitignore file, which, as the name implies, is a collection of files that we want Git to ignore. Open up your .gitignore file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):\n\n\n\n.gitignore\n\n# ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)\n/week*/data/\n\n\nNotice that when you Save your modified .gitignore file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified .gitignore file appears in it’s place (this is what we want!). Stage / add, commit, and push .gitignore.\n\n\n\n\n\n\nA gif of this whole process (in case it’s helpful!)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAn example repo with three folders: week1/, week2/, and other-stuff/. Each of those folders has a subfolder named data/, and each data/ folder contains a .csv file. Adding the line, /week*/data/ to the .gitignore tells Git to ignore folders (and their contents) named data/ that are within a parent folder named week__ (the * acts as a wildcard). If we wanted to ignore all three data/ folders (including other-stuff/data/), we can instead include /*/data/ to our .gitignore.\n\n\n\n\n\n\nD. Prepare a week1-discussion.qmd file\nAdd a new blank file to your class repo – you’ll complete your discussion exercises here. For organization’s sake, it should live in the following location: EDS-240-class-examples/week1/week1-discussion.qmd. Fill out the necessary YAML information (title, author, date + any other information you find helpful)."
+  },
+  {
+    "objectID": "course-materials/week1.html#discussion-materials",
+    "href": "course-materials/week1.html#discussion-materials",
+    "title": "Course logistics, Intro, {ggplot2} review",
+    "section": " Discussion Materials",
+    "text": "Discussion Materials\n\n\n\n\n\n\n\n\n Discussion Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nD1 slides: data wrangling\nD1 exercise: wrangle fracking data\nD1 solution"
+  },
+  {
+    "objectID": "course-materials/week1.html#assignment-reminders",
+    "href": "course-materials/week1.html#assignment-reminders",
+    "title": "Course logistics, Intro, {ggplot2} review",
+    "section": " Assignment Reminders",
+    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nEOC\nEnd-of-class survey (week 1)\nMon 01/06/2024\nMon 01/06/2024, 11:55pm PT\n\n\nSR\nPre-course reflection (SR #1)\nMon 01/06/2024\nSat 01/11/2024, 11:59pm PT\n\n\nHW\nHomework Assignment #1\nTue 01/07/2025\nSat 01/18/2024, 11:59pm PT"
+  },
+  {
     "objectID": "index.html#course-description",
     "href": "index.html#course-description",
     "title": "Data Visualization & Communication",
     "section": "Course Description",
-    "text": "Course Description\nEffectively communicating your work in a responsible, accessible and visually-pleasing way is often (if not, always) a central part of data science. This course will focus on the basic principles for effective communication through data visualization and using technical tools and workflows for creating and sharing data visualizations with diverse audiences.\nBy the end of this course, learners should be able to:\n\nIdentify which types of visualizations are most appropriate for your data and your audience\nPrepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations\nBuild effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically {ggplot2} + ggplot2 extension packages\nWrite code from scratch and read and adapt code written by others\nApply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations\nAssess, critique, and provide constructive feedback on data visualizations"
+    "text": "Course Description\nEffectively communicating your work in a responsible, accessible and visually-pleasing way is often (if not, always) a central part of data science. This course will focus on the basic principles for effective communication through data visualization and using technical tools and workflows for creating and sharing data visualizations with diverse audiences.\n\n\nBy the end of this course, learners should be able to:\n\nIdentify which types of visualizations are most appropriate for your data and your audience\nPrepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations\nBuild effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically {ggplot2} + ggplot2 extension packages\nWrite code from scratch and read and adapt code written by others\nApply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations\nAssess, critique, and provide constructive feedback on data visualizations"
   },
   {
     "objectID": "index.html#teaching-team",
@@ -3680,41 +3715,6 @@
     "title": "Data Visualization & Communication",
     "section": "Acknowledgements",
     "text": "Acknowledgements\nBuilding this course meant learning from the many incredible folks who think a lot about producing effective, beautiful, and responsible data visualizations. I relied heavily on the open source R / {ggplot2} / data viz teaching materials and tutorials that this wonderful data science community shares so willingly. Attribution will be included on any slides / materials where content is adapted from other educators."
-  },
-  {
-    "objectID": "getting-unstuck.html",
-    "href": "getting-unstuck.html",
-    "title": "Getting unstuck",
-    "section": "",
-    "text": "A large part of being a data scientist is ~being okay~ with not immediately knowing the answers to your code challenges – troubleshooting errors, deciphering code, and trying new things (and likely failing at some…er many…of them) is all a part of the job. We all experience it, no matter how many years we’ve been at it."
-  },
-  {
-    "objectID": "getting-unstuck.html#where-to-find-help",
-    "href": "getting-unstuck.html#where-to-find-help",
-    "title": "Getting unstuck",
-    "section": "Where to find help",
-    "text": "Where to find help\nWe often learn the most (and remember more of what we learned) when we take the time to troubleshoot on our own (or at least narrow down the potential problem(s)), so you should always plan to start there . The graphic below shows the order in which you should approach different resources for help:"
-  },
-  {
-    "objectID": "getting-unstuck.html#roadblock-checklist",
-    "href": "getting-unstuck.html#roadblock-checklist",
-    "title": "Getting unstuck",
-    "section": "Roadblock checklist",
-    "text": "Roadblock checklist\nIf you hit a roadblock, run through this checklist to make sure you’ve done your due diligence before bringing your question(s) to a peer, TA, or instructor:\n\nrevisit the course materials – your question may already be answered in the slides\nread the documentation – you can do so directly from RStudio by typing ?function_name in the console\nsearch for and read the package’s, vignette if available – these are often linked on CRAN under the Documents section (e.g. see {dplyr} on CRAN) or found by Googling package_name vignette (e.g. the result of Googling dplyr vignette leads to the dplyr vignette)\ntry Googling! – don’t forget to a look back some of our suggested troubleshooting and Googling tips in Teach Me How to Google:"
-  },
-  {
-    "objectID": "getting-unstuck.html#how-to-ask-questions",
-    "href": "getting-unstuck.html#how-to-ask-questions",
-    "title": "Getting unstuck",
-    "section": "How to ask questions",
-    "text": "How to ask questions\nWhen you decide you’re going to ask a question to a peer / TA / instructor, be sure to (borrowed from Dr. Allison Horst’s Troubleshooting 101 lecture, EDS 221):\n\nProvide context. For example, “I’m trying to do this…” or “I’m working on the task where we do this…”\nShare the specific challenge. “I’m specifically trying to [insert function / package] to do this thing.”\nShare what happens and what you’ve learned. “I repeatedly get an error message that says [this]. I’ve tried [this] and [this]”\nShow your code ideally with a reprex that they can run / test.\nValue and expect the Socratic method, especially in classes and workshops – our goal is to provide critical thinking that is transferable, not just to provide a quick fix for a single error."
-  },
-  {
-    "objectID": "getting-unstuck.html#some-words-of-wisdom",
-    "href": "getting-unstuck.html#some-words-of-wisdom",
-    "title": "Getting unstuck",
-    "section": "Some words of wisdom",
-    "text": "Some words of wisdom\nFinally, Julia Evans shares some funny (and highly relatable) words of wisdom:"
   },
   {
     "objectID": "course-materials/keys/KEY-lecture6.1-typography.html",
