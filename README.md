@@ -1,8 +1,8 @@
 # Course website for EDS 240: Data Visualization & Communication
 
-<img width="953" alt="Screenshot 2024-06-11 at 11 34 11 AM" src="https://github.com/samanthacsik/EDS-240-data-viz/assets/43836046/135a15ff-62c9-4ae3-9026-db4d4a06a4be">
-
-<p align="center"><em>Artwork by <a href="https://allisonhorst.com/">Allison Horst</a></em></p>
+<p align="center">
+  <img src='https://github.com/user-attachments/assets/a7ef3dd6-59cd-426d-9118-d014d5c79a19' width='500' alt="A hexagon with a scatter / line plot where the data points are water droplets. Two flowers roots originate at the water droplets and flowers sprout out of the top of the hexagon. The words 'EDS 240 data visualization & communication' sit below the plot. The design is inspired by the ggplot2 hex.">
+</p>
 
 ## Course Description
 
