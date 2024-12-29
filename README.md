@@ -4,6 +4,9 @@
   <img src='https://github.com/user-attachments/assets/a7ef3dd6-59cd-426d-9118-d014d5c79a19' width='500' alt="A hexagon with a scatter / line plot where the data points are water droplets. Two flowers roots originate at the water droplets and flowers sprout out of the top of the hexagon. The words 'EDS 240 data visualization & communication' sit below the plot. The design is inspired by the ggplot2 hex.">
 </p>
 
+<p align="center"><em>Logo inspired by the <a href="https://github.com/rstudio/hex-stickers/blob/main/PNG/ggplot2.png">{ggplot2} hex</a></em></p>
+
+
 ## Course Description
 
 Effectively communicating your work in a responsible, accessible and visually-pleasing way is often (if not, always) a central part of data science. This course will focus on the basic principles for effective communication through data visualization and using technical tools and workflows for creating and sharing data visualizations with diverse audiences.
