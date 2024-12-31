@@ -2219,88 +2219,214 @@
     "text": "To summarize:\n\n\n\nMake sure the resolution used by {showtext} for text rendering matches the resolution used by ggsave() for saving your plot\n\nshowtext_opts(dpi = 300)\nggsave(dpi = 300)\n300 DPI is generally recommended\n\n\n\n\n\n\nUse relative text sizes wherever possible\n\nset a basesize in your complete theme\nuse rel() to set relative text sizes\n\n\n\n\n\n\nMake absolute size adjustments as necessary\n\ne.g. to {ggtext} elements, margins, panel spacing, point sizes, etc."
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html",
-    "title": "Lecture 1.3 KEY",
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html",
+    "title": "Lecture 2.2 KEY",
     "section": "",
-    "text": "Note\n\n\n\nThis template follows lecture 1.3 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
+    "text": "Note\n\n\n\nThis template follows lecture 2.2 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#setup",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#setup",
-    "title": "Lecture 1.3 KEY",
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#setup",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#setup",
+    "title": "Lecture 2.2 KEY",
     "section": "Setup",
-    "text": "Setup\n\n# load packages ----\nlibrary(tidyverse)\nlibrary(palmerpenguins)"
+    "text": "Setup\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(chron)\nlibrary(naniar)\n\n#..........................import data...........................\nmko &lt;- read_csv(\"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa\")\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nmko_clean &lt;- mko |&gt;\n\n  # keep only necessary columns ----\n  select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |&gt;\n\n  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----\n  unite(date, year, month, day, sep = \"-\", remove = FALSE) |&gt;\n  mutate(time = chron::times(decimal_time)) |&gt;\n  unite(date_time, date, time, sep = \" \") |&gt;\n\n  # coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----\n  mutate(date_time = as.POSIXct(date_time, \"%Y-%m-%d %H:%M:%S\", tz = \"GMT\"), \n         year = as.factor(year),\n         month = as.factor(month),\n         day = as.numeric(day)) |&gt;\n\n  # add month name by indexing the built-in `month.name` vector ----\n  mutate(month_name = as.factor(month.name[month])) |&gt;\n\n  # replace 9999s with NAs ----\n  naniar::replace_with_na(replace = list(Temp_bot = 9999, \n                                         Temp_top = 9999, \n                                         Temp_mid = 9999)) |&gt;\n\n  # select/reorder desired columns ----\n  select(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            explore missing data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........counts & percentages of missing data by year..........\nsee_NAs &lt;- mko_clean |&gt; \n  group_by(year) |&gt; \n  naniar::miss_var_summary() |&gt;\n  filter(variable == \"Temp_bot\")\n\n#...................visualize missing Temp_bot...................\nbottom &lt;- mko_clean |&gt; select(Temp_bot)\nmissing_temps &lt;- naniar::vis_miss(bottom)"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#tidy-data-review",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#tidy-data-review",
-    "title": "Lecture 1.3 KEY",
-    "section": "Tidy Data Review",
-    "text": "Tidy Data Review\nExample untidy / wide data:\n\n# create some untidy temperature data ----\ntemp_data_wide &lt;- tribble(\n  ~date, ~station1, ~station2,  ~station3,\n  \"2023-10-01\", 30.1, 29.8,  31.2,\n  \"2023-11-01\", 28.6, 29.1,  33.4,\n  \"2023-12-01\", 29.9, 28.5,  32.3\n)\n\n# print it out ----\nprint(temp_data_wide)\n\n# A tibble: 3 × 4\n  date       station1 station2 station3\n  &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1 2023-10-01     30.1     29.8     31.2\n2 2023-11-01     28.6     29.1     33.4\n3 2023-12-01     29.9     28.5     32.3\n\n\nUsing pivot_longer() to “lengthen” / tidy our data:\n\n# convert data from wide &gt; long ----\ntemp_data_long &lt;- temp_data_wide |&gt; \n  pivot_longer(cols = starts_with(\"station\"),\n               names_to = \"station_id\",\n               values_to = \"temp_c\")\n\n# print it out ----\nprint(temp_data_long)\n\n# A tibble: 9 × 3\n  date       station_id temp_c\n  &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt;\n1 2023-10-01 station1     30.1\n2 2023-10-01 station2     29.8\n3 2023-10-01 station3     31.2\n4 2023-11-01 station1     28.6\n5 2023-11-01 station2     29.1\n6 2023-11-01 station3     33.4\n7 2023-12-01 station1     29.9\n8 2023-12-01 station2     28.5\n9 2023-12-01 station3     32.3"
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#histograms",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#histograms",
+    "title": "Lecture 2.2 KEY",
+    "section": "Histograms",
+    "text": "Histograms\n\nrepresent distribution of a numeric variable(s), which is cut into several bins – height of bar represents # of observations in that bin\n\n\nToo many groups\nNote the message, to remind us to consider adjusting our binwidth\n\n# histogram with all 12 months ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_histogram(position = \"identity\", alpha = 0.5)\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\nWarning: Removed 74425 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: small multiples\n\n# histogram faceted by month ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot)) +\n  geom_histogram() +\n  facet_wrap(~month_name)\n\n\n\n\n\n\n\n\n\n\nAlt 2: fewer groups + update colors + modify bin widths\n\n# histogram with fewer months ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  filter(month_name %in% c(\"April\", \"June\", \"October\")) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) + \n  geom_histogram(position = \"identity\", alpha = 0.5, color = \"black\", binwidth = 1) +\n  scale_fill_manual(values = c(\"#2C5374\", \"#ADD8E6\", \"#8B3A3A\"))"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-1",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-1",
-    "title": "Lecture 1.3 KEY",
-    "section": "Plot #1",
-    "text": "Plot #1\nExplore the relationship between penguin bill length and bill depth. Our goals are to review:\n\ninitializing a plot object and adding a geometry layer to represent our data\nwhen to define data & map variables globally (e.g. within ggplot()) vs. locally (e.g. within a geom_*())\nupdating how aesthetic mappings manifest visually aka scaling\npiping into a ggplot\n\n\nExample 1 (the basics)\n\ninitialize a plot object\nmap aesthetics\nshow that you can omit argument names\nadd a geometry layer\nupdate how aesthetic mappings manifest visually (i.e. scaling)\n\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + \n  geom_point()\n\n\n\n\n\n\n\n\n\n\nExample 2 (mapping custom colors)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + \n  geom_point() +\n  scale_color_manual(values = c(\"darkorange\",\"purple\",\"cyan4\"))\n\n\n\n\n\n\n\n\n\n\nExample 3 (mapping color to continuous variable)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + \n  geom_point() +\n  scale_color_gradient(low = \"#132B43\", high = \"#F7DD4C\")\n\n\n\n\n\n\n\n\n\n\nExample 4 (updating color for all points)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + \n  geom_point(color = \"blue\")\n\n\n\n\n\n\n\n\n\n\nExample 5 (local vs. global data & variable mappings)\n\ndefine data and mappings within geom_*() (locally) rather than in ggplot() (globally) – helpful if you plan to include multiple geoms with different mappings (e.g. you’re plotting data from multiple data frames):\n\n\n# create a separate penguins_summary df ----\npenguins_summary &lt;- penguins |&gt;\n  drop_na() |&gt; \n  group_by(species) |&gt; \n  summarize(\n    mean_bill_length_mm = mean(bill_length_mm),\n    mean_bill_depth_mm = mean(bill_depth_mm)\n  )\n\n# create ggplot with layers from different dfs ----\nggplot() +\n  geom_point(data = penguins, \n             mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species), \n             alpha = 0.5) +\n  geom_point(data = penguins_summary,\n             mapping = aes(x = mean_bill_length_mm, y = mean_bill_depth_mm, fill = species),\n             size = 5, shape = 24)\n\n\n\n\n\n\n\n\n\n\nExample 6 & 7 (mapping variables globally vs. locally)\n\nglobal mappings are passed down to all subsequent layers:\n\n\n# scatterplot with lms fitted to species ---- \nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n\n\n\n\n\n\n\n\nlocal mappings only apply to that particular layer:\n\n\n# scatterplot with lm fitted to entire data set ---- \nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point(aes(color = species)) +\n  geom_smooth(method = \"lm\")\n\n\n\n\n\n\n\n\n\n\nExample 8 (piping data into a ggplot)\n\nuseful if you need to do a small bit of wrangling first, but don’t want to create a whole new df\n\n\n# filter for Gentoo penguins, then pipe into ggplot ----\npenguins |&gt; \n  filter(species == \"Gentoo\") |&gt; \n  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) + \n  geom_point()"
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#density-plots",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#density-plots",
+    "title": "Lecture 2.2 KEY",
+    "section": "Density plots",
+    "text": "Density plots\n\nrepresent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable; where the area under the curve is equal to 1\n\n\nToo many groups\n\n# density plot with all 12 months ----\nmko_clean |&gt; \n  mutate(month_name = factor(x = month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_density(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nAlt 1: small multiples\n\n# density plot faceted by month ---- \nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot)) +\n  geom_density(fill = \"gray30\") +\n  facet_wrap(~month_name)\n\n\n\n\n\n\n\n\n\n\nAlt 2: fewer groups + update colors + modify band widths\n\n# density plot with fewer months ----\nmko_clean |&gt; \n  filter(month_name %in% c(\"April\", \"June\", \"October\")) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_density(alpha = 0.5, adjust = 1/2) + \n  scale_fill_manual(values = c(\"#2C5374\", \"#ADD8E6\", \"#8B3A3A\"))"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-2",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-2",
-    "title": "Lecture 1.3 KEY",
-    "section": "Plot #2",
-    "text": "Plot #2\nExplore penguin species counts. Our goals are to review:\n\nstatistical transformations – what are they, how to identify the default, and how to update them\nposition adjustments – what are they, how to identify the default, and how to update them\ncoordinate systems – what are they, how to identify the default, and how to update them\n\nupdating non-data elements using pre-built themes and the theme() function\n\n\nExample 1 (the basics + default stat)\n\ninitialize a plot object\nmap aesthetics\nadd a geometry layer\nexplore default statistical transformations\n\nreading documentation is important here!\n\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar(stat = \"count\") # this is the default stat, so you don't actually need to type this out!\n\n\n\n\n\n\n\n\n\n\nExample 2 (override default stat)\n\nlet’s say we have a df that already contains calculated species count values, and we want the height of the bars to be based on those count values:\n\n\n# new summarized df ----\npenguin_summary &lt;- penguins |&gt; \n  count(species) \n\n# generate bar heights based on \"identity\" of values in `n` column ----\nggplot(penguin_summary, aes(x = species, y = n)) +\n  geom_bar(stat = \"identity\")\n\n\n\n\n\n\n\n\n\n\nExample 3 (override default stat mapping)\n\ne.g. we can display the same data but with y-axis values as proportions rather than counts\n\n\nggplot(data = penguins, mapping = aes(x = species, y = after_stat(prop), group = 1)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\nExample 4 (default position adjustment)\n\nposition adjustments tweak position of elements to resolve overlapping geoms\nall geoms have a default position (e.g. barplots have position = \"stack\") – see documentation\nlet’s say we now want to visualize penguin counts by species (bar height) and by island (color):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"stack\") # this is the default, so you don't actually need to specify!\n\n\n\n\n\n\n\n\n\n\nExample 5 & 6 (override default position adjustments)\n\nposition = \"fill\" creates stacked bars of the same height (easier to compare proportions):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"fill\") \n\n\n\n\n\n\n\n\n\nposition = \"dodge\" places overlapping bars directly beside one another (easier to compare individual values):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"dodge\") \n\n\n\n\n\n\n\n\n\n\nExample 7 (alternatively, use position_*())\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = position_dodge2(preserve = \"single\"))\n\n\n\n\n\n\n\n\n\n\nExample 8 (default coordinate system)\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_cartesian() # you don't need to explicitly include `coord_cartesian()` since it's the default\n\n\n\n\n\n\n\n\n\n\nExample 9 & 10 (alternative coordinate systems)\n\nflip x & y axes:\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_flip()\n\n\n\n\n\n\n\n\n\npolar coordinates:\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_polar()\n\n\n\n\n\n\n\n\n\n\nExample 11 (pre-made themes)\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  theme_light() \n\n\n\n\n\n\n\n\n\n\nExample 12 (customize further with theme())\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  theme_light() +\n  theme(\n    axis.title = element_text(size = 17, color = \"purple\")\n  )"
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#a-few-more-histograms-density-plots",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#a-few-more-histograms-density-plots",
+    "title": "Lecture 2.2 KEY",
+    "section": "A few more histograms & density plots",
+    "text": "A few more histograms & density plots\n\nDistinction: histograms vs. density plots\n# create some dummy data ----\ndummy_data &lt;- data.frame(value = c(rnorm(n = 100, mean = 5),\n                                   rnorm(n = 200, mean = 10)),\n                         group = rep(c(\"A\", \"B\"),\n                                     times = c(100, 200)))\n\n# histogram ----\nggplot(dummy_data, aes(x = value, fill = group)) +\n  geom_histogram(position = \"identity\", alpha = 0.7) +\n  geom_rug(aes(color = group), alpha = 0.75)\n# density plot ----\nggplot(dummy_data, aes(x = value, fill = group)) +\n  geom_density(alpha = 0.7) +\n  geom_rug(aes(color = group), alpha = 0.75)\n\n\n\n\n\n\n\n\n\n\n\n\nCombining geoms\n\n# histogram + density plot ----\nggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down hist to match density curve\n  geom_histogram(fill = \"gray\", color = \"black\", alpha = 0.75) +\n  geom_density(size = 1) \n\n\n\n\n\n\n\n\n\n\nCompare groups to a whole\n\nlibrary(palmerpenguins)\n\n# use `after_stat(count)` to plot density of observations ----\nggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +\n \n  # plot full distribution curve with label \"all penguins\"; remove 'species' col so that this doesn't get faceted later on ----\n  geom_density(data = select(penguins, -species), \n               aes(fill = \"all penguins\"), color = \"transparent\") +\n  \n  # plot second curve with label \"species\" ----\n  geom_density(aes(fill = \"species\"), color = \"transparent\") +\n  \n  # facet wrap by species ----\n  facet_wrap(~species, nrow = 1) +\n  \n  # update colors, x-axis label, legend position ----\n  scale_fill_manual(values = c(\"grey\",\"#0C8346\"), name = NULL) +\n  labs(x = \"Body Mass (g)\") +\n  theme(legend.position = \"top\")"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-3",
-    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-3",
-    "title": "Lecture 1.3 KEY",
-    "section": "Plot #3",
-    "text": "Plot #3\nExplore penguin flipper lengths. Our goals are to review:\n\nmore position adjustments and scales\nupdating plot labels\nfaceting\n\n\nExample 1 (all in one go!)\n\ninitialize a plot object\nmap aesthetics\nadd a geometry layer\nmap color to species\nupdate position adjustment\nupdate labels\nfacet by species\n\n\nggplot(penguins, aes(x = flipper_length_mm, fill = species)) + \n  geom_histogram(position = \"identity\", alpha = 0.5) +\n  scale_fill_manual(values = c(\"darkorange\", \"purple\", \"cyan4\")) + \n  labs(x = \"Flipper Length (mm)\",\n       y = \"Frequency\",\n       fill = \"Species\",\n       title = \"Penguin Flipper Lengths\") +\n  facet_wrap(~species, ncol = 1)"
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#ridgeline-plots",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#ridgeline-plots",
+    "title": "Lecture 2.2 KEY",
+    "section": "Ridgeline plots",
+    "text": "Ridgeline plots\n\nshow distribution of a numeric variable for multiple groups\n\n# basic ridgeline plot ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name)) +\n  ggridges::geom_density_ridges()\n# fill with color gradient ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +\n  ggridges::geom_density_ridges_gradient() +\n  scale_fill_gradientn(colors = c(\"#2C5374\",\"#849BB4\", \"#D9E7EC\", \"#EF8080\", \"#8B3A3A\"))\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: reorder groups + adjust overlap & tails\n\n# ridgeline plot with reordered months ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +\n  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +\n  scale_y_discrete(limits = rev(month.name)) +\n  scale_fill_gradientn(colors = c(\"#2C5374\",\"#849BB4\", \"#D9E7EC\", \"#EF8080\", \"#8B3A3A\"))\n\n\n\n\n\n\n\n\n\n\nAlt 2: add quantiles\n\n# ridgeline plot with quantiles ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name)) +\n  ggridges::stat_density_ridges(rel_min_height = 0.01, scale = 3,\n                                quantile_lines = TRUE, quantiles = 2) +\n  scale_y_discrete(limits = rev(month.name))\n\n\n\n\n\n\n\n\n\n\nAlt 3: jitter raw data\n\n# jittered points ----\nggplot(penguins, aes(x = body_mass_g, y = species)) +\n  ggridges::geom_density_ridges(jittered_points = TRUE, \n                                alpha = 0.5, point_size = 0.5)\n\n\n\n\n\n\n\n# raincloud ----\nggplot(penguins, aes(x = body_mass_g, y = species)) +\n  ggridges::geom_density_ridges(jittered_points = TRUE, alpha = 0.5, \n                                point_size = 0.5, scale = 0.6,\n                                position = \"raincloud\")"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html",
-    "title": "Lecture 4.2 KEY",
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#boxplots",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#boxplots",
+    "title": "Lecture 2.2 KEY",
+    "section": "Boxplots",
+    "text": "Boxplots\n\nsummarize the distribution of a numeric variable for one or several groups\n\n\n# boxplot with all 12 months ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_boxplot() +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nAlt 1: modify outliers\n\n# boxplot with modified outliers ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_boxplot(outlier.color = \"purple\", outlier.shape = \"circle open\", outlier.size = 5) +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 2: hightlight a group\n\n# highlight a particular group ----\nmko_clean |&gt; \n  ggplot(aes(x = month_name, y = Temp_bot, fill = month_name)) +\n  geom_boxplot() +\n  scale_x_discrete(limits = rev(month.name)) +\n  gghighlight::gghighlight(month_name == \"October\") +\n  coord_flip() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\nAlt 3: jitter raw data (using {palmerpenguins} data)\n\n# add jittered data points ----\nggplot(penguins, aes(x = species, y = body_mass_g)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_jitter(alpha = 0.5, width = 0.2) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 4: dodged groups\n\n# dodge groups by year ----\npenguins |&gt; \n  mutate(year = as.factor(year)) |&gt; \n  ggplot(aes(x = species, y = body_mass_g, color = year)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_point(alpha = 0.5, position = position_jitterdodge(jitter.width = 0.2)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 5: overlay beeswarm\n\n# boxplot + beeswarm ----\nggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +\n  geom_boxplot(outlier.shape = NA) +\n  ggbeeswarm::geom_beeswarm(size = 1) +\n  coord_flip()"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#violin-plots",
+    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#violin-plots",
+    "title": "Lecture 2.2 KEY",
+    "section": "Violin plots:",
+    "text": "Violin plots:\n\nvisualize distribution of a numeric variable for one or several groups; great for multiple groups with lots of data\n\n\n# violin plot ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_violin() +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nAlt 1: overlay boxplot\n\n# violin + boxplot ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1, color = \"gray\", alpha = 0.5, \n               outlier.color = \"red\") +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 2: half-violin half-dot plot\n\n# half violin + half dot plot ----\nggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +\n  see::geom_violindot(size_dots = 5, alpha = 0.5) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#title-slide",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#title-slide",
+    "title": "EDS 240",
     "section": "",
-    "text": "Note\n\n\n\nThis template follows lecture 4.2 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
+    "text": "EDS 240: Lecture 5.3\nColors & Choropleths\n\nWeek 5 | February 7th, 2025"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#setup",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#setup",
-    "title": "Lecture 4.2 KEY",
-    "section": "Setup",
-    "text": "Setup\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(metajam) \nlibrary(tidyverse)\n\n#...................download data from DataOne...................\ndownload_d1_data(\"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7\",\n                 path = here::here(\"week4\")) \n\n#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~\n\n#....................read in downloaded files....................\nstream_chem_all &lt;- read_d1_files(here::here(\"week4\", \"data\"))\n\n#........................get the data file.......................\nstream_chem_data &lt;- stream_chem_all$data"
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#making-map",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#making-map",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Let’s explore county-level precipitation data using a choropleth map. Importantly, we’ll decide on a color palette / scale type and make any necessary adjustments."
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#scatter-plots",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#scatter-plots",
-    "title": "Lecture 4.2 KEY",
-    "section": "Scatter plots",
-    "text": "Scatter plots\n\nBasic scatter plot\n\n# basic scatter plot ----\np1 &lt;- stream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5)\n\np1\n\n\n\n\n\n\n\n\n\n\nAlt 1: add a rug plot\n\n# scatter + rug plot ----\np1 +\n  geom_rug()\n\n\n\n\n\n\n\n\n\n\nAlt 2: marginal plot alternatives using {ggExtra}\n\n# add marginal plots with {ggExtra} ----\n# also try \"density\", \"boxplot\"\nggExtra::ggMarginal(p1, type = \"histogram\")\n\n\n\n\n\n\n\n\n\n\nAlt 3: scatter + marginal plot with 2+ groups\n\n# scatter plot with points colored by site ----\np2 &lt;- stream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site)) + \n  geom_point(alpha = 0.5) +\n  theme(legend.position = \"bottom\")\n\n# add marginal density plot ----\nggExtra::ggMarginal(p2, type = \"density\", groupFill = TRUE, groupColour = TRUE)"
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#choropleth",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#choropleth",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What’s a choropleth?\n\n\nChoropleths are maps that display the spatial distribution of a variable across divided geographical areas / regions, where variable is encoded by color.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChoropleth by Ramiro Gómez using GeoPandas (blog post)\n\n\n\n\n\n\n\n\n\n\n\n\nChoropleth by Hanna & Farnsworth (2013)\n\n\n\n\nChoosing the right color palette and scale type are critically important. Oftentimes, you’ll need to adjust the default mapping of colors to accurately tell your story."
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#trend-lines",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#trend-lines",
-    "title": "Lecture 4.2 KEY",
-    "section": "Trend lines",
-    "text": "Trend lines\n\nDefault: LOESS method\n\nsimilar to a moving average\n\n\n# add a smoothed line ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  filter(site == \"W8\") |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5) +\n  geom_smooth()\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nLine of best fit\n\n# add a trend line ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  filter(site == \"W8\") |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n`geom_smooth()` using formula = 'y ~ x'"
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The Data\n\nNOAA National Centers for Environmental Information (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation’s geophysical data and information.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFind public access to a massive inventory of climate data on their Climate Monitoring page. Today’s lesson will use the Climate at a Glance collection. Specifically, we’ll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average. To do so, we’ll work with county-level precipitation data, accessed via the County Mapping portal."
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#visualizing-a-third-numeric-variable",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#visualizing-a-third-numeric-variable",
-    "title": "Lecture 4.2 KEY",
-    "section": "Visualizing a third numeric variable",
-    "text": "Visualizing a third numeric variable\n\nBubble charts\n\nvariation of a scatter plot for visualizing a third numeric variable\nbe extra mindful:\n\nprimary focus = relationship between your x- and y-axis variables\nhard to compare the strengths of different associations (is there a better alternative graphic form?)\nif the range of values mapped to size is small, your bubbles will look indistinguishable from one another\nconsider adjusting the size range of your scale\n\n\n\n# bubble chart ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\nadjust size range of bubbles\n\n\n# scale size by area ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  scale_size(range = c(1, 10)) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\nIMPORTANT: don’t scale size by radius (can be deceptive)\n\n\n# don't scale size by radius ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  scale_radius(range = c(1, 10)) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\n\nUse color for third variable\n\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + \n  geom_point(alpha = 0.5, size = 2) +\n  scale_color_viridis_c() +\n  labs(x = \"DOC (mg/L)\", color = \"Al (mg/L)\")\n\n\n\n\n\n\n\n\n\n\nBut oftentimes best to just create two different plots\n# effect of DOC on pH ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site)) + \n  geom_point(alpha = 0.5)\n# effect of DOC on Al_ICP ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = Al_ICP, y = pH, color = site)) + \n  geom_point(alpha = 0.5)"
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#tigris",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#tigris",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Use {tigris} to download shapefiles\n\nWe can use the {tigris} package to download and use Census TIGER/Line shapefiles in R.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA shapefile is a vector data file format commonly used for geospatial analysis.\nShapefiles contain information for spatially describing features (e.g. points, lines, polygons), as well as any associated attribute information.\nYou can find / download shapefiles online (e.g. from the US Census Bureau), or depending on the tools available, access them via packages (like we’re doing today).\n\n\n\nCheck out Ch. 5 of Analyzing US Census Data: Methods, Mpas, and Models in R by Kyle E. Walker for a great intro to {tigris}"
   },
   {
-    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#overplotting",
-    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#overplotting",
-    "title": "Lecture 4.2 KEY",
-    "section": "Overplotting",
-    "text": "Overplotting\n\nif you have too many points, scatter plots can be ineffective\n\n\n\n\n\n\n\n\n\n\n\nInitial strategies\n\nadjust size / transparency of points\n\n\n\n\n\n\n\n\n\n\n\nadd a rug plot (or marginal plot)\n\n\n\n\n\n\n\n\n\n\n\ncolor by group\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: heatmaps\n\ne.g. like you’re looking down on a histogram\n\n\n\n\n\n\n\n\n\n\n\nor use hexagonal shapes\nalso increase height of legend can make continuous scale easier to read\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 2: 2d density / contour plots\n\ne.g. like you’re looking down on a density plot\nlegend provides an estimate of the proportion of data points fall within a colored region (density of distribution of points sums to 1)\n\ninterpreting legend: 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 3: 2d density plots using {ggdensity}\n\ncan be easier to interpret\ncompute and plot the resulting highest density regions (HDRs)\nHDRs are computed to be the smallest such regions that bound that level of probability"
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#sf",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#sf",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Simple features in R\n\n\nSpatial data can take many forms – simple features is a standard that allows different types of software to specify spatial data in a common way.\n\n\n\nSimple features are comprised of:\n1. a geometry object (e.g. a point, line, polygon) that describes where on Earth the feature is located\n2. attribute data associated with the geometry object (e.g. the precipitation across a county during the last 5 years)\n\n\n\nBecause of how simple feature (sf) objects are represented in R (they look like data frames!), simple features can be maniupulated and plotted by other well-known packages like {dplyr} and {ggplot2}. Packages like {sf} provide tools for working with simple features (sf objects), but we’ll only need to rely on {ggplot2}s built-in geom_sf() geometry to plot our data.\n\n\n\nWhen we download our shapefile using {tigris}, it’ll be loaded as a simple features (sf) object with geometries that allow us to plot county lines. We’ll join our county-level precipitation data to our sf object so that we can color counties by precipitation."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data-wrangling",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data-wrangling",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Data Wrangling\n\nHere, we’ll use the {tigris} package to import geometries for our US counties, then join it with our precipitation data:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(tigris)\n\n#.........................get shape data.........................\ncounty_geo &lt;- tigris::counties(class = \"sf\", cb = TRUE) |&gt; # cb = TRUE to use cartographic boundary files\n  \n  # shift US to fit AK, HI, PR (we'll be filtering these out though) and transform CRS to USA Contiguous Albers Equal Area Conic (ESRI:102003) ----\n  shift_geometry()\n\n#....................import precipitation data...................\nprecip_data &lt;- read_csv(here::here(\"week5\", \"data\", \"county-feb19-jan24-precip.csv\"), skip = 4)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                               data wrangling                             ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     \n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##  ~ wrangle geometries  ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ncounty_geo_wrangled &lt;- county_geo |&gt;\n  \n  # clean up col names ----\n  janitor::clean_names() |&gt;\n  \n  # rename county & state cols ----\n  rename(county = namelsad, state = state_name) |&gt;\n  \n  # remove states / territories that we don't have precip data for ----\n  filter(!state %in% c(\"Alaska\", \"Hawaii\", \"District of Columbia\",\n                       \"United States Virgin Islands\", \"Puerto Rico\", \"American Samoa\",\n                       \"Commonwealth of the Northern Mariana Islands\", \"Guam\")) |&gt;\n  \n  # capitalize \"city\" (VA) ----\n  mutate(county = str_replace(string = county, pattern = \" city\", replacement = \" City\"))\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##  ~ wrangle precipitation data  ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nprecip_wrangled &lt;- precip_data |&gt;\n  \n  # clean up col names ----\n  janitor::clean_names() |&gt;\n  \n  # rename county col ----\n  rename(county = name) |&gt;\n  \n  # filter out DC ----\n  filter(!county %in% c(\"Washington, D.C.\")) |&gt;\n  \n  # update name to match that in county_geo df ----\n  mutate(county = str_replace(string = county, pattern = \"Dona Ana County\", replacement = \"Doña Ana County\")) |&gt;\n  \n  # coerce precip & 20th centruy avg from chr to numeric ----\n  mutate(value = as.numeric(value),\n         x1901_2000_mean = as.numeric(x1901_2000_mean)) |&gt;\n  \n  # calculate % change ----\n  mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |&gt;\n  \n  # select, rename, reorder cols ----\n  select(id, state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period)\n\n##~~~~~~~~~~~~~~~~~~\n##  ~ join dfs  ----\n##~~~~~~~~~~~~~~~~~~\n\n# join dfs (be sure to join precip TO sf object, not the other way around) -------\njoined_precip_geom &lt;- full_join(county_geo_wrangled, precip_wrangled)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#base-map",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#base-map",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Start by creating a base map\n\n\n\nbase_map &lt;- ggplot(joined_precip_geom) +\n  geom_sf(aes(fill = perc_change), linewidth = 0.1) +\n  labs(title = \"5-year precipitation compared with the 20th century average\",\n       subtitle = \"February 2019 - January 2024\",\n       caption = \"Source: National Centers for Environmental Information\") +\n  theme_void() +\n  theme(\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    plot.caption = element_text(face = \"italic\",\n                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, \"lines\"))\n  )\n\nbase_map\n\n\n\n\n\n\n\n\n\n\n\nBecause we want to map precipitation relative to the 20th century average (e.g. has precipitation for a given region over the last 5 years been above or below the average), a divering color palette makes a lot of sense.\n\n\nYou may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the UC Census Bureau Notice on 06/06/2022). I couldn’t quite make sense of how to match old county names to new planning regions, as there’s a decent amount of geographic overlap, soooo I gave up (for now) ."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-scale-type",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-scale-type",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Classed or unclassed color scale?\n\nWe’ve landed on a diverging color palette, but should we use a classed (aka binned) or unclassed (aka continuous) palette?\n\n\nUse a classed color scale if you want to communicate statistical brackets: \n\nthe focus is on which data units fall into pre-defined classes, rather than overall pattern\nbest if you want you audience to read values (gets more difficult with more classes; easier with interactive visualizations)\nthe more classes you have, the more nuanced your map becomes\n\n\n\nUse an unclassed color scale if you want to show general patterns: \n\nthe focus is on general patterns, rather than which statistical brackets regions fall into\nbest if you don’t want to interpret for your reader – it makes it easier to see outliers, transitions to and comparisons with neighboring regions\n\n\nAdapted from When to use classed and when to use unclassed color scales, by Lisa Charlotte Muth\nFor another great read on building color scales for choropleth maps, check out this article in Axis Map’s Cartography Guide."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#start-unclassed",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#start-unclassed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Start with an unclassed scale\n\n\n\n“The unclassed choropleth is the most exact representation of the data model possible,”\n\n\n-Judith A. Tyner, in Priciples of Map Design\n\n\n\n\n“No matter if you decide for a classed map at the end, you should start your process by looking at an unclassed map. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them.”\n\n\n-Lisa Charlotte Muth, in When to use classed and when to use unclassed color scales\n\n\n\n\n\nWe’ll heed this advice and start with an unclassed map!"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-palette",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-palette",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Pick a color palette!\n\nRecall from earlier that precipitation data is often encoded using a brown / blue color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side).\nLucky for us, RColorBrewer has this exact palette. Let’s use all 11 hues for our unclassed map:\n\n\n\n\nPreview the palette using display.brewer.pal() with our desired number of hues:\n\n\nRColorBrewer::display.brewer.pal(n = 11, name = 'BrBG')\n\n\n\n\n\n\n\n\n\n\nSave the HEX codes to a named object using brewer.pal() (we’ll call this in our plot later):\n\n\nmy_brew_palette11 &lt;- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')\nmy_brew_palette11\n\n [1] \"#543005\" \"#8C510A\" \"#BF812D\" \"#DFC27D\" \"#F6E8C3\" \"#F5F5F5\" \"#C7EAE5\"\n [8] \"#80CDC1\" \"#35978F\" \"#01665E\" \"#003C30\""
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-unclassed",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-unclassed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Apply our palette & adjust colorbar\n\nHere, we leverage the awesome {scales} package to add %s to the colorbar labels and set our breaks. We also use guides() + guide_colorbar() to update label positioning and colorbar size:\n\nbase_map + \n  scale_fill_gradientn(colors = my_brew_palette11,\n                       labels = scales::label_percent(scale = 1),\n                       breaks = scales::breaks_width(width = 10)) +\n  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#inspect-color-scale1",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#inspect-color-scale1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Inspect the color scale – anything off?"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#misleading",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#misleading",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Our color mapping may be misleading\n\n\n\n\n0% (i.e. no change between 5-year precipitation and 20th century average) is currently on the bluer side of our color scale, rather than on the off-white color that’s at the center of our palette.\nAs a result, our map may be misleading – it would appear as if more counties received higher-than-average precipitation than in actuality."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#rescale-colorbar",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#rescale-colorbar",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Rescale the colorbar so that 0 is at the center\n\n\nbase_map + \n  scale_fill_gradientn(colors = my_brew_palette11,\n                       labels = scales::label_percent(scale = 1),\n                       breaks = scales::breaks_width(width = 10),\n                       values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change)))) +\n  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#final-unclassed",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#final-unclassed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Our final unclassed map"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#classed-palette",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#classed-palette",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Modify our palette for our classed map\n\nWe’ll be using the same color palette for our classed map, but this time, let’s keep 10 hues (this will drop the middle-most off-white hue):\n\n\n\nPreview the palette using display.brewer.pal() with our desired number of hues:\n\n\nRColorBrewer::display.brewer.pal(n = 10, name = 'BrBG')\n\n\n\n\n\n\n\n\n\n\nSave the HEX codes to a named object using brewer.pal() (we’ll call this in our plot later):\n\n\nmy_brew_palette10 &lt;- RColorBrewer::brewer.pal(n = 10, name = 'BrBG')\nmy_brew_palette10\n\n [1] \"#543005\" \"#8C510A\" \"#BF812D\" \"#DFC27D\" \"#F6E8C3\" \"#C7EAE5\" \"#80CDC1\"\n [8] \"#35978F\" \"#01665E\" \"#003C30\"\n\n\n\nBy dropping the off-white hue, we can construct our scale so that 0% sits at the break point between brown and blue shades – any county that received more than the historical average will be a shade of blue, and any that received less will be a shade of brown."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-classed",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-classed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "By default, our resolution is pretty low\n\nWe only get 4 bins by default, which means we lose a lot of detail in our map:\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#increase-classes",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#increase-classes",
+    "title": "EDS 240",
+    "section": "",
+    "text": "More classes = more nuance\n\n\n\n\nBreaks set to a width of 10\n\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    breaks = scales::breaks_width(width = 10)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n\n\n\nBreaks set to a width of 5 & rescaled with 0 at center\n\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change))), \n                    breaks = scales::breaks_width(width = 5)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n\n\n\nBut the more classes you have, the longer it will (likely) take a reader to interpret values."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#unclassed-classed",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#unclassed-classed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Unclassed vs. classed maps\n\nWhat stories to each of these maps tell? When might you choose one over the other? What additional modifications might you make?\n\n\n\n\nUnclassed map:\n\n\n\n\n\n\n\n\n\n\n\n\nClassed map:"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#multiple-maps",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#multiple-maps",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Choropleths are powerful in multiples\n\nSeveral maps side-by-side can help you better spot important patterns and tell a more complete story.\n\n\nWhat’s Going On in This Graph? | New Normal U.S. Precipitation (New York Times)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#end-break",
+    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#end-break",
+    "title": "EDS 240",
+    "section": "",
+    "text": "See you next week!\n\n\n~ This is the end of Lesson 3 (of 3) ~"
   },
   {
     "objectID": "course-materials/keys/KEY-lecture5.2-colors.html",
@@ -3511,7 +3637,7 @@
     "href": "course-materials/assignments/HW1.html#hw1-p2-description",
     "title": "Assignment #1 (HW #1)",
     "section": "Description",
-    "text": "Description\n\n2a. Review HW #4 instructions\nBegin by reading HW #4 in full so that you have a clear understanding of the options, goals, and requirements for your final class assignment.\n\n\n2b. Find data and brainstorm questions\nNow that you have a better understanding of where we’re headed, let’s make a bit of progress towards that end goal. This week, you’ll focus on finding data that interest you and begin brainstorming some questions that you might explore / answer using those data. Your data set(s) may be related to a past project, or even your current Capstone or GP. It may also be a completely new data set(s), unrelated to anything you’re currently working on. Explore the Data sources section of the course website’s resources page if you need some inspiration on where to start (you are not limited to just these data sources):\n\n\n\n\n\n\nAsking the right question is critical and also one of the most challenging steps\n\n\n\nCheck out this short Substack piece by Enrico Bertini, titled Asking the right data questions and asking the data questions right, for some great insights on the challenges and approaches to discovering and revising your data question.\n\n\n\n\n2c. Answer questions\nOnce you’ve found your data set(s), answer the following questions:\n\n1. Which of the options are you most interested in pursuing (Important: If you plan to pursue Option 3, you must submit your proposal by the HW #1 due date)? It’s okay if you change your mind later on, but it’s helpful to decide on a starting point.\n2. Describe your data set(s). Be sure to address the following:\n\n2a. Where did you find these data?\n2b. What variables do these data contain? Is there sufficient metadata for understanding what those variables are?\n\n3. What steps are involved in downloading or accessing the data (e.g. “I can download using a button via this online portal,” “I need to use an API to retrieve the data,” “There’s an R package with functions for accessing the API,” etc.)?\n4. What question(s) do you hope to answer using these data (remember to read over Enrico Bertini’s article)?\n5. Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g. matching key values across all data sets)?\nOptional: Import your data into R! (this will be a part of the next homework assignment) IMPORTANT: If your data files are large (&gt;2GB) DO NOT push your data to GitHub – instead, add your data file(s) or entire data folder to your .gitignore (you’ll practice this in Discussion section this week)."
+    "text": "Description\n\n2a. Review HW #4 instructions\nBegin by reading HW #4 in full so that you have a clear understanding of the options, goals, and requirements for your final class assignment.\n\n\n2b. Find data and brainstorm questions\nNow that you have a better understanding of where we’re headed, let’s make a bit of progress towards that end goal. This week, you’ll focus on finding data that interest you and begin brainstorming some questions that you might explore / answer using those data. Your data set(s) may be related to a past project, or even your current Capstone or GP. It may also be a completely new data set(s), unrelated to anything you’re currently working on. Explore the Data sources section of the course website’s resources page if you need some inspiration on where to start (you are not limited to just these data sources):\n\n\n\n\n\n\nAsking the right question is critical and also one of the most challenging steps\n\n\n\nI highly recommend checking out the following resources before diving in:\n\nthis short Substack piece by Enrico Bertini, titled Asking the right data questions and asking the data questions right, for some great insights on the challenges and approaches to discovering and revising your data question\nthis TED talk titled, The Power in Effective Data Storytelling, by Malavica Sridhar (~15 min; yes, I know the audio gets a little wonky part-way through )\n\n\n\n\n\n2c. Answer questions\nOnce you’ve found your data set(s), answer the following questions:\n\n1. Which of the options are you most interested in pursuing (Important: If you plan to pursue Option 3, you must submit your proposal by the HW #1 due date)? It’s okay if you change your mind later on, but it’s helpful to decide on a starting point.\n2. Describe your data set(s). Be sure to address the following:\n\n2a. Where did you find these data?\n2b. What variables do these data contain? Is there sufficient metadata for understanding what those variables are?\n\n3. What steps are involved in downloading or accessing the data (e.g. “I can download using a button via this online portal,” “I need to use an API to retrieve the data,” “There’s an R package with functions for accessing the API,” etc.)?\n4. What question(s) do you hope to answer using these data (remember to read over Enrico Bertini’s article)?\n5. Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g. matching key values across all data sets)?\nOptional: Import your data into R! (this will be a part of the next homework assignment) IMPORTANT: If your data files are large (&gt;2GB) DO NOT push your data to GitHub – instead, add your data file(s) or entire data folder to your .gitignore (you’ll practice this in Discussion section this week)."
   },
   {
     "objectID": "course-materials/assignments/HW1.html#hw1-p2-specs",
@@ -3700,7 +3826,7 @@
     "href": "index.html#course-description",
     "title": "Data Visualization & Communication",
     "section": "Course Description",
-    "text": "Course Description\nEffectively communicating your work in a responsible, accessible and visually-pleasing way is often (if not, always) a central part of data science. This course will focus on the basic principles for effective communication through data visualization and using technical tools and workflows for creating and sharing data visualizations with diverse audiences.\n\n\nBy the end of this course, learners should be able to:\n\nIdentify which types of visualizations are most appropriate for your data and your audience\nPrepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations\nBuild effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically {ggplot2} + ggplot2 extension packages\nWrite code from scratch and read and adapt code written by others\nApply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations\nAssess, critique, and provide constructive feedback on data visualizations"
+    "text": "Course Description\nEffectively communicating your work in a responsible, accessible and visually-pleasing way is a central part of data science. This course will focus on the basic principles for effective communication through data visualization and using programmatic tools and workflows for creating and sharing data visualizations with diverse audiences.\n\n\nBy the end of this course, learners should be able to:\n\nIdentify which types of visualizations are most appropriate for your data and your audience\nPrepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations\nBuild effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically {ggplot2} + ggplot2 extension packages\nWrite code from scratch and read and adapt code written by others\nApply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations\nAssess, critique, and provide constructive feedback on data visualizations"
   },
   {
     "objectID": "index.html#teaching-team",
@@ -4095,6 +4221,90 @@
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
   },
   {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html",
+    "title": "Lecture 4.2 KEY",
+    "section": "",
+    "text": "Note\n\n\n\nThis template follows lecture 4.2 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#setup",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#setup",
+    "title": "Lecture 4.2 KEY",
+    "section": "Setup",
+    "text": "Setup\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(metajam) \nlibrary(tidyverse)\n\n#...................download data from DataOne...................\ndownload_d1_data(\"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7\",\n                 path = here::here(\"week4\")) \n\n#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~\n\n#....................read in downloaded files....................\nstream_chem_all &lt;- read_d1_files(here::here(\"week4\", \"data\"))\n\n#........................get the data file.......................\nstream_chem_data &lt;- stream_chem_all$data"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#scatter-plots",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#scatter-plots",
+    "title": "Lecture 4.2 KEY",
+    "section": "Scatter plots",
+    "text": "Scatter plots\n\nBasic scatter plot\n\n# basic scatter plot ----\np1 &lt;- stream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5)\n\np1\n\n\n\n\n\n\n\n\n\n\nAlt 1: add a rug plot\n\n# scatter + rug plot ----\np1 +\n  geom_rug()\n\n\n\n\n\n\n\n\n\n\nAlt 2: marginal plot alternatives using {ggExtra}\n\n# add marginal plots with {ggExtra} ----\n# also try \"density\", \"boxplot\"\nggExtra::ggMarginal(p1, type = \"histogram\")\n\n\n\n\n\n\n\n\n\n\nAlt 3: scatter + marginal plot with 2+ groups\n\n# scatter plot with points colored by site ----\np2 &lt;- stream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site)) + \n  geom_point(alpha = 0.5) +\n  theme(legend.position = \"bottom\")\n\n# add marginal density plot ----\nggExtra::ggMarginal(p2, type = \"density\", groupFill = TRUE, groupColour = TRUE)"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#trend-lines",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#trend-lines",
+    "title": "Lecture 4.2 KEY",
+    "section": "Trend lines",
+    "text": "Trend lines\n\nDefault: LOESS method\n\nsimilar to a moving average\n\n\n# add a smoothed line ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  filter(site == \"W8\") |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5) +\n  geom_smooth()\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nLine of best fit\n\n# add a trend line ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  filter(site == \"W8\") |&gt; \n  ggplot(aes(x = DOC, y = pH)) + \n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#visualizing-a-third-numeric-variable",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#visualizing-a-third-numeric-variable",
+    "title": "Lecture 4.2 KEY",
+    "section": "Visualizing a third numeric variable",
+    "text": "Visualizing a third numeric variable\n\nBubble charts\n\nvariation of a scatter plot for visualizing a third numeric variable\nbe extra mindful:\n\nprimary focus = relationship between your x- and y-axis variables\nhard to compare the strengths of different associations (is there a better alternative graphic form?)\nif the range of values mapped to size is small, your bubbles will look indistinguishable from one another\nconsider adjusting the size range of your scale\n\n\n\n# bubble chart ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\nadjust size range of bubbles\n\n\n# scale size by area ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  scale_size(range = c(1, 10)) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\nIMPORTANT: don’t scale size by radius (can be deceptive)\n\n\n# don't scale size by radius ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + \n  geom_point(alpha = 0.5) +\n  scale_radius(range = c(1, 10)) +\n  labs(x = \"DOC (mg/L)\", size = \"Al (mg/L)\", color = \"Site\")\n\n\n\n\n\n\n\n\n\n\nUse color for third variable\n\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + \n  geom_point(alpha = 0.5, size = 2) +\n  scale_color_viridis_c() +\n  labs(x = \"DOC (mg/L)\", color = \"Al (mg/L)\")\n\n\n\n\n\n\n\n\n\n\nBut oftentimes best to just create two different plots\n# effect of DOC on pH ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = DOC, y = pH, color = site)) + \n  geom_point(alpha = 0.5)\n# effect of DOC on Al_ICP ----\nstream_chem_data |&gt; \n  filter(waterYr == 2021) |&gt; \n  ggplot(aes(x = Al_ICP, y = pH, color = site)) + \n  geom_point(alpha = 0.5)"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture4.2-relationships.html#overplotting",
+    "href": "course-materials/keys/KEY-lecture4.2-relationships.html#overplotting",
+    "title": "Lecture 4.2 KEY",
+    "section": "Overplotting",
+    "text": "Overplotting\n\nif you have too many points, scatter plots can be ineffective\n\n\n\n\n\n\n\n\n\n\n\nInitial strategies\n\nadjust size / transparency of points\n\n\n\n\n\n\n\n\n\n\n\nadd a rug plot (or marginal plot)\n\n\n\n\n\n\n\n\n\n\n\ncolor by group\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: heatmaps\n\ne.g. like you’re looking down on a histogram\n\n\n\n\n\n\n\n\n\n\n\nor use hexagonal shapes\nalso increase height of legend can make continuous scale easier to read\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 2: 2d density / contour plots\n\ne.g. like you’re looking down on a density plot\nlegend provides an estimate of the proportion of data points fall within a colored region (density of distribution of points sums to 1)\n\ninterpreting legend: 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlt 3: 2d density plots using {ggdensity}\n\ncan be easier to interpret\ncompute and plot the resulting highest density regions (HDRs)\nHDRs are computed to be the smallest such regions that bound that level of probability"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html",
+    "title": "Lecture 1.3 KEY",
+    "section": "",
+    "text": "Note\n\n\n\nThis template follows lecture 1.3 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#setup",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#setup",
+    "title": "Lecture 1.3 KEY",
+    "section": "Setup",
+    "text": "Setup\n\n# load packages ----\nlibrary(tidyverse)\nlibrary(palmerpenguins)"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#tidy-data-review",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#tidy-data-review",
+    "title": "Lecture 1.3 KEY",
+    "section": "Tidy Data Review",
+    "text": "Tidy Data Review\nExample untidy / wide data:\n\n# create some untidy temperature data ----\ntemp_data_wide &lt;- tribble(\n  ~date, ~station1, ~station2,  ~station3,\n  \"2023-10-01\", 30.1, 29.8,  31.2,\n  \"2023-11-01\", 28.6, 29.1,  33.4,\n  \"2023-12-01\", 29.9, 28.5,  32.3\n)\n\n# print it out ----\nprint(temp_data_wide)\n\n# A tibble: 3 × 4\n  date       station1 station2 station3\n  &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1 2023-10-01     30.1     29.8     31.2\n2 2023-11-01     28.6     29.1     33.4\n3 2023-12-01     29.9     28.5     32.3\n\n\nUsing pivot_longer() to “lengthen” / tidy our data:\n\n# convert data from wide &gt; long ----\ntemp_data_long &lt;- temp_data_wide |&gt; \n  pivot_longer(cols = starts_with(\"station\"),\n               names_to = \"station_id\",\n               values_to = \"temp_c\")\n\n# print it out ----\nprint(temp_data_long)\n\n# A tibble: 9 × 3\n  date       station_id temp_c\n  &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt;\n1 2023-10-01 station1     30.1\n2 2023-10-01 station2     29.8\n3 2023-10-01 station3     31.2\n4 2023-11-01 station1     28.6\n5 2023-11-01 station2     29.1\n6 2023-11-01 station3     33.4\n7 2023-12-01 station1     29.9\n8 2023-12-01 station2     28.5\n9 2023-12-01 station3     32.3"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-1",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-1",
+    "title": "Lecture 1.3 KEY",
+    "section": "Plot #1",
+    "text": "Plot #1\nExplore the relationship between penguin bill length and bill depth. Our goals are to review:\n\ninitializing a plot object and adding a geometry layer to represent our data\nwhen to define data & map variables globally (e.g. within ggplot()) vs. locally (e.g. within a geom_*())\nupdating how aesthetic mappings manifest visually aka scaling\npiping into a ggplot\n\n\nExample 1 (the basics)\n\ninitialize a plot object\nmap aesthetics\nshow that you can omit argument names\nadd a geometry layer\nupdate how aesthetic mappings manifest visually (i.e. scaling)\n\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + \n  geom_point()\n\n\n\n\n\n\n\n\n\n\nExample 2 (mapping custom colors)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + \n  geom_point() +\n  scale_color_manual(values = c(\"darkorange\",\"purple\",\"cyan4\"))\n\n\n\n\n\n\n\n\n\n\nExample 3 (mapping color to continuous variable)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + \n  geom_point() +\n  scale_color_gradient(low = \"#132B43\", high = \"#F7DD4C\")\n\n\n\n\n\n\n\n\n\n\nExample 4 (updating color for all points)\n\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + \n  geom_point(color = \"blue\")\n\n\n\n\n\n\n\n\n\n\nExample 5 (local vs. global data & variable mappings)\n\ndefine data and mappings within geom_*() (locally) rather than in ggplot() (globally) – helpful if you plan to include multiple geoms with different mappings (e.g. you’re plotting data from multiple data frames):\n\n\n# create a separate penguins_summary df ----\npenguins_summary &lt;- penguins |&gt;\n  drop_na() |&gt; \n  group_by(species) |&gt; \n  summarize(\n    mean_bill_length_mm = mean(bill_length_mm),\n    mean_bill_depth_mm = mean(bill_depth_mm)\n  )\n\n# create ggplot with layers from different dfs ----\nggplot() +\n  geom_point(data = penguins, \n             mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species), \n             alpha = 0.5) +\n  geom_point(data = penguins_summary,\n             mapping = aes(x = mean_bill_length_mm, y = mean_bill_depth_mm, fill = species),\n             size = 5, shape = 24)\n\n\n\n\n\n\n\n\n\n\nExample 6 & 7 (mapping variables globally vs. locally)\n\nglobal mappings are passed down to all subsequent layers:\n\n\n# scatterplot with lms fitted to species ---- \nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n\n\n\n\n\n\n\n\nlocal mappings only apply to that particular layer:\n\n\n# scatterplot with lm fitted to entire data set ---- \nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point(aes(color = species)) +\n  geom_smooth(method = \"lm\")\n\n\n\n\n\n\n\n\n\n\nExample 8 (piping data into a ggplot)\n\nuseful if you need to do a small bit of wrangling first, but don’t want to create a whole new df\n\n\n# filter for Gentoo penguins, then pipe into ggplot ----\npenguins |&gt; \n  filter(species == \"Gentoo\") |&gt; \n  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) + \n  geom_point()"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-2",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-2",
+    "title": "Lecture 1.3 KEY",
+    "section": "Plot #2",
+    "text": "Plot #2\nExplore penguin species counts. Our goals are to review:\n\nstatistical transformations – what are they, how to identify the default, and how to update them\nposition adjustments – what are they, how to identify the default, and how to update them\ncoordinate systems – what are they, how to identify the default, and how to update them\n\nupdating non-data elements using pre-built themes and the theme() function\n\n\nExample 1 (the basics + default stat)\n\ninitialize a plot object\nmap aesthetics\nadd a geometry layer\nexplore default statistical transformations\n\nreading documentation is important here!\n\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar(stat = \"count\") # this is the default stat, so you don't actually need to type this out!\n\n\n\n\n\n\n\n\n\n\nExample 2 (override default stat)\n\nlet’s say we have a df that already contains calculated species count values, and we want the height of the bars to be based on those count values:\n\n\n# new summarized df ----\npenguin_summary &lt;- penguins |&gt; \n  count(species) \n\n# generate bar heights based on \"identity\" of values in `n` column ----\nggplot(penguin_summary, aes(x = species, y = n)) +\n  geom_bar(stat = \"identity\")\n\n\n\n\n\n\n\n\n\n\nExample 3 (override default stat mapping)\n\ne.g. we can display the same data but with y-axis values as proportions rather than counts\n\n\nggplot(data = penguins, mapping = aes(x = species, y = after_stat(prop), group = 1)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\nExample 4 (default position adjustment)\n\nposition adjustments tweak position of elements to resolve overlapping geoms\nall geoms have a default position (e.g. barplots have position = \"stack\") – see documentation\nlet’s say we now want to visualize penguin counts by species (bar height) and by island (color):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"stack\") # this is the default, so you don't actually need to specify!\n\n\n\n\n\n\n\n\n\n\nExample 5 & 6 (override default position adjustments)\n\nposition = \"fill\" creates stacked bars of the same height (easier to compare proportions):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"fill\") \n\n\n\n\n\n\n\n\n\nposition = \"dodge\" places overlapping bars directly beside one another (easier to compare individual values):\n\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = \"dodge\") \n\n\n\n\n\n\n\n\n\n\nExample 7 (alternatively, use position_*())\n\nggplot(penguins, aes(x = species, fill = island)) +\n  geom_bar(position = position_dodge2(preserve = \"single\"))\n\n\n\n\n\n\n\n\n\n\nExample 8 (default coordinate system)\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_cartesian() # you don't need to explicitly include `coord_cartesian()` since it's the default\n\n\n\n\n\n\n\n\n\n\nExample 9 & 10 (alternative coordinate systems)\n\nflip x & y axes:\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_flip()\n\n\n\n\n\n\n\n\n\npolar coordinates:\n\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  coord_polar()\n\n\n\n\n\n\n\n\n\n\nExample 11 (pre-made themes)\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  theme_light() \n\n\n\n\n\n\n\n\n\n\nExample 12 (customize further with theme())\n\nggplot(penguins, aes(x = species)) +\n  geom_bar() +\n  theme_light() +\n  theme(\n    axis.title = element_text(size = 17, color = \"purple\")\n  )"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-3",
+    "href": "course-materials/keys/KEY-lecture1.3-ggplot-review.html#plot-3",
+    "title": "Lecture 1.3 KEY",
+    "section": "Plot #3",
+    "text": "Plot #3\nExplore penguin flipper lengths. Our goals are to review:\n\nmore position adjustments and scales\nupdating plot labels\nfaceting\n\n\nExample 1 (all in one go!)\n\ninitialize a plot object\nmap aesthetics\nadd a geometry layer\nmap color to species\nupdate position adjustment\nupdate labels\nfacet by species\n\n\nggplot(penguins, aes(x = flipper_length_mm, fill = species)) + \n  geom_histogram(position = \"identity\", alpha = 0.5) +\n  scale_fill_manual(values = c(\"darkorange\", \"purple\", \"cyan4\")) + \n  labs(x = \"Flipper Length (mm)\",\n       y = \"Frequency\",\n       fill = \"Species\",\n       title = \"Penguin Flipper Lengths\") +\n  facet_wrap(~species, ncol = 1)"
+  },
+  {
     "objectID": "course-materials/discussion/week5/week5-slides.html#title-slide",
     "href": "course-materials/discussion/week5/week5-slides.html#title-slide",
     "title": "EDS 240",
@@ -4184,216 +4394,6 @@
     "title": "EDS 240",
     "section": "",
     "text": "Bump Chart\n(using the same TidyTuesday data as our dumbbell chart from weeks 4 & 6)\nSource: Top eight highest paying occupations in 2016, by Sam Csik"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#title-slide",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#title-slide",
-    "title": "EDS 240",
-    "section": "",
-    "text": "EDS 240: Lecture 5.3\nColors & Choropleths\n\nWeek 5 | February 7th, 2025"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#making-map",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#making-map",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Let’s explore county-level precipitation data using a choropleth map. Importantly, we’ll decide on a color palette / scale type and make any necessary adjustments."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#choropleth",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#choropleth",
-    "title": "EDS 240",
-    "section": "",
-    "text": "What’s a choropleth?\n\n\nChoropleths are maps that display the spatial distribution of a variable across divided geographical areas / regions, where variable is encoded by color.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChoropleth by Ramiro Gómez using GeoPandas (blog post)\n\n\n\n\n\n\n\n\n\n\n\n\nChoropleth by Hanna & Farnsworth (2013)\n\n\n\n\nChoosing the right color palette and scale type are critically important. Oftentimes, you’ll need to adjust the default mapping of colors to accurately tell your story."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data",
-    "title": "EDS 240",
-    "section": "",
-    "text": "The Data\n\nNOAA National Centers for Environmental Information (NCEI) is responsible for preserving, monitoring, assessing, and providing public access to the Nation’s geophysical data and information.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFind public access to a massive inventory of climate data on their Climate Monitoring page. Today’s lesson will use the Climate at a Glance collection. Specifically, we’ll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average. To do so, we’ll work with county-level precipitation data, accessed via the County Mapping portal."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#tigris",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#tigris",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Use {tigris} to download shapefiles\n\nWe can use the {tigris} package to download and use Census TIGER/Line shapefiles in R.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA shapefile is a vector data file format commonly used for geospatial analysis.\nShapefiles contain information for spatially describing features (e.g. points, lines, polygons), as well as any associated attribute information.\nYou can find / download shapefiles online (e.g. from the US Census Bureau), or depending on the tools available, access them via packages (like we’re doing today).\n\n\n\nCheck out Ch. 5 of Analyzing US Census Data: Methods, Mpas, and Models in R by Kyle E. Walker for a great intro to {tigris}"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#sf",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#sf",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Simple features in R\n\n\nSpatial data can take many forms – simple features is a standard that allows different types of software to specify spatial data in a common way.\n\n\n\nSimple features are comprised of:\n1. a geometry object (e.g. a point, line, polygon) that describes where on Earth the feature is located\n2. attribute data associated with the geometry object (e.g. the precipitation across a county during the last 5 years)\n\n\n\nBecause of how simple feature (sf) objects are represented in R (they look like data frames!), simple features can be maniupulated and plotted by other well-known packages like {dplyr} and {ggplot2}. Packages like {sf} provide tools for working with simple features (sf objects), but we’ll only need to rely on {ggplot2}s built-in geom_sf() geometry to plot our data.\n\n\n\nWhen we download our shapefile using {tigris}, it’ll be loaded as a simple features (sf) object with geometries that allow us to plot county lines. We’ll join our county-level precipitation data to our sf object so that we can color counties by precipitation."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data-wrangling",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#data-wrangling",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Data Wrangling\n\nHere, we’ll use the {tigris} package to import geometries for our US counties, then join it with our precipitation data:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(tigris)\n\n#.........................get shape data.........................\ncounty_geo &lt;- tigris::counties(class = \"sf\", cb = TRUE) |&gt; # cb = TRUE to use cartographic boundary files\n  \n  # shift US to fit AK, HI, PR (we'll be filtering these out though) and transform CRS to USA Contiguous Albers Equal Area Conic (ESRI:102003) ----\n  shift_geometry()\n\n#....................import precipitation data...................\nprecip_data &lt;- read_csv(here::here(\"week5\", \"data\", \"county-feb19-jan24-precip.csv\"), skip = 4)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                               data wrangling                             ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     \n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##  ~ wrangle geometries  ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ncounty_geo_wrangled &lt;- county_geo |&gt;\n  \n  # clean up col names ----\n  janitor::clean_names() |&gt;\n  \n  # rename county & state cols ----\n  rename(county = namelsad, state = state_name) |&gt;\n  \n  # remove states / territories that we don't have precip data for ----\n  filter(!state %in% c(\"Alaska\", \"Hawaii\", \"District of Columbia\",\n                       \"United States Virgin Islands\", \"Puerto Rico\", \"American Samoa\",\n                       \"Commonwealth of the Northern Mariana Islands\", \"Guam\")) |&gt;\n  \n  # capitalize \"city\" (VA) ----\n  mutate(county = str_replace(string = county, pattern = \" city\", replacement = \" City\"))\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##  ~ wrangle precipitation data  ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nprecip_wrangled &lt;- precip_data |&gt;\n  \n  # clean up col names ----\n  janitor::clean_names() |&gt;\n  \n  # rename county col ----\n  rename(county = name) |&gt;\n  \n  # filter out DC ----\n  filter(!county %in% c(\"Washington, D.C.\")) |&gt;\n  \n  # update name to match that in county_geo df ----\n  mutate(county = str_replace(string = county, pattern = \"Dona Ana County\", replacement = \"Doña Ana County\")) |&gt;\n  \n  # coerce precip & 20th centruy avg from chr to numeric ----\n  mutate(value = as.numeric(value),\n         x1901_2000_mean = as.numeric(x1901_2000_mean)) |&gt;\n  \n  # calculate % change ----\n  mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |&gt;\n  \n  # select, rename, reorder cols ----\n  select(id, state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period)\n\n##~~~~~~~~~~~~~~~~~~\n##  ~ join dfs  ----\n##~~~~~~~~~~~~~~~~~~\n\n# join dfs (be sure to join precip TO sf object, not the other way around) -------\njoined_precip_geom &lt;- full_join(county_geo_wrangled, precip_wrangled)"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#base-map",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#base-map",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Start by creating a base map\n\n\n\nbase_map &lt;- ggplot(joined_precip_geom) +\n  geom_sf(aes(fill = perc_change), linewidth = 0.1) +\n  labs(title = \"5-year precipitation compared with the 20th century average\",\n       subtitle = \"February 2019 - January 2024\",\n       caption = \"Source: National Centers for Environmental Information\") +\n  theme_void() +\n  theme(\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    plot.caption = element_text(face = \"italic\",\n                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, \"lines\"))\n  )\n\nbase_map\n\n\n\n\n\n\n\n\n\n\n\nBecause we want to map precipitation relative to the 20th century average (e.g. has precipitation for a given region over the last 5 years been above or below the average), a divering color palette makes a lot of sense.\n\n\nYou may notice that Connecticut is missing most of its data. After some digging, I learned that CT recently (2022) replaced its eight counties with nine planning regions as county-equivalents (read more in the UC Census Bureau Notice on 06/06/2022). I couldn’t quite make sense of how to match old county names to new planning regions, as there’s a decent amount of geographic overlap, soooo I gave up (for now) ."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-scale-type",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-scale-type",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Classed or unclassed color scale?\n\nWe’ve landed on a diverging color palette, but should we use a classed (aka binned) or unclassed (aka continuous) palette?\n\n\nUse a classed color scale if you want to communicate statistical brackets: \n\nthe focus is on which data units fall into pre-defined classes, rather than overall pattern\nbest if you want you audience to read values (gets more difficult with more classes; easier with interactive visualizations)\nthe more classes you have, the more nuanced your map becomes\n\n\n\nUse an unclassed color scale if you want to show general patterns: \n\nthe focus is on general patterns, rather than which statistical brackets regions fall into\nbest if you don’t want to interpret for your reader – it makes it easier to see outliers, transitions to and comparisons with neighboring regions\n\n\nAdapted from When to use classed and when to use unclassed color scales, by Lisa Charlotte Muth\nFor another great read on building color scales for choropleth maps, check out this article in Axis Map’s Cartography Guide."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#start-unclassed",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#start-unclassed",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Start with an unclassed scale\n\n\n\n“The unclassed choropleth is the most exact representation of the data model possible,”\n\n\n-Judith A. Tyner, in Priciples of Map Design\n\n\n\n\n“No matter if you decide for a classed map at the end, you should start your process by looking at an unclassed map. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them.”\n\n\n-Lisa Charlotte Muth, in When to use classed and when to use unclassed color scales\n\n\n\n\n\nWe’ll heed this advice and start with an unclassed map!"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-palette",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#decide-on-palette",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Pick a color palette!\n\nRecall from earlier that precipitation data is often encoded using a brown / blue color scheme (with drier conditions falling on the brown side and wetter conditions falling on the blue side).\nLucky for us, RColorBrewer has this exact palette. Let’s use all 11 hues for our unclassed map:\n\n\n\n\nPreview the palette using display.brewer.pal() with our desired number of hues:\n\n\nRColorBrewer::display.brewer.pal(n = 11, name = 'BrBG')\n\n\n\n\n\n\n\n\n\n\nSave the HEX codes to a named object using brewer.pal() (we’ll call this in our plot later):\n\n\nmy_brew_palette11 &lt;- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')\nmy_brew_palette11\n\n [1] \"#543005\" \"#8C510A\" \"#BF812D\" \"#DFC27D\" \"#F6E8C3\" \"#F5F5F5\" \"#C7EAE5\"\n [8] \"#80CDC1\" \"#35978F\" \"#01665E\" \"#003C30\""
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-unclassed",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-unclassed",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Apply our palette & adjust colorbar\n\nHere, we leverage the awesome {scales} package to add %s to the colorbar labels and set our breaks. We also use guides() + guide_colorbar() to update label positioning and colorbar size:\n\nbase_map + \n  scale_fill_gradientn(colors = my_brew_palette11,\n                       labels = scales::label_percent(scale = 1),\n                       breaks = scales::breaks_width(width = 10)) +\n  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#inspect-color-scale1",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#inspect-color-scale1",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Inspect the color scale – anything off?"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#misleading",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#misleading",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Our color mapping may be misleading\n\n\n\n\n0% (i.e. no change between 5-year precipitation and 20th century average) is currently on the bluer side of our color scale, rather than on the off-white color that’s at the center of our palette.\nAs a result, our map may be misleading – it would appear as if more counties received higher-than-average precipitation than in actuality."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#rescale-colorbar",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#rescale-colorbar",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Rescale the colorbar so that 0 is at the center\n\n\nbase_map + \n  scale_fill_gradientn(colors = my_brew_palette11,\n                       labels = scales::label_percent(scale = 1),\n                       breaks = scales::breaks_width(width = 10),\n                       values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change)))) +\n  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#final-unclassed",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#final-unclassed",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Our final unclassed map"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#classed-palette",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#classed-palette",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Modify our palette for our classed map\n\nWe’ll be using the same color palette for our classed map, but this time, let’s keep 10 hues (this will drop the middle-most off-white hue):\n\n\n\nPreview the palette using display.brewer.pal() with our desired number of hues:\n\n\nRColorBrewer::display.brewer.pal(n = 10, name = 'BrBG')\n\n\n\n\n\n\n\n\n\n\nSave the HEX codes to a named object using brewer.pal() (we’ll call this in our plot later):\n\n\nmy_brew_palette10 &lt;- RColorBrewer::brewer.pal(n = 10, name = 'BrBG')\nmy_brew_palette10\n\n [1] \"#543005\" \"#8C510A\" \"#BF812D\" \"#DFC27D\" \"#F6E8C3\" \"#C7EAE5\" \"#80CDC1\"\n [8] \"#35978F\" \"#01665E\" \"#003C30\"\n\n\n\nBy dropping the off-white hue, we can construct our scale so that 0% sits at the break point between brown and blue shades – any county that received more than the historical average will be a shade of blue, and any that received less will be a shade of brown."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-classed",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#apply-palette-classed",
-    "title": "EDS 240",
-    "section": "",
-    "text": "By default, our resolution is pretty low\n\nWe only get 4 bins by default, which means we lose a lot of detail in our map:\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#increase-classes",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#increase-classes",
-    "title": "EDS 240",
-    "section": "",
-    "text": "More classes = more nuance\n\n\n\n\nBreaks set to a width of 10\n\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    breaks = scales::breaks_width(width = 10)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n\n\n\nBreaks set to a width of 5 & rescaled with 0 at center\n\n\nbase_map + \n  scale_fill_stepsn(colors = my_brew_palette10,\n                    labels = scales::label_percent(scale = 1),\n                    values = scales::rescale(x = c(\n                         min(na.omit(joined_precip_geom)$perc_change),\n                         0,\n                         max(na.omit(joined_precip_geom)$perc_change))), \n                    breaks = scales::breaks_width(width = 5)) +\n  guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))\n\n\n\n\n\n\n\n\n\n\nBut the more classes you have, the longer it will (likely) take a reader to interpret values."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#unclassed-classed",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#unclassed-classed",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Unclassed vs. classed maps\n\nWhat stories to each of these maps tell? When might you choose one over the other? What additional modifications might you make?\n\n\n\n\nUnclassed map:\n\n\n\n\n\n\n\n\n\n\n\n\nClassed map:"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#multiple-maps",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#multiple-maps",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Choropleths are powerful in multiples\n\nSeveral maps side-by-side can help you better spot important patterns and tell a more complete story.\n\n\nWhat’s Going On in This Graph? | New Normal U.S. Precipitation (New York Times)"
-  },
-  {
-    "objectID": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#end-break",
-    "href": "course-materials/lecture-slides/lecture5.3-choropleth-slides.html#end-break",
-    "title": "EDS 240",
-    "section": "",
-    "text": "See you next week!\n\n\n~ This is the end of Lesson 3 (of 3) ~"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html",
-    "title": "Lecture 2.2 KEY",
-    "section": "",
-    "text": "Note\n\n\n\nThis template follows lecture 2.2 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#setup",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#setup",
-    "title": "Lecture 2.2 KEY",
-    "section": "Setup",
-    "text": "Setup\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(chron)\nlibrary(naniar)\n\n#..........................import data...........................\nmko &lt;- read_csv(\"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa\")\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nmko_clean &lt;- mko |&gt;\n\n  # keep only necessary columns ----\n  select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |&gt;\n\n  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----\n  unite(date, year, month, day, sep = \"-\", remove = FALSE) |&gt;\n  mutate(time = chron::times(decimal_time)) |&gt;\n  unite(date_time, date, time, sep = \" \") |&gt;\n\n  # coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----\n  mutate(date_time = as.POSIXct(date_time, \"%Y-%m-%d %H:%M:%S\", tz = \"GMT\"), \n         year = as.factor(year),\n         month = as.factor(month),\n         day = as.numeric(day)) |&gt;\n\n  # add month name by indexing the built-in `month.name` vector ----\n  mutate(month_name = as.factor(month.name[month])) |&gt;\n\n  # replace 9999s with NAs ----\n  naniar::replace_with_na(replace = list(Temp_bot = 9999, \n                                         Temp_top = 9999, \n                                         Temp_mid = 9999)) |&gt;\n\n  # select/reorder desired columns ----\n  select(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            explore missing data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........counts & percentages of missing data by year..........\nsee_NAs &lt;- mko_clean |&gt; \n  group_by(year) |&gt; \n  naniar::miss_var_summary() |&gt;\n  filter(variable == \"Temp_bot\")\n\n#...................visualize missing Temp_bot...................\nbottom &lt;- mko_clean |&gt; select(Temp_bot)\nmissing_temps &lt;- naniar::vis_miss(bottom)"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#histograms",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#histograms",
-    "title": "Lecture 2.2 KEY",
-    "section": "Histograms",
-    "text": "Histograms\n\nrepresent distribution of a numeric variable(s), which is cut into several bins – height of bar represents # of observations in that bin\n\n\nToo many groups\nNote the message, to remind us to consider adjusting our binwidth\n\n# histogram with all 12 months ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_histogram(position = \"identity\", alpha = 0.5)\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\nWarning: Removed 74425 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: small multiples\n\n# histogram faceted by month ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot)) +\n  geom_histogram() +\n  facet_wrap(~month_name)\n\n\n\n\n\n\n\n\n\n\nAlt 2: fewer groups + update colors + modify bin widths\n\n# histogram with fewer months ----\nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  filter(month_name %in% c(\"April\", \"June\", \"October\")) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) + \n  geom_histogram(position = \"identity\", alpha = 0.5, color = \"black\", binwidth = 1) +\n  scale_fill_manual(values = c(\"#2C5374\", \"#ADD8E6\", \"#8B3A3A\"))"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#density-plots",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#density-plots",
-    "title": "Lecture 2.2 KEY",
-    "section": "Density plots",
-    "text": "Density plots\n\nrepresent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable; where the area under the curve is equal to 1\n\n\nToo many groups\n\n# density plot with all 12 months ----\nmko_clean |&gt; \n  mutate(month_name = factor(x = month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_density(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nAlt 1: small multiples\n\n# density plot faceted by month ---- \nmko_clean |&gt; \n  mutate(month_name = factor(month_name, levels = month.name)) |&gt; \n  ggplot(aes(x = Temp_bot)) +\n  geom_density(fill = \"gray30\") +\n  facet_wrap(~month_name)\n\n\n\n\n\n\n\n\n\n\nAlt 2: fewer groups + update colors + modify band widths\n\n# density plot with fewer months ----\nmko_clean |&gt; \n  filter(month_name %in% c(\"April\", \"June\", \"October\")) |&gt; \n  ggplot(aes(x = Temp_bot, fill = month_name)) +\n  geom_density(alpha = 0.5, adjust = 1/2) + \n  scale_fill_manual(values = c(\"#2C5374\", \"#ADD8E6\", \"#8B3A3A\"))"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#a-few-more-histograms-density-plots",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#a-few-more-histograms-density-plots",
-    "title": "Lecture 2.2 KEY",
-    "section": "A few more histograms & density plots",
-    "text": "A few more histograms & density plots\n\nDistinction: histograms vs. density plots\n# create some dummy data ----\ndummy_data &lt;- data.frame(value = c(rnorm(n = 100, mean = 5),\n                                   rnorm(n = 200, mean = 10)),\n                         group = rep(c(\"A\", \"B\"),\n                                     times = c(100, 200)))\n\n# histogram ----\nggplot(dummy_data, aes(x = value, fill = group)) +\n  geom_histogram(position = \"identity\", alpha = 0.7) +\n  geom_rug(aes(color = group), alpha = 0.75)\n# density plot ----\nggplot(dummy_data, aes(x = value, fill = group)) +\n  geom_density(alpha = 0.7) +\n  geom_rug(aes(color = group), alpha = 0.75)\n\n\n\n\n\n\n\n\n\n\n\n\nCombining geoms\n\n# histogram + density plot ----\nggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down hist to match density curve\n  geom_histogram(fill = \"gray\", color = \"black\", alpha = 0.75) +\n  geom_density(size = 1) \n\n\n\n\n\n\n\n\n\n\nCompare groups to a whole\n\nlibrary(palmerpenguins)\n\n# use `after_stat(count)` to plot density of observations ----\nggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +\n \n  # plot full distribution curve with label \"all penguins\"; remove 'species' col so that this doesn't get faceted later on ----\n  geom_density(data = select(penguins, -species), \n               aes(fill = \"all penguins\"), color = \"transparent\") +\n  \n  # plot second curve with label \"species\" ----\n  geom_density(aes(fill = \"species\"), color = \"transparent\") +\n  \n  # facet wrap by species ----\n  facet_wrap(~species, nrow = 1) +\n  \n  # update colors, x-axis label, legend position ----\n  scale_fill_manual(values = c(\"grey\",\"#0C8346\"), name = NULL) +\n  labs(x = \"Body Mass (g)\") +\n  theme(legend.position = \"top\")"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#ridgeline-plots",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#ridgeline-plots",
-    "title": "Lecture 2.2 KEY",
-    "section": "Ridgeline plots",
-    "text": "Ridgeline plots\n\nshow distribution of a numeric variable for multiple groups\n\n# basic ridgeline plot ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name)) +\n  ggridges::geom_density_ridges()\n# fill with color gradient ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +\n  ggridges::geom_density_ridges_gradient() +\n  scale_fill_gradientn(colors = c(\"#2C5374\",\"#849BB4\", \"#D9E7EC\", \"#EF8080\", \"#8B3A3A\"))\n\n\n\n\n\n\n\n\n\n\n\nAlt 1: reorder groups + adjust overlap & tails\n\n# ridgeline plot with reordered months ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +\n  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +\n  scale_y_discrete(limits = rev(month.name)) +\n  scale_fill_gradientn(colors = c(\"#2C5374\",\"#849BB4\", \"#D9E7EC\", \"#EF8080\", \"#8B3A3A\"))\n\n\n\n\n\n\n\n\n\n\nAlt 2: add quantiles\n\n# ridgeline plot with quantiles ----\nggplot(mko_clean, aes(x = Temp_bot, y = month_name)) +\n  ggridges::stat_density_ridges(rel_min_height = 0.01, scale = 3,\n                                quantile_lines = TRUE, quantiles = 2) +\n  scale_y_discrete(limits = rev(month.name))\n\n\n\n\n\n\n\n\n\n\nAlt 3: jitter raw data\n\n# jittered points ----\nggplot(penguins, aes(x = body_mass_g, y = species)) +\n  ggridges::geom_density_ridges(jittered_points = TRUE, \n                                alpha = 0.5, point_size = 0.5)\n\n\n\n\n\n\n\n# raincloud ----\nggplot(penguins, aes(x = body_mass_g, y = species)) +\n  ggridges::geom_density_ridges(jittered_points = TRUE, alpha = 0.5, \n                                point_size = 0.5, scale = 0.6,\n                                position = \"raincloud\")"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#boxplots",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#boxplots",
-    "title": "Lecture 2.2 KEY",
-    "section": "Boxplots",
-    "text": "Boxplots\n\nsummarize the distribution of a numeric variable for one or several groups\n\n\n# boxplot with all 12 months ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_boxplot() +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nAlt 1: modify outliers\n\n# boxplot with modified outliers ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_boxplot(outlier.color = \"purple\", outlier.shape = \"circle open\", outlier.size = 5) +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 2: hightlight a group\n\n# highlight a particular group ----\nmko_clean |&gt; \n  ggplot(aes(x = month_name, y = Temp_bot, fill = month_name)) +\n  geom_boxplot() +\n  scale_x_discrete(limits = rev(month.name)) +\n  gghighlight::gghighlight(month_name == \"October\") +\n  coord_flip() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\nAlt 3: jitter raw data (using {palmerpenguins} data)\n\n# add jittered data points ----\nggplot(penguins, aes(x = species, y = body_mass_g)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_jitter(alpha = 0.5, width = 0.2) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 4: dodged groups\n\n# dodge groups by year ----\npenguins |&gt; \n  mutate(year = as.factor(year)) |&gt; \n  ggplot(aes(x = species, y = body_mass_g, color = year)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_point(alpha = 0.5, position = position_jitterdodge(jitter.width = 0.2)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 5: overlay beeswarm\n\n# boxplot + beeswarm ----\nggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +\n  geom_boxplot(outlier.shape = NA) +\n  ggbeeswarm::geom_beeswarm(size = 1) +\n  coord_flip()"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-lecture2.2-distributions.html#violin-plots",
-    "href": "course-materials/keys/KEY-lecture2.2-distributions.html#violin-plots",
-    "title": "Lecture 2.2 KEY",
-    "section": "Violin plots:",
-    "text": "Violin plots:\n\nvisualize distribution of a numeric variable for one or several groups; great for multiple groups with lots of data\n\n\n# violin plot ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_violin() +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\nAlt 1: overlay boxplot\n\n# violin + boxplot ----\nggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1, color = \"gray\", alpha = 0.5, \n               outlier.color = \"red\") +\n  scale_x_discrete(limits = rev(month.name)) +\n  coord_flip()\n\n\n\n\n\n\n\n\n\n\nAlt 2: half-violin half-dot plot\n\n# half violin + half dot plot ----\nggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +\n  see::geom_violindot(size_dots = 5, alpha = 0.5) +\n  theme(legend.position = \"none\")"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture4.1-rankings-slides.html#title-slide",
