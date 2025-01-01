@@ -22,69 +22,86 @@ editor_options:
 
 Much of your time as a data scientist will be spent looking at code written by others -- you may imagine scenarios such as trying to learn from and adapt someone else's code for your own work, conducting a code review for a colleague, or validating the code output of a generative AI tool. Being able to look at and make sense of code that you did not write yourself is an invaluable skill and an important one to practice throughout your learning journey. Here, you'll be asked to interpret and annotate `{ggplot2}` code written by someone else. This will likely require running code (both as a whole *and* line-by-line), as well as Googling and / or reading documentation.
 
-*I recognize that there is (likely) **a lot** of new code presented here that we haven't covered yet in this course. This is intentionally an exercise is resourcefulness! By the end of this exercise, you should feel a bit more confident in your ability to interpret (and maybe even reuse!) code written by others.*
+*I recognize that there is (likely) **a lot** of new code presented here that we haven't yet covered in this course (we'll get there eventually though!). This is intentionally an exercise is resourcefulness! By the end of this exercise, you should feel a bit more confident in your ability to interpret (and maybe even reuse!) code written by others.*
 
 ### 1a. Annotate code {#hw1-p1a}
 
-Annotate code adapted from [David Oehm](https://gradientdescending.com/#google_vignette){target="_blank"}'s ***UFO Sightings*** visualization ([original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"}). You can find metadata and additional information about the data set on the [rfordatascience/tidytuesday (2023-06-20) `readme.md`](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-06-20/readme.md#data-dictionary){target="_blank"}. [**Part 1 should be completed via GitHub Classroom (find the repo link on Slack).**]{.teal-text}
+Annotate code adapted from [Dan Oehm](https://gradientdescending.com/#google_vignette){target="_blank"}'s ***UFO Sightings*** visualization ([original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"} & [original visualization](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.png){target="_blank"}). You can find metadata and additional information about the data set on the [rfordatascience/tidytuesday (2023-06-20) `readme.md`](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-06-20/readme.md#data-dictionary){target="_blank"}. [**Part 1 should be completed via GitHub Classroom (find the assignment link on Slack).**]{.teal-text}
 
-::: {.callout-tip}
-## But why a data viz about UFOs...
-For your final class project (HW #4), you'll have the option to build your own infographic-style visualization. Many students from Winter 2024 noted this UFO sightings example as particularly helpful in learning how to stitch together multiple data visualizations into one cohesive infographic. 
+::: {.callout-note}
+## You'll be annotating *refactored* code
+Dan Oehm is the original visionary and creator of this epic TidyTuesday submission from 2023. The code you'll be annotating for this assignment is a *refactored* version of Dan's [original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"}. **Refactoring** is the process of restructuring (e.g. reorganizing or rewriting) code while preserving its original functionality / output (e.g. the only visual differences in the outputs are the UFO image and plot caption, which were intentionally changed). 
 :::
 
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "50%"
+#| out-width: "80%"
 knitr::include_graphics("images/oehm-ufo.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
+Original viz, by Dan Oehm ([original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"})
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("images/shanny-csik-ufo.png")
+```
+
+::: {.center-text .body-text-s .gray-text}
+Modified viz, by Sam Shanny-Csik (refactored code, see below)
+:::
+:::
+:::
+
+::: {.center-text .gray-text}
 *To enlarge image (in Chrome), **right-click on image** > **Open Image in New Tab***
 :::
 
-::: {.callout-important}
-## TODO:
-- update necessary packages
-- add code back in
-- update "See lines X and Y..."
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Expand for some tips on getting started
+::: {.callout-tip collapse="true"}
+## See the code + some tips for getting started
 
 ::: {.center-text .teal-text .body-text-m}
 **Begin by accepting the HW #1 assignment via GitHub Classroom (link will be shared in Slack). The code below is included only for reference.**
 :::
 
-- Install the following packages (if you don't already have them) using `install.packages("package_name")` or `install.packages(pkgs = c("package_name1", "package_name2", ...))`:
-  - add 
-  - pkgs
-  - here
-- See lines X and Y (among others; a handful of lines have already been annotated for you) for examples of code annotations -- aim to include this level of detail.
-- Writing clean annotations makes it easier for you and others to read them -- I love using the [`{ARTofR}` package](https://github.com/Hzhang-ouce/ARTofR){target="_blank"} to create titles, dividers, and block comments in my scripts and Qmd / Rmd files. Read more about how to create different dividers using the `{ARTofR}` package on [this resource page](../../clean-code-guide.html#annotating-code){target="_blank"} of the course website.
+# Tips: 
+- Install the following packages (if you don't already have them): `{colorspace}`, `{geofacet}`, `{ggtext}`, `{glue}`, `{grid}`, `{magick}`, `{patchwork}`, `{scales}`, `{showtext}`, `{tidyverse}`
+- Some lines of code have already been annotated for you -- aim for this level of detail
 - Pull up documentation for a function directly in RStudio's **Help** pane by running `?function_name` in the console. Vignettes and `pkgdown` sites are incredible resources as well (e.g. here is a [vignette](https://cloud.r-project.org/web/packages/patchwork/vignettes/patchwork.html){target="_blank"} and the [pkgdown](https://patchwork.data-imaginist.com/){target="_blank"} site for the `{patchwork}` package)
 - If you don't immediately understand the purpose of a line / chunk of code, skip over it (temporarily) and continue working your way through the following code -- it oftentimes becomes more evident given additional context.
-- Plots may look *super* squished in the RStudio Viewer pane -- use the **Zoom** button to pop them open in a separate window.
-- **Keep in mind:** While this is fairly complex ggplot code, remember that it's constructed in layers -- meaning you can run code line-by-line to see exactly how the plot is changing with each new layer. You may come across functions and arguments that you're already familiar with (yay!), and of course, others that are totally new.
+- Text will look *super* big and squished in the RStudio Viewer pane and Zoom window -- this is because text is sized so that it renders appropriately when the full infographic is saved as a PNG 
+ - **Keep in mind:** ggplots are constructed in *layers* -- sometimes temporarily removing or rearranging layers can help clarify what's going on 
+- Use RStudio's search bar (`Command` / `Ctrl` + `F`) to ensure that you've replaced all instances of `# ANNOTATE` with your own annotated description
 
-```{r}
-#| eval: false
-#| echo: true
-# code here
-```
+# Code
 
+**Note:** This is sample code. Please refer to the GitHub Classroom link (shared in Slack) for completing the assignment.
+
+{{< include sections/HW1-code.qmd >}}
 :::
 
 ### 1b. Answer questions {#hw1-p1b}
 
 Once you're done annotating, respond to the following three questions about this data visualization: 
 
-- [ ] **1.** Describe two elements of this piece that you find visually-pleasing / easy to understand / intuitive. Why? 
-- [ ] **2.** Describe two elements of this piece that you feel could be better presented in a different way. Why? 
-- [ ] **3.** Describe two new things that you learned by interpreting / annotating this code. These could be  packages, functions, or even code organizational approaches that you hadn't previously known about or considered.
+- [ ] **1.** Consider the order of `geom_*()` layers in the US map plot (`plot_us`). Why did the original creator order the layers in this way?
+- [ ] **2.** During week 2, we discuss [Choosing the right graphic form](https://eds-240-data-viz.github.io/course-materials/lecture-slides/lecture2.1-choosing-graphic-forms-slides.html#/title-slide). Refer to this lecture when answering the sub-questions, below:
+    - [ ] **a.** What "perceptual tasks" (from Cleveland & McGill's heirarchy) must the viewer perform to extract information from these visualizations?
+    - [ ] **b.** What task(s) do you think the author wanted to enable or message(s) he wanted to convey with these visualizations (see lecture 2.1, slide 16 for examples)? Be sure to note at least one task / message for each of the three data viz.
+    - [ ] **c.** Name at least one caveat to the "hierarchy of perceptual tasks" that the author employed to achieve a goal(s) you noted in question b?
+- [ ] **3.** Describe two elements of this piece that you find visually-pleasing / easy to understand / intuitive. Why? 
+- [ ] **4.** Describe two elements of this piece that you feel could be better presented in a different way. Why? 
+- [ ] **5.** Describe two new things that you learned by interpreting / annotating this code. These could be  packages, functions, or even code organizational approaches that you hadn't previously known about or considered.
 
 ## Rubric (specifications) {#hw1-p1-specs}
 
@@ -96,17 +113,12 @@ You must complete the following, as detailed below, to receive a "Satisfactory" 
 Everyone receives one "free pass" for not submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
 :::
 
-::: {.callout-important}
-## TODO:
-- update "see lines X & Y..."
-:::
-
 - [ ] Include your preferred name in the `author` field of the `Part1.qmd` YAML. 
-- [ ] Update each comment line in the code that reads, `# ANNOTATE`, with a *brief* description, written in your own words (see lines X & Y for example annotations; there are other lines that have been already annotated for you as well -- you do not need to re-write these annotations -- you are allowed up to five incorrect or missing annotations.
+- [ ] Update each comment line in the code that reads, `# ANNOTATE`, with a *brief* description, written in your own words. Some lines that have already been annotated for you -- you do not need to re-write these annotations. You are **allowed up to five incorrect or missing annotations**.
 - [ ] Leave the code chunk options set to `eval: false` and `echo: true`, which ensures that your code renders, but the output(s) is suppressed. If you decide to break your code into smaller code chunks, ensure that each has the same options set. 
-- [ ] Answer all three Part 1b questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
-- [ ] We (your instructors) should be able to successfully render `Part1.qmd` locally without errors.
-- [ ] Push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 01/18/2025.
+- [ ] Answer all Part 1b questions. Questions 1 and 2 have correct answers. Responses to questions 3-5 should be unique to you but answered in full. There is no set length requirement, and bullet points are acceptable.
+- [ ] We (your instructors) should be able to successfully render `Part1.qmd` locally without errors (in other words, be sure that *you* can render `Part1.qmd` locally before submitting).
+- [ ] Push your completed `Part1.qmd` to GitHub via GitHub Classroom by 11:59pm PT on Sat 01/18/2025.
 
 <br>
 
@@ -120,7 +132,7 @@ Everyone receives one "free pass" for not submitting assignments via specified c
 
 ## Learning Outcomes {#hw1-p2-LOs}
 
-***Note:** This part of HW #1 is the first step in working towards your final course assignment (we'll be breaking it down a bit, week-by-week). **This week, we'll mostly be focused on some prep work.** Your final assignment is meant to combine nearly all of the course learning outcomes(!):*
+***Note:** This part of HW #1 is the first step in working towards your final course assignment, [HW #4](HW4.qmd){target="_blank"} (we'll be breaking it down a bit, week-by-week). **This week, we'll mostly be focused on some prep work.** Your final assignment is meant to combine nearly all of the course learning outcomes(!):*
 
 - identify which types of visualizations are most appropriate for your data and your audience
 - prepare (e.g. clean, explore, wrangle) data so that it's appropriately formatted for building data visualizations
@@ -153,8 +165,8 @@ I highly recommend checking out the following resources before diving in:
 
 - [ ] **1.** Which of the [options](HW4.qmd#hw4-options){target="_blank"} are you most interested in pursuing (**Important:** If you plan to pursue [Option 3](HW4.qmd#option3-alternative){target="_blank}, you must submit your proposal by the HW #1 due date)? It's okay if you change your mind later on, but it's helpful to decide on a starting point. 
 - [ ] **2.** Describe your data set(s). Be sure to address the following:
-    - [ ] **2a.** Where did you find these data?
-    - [ ] **2b.** What variables do these data contain? Is there sufficient metadata for understanding what those variables are?
+    - [ ] **a.** Where did you find these data?
+    - [ ] **b.** What variables do these data contain? Is there sufficient metadata for understanding what those variables are?
 - [ ] **3.** What steps are involved in downloading or accessing the data (e.g. "I can download using a button via this online portal," "I need to use an API to retrieve the data," "There's an R package with functions for accessing the API,"  etc.)?
 - [ ] **4.** What question(s) do you hope to answer using these data (remember to read over Enrico Bertini's [article](https://filwd.substack.com/p/asking-the-right-data-questions-andon how to ask the right questions){target="_blank"})? 
 - [ ] **5.** Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g. matching key values across all data sets)?
