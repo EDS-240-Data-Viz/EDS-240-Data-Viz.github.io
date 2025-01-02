@@ -423,7 +423,7 @@ See the code + some tips for getting started
 <span id="cb1-16"><a href="#cb1-16"></a><span class="fu">library</span>(showtext) </span>
 <span id="cb1-17"><a href="#cb1-17"></a><span class="fu">library</span>(tidyverse) </span>
 <span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#..........................read in data..........................</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#.............read in data from GitHub (tidytuesday).............</span></span>
 <span id="cb1-20"><a href="#cb1-20"></a>ufo_sightings <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-06-20/ufo_sightings.csv'</span>)</span>
 <span id="cb1-21"><a href="#cb1-21"></a>places <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-06-20/places.csv'</span>)</span>
 <span id="cb1-22"><a href="#cb1-22"></a></span>
@@ -1030,7 +1030,7 @@ Asking the right question is <em>critical</em> and also one of the most challeng
 <li><label><input type="checkbox"><strong>3.</strong> What steps are involved in downloading or accessing the data (e.g.&nbsp;“I can download using a button via this online portal,” “I need to use an API to retrieve the data,” “There’s an R package with functions for accessing the API,” etc.)?</label></li>
 <li><label><input type="checkbox"><strong>4.</strong> What question(s) do you hope to answer using these data (remember to read over Enrico Bertini’s <a href="https://filwd.substack.com/p/asking-the-right-data-questions-andon%20how%20to%20ask%20the%20right%20questions" target="_blank">article</a>)?</label></li>
 <li><label><input type="checkbox"><strong>5.</strong> Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g.&nbsp;matching key values across all data sets)?</label></li>
-<li><label><input type="checkbox"><em><strong>Optional:</strong> Import your data into R! (this will be a part of the next homework assignment) <strong>IMPORTANT:</strong> If your data files are large (&gt;2GB) DO NOT push your data to GitHub – instead, add your data file(s) or entire data folder to your <code>.gitignore</code> (you’ll practice this in Discussion section this week).</em></label></li>
+<li><label><input type="checkbox"><em><strong>Optional:</strong> Import your data into R! (this will be a part of the next homework assignment) <strong>IMPORTANT:</strong> If your data files are large (&gt;2GB) DO NOT push your data to GitHub – instead, add your data file(s) or entire data folder to your <code>.gitignore</code> (you’ll practice this in week 1 discussion section).</em></label></li>
 </ul>
 </section>
 </section>
@@ -1051,17 +1051,17 @@ Part 2 to be completed under your own GitHub profile
 </div>
 </div>
 <ul class="task-list">
-<li><label><input type="checkbox">Create a GitHub repository named <code>lastName-eds240-HW4</code>, which is where you’ll be doing any / all work related to Assignment #4. Be sure to make your repository public, initialize your repository with a <code>README</code>, and add a <code>.gitignore</code> file.</label></li>
+<li><label><input type="checkbox">Create a GitHub repository named <code>yourLastName-eds240-HW4</code>, which is where you’ll be doing any / all work related to Assignment #4. Be sure to make your repository public, initialize your repository with a <code>README</code>, and add a <code>.gitignore</code> file.</label></li>
 <li><label><input type="checkbox">Create a <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues">GitHub issue</a> (find the <strong>Issues</strong> tab in the top menu bar of your <code>lastName-eds240-HW4</code> repo, then click <strong>New issue</strong>) and name it, <code>HW1 - finding data / initial brainstorming</code>. Address the following in your issue:</label>
 <ul class="task-list">
 <li><label><input type="checkbox">Link to (or otherwise prove the existence of) at least one data set that you plan to use for Assignment #4.</label></li>
 <li><label><input type="checkbox">Answer all five Part 2c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
 <li><label><input type="checkbox">Ensure that your GitHub issue is neatly organized / formatted (you can use Markdown syntax here!).</label></li>
-<li><label><input type="checkbox">Tag your instructor (<strong><span class="citation" data-cites="samanthacsik">@samanthacsik</span></strong>) and TA (<strong><span class="citation" data-cites="annieradams">@annieradams</span></strong>) somewhere in your issue (at the start or end may make the most sense) – this will send us an email notification linking to your issue.</label></li>
+<li><label><input type="checkbox">Tag your instructor (<strong><a href="https://github.com/samanthacsik" target="_blank"><span class="citation" data-cites="samanthacsik">@samanthacsik</span></a></strong>) and TA (<strong><a href="https://github.com/annieradams" target="_blank"><span class="citation" data-cites="annieradams">@annieradams</span></a></strong>) somewhere in your issue (at the start or end may make the most sense) – this will send us an email notification linking to your issue.</label></li>
 </ul></li>
 <li><label><input type="checkbox">Importing your data is <em>optional</em> – if you’d like to start playing around with your data, do so in a file named, <code>HW1-find-data.qmd</code>.</label></li>
 <li><label><input type="checkbox">Add your repository’s URL next to your name on <a href="https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing" target="_blank">this Google Sheet</a> by 11:59pm on Sat 01/18/2025.</label></li>
-<li><label><input type="checkbox"><em><strong>Optional:</strong> If you are pursuing (<a href="../../course-materials/assignments/HW4.html#option3-alternative" target="_blank">Option 3</a>), please share a Google Doc with your proposal via email by 11:59pm on Sat 01/18/2025. Be sure to send it to both your instructor (<strong>scsik@ucsb.edu</strong>) and TA (<strong>gstephenson@ucsb.edu</strong>) with the subject line: <strong>EDS 240 HW4 Proposal Submission.</strong></em></label></li>
+<li><label><input type="checkbox"><em><strong>Optional:</strong> If you are pursuing (<a href="../../course-materials/assignments/HW4.html#option3-alternative" target="_blank">Option 3</a>), please share a Google Doc with your proposal via email by 11:59pm on Sat 01/18/2025. Be sure to send it to both your instructor (<strong>scsik@ucsb.edu</strong>) and TA (<strong>annieradams@ucsb.edu</strong>) with the subject line: <strong>EDS 240 HW4 Proposal Submission.</strong></em></label></li>
 </ul>
 <p><br></p>
 <div class="center-text large-fa-icon teal-text">
