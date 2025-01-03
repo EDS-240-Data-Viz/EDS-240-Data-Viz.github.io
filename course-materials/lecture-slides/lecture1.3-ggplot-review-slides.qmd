@@ -31,13 +31,13 @@ editor_options:
 
 <br>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
 <br>
 
-::: incremental
+::: {.incremental}
 - consistent underlying "grammar of graphics" ([Wilkinson 2005](https://link.springer.com/book/10.1007/0-387-28695-0){target="_blank"})
 - super flexible, layered plot specification (see [Wickham 2008](http://vita.had.co.nz/papers/layered-grammar.pdf){target="_blank"})
 - theme system for polishing plot appearance
@@ -350,7 +350,7 @@ knitr::include_graphics("images/week1/horst-workbench.png")
 
 The `{tidyverse}` is an "opinionated" set of packages -- meaning they share similar philosophies, grammar, and data structures -- that are **incredibly** useful for data wrangling, cleaning, and manipulation (and of course, visualization).
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -726,7 +726,7 @@ labels | annotations | [**scales**]{.teal-text} | themes | layout
 
 [Here, we use `geom_smooth()` to add a best fit line (based on a `l`inear `m`odel, using `method = "lm"`) to our plot:]{.body-text-s} 
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 [**Global** mappings are passed down to each subsequent geom layer. Therefore, the `color = species` mapping is also passed to `geom_smooth()`, resulting in a best fit line for each species.]{.body-text-s} 
@@ -848,7 +848,7 @@ ggplot(penguins, aes(x = species)) +
 
 Some geoms, like scatterplots, plot the raw values of your data set. Other geoms, like bar charts, histograms, boxplots, smoothers, etc. calculate new values to plot. 
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 [Each point on our scatterplot represents a raw observation value (one point = one penguin)]{.body-text-s}
@@ -1037,7 +1037,7 @@ data | geometric object | statistical transformation | [**position adjustment**]
 
 Below are a few position options available for use with `geom_bar()`:
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 [`position = "fill"` creates a set of stacked bars but makes each set the same height (easier to compare proportions across groups)]{.body-text-s}
@@ -1129,7 +1129,7 @@ data | geometric object | statistical transformation | position adjustment | [**
 
 Depending on the type of data, axis label length, etc. it may make sense to change this coordinate system. Two options for our bar plot:
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -1179,7 +1179,7 @@ data | geometric object | statistical transformation | position adjustment | [**
 
 `{ggplot2}` comes with a number of [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html){target="_blank"}, which control all non-data display. See two examples below:
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 [displays x and y axis lines and no gridlines]{.body-text-s}
@@ -1225,7 +1225,7 @@ labels | annotations | scales | [**themes**]{.teal-text} | layout
 
 Further modify nearly any non-data element of your plot using [`theme()`](https://ggplot2.tidyverse.org/reference/theme.html){target="_blank"}.
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 [Start with `theme_light()`:]{.body-text-s}
