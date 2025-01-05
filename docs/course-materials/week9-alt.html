@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Tuesday January 7th, 2025">
+<meta name="description" content="Monday March 3rd, 2025">
 
-<title>Week 1 Discussion: Exercise – EDS 240</title>
+<title>Visualizing Uncertainty &amp; Avoiding the Misrepresentation of Data – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,62 +21,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../images/EDS240-hex.png" rel="icon" type="image/png">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,15 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../../../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../../../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="../../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 </head>
@@ -124,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">EDS 240</span>
     </a>
   </div>
@@ -135,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
@@ -148,57 +105,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week1.html">
+    <a class="dropdown-item" href="../course-materials/week1.html">
  <span class="dropdown-text">week 1 (1/6)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week2.html">
+    <a class="dropdown-item" href="../course-materials/week2.html">
  <span class="dropdown-text">week 2 (1/13)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week3.html">
+    <a class="dropdown-item" href="../course-materials/week3.html">
  <span class="dropdown-text">week 3 (1/20)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week4.html">
+    <a class="dropdown-item" href="../course-materials/week4.html">
  <span class="dropdown-text">week 4 (1/27)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week5.html">
+    <a class="dropdown-item" href="../course-materials/week5.html">
  <span class="dropdown-text">week 5 (2/3)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/graphic-design.html">
+    <a class="dropdown-item" href="../course-materials/graphic-design.html">
  <span class="dropdown-text">week 5 (2/7) - attendance optional</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week6.html">
+    <a class="dropdown-item" href="../course-materials/week6.html">
  <span class="dropdown-text">week 6 (2/10)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week7.html">
+    <a class="dropdown-item" href="../course-materials/week7.html">
  <span class="dropdown-text">week 7 (2/17)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week8.html">
+    <a class="dropdown-item" href="../course-materials/week8.html">
  <span class="dropdown-text">week 8 (2/24)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week9.html">
+    <a class="dropdown-item" href="../course-materials/week9.html">
  <span class="dropdown-text">week 9 (3/3)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week10.html">
+    <a class="dropdown-item" href="../course-materials/week10.html">
  <span class="dropdown-text">week 10 (3/10)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../course-materials/week11.html">
+    <a class="dropdown-item" href="../course-materials/week11.html">
  <span class="dropdown-text">week 11 (3/17) - finals week</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../../assignments.html"> 
+    <a class="nav-link" href="../assignments.html"> 
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
@@ -211,15 +168,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="../../../resources.html">
+    <a class="dropdown-item" href="../resources.html">
  <span class="dropdown-text">recommended reading &amp; materials</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../clean-code-guide.html">
+    <a class="dropdown-item" href="../clean-code-guide.html">
  <span class="dropdown-text">guide for writing clean code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../../getting-unstuck.html">
+    <a class="dropdown-item" href="../getting-unstuck.html">
  <span class="dropdown-text">getting unstuck</span></a>
   </li>  
         <li>
@@ -256,11 +213,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">Week 1 Discussion: Exercise</h1>
-            <p class="subtitle lead">Data wrangling with the <code>{tidyverse}</code></p>
+      <h1 class="title">Visualizing Uncertainty &amp; Avoiding the Misrepresentation of Data</h1>
+            <p class="subtitle lead">Week 9</p>
                   <div>
         <div class="description">
-          Tuesday January 7<sup>th</sup>, 2025
+          Monday March 3<sup>rd</sup>, 2025
         </div>
       </div>
                 </div>
@@ -288,103 +245,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>It’s up to you to organize your own <code>week1-discussion.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
-</div>
-</div>
-<p><span class="teal-text"><strong>Your goal is to transform the raw fracking data into a wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e5f34d2c4d8d26826d46" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e5f34d2c4d8d26826d46">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<p><br></p>
-<ol type="1">
-<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code> packages, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing" target="_blank">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
-<li><p><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</p></li>
-</ol>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Pause for class discussion
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Take a moment to share some of your findings with the rest of the class.</p>
-</div>
-</div>
-<ol start="3" type="1">
-<li><span class="teal-text"><strong>Clean / wrangle the data!</strong></span> Using the packages loaded in step 1, perform the following operations (<em><strong>NOTE:</strong> Each step below corresponds to a single line of code</em>):
-<ol type="a">
-<li>convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names" target="_blank">Tidyverse style guide</a> recommendation)</li>
-<li>remove <code>"AM"</code> from the <code>job_start_date</code> column observations</li>
-<li>convert observations in the <code>job_start_date</code> column from character strings to datetime objects and save them to a new column named <code>datetime_start</code></li>
-<li>add a column named <code>year</code> that contains only the year from <code>datetime_start</code></li>
-<li>keep only the necessary columns (<code>datetime_start</code>, <code>year</code>, <code>state_name</code>, <code>well_name</code>, <code>total_base_water_volume</code>)</li>
-<li>convert all observations in the <code>state_name</code> column to Title Case</li>
-<li>remove any rows where the state name ends in <code>?</code></li>
-<li>convert any state abbreviations to full names in the <code>state_name</code> column (<strong>Hint:</strong> use a combination of the <code>mutate()</code>, <code>ifelse()</code> &amp; <code>usdata::abbr2state()</code> functions)</li>
-<li>correct any misspelled state names in the <code>state_name</code> column (<strong>Note:</strong> figure out how to update the names of a few misspelled states, the feel free to copy the complete code for this step from the expandable section, below)</li>
-<li>remove any rows that do not have a true US state name in the <code>state_name</code> column</li>
-<li>add a column named <code>state_abb</code> with just US state abbreviations</li>
-<li>move the <code>state_abb</code> column so that it sits immediately after the <code>state_name</code> column</li>
-<li>rename <code>total_base_water_volume</code> as <code>total_base_water_volume_gal</code> for clarity</li>
-<li>remove any observations that don’t have a measurement for <code>total_base_water_volume_gal</code> (i.e.&nbsp;NA)</li>
-<li>reorder rows from earliest to most recent <code>datetime_start</code> values</li>
-</ol></li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Expand for code to fix misspelled state names
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">mutate</span>(<span class="at">state_name =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    state_name <span class="sc">==</span> <span class="st">"Colordao"</span> <span class="sc">~</span> <span class="st">"Colorado"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    state_name <span class="sc">==</span> <span class="st">"Loiusiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4"></a>    state_name <span class="sc">==</span> <span class="st">"Louisianna"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    state_name <span class="sc">==</span> <span class="st">"Lousiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6"></a>    state_name <span class="sc">==</span> <span class="st">"New Mexcio"</span> <span class="sc">~</span> <span class="st">"New Mexico"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    state_name <span class="sc">==</span> <span class="st">"Norh Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    state_name <span class="sc">==</span> <span class="st">"Norht Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    state_name <span class="sc">==</span> <span class="st">"North  Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakata"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakotta"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    state_name <span class="sc">==</span> <span class="st">"Noth Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    state_name <span class="sc">==</span> <span class="st">"Pennslvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylavania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylvanya"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    state_name <span class="sc">==</span> <span class="st">"Penssylvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17"></a>    state_name <span class="sc">==</span> <span class="st">"Texasa"</span> <span class="sc">~</span> <span class="st">"Texas"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    state_name <span class="sc">==</span> <span class="st">"Texs"</span> <span class="sc">~</span> <span class="st">"Texas"</span>, </span>
-<span id="cb1-19"><a href="#cb1-19"></a>    state_name <span class="sc">==</span> <span class="st">"West Viginia"</span> <span class="sc">~</span> <span class="st">"West Virginia"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    state_name <span class="sc">==</span> <span class="st">"Wyominng"</span> <span class="sc">~</span> <span class="st">"Wyoming"</span>, </span>
-<span id="cb1-21"><a href="#cb1-21"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> state_name <span class="co"># copy over rest of state names from as-is</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
 
 
 
