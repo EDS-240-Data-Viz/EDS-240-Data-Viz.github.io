@@ -86,7 +86,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
-  labs(title = "5-year precipitation compared with the 20th century average",
+  labs(title = "5-year precipitation compared to the 20th century average",
        subtitle = "February 2019 - January 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
