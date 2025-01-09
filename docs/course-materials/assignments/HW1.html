@@ -393,10 +393,14 @@ See the code + some tips for getting started
 <h1>Tips:</h1>
 <ul>
 <li>Install the following packages (if you don’t already have them): <code>{colorspace}</code>, <code>{geofacet}</code>, <code>{ggtext}</code>, <code>{glue}</code>, <code>{grid}</code>, <code>{magick}</code>, <code>{patchwork}</code>, <code>{scales}</code>, <code>{showtext}</code>, <code>{tidyverse}</code></li>
+<li>The best (and really only) way to understand this code is to run it <strong>line-by-line</strong> – for example, you might check out an original data frame &gt; add in the first piped data wrangling function &gt; check out the modified data frame &gt; pipe in the next data wrangling function &gt; check out the modified data frame again &gt; and so on. You can approach “building up” the ggplot objects in a similar fashion.</li>
+<li>You should leave the code chunk options, <code>#| eval: false</code> &amp; <code>#| echo: true</code> set as-is. The final infographic is optimized (e.g.&nbsp;text sizes, spaces, etc.) to be saved / viewed as a PNG file, not as rendered in the RStudio Plots pane or embedded in a rendered Quarto document (we’ll talk more about the complexities of saving ggplots in a later discussion section!)
+<ul>
+<li>If you leave the above code chunk options in place, you should be able to successfully render the Quarto document so that it prints only the code and your annotations, along with your responses to the final (part 1b) questions.</li>
+</ul></li>
 <li>Some lines of code have already been annotated for you – aim for this level of detail</li>
 <li>Pull up documentation for a function directly in RStudio’s <strong>Help</strong> pane by running <code>?function_name</code> in the console. Vignettes and <code>pkgdown</code> sites are incredible resources as well (e.g.&nbsp;here is a <a href="https://cloud.r-project.org/web/packages/patchwork/vignettes/patchwork.html" target="_blank">vignette</a> and the <a href="https://patchwork.data-imaginist.com/" target="_blank">pkgdown</a> site for the <code>{patchwork}</code> package)</li>
-<li>If you don’t immediately understand the purpose of a line / chunk of code, skip over it (temporarily) and continue working your way through the following code – it oftentimes becomes more evident given additional context.</li>
-<li>Text will look <em>super</em> big and squished in the RStudio Viewer pane and Zoom window – this is because text is sized so that it renders appropriately when the full infographic is saved as a PNG</li>
+<li>If you don’t immediately understand the purpose of a line / chunk of code, skip over it (temporarily) and continue working your way through the following code – it oftentimes becomes more evident given additional context. <!-- - Text will look *super* big and squished in the RStudio Viewer pane and Zoom window -- this is because text is sized so that it renders appropriately when the full infographic is saved as a PNG  --></li>
 <li><strong>Keep in mind:</strong> ggplots are constructed in <em>layers</em> – sometimes temporarily removing or rearranging layers can help clarify what’s going on</li>
 <li>Use RStudio’s search bar (<code>Command</code> / <code>Ctrl</code> + <code>F</code>) to ensure that you’ve replaced all instances of <code># ANNOTATE</code> with your own annotated description</li>
 </ul>
