@@ -345,6 +345,10 @@ Note
 </div>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<ul>
+<li>Find data &amp; metadata on the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007">EDI Data Portal</a>.</li>
+<li>Get data download link by right-clicking on the <strong>Download</strong> button &gt; <strong>Copy Link Address</strong> &gt; then paste into <code>read_csv()</code></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                    setup                                 ----</span></span>
@@ -372,14 +376,14 @@ Note
 <span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
 <span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a>  <span class="co"># coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as.POSIXct</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="co"># coerce data types ----</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
 <span id="cb1-29"><a href="#cb1-29"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
 <span id="cb1-30"><a href="#cb1-30"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
 <span id="cb1-31"><a href="#cb1-31"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
 <span id="cb1-32"><a href="#cb1-32"></a></span>
 <span id="cb1-33"><a href="#cb1-33"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">as.factor</span>(month.name[month])) <span class="sc">|&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
 <span id="cb1-35"><a href="#cb1-35"></a></span>
 <span id="cb1-36"><a href="#cb1-36"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
 <span id="cb1-37"><a href="#cb1-37"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
@@ -475,7 +479,7 @@ Note
 <section id="density-plots" class="level2">
 <h2 class="anchored" data-anchor-id="density-plots">Density plots</h2>
 <ul>
-<li>represent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable; where the area under the curve is equal to 1</li>
+<li>represent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable, the y-axis represents the estimated density, i.e.&nbsp;the relative likelihood of a value occurring, and the area under each curve is equal to 1</li>
 </ul>
 <section id="too-many-groups-1" class="level3">
 <h3 class="anchored" data-anchor-id="too-many-groups-1">Too many groups</h3>
@@ -519,7 +523,7 @@ Note
 <span id="cb9-2"><a href="#cb9-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -595,7 +599,7 @@ Note
 <span id="cb12-14"><a href="#cb12-14"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb12-15"><a href="#cb12-15"></a>  </span>
 <span id="cb12-16"><a href="#cb12-16"></a>  <span class="co"># update colors, x-axis label, legend position ----</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"#0C8346"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"green4"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb12-18"><a href="#cb12-18"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
 <span id="cb12-19"><a href="#cb12-19"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -680,8 +684,8 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># raincloud ----</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb17-4"><a href="#cb17-4"></a>                                <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
+<span id="cb17-3"><a href="#cb17-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb17-4"><a href="#cb17-4"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
 <span id="cb17-5"><a href="#cb17-5"></a>                                <span class="at">position =</span> <span class="st">"raincloud"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -733,13 +737,12 @@ Note
 <h3 class="anchored" data-anchor-id="alt-2-hightlight-a-group">Alt 2: hightlight a group</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># highlight a particular group ----</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -753,10 +756,9 @@ Note
 <h3 class="anchored" data-anchor-id="alt-3-jitter-raw-data-using-palmerpenguins-data">Alt 3: jitter raw data (using <code>{palmerpenguins}</code> data)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># add jittered data points ----</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -770,12 +772,10 @@ Note
 <h3 class="anchored" data-anchor-id="alt-4-dodged-groups">Alt 4: dodged groups</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># dodge groups by year ----</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span> </span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> year)) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb22-5"><a href="#cb22-5"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -789,10 +789,9 @@ Note
 <h3 class="anchored" data-anchor-id="alt-5-overlay-beeswarm">Alt 5: overlay beeswarm</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># boxplot + beeswarm ----</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -845,7 +844,7 @@ Note
 <h3 class="anchored" data-anchor-id="alt-2-half-violin-half-dot-plot">Alt 2: half-violin half-dot plot</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># half violin + half dot plot ----</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>  see<span class="sc">::</span><span class="fu">geom_violindot</span>(<span class="at">size_dots =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

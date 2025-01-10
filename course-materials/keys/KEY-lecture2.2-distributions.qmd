@@ -12,6 +12,9 @@ This template follows [lecture 2.2 slides](../lecture-slides/lecture2.2-distribu
 
 ## Setup
 
+- Find data & metadata on the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007). 
+- Get data download link by right-clicking on the **Download** button > **Copy Link Address** > then paste into `read_csv()`
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -43,14 +46,14 @@ mko_clean <- mko |>
   mutate(time = chron::times(decimal_time)) |>
   unite(date_time, date, time, sep = " ") |>
 
-  # coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----
-  mutate(date_time = as.POSIXct(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+  # coerce data types ----
+  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
          year = as.factor(year),
          month = as.factor(month),
          day = as.numeric(day)) |>
 
   # add month name by indexing the built-in `month.name` vector ----
-  mutate(month_name = as.factor(month.name[month])) |>
+  mutate(month_name = month.name[month]) |> 
 
   # replace 9999s with NAs ----
   naniar::replace_with_na(replace = list(Temp_bot = 9999, 
@@ -128,7 +131,7 @@ mko_clean |>
 
 ## Density plots
 
-- represent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable; where the area under the curve is equal to 1
+- represent data distribution of a numeric variable(s); uses KDE to show probability density function of the variable, the y-axis represents the estimated density, i.e. the relative likelihood of a value occurring, and the area under each curve is equal to 1
 
 ### Too many groups
 
@@ -170,7 +173,7 @@ mko_clean |>
 mko_clean |> 
   filter(month_name %in% c("April", "June", "October")) |> 
   ggplot(aes(x = Temp_bot, fill = month_name)) +
-  geom_density(alpha = 0.5, adjust = 1/2) + 
+  geom_density(alpha = 0.5, adjust = 0.5) + 
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
@@ -238,7 +241,7 @@ ggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +
   facet_wrap(~species, nrow = 1) +
   
   # update colors, x-axis label, legend position ----
-  scale_fill_manual(values = c("grey","#0C8346"), name = NULL) +
+  scale_fill_manual(values = c("grey","green4"), name = NULL) +
   labs(x = "Body Mass (g)") +
   theme(legend.position = "top")
 ```
@@ -310,8 +313,8 @@ ggplot(penguins, aes(x = body_mass_g, y = species)) +
 
 # raincloud ----
 ggplot(penguins, aes(x = body_mass_g, y = species)) +
-  ggridges::geom_density_ridges(jittered_points = TRUE, alpha = 0.5, 
-                                point_size = 0.5, scale = 0.6,
+  ggridges::geom_density_ridges(jittered_points = TRUE, 
+                                alpha = 0.5, point_size = 0.5, scale = 0.6,
                                 position = "raincloud")
 ```
 
@@ -353,8 +356,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 #| warning: false
 
 # highlight a particular group ----
-mko_clean |> 
-  ggplot(aes(x = month_name, y = Temp_bot, fill = month_name)) +
+ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
   geom_boxplot() +
   scale_x_discrete(limits = rev(month.name)) +
   gghighlight::gghighlight(month_name == "October") +
@@ -370,10 +372,9 @@ mko_clean |>
 #| warning: false
 
 # add jittered data points ----
-ggplot(penguins, aes(x = species, y = body_mass_g)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = 0.5, width = 0.2) +
-  coord_flip()
+  geom_jitter(alpha = 0.5, width = 0.2) 
 ```
 
 ### Alt 4: dodged groups
@@ -384,12 +385,10 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 #| warning: false
 
 # dodge groups by year ----
-penguins |> 
-  mutate(year = as.factor(year)) |> 
-  ggplot(aes(x = species, y = body_mass_g, color = year)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
   geom_boxplot(outlier.shape = NA) +
-  geom_point(alpha = 0.5, position = position_jitterdodge(jitter.width = 0.2)) +
-  coord_flip()
+  geom_point(alpha = 0.5, 
+             position = position_jitterdodge(jitter.width = 0.2))
 ```
 
 ### Alt 5: overlay beeswarm
@@ -400,10 +399,9 @@ penguins |>
 #| warning: false
 
 # boxplot + beeswarm ----
-ggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
-  ggbeeswarm::geom_beeswarm(size = 1) +
-  coord_flip() 
+  ggbeeswarm::geom_beeswarm(size = 1) 
 ```
 
 ## Violin plots:
@@ -446,7 +444,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 #| warning: false
 
 # half violin + half dot plot ----
-ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = bill_length_mm, fill = species)) +
   see::geom_violindot(size_dots = 5, alpha = 0.5) +
   theme(legend.position = "none")
 ```

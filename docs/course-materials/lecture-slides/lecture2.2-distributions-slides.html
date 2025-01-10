@@ -536,7 +536,7 @@
 <h2></h2>
 <p><span class="slide-title">Data wrangling</span></p>
 <hr>
-<p>Data are imported directly from the <a href="https://portal.edirepository.org/nis/home.jsp">EDI Data Portal</a>. Explore the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007">metadata package</a> online to learn more about these data.</p>
+<p>Data are imported directly from the <a href="https://portal.edirepository.org/nis/home.jsp" target="_blank">EDI Data Portal</a>. Explore the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007" target="_blank">metadata package</a> online to learn more about these data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a></a><span class="do">##                                    setup                                 ----</span></span>
@@ -564,14 +564,14 @@
 <span id="cb1-24"><a></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
 <span id="cb1-25"><a></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-26"><a></a></span>
-<span id="cb1-27"><a></a>  <span class="co"># coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----</span></span>
-<span id="cb1-28"><a></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as.POSIXct</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
+<span id="cb1-27"><a></a>  <span class="co"># coerce data types ----</span></span>
+<span id="cb1-28"><a></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
 <span id="cb1-29"><a></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
 <span id="cb1-30"><a></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
 <span id="cb1-31"><a></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
 <span id="cb1-32"><a></a></span>
 <span id="cb1-33"><a></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-34"><a></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">as.factor</span>(month.name[month])) <span class="sc">|&gt;</span></span>
+<span id="cb1-34"><a></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
 <span id="cb1-35"><a></a></span>
 <span id="cb1-36"><a></a>  <span class="co"># replace 9999s with NAs ----</span></span>
 <span id="cb1-37"><a></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
@@ -727,9 +727,7 @@
 <p><span class="slide-title2">Density plots - <code>ggplot2::geom_density()</code></span></p>
 <hr>
 <p><span class="teal-text"><strong>What are they?</strong></span></p>
-<ul>
-<li>A smoothed version of a histogram. Density plots are representations of the <strong>distribution of a <em>numeric</em> variable(s)</strong>, which uses a <a href="https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/">kernel density estimate</a> (KDE) to show the <a href="https://en.wikipedia.org/wiki/Probability_density_function">probability density function</a> of the variable. <strong>The area under each curve is equal to 1.</strong> <em>Use a density plot when you are most concerned with the shape of the distribution.</em></li>
-</ul>
+<p><span class="body-text-s">A smoothed version of a histogram. Density plots are representations of the <strong>distribution of a <em>numeric</em> variable(s)</strong>, which uses a <a href="https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/">kernel density estimate</a> (KDE) to show the <a href="https://en.wikipedia.org/wiki/Probability_density_function">probability density function</a> of the variable. <strong>The y-axis represents the estimated density, i.e.&nbsp;the relative likelihood of a value occurring. The area under each curve is equal to 1.</strong> <em>Use a density plot when you are most concerned with the shape of the distribution.</em></span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="teal-text"><strong>Need:</strong></span></p>
@@ -756,9 +754,10 @@
 </div>
 </div></div>
 <div class="footer">
-<p>Check out <a href="https://mathisonian.github.io/kde/">this cool interactive tool</a>, by <a href="https://mathisonian.com/">Matthew Conlen</a>, for a succinct and clear explanation of KDE.</p>
+<p>Check out <a href="https://mathisonian.github.io/kde/" target="_blank">this cool interactive tool</a>, by <a href="https://mathisonian.com/" target="_blank">Matthew Conlen</a>, for a visual explanation of KDE.</p>
 </div>
 <aside class="notes">
+<p>Indicates the relative likelihood of a value occurring.</p>
 <p>The PDF is used to specify the probability of the random variable falling within a particular range of values, as opposed to taking on any one value <a href="https://en.wikipedia.org/wiki/Probability_density_function" class="uri">https://en.wikipedia.org/wiki/Probability_density_function</a></p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -832,7 +831,7 @@
 <div class="sourceCode cell-code" id="cb10" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb10-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb10-4"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb10-4"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb10-5"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -929,9 +928,14 @@
 
 </div>
 <img data-src="lecture2.2-distributions-slides_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
-<p>Check out this <a href="https://yjunechoe.github.io/posts/2022-03-10-ggplot2-delayed-aes-1/">great blog post</a> on the <code>after_stat()</code> function, by <a href="https://yjunechoe.github.io/index.html">June Choe</a></p>
+<p>Check out this <a href="https://yjunechoe.github.io/posts/2022-03-10-ggplot2-delayed-aes-1/" target="_blank">great blog post</a> on the <code>after_stat()</code> function, by <a href="https://yjunechoe.github.io/index.html" target="_blank">June Choe</a></p>
 </div>
 <aside class="notes">
+<ul>
+<li><code>after_stat(density)</code> tells ggplot to use the computed <em>density</em> stat for the <code>y</code> aesthetic</li>
+<li>by default, a histogram computes <em>counts/frequency</em> for the bins, but with <code>after_stat(density)</code>, y values for the histogram bins will represent the density rather than counts</li>
+<li><code>after_stat()</code> needs to be used to delay the computation of this y-axis aesthetic until after ggplot executes the <code>geom_histogram()</code> layer (which occurs second, after aesthetic mappings inside <code>ggplot()</code>)</li>
+</ul>
 <p>See <a href="https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ" class="uri">https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ</a></p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -950,7 +954,7 @@
 <p><span class="slide-title3">Scaled density plots for comparing groups to a whole</span></p>
 <hr>
 <p><span class="body-text-s">In a normal density plot, the area under the curve(s) is equal to 1. <strong>In a scaled density plot, the area under the curve reflects the number of observations for each group.</strong></span></p>
-<p><span class="body-text-s">We can use scaled density plots to compare individual group distributions to the total distribution. We’ll do so using the <code>palmerpenguins::penguins</code> data set.</span></p>
+<p><span class="body-text-s">We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the <code>palmerpenguins::penguins</code> data set:</span></p>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># use `after_stat(count)` to plot density of observations ----</span></span>
@@ -967,7 +971,7 @@
 <span id="cb15-12"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb15-13"><a></a>  </span>
 <span id="cb15-14"><a></a>  <span class="co"># update colors, x-axis label, legend position ----</span></span>
-<span id="cb15-15"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"#0C8346"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"green4"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb15-16"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
 <span id="cb15-17"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
@@ -980,7 +984,7 @@
 </div>
 </div></div>
 <div class="footer">
-<p>Example adapted from <a href="https://meghan.rbind.io/">Meghan Hall</a>’s CMU 36-315 <a href="https://cmu-36315.netlify.app/slides/36-315_summer2021_lec7#75">Lecture 7</a>. For more on scaled density plots, check out <a href="https://datawookie.dev/blog/2022/10/scaling-density-plots/">this post</a>, by <a href="https://github.com/datawookie">Andrew Collier</a>.</p>
+<p>Example adapted from <a href="https://meghan.rbind.io/" target="_blank">Meghan Hall</a>’s CMU 36-315 <a href="https://cmu-36315.netlify.app/slides/36-315_summer2021_lec7#75" target="_blank">Lecture 7</a>. For more on scaled density plots, check out <a href="https://datawookie.dev/blog/2022/10/scaling-density-plots/" target="_blank">this post</a>, by <a href="https://github.com/datawookie" target="_blank">Andrew Collier</a>.</p>
 </div>
 </section>
 <section id="ridgeline-overview" class="slide level2" data-menu-title="Ridgeline plot overview">
@@ -1019,7 +1023,7 @@
 <h2></h2>
 <p><span class="slide-title">Ridgeline plots - good for multiple groups</span></p>
 <hr>
-<p>The <a href="https://wilkelab.org/ggridges/"><code>{ggridges}</code> package</a> has a number of different geoms for creating ridgeline plots that work well for data sets with larger group numbers (e.g.&nbsp;months). Two great geoms to explore (to start):</p>
+<p>The <a href="https://wilkelab.org/ggridges/" target="_blank"><code>{ggridges}</code> package</a> has a number of different geoms for creating ridgeline plots that work well for data sets with larger group numbers (e.g.&nbsp;months). Two great geoms to explore (to start):</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="body-text-s"><code>geom_density_ridges()</code> to create a basic ridgeline plot:</span></p>
@@ -1049,6 +1053,9 @@
 </div>
 </div>
 </div></div>
+<div class="footer">
+<p><code>fill = after_stat(x)</code> tells ggplot to compute the <code>x</code> values (representing <code>Temp_bot</code>) after the statistical transformation (density estimation) and map those computed <code>x</code> values to the <code>fill</code> aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.</p>
+</div>
 </section>
 <section id="ridgeline-adjustments" class="slide level2" data-menu-title="Ridgeline plot adjustments">
 <h2></h2>
@@ -1093,7 +1100,7 @@
 </div></div>
 </div>
 <div id="tabset-3-2">
-<p><code>rel_min_height</code> adjusts trailing tails and <code>scale</code> controls the extent to which the different densities overlap)</p>
+<p><code>rel_min_height</code> sets the threshold for the relative height of density curves – any density values below this threshold are treated as 0. <code>scale</code> controls the extent to which the different densities overlap)</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span></span>
 <span id="cb20-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
@@ -1132,7 +1139,7 @@
 <p>Jittered points</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
 <span id="cb22-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb22-3"><a></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1148,7 +1155,7 @@
 <p>Raincloud plot:</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
 <span id="cb23-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
 <span id="cb23-3"><a></a>                                <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
 <span id="cb23-4"><a></a>                                <span class="at">position =</span> <span class="st">"raincloud"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1243,7 +1250,7 @@
 </div>
 </div>
 <div id="tabset-4-2">
-<p><span class="body-text-s">Highlight a group of interest – one easy way to do so is by using the <a href="https://yutannihilation.github.io/gghighlight/index.html"><code>{gghighlight}</code> package</a>. Here, we specify a specific month (<code>"October"</code>) to highlight:</span></p>
+<p><span class="body-text-s">Highlight a group of interest – one easy way to do so is by using the <a href="https://yutannihilation.github.io/gghighlight/index.html" target="_blank"><code>{gghighlight}</code> package</a>. Here, we specify a specific month (<code>"October"</code>) to highlight:</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26" data-code-line-numbers="5,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
@@ -1262,13 +1269,12 @@
 </div>
 </div>
 <div id="tabset-4-3">
-<p>Since box plots hide sample size, consider overlaying raw data points using <code>geom_jitter()</code> (since our temperature data is too large (&gt;473,000 rows), we’ll use the <code>palmerpenguins::penguins</code> data set to demo):</p>
+<p>Since box plots hide sample size, consider overlaying raw data points using <code>geom_jitter()</code> (since our temperature data is too large (almost 500k rows), we’ll use the <code>palmerpenguins::penguins</code> data set to demo):</p>
 <p><span class="body-text-s">NOTE: Be sure to remove outliers, since plotting raw data will result in those data points being a second time:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(palmerpenguins<span class="sc">::</span>penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb27-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb27-3"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb27-4"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-3"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1281,12 +1287,10 @@
 <div id="tabset-4-4">
 <p><span class="body-text-s">You may have data where you want to include an additional grouping variable – for example, let’s say we want to plot penguin body masses by species <em>and</em> year. We’ll need to at least <code>dodge</code> our overlaid points so that they sit on top of the correct box. Preferably, we both <code>jitter</code> <em>and</em> <code>dodge</code> our points:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span> </span>
-<span id="cb28-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> year)) <span class="sc">+</span></span>
-<span id="cb28-4"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb28-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb28-6"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb28-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb28-4"><a></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1299,10 +1303,9 @@
 <div id="tabset-4-5">
 <p><span class="body-text-s">Similar to overlaying the raw jittered data points, we can combine our box plot with a <strong>beeswarm plot</strong> using <code>{ggbeeswarm}</code>. Beeswarm plots visualize the density of data at each point, as well as arrange points that would normally overlap so that they fall next to one another instead. Consider using a standalone beeswarm plot here as well! We’ll again use the <code>palmerpenguins::penguins</code> data set to demo:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb29-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb29-3"><a></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-3"><a></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1387,9 +1390,9 @@
 </div>
 </div>
 <div id="tabset-5-2">
-<p><span class="body-text-s">The <a href="https://easystats.github.io/see/"><code>{see}</code> package</a> provides <code>geom_violindot()</code>, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like <code>Temp_bot</code>), we’ll use <code>palmerpenguins::penguins</code> to demo here:</span></p>
+<p><span class="body-text-s">The <a href="https://easystats.github.io/see/" target="_blank"><code>{see}</code> package</a> provides <code>geom_violindot()</code>, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like <code>Temp_bot</code>), we’ll use <code>palmerpenguins::penguins</code> to demo here:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
 <span id="cb32-2"><a></a>  see<span class="sc">::</span><span class="fu">geom_violindot</span>(<span class="at">size_dots =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb32-3"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1428,7 +1431,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_0be1c1d0" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_8502d1fd" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

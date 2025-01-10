@@ -196,7 +196,7 @@ We'll be exploring **bottom temperatures recorded at Mohawk Reef**, a near-shore
 
 <hr>
 
-Data are imported directly from the [EDI Data Portal](https://portal.edirepository.org/nis/home.jsp). Explore the [metadata package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007) online to learn more about these data.
+Data are imported directly from the [EDI Data Portal](https://portal.edirepository.org/nis/home.jsp){target="_blank"}. Explore the [metadata package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007){target="_blank"} online to learn more about these data.
 
 ```{r}
 #| eval: true
@@ -227,14 +227,14 @@ mko_clean <- mko |>
   mutate(time = chron::times(decimal_time)) |>
   unite(date_time, date, time, sep = " ") |>
 
-  # coerce data types (see https://www.neonscience.org/resources/learning-hub/tutorials/dc-convert-date-time-posix-r for overview of POSIXct vs POSIXlt) ----
-  mutate(date_time = as.POSIXct(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+  # coerce data types ----
+  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
          year = as.factor(year),
          month = as.factor(month),
          day = as.numeric(day)) |>
 
   # add month name by indexing the built-in `month.name` vector ----
-  mutate(month_name = as.factor(month.name[month])) |>
+  mutate(month_name = month.name[month]) |> 
 
   # replace 9999s with NAs ----
   naniar::replace_with_na(replace = list(Temp_bot = 9999, 
@@ -439,7 +439,7 @@ mko_clean |>
 
 [**What are they?**]{.teal-text} 
 
-- A smoothed version of a histogram. Density plots are representations of the **distribution of a *numeric* variable(s)**, which uses a [kernel density estimate](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/) (KDE) to show the [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) of the variable. **The area under each curve is equal to 1.** *Use a density plot when you are most concerned with the shape of the distribution.*
+[A smoothed version of a histogram. Density plots are representations of the **distribution of a *numeric* variable(s)**, which uses a [kernel density estimate](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/) (KDE) to show the [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) of the variable. **The y-axis represents the estimated density, i.e. the relative likelihood of a value occurring. The area under each curve is equal to 1.** *Use a density plot when you are most concerned with the shape of the distribution.*]{.body-text-s}
 
 :::: columns 
 
@@ -475,10 +475,12 @@ mko_clean |>
 ::::
 
 ::: {.footer}
-Check out [this cool interactive tool](https://mathisonian.github.io/kde/), by [Matthew Conlen](https://mathisonian.com/), for a succinct and clear explanation of KDE.
+Check out [this cool interactive tool](https://mathisonian.github.io/kde/){target="_blank"}, by [Matthew Conlen](https://mathisonian.com/){target="_blank"}, for a visual explanation of KDE.
 :::
 
 ::: {.notes}
+Indicates the relative likelihood of a value occurring. 
+
 The PDF is used to specify the probability of the random variable falling within a particular range of values, as opposed to taking on any one value <https://en.wikipedia.org/wiki/Probability_density_function>
 :::
 
@@ -556,7 +558,7 @@ Modify bandwidth by declaring a multiplier of the default bandwidth adjustment. 
 mko_clean |> 
   filter(month_name %in% c("April", "June", "October")) |> 
   ggplot(aes(x = Temp_bot, fill = month_name)) +
-  geom_density(alpha = 0.5, adjust = 1/2) + 
+  geom_density(alpha = 0.5, adjust = 0.5) + 
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
@@ -660,10 +662,14 @@ ggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down his
 ```
 
 ::: {.footer}
-Check out this [great blog post](https://yjunechoe.github.io/posts/2022-03-10-ggplot2-delayed-aes-1/) on the `after_stat()` function, by [June Choe](https://yjunechoe.github.io/index.html)
+Check out this [great blog post](https://yjunechoe.github.io/posts/2022-03-10-ggplot2-delayed-aes-1/){target="_blank"} on the `after_stat()` function, by [June Choe](https://yjunechoe.github.io/index.html){target="_blank"}
 :::
 
 ::: notes
+- `after_stat(density)` tells ggplot to use the computed *density* stat for the `y` aesthetic
+- by default, a histogram computes *counts/frequency* for the bins, but with `after_stat(density)`, y values for the histogram bins will represent the density rather than counts
+- `after_stat()` needs to be used to delay the computation of this y-axis aesthetic until after ggplot executes the `geom_histogram()` layer (which occurs second, after aesthetic mappings inside `ggplot()`)
+
 See <https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ>
 :::
 
@@ -677,7 +683,7 @@ See <https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-den
 
 [In a normal density plot, the area under the curve(s) is equal to 1. **In a scaled density plot, the area under the curve reflects the number of observations for each group.**]{.body-text-s}
 
-[We can use scaled density plots to compare individual group distributions to the total distribution. We'll do so using the `palmerpenguins::penguins` data set.]{.body-text-s}
+[We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the `palmerpenguins::penguins` data set:]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -704,7 +710,7 @@ ggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +
   facet_wrap(~species, nrow = 1) +
   
   # update colors, x-axis label, legend position ----
-  scale_fill_manual(values = c("grey","#0C8346"), name = NULL) +
+  scale_fill_manual(values = c("grey","green4"), name = NULL) +
   labs(x = "Body Mass (g)") +
   theme(legend.position = "top")
 ```
@@ -748,7 +754,7 @@ ggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +
 ```
 
 ::: {.footer}
-Example adapted from [Meghan Hall](https://meghan.rbind.io/)'s CMU 36-315 [Lecture 7](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec7#75). For more on scaled density plots, check out [this post](https://datawookie.dev/blog/2022/10/scaling-density-plots/), by [Andrew Collier](https://github.com/datawookie).
+Example adapted from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s CMU 36-315 [Lecture 7](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec7#75){target="_blank"}. For more on scaled density plots, check out [this post](https://datawookie.dev/blog/2022/10/scaling-density-plots/){target="_blank"}, by [Andrew Collier](https://github.com/datawookie){target="_blank"}.
 :::
 
 ---
@@ -801,7 +807,7 @@ ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
 
 <hr>
 
-The [`{ggridges}` package](https://wilkelab.org/ggridges/) has a number of different geoms for creating ridgeline plots that work well for data sets with larger group numbers (e.g. months). Two great geoms to explore (to start):
+The [`{ggridges}` package](https://wilkelab.org/ggridges/){target="_blank"} has a number of different geoms for creating ridgeline plots that work well for data sets with larger group numbers (e.g. months). Two great geoms to explore (to start):
 
 :::: columns
 
@@ -829,6 +835,10 @@ ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
 :::
 
 ::::
+
+::: {.footer}
+`fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.
+:::
 
 ---
 
@@ -877,7 +887,8 @@ mko_clean |>
 
 ## Overlap & tails
 
-`rel_min_height` adjusts trailing tails and `scale` controls the extent to which the different densities overlap)
+`rel_min_height` sets the threshold for the relative height of density curves -- any density values below this threshold are treated as 0. `scale` controls the extent to which the different densities overlap)
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -928,7 +939,7 @@ Jittered points
 #| echo: true
 #| code-line-numbers: "2-3"
 #| fig-align: "center"
-ggplot(penguins, aes(x = body_mass_g, y = species)) +
+ggplot(palmerpenguins::penguins, aes(x = body_mass_g, y = species)) +
   ggridges::geom_density_ridges(jittered_points = TRUE, 
                                 alpha = 0.5, point_size = 0.5)
 ```
@@ -945,7 +956,7 @@ Raincloud plot:
 #| echo: true
 #| code-line-numbers: "2-4"
 #| fig-align: "center"
-ggplot(penguins, aes(x = body_mass_g, y = species)) +
+ggplot(palmerpenguins::penguins, aes(x = body_mass_g, y = species)) +
   ggridges::geom_density_ridges(jittered_points = TRUE, alpha = 0.5, 
                                 point_size = 0.5, scale = 0.6,
                                 position = "raincloud")
@@ -1054,7 +1065,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 
 ## Highlight a group(s)
 
-[Highlight a group of interest -- one easy way to do so is by using the [`{gghighlight}` package](https://yutannihilation.github.io/gghighlight/index.html). Here, we specify a specific month (`"October"`) to highlight:]{.body-text-s}
+[Highlight a group of interest -- one easy way to do so is by using the [`{gghighlight}` package](https://yutannihilation.github.io/gghighlight/index.html){target="_blank"}. Here, we specify a specific month (`"October"`) to highlight:]{.body-text-s}
 ```{r}
 #| eval: true
 #| echo: true
@@ -1072,7 +1083,7 @@ mko_clean |>
 
 ## Jitter raw data
 
-Since box plots hide sample size, consider overlaying raw data points using `geom_jitter()` (since our temperature data is too large (>473,000 rows), we’ll use the `palmerpenguins::penguins` data set to demo):
+Since box plots hide sample size, consider overlaying raw data points using `geom_jitter()` (since our temperature data is too large (almost 500k rows), we’ll use the `palmerpenguins::penguins` data set to demo):
 
 [NOTE: Be sure to remove outliers, since plotting raw data will result in those data points being a second time:]{.body-text-s}
 ```{r}
@@ -1081,10 +1092,9 @@ Since box plots hide sample size, consider overlaying raw data points using `geo
 #| code-line-numbers: "2-3"
 #| out-width: "40%"
 #| fig-align: "center"
-ggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +
+ggplot(na.omit(palmerpenguins::penguins), aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter(alpha = 0.5, width = 0.2) +
-  coord_flip()
+  geom_jitter(alpha = 0.5, width = 0.2) 
 ```
 
 ## Dodged groups
@@ -1096,12 +1106,10 @@ ggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +
 #| echo: true
 #| out-width: "40%"
 #| fig-align: "center"
-penguins |> 
-  mutate(year = as.factor(year)) |> 
-  ggplot(aes(x = species, y = body_mass_g, color = year)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
   geom_boxplot(outlier.shape = NA) +
-  geom_point(alpha = 0.5, position = position_jitterdodge(jitter.width = 0.2)) +
-  coord_flip()
+  geom_point(alpha = 0.5, 
+             position = position_jitterdodge(jitter.width = 0.2))
 ```
 
 
@@ -1114,10 +1122,9 @@ penguins |>
 #| code-line-numbers: "2-3"
 #| out-width: "40%"
 #| fig-align: "center"
-ggplot(na.omit(penguins), aes(x = species, y = body_mass_g)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
-  ggbeeswarm::geom_beeswarm(size = 1) +
-  coord_flip()
+  ggbeeswarm::geom_beeswarm(size = 1) 
 ```
 
 :::
@@ -1214,13 +1221,13 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 
 ## Half-violin half-dot plot
 
-[The [`{see}` package](https://easystats.github.io/see/) provides `geom_violindot()`, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like `Temp_bot`), we'll use `palmerpenguins::penguins` to demo here:]{.body-text-s}
+[The [`{see}` package](https://easystats.github.io/see/){target="_blank"} provides `geom_violindot()`, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like `Temp_bot`), we'll use `palmerpenguins::penguins` to demo here:]{.body-text-s}
 ```{r}
 #| eval: true
 #| echo: true
 #| out-width: "50%"
 #| fig-align: "center"
-ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +
+ggplot(palmerpenguins::penguins, aes(x = species, y = bill_length_mm, fill = species)) +
   see::geom_violindot(size_dots = 5, alpha = 0.5) +
   theme(legend.position = "none")
 ```
