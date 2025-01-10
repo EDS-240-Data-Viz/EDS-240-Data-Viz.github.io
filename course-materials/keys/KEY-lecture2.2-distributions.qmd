@@ -28,6 +28,7 @@ This template follows [lecture 2.2 slides](../lecture-slides/lecture2.2-distribu
 library(tidyverse)
 library(chron)
 library(naniar)
+library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
 mko <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
@@ -372,7 +373,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
 #| warning: false
 
 # add jittered data points ----
-ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(alpha = 0.5, width = 0.2) 
 ```
@@ -385,7 +386,7 @@ ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
 #| warning: false
 
 # dodge groups by year ----
-ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
   geom_boxplot(outlier.shape = NA) +
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))
@@ -399,7 +400,7 @@ ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.fa
 #| warning: false
 
 # boxplot + beeswarm ----
-ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
   ggbeeswarm::geom_beeswarm(size = 1) 
 ```
@@ -444,7 +445,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 #| warning: false
 
 # half violin + half dot plot ----
-ggplot(palmerpenguins::penguins, aes(x = species, y = bill_length_mm, fill = species)) +
+ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +
   see::geom_violindot(size_dots = 5, alpha = 0.5) +
   theme(legend.position = "none")
 ```

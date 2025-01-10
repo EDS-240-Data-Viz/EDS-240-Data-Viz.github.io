@@ -209,6 +209,7 @@ Data are imported directly from the [EDI Data Portal](https://portal.edireposito
 library(tidyverse)
 library(chron)
 library(naniar)
+library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
 mko <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
@@ -918,7 +919,7 @@ ggplot(mko_clean, aes(x = Temp_bot, y = month_name)) +
 
 ## Jitter raw data
 
-Visualize the raw data underlying the density ridges (since our temperature data is too large (>473,000 rows), so we'll use the `palmerpenguins::penguins` data set to demo):
+Visualize the raw data underlying the density ridges (since our temperature data is too large (>473,000 rows), so we'll use the `{palmerpenguins}` `penguins` data set to demo):
 
 ```{r}
 #| eval: true

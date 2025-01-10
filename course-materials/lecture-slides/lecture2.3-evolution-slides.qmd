@@ -806,8 +806,8 @@ lyme_pop |>
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area() +
   scale_fill_manual(values = c("#047C90")) +
-  scale_x_discrete(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+  scale_x_discrete(expand = c(0, NA)) +
+  scale_y_continuous(expand = c(0, NA)) +
   theme(legend.position = "none")
 ```
 :::
