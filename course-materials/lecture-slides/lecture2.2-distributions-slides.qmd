@@ -35,7 +35,7 @@ editor_options:
 . . .
 
 ::: {.body-text-l .center-text}
-Visualizing the **spread** of a numeric variable(s) 
+Visualizing the **spread** of a numeric variable
 :::
 
 ```{r}
@@ -209,6 +209,10 @@ Data are imported directly from the [EDI Data Portal](https://portal.edireposito
 library(tidyverse)
 library(chron)
 library(naniar)
+library(ggridges)
+library(gghighlight)
+library(ggbeeswarm)
+library(see)
 library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
@@ -652,7 +656,8 @@ In the histogram, group B has higher bars; difference in height disappears in de
 
 <hr>
 
-Overlaying a histogram and density plot requires scaling down the histogram to match the density curve scale. Adding `y = after_stat(density)` within the `aes()` function rescales the histogram counts so that bar areas integrate to 1:
+[We can overlay histogram and density plots to check that smoothing assumptions of the density curve align with the actual data distribution. This requires rescaling the histogram to match the density curve scale. Adding `y = after_stat(density)` within the `aes()` function rescales the histogram counts so that bar areas integrate to 1:]{.body-text-s}
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -672,6 +677,12 @@ Check out this [great blog post](https://yjunechoe.github.io/posts/2022-03-10-gg
 - `after_stat()` needs to be used to delay the computation of this y-axis aesthetic until after ggplot executes the `geom_histogram()` layer (which occurs second, after aesthetic mappings inside `ggplot()`)
 
 See <https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ>
+
+**Insights:**
+
+- The density curve can help identify patterns that might be harder to see in the histogram due to bin size or alignment.
+- If the bins are too wide, important details in the data distribution might be missed in the histogram, but the density curve can reveal them.
+- Conversely, if the curve is overly smoothed (due to a large adjust), it might miss sharp features present in the histogram.
 :::
 
 ---
@@ -684,7 +695,7 @@ See <https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-den
 
 [In a normal density plot, the area under the curve(s) is equal to 1. **In a scaled density plot, the area under the curve reflects the number of observations for each group.**]{.body-text-s}
 
-[We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the `palmerpenguins::penguins` data set:]{.body-text-s}
+[We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the `penguins` data set:]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -779,7 +790,7 @@ Example adapted from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s 
 
 [**Important considerations:**]{.teal-text} 
 
-- work best when you have > 6 groups
+- work well when you have multiple (> 3) groups
 - works well when there is a clear pattern in the result (e.g. if there is an obvious ranking in groups) and / or when visualizing changes in distributions over time or space
 :::
 
@@ -856,7 +867,7 @@ ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
 :::: columns
 
 ::: {.column width="50%"}
-[Order by month (ideal, since months have an inherent order):]{.body-text-s}
+[Order by month (ideal, since months have an inherent order; alternatively, do in data wrangling step, e.g. `mutate(month_name = factor(month_name, levels = rev(month.name)))`):]{.body-text-s}
 ```{r}
 #| eval: true
 #| echo: true
@@ -940,7 +951,7 @@ Jittered points
 #| echo: true
 #| code-line-numbers: "2-3"
 #| fig-align: "center"
-ggplot(palmerpenguins::penguins, aes(x = body_mass_g, y = species)) +
+ggplot(penguins, aes(x = body_mass_g, y = species)) +
   ggridges::geom_density_ridges(jittered_points = TRUE, 
                                 alpha = 0.5, point_size = 0.5)
 ```
@@ -957,7 +968,7 @@ Raincloud plot:
 #| echo: true
 #| code-line-numbers: "2-4"
 #| fig-align: "center"
-ggplot(palmerpenguins::penguins, aes(x = body_mass_g, y = species)) +
+ggplot(penguins, aes(x = body_mass_g, y = species)) +
   ggridges::geom_density_ridges(jittered_points = TRUE, alpha = 0.5, 
                                 point_size = 0.5, scale = 0.6,
                                 position = "raincloud")
@@ -1059,7 +1070,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 #| out-width: "55%"
 #| fig-align: "center"
 ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
-  geom_boxplot(outlier.color = "purple", outlier.shape = "circle open", outlier.size = 5) +
+  geom_boxplot(outlier.color = "purple", outlier.shape = 1, outlier.size = 5) +
   scale_x_discrete(limits = rev(month.name)) +
   coord_flip()
 ```
@@ -1084,7 +1095,7 @@ mko_clean |>
 
 ## Jitter raw data
 
-Since box plots hide sample size, consider overlaying raw data points using `geom_jitter()` (since our temperature data is too large (almost 500k rows), we’ll use the `palmerpenguins::penguins` data set to demo):
+Since box plots hide sample size, consider overlaying raw data points using `geom_jitter()` (since our temperature data is too large (almost 500k rows), we’ll use the `penguins` data set to demo):
 
 [NOTE: Be sure to remove outliers, since plotting raw data will result in those data points being a second time:]{.body-text-s}
 ```{r}
@@ -1093,7 +1104,7 @@ Since box plots hide sample size, consider overlaying raw data points using `geo
 #| code-line-numbers: "2-3"
 #| out-width: "40%"
 #| fig-align: "center"
-ggplot(na.omit(palmerpenguins::penguins), aes(x = species, y = body_mass_g)) +
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(alpha = 0.5, width = 0.2) 
 ```
@@ -1107,7 +1118,7 @@ ggplot(na.omit(palmerpenguins::penguins), aes(x = species, y = body_mass_g)) +
 #| echo: true
 #| out-width: "40%"
 #| fig-align: "center"
-ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
   geom_boxplot(outlier.shape = NA) +
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))
@@ -1116,14 +1127,14 @@ ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g, color = as.fa
 
 ## Overlay beeswarm
 
-[Similar to overlaying the raw jittered data points, we can combine our box plot with a **beeswarm plot** using `{ggbeeswarm}`. Beeswarm plots visualize the density of data at each point, as well as arrange points that would normally overlap so that they fall next to one another instead. Consider using a standalone beeswarm plot here as well! We'll again use the `palmerpenguins::penguins` data set to demo:]{.body-text-s}
+[Similar to overlaying the raw jittered data points, we can combine our box plot with a **beeswarm plot** using `{ggbeeswarm}`. Beeswarm plots visualize the density of data at each point, as well as arrange points that would normally overlap so that they fall next to one another instead. Consider using a standalone beeswarm plot here as well! We'll again use the `penguins` data set to demo:]{.body-text-s}
 ```{r}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "2-3"
 #| out-width: "40%"
 #| fig-align: "center"
-ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot(outlier.shape = NA) +
   ggbeeswarm::geom_beeswarm(size = 1) 
 ```
@@ -1151,8 +1162,8 @@ ggplot(palmerpenguins::penguins, aes(x = species, y = body_mass_g)) +
 
 [**Important considerations:**]{.teal-text}   
 
-- ordering groups by median value can make it easier to understand  
-- show sample size when comparing groups with very different distributions (e.g. half violin plot) 
+- ordering groups by median value (when it makes sense) can make it easier to understand 
+- consider showing raw data when comparing groups with very different sample sizes (e.g. half violin plot) 
 :::
 
 ::: {.column width="50%"}
@@ -1222,13 +1233,13 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 
 ## Half-violin half-dot plot
 
-[The [`{see}` package](https://easystats.github.io/see/){target="_blank"} provides `geom_violindot()`, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like `Temp_bot`), we'll use `palmerpenguins::penguins` to demo here:]{.body-text-s}
+[The [`{see}` package](https://easystats.github.io/see/){target="_blank"} provides `geom_violindot()`, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like `Temp_bot`), we'll use `penguins` to demo here:]{.body-text-s}
 ```{r}
 #| eval: true
 #| echo: true
 #| out-width: "50%"
 #| fig-align: "center"
-ggplot(palmerpenguins::penguins, aes(x = species, y = bill_length_mm, fill = species)) +
+ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) +
   see::geom_violindot(size_dots = 5, alpha = 0.5) +
   theme(legend.position = "none")
 ```

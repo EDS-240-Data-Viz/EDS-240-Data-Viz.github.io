@@ -28,6 +28,10 @@ This template follows [lecture 2.2 slides](../lecture-slides/lecture2.2-distribu
 library(tidyverse)
 library(chron)
 library(naniar)
+library(ggridges)
+library(gghighlight)
+library(ggbeeswarm)
+library(see)
 library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
@@ -226,8 +230,6 @@ ggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down his
 #| eval: true
 #| echo: true
 #| warning: false
-library(palmerpenguins)
-
 # use `after_stat(count)` to plot density of observations ----
 ggplot(penguins, aes(x = body_mass_g, y = after_stat(count))) +
  
@@ -280,6 +282,30 @@ ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
 ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
   ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
   scale_y_discrete(limits = rev(month.name)) +
+  scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
+```
+
+Remember, you can also reorder factor levels during the data wrangling stage:
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| layout-ncol: 2
+
+# e.g. by month: ----
+mko_clean |> 
+  mutate(month_name = factor(month_name, levels = rev(month.name))) |> 
+  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
+  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
+  scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
+
+# e.g. by median temp ---
+mko_clean |> 
+  mutate(month_name = fct_reorder(month_name, Temp_bot, .fun = median)) |> 
+  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
+  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
   scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
 ```
 
@@ -344,7 +370,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 
 # boxplot with modified outliers ----
 ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
-  geom_boxplot(outlier.color = "purple", outlier.shape = "circle open", outlier.size = 5) +
+  geom_boxplot(outlier.color = "purple", outlier.shape = 1, outlier.size = 5) +
   scale_x_discrete(limits = rev(month.name)) +
   coord_flip()
 ```

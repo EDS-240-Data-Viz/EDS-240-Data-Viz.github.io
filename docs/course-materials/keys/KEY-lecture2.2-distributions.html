@@ -358,55 +358,59 @@ Note
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(chron)</span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(naniar)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa"</span>)</span>
 <span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a>  <span class="co"># keep only necessary columns ----</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="co"># coerce data types ----</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
-<span id="cb1-30"><a href="#cb1-30"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
-<span id="cb1-31"><a href="#cb1-31"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
-<span id="cb1-32"><a href="#cb1-32"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a></span>
-<span id="cb1-34"><a href="#cb1-34"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
-<span id="cb1-36"><a href="#cb1-36"></a></span>
-<span id="cb1-37"><a href="#cb1-37"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-39"><a href="#cb1-39"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-40"><a href="#cb1-40"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a></span>
-<span id="cb1-42"><a href="#cb1-42"></a>  <span class="co"># select/reorder desired columns ----</span></span>
-<span id="cb1-43"><a href="#cb1-43"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
-<span id="cb1-44"><a href="#cb1-44"></a></span>
-<span id="cb1-45"><a href="#cb1-45"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-46"><a href="#cb1-46"></a><span class="do">##                            explore missing data                          ----</span></span>
-<span id="cb1-47"><a href="#cb1-47"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="co"># keep only necessary columns ----</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a>  <span class="co"># coerce data types ----</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
+<span id="cb1-34"><a href="#cb1-34"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
+<span id="cb1-35"><a href="#cb1-35"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
+<span id="cb1-36"><a href="#cb1-36"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
+<span id="cb1-40"><a href="#cb1-40"></a></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-43"><a href="#cb1-43"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-44"><a href="#cb1-44"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a></span>
+<span id="cb1-46"><a href="#cb1-46"></a>  <span class="co"># select/reorder desired columns ----</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
 <span id="cb1-48"><a href="#cb1-48"></a></span>
-<span id="cb1-49"><a href="#cb1-49"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-51"><a href="#cb1-51"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb1-52"><a href="#cb1-52"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-53"><a href="#cb1-53"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
-<span id="cb1-54"><a href="#cb1-54"></a></span>
-<span id="cb1-55"><a href="#cb1-55"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
-<span id="cb1-56"><a href="#cb1-56"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
-<span id="cb1-57"><a href="#cb1-57"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a><span class="do">##                            explore missing data                          ----</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a></span>
+<span id="cb1-53"><a href="#cb1-53"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
+<span id="cb1-54"><a href="#cb1-54"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-55"><a href="#cb1-55"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-56"><a href="#cb1-56"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-57"><a href="#cb1-57"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
+<span id="cb1-58"><a href="#cb1-58"></a></span>
+<span id="cb1-59"><a href="#cb1-59"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
+<span id="cb1-61"><a href="#cb1-61"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="histograms" class="level2">
@@ -584,25 +588,23 @@ Note
 <section id="compare-groups-to-a-whole" class="level3">
 <h3 class="anchored" data-anchor-id="compare-groups-to-a-whole">Compare groups to a whole</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># use `after_stat(count)` to plot density of observations ----</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> <span class="fu">after_stat</span>(count))) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a> </span>
-<span id="cb12-6"><a href="#cb12-6"></a>  <span class="co"># plot full distribution curve with label "all penguins"; remove 'species' col so that this doesn't get faceted later on ----</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">geom_density</span>(<span class="at">data =</span> <span class="fu">select</span>(penguins, <span class="sc">-</span>species), </span>
-<span id="cb12-8"><a href="#cb12-8"></a>               <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"all penguins"</span>), <span class="at">color =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>  </span>
-<span id="cb12-10"><a href="#cb12-10"></a>  <span class="co"># plot second curve with label "species" ----</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"species"</span>), <span class="at">color =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a>  </span>
-<span id="cb12-13"><a href="#cb12-13"></a>  <span class="co"># facet wrap by species ----</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a>  </span>
-<span id="cb12-16"><a href="#cb12-16"></a>  <span class="co"># update colors, x-axis label, legend position ----</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"green4"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># use `after_stat(count)` to plot density of observations ----</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> <span class="fu">after_stat</span>(count))) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a> </span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="co"># plot full distribution curve with label "all penguins"; remove 'species' col so that this doesn't get faceted later on ----</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">geom_density</span>(<span class="at">data =</span> <span class="fu">select</span>(penguins, <span class="sc">-</span>species), </span>
+<span id="cb12-6"><a href="#cb12-6"></a>               <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"all penguins"</span>), <span class="at">color =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  </span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="co"># plot second curve with label "species" ----</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"species"</span>), <span class="at">color =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>  </span>
+<span id="cb12-11"><a href="#cb12-11"></a>  <span class="co"># facet wrap by species ----</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>  </span>
+<span id="cb12-14"><a href="#cb12-14"></a>  <span class="co"># update colors, x-axis label, legend position ----</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>,<span class="st">"green4"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -651,19 +653,42 @@ Note
 </div>
 </div>
 </div>
+<p>Remember, you can also reorder factor levels during the data wrangling stage:</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># e.g. by month: ----</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>,<span class="st">"#849BB4"</span>, <span class="st">"#D9E7EC"</span>, <span class="st">"#EF8080"</span>, <span class="st">"#8B3A3A"</span>))</span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co"># e.g. by median temp ---</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">fct_reorder</span>(month_name, Temp_bot, <span class="at">.fun =</span> median)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>,<span class="st">"#849BB4"</span>, <span class="st">"#D9E7EC"</span>, <span class="st">"#EF8080"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="alt-2-add-quantiles" class="level3">
 <h3 class="anchored" data-anchor-id="alt-2-add-quantiles">Alt 2: add quantiles</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># ridgeline plot with quantiles ----</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>  ggridges<span class="sc">::</span><span class="fu">stat_density_ridges</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>,</span>
-<span id="cb15-4"><a href="#cb15-4"></a>                                <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># ridgeline plot with quantiles ----</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  ggridges<span class="sc">::</span><span class="fu">stat_density_ridges</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>                                <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -672,26 +697,26 @@ Note
 <section id="alt-3-jitter-raw-data" class="level3">
 <h3 class="anchored" data-anchor-id="alt-3-jitter-raw-data">Alt 3: jitter raw data</h3>
 <div class="cell" data-layout-col="2">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># jittered points ----</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb16-4"><a href="#cb16-4"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># jittered points ----</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb17-4"><a href="#cb17-4"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># raincloud ----</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb17-4"><a href="#cb17-4"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
-<span id="cb17-5"><a href="#cb17-5"></a>                                <span class="at">position =</span> <span class="st">"raincloud"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># raincloud ----</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb18-4"><a href="#cb18-4"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
+<span id="cb18-5"><a href="#cb18-5"></a>                                <span class="at">position =</span> <span class="st">"raincloud"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -704,25 +729,9 @@ Note
 <li><em>summarize</em> the distribution of a numeric variable for one or several groups</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># boxplot with all 12 months ----</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="alt-1-modify-outliers" class="level3">
-<h3 class="anchored" data-anchor-id="alt-1-modify-outliers">Alt 1: modify outliers</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># boxplot with modified outliers ----</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># boxplot with all 12 months ----</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">outlier.shape =</span> <span class="st">"circle open"</span>, <span class="at">outlier.size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
 <span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -733,17 +742,14 @@ Note
 </div>
 </div>
 </div>
-</section>
-<section id="alt-2-hightlight-a-group" class="level3">
-<h3 class="anchored" data-anchor-id="alt-2-hightlight-a-group">Alt 2: hightlight a group</h3>
+<section id="alt-1-modify-outliers" class="level3">
+<h3 class="anchored" data-anchor-id="alt-1-modify-outliers">Alt 1: modify outliers</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># highlight a particular group ----</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># boxplot with modified outliers ----</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">outlier.shape =</span> <span class="dv">1</span>, <span class="at">outlier.size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -753,13 +759,16 @@ Note
 </div>
 </div>
 </section>
-<section id="alt-3-jitter-raw-data-using-palmerpenguins-data" class="level3">
-<h3 class="anchored" data-anchor-id="alt-3-jitter-raw-data-using-palmerpenguins-data">Alt 3: jitter raw data (using <code>{palmerpenguins}</code> data)</h3>
+<section id="alt-2-hightlight-a-group" class="level3">
+<h3 class="anchored" data-anchor-id="alt-2-hightlight-a-group">Alt 2: hightlight a group</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># add jittered data points ----</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># highlight a particular group ----</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -769,14 +778,13 @@ Note
 </div>
 </div>
 </section>
-<section id="alt-4-dodged-groups" class="level3">
-<h3 class="anchored" data-anchor-id="alt-4-dodged-groups">Alt 4: dodged groups</h3>
+<section id="alt-3-jitter-raw-data-using-palmerpenguins-data" class="level3">
+<h3 class="anchored" data-anchor-id="alt-3-jitter-raw-data-using-palmerpenguins-data">Alt 3: jitter raw data (using <code>{palmerpenguins}</code> data)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># dodge groups by year ----</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># add jittered data points ----</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb22-5"><a href="#cb22-5"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -786,17 +794,34 @@ Note
 </div>
 </div>
 </section>
-<section id="alt-5-overlay-beeswarm" class="level3">
-<h3 class="anchored" data-anchor-id="alt-5-overlay-beeswarm">Alt 5: overlay beeswarm</h3>
+<section id="alt-4-dodged-groups" class="level3">
+<h3 class="anchored" data-anchor-id="alt-4-dodged-groups">Alt 4: dodged groups</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># boxplot + beeswarm ----</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># dodge groups by year ----</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb23-5"><a href="#cb23-5"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="alt-5-overlay-beeswarm" class="level3">
+<h3 class="anchored" data-anchor-id="alt-5-overlay-beeswarm">Alt 5: overlay beeswarm</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># boxplot + beeswarm ----</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -809,29 +834,11 @@ Note
 <li>visualize distribution of a numeric variable for one or several groups; great for multiple groups with lots of data</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># violin plot ----</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="alt-1-overlay-boxplot" class="level3">
-<h3 class="anchored" data-anchor-id="alt-1-overlay-boxplot">Alt 1: overlay boxplot</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># violin + boxplot ----</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># violin plot ----</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb25-5"><a href="#cb25-5"></a>               <span class="at">outlier.color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -840,18 +847,36 @@ Note
 </div>
 </div>
 </div>
-</section>
-<section id="alt-2-half-violin-half-dot-plot" class="level3">
-<h3 class="anchored" data-anchor-id="alt-2-half-violin-half-dot-plot">Alt 2: half-violin half-dot plot</h3>
+<section id="alt-1-overlay-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="alt-1-overlay-boxplot">Alt 1: overlay boxplot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># half violin + half dot plot ----</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>  see<span class="sc">::</span><span class="fu">geom_violindot</span>(<span class="at">size_dots =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># violin + boxplot ----</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb26-5"><a href="#cb26-5"></a>               <span class="at">outlier.color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="alt-2-half-violin-half-dot-plot" class="level3">
+<h3 class="anchored" data-anchor-id="alt-2-half-violin-half-dot-plot">Alt 2: half-violin half-dot plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># half violin + half dot plot ----</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  see<span class="sc">::</span><span class="fu">geom_violindot</span>(<span class="at">size_dots =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture2.2-distributions_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

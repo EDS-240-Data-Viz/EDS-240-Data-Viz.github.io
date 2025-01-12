@@ -411,7 +411,7 @@
 <p><br> <br> <br></p>
 <div class="fragment">
 <div class="body-text-l center-text">
-<p>Visualizing the <strong>spread</strong> of a numeric variable(s)</p>
+<p>Visualizing the <strong>spread</strong> of a numeric variable</p>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -546,55 +546,59 @@
 <span id="cb1-6"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-7"><a></a><span class="fu">library</span>(chron)</span>
 <span id="cb1-8"><a></a><span class="fu">library</span>(naniar)</span>
-<span id="cb1-9"><a></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-12"><a></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa"</span>)</span>
-<span id="cb1-13"><a></a></span>
-<span id="cb1-14"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-15"><a></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb1-16"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-9"><a></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-10"><a></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb1-11"><a></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb1-12"><a></a><span class="fu">library</span>(see)</span>
+<span id="cb1-13"><a></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb1-16"><a></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa"</span>)</span>
 <span id="cb1-17"><a></a></span>
-<span id="cb1-18"><a></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
-<span id="cb1-19"><a></a></span>
-<span id="cb1-20"><a></a>  <span class="co"># keep only necessary columns ----</span></span>
-<span id="cb1-21"><a></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
-<span id="cb1-22"><a></a></span>
-<span id="cb1-23"><a></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
-<span id="cb1-24"><a></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
-<span id="cb1-26"><a></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-27"><a></a></span>
-<span id="cb1-28"><a></a>  <span class="co"># coerce data types ----</span></span>
-<span id="cb1-29"><a></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
-<span id="cb1-30"><a></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
-<span id="cb1-31"><a></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
-<span id="cb1-32"><a></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
-<span id="cb1-33"><a></a></span>
-<span id="cb1-34"><a></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-35"><a></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
-<span id="cb1-36"><a></a></span>
-<span id="cb1-37"><a></a>  <span class="co"># replace 9999s with NAs ----</span></span>
-<span id="cb1-38"><a></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-39"><a></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-40"><a></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-41"><a></a></span>
-<span id="cb1-42"><a></a>  <span class="co"># select/reorder desired columns ----</span></span>
-<span id="cb1-43"><a></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
-<span id="cb1-44"><a></a></span>
-<span id="cb1-45"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-46"><a></a><span class="do">##                            explore missing data                          ----</span></span>
-<span id="cb1-47"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-18"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-19"><a></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-20"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-21"><a></a></span>
+<span id="cb1-22"><a></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a></a></span>
+<span id="cb1-24"><a></a>  <span class="co"># keep only necessary columns ----</span></span>
+<span id="cb1-25"><a></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
+<span id="cb1-26"><a></a></span>
+<span id="cb1-27"><a></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
+<span id="cb1-28"><a></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-29"><a></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a></a></span>
+<span id="cb1-32"><a></a>  <span class="co"># coerce data types ----</span></span>
+<span id="cb1-33"><a></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
+<span id="cb1-34"><a></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
+<span id="cb1-35"><a></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
+<span id="cb1-36"><a></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
+<span id="cb1-37"><a></a></span>
+<span id="cb1-38"><a></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
+<span id="cb1-39"><a></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
+<span id="cb1-40"><a></a></span>
+<span id="cb1-41"><a></a>  <span class="co"># replace 9999s with NAs ----</span></span>
+<span id="cb1-42"><a></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-43"><a></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-44"><a></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-45"><a></a></span>
+<span id="cb1-46"><a></a>  <span class="co"># select/reorder desired columns ----</span></span>
+<span id="cb1-47"><a></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
 <span id="cb1-48"><a></a></span>
-<span id="cb1-49"><a></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
-<span id="cb1-50"><a></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-51"><a></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb1-52"><a></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-53"><a></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
-<span id="cb1-54"><a></a></span>
-<span id="cb1-55"><a></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
-<span id="cb1-56"><a></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
-<span id="cb1-57"><a></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-49"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-50"><a></a><span class="do">##                            explore missing data                          ----</span></span>
+<span id="cb1-51"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-52"><a></a></span>
+<span id="cb1-53"><a></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
+<span id="cb1-54"><a></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-55"><a></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-56"><a></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-57"><a></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
+<span id="cb1-58"><a></a></span>
+<span id="cb1-59"><a></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
+<span id="cb1-60"><a></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
+<span id="cb1-61"><a></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="hist-overview" class="slide level2" data-menu-title="Histogram overview">
@@ -921,7 +925,7 @@
 <h2></h2>
 <p><span class="slide-title2">Combining geoms - histogram &amp; density plot</span></p>
 <hr>
-<p>Overlaying a histogram and density plot requires scaling down the histogram to match the density curve scale. Adding <code>y = after_stat(density)</code> within the <code>aes()</code> function rescales the histogram counts so that bar areas integrate to 1:</p>
+<p><span class="body-text-s">We can overlay histogram and density plots to check that smoothing assumptions of the density curve align with the actual data distribution. This requires rescaling the histogram to match the density curve scale. Adding <code>y = after_stat(density)</code> within the <code>aes()</code> function rescales the histogram counts so that bar areas integrate to 1:</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
 <span id="cb14-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
@@ -938,6 +942,12 @@
 <li><code>after_stat()</code> needs to be used to delay the computation of this y-axis aesthetic until after ggplot executes the <code>geom_histogram()</code> layer (which occurs second, after aesthetic mappings inside <code>ggplot()</code>)</li>
 </ul>
 <p>See <a href="https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ" class="uri">https://stackoverflow.com/questions/46734555/ggplot2-histogram-why-do-y-density-and-stat-density-differ</a></p>
+<p><strong>Insights:</strong></p>
+<ul>
+<li>The density curve can help identify patterns that might be harder to see in the histogram due to bin size or alignment.</li>
+<li>If the bins are too wide, important details in the data distribution might be missed in the histogram, but the density curve can reveal them.</li>
+<li>Conversely, if the curve is overly smoothed (due to a large adjust), it might miss sharp features present in the histogram.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -955,7 +965,7 @@
 <p><span class="slide-title3">Scaled density plots for comparing groups to a whole</span></p>
 <hr>
 <p><span class="body-text-s">In a normal density plot, the area under the curve(s) is equal to 1. <strong>In a scaled density plot, the area under the curve reflects the number of observations for each group.</strong></span></p>
-<p><span class="body-text-s">We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the <code>palmerpenguins::penguins</code> data set:</span></p>
+<p><span class="body-text-s">We can use scaled density plots to compare individual group distributions to the total distribution. Demonstrated here, using the <code>penguins</code> data set:</span></p>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># use `after_stat(count)` to plot density of observations ----</span></span>
@@ -1004,7 +1014,7 @@
 </ul>
 <p><span class="teal-text"><strong>Important considerations:</strong></span></p>
 <ul>
-<li>work best when you have &gt; 6 groups</li>
+<li>work well when you have multiple (&gt; 3) groups</li>
 <li>works well when there is a clear pattern in the result (e.g.&nbsp;if there is an obvious ranking in groups) and / or when visualizing changes in distributions over time or space</li>
 </ul>
 </div><div class="column" style="width:50%;">
@@ -1068,7 +1078,7 @@
 <div id="tabset-3-1">
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><span class="body-text-s">Order by month (ideal, since months have an inherent order):</span></p>
+<p><span class="body-text-s">Order by month (ideal, since months have an inherent order; alternatively, do in data wrangling step, e.g.&nbsp;<code>mutate(month_name = factor(month_name, levels = rev(month.name)))</code>):</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span></span>
 <span id="cb18-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>() <span class="sc">+</span></span>
@@ -1140,7 +1150,7 @@
 <p>Jittered points</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
 <span id="cb22-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb22-3"><a></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">point_size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1156,7 +1166,7 @@
 <p>Raincloud plot:</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> species)) <span class="sc">+</span></span>
 <span id="cb23-2"><a></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">jittered_points =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
 <span id="cb23-3"><a></a>                                <span class="at">point_size =</span> <span class="fl">0.5</span>, <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
 <span id="cb23-4"><a></a>                                <span class="at">position =</span> <span class="st">"raincloud"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1238,7 +1248,7 @@
 <p><span class="body-text-s">You can modify outlier aesthetics inside <code>geom_boxplot()</code>:</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb25-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">outlier.shape =</span> <span class="st">"circle open"</span>, <span class="at">outlier.size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb25-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">outlier.shape =</span> <span class="dv">1</span>, <span class="at">outlier.size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb25-3"><a></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
 <span id="cb25-4"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1270,10 +1280,10 @@
 </div>
 </div>
 <div id="tabset-4-3">
-<p>Since box plots hide sample size, consider overlaying raw data points using <code>geom_jitter()</code> (since our temperature data is too large (almost 500k rows), we’ll use the <code>palmerpenguins::penguins</code> data set to demo):</p>
+<p>Since box plots hide sample size, consider overlaying raw data points using <code>geom_jitter()</code> (since our temperature data is too large (almost 500k rows), we’ll use the <code>penguins</code> data set to demo):</p>
 <p><span class="body-text-s">NOTE: Be sure to remove outliers, since plotting raw data will result in those data points being a second time:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(palmerpenguins<span class="sc">::</span>penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb27-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb27-3"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1288,7 +1298,7 @@
 <div id="tabset-4-4">
 <p><span class="body-text-s">You may have data where you want to include an additional grouping variable – for example, let’s say we want to plot penguin body masses by species <em>and</em> year. We’ll need to at least <code>dodge</code> our overlaid points so that they sit on top of the correct box. Preferably, we both <code>jitter</code> <em>and</em> <code>dodge</code> our points:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
 <span id="cb28-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb28-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
 <span id="cb28-4"><a></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1302,9 +1312,9 @@
 </div>
 </div>
 <div id="tabset-4-5">
-<p><span class="body-text-s">Similar to overlaying the raw jittered data points, we can combine our box plot with a <strong>beeswarm plot</strong> using <code>{ggbeeswarm}</code>. Beeswarm plots visualize the density of data at each point, as well as arrange points that would normally overlap so that they fall next to one another instead. Consider using a standalone beeswarm plot here as well! We’ll again use the <code>palmerpenguins::penguins</code> data set to demo:</span></p>
+<p><span class="body-text-s">Similar to overlaying the raw jittered data points, we can combine our box plot with a <strong>beeswarm plot</strong> using <code>{ggbeeswarm}</code>. Beeswarm plots visualize the density of data at each point, as well as arrange points that would normally overlap so that they fall next to one another instead. Consider using a standalone beeswarm plot here as well! We’ll again use the <code>penguins</code> data set to demo:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb29-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb29-3"><a></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1335,9 +1345,8 @@
 </ul>
 <p><span class="teal-text"><strong>Important considerations:</strong></span></p>
 <ul>
-<li>ordering groups by median value can make it easier to understand<br>
-</li>
-<li>show sample size when comparing groups with very different distributions (e.g.&nbsp;half violin plot)</li>
+<li>ordering groups by median value (when it makes sense) can make it easier to understand</li>
+<li>consider showing raw data when comparing groups with very different sample sizes (e.g.&nbsp;half violin plot)</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><br></p>
@@ -1391,9 +1400,9 @@
 </div>
 </div>
 <div id="tabset-5-2">
-<p><span class="body-text-s">The <a href="https://easystats.github.io/see/" target="_blank"><code>{see}</code> package</a> provides <code>geom_violindot()</code>, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like <code>Temp_bot</code>), we’ll use <code>palmerpenguins::penguins</code> to demo here:</span></p>
+<p><span class="body-text-s">The <a href="https://easystats.github.io/see/" target="_blank"><code>{see}</code> package</a> provides <code>geom_violindot()</code>, which is useful for simultaneously visualizing distribution and sample size. Because it can quickly get overcrowded with large sample sizes (like <code>Temp_bot</code>), we’ll use <code>penguins</code> to demo here:</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(palmerpenguins<span class="sc">::</span>penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
 <span id="cb32-2"><a></a>  see<span class="sc">::</span><span class="fu">geom_violindot</span>(<span class="at">size_dots =</span> <span class="dv">5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb32-3"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1432,7 +1441,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_87a20801" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_576bb622" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

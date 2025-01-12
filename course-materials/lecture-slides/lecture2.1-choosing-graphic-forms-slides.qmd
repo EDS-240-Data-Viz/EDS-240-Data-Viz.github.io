@@ -382,14 +382,17 @@ ggplot(circles_bars, aes(x = size, y = id)) +
 
 <hr>
 
-**Lower scale methods can be appropriate when the goal is to reveal general patterns.** For example, a choropleth map displays divided geographical areas / regions, which are colored in relation to a numeric variable.
-
 <!-- Followed instructions for creating choropleth map here: <https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html> -->
 <!-- Download precipitation data here: <https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value> -->
 
 {{< include sections/3.1-choropleth.qmd >}}
 
-::: {.center-text .gray-text .body-text-s}
+. . .
+
+**Lower scale methods can be appropriate when the goal is to reveal general patterns.** For example, a choropleth map displays divided geographical areas / regions, which are colored in relation to a numeric variable.
+
+
+::: {.footer}
 Map created using precipitation data from NOAA's [National Centers for Environmental Information](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value){target="_blank"}.
 :::
 
@@ -420,9 +423,27 @@ Map created using precipitation data from NOAA's [National Centers for Environme
 
 Consider how you might display the same data in the following Sankey diagram, which depicts the flow of refugees in 2022, using graph types from the top of Cleveland & McGill's hierarchy. **What is the purpose of this chart?**
 
-{{< include sections/3.1-sankey.qmd >}}
+:::: {.columns}
 
-::: {.gray-text .center-text .body-text-s}
+::: {.column width="60%"}
+{{< include sections/3.1-sankey.qmd >}}
+:::
+
+::: {.column width="40%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "60%"
+#| fig-align: "center"
+knitr::include_graphics("images/week2/cairo-elementary-visual-perception.png")
+```
+:::
+
+::::
+
+<br>
+
+::: {.footer}
 Graphic recreated using the [`{networkD3}` package](https://christophergandrud.github.io/networkD3/){target="_blank"} following [Louise E. Sinks'](https://lsinks.github.io/){target="_blank"} blog post, [TidyTuesday: Exploring Refugee Flow with A Sankey Diagram](https://lsinks.github.io/posts/2023-08-28-TidyTuesday-Refugees/TidyTuesday34-refugees.html){target="_blank"}
 :::
 
