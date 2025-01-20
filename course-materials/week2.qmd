@@ -19,7 +19,7 @@ knitr::include_graphics(here::here("images", "horst-ggplot-explore-dataviz.png")
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-### A. Install required packages
+### A. Install required packages {#install-pkgs}
 
 ```{r}
 #| eval: false
@@ -37,12 +37,12 @@ install.packages("see") # {ggplot2} extension for model visualization (we'll be 
 install.packages("scales") # provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})
 ```
 
-### B. Download data
+### B. Download data {#download-data}
 
 - **Lyme Disease Cases by State or Locality ([download link](https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv))**, made available by the CDC (read more on the CDC's [Lyme Disease Surveillance Data page](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"}; see other available data under the "Dashboard data files" section)
   - save the downloaded data (`Lyme_Disease_Cases_by_State_or_Locality.csv`) to your class repo at the file path: `EDS-240-class-examples/week2/data/Lyme_Disease_Cases_by_State_or_Locality.csv`
 
-### C. Request a US Census Bureau API key & add it to your `.Renviron` file
+### C. Request a US Census Bureau API key & add it to your `.Renviron` file {#request-API-key}
 
 1. To use the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank} to access US Census Bureau data, you'll first need to **request and activate an API key**. Do so by following these steps:
 
@@ -98,7 +98,7 @@ Oftentimes, packages that are built to interface with APIs will include their ow
 
 <!-- In class, we'll source our key (by running `source(here::here("week2", "KEYS.R"))`) into any scripts / Qmd files, where required.  -->
 
-### D. Download `.qmd` templates & review initial data wrangling code
+### D. Download `.qmd` templates & review initial data wrangling code {#download-templates}
 
 1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
 

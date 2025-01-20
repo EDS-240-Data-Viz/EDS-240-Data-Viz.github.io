@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Monday January 6th, 2025">
 
-<title>Course logistics, Intro, {ggplot2} review – EDS 240</title>
+<title>Assignment #2 (HW #2) – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,25 +57,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/EDS240-hex.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -115,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">EDS 240</span>
     </a>
   </div>
@@ -126,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
@@ -139,57 +167,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
         <li>
-    <a class="dropdown-item" href="../course-materials/week1.html">
+    <a class="dropdown-item" href="../../course-materials/week1.html">
  <span class="dropdown-text">week 1 (1/6)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week2.html">
+    <a class="dropdown-item" href="../../course-materials/week2.html">
  <span class="dropdown-text">week 2 (1/13)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week3.html">
+    <a class="dropdown-item" href="../../course-materials/week3.html">
  <span class="dropdown-text">week 3 (1/20)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week4.html">
+    <a class="dropdown-item" href="../../course-materials/week4.html">
  <span class="dropdown-text">week 4 (1/27)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week5.html">
+    <a class="dropdown-item" href="../../course-materials/week5.html">
  <span class="dropdown-text">week 5 (2/3)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/graphic-design.html">
+    <a class="dropdown-item" href="../../course-materials/graphic-design.html">
  <span class="dropdown-text">week 5 (2/7) - attendance optional</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week6.html">
+    <a class="dropdown-item" href="../../course-materials/week6.html">
  <span class="dropdown-text">week 6 (2/10)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week7.html">
+    <a class="dropdown-item" href="../../course-materials/week7.html">
  <span class="dropdown-text">week 7 (2/17)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week8.html">
+    <a class="dropdown-item" href="../../course-materials/week8.html">
  <span class="dropdown-text">week 8 (2/24)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week9.html">
+    <a class="dropdown-item" href="../../course-materials/week9.html">
  <span class="dropdown-text">week 9 (3/3)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week10.html">
+    <a class="dropdown-item" href="../../course-materials/week10.html">
  <span class="dropdown-text">week 10 (3/10)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week11.html">
+    <a class="dropdown-item" href="../../course-materials/week11.html">
  <span class="dropdown-text">week 11 (3/17) - finals week</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../assignments.html"> 
+    <a class="nav-link" href="../../assignments.html"> 
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
@@ -202,15 +230,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="../resources.html">
+    <a class="dropdown-item" href="../../resources.html">
  <span class="dropdown-text">recommended reading &amp; materials</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../clean-code-guide.html">
+    <a class="dropdown-item" href="../../clean-code-guide.html">
  <span class="dropdown-text">guide for writing clean code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../getting-unstuck.html">
+    <a class="dropdown-item" href="../../getting-unstuck.html">
  <span class="dropdown-text">getting unstuck</span></a>
   </li>  
         <li>
@@ -247,14 +275,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Course logistics, Intro, <code>{ggplot2}</code> review</h1>
-            <p class="subtitle lead">Week 1</p>
-                  <div>
-        <div class="description">
-          Monday January 6<sup>th</sup>, 2025
-        </div>
-      </div>
-                </div>
+      <h1 class="title">Assignment #2 (HW #2)</h1>
+            <p class="subtitle lead">Assigned Tue 01/21/2025 | Due Tue 02/04/2025</p>
+                      </div>
   </div>
     
   
@@ -274,22 +297,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</a>
+  <li><a href="#part-i-choosing-the-right-graphic-form" id="toc-part-i-choosing-the-right-graphic-form" class="nav-link active" data-scroll-target="#part-i-choosing-the-right-graphic-form"><span class="pink-text">Part I: Choosing the right graphic form</span></a>
   <ul class="collapse">
-  <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
-  <li><a href="#create-class-repo" id="toc-create-class-repo" class="nav-link" data-scroll-target="#create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</a></li>
-  <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">C. Download the <code>.qmd</code> template</a></li>
-  </ul></li>
-  <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
+  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes">Learning Outcomes</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a>
   <ul class="collapse">
-  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-download-necessary-data" id="toc-b.-download-necessary-data" class="nav-link" data-scroll-target="#b.-download-necessary-data">B. Download necessary data</a></li>
-  <li><a href="#c.-add-data-to-.gitignore" id="toc-c.-add-data-to-.gitignore" class="nav-link" data-scroll-target="#c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></a></li>
-  <li><a href="#d.-prepare-a-week1-discussion.qmd-file" id="toc-d.-prepare-a-week1-discussion.qmd-file" class="nav-link" data-scroll-target="#d.-prepare-a-week1-discussion.qmd-file">D. Prepare a <code>week1-discussion.qmd</code> file</a></li>
+  <li><a href="#part-1a.-background-reading" id="toc-part-1a.-background-reading" class="nav-link" data-scroll-target="#part-1a.-background-reading">Part 1a. Background reading</a></li>
+  <li><a href="#part-1b.-create-viz-1-answer-questions" id="toc-part-1b.-create-viz-1-answer-questions" class="nav-link" data-scroll-target="#part-1b.-create-viz-1-answer-questions">Part 1b. Create viz #1 + answer questions</a></li>
+  <li><a href="#part-1c.-create-viz-2-answer-questions" id="toc-part-1c.-create-viz-2-answer-questions" class="nav-link" data-scroll-target="#part-1c.-create-viz-2-answer-questions">Part 1c. Create viz #2 + answer questions</a></li>
+  <li><a href="#part-1d.-polish-your-.qmd-file" id="toc-part-1d.-polish-your-.qmd-file" class="nav-link" data-scroll-target="#part-1d.-polish-your-.qmd-file">Part 1d. Polish your <code>.qmd</code> file</a></li>
   </ul></li>
-  <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
-  <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -300,245 +318,157 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/ggplot2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%" alt="The {ggplot2} hex sticker which features a connected scatterplot with data points in varying shades of blue atop a gray gridded background. The word 'ggplot2' sits beneath the data."></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="pre-class-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</h2>
-<section id="install-pkgs" class="level3">
-<h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>) <span class="co"># a package containing the `penguins` data set, which we'll use for plotting practice</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="create-class-repo" class="level3">
-<h3 class="anchored" data-anchor-id="create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</h3>
-<p>We’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). <strong>Create and clone a GitHub repository named <code>EDS-240-class-examples</code></strong> (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:</p>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Step-by-step instructions for creating and cloning a GitHub repo:
+You must earn a “Satisfactory” mark for each individual Part (I and II) to earn a “Satisfactory” mark for Assignment #1.
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Create a remote (GitHub) repo:</strong></p>
-<ol type="1">
-<li>Navigate to your GitHub profile and click on <strong>Repositories</strong> (top menu bar)</li>
-<li>Click on the green <strong>New</strong> button in the upper right-hand corner</li>
-<li>Give it the name <code>EDS-240-class-examples</code>, and optionally, a short description. Select the radio button for <strong>Public</strong> repository (it should be selected by default). <strong>Initialize this repository with a README</strong> by checking the box. Click <strong>Create repository</strong>.</li>
-<li>From your repo’s main page, click the green <strong>Code</strong> button and copy the URL to your clipboard</li>
-</ol>
-<p><strong>Clone your repo:</strong></p>
-<ol start="5" type="1">
-<li>Open up RStudio</li>
-<li>Click on the drop down menu next to the R project icon (top right corner)</li>
-<li>Click <strong>New Project…</strong> &gt; <strong>Version Control</strong> &gt; <strong>Git</strong> &gt; paste your repo’s URL in the <strong>Repository URL:</strong> box and press <strong>Tab</strong> to auto fill the <strong>Project directory name</strong> field (it should automatically be named the same as your GitHub repo). <strong>Browse</strong> to select where on your computer you’d like your repo to be saved.</li>
-<li>Click <strong>Create Project</strong></li>
-</ol>
+<p><strong>Read each part of the assignment carefully</strong>, and use the check boxes to ensure you’ve addressed all elements of the assignment!</p>
 </div>
 </div>
-</div>
-<p><strong>You should also create a folder for each week (e.g.&nbsp;<code>week1/</code>, <code>week2/</code>, <code>week3/</code>, etc.)</strong> inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g.&nbsp;data files) to your <code>.gitignore</code> file, which is automatically created when you clone your repo as an R project (you’ll add data to your <code>.gitignore</code> for the first time during this week’s pre-discussion prep).</p>
-<p><strong>Remember to fill out your repo’s README,</strong> referencing the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>, as well.</p>
+<section id="part-i-choosing-the-right-graphic-form" class="level1">
+<h1><span class="pink-text">Part I: Choosing the right graphic form</span></h1>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning Outcomes</h2>
+<ul>
+<li>identify which types of visualizations are most appropriate for your data and your audience</li>
+<li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>
+<li>build effective, responsible, accessible, and aesthetically-pleasing, visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
+</ul>
 </section>
-<section id="download-templates" class="level3">
-<h3 class="anchored" data-anchor-id="download-templates">C. Download the <code>.qmd</code> template</h3>
-<p>Template <code>.qmd</code> files will be provided alongside (most) lecture slides to help keep us organized and on track throughout class. They are available for download directly <a href="https://github.com/EDS-240-Data-Viz/code-along-templates/tree/main" target="_blank">from GitHub</a> at the link(s) provided in the <strong>Lecture Materials</strong> table (below). Look for the download button at the top right corner of the file (it looks similar to this, <i class="fa-solid fa-download" title="a downward pointing arrow atop a hard drive" aria-label="download"></i>). Please download all necessary templates and save them to the appropriate <code>EDS-240-data-viz-examples/weekX</code> folder before each class.</p>
-</section>
-</section>
-<section id="lecture-materials" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/lecture-slides/lecture1.1-logistics-slides.html" target="_blank">Lecture 1.1: course logistics &amp; syllabus</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
-</tr>
-<tr class="even">
-<td><a href="../course-materials/lecture-slides/lecture1.2-intro-slides.html" target="_blank">Lecture 1.2: data viz intro</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
-</tr>
-<tr class="odd">
-<td><a href="../course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html" target="_blank">Lecture 1.3: <code>{ggplot2}</code> review</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week1/TEMPLATE-lecture1.3-ggplot-review.qmd" target="_blank">1.3 template</a></td>
-<td><a href="../course-materials/keys/KEY-lecture1.3-ggplot-review.html" target="_blank">1.3 key</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="pre-discussion-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
-<!-- Today's discussion will **focus on data cleaning / wrangling**. Before coming to section, you'll need to install some packages and download data. -->
-<section id="a.-install-required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"here"</span>) <span class="co"># for reproducible, relative file paths</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>) <span class="co"># tools for cleaning dirty data</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usdata"</span>) <span class="co"># demographic data on the United States at the county and state levels spanning multiple years.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="b.-download-necessary-data" class="level3">
-<h3 class="anchored" data-anchor-id="b.-download-necessary-data">B. Download necessary data</h3>
-<p><a href="https://drive.google.com/file/d/1H2lilk6lF3oTZtAT8UP4Fa4MSuQ5VQ9Y/view?usp=sharing" target="_blank">Download fracking data (<code>registryupload_1.csv</code>)</a> from Google Drive and save it to your class repo in the following location: <code>EDS-240-class-examples/week1/data/registryupload_1.csv</code></p>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<p>In class, we’ve been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’re learning to natural hazards and demographics data, courtesy of the <a href="https://hazards.fema.gov/nri/" target="_blank">FEMA National Risk Index</a> (NRI) and the <a href="https://www.census.gov/programs-surveys/acs/about.html" target="_blank">US Census Bureau’s American Community Survey</a> (ACS).</p>
+<section id="part-1a.-background-reading" class="level3">
+<h3 class="anchored" data-anchor-id="part-1a.-background-reading">Part 1a. Background reading</h3>
+<p>Unfold the following note to read more about the data before continuing on (collapsed to save space):</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Why are we downloading from Google Drive and not directly from FracFocus?
+About the data
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>These data were originally downloaded as a <a href="https://drive.google.com/file/d/1XUW-660tXKhxTl0tSkWFqtvaJcRedD7r/view?usp=sharing" target="_blank">zip file</a> from <a href="https://fracfocus.org/data-download" target="_blank">FracFocus</a> in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>. For this reason, we’ll be working with this saved version of the data, rather than downloading directly from <a href="https://fracfocus.org/data-download" target="_blank">FracFocus’s data download page</a>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="c.-add-data-to-.gitignore" class="level3">
-<h3 class="anchored" data-anchor-id="c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></h3>
-<p>We don’t want to push any data in our repo to GitHub (GitHub enforces file size limits, and you’ll run into some serious headaches when you try to push a file that’s too big). To avoid doing this, we can add our data files to our <code>.gitignore</code> file, which, as the name implies, is a collection of files that we want Git to ignore. <strong>Open up your <code>.gitignore</code> file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):</strong></p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.gitignore</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/week*/data/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>Notice that when you <strong>Save</strong> your modified <code>.gitignore</code> file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified <code>.gitignore</code> file appears in it’s place (this is what we want!). Stage / add, commit, and push <code>.gitignore</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-A gif of this whole process (in case it’s helpful!)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+<section id="about-femas-national-risk-index-nri-for-natural-hazards" class="level4">
+<h4 class="anchored" data-anchor-id="about-femas-national-risk-index-nri-for-natural-hazards">About FEMA’s National Risk Index (NRI) for Natural Hazards</h4>
+<p><a href="https://www.fema.gov/about/strategic-plan/about-fema" target="_blank">FEMA</a> (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the National Risk Index (NRI), “a <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">dataset</a> and <a href="https://hazards.fema.gov/nri/map" target="_blank">online tool</a> to help illustrate the United States communities most at risk for <a href="https://hazards.fema.gov/nri/natural-hazards" target="_blank">18 natural hazards</a>”.</p>
+<p><strong>Risk</strong> is defined as the potential for negative impacts resulting from natural hazards. It’s calculated using the following equation (and illustrated in <a href="https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg" target="_blank">this graphic</a>; read more about <a href="https://hazards.fema.gov/nri/determining-risk" target="_blank">determining risk</a>):</p>
+<p><span class="math display">\[Risk\:Index = Expected\:Annual\:Loss \times \frac{Social\:Vulnerability}{Community\:Resilience}\]</span></p>
+<p>NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community’s <strong>risk score</strong> is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience – for example, if a given county’s Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a <strong>risk rating</strong>, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.”</p>
+<p>You can learn more about the NRI at <a href="https://hazards.fema.gov/nri/learn-more" target="_blank">hazards.fema.gov/nri</a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/gitignore.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+<p><img src="images/NRI.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text gray-text">
-<p>An example repo with three folders: <code>week1/</code>, <code>week2/</code>, and <code>other-stuff/</code>. Each of those folders has a subfolder named <code>data/</code>, and each <code>data/</code> folder contains a <code>.csv</code> file. Adding the line, <code>/week*/data/</code> to the <code>.gitignore</code> tells Git to ignore folders (and their contents) named <code>data/</code> that are within a parent folder named <code>week__</code> (the <code>*</code> acts as a wildcard). If we wanted to ignore all three <code>data/</code> folders (including <code>other-stuff/data/</code>), we can instead include <code>/*/data/</code> to our <code>.gitignore</code>.</p>
+<div class="center-text gray-text body-text-s">
+<p><em>Screenshot of the <a href="https://hazards.fema.gov/nri/map">The National Risk Index’s interactive mapping and data-based interface</a></em></p>
 </div>
+</section>
+<section id="accessing-nri-data" class="level4">
+<h4 class="anchored" data-anchor-id="accessing-nri-data">Accessing NRI Data</h4>
+<p>Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles &amp; CSVs) from NRI’s <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">Data Resources page</a>.</p>
+</section>
+<section id="about-the-us-census-bureaus-american-community-survey-acs" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-us-census-bureaus-american-community-survey-acs">About the US Census Bureau’s American Community Survey (ACS)</h3>
+<p>The <strong><a href="https://www.census.gov/programs-surveys/acs/about.html" target="_blank">American Community Survey (ACS)</a></strong> is a nationwide, continuous survey designed to provide communities with reliable and timely social, economic, housing, and demographic data every year. Unlike the <strong>Decennial Census</strong> (which counts every person in the US every 10 years for the purpose of congressional appointment), the ACS collects detailed information from a small subset of the population (~3.5 million households) at 1- and 5-year intervals. Learn more about the <a href="https://www.census.gov/programs-surveys/acs/guidance/estimates.html" target="_blank">differences between these 1- and 5-year estimates</a>.</p>
+<section id="accessing-acs-data" class="level4">
+<h4 class="anchored" data-anchor-id="accessing-acs-data">Accessing ACS Data</h4>
+<p>The US Census Bureau provides a couple of tools for accessing their data, including:</p>
+<ol type="1">
+<li><strong><a href="https://data.census.gov" target="_blank">data.census.gov</a>:</strong> a browser-based portal for exploring the many available <a href="https://data.census.gov/table" target="_blank">data tables</a> (e.g.&nbsp;<a href="https://data.census.gov/table?q=B02001" target="_blank">Table B02001</a>: Race)</li>
+<li><strong><a href="https://www.census.gov/data/developers/data-sets.html" target="_blank">The Census Data API</a>:</strong> a data service that enables software developers to access and use Census Bureau data within their applications</li>
+</ol>
+<p>When working in R, the <a href="https://walker-data.com/tidycensus/"><code>{tidycensus}</code></a> package is arguably the easiest way to query and retrieve Census data – use the <a href="https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data" target="_blank"><code>get_acs()</code> function</a> to obtain ACS data for specified geographies (e.g.&nbsp;counties or census tracts), tables (e.g.&nbsp;B02001), variables (e.g.&nbsp;B02001_002, B02001_003), years (e.g.&nbsp;2023), states (e.g.&nbsp;CA), surveys (e.g.&nbsp;acs1, acs5), etc.</p>
+</section>
+</section>
 </div>
 </div>
 </div>
 </section>
-<section id="d.-prepare-a-week1-discussion.qmd-file" class="level3">
-<h3 class="anchored" data-anchor-id="d.-prepare-a-week1-discussion.qmd-file">D. Prepare a <code>week1-discussion.qmd</code> file</h3>
-<p>Add a new blank file to your class repo – you’ll complete your discussion exercises here. For organization’s sake, it should live in the following location: <code>EDS-240-class-examples/week1/week1-discussion.qmd</code>. Fill out the necessary YAML information (<code>title</code>, <code>author</code>, <code>date</code> + any other information you find helpful).</p>
+<section id="part-1b.-create-viz-1-answer-questions" class="level3">
+<h3 class="anchored" data-anchor-id="part-1b.-create-viz-1-answer-questions">Part 1b. Create viz #1 + answer questions</h3>
+<p>Create a data viz that helps to answer the question: <span class="teal-text"><strong><em>How do FEMA National Risk Index scores for counties in California compare to those in other states?</em></strong></span></p>
+<p>Follow these steps to get started:</p>
+<ol type="1">
+<li><strong>Download and unzip the data:</strong> You’ll use the <a href="https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip">All Counties - County-level detail (Table)</a> (accessed on the <a href="https://hazards.fema.gov/nri/data-resources#csvDownload" target="_blank">NRI Data Resources page</a>). Unzip the file, then drop the whole <code>NRI_Table_Counties/</code> folder into a <code>data/</code> folder in your HW repository.</li>
+<li><strong>Add your <code>data/</code> folder to <code>.gitignore</code></strong>: So we don’t accidentally push our data to GitHub!</li>
+<li><strong>Read in <code>NRIDataDictionary.csv</code>:</strong> <code>NRI_Table_Counties/</code> contains a few different files, including this CSV file which describes each of the NRI variables found in <code>NRI_Table_Counties.csv</code>. This is a helpful place to start!</li>
+<li><strong>Read in <code>NRI_Table_Counties.csv</code>:</strong> This is your data! <em>We’ll only be using data for the 50 US states.</em></li>
+<li><strong>Build your viz:</strong> This may require some data wrangling first. Your final viz should:
+<ul class="task-list">
+<li><label><input type="checkbox">include a title &amp; caption (which describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2023 Release)”)</label></li>
+<li><label><input type="checkbox">consider and implement strategies for drawing the reader’s eye to important information</label></li>
+<li><label><input type="checkbox">have an updated theme (you’ll learn more about fine-tuning ggplot themes in <a href="../../course-materials/week4.html#discussion-materials" target="_blank">week 4 discussion</a>)</label></li>
+</ul></li>
+</ol>
+<p>When you’re done with your viz, answer the following questions:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>1.</strong> How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> What modifications did you make to this viz to make it more easily readable?</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> Is there anything you wanted to implement, but didn’t know how? If so, please describe.</label></li>
+</ul>
 </section>
+<section id="part-1c.-create-viz-2-answer-questions" class="level3">
+<h3 class="anchored" data-anchor-id="part-1c.-create-viz-2-answer-questions">Part 1c. Create viz #2 + answer questions</h3>
+<p>Create a data viz that helps to answer the question: <span class="teal-text"><strong><em>How does climate hazard risk exposure vary across racial / ethnic groups in California?</em></strong></span></p>
+<p>Follow these steps to get started:</p>
+<ol type="1">
+<li><strong>Import ACS data using <code>tidycensus::get_acs()</code>:</strong> You’ll need your API key to use <code>{tidycensus}</code> (revisit <a href="../../course-materials/week2.html#download-templates" target="_blank">week 2 pre-class prep instructions</a>, if necessary). You may use the following code:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#.........see all available ACS variables + descriptions.........</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>acs_vars <span class="ot">&lt;-</span> <span class="fu">load_variables</span>(<span class="at">year =</span> <span class="dv">2023</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dataset =</span> <span class="st">"acs1"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#..................import race &amp; ethnicity data..................</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>race_ethnicity <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> <span class="st">"acs1"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">"B01003_001"</span>, <span class="st">"B02001_002"</span>, <span class="st">"B02001_003"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B02001_004"</span>, <span class="st">"B02001_005"</span>, <span class="st">"B02001_006"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B02001_007"</span>, <span class="st">"B02001_008"</span>, <span class="st">"B03002_012"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B03002_002"</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"CA"</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(acs_vars, <span class="at">by =</span> <span class="fu">join_by</span>(variable <span class="sc">==</span> name)) <span class="co"># join variable descriptions (so we know what's what!)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you’re done with your viz, answer the following questions:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>1.</strong> How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> What modifications did you make to this viz to make it more easily readable?</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> Is there anything you wanted to implement, but didn’t know how? If so, please describe.</label></li>
+</ul>
 </section>
-<section id="discussion-materials" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 35%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Discussion Slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/discussion/week1/week1-slides.html" target="_blank">D1 slides: data wrangling</a></td>
-<td><a href="../course-materials/discussion/week1/week1-exercise.html">D1 exercise: wrangle fracking data</a></td>
-<td><a href="../course-materials/discussion/week1/week1-solution.html">D1 solution</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="assignment-reminders" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
-<!-- | Assignment Type | Assignment Title                | Date Assigned  | Date Due                   | -->
-<!-- |-----------------|---------------------------------|----------------|----------------------------| -->
-<!-- | EOC             | End-of-class survey (week 1)    | Mon 01/06/2024 | Mon 01/06/2024, 11:55pm PT | -->
-<!-- | SR              | Pre-course reflection (SR #1)   | Mon 01/06/2024 | Sat 01/11/2024, 11:59pm PT | -->
-<!-- | HW              | Homework Assignment #1          | Tue 01/07/2025 | Sat 01/18/2024, 11:59pm PT | -->
-<!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"}  -->
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 30%">
-<col style="width: 20%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Assignment Type</th>
-<th>Assignment Title</th>
-<th>Date Assigned</th>
-<th>Date Due</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>EOC</td>
-<td><a href="https://forms.gle/uToEd25hfVxajxNt8">End-of-class survey (week 1)</a></td>
-<td>Mon 01/06/2024</td>
-<td>Mon 01/06/2024, 11:55pm PT</td>
-</tr>
-<tr class="even">
-<td>SR</td>
-<td><a href="../course-materials/assignments/SR1-precourse.html">Pre-course reflection (SR #1)</a></td>
-<td>Mon 01/06/2024</td>
-<td>Sat 01/11/2024, 11:59pm PT</td>
-</tr>
-<tr class="odd">
-<td>HW</td>
-<td><a href="../course-materials/assignments/HW1.html">Homework Assignment #1</a></td>
-<td>Tue 01/07/2025</td>
-<td>Tue 01/21/2025, 11:59pm PT</td>
-</tr>
-</tbody>
-</table>
+<section id="part-1d.-polish-your-.qmd-file" class="level3">
+<h3 class="anchored" data-anchor-id="part-1d.-polish-your-.qmd-file">Part 1d. Polish your <code>.qmd</code> file</h3>
+<ul>
+<li>title</li>
+<li>fig-asp</li>
+<li>fig-align</li>
+<li>out-width</li>
+<li>fig-alt</li>
+<li>suppress warnings &amp; messages</li>
+<li>code is appropriately annotated</li>
+</ul>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
