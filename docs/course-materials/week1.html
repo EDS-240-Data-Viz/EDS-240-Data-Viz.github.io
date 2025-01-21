@@ -276,14 +276,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</a>
   <ul class="collapse">
-  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-create-your-eds-240-class-examples-repository" id="toc-b.-create-your-eds-240-class-examples-repository" class="nav-link" data-scroll-target="#b.-create-your-eds-240-class-examples-repository">B. Create your <code>EDS-240-class-examples</code> repository</a></li>
-  <li><a href="#c.-download-the-.qmd-template" id="toc-c.-download-the-.qmd-template" class="nav-link" data-scroll-target="#c.-download-the-.qmd-template">C. Download the <code>.qmd</code> template</a></li>
+  <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
+  <li><a href="#create-class-repo" id="toc-create-class-repo" class="nav-link" data-scroll-target="#create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</a></li>
+  <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">C. Download the <code>.qmd</code> template</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
   <ul class="collapse">
-  <li><a href="#a.-install-required-packages-1" id="toc-a.-install-required-packages-1" class="nav-link" data-scroll-target="#a.-install-required-packages-1">A. Install required packages</a></li>
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
   <li><a href="#b.-download-necessary-data" id="toc-b.-download-necessary-data" class="nav-link" data-scroll-target="#b.-download-necessary-data">B. Download necessary data</a></li>
   <li><a href="#c.-add-data-to-.gitignore" id="toc-c.-add-data-to-.gitignore" class="nav-link" data-scroll-target="#c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></a></li>
   <li><a href="#d.-prepare-a-week1-discussion.qmd-file" id="toc-d.-prepare-a-week1-discussion.qmd-file" class="nav-link" data-scroll-target="#d.-prepare-a-week1-discussion.qmd-file">D. Prepare a <code>week1-discussion.qmd</code> file</a></li>
@@ -311,15 +311,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</h2>
-<section id="a.-install-required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<section id="install-pkgs" class="level3">
+<h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>) <span class="co"># a package containing the `penguins` data set, which we'll use for plotting practice</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="b.-create-your-eds-240-class-examples-repository" class="level3">
-<h3 class="anchored" data-anchor-id="b.-create-your-eds-240-class-examples-repository">B. Create your <code>EDS-240-class-examples</code> repository</h3>
+<section id="create-class-repo" class="level3">
+<h3 class="anchored" data-anchor-id="create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</h3>
 <p>We’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). <strong>Create and clone a GitHub repository named <code>EDS-240-class-examples</code></strong> (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -353,8 +353,8 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 <p><strong>You should also create a folder for each week (e.g.&nbsp;<code>week1/</code>, <code>week2/</code>, <code>week3/</code>, etc.)</strong> inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g.&nbsp;data files) to your <code>.gitignore</code> file, which is automatically created when you clone your repo as an R project (you’ll add data to your <code>.gitignore</code> for the first time during this week’s pre-discussion prep).</p>
 <p><strong>Remember to fill out your repo’s README,</strong> referencing the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>, as well.</p>
 </section>
-<section id="c.-download-the-.qmd-template" class="level3">
-<h3 class="anchored" data-anchor-id="c.-download-the-.qmd-template">C. Download the <code>.qmd</code> template</h3>
+<section id="download-templates" class="level3">
+<h3 class="anchored" data-anchor-id="download-templates">C. Download the <code>.qmd</code> template</h3>
 <p>Template <code>.qmd</code> files will be provided alongside (most) lecture slides to help keep us organized and on track throughout class. They are available for download directly <a href="https://github.com/EDS-240-Data-Viz/code-along-templates/tree/main" target="_blank">from GitHub</a> at the link(s) provided in the <strong>Lecture Materials</strong> table (below). Look for the download button at the top right corner of the file (it looks similar to this, <i class="fa-solid fa-download" title="a downward pointing arrow atop a hard drive" aria-label="download"></i>). Please download all necessary templates and save them to the appropriate <code>EDS-240-data-viz-examples/weekX</code> folder before each class.</p>
 </section>
 </section>
@@ -395,8 +395,8 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 <section id="pre-discussion-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
 <!-- Today's discussion will **focus on data cleaning / wrangling**. Before coming to section, you'll need to install some packages and download data. -->
-<section id="a.-install-required-packages-1" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages-1">A. Install required packages</h3>
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"here"</span>) <span class="co"># for reproducible, relative file paths</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>) <span class="co"># tools for cleaning dirty data</span></span>

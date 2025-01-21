@@ -9,155 +9,195 @@ subtitle: "Assigned Tue 01/21/2025 | Due Tue 02/04/2025"
 **Read each part of the assignment carefully**, and use the check boxes to ensure you've addressed all elements of the assignment!
 :::
 
-# [Part I: Choosing the right graphic form]{.pink-text}
+# [Part I: Choosing the right graphic form]{.pink-text} {#part1}
 
-## Learning Outcomes 
+## Learning Outcomes {#p1-learning-outcomes}
 
 - identify which types of visualizations are most appropriate for your data and your audience
 - prepare (e.g. clean, explore, wrangle) data so that it's appropriately formatted for building data visualizations
 - build effective, responsible, accessible, and aesthetically-pleasing, visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
 
-## Description 
+## Description {#p1-description}
 
-In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we've learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the [Santa Barbara Coastal LTER](https://sbclter.msi.ucsb.edu/){target="_blank"}. 
+In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the **[FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)** and the **[US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS)**.
 
-### 1a. Background reading & importing data
+### 1a. Background reading {#p1a-background}
 
 Unfold the following note to read more about the data before continuing on (collapsed to save space):
 
-::: {.callout-note icon=false collapse=true}
-## Learn about the data:
+::: {.callout-note collapse=true}
+## About the data
 
-#### About SBC LTER
-The [Santa Barbara Coastal Long Term Ecological Research](https://sbclter.msi.ucsb.edu/){target="_blank"} (SBC LTER) site was established in 2000 as part of the [LTER Network](https://lternet.edu/){target="_blank"} to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full [data catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}.
+#### About FEMA's National Risk Index (NRI) for Natural Hazards
 
-#### About the data set
+[FEMA](https://www.fema.gov/about/strategic-plan/about-fema){target="_blank"} (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the **[National Risk Index (NRI)](https://hazards.fema.gov/nri/){target="_blank"}**, "a [dataset](https://hazards.fema.gov/nri/data-resources){target="_blank"} and [online tool](https://hazards.fema.gov/nri/map){target="_blank"} to help illustrate the United States communities most at risk for [18 natural hazards](https://hazards.fema.gov/nri/natural-hazards){target="_blank"}".
 
-There are five coastal rocky reef research sites at which the SBC LTER collects long-term monitoring data:
+**Risk** is defined as the potential for negative impacts resulting from natural hazards. It's calculated using the following equation (and illustrated in [this graphic](https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg){target="_blank"}; read more about [determining risk](https://hazards.fema.gov/nri/determining-risk){target="_blank"}):
 
-- Naples Reef (NAPL)
-- Isla Vista Reef (IVEE)
-- Arroyo Quemado Reef (AQUE)
-- Mohawk Reef (MOHK)
-- Carpinteria Reef (CARP)
+$$Risk\:Index = Expected\:Annual\:Loss \times \frac{Social\:Vulnerability}{Community\:Resilience}$$
 
-In January 2012, [Naples Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples){target="_blank"} and [Isla Vista Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point){target="_blank"} were [designated as Marine Protected Areas](https://www.parks.ca.gov/?page_id=27928){target="_blank"} (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the [metadata](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} for more information.  
+NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community's **risk score** is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience -- for example, if a given county's Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a **risk rating**, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.”
 
-#### Data citation
-
-Reed, D, R. Miller. 2023. SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (*Panulirus interruptus*), ongoing since 2012 ver 9. Environmental Data Initiative. <https://doi.org/10.6073/pasta/3595322687af94cd532620ad9db94c77>. 
-
-#### Finding this data set
-
-*Knowing how to search for data can be tricky! Here's how I accessed this particular data set, should you want to search for LTER data yourself, in the future:*
-
-1. **Filter the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}** for data sets related to **Reef/Kelp Forest** habitats by checking the appropriate box. This produces a table of data collections, descriptions, and links to individual data and metadata records.
-2. **Choose a data set of interest.** I was interested in the *SBC LTER: Spiny lobster in California* Collection, which includes three different data sets. I specifically chose, [Lobster abundace, size, and fishing pressure](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} -- here, you'll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you'll see a link to the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected -- each update receives a new DOI).
-3. **Download or import the data.** You can download the data file from either the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} *or* the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"}. *However* I prefer reading in the data directly from online (that way, I don't need to worry about storing large data files). I recommend doing this from the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the *Download Data* button, then select *Copy Link Address*.
+You can learn more about the NRI at [hazards.fema.gov/nri](https://hazards.fema.gov/nri/learn-more){target="_blank"}.
 
 ```{r}
 #| eval: true
 #| echo: false
+#| out-width: "80%"
 #| fig-align: "center"
-#| out-width: "50%"
-knitr::include_graphics("images/download-lob-data.png")
+knitr::include_graphics("images/NRI.png")
 ```
 
-Use this url inside `read_csv()` to import the data into your script or Qmd / Rmd file:
+::: {.center-text .gray-text .body-text-s}
+*Screenshot of the [The National Risk Index's interactive mapping and data-based interface](https://hazards.fema.gov/nri/map)*
+:::
+
+#### Accessing NRI Data
+
+Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles & CSVs) from NRI's [Data Resources page](https://hazards.fema.gov/nri/data-resources){target="_blank"}.
+
+### About the US Census Bureau's American Community Survey (ACS)
+
+The **[American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"}** is a nationwide, continuous survey designed to provide communities with reliable and timely social, economic, housing, and demographic data every year. Unlike the **Decennial Census** (which counts every person in the US every 10 years for the purpose of congressional appointment), the ACS collects detailed information from a small subset of the population (~3.5 million households) at 1- and 5-year intervals. Learn more about the [differences between these 1- and 5-year estimates](https://www.census.gov/programs-surveys/acs/guidance/estimates.html){target="_blank"}.
+
+#### Accessing ACS Data
+
+The US Census Bureau provides a couple of tools for accessing their data, including: 
+
+1. **[data.census.gov](https://data.census.gov){target="_blank"}:** a browser-based portal for exploring the many available [data tables](https://data.census.gov/table){target="_blank"} (e.g. [Table B02001](https://data.census.gov/table?q=B02001){target="_blank"}: Race)
+2. **[The Census Data API](https://www.census.gov/data/developers/data-sets.html){target="_blank"}:** a data service that enables software developers to access and use Census Bureau data within their applications
+
+*However,* when working in R, the **[`{tidycensus}`](https://walker-data.com/tidycensus/){target="_blank"} package** is arguably the easiest way to query and retrieve Census data -- use the [`get_acs()` function](https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data){target="_blank"} to obtain ACS data for specified geographies (e.g. counties or census tracts), tables (e.g. B02001), variables (e.g. B02001_002, B02001_003), years (e.g. 2023), states (e.g. CA), surveys (e.g. acs1, acs5), etc.
+:::
+
+[**The following sections (Part 1b - 1d) should be completed via GitHub Classroom (find and accept the assignment link on Slack). Read on for the full assignment description.**]{.teal-text}
+
+### 1b. Create viz #1 + answer questions {#p1b-viz1}
+
+Create a data viz that helps to answer the question, [***How do FEMA National Risk Index scores for counties in California compare to those in other states?***]{.teal-text}, following these steps:
+
+1. **Download and unzip the data:** You'll use the [All Counties - County-level detail (Table)](https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip) (2023 Release; accessed on the [NRI Data Resources page](https://hazards.fema.gov/nri/data-resources#csvDownload){target="_blank"}). Unzip the file, then drop the whole `NRI_Table_Counties/` folder into a `data/` folder in your HW repository.
+2. **Add your `data/` folder to `.gitignore`**: So we don't accidentally push our data to GitHub!
+3. **Read in `NRIDataDictionary.csv`:** `NRI_Table_Counties/` contains a few different files, including this CSV file which describes each of the NRI variables found in `NRI_Table_Counties.csv`. This is a helpful place to start!
+4. **Read in `NRI_Table_Counties.csv`:** This is your data.
+5. **Build your viz:** This may require some data wrangling first. Your final viz should: 
+    - [ ] include data for the 50 US states only (no territories)
+    - [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula described in [week 3 discussion](../discussion/week3/.qmd#discussion-materials){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
+    - [ ] consider and implement strategies for highlighting trends / important information (e.g. arranging data, highlighting data, adjusting scales)
+    - [ ] use custom colors (if applicable), rather than ggplot defaults 
+    - [ ] have an updated / polished theme (you'll learn more about fine-tuning ggplot themes in [week 4 discussion](../week4.qmd#discussion-materials){target="_blank"}) 
+
+::: {.callout-tip}
+## BEFORE you start wrangling / building your viz, be sure to...
+
+- identify / jot down your variables of interest and consider which data types they are
+- use online tools like [from Data to Viz](https://www.data-to-viz.com/){target="_blank} to help determine appropriate graph types, given your variables 
+- roughly sketch out your plots by hand (I find this *incredibly* helpful for understanding how my data needs to be wrangled to achieve my desired output(s))
+
+(You'll also want to repeat this process when creating your second data viz in [Part 1c](HW2.qmd#p1c-viz2))
+:::
+
+6. **Answer the following questions:**
+    - [ ] **a.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
+    - [ ] **b.** How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?
+    - [ ] **c.** What modifications did you make to this viz to make it more easily readable?
+    - [ ] **d.** Is there anything you wanted to implement, but didn't know how? If so, please describe.
+
+### 1c. Create viz #2 + answer questions {#p1c-viz2}
+
+Create a data viz that helps to answer the question, [***How does climate hazard risk exposure vary across racial / ethnic groups in California?***]{.teal-text}, following these steps:
+
+1. **Import ACS data using `tidycensus::get_acs()`:** You'll need your API key to use `{tidycensus}` (revisit [week 2 pre-class prep instructions](../week2.qmd#download-templates){target="_blank"}, if necessary). You may use the following code: 
 
 ```{r}
 #| eval: false
 #| echo: true
-lobster_data <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.9&entityid=f32823fba432f58f66c06b589b7efac6")
+#| code-line-numbers: false
+#.........see all available ACS variables + descriptions.........
+acs_vars <- tidycensus::load_variables(year = 2023,
+                                       dataset = "acs1")
+
+#..................import race & ethnicity data..................
+race_ethnicity <- tidycensus::get_acs(
+  geography = "county",
+  survey = "acs1",
+  variables = c("B01003_001", "B02001_002", "B02001_003",
+                "B02001_004", "B02001_005", "B02001_006",
+                "B02001_007", "B02001_008", "B03002_012",
+                "B03002_002"),
+  state = "CA", 
+  year = 2023) |>
+  dplyr::left_join(acs_vars, by = dplyr::join_by(variable == name)) # join variable descriptions (so we know what's what!)
 ```
 
-:::
+2. **Optionally, write your data to `.csv`:** It's always a good idea to write your data (i.e. the `race_ethnicity` data frame, from above) to file, in case the Census Bureau's API goes down. You may use the following code:
 
-### 1b. Data wrangling
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+readr::write_csv(race_ethnicity, here::here("data", "ACS-race-ethnicity.csv"))
+```
 
-**Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).**
+3. **Build your viz:** This will require some data wrangling first (including joining the NRI and ACS data). Your final viz should: 
+    - [ ] include the following racial / ethnic groups: White, Black or African American, American Indian and Alaska Native, Asian, Native Hawaiian and Other Pacific Islander, Some Other Race, Two or More Races, Hispanic or Latino
+    - [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula discussed in [week 3 discussion](../discussion/week3/week3-slides.qmd){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
+    - [ ] consider and implement strategies for highlighting trends / important information (e.g. arranging data, highlighting data, adjusting scales)
+    - [ ] use custom colors (if applicable), rather than ggplot defaults 
+    - [ ] have an updated theme / polished theme (you'll learn more about fine-tuning ggplot themes in [week 4 discussion](../week4.qmd#discussion-materials){target="_blank"})
+4. **Answer the following questions:**
+    - [ ] **a.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
+    - [ ] **b.** How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?
+    - [ ] **d.** What modifications did you make to this viz to make it more easily readable?
+    - [ ] **d.** Is there anything you wanted to implement, but didn't know how? If so, please describe.
 
-This will first require some data exploration and wrangling. Some tips (unfold below):
+### 1d. Polish your `.qmd` file {#p1d-polish-qmd}
 
-::: {.callout-tip icon=false collapse=true}
-## Data exploration & wrangling tips
+Your rendered `.qmd` file should be polished and neatly organized. Be sure to consider / implement (as appropriate) the following:
 
-#### Exploration tips: 
+- [ ] update the YAML with your name using the `author` option
+- [ ] set appropriate code chunk options, such that:
+    - [ ] your code *and* outputs (i.e. data viz) render (see `eval`, `echo`)
+    - [ ] warnings and messages are suppressed (see `warning`, `message`) 
+    - [ ] (optional) outputs are center-aligned (if you find this more visually-pleasing than the default left-alignment; see `fig-align: "center"`)
+    - [ ] adjust the aspect ratio of your plot(s) so that your data / groups are easy to read (see `fig-asp`, which makes adjusting aspect ratios for rendered outputs quite easy; values > 1 make your plot taller and values < 1 make your plot wider)
+- [ ] code is appropriately annotated (NOTE: you *do not* need to annotate every line (like in [HW #1 Part 1](HW1.qmd#hw1-p1){target="_blank}), but you should include enough so that someone else reading your code understands the purpose of each discrete block of code)
+- [ ] include any necessary section headers / prose in the body of your Quarto doc to effectively organize your document
 
-- Use `glimpse()` and / or `str()` to check out your variables and data types
-- Use `names()` to return all column names
-- Extract unique elements using `unique(df$column_name)`
-- Open up the spreadsheet-style data viewer using `View(df)`
-- Be sure to review the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9){target="_blank"} (including methods & protocols) to fully understand the data
-
-#### Wrangling tips:
-
-- I love starting my cleaning pipelines with `janitor::clean_names()` to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)
-- You'll want to keep just the years of interest
-- Missing size measurements are denoted with `-99999` -- you do not want to leave those values as-is (what's a lobster with -9999 mm carapace length?? {{< fa face-smile title="a smiling face" >}}); consider how to deal with these
-- Each row is **not** always a single observation, but rather summed lobster counts at each size observed within a site / transect / replicate. You'll want to wrangle the data such that each row represents a single lobster observation. You may need to do some Googling to figure out a solution for this (HINT: you're looking to perform the opposite of `count()`).
-- I often find that I'll need to return to my data wrangling pipeline again *after* I start plotting my data --  it's at this stage that I'll often catch variables that are the wrong data type (e.g. numeric, factor, character) for plotting and need to make the appropriate updates.
-:::
-
-### 1c. Answer questions
-
-- [ ] **1.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
-- [ ] **2.** Using [From Data to Viz](https://www.data-to-viz.com/){target="_blank"}, identify and list which graphic forms / geoms are appropriate, given your data (a bullet point list here is fine). 
-- [ ] **3.** Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc.
-
-### 1d. Create data viz
-
-Now that you've explored and starting wrangling your data, it's time to create some plots. It's often important to try out multiple graphic forms (e.g. `geom_*()`s) as you decide which is the most effective way of presenting your data. This process is commonly referred to as **Exploratory Data Analysis or Exploratory Data Visualization**. Some tips (unfold below):
-
-::: {.callout-tip icon=false collapse=true}
-## Data viz creation tips
-
-- I always find it helpful to sketch things out on paper first
-- There's no need to create anything special or particularly visually-pleasing during this exploratory visualization phase. It *can* be helpful to make minor modifications, (e.g. rearranging groups in a logical order, color groups, etc.) to help you identify any emerging patterns
-- We created a number of different plot types together in class, exploring different geoms and some of the arguments that each ggplot layer can take. Be sure to take a look back at the lecture materials, but also know that you may need to reference documentation and / or online examples to create / modify your intended visualizations.
-:::
-
-- [ ] Create at least **three** different plots as part of your exploratory data visualization phase to test out which graphic forms / geoms works best. Your last plot should be the version that you feel is best suited for presenting your data. (***NOTE:** Your first two plots do not need to be at all polished -- during the exploratory data visualization phase, we're most concerned with choosing a graphic form / geom(s) for effectively presenting our data.*) 
-
-### 1e. Answer (a few more) questions
-
--  [ ] **1.** Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3. 
-- [ ] **2.** (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g. updating colors, moving or removing legends, highlighting groups, ordering groups) -- be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not? 
-- [ ] **3.** Polish plot #3 by updating the labels and theme (we'll cover theme modifications during [week 4 discussion section](../discussion/week4/week4-slides.qmd#theme){target="_blank"}, so you may consider holding off completing this step until then). List out the changes you made to your plot's theme (e.g. "updated axis text size", "removed minor gridlines", etc.; a bullet list is fine).
-- [ ] **4.** Describe two or more challenges you encountered while deciding on / creating your plots -- these can be conceptual (e.g. challenges in determining how to best represent your data) and / or technical (e.g. code-based challenges).
-- [ ] **5.** Add alt text to your final visualization following the formula discussed during [week 3's discussion section](../discussion/week3/week3-slides.qmd#alt-text-formula){target="_blank"} and using the `#| fig-alt:` code chunk option.
-
-## Rubric (specifications)
+## Rubric (specifications) {#p1-rubric}
 
 You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #2, Part I:
 
 ::: {.callout-important}
 ## Complete the following steps in your **GitHub Classroom repo** (`eds240-hw2-username/Part1.qmd`):
 
-Everyone receives one "free pass" for not submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
+Everyone receives one "free pass" for not successfully submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
 :::
 
-- [ ] Include your preferred name in the author field of the `Part1.qmd` YAML.
-- [ ] Review the background information provided in Part 1a, then import the data directly from the EDI data portal (as described)
-- [ ] Wrangle the data so that it's structured appropriately for addressing the question described in Part 1b (How does lobster size differ across each of the five coastal rocky reef SBC LTER sites for the years 2012 and 2022?).
-- [ ] Answer the three Part 1c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
-- [ ] Create three different plots (two can remain as unpolished exploratory data visualizations; one must be a polished final plot) in accordance with Part 1d instructions. 
-
-<!-- (**NOTE:** there isn't necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses). -->
+- [ ] build and embed one data visualization that <sup>1</sup>effectively addresses the part 1b question *([How do FEMA National Risk Index scores for counties in California compare to those in other states?]{.teal-text})*, and which includes:
+  - [ ] data for the 50 US states
+  - [ ] an appropriate title, subtitle, caption, and alt text (using the `fig-alt` chunk option)
+  - [ ] **at least 2** adjustments to highlight trends / important information (e.g. arranging data, highlighting data, adjusting scales) 
+  - [ ] custom colors (as necessary)
+  - [ ] **at least 2** theme adjustments (e.g. applying an alternative pre-built theme, removing unnecessary text, modifying text, modifying plot panel, etc.) to improve readability / visual appeal
+- [ ] build and embed one data visualization that <sup>1</sup>effectively addresses the part 1c question *([How does climate hazard risk exposure vary across racial / ethnic groups in California?]{.teal-text})*, and which aslo includes:
+  - [ ] data for the racial / ethnic groups described in the Part 1c instructions, above
+  - [ ] an appropriate title, subtitle, caption, and alt text (using the `fig-alt` chunk option)
+  - [ ] **at least 2** adjustments to highlight trends / important information (e.g. arranging data, highlighting data, adjusting scales) 
+  - [ ] custom colors (as necessary)
+  - [ ] **at least 2** theme adjustments (e.g. applying an alternative pre-built theme, removing unnecessary text, modifying text, modifying plot panel, etc.) to improve readability / visual appeal
 
 ::: {.callout-note}
-## You must choose an appropriate graphic form, given these data, *but* there isn't one single correct answer.
+## <sup>1</sup>You must choose an appropriate graphic form, given these data, *but* there isn't necessarily one single correct answer.
 
-Choosing an incorrect graphic form to present these data will result in a "Not Yet" score. However, there are numerous graphic forms that are appropriate! Your final plot should clearly display the variables of interest, and you should be able to justify your choice in your written responses.
+Choosing an incorrect graphic form (i.e. one that's inappropriate for your data) will result in a "Not Yet" score. However, there are numerous graphic forms which may be appropriate. Your final plots should clearly display the variables of interest, and you should be able to justify your choice in your written responses.
 :::
 
-- [ ] Answer the five Part 1e questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
-- [ ] Add appropriate alt text to your finalized visualization in accordance with Part 1e instructions.
-- [ ] All code (setup, data exploration, wrangling, and plotting code) should be clearly organized and annotated following conventions and guidelines outlined in the [Writing clean code](../../clean-code-guide.qmd){target="_blank"} page on the course website.
-- [ ] Code chunks should have the appropriate chunk options specified (e.g. suppress warnings and messages; don't print out long data frames, etc.).
-- [ ] We (instructor & TA) should be able to run individual lines / chunks of code *and* render `Part1.qmd` without errors.
-- [ ] All three plot outputs should appear in your rendered doc.
-- [ ] Push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025.
+- [ ] answer all questions (a-d) in full for *both* data visualizations
+- [ ] include *all* code, which is neatly organized and appropriately annotated
+- [ ] organize and polish your Quarto doc as described in [Part 1d](HW2.qmd#p1d-polish-qmd)
+- [ ] we (instructor & TA) should be able to run individual lines / chunks of code *and* render `Part1.qmd` without errors
+- [ ] push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/04/2025
 
 <br>
 
@@ -167,9 +207,9 @@ Choosing an incorrect graphic form to present these data will result in a "Not Y
 
 <br>
 
-# [Part II: Data wrangling & exploratory data viz using your chosen data]{.pink-text}
+# [Part II: Data wrangling & exploratory data viz using your chosen data]{.pink-text} {#part2}
 
-## Learning Outcomes
+## Learning Outcomes {#p2-learning-outcomes}
 
 **Note:** This part of HW #2 is a continuation of [HW #1, Part II](HW1.qmd#hw1-p2){target="_blank"} and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):
 
@@ -179,23 +219,23 @@ Choosing an incorrect graphic form to present these data will result in a "Not Y
 - write code from scratch and read and adapt code written by others
 - apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
 
-## Description 
+## Description {#p2-description}
 
-### 2a. Review HW #4 instructions
+### 2a. Review HW #4 instructions {#p2a-review-HW4}
 
 [**Please begin by re-reading [HW #4](HW4.qmd) in full**]{.teal-text} as a reminder of the options, goals, and requirements for your final class assignment. 
 
-### 2b. Import & wrangle data, then create exploratory data viz
+### 2b. Import & wrangle data, then create exploratory data viz {#p2b-explore-data}
 
 [**This week, you’ll focus on importing and wrangling your data (found as part of [HW #1, Part II](HW1.qmd#hw1-p2)), followed by the exploratory data visualization phase. Complete the following:**]{.teal-text} 
 
 - [ ] Create an file named, `HW2-exploration.qmd` within your `lastName-eds240-HW4` repo and add appropriate YAML fields.
 - [ ] Load necessary packages and read in your data.
 - [ ] Clean & wrangle your data.
-- [ ] Create at least **three** (but of course feel free to create more!) exploratory visualizations (similar to plot #1 and #2 in Part I of this assignment). 
+- [ ] Create at least **three** exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots *do not* need to be polished (e.g. updated theme), but it may be helpful to try arranging data to identify any trends.
 - [ ] **IMPORTANT:** If you have a downloaded data file saved to your repo (e.g. you're not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your `.gitignore`, particularly if this file is large.
 
-### 2c. Answer questions 
+### 2c. Answer questions {#p2c-questions}
 
 [**After completing the above steps, answer the following questions:**]{.teal-text}
 
@@ -203,7 +243,7 @@ Choosing an incorrect graphic form to present these data will result in a "Not Y
 - [ ] **2.** In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g. I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? 
 - [ ] **3.** What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges. 
 
-## Rubric (specifications)
+## Rubric (specifications) {#p2-rubric}
 
 You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #2, Part II:
 
@@ -217,8 +257,8 @@ See details below.
 - [ ] All three plot outputs should appear in your rendered doc.
 - [ ] `HW2-exploration.qmd` should be neatly organized -- this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.
 - [ ] Code chunks should have appropriate chunk options set (e.g. code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).
-- [ ] Send your instructor and TA a rendered version of your `HW2-exploration.qmd` file by 11:59pm PT on Sat 02/01/2025 following these steps:
-  - [ ] ensure that your YAML specifies these options, at a minimum:
+- [ ] Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your `HW2-exploration.qmd` file by 11:59pm PT on Sat 02/04/2025 following these steps:
+  - [ ] **a.** ensure that your **YAML specifies these options**, at a minimum:
   
 ```{r}
 #| eval: false
@@ -230,17 +270,16 @@ author: "your Name"
 date: xxxx-xx-xx
 format:
   html:
-    embed-resources: true
+    embed-resources: true # this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work
 ---
 ```
   
-  - [ ] **render** your `HW2-exploration.qmd` file, **verify** that you can open the resulting `HW2-exploration.html` file in your browser, and that all formatting looks good
-  - [ ] **rename** your `.html` file so that it has your first initial / last name at the start (e.g. `SCsik-HW3-drafting-viz.html`), then **send** it to both your instructor and TA on Slack via direct message
+  - [ ] **b. render** your `HW2-exploration.qmd` file, **verify** that you can open the resulting `HW2-exploration.html` file in your browser, and that all formatting looks good
+  - [ ] **c. save a copy** of `HW2-exploration.html` to your Desktop, **rename it** it so that it has your first initial / last name at the start (e.g. `SShannyCsik-HW2-exploration.html`), then **send** it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message 
   
 <br>
 
 ::: {.center-text .large-fa-icon .teal-text}
 {{< fa chart-column title="A column chart" >}} End Part II {{< fa chart-area title="An area chart" >}}
 :::
-
 
