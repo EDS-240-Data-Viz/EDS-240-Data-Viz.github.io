@@ -96,7 +96,7 @@ We'll discuss:
 
 <hr>
 
-[According to the [American Association of University Women (AAUW)](https://www.aauw.org/), the gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script) by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05).]{.body-text-s}
+[According to the [American Association of University Women (AAUW)](https://www.aauw.org/){target="_blank"}, the gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script){target="_blank"} by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"}.]{.body-text-s}
 
 <br>
 
@@ -110,7 +110,11 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <br>
 
-[We'll use these data to explore a two different questions: **(1) What are the top 10 occupations with the highest median earnings (across males and females)? (2) How do median earnings differ between males and females in those same occupations?**]{.body-text-s}
+[We'll use these data to explore a two different questions: **(1) What are the top 10 occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) How do median earnings differ between males and females in those same occupations?**]{.body-text-s}
+
+::: {.footer}
+<sup>1</sup>We recognize the limitations and issues in defining gender as binary.
+:::
 
 ---
 
@@ -120,7 +124,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <hr>
 
-Be sure to check out the [data dictionary](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1) on the [TidyTuesday repo](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05) for information about each variable in this data set.
+Be sure to check out the [data dictionary](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1){target="_blank"} on the [TidyTuesday repo](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"} for information about each variable in this data set.
 
 ```{r}
 #| eval: true
@@ -134,7 +138,6 @@ Be sure to check out the [data dictionary](https://github.com/rfordatascience/ti
 library(tidyverse)
 
 #..........................import data...........................
-# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +146,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |> 
   
-  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
   mutate(percent_male = 100 - percent_female) |>
          
   # rearrange columns ----
@@ -156,7 +159,7 @@ jobs_clean <- jobs |>
   # drop rows with missing earnings data ----
   drop_na(total_earnings_male, total_earnings_female) |> 
   
-  # make occupation a factor (necessary for reordering groups in our plot) ----
+  # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
   # classify jobs by percentage male or female (these will become facet labels in our plot) ----
@@ -183,7 +186,7 @@ jobs_clean <- jobs |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5"
+#| code-line-numbers: "4-5"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
@@ -197,18 +200,24 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5"
+#| code-line-numbers: "4-7"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
-  ggalt::geom_lollipop()
+  ggplot() + 
+  geom_point(aes(x = occupation, y = total_earnings)) +
+  geom_segment(aes(x = occupation, xend = occupation,
+                   y = 0, yend = total_earnings))
 ```
 
 :::
 
 ::::
+
+::: {.footer}
+You might also consider using `ggalt::geom_lollipop()` for a simple lollipop chart, though you may run into limitations when creating more complex charts.
+:::
 
 ---
 
@@ -218,7 +227,7 @@ jobs_clean |>
 
 <hr>
 
-[Give those long x-axis labels some breathing room using `coord_flip()`, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa.]{.body-text-s}
+[Give those long x-axis labels some breathing room using `coord_flip()`, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa. Alternatively, you can map your variables to the opposite axes in `aes()` (e.g. `aes(x = total_earnings, y = occupation)`).]{.body-text-s}
 
 :::: columns
 
@@ -241,13 +250,15 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6"
+#| code-line-numbers: "8"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  ggplot() + 
+  geom_point(aes(x = occupation, y = total_earnings)) +
+  geom_segment(aes(x = occupation, xend = occupation,
+                   y = 0, yend = total_earnings)) +
   coord_flip()
 ```
 :::
@@ -262,7 +273,7 @@ jobs_clean |>
 
 <hr>
 
-[Here, we use `forcats::fct_reorder()` to reorder the levels of our x-axis variable, `occupation`, based on a numeric variable, `total_earnings` (**NOTE:** we do *not* have to reorder based on the same numeric variable that's plotted on the y-axis; here it makes sense to do so; also see [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/)):]{.body-text-s}
+[Here, we use `forcats::fct_reorder()` to reorder the levels of our x-axis variable, `occupation`, based on a numeric variable, `total_earnings` (**NOTE:** we don't have to reorder based on the same numeric variable that's plotted on the y-axis, though here it makes sense to do so.]{.body-text-s}
 
 :::: columns
 
@@ -275,7 +286,7 @@ jobs_clean |>
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  ggplot(aes(x = fct_reorder(.f = occupation, .x = total_earnings), y = total_earnings)) +
   geom_col() +
   coord_flip()
 ```
@@ -285,18 +296,24 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "4"
+#| code-line-numbers: "5"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  ggplot() + 
+  geom_point(aes(x = fct_reorder(.f = occupation, .x = total_earnings), y = total_earnings)) + # fct_reorder modifies the factor levels for our `occupation` variable; because `geom_point()` & `geom_segment()` use the same dataset, this reordered factor applies to both layers
+  geom_segment(aes(x = occupation, xend = occupation,
+                   y = 0, yend = total_earnings)) +
   coord_flip()
 ```
 :::
 
 ::::
+
+::: {.footer}
+Check out [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/){target="_blank"} for more useful reordering approaches / examples.
+:::
 
 ---
 
