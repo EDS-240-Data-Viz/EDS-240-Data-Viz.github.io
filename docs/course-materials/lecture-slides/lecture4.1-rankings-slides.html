@@ -439,17 +439,20 @@
 <h2></h2>
 <p><span class="slide-title">The data: women in the workforce</span></p>
 <hr>
-<p><span class="body-text-s">According to the <a href="https://www.aauw.org/">American Association of University Women (AAUW)</a>, the gender pay gap is defined as <em>“…the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men.”</em> We’ll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script">pre-processed</a> by TidyTuesday organizers for the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05">March 5, 2021 data set</a>.</span></p>
+<p><span class="body-text-s">According to the <a href="https://www.aauw.org/" target="_blank">American Association of University Women (AAUW)</a>, the gender pay gap is defined as <em>“…the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men.”</em> We’ll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script" target="_blank">pre-processed</a> by TidyTuesday organizers for the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05" target="_blank">March 5, 2021 data set</a>.</span></p>
 <p><br></p>
 
 <img data-src="images/week4/pay-gap.png" class="quarto-figure quarto-figure-center r-stretch" style="width:5.0%"><p><br></p>
-<p><span class="body-text-s">We’ll use these data to explore a two different questions: <strong>(1) What are the top 10 occupations with the highest median earnings (across males and females)? (2) How do median earnings differ between males and females in those same occupations?</strong></span></p>
+<p><span class="body-text-s">We’ll use these data to explore a two different questions: <strong>(1) What are the top 10 occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) How do median earnings differ between males and females in those same occupations?</strong></span></p>
+<div class="footer">
+<p><sup>1</sup>We recognize the limitations and issues in defining gender as binary.</p>
+</div>
 </section>
 <section id="data-wrangling" class="slide level2" data-menu-title="About the data">
 <h2></h2>
 <p><span class="slide-title">Data wrangling</span></p>
 <hr>
-<p>Be sure to check out the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1">data dictionary</a> on the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05">TidyTuesday repo</a> for information about each variable in this data set.</p>
+<p>Be sure to check out the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1" target="_blank">data dictionary</a> on the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05" target="_blank">TidyTuesday repo</a> for information about each variable in this data set.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a></a><span class="do">##                                    setup                                 ----</span></span>
@@ -459,37 +462,36 @@
 <span id="cb1-6"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-7"><a></a></span>
 <span id="cb1-8"><a></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-9"><a></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
-<span id="cb1-10"><a></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-13"><a></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb1-14"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-15"><a></a></span>
-<span id="cb1-16"><a></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span> </span>
-<span id="cb1-17"><a></a>  </span>
-<span id="cb1-18"><a></a>  <span class="co"># add col with % men in a given occupation (% females in a given occupation was already included) ----</span></span>
-<span id="cb1-19"><a></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
-<span id="cb1-20"><a></a>         </span>
-<span id="cb1-21"><a></a>  <span class="co"># rearrange columns ----</span></span>
-<span id="cb1-22"><a></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
-<span id="cb1-23"><a></a>          total_workers, workers_male, workers_female,</span>
-<span id="cb1-24"><a></a>          percent_male, percent_female,</span>
-<span id="cb1-25"><a></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
-<span id="cb1-26"><a></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
-<span id="cb1-27"><a></a>  </span>
-<span id="cb1-28"><a></a>  <span class="co"># drop rows with missing earnings data ----</span></span>
-<span id="cb1-29"><a></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span> </span>
-<span id="cb1-30"><a></a>  </span>
-<span id="cb1-31"><a></a>  <span class="co"># make occupation a factor (necessary for reordering groups in our plot) ----</span></span>
-<span id="cb1-32"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
-<span id="cb1-33"><a></a> </span>
-<span id="cb1-34"><a></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
-<span id="cb1-35"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-36"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
-<span id="cb1-37"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
-<span id="cb1-38"><a></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
-<span id="cb1-39"><a></a>  )) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span>
+<span id="cb1-10"><a></a></span>
+<span id="cb1-11"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-12"><a></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-13"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span> </span>
+<span id="cb1-16"><a></a>  </span>
+<span id="cb1-17"><a></a>  <span class="co"># add col with % men in a given occupation (% females in a given occupation is already included) ----</span></span>
+<span id="cb1-18"><a></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a></a>         </span>
+<span id="cb1-20"><a></a>  <span class="co"># rearrange columns ----</span></span>
+<span id="cb1-21"><a></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
+<span id="cb1-22"><a></a>          total_workers, workers_male, workers_female,</span>
+<span id="cb1-23"><a></a>          percent_male, percent_female,</span>
+<span id="cb1-24"><a></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
+<span id="cb1-25"><a></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
+<span id="cb1-26"><a></a>  </span>
+<span id="cb1-27"><a></a>  <span class="co"># drop rows with missing earnings data ----</span></span>
+<span id="cb1-28"><a></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span> </span>
+<span id="cb1-29"><a></a>  </span>
+<span id="cb1-30"><a></a>  <span class="co"># make occupation a factor (for reordering groups in our plot) ----</span></span>
+<span id="cb1-31"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-32"><a></a> </span>
+<span id="cb1-33"><a></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
+<span id="cb1-34"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-35"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb1-36"><a></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
+<span id="cb1-37"><a></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
+<span id="cb1-38"><a></a>  )) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bar-lolli-1group" class="slide level2" data-menu-title="Bar &amp; Lollipop plots (1 group)">
@@ -500,7 +502,7 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="co"># keep top 10 jobs with most `total_earnings`</span></span>
 <span id="cb2-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
@@ -515,11 +517,12 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb3-5"><a></a>  ggalt<span class="sc">::</span><span class="fu">geom_lollipop</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span> </span>
+<span id="cb3-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-6"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> total_earnings))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -529,12 +532,15 @@
 </div>
 </div>
 </div></div>
+<div class="footer">
+<p>You might also consider using <code>ggalt::geom_lollipop()</code> for a simple lollipop chart, though you may run into limitations when creating more complex charts.</p>
+</div>
 </section>
 <section id="coord-flip-theme" class="slide level2" data-menu-title="Flip axes / update label angle">
 <h2></h2>
 <p><span class="slide-title">Make space for long x-axis labels</span></p>
 <hr>
-<p><span class="body-text-s">Give those long x-axis labels some breathing room using <code>coord_flip()</code>, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa.</span></p>
+<p><span class="body-text-s">Give those long x-axis labels some breathing room using <code>coord_flip()</code>, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa. Alternatively, you can map your variables to the opposite axes in <code>aes()</code> (e.g.&nbsp;<code>aes(x = total_earnings, y = occupation)</code>).</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -554,12 +560,13 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb5-5"><a></a>  ggalt<span class="sc">::</span><span class="fu">geom_lollipop</span>() <span class="sc">+</span></span>
-<span id="cb5-6"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span> </span>
+<span id="cb5-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb5-7"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -574,16 +581,17 @@
 <h2></h2>
 <p><span class="slide-title2">Reordering groups helps readers derive insight</span></p>
 <hr>
-<p><span class="body-text-s">Here, we use <code>forcats::fct_reorder()</code> to reorder the levels of our x-axis variable, <code>occupation</code>, based on a numeric variable, <code>total_earnings</code> (<strong>NOTE:</strong> we do <em>not</em> have to reorder based on the same numeric variable that’s plotted on the y-axis; here it makes sense to do so; also see <a href="https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/">this blog post</a>):</span></p>
+<p><span class="body-text-s">Here, we use <code>forcats::fct_reorder()</code> to reorder the levels of our x-axis variable, <code>occupation</code>, based on a numeric variable, <code>total_earnings</code> (<strong>NOTE:</strong> we don’t have to reorder based on the same numeric variable that’s plotted on the y-axis, though here it makes sense to do so.</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb6-5"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb6-6"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb6-7"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -594,12 +602,14 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb7-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb7-5"><a></a>  ggalt<span class="sc">::</span><span class="fu">geom_lollipop</span>() <span class="sc">+</span></span>
-<span id="cb7-6"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span> </span>
+<span id="cb7-6"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb7-8"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -609,6 +619,9 @@
 </div>
 </div>
 </div></div>
+<div class="footer">
+<p>Check out <a href="https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/" target="_blank">this blog post</a> for more useful reordering approaches / examples.</p>
+</div>
 </section>
 <section id="scales-pkg" class="slide level2" data-menu-title="{scales}">
 <h2></h2>
@@ -618,13 +631,14 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb8-5"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb8-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
-<span id="cb8-7"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb8-6"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb8-7"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
+<span id="cb8-8"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -635,13 +649,15 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb9-5"><a></a>  ggalt<span class="sc">::</span><span class="fu">geom_lollipop</span>() <span class="sc">+</span></span>
-<span id="cb9-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
-<span id="cb9-7"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span> </span>
+<span id="cb9-6"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-7"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb9-8"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
+<span id="cb9-9"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -660,14 +676,15 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb10-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb10-5"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb10-6"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(total_earnings)), <span class="at">hjust =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
-<span id="cb10-7"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
-<span id="cb10-8"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb10-6"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb10-7"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(total_earnings)), <span class="at">hjust =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb10-8"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>)) <span class="sc">+</span> </span>
+<span id="cb10-9"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -678,26 +695,28 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="6,8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="8,10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
-<span id="cb11-5"><a></a>  ggalt<span class="sc">::</span><span class="fu">geom_lollipop</span>() <span class="sc">+</span></span>
-<span id="cb11-6"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(total_earnings)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb11-7"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb11-8"><a></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">250000</span>)) <span class="sc">+</span> <span class="co"># expand axis to make room for values</span></span>
-<span id="cb11-9"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb11-6"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-7"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb11-8"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(total_earnings)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb11-9"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb11-10"><a></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">250000</span>)) <span class="sc">+</span> <span class="co"># expand axis to make room for values</span></span>
+<span id="cb11-11"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 <div class="footer center-text body-text-s">
-<p><span class="body-text-s">For some more advanced label manipulation, see <a href="https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/">A Quick How-to on Labelling Bar Graphs in ggplot2</a>, by Cédric Scherer | Also, see this Posit Community <a href="https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244">post</a> regarding the use of <code>scales::dollar()</code></span></p>
+<p>For some more advanced label manipulation, see <a href="https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/">A Quick How-to on Labelling Bar Graphs in ggplot2</a>, by Cédric Scherer | Also, see this Posit Community <a href="https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244">post</a> regarding the use of <code>scales::dollar()</code></p>
 </div>
 </section>
 <section id="col-vs-bar" class="slide level2" data-menu-title="geom_col() vs. geom_bar()">
@@ -742,37 +761,38 @@
 <h2></h2>
 <p><span class="slide-title2">Plotting 2+ groups (e.g.&nbsp;male vs.&nbsp;female earnings)</span></p>
 <hr>
-<p><span class="body-text-s">We’ll need to transform our data from wide to long format, where total earning for males and females are in the same column (we’ll name this <code>earnings_by_group</code>), and a secondary column denotes which group those earnings are associated with (<code>total_earnings_female</code>, <code>total_earnings_male</code>). Also note that because <code>geom_lollipop()</code> doesn’t accept a <code>position</code> parameter, we’ll instead use <code>geom_linerange()</code> + <code>geom_point()</code>:</span></p>
+<p><span class="body-text-s">We’ll need to transform our data from wide to long format, where total earning for males and females are in the same column (we’ll name this <code>earnings_by_group</code>), and a secondary column denotes which group those earnings are associated with (<code>total_earnings_female</code>, <code>total_earnings_male</code>):</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-5"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb14-6"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, earnings_by_group), <span class="at">y =</span> earnings_by_group, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
-<span id="cb14-7"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="co"># default `position = "stack"`</span></span>
-<span id="cb14-8"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(<span class="at">string =</span> group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> earnings_by_group, <span class="at">fill =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb14-8"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="co"># default `position = "stack"`</span></span>
+<span id="cb14-9"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb15-4"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb15-5"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb15-6"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, earnings_by_group), <span class="at">y =</span> earnings_by_group, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb15-7"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># default `position = "stack"`</span></span>
-<span id="cb15-8"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> occupation, <span class="at">xmax =</span> occupation, </span>
-<span id="cb15-9"><a></a>                     <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> earnings_by_group)) <span class="sc">+</span> <span class="co"># default `position = "stack"`</span></span>
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> earnings_by_group, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
+<span id="cb15-8"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> earnings_by_group)) <span class="sc">+</span></span>
 <span id="cb15-10"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -792,14 +812,15 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>jobs_clean <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb16-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-4"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-5"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb16-6"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, earnings_by_group), <span class="at">y =</span> earnings_by_group, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb16-7"><a></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb16-8"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-6"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> earnings_by_group, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb16-8"><a></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb16-9"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -810,15 +831,15 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="7-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>jobs_clean <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="8-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>jobs_clean <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
 <span id="cb17-3"><a></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(occupation, earnings_by_group), <span class="at">y =</span> earnings_by_group, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb17-7"><a></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb17-8"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> occupation, <span class="at">xmax =</span> occupation, </span>
-<span id="cb17-9"><a></a>                     <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> earnings_by_group),</span>
+<span id="cb17-4"><a></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-5"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> earnings_by_group, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
+<span id="cb17-8"><a></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb17-9"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> earnings_by_group),</span>
 <span id="cb17-10"><a></a>                 <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
 <span id="cb17-11"><a></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -933,27 +954,13 @@
 <hr>
 <p>Dumbbell plots can be a really simple and intuitive way to visualize a change or difference in two sets of data points:</p>
 
-<img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>We can make dumbbell plots using a combination of <code>geom_segment()</code> and <code>geom_point()</code>.</p>
-<aside class="notes">
-<p>See note: <a href="https://stackoverflow.com/questions/35322919/grouped-data-by-factor-with-geom-segment" class="uri">https://stackoverflow.com/questions/35322919/grouped-data-by-factor-with-geom-segment</a></p>
-<p>“You can think of <code>geom_linerange()</code> as a convenient version of geom_segment for a specific use case. <code>geom_segment()</code> is for when you need to draw arbitrary line segments in a fairly non-systematic way. <code>geom_linerange()</code> is for the specific case of a collection of vertical bars at specified x values with different lengths (e.g.&nbsp;error bars, etc)”</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<img data-src="lecture4.1-rankings-slides_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>We can make dumbbell plots using a combination of <code>geom_linerange()</code> and <code>geom_point()</code>.</p>
 </section>
 <section id="dumbbell-plot-subset" class="slide level2" data-menu-title="Dumbbell plot - subset data">
 <h2></h2>
-<p><span class="slide-title">Subset occupation data</span></p>
+<p><span class="slide-title">Let’s use a subset of our data . . .</span></p>
 <hr>
-<p><span class="body-text-s">Let’s say we want to explore differences in male vs.&nbsp;female median salaries across occupations that are female dominated (75%+ female), male dominated (75%+ male), and those that are a relatively even split (45-55% female). <strong>Let’s first randomly select 10 occupations from each of those categories:</strong></span></p>
+<p><span class="body-text-s">. . .to explore differences in male vs.&nbsp;female median salaries across occupations that are female dominated (75%+ female), male dominated (75%+ male), and those that are a relatively even split (45-55% female).</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
 <span id="cb18-2"><a></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
@@ -975,10 +982,11 @@
 <span id="cb18-18"><a></a></span>
 <span id="cb18-19"><a></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
 <span id="cb18-20"><a></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
-<span id="cb18-21"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
+<span id="cb18-21"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(<span class="at">.f =</span> group_label, </span>
 <span id="cb18-22"><a></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
 <span id="cb18-23"><a></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb18-24"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-24"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
+<span id="cb18-25"><a></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dumbbell-plot-create" class="slide level2" data-menu-title="Dumbbell plot - M vs. F salaries (code)">
@@ -991,23 +999,21 @@
 <span id="cb19-2"><a></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
 <span id="cb19-3"><a></a>  </span>
 <span id="cb19-4"><a></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb19-5"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, </span>
-<span id="cb19-6"><a></a>                   <span class="at">xend =</span> total_earnings_male, </span>
-<span id="cb19-7"><a></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), </span>
-<span id="cb19-8"><a></a>                   <span class="at">yend =</span> occupation)) <span class="sc">+</span> <span class="co"># reorder occupation by avg_salary here</span></span>
-<span id="cb19-9"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
-<span id="cb19-10"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
-<span id="cb19-11"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb19-12"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
-<span id="cb19-13"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
-<span id="cb19-14"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb19-15"><a></a>  </span>
-<span id="cb19-16"><a></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb19-17"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb19-18"><a></a>  </span>
-<span id="cb19-19"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb19-20"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb19-21"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
+<span id="cb19-6"><a></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
+<span id="cb19-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
+<span id="cb19-8"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
+<span id="cb19-9"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
+<span id="cb19-11"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
+<span id="cb19-12"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-13"><a></a>  </span>
+<span id="cb19-14"><a></a>  <span class="co"># facet wrap by group ----</span></span>
+<span id="cb19-15"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
+<span id="cb19-16"><a></a>  </span>
+<span id="cb19-17"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
+<span id="cb19-18"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb19-19"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dumbbell-plot-output" class="slide level2" data-menu-title="Dumbbell plot - M vs. F salaries (output)">
@@ -1029,7 +1035,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8402f6f7" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_13d3d541" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

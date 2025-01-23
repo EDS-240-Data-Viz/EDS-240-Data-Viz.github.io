@@ -4,6 +4,8 @@ subtitle: "Visualizing rankings"
 author: "Your Name"
 date: 2025-01-27
 toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ::: {.callout-note}
@@ -11,6 +13,8 @@ This template follows [lecture 4.1 slides](../lecture-slides/lecture4.1-rankings
 :::
 
 ## Setup
+
+Data are downloaded directly from the [tidytuesday GitHub repository](https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-03-05).
 
 ```{r}
 #| eval: true
@@ -25,7 +29,6 @@ This template follows [lecture 4.1 slides](../lecture-slides/lecture4.1-rankings
 library(tidyverse)
 
 #..........................import data...........................
-# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,7 +37,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |> 
   
-  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
   mutate(percent_male = 100 - percent_female) |>
          
   # rearrange columns ----
@@ -47,7 +50,7 @@ jobs_clean <- jobs |>
   # drop rows with missing earnings data ----
   drop_na(total_earnings_male, total_earnings_female) |> 
   
-  # make occupation a factor (necessary for reordering groups in our plot) ----
+  # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
   # classify jobs by percentage male or female (these will become facet labels in our plot) ----
@@ -63,7 +66,7 @@ jobs_clean <- jobs |>
 - for both examples, we'll: 
     - flip axes to make space for labels
     - reorder groups
-    - add scales labels
+    - update scaling labels
     - add direct labels
 
 ### Bar chart
@@ -74,11 +77,12 @@ jobs_clean <- jobs |>
 # bar chart ----
 jobs_clean |> 
   filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> # keep top 10 jobs with most `total_earnings`
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  slice_max(order_by = total_earnings, n = 10) |> 
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
   geom_col() +
-  geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") +
-  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") + 
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) + 
   coord_flip()
 ```
 
@@ -89,14 +93,16 @@ jobs_clean |>
 #| message: false
 #| warning: false
 # lollipop chart ----
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
-  ggalt::geom_lollipop() +
-  geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) +
-  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
-                     limits = c(0, 250000)) +
+jobs_clean |>
+  filter(year == 2016) |>
+  slice_max(order_by = total_earnings, n = 10) |>
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
+  ggplot(aes(x = occupation, y = earnings_by_group, color = sex)) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_linerange(aes(ymin = 0, ymax = earnings_by_group),
+                 position = position_dodge(width = 0.5)) +
   coord_flip()
 ```
 
@@ -201,7 +207,8 @@ subset_jobs <- rbind(f75, m75, f50) |>
   mutate(group_label = fct_relevel(group_label, 
                                    "Occupations that are 75%+ female", 
                                    "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male")) 
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings)) 
 ```
 
 ### Build dumbbell plot
@@ -214,12 +221,14 @@ subset_jobs <- rbind(f75, m75, f50) |>
 ggplot(subset_jobs) +
   
   # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), yend = occupation)) + # reorder occupation by avg_salary here
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
   geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", size = 2.5) +
+             color = "#CD93D8", 
+             size = 2.5) +
   geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", size = 2.5) +
+             color = "#6A1E99", 
+             size = 2.5) +
   
   # facet wrap by group ----
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group

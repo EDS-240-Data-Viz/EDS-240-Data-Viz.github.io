@@ -54,7 +54,7 @@ penguins |>
 <br>
 
 ::: {.footer}
-Line graphs (from week 3) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.
+Line graphs (from week 2) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.
 :::
 
 ---
@@ -109,6 +109,8 @@ In this lesson, we'll be exploring two main primary chart types:
 
 [The [Hubbard Brook Experimenatal Forest](https://hubbardbrook.org/) is a 8,700-acre hardwood research forest in the White Mountains of New Hampshire and home to a series of small watersheds occupying the valley’s north- and south-facing slopes.]{.body-text-s}
 
+<br>
+
 :::: {.columns}
 
 ::: {.column width="50%"}
@@ -129,7 +131,7 @@ knitr::include_graphics("images/week4/hbef-map.png")
 
 <br>
 
-[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these long term data on DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F9).]{.body-text-s}
+[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these long term data on DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11).]{.body-text-s}
 
 [These long-term data have contributed to important research, including the **discovery of acid rain** in North America.]{.body-text-s}
 
@@ -138,9 +140,9 @@ knitr::include_graphics("images/week4/hbef-map.png")
 
 ::::
 
-::: {.footer}
-*I admittedly don't know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They'll be linked as referenced.*
-:::
+<!-- ::: {.footer} -->
+<!-- *I admittedly don't know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They'll be linked as referenced.* -->
+<!-- ::: -->
 
 ---
 
@@ -164,6 +166,7 @@ knitr::include_graphics("images/week4/hbef-map.png")
 #..........................load packages.........................
 library(metajam) 
 library(tidyverse)
+library(ggExtra)
 
 #...................download data from DataOne...................
 download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
@@ -178,6 +181,10 @@ stream_chem_all <- read_d1_files(here::here("week4", "data"))
 stream_chem_data <- stream_chem_all$data
 ```
 
+::: {.footer}
+See [`{metajam}`'s README](https://github.com/NCEAS/metajam?tab=readme-ov-file#how-to-get-the-url-to-your-dataset-of-interest-){target="_blank"} explains how to get a URL to use for downloading data using `download_d1_data()`.
+:::
+
 <!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
 
 ---
@@ -188,7 +195,7 @@ stream_chem_data <- stream_chem_all$data
 
 <hr>
 
-The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g. see [Erlandsson et al. 2010](https://doi.org/10.1029/2009JG001082) & [Zhou et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019).)). To start, let's look at the **effects of DOC on pH** for just the most recent water year (2021): 
+The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g. see [Erlandsson et al. 2010](https://doi.org/10.1029/2009JG001082){target="_blank"} & [Zhou et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019){target="_blank"}.). To start, let's look at the **effects of DOC on pH** for just the most recent water year (2021): 
 
 ```{r}
 #| eval: true
@@ -401,7 +408,7 @@ stream_chem_data |>
 
 ## {#third-var-difficult data-menu-title="Use size cautiously"} 
 
-[Use size to represent a third numeric variable cautiously]{.slide-title3}
+[Use size to represent a third numeric variable *cautiously*]{.slide-title3}
 
 <hr>
 

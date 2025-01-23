@@ -413,7 +413,7 @@
 
 <img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p><br></p>
 <div class="footer">
-<p>Line graphs (from week 3) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.</p>
+<p>Line graphs (from week 2) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.</p>
 </div>
 </section>
 <section id="roadmap1" class="slide level2" data-menu-title="Roadmap">
@@ -449,6 +449,7 @@
 <p><span class="slide-title3">The data: Hubbard Brook Watershed stream chemistry</span></p>
 <hr>
 <p><span class="body-text-s">The <a href="https://hubbardbrook.org/">Hubbard Brook Experimenatal Forest</a> is a 8,700-acre hardwood research forest in the White Mountains of New Hampshire and home to a series of small watersheds occupying the valley’s north- and south-facing slopes.</span></p>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -465,13 +466,13 @@
 </div>
 </div><div class="column" style="width:50%;">
 <p><br></p>
-<p><span class="body-text-s">Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest’s watersheds. <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F9">Read about these long term data on DataOne</a>.</span></p>
+<p><span class="body-text-s">Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest’s watersheds. <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11">Read about these long term data on DataOne</a>.</span></p>
 <p><span class="body-text-s">These long-term data have contributed to important research, including the <strong>discovery of acid rain</strong> in North America.</span></p>
 <p><span class="body-text-s">In this lesson, we’ll explore the <strong>effects of various compounds on stream water pH</strong> (a lower pH = more acidic).</span></p>
 </div></div>
-<div class="footer">
-<p><em>I admittedly don’t know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They’ll be linked as referenced.</em></p>
-</div>
+<!-- ::: {.footer} -->
+<!-- *I admittedly don't know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They'll be linked as referenced.* -->
+<!-- ::: -->
 </section>
 <section id="data-wrangling" class="slide level2" data-menu-title="Data wrangling">
 <h2></h2>
@@ -487,18 +488,22 @@
 <span id="cb1-5"><a></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb1-6"><a></a><span class="fu">library</span>(metajam) </span>
 <span id="cb1-7"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-8"><a></a></span>
-<span id="cb1-9"><a></a><span class="co">#...................download data from DataOne...................</span></span>
-<span id="cb1-10"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
-<span id="cb1-11"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
-<span id="cb1-12"><a></a></span>
-<span id="cb1-13"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
-<span id="cb1-14"><a></a></span>
-<span id="cb1-15"><a></a><span class="co">#....................read in downloaded files....................</span></span>
-<span id="cb1-16"><a></a>stream_chem_all <span class="ot">&lt;-</span> <span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
-<span id="cb1-17"><a></a></span>
-<span id="cb1-18"><a></a><span class="co">#........................get the data file.......................</span></span>
-<span id="cb1-19"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb1-9"><a></a></span>
+<span id="cb1-10"><a></a><span class="co">#...................download data from DataOne...................</span></span>
+<span id="cb1-11"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
+<span id="cb1-12"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
+<span id="cb1-13"><a></a></span>
+<span id="cb1-14"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
+<span id="cb1-15"><a></a></span>
+<span id="cb1-16"><a></a><span class="co">#....................read in downloaded files....................</span></span>
+<span id="cb1-17"><a></a>stream_chem_all <span class="ot">&lt;-</span> <span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
+<span id="cb1-18"><a></a></span>
+<span id="cb1-19"><a></a><span class="co">#........................get the data file.......................</span></span>
+<span id="cb1-20"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>See <a href="https://github.com/NCEAS/metajam?tab=readme-ov-file#how-to-get-the-url-to-your-dataset-of-interest-" target="_blank"><code>{metajam}</code>’s README</a> explains how to get a URL to use for downloading data using <code>download_d1_data()</code>.</p>
 </div>
 <!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
 </section>
@@ -506,7 +511,7 @@
 <h2></h2>
 <p><span class="slide-title">Basic scatter plot</span></p>
 <hr>
-<p>The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g.&nbsp;see <a href="https://doi.org/10.1029/2009JG001082">Erlandsson et al.&nbsp;2010</a> &amp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019">Zhou et al.&nbsp;2019</a>.)). To start, let’s look at the <strong>effects of DOC on pH</strong> for just the most recent water year (2021):</p>
+<p>The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g.&nbsp;see <a href="https://doi.org/10.1029/2009JG001082" target="_blank">Erlandsson et al.&nbsp;2010</a> &amp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019" target="_blank">Zhou et al.&nbsp;2019</a>.). To start, let’s look at the <strong>effects of DOC on pH</strong> for just the most recent water year (2021):</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
@@ -663,7 +668,7 @@
 <img data-src="lecture4.2-relationships-slides_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="third-var-difficult" class="slide level2" data-menu-title="Use size cautiously">
 <h2></h2>
-<p><span class="slide-title3">Use size to represent a third numeric variable cautiously</span></p>
+<p><span class="slide-title3">Use size to represent a third numeric variable <em>cautiously</em></span></p>
 <hr>
 <p><br></p>
 <p><span class="body-text-m">Bubble charts encode values based on both position (within the Cartesian coordinate system) <em>and</em> size. <strong>Some challenges</strong> with this:</span></p>

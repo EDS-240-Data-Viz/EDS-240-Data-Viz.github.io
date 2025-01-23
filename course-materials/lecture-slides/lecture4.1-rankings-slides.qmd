@@ -96,7 +96,7 @@ We'll discuss:
 
 <hr>
 
-[According to the [American Association of University Women (AAUW)](https://www.aauw.org/), the gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script) by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05).]{.body-text-s}
+[According to the [American Association of University Women (AAUW)](https://www.aauw.org/){target="_blank"}, the gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script){target="_blank"} by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"}.]{.body-text-s}
 
 <br>
 
@@ -110,7 +110,11 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <br>
 
-[We'll use these data to explore a two different questions: **(1) What are the top 10 occupations with the highest median earnings (across males and females)? (2) How do median earnings differ between males and females in those same occupations?**]{.body-text-s}
+[We'll use these data to explore a two different questions: **(1) What are the top 10 occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) How do median earnings differ between males and females in those same occupations?**]{.body-text-s}
+
+::: {.footer}
+<sup>1</sup>We recognize the limitations and issues in defining gender as binary.
+:::
 
 ---
 
@@ -120,7 +124,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <hr>
 
-Be sure to check out the [data dictionary](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1) on the [TidyTuesday repo](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05) for information about each variable in this data set.
+Be sure to check out the [data dictionary](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#data-dictionary-1){target="_blank"} on the [TidyTuesday repo](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"} for information about each variable in this data set.
 
 ```{r}
 #| eval: true
@@ -134,7 +138,6 @@ Be sure to check out the [data dictionary](https://github.com/rfordatascience/ti
 library(tidyverse)
 
 #..........................import data...........................
-# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +146,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |> 
   
-  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
   mutate(percent_male = 100 - percent_female) |>
          
   # rearrange columns ----
@@ -156,7 +159,7 @@ jobs_clean <- jobs |>
   # drop rows with missing earnings data ----
   drop_na(total_earnings_male, total_earnings_female) |> 
   
-  # make occupation a factor (necessary for reordering groups in our plot) ----
+  # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
   # classify jobs by percentage male or female (these will become facet labels in our plot) ----
@@ -183,7 +186,6 @@ jobs_clean <- jobs |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
@@ -197,18 +199,22 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "5"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
-  ggalt::geom_lollipop()
+  ggplot(aes(x = occupation, y = total_earnings)) + 
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = total_earnings))
 ```
 
 :::
 
 ::::
+
+::: {.footer}
+You might also consider using `ggalt::geom_lollipop()` for a simple lollipop chart, though you may run into limitations when creating more complex charts.
+:::
 
 ---
 
@@ -218,7 +224,7 @@ jobs_clean |>
 
 <hr>
 
-[Give those long x-axis labels some breathing room using `coord_flip()`, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa.]{.body-text-s}
+[Give those long x-axis labels some breathing room using `coord_flip()`, which flips cartesian (x,y) coordinates so that the horizontal becomes the vertical and vice versa. Alternatively, you can map your variables to the opposite axes in `aes()` (e.g. `aes(x = total_earnings, y = occupation)`).]{.body-text-s}
 
 :::: columns
 
@@ -241,13 +247,14 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6"
+#| code-line-numbers: "7"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  ggplot(aes(x = occupation, y = total_earnings)) + 
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = total_earnings)) +
   coord_flip()
 ```
 :::
@@ -262,7 +269,7 @@ jobs_clean |>
 
 <hr>
 
-[Here, we use `forcats::fct_reorder()` to reorder the levels of our x-axis variable, `occupation`, based on a numeric variable, `total_earnings` (**NOTE:** we do *not* have to reorder based on the same numeric variable that's plotted on the y-axis; here it makes sense to do so; also see [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/)):]{.body-text-s}
+[Here, we use `forcats::fct_reorder()` to reorder the levels of our x-axis variable, `occupation`, based on a numeric variable, `total_earnings` (**NOTE:** we don't have to reorder based on the same numeric variable that's plotted on the y-axis, though here it makes sense to do so.]{.body-text-s}
 
 :::: columns
 
@@ -275,7 +282,8 @@ jobs_clean |>
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
   geom_col() +
   coord_flip()
 ```
@@ -285,18 +293,24 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "4"
+#| code-line-numbers: "5"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) + 
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = total_earnings)) +
   coord_flip()
 ```
 :::
 
 ::::
+
+::: {.footer}
+Check out [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/){target="_blank"} for more useful reordering approaches / examples.
+:::
 
 ---
 
@@ -314,12 +328,13 @@ While we're on the topic of making things easier to read, let's use the [`{scale
 ```{r}
 #| eval: true
 #| echo: true 
-#| code-line-numbers: "6"
+#| code-line-numbers: "7"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
   geom_col() +
   scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) + 
   coord_flip()
@@ -330,20 +345,21 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6"
+#| code-line-numbers: "8"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) + 
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = total_earnings)) +
   scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) + 
   coord_flip()
 ```
 :::
 
 ::::
-
 
 ---
 
@@ -361,12 +377,13 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true 
-#| code-line-numbers: "6"
+#| code-line-numbers: "7"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
   geom_col() +
   geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") + 
   scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) + 
@@ -378,13 +395,16 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6,8"
+#| code-line-numbers: "8,10"
 #| fig-align: "center"
+#| out-width: "80%"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = fct_reorder(occupation, total_earnings), y = total_earnings)) +
-  ggalt::geom_lollipop() +
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  ggplot(aes(x = occupation, y = total_earnings)) +
+  geom_point() +
+  geom_segment(aes(y = 0, yend = total_earnings)) +
   geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) + 
   scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
                      limits = c(0, 250000)) + # expand axis to make room for values
@@ -395,7 +415,7 @@ jobs_clean |>
 ::::
 
 ::: {.footer .center-text .body-text-s}
-[For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/), by Cédric Scherer | Also, see this Posit Community [post](https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244) regarding the use of `scales::dollar()`]{.body-text-s}
+For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/), by Cédric Scherer | Also, see this Posit Community [post](https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244) regarding the use of `scales::dollar()`
 :::
 
 ---
@@ -448,7 +468,7 @@ ggplot(jobs_clean, aes(x = major_category)) +
 
 <hr>
 
-[We'll need to transform our data from wide to long format, where total earning for males and females are in the same column (we'll name this `earnings_by_group`), and a secondary column denotes which group those earnings are associated with (`total_earnings_female`, `total_earnings_male`). Also note that because `geom_lollipop()` doesn't accept a `position` parameter, we'll instead use `geom_linerange()` + `geom_point()`:]{.body-text-s}
+[We'll need to transform our data from wide to long format, where total earning for males and females are in the same column (we'll name this `earnings_by_group`), and a secondary column denotes which group those earnings are associated with (`total_earnings_female`, `total_earnings_male`):]{.body-text-s}
 
 :::: columns 
 
@@ -457,12 +477,15 @@ ggplot(jobs_clean, aes(x = major_category)) +
 #| eval: true
 #| echo: true 
 #| fig-align: "center"
+#| code-line-numbers: "5-7"
+#| out-width: "80%"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
   pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
-  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, fill = sex)) + 
+  mutate(sex = str_remove(string = group, pattern = "total_earnings_")) |> 
+  ggplot(aes(x = occupation, y = earnings_by_group, fill = sex)) + 
   geom_col() + # default `position = "stack"`
   coord_flip()
 ```
@@ -472,17 +495,18 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
+#| code-line-numbers: "5-7"
 #| fig-align: "center"
 #| out-width: "70%"
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
-  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, color = sex)) +
-  geom_point() + # default `position = "stack"`
-  geom_linerange(aes(xmin = occupation, xmax = occupation, 
-                     ymin = 0, ymax = earnings_by_group)) + # default `position = "stack"`
+jobs_clean |>
+  filter(year == 2016) |>
+  slice_max(order_by = total_earnings, n = 10) |>
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
+  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
+  mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
+  ggplot(aes(x = occupation, y = earnings_by_group, color = sex)) +
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = earnings_by_group)) +
   coord_flip()
 ```
 
@@ -506,14 +530,15 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true 
-#| code-line-numbers: "7"
+#| code-line-numbers: "8"
 #| fig-align: "center"
 jobs_clean |> 
   filter(year == 2016) |> 
   slice_max(order_by = total_earnings, n = 10) |> 
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
   pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
   mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, fill = sex)) +
+  ggplot(aes(x = occupation, y = earnings_by_group, fill = sex)) +
   geom_col(position = position_dodge()) +
   coord_flip()
 ```
@@ -523,18 +548,18 @@ jobs_clean |>
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "7-10"
+#| code-line-numbers: "8-10"
 #| out-width: "80%"
 #| fig-align: "center"
 jobs_clean |>
   filter(year == 2016) |>
   slice_max(order_by = total_earnings, n = 10) |>
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
   pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
   mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, color = sex)) +
+  ggplot(aes(x = occupation, y = earnings_by_group, color = sex)) +
   geom_point(position = position_dodge(width = 0.5)) +
-  geom_linerange(aes(xmin = occupation, xmax = occupation, 
-                     ymin = 0, ymax = earnings_by_group),
+  geom_linerange(aes(ymin = 0, ymax = earnings_by_group),
                  position = position_dodge(width = 0.5)) +
   coord_flip()
 ```
@@ -664,14 +689,16 @@ Dumbbell plots can be a really simple and intuitive way to visualize a change or
 #| echo: false
 #| fig-align: "center"
 set.seed(123)
+
 jobs_clean |> 
   filter(year == 2016,
          group_label == "Occupations that are 75%+ female") |> 
   slice_sample(n = 10) |> 
+  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
   ggplot() +
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), yend = occupation),
-               size = 1, alpha = 0.8) +
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male),
+               linewidth = 1, alpha = 0.8) +
   geom_point(aes(x = total_earnings_male, y = occupation), color = "#EB5B57", size = 4) +
   geom_point(aes(x = total_earnings_female, y = occupation), color = "#16ADB1", size = 4) +
   labs(x = "Numeric variable", y = "Categorical variable") +
@@ -682,23 +709,17 @@ jobs_clean |>
   )
 ```
 
-We can make dumbbell plots using a combination of `geom_segment()` and `geom_point()`.
-
-::: notes
-See note: <https://stackoverflow.com/questions/35322919/grouped-data-by-factor-with-geom-segment>
-
-"You can think of `geom_linerange()` as a convenient version of geom_segment for a specific use case. `geom_segment()` is for when you need to draw arbitrary line segments in a fairly non-systematic way. `geom_linerange()` is for the specific case of a collection of vertical bars at specified x values with different lengths (e.g. error bars, etc)"
-:::
+We can make dumbbell plots using a combination of `geom_linerange()` and `geom_point()`.
 
 ---
 
 ## {#dumbbell-plot-subset data-menu-title="Dumbbell plot - subset data"} 
 
-[Subset occupation data]{.slide-title}
+[Let's use a subset of our data . . .]{.slide-title}
 
 <hr>
 
-[Let's say we want to explore differences in male vs. female median salaries across occupations that are female dominated (75%+ female), male dominated (75%+ male), and those that are a relatively even split (45-55% female). **Let's first randomly select 10 occupations from each of those categories:**]{.body-text-s}
+[. . .to explore differences in male vs. female median salaries across occupations that are female dominated (75%+ female), male dominated (75%+ male), and those that are a relatively even split (45-55% female).]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -723,10 +744,11 @@ f50 <- jobs_clean |>
 
 #.......combine dfs & relevel factors (for plotting order).......
 subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(group_label, 
+  mutate(group_label = fct_relevel(.f = group_label, 
                                    "Occupations that are 75%+ female", 
                                    "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male")) 
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings))
 ```
 
 ---
@@ -746,10 +768,8 @@ See the output on the next slide.
 ggplot(subset_jobs) +
   
   # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) + # reorder occupation by avg_salary here
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
   geom_point(aes(x = total_earnings_male, y = occupation), 
              color = "#CD93D8", 
              size = 2.5) +
@@ -763,6 +783,7 @@ ggplot(subset_jobs) +
   # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
+
 ```
 
 ---
@@ -779,26 +800,25 @@ There are definitely some additional modifications we would need to make before 
 #| eval: true
 #| echo: false
 #| fig-align: "center"
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
 ggplot(subset_jobs) +
   
   # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male, 
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) + # reorder occupation by avg_salary here) 
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
   geom_point(aes(x = total_earnings_male, y = occupation), 
              color = "#CD93D8", 
-             size = 3) +
+             size = 2.5) +
   geom_point(aes(x = total_earnings_female, y = occupation), 
              color = "#6A1E99", 
-             size = 3) +
+             size = 2.5) +
   
   # facet wrap by group ----
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
   
   # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_dollar(accuracy = 1, scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000))
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000))
 ```
 
 ---
