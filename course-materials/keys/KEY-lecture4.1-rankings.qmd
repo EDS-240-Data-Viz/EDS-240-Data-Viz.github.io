@@ -53,7 +53,7 @@ jobs_clean <- jobs |>
   # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
-  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -63,10 +63,11 @@ jobs_clean <- jobs |>
 
 ## Bar chart vs. Lolliplot chart
 
+- explore the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old)
 - for both examples, we'll: 
     - flip axes to make space for labels
     - reorder groups
-    - update scaling labels
+    - add scales labels
     - add direct labels
 
 ### Bar chart
@@ -93,16 +94,16 @@ jobs_clean |>
 #| message: false
 #| warning: false
 # lollipop chart ----
-jobs_clean |>
-  filter(year == 2016) |>
-  slice_max(order_by = total_earnings, n = 10) |>
+jobs_clean |> 
+  filter(year == 2016) |> 
+  slice_max(order_by = total_earnings, n = 10) |> 
   mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
-  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
-  mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
-  ggplot(aes(x = occupation, y = earnings_by_group, color = sex)) +
-  geom_point(position = position_dodge(width = 0.5)) +
-  geom_linerange(aes(ymin = 0, ymax = earnings_by_group),
-                 position = position_dodge(width = 0.5)) +
+  ggplot(aes(x = occupation, y = total_earnings)) +
+  geom_point() +
+  geom_segment(aes(y = 0, yend = total_earnings)) +
+  geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) + 
+  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
+                     limits = c(0, 250000)) + # expand axis to make room for values
   coord_flip()
 ```
 
@@ -133,8 +134,9 @@ ggplot(jobs_clean, aes(x = major_category)) +
   coord_flip()
 ```
 
-## Visualizing 2+ groups
+## Bar & lollipop charts for visualizing 2+ groups
 
+- explore male and female salaries for the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old)
 - for both examples, we'll: 
     - transform data from long to wide format
     - color by sex
@@ -175,10 +177,60 @@ jobs_clean |>
   coord_flip()
 ```
 
+## Heatmap
+
+- explore the change in total earnings through time for any “analyst” positions
+- for this example, we'll: 
+  - filter for only "analyst" occupations
+  - order occupations by the highest salary in 2016
+  
+### First, some data wrangling
+
+```{r}
+#| eval: true
+#| echo: true
+# filter for occupations that have the word "analyst" in title ----
+analysts <- jobs_clean |> 
+  filter(str_detect(string = occupation, pattern = "analyst")) |> 
+  select(year, occupation, total_earnings)
+
+# determine order of occupations based on highest total_earnings in 2016 ----
+order_2016 <- analysts |> 
+  filter(year == 2016) |> 
+  arrange(total_earnings) |> 
+  mutate(order = row_number()) |> 
+  select(occupation, order) 
+
+# join order with rest of data to set factor levels ----
+heatmap_order <- analysts |> 
+  left_join(order_2016, by = "occupation") |> 
+  mutate(occupation = fct_reorder(occupation, order))
+```
+
+### Then build the heatmap
+```{r}
+#| eval: true
+#| echo: true
+# create heatmap ----
+ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
+  geom_tile() +
+  labs(fill = "Total earnings") +
+  coord_fixed() + 
+  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "K")) +
+  scale_y_discrete(labels = scales::label_wrap(30)) +
+  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    axis.title = element_blank()
+  )
+```
+
 ## Dumbbell plot
 
 ### (More) data wrangling
 
+- explore the difference in median salaries between male and female workers, by occupation
 - there are too many occupations to reasonably plot at once, so let's take just 10 random occupations from each group (female-dominated, male-dominated, and evenly(ish) split); we'll also only use 2016 data
 
 ```{r}
