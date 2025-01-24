@@ -289,10 +289,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#lollipop-chart" id="toc-lollipop-chart" class="nav-link" data-scroll-target="#lollipop-chart">Lollipop chart</a></li>
   </ul></li>
   <li><a href="#an-aside-when-to-use-geom_col-vs.-geom_bar" id="toc-an-aside-when-to-use-geom_col-vs.-geom_bar" class="nav-link" data-scroll-target="#an-aside-when-to-use-geom_col-vs.-geom_bar">An aside: when to use <code>geom_col()</code> vs.&nbsp;<code>geom_bar()</code></a></li>
-  <li><a href="#visualizing-2-groups" id="toc-visualizing-2-groups" class="nav-link" data-scroll-target="#visualizing-2-groups">Visualizing 2+ groups</a>
+  <li><a href="#bar-lollipop-charts-for-visualizing-2-groups" id="toc-bar-lollipop-charts-for-visualizing-2-groups" class="nav-link" data-scroll-target="#bar-lollipop-charts-for-visualizing-2-groups">Bar &amp; lollipop charts for visualizing 2+ groups</a>
   <ul class="collapse">
   <li><a href="#bar-chart-2-groups" id="toc-bar-chart-2-groups" class="nav-link" data-scroll-target="#bar-chart-2-groups">Bar chart (2 groups)</a></li>
   <li><a href="#lollipop-chart-2-groups" id="toc-lollipop-chart-2-groups" class="nav-link" data-scroll-target="#lollipop-chart-2-groups">Lollipop chart (2 groups)</a></li>
+  </ul></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap">Heatmap</a>
+  <ul class="collapse">
+  <li><a href="#first-some-data-wrangling" id="toc-first-some-data-wrangling" class="nav-link" data-scroll-target="#first-some-data-wrangling">First, some data wrangling</a></li>
+  <li><a href="#then-build-the-heatmap" id="toc-then-build-the-heatmap" class="nav-link" data-scroll-target="#then-build-the-heatmap">Then build the heatmap</a></li>
   </ul></li>
   <li><a href="#dumbbell-plot" id="toc-dumbbell-plot" class="nav-link" data-scroll-target="#dumbbell-plot">Dumbbell plot</a>
   <ul class="collapse">
@@ -358,7 +363,7 @@ Note
 <span id="cb1-30"><a href="#cb1-30"></a>  <span class="co"># make occupation a factor (for reordering groups in our plot) ----</span></span>
 <span id="cb1-31"><a href="#cb1-31"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
 <span id="cb1-32"><a href="#cb1-32"></a> </span>
-<span id="cb1-33"><a href="#cb1-33"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----</span></span>
 <span id="cb1-34"><a href="#cb1-34"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
 <span id="cb1-35"><a href="#cb1-35"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
 <span id="cb1-36"><a href="#cb1-36"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
@@ -369,11 +374,12 @@ Note
 <section id="bar-chart-vs.-lolliplot-chart" class="level2">
 <h2 class="anchored" data-anchor-id="bar-chart-vs.-lolliplot-chart">Bar chart vs.&nbsp;Lolliplot chart</h2>
 <ul>
+<li>explore the top ten occupations with the highest median earnings in 2016 (full-time workers &gt; 16 years old)</li>
 <li>for both examples, we’ll:
 <ul>
 <li>flip axes to make space for labels</li>
 <li>reorder groups</li>
-<li>update scaling labels</li>
+<li>add scales labels</li>
 <li>add direct labels</li>
 </ul></li>
 </ul>
@@ -403,16 +409,16 @@ Note
 <h3 class="anchored" data-anchor-id="lollipop-chart">Lollipop chart</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># lollipop chart ----</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>jobs_clean <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_earnings, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(total_earnings_female, total_earnings_male), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"earnings_by_group"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">str_remove</span>(group, <span class="at">pattern =</span> <span class="st">"total_earnings_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> earnings_by_group, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> earnings_by_group),</span>
-<span id="cb3-11"><a href="#cb3-11"></a>                 <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occupation, <span class="at">y =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(total_earnings)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">250000</span>)) <span class="sc">+</span> <span class="co"># expand axis to make room for values</span></span>
 <span id="cb3-12"><a href="#cb3-12"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -462,9 +468,10 @@ Note
 </div>
 </div>
 </section>
-<section id="visualizing-2-groups" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-2-groups">Visualizing 2+ groups</h2>
+<section id="bar-lollipop-charts-for-visualizing-2-groups" class="level2">
+<h2 class="anchored" data-anchor-id="bar-lollipop-charts-for-visualizing-2-groups">Bar &amp; lollipop charts for visualizing 2+ groups</h2>
 <ul>
+<li>explore male and female salaries for the top ten occupations with the highest median earnings in 2016 (full-time workers &gt; 16 years old)</li>
 <li>for both examples, we’ll:
 <ul>
 <li>transform data from long to wide format</li>
@@ -518,67 +525,125 @@ Note
 </div>
 </section>
 </section>
+<section id="heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="heatmap">Heatmap</h2>
+<ul>
+<li>explore the change in total earnings through time for any “analyst” positions</li>
+<li>for this example, we’ll:
+<ul>
+<li>filter for only “analyst” occupations</li>
+<li>order occupations by the highest salary in 2016</li>
+</ul></li>
+</ul>
+<section id="first-some-data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="first-some-data-wrangling">First, some data wrangling</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># filter for occupations that have the word "analyst" in title ----</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>analysts <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(<span class="at">string =</span> occupation, <span class="at">pattern =</span> <span class="st">"analyst"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">select</span>(year, occupation, total_earnings)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># determine order of occupations based on highest total_earnings in 2016 ----</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>order_2016 <span class="ot">&lt;-</span> analysts <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">arrange</span>(total_earnings) <span class="sc">|&gt;</span> </span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">select</span>(occupation, order) </span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co"># join order with rest of data to set factor levels ----</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>heatmap_order <span class="ot">&lt;-</span> analysts <span class="sc">|&gt;</span> </span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">left_join</span>(order_2016, <span class="at">by =</span> <span class="st">"occupation"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">fct_reorder</span>(occupation, order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="then-build-the-heatmap" class="level3">
+<h3 class="anchored" data-anchor-id="then-build-the-heatmap">Then build the heatmap</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># create heatmap ----</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(heatmap_order, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> occupation, <span class="at">fill =</span> total_earnings)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Total earnings"</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"K"</span>)) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">barwidth =</span> <span class="dv">15</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>, <span class="at">title.position =</span> <span class="st">"top"</span>)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">theme</span>(</span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb9-13"><a href="#cb9-13"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture4.1-rankings_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="dumbbell-plot" class="level2">
 <h2 class="anchored" data-anchor-id="dumbbell-plot">Dumbbell plot</h2>
 <section id="more-data-wrangling" class="level3">
 <h3 class="anchored" data-anchor-id="more-data-wrangling">(More) data wrangling</h3>
 <ul>
+<li>explore the difference in median salaries between male and female workers, by occupation</li>
 <li>there are too many occupations to reasonably plot at once, so let’s take just 10 random occupations from each group (female-dominated, male-dominated, and evenly(ish) split); we’ll also only use 2016 data</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#.........get 10 random jobs that are 75%+ female (2016).........</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb8-8"><a href="#cb8-8"></a></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#..........get 10 random jobs that are 75%+ male (2016)..........</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb8-13"><a href="#cb8-13"></a></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#........get 10 random jobs that are 45-55%+ female (2016).......</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-17"><a href="#cb8-17"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb8-18"><a href="#cb8-18"></a></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
-<span id="cb8-21"><a href="#cb8-21"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
-<span id="cb8-22"><a href="#cb8-22"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
-<span id="cb8-23"><a href="#cb8-23"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb8-24"><a href="#cb8-24"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
-<span id="cb8-25"><a href="#cb8-25"></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#.........get 10 random jobs that are 75%+ female (2016).........</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#..........get 10 random jobs that are 75%+ male (2016)..........</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-12"><a href="#cb10-12"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#........get 10 random jobs that are 45-55%+ female (2016).......</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb10-16"><a href="#cb10-16"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-17"><a href="#cb10-17"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb10-18"><a href="#cb10-18"></a></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
+<span id="cb10-21"><a href="#cb10-21"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
+<span id="cb10-22"><a href="#cb10-22"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
+<span id="cb10-23"><a href="#cb10-23"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
+<span id="cb10-24"><a href="#cb10-24"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
+<span id="cb10-25"><a href="#cb10-25"></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="build-dumbbell-plot" class="level3">
 <h3 class="anchored" data-anchor-id="build-dumbbell-plot">Build dumbbell plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># initialize plot (we'll map our aesthetics locally for each geom, below) ----</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  </span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
-<span id="cb9-6"><a href="#cb9-6"></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
-<span id="cb9-8"><a href="#cb9-8"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
-<span id="cb9-9"><a href="#cb9-9"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
-<span id="cb9-11"><a href="#cb9-11"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
-<span id="cb9-12"><a href="#cb9-12"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a>  </span>
-<span id="cb9-14"><a href="#cb9-14"></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a>  </span>
-<span id="cb9-17"><a href="#cb9-17"></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb9-19"><a href="#cb9-19"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># initialize plot (we'll map our aesthetics locally for each geom, below) ----</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="co"># create dumbbells ----</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
+<span id="cb11-6"><a href="#cb11-6"></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
+<span id="cb11-8"><a href="#cb11-8"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
+<span id="cb11-9"><a href="#cb11-9"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
+<span id="cb11-11"><a href="#cb11-11"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
+<span id="cb11-12"><a href="#cb11-12"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>  </span>
+<span id="cb11-14"><a href="#cb11-14"></a>  <span class="co"># facet wrap by group ----</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17"></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb11-19"><a href="#cb11-19"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture4.1-rankings_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="KEY-lecture4.1-rankings_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
