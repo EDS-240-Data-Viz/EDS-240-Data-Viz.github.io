@@ -15,7 +15,7 @@ editor_options:
 
 [EDS 240: Lecture 4.1]{.custom-title}
 
-[*Visualizing rankings*]{.custom-subtitle}
+[*Visualizing amounts / rankings*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
@@ -23,9 +23,9 @@ editor_options:
 
 ---
 
-## {#data-ranking data-menu-title="Data rankings"} 
+## {#data-ranking data-menu-title="Data amounts / rankings"} 
 
-[Visualizing data *rankings*?]{.slide-title}
+[Visualizing data *amounts / rankings*?]{.slide-title}
 
 <hr>
 
@@ -65,28 +65,34 @@ ggplot(data, aes(x = group, y = value)) +
 
 <hr>
 
-<br>
-
-In this lesson, we'll explore two (highly interchangeable) chart types:
+We'll first explore two (highly interchangeable) chart types for visualizing amounts across a categorical variable (great for highlighting rank or hierarchy):
 
 <br>
 
 [1. bar plots]{.body-text-m}  
-[2. lollipop plots]{.body-text-m}
+[2. lollipop plots]{.body-text-m} (and dot plot variant)
 
 <br>
 
 . . . 
 
-We'll discuss:
+We'll also learn about a couple alternatives, which may be better suited for you data depending on the context, data structure, and narrative you want to tell:
 
 <br>
 
-- handling long x-axis labels
-- reordering groups
-- adding labels
-- comparing multiple groups
-- critical considerations when creating bar / lollipop plots
+[3. heat maps]{.body-text-m} (for when you have 2 categorical + 1 numeric variable and / or want to focus on patterns rather than precise amounts)
+
+[4. dumbbell plots]{.body-text-m} (for visualizing change / difference between two groups)
+
+<!-- We'll discuss: -->
+
+<!-- <br> -->
+
+<!-- - handling long x-axis labels -->
+<!-- - reordering groups -->
+<!-- - adding labels -->
+<!-- - comparing multiple groups -->
+<!-- - critical considerations when creating bar / lollipop plots -->
 
 ---
 
@@ -110,7 +116,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <br>
 
-[We'll use these data to explore a two different questions: **(1) What are the top 10 occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) How do median earnings differ between males and females in those same occupations?**]{.body-text-s}
+[We'll use these data to explore: **(1) occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) how earnings change across years for different occupations (3) How median earnings differ between males and females within occupations?**]{.body-text-s}
 
 ::: {.footer}
 <sup>1</sup>We recognize the limitations and issues in defining gender as binary.
@@ -118,7 +124,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 ---
 
-## {#data-wrangling data-menu-title="About the data"} 
+## {#data-wrangling data-menu-title="Data wrangling"} 
 
 [Data wrangling]{.slide-title}
 
@@ -162,7 +168,7 @@ jobs_clean <- jobs |>
   # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
-  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -172,13 +178,22 @@ jobs_clean <- jobs |>
 
 ---
 
+##  {#bar-lollipop data-menu-title="## Bar & lollipop ##" background="#047C90"}
+
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Bar charts & lollipop charts</div></center>
+<center><div class="custom-subtitle3">*interchangeable | focus is on highest and lowest values (as well as overall rank / hierarchy) | best for visualizing amounts across a single categorical variable | encode values using LENGTH*</div></center>
+</div>
+
+---
+
 ## {#bar-lolli-1group data-menu-title="Bar & Lollipop plots (1 group)"} 
 
 [Bar & lollipop plots to visualize rankings]{.slide-title}
 
 <hr>
 
-[Let's first explore the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old). The heights of both the bars and lollipops represent the total estimated median earnings (`total_earnings`).]{.body-text-s}
+[Let's first **explore the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old)**. The heights of both the bars and lollipops represent the total estimated median earnings (`total_earnings`).]{.body-text-s}
 
 :::: columns
 
@@ -611,6 +626,61 @@ Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal
 
 ---
 
+## {#dot-plot data-menu-title="Dot plots "} 
+
+[But you can cut the y-axis of dot plots!]{.slide-title}
+
+<hr>
+
+[When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to focus on key takeaways (max and min risk scores).]{.body-text-s} 
+
+::: {.center-text .body-text-s}
+*Create a dot plot using `geom_point()`, then adjust `panel.grid` lines inside `theme()`.*
+:::
+
+
+:::: {.columns}
+ 
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week4/ca-bar.png")
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week4/ca-lollipop.png")
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week4/ca-dot.png")
+```
+:::
+
+::::
+
+<br>
+
+::: {.footer}
+Plots created using county-level FEMA National Risk Index scores. Download data from [hazards.fema.gov/nri/data-resources](https://hazards.fema.gov/nri/data-resources){target="_blank"}
+:::
+
+---
+
 ## {#cat-not-cont data-menu-title="Bar plots for categorical data"} 
 
 <!-- [IMPORTANT: Bar (& related) plots are for *categorical* data]{.slide-title3} -->
@@ -618,11 +688,13 @@ Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal
 
 <hr>
 
-[**Bar plots shine when you need to compare counts** (e.g. populations size of different countries, total earnings by group, etc.). *However*, you should proceed with caution when using bar plots to visualize the distribution of / summarize your data. Doing so can be *misleading*, particularly when you have small sample sizes. Why?]{.body-text-s}
+[**Bar plots shine when you need to compare counts** (e.g. populations size of different countries). *However*, you should proceed with caution when using bar plots to visualize the distribution of / summarize your data. Doing so can be *misleading*, particularly when you have small sample sizes. Why?]{.body-text-s}
+
+. . .
 
 - [bar plots hide the distribution of the underlying data (many different distributions can lead to the same plot)]{.body-text-s}
 
-- [when used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course *may* be true in certain cases, but certainly not always)]{.body-text-s}
+- [when used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course *may* be true in some cases, but certainly not always)]{.body-text-s}
 
 <!-- [Bar charts were designed for *categorical* data. but they're often (incorrectly) used to visualize continuous data. [Weissgerber et al. (2015)](https://doi.org/10.1371/journal.pbio.1002128) cautions against this popular practice, since many different data distributions can lead to the same bar plots.]{.body-text-s} -->
 
@@ -676,40 +748,215 @@ Bar plots are very commonly used in both ways (comparing counts and visualizing 
 
 ---
 
-## {#dumbbell-plot data-menu-title="Dumbbell plot"} 
+##  {#heatmaps data-menu-title="## Heatmaps ##" background="#047C90"}
 
-[Lollipop variant: dumbbell plot]{.slide-title}
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Heatmaps</div></center>
+<center><div class="custom-subtitle3">*great option for visualizing matrices of data (e.g. 2 categorical + 1 numeric variable) | focus is on patterns rather than precise amounts | consider audience familiarity (may require more explanation than a bar plot) | encode values using COLOR*</div></center>
+</div>
+
+---
+
+## {#heatmap-example data-menu-title="Heatmap (example)"} 
+
+[Heatmap for 2 categorical + 1 numeric variable]{.slide-title2}
 
 <hr>
 
-Dumbbell plots can be a really simple and intuitive way to visualize a change or difference in two sets of data points: 
+Let's say we want to **explore the change in total earnings through time for any "analyst" positions** in our data set. We can use a heatmap to create a matrix that displays total earnings (numeric, continuous) by occupation (categorical) and year (categorical):
+
+```{r}
+#| eval: true
+#| echo: false
+# filter for occupations that have the word "analyst" in title ----
+analysts <- jobs_clean |> 
+  filter(str_detect(string = occupation, pattern = "analyst")) |> 
+  select(year, occupation, total_earnings)
+
+# determine order of occupations based on highest total_earnings in 2016 ----
+order_2016 <- analysts |> 
+  filter(year == 2016) |> 
+  arrange(total_earnings) |> 
+  mutate(order = row_number()) |> 
+  select(occupation, order) 
+
+# join order with rest of data to set factor levels ----
+heatmap_order <- analysts |> 
+  left_join(order_2016, by = "occupation") |> 
+  mutate(occupation = fct_reorder(occupation, order))
+
+# create heatmap ----
+ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
+  geom_tile() +
+  labs(fill = "Total earnings") +
+  coord_fixed() + 
+  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "K")) +
+  scale_y_discrete(labels = scales::label_wrap(30)) +
+  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    axis.title = element_blank()
+  )
+```
+
+::: {.footer}
+We can make heatmaps using `geom_tile()`.
+:::
+
+---
+
+## {#heatmap-code data-menu-title="Heatmap (code)"} 
+
+[Heatmap for 2 categorical + 1 numeric variable]{.slide-title2}
+
+<hr>
+
+```{r}
+#| eval: false
+#| echo: true
+# filter for occupations that have the word "analyst" in title ----
+analysts <- jobs_clean |> 
+  filter(str_detect(string = occupation, pattern = "analyst")) |> 
+  select(year, occupation, total_earnings)
+
+# determine order of occupations based on highest total_earnings in 2016 ----
+order_2016 <- analysts |> 
+  filter(year == 2016) |> 
+  arrange(total_earnings) |> 
+  mutate(order = row_number()) |> 
+  select(occupation, order) 
+
+# join order with rest of data to set factor levels ----
+heatmap_order <- analysts |> 
+  left_join(order_2016, by = "occupation") |> 
+  mutate(occupation = fct_reorder(occupation, order))
+
+# create heatmap ----
+ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
+  geom_tile() +
+  labs(fill = "Total earnings") +
+  coord_fixed() + 
+  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "K")) +
+  scale_y_discrete(labels = scales::label_wrap(30)) +
+  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    axis.title = element_blank()
+  )
+```
+
+---
+
+##  {#dumbbell-plots data-menu-title="## Dumbbell plots ##" background="#047C90"}
+
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Dumbbell plots</div></center>
+<center><div class="custom-subtitle3">*highlights magnitude and direction of change (or difference) between two values within a category | shows exact values, but focus is on the difference between values | encode values using POSITION*</div></center>
+</div>
+
+---
+
+## {#dumbbell-plot-example data-menu-title="Dumbbell plot (example)"} 
+
+[Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
+
+<hr>
+
+Let's say we want to **explore the difference in median salaries between male and female workers, by occupation**. We can use a dumbbell (aka Cleveland) plot to display median salaries by female (numeric) and male (numeric) workers, by occupation (categorical):
 
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-set.seed(123)
+#....guarantee the same random samples each time we run code.....
+set.seed(0)
 
-jobs_clean |> 
-  filter(year == 2016,
-         group_label == "Occupations that are 75%+ female") |> 
-  slice_sample(n = 10) |> 
-  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
-  ggplot() +
+#.........get 10 random jobs that are 75%+ female (2016).........
+f75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
+  slice_sample(n = 10)
+
+#..........get 10 random jobs that are 75%+ male (2016)..........
+m75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
+  slice_sample(n = 10)
+
+#........get 10 random jobs that are 45-55%+ female (2016).......
+f50 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
+  slice_sample(n = 10)
+
+#.......combine dfs & relevel factors (for plotting order).......
+subset_jobs <- rbind(f75, m75, f50) |> 
+  mutate(group_label = fct_relevel(.f = group_label, 
+                                   "Occupations that are 75%+ female", 
+                                   "Occupations that are 45-55% female", 
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings))
+
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
+ggplot(subset_jobs) +
+  
+  # create dumbbells ----
   geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male),
-               linewidth = 1, alpha = 0.8) +
-  geom_point(aes(x = total_earnings_male, y = occupation), color = "#EB5B57", size = 4) +
-  geom_point(aes(x = total_earnings_female, y = occupation), color = "#16ADB1", size = 4) +
-  labs(x = "Numeric variable", y = "Categorical variable") +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    axis.title = element_text(size = 15)
-  )
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", 
+             size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000))
 ```
 
-We can make dumbbell plots using a combination of `geom_linerange()` and `geom_point()`.
+::: {.footer}
+There are more modifications we would need to make before calling this plot done (e.g. adding a title, legend info, theme) -- we'll come back to this in a later lecture!
+:::
+
+<!-- --- -->
+
+<!-- ## {#dumbbell-plot data-menu-title="Dumbbell plot"}  -->
+
+<!-- [Lollipop variant: dumbbell plot]{.slide-title} -->
+
+<!-- <hr> -->
+
+<!-- Dumbbell plots can be a really simple and intuitive way to visualize a change or difference in two sets of data points:  -->
+
+<!-- ```{r} -->
+<!-- #| eval: true -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- set.seed(123) -->
+
+<!-- jobs_clean |>  -->
+<!--   filter(year == 2016, -->
+<!--          group_label == "Occupations that are 75%+ female") |>  -->
+<!--   slice_sample(n = 10) |>  -->
+<!--   mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |>  -->
+<!--   ggplot() + -->
+<!--   geom_linerange(aes(y = occupation, -->
+<!--                      xmin = total_earnings_female, xmax = total_earnings_male), -->
+<!--                linewidth = 1, alpha = 0.8) + -->
+<!--   geom_point(aes(x = total_earnings_male, y = occupation), color = "#EB5B57", size = 4) + -->
+<!--   geom_point(aes(x = total_earnings_female, y = occupation), color = "#16ADB1", size = 4) + -->
+<!--   labs(x = "Numeric variable", y = "Categorical variable") + -->
+<!--   theme_minimal() + -->
+<!--   theme( -->
+<!--     axis.text = element_blank(), -->
+<!--     axis.title = element_text(size = 15) -->
+<!--   ) -->
+<!-- ``` -->
+
+<!-- We can make dumbbell plots using a combination of `geom_linerange()` and `geom_point()`. -->
 
 ---
 
@@ -759,8 +1006,6 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 <hr>
 
-See the output on the next slide.
-
 ```{r}
 #| eval: false
 #| echo: true
@@ -784,41 +1029,6 @@ ggplot(subset_jobs) +
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
 
-```
-
----
-
-## {#dumbbell-plot-output data-menu-title="Dumbbell plot - M vs. F salaries (output)"} 
-
-[Dumbbell plot output]{.slide-title}
-
-<hr>
-
-There are definitely some additional modifications we would need to make before calling this plot done (e.g. adding a title, legend information, theme) -- we'll come back to that in a later lecture.
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-# initialize plot (we'll map our aesthetics locally for each geom, below) ----
-ggplot(subset_jobs) +
-  
-  # create dumbbells ----
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", 
-             size = 2.5) +
-  
-  # facet wrap by group ----
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
-  
-  # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
 ```
 
 ---
