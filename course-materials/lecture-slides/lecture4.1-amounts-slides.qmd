@@ -102,7 +102,7 @@ We'll also learn about a couple alternatives, which may be better suited for you
 
 <hr>
 
-[According to the [American Association of University Women (AAUW)](https://www.aauw.org/){target="_blank"}, the gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script){target="_blank"} by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"}.]{.body-text-s}
+[According to the [American Association of University Women (AAUW)](https://www.aauw.org/){target="_blank"}, the <sup>1</sup>gender pay gap is defined as *"...the gap between what men and women are paid. Most commonly, it refers to the median annual pay of all women who work full time and year-round, compared to the pay of a similar cohort of men."* We'll explore income data from the Bureau of Labor Statistics and the Census Bureau, which has been moderately [pre-processed](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#spoilers---cleaning-script){target="_blank"} by TidyTuesday organizers for the [March 5, 2021 data set](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05){target="_blank"}.]{.body-text-s}
 
 <br>
 
@@ -116,7 +116,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <br>
 
-[We'll use these data to explore: **(1) occupations with the highest median earnings (<sup>1</sup>across males and females)? (2) how earnings change across years for different occupations (3) How median earnings differ between males and females within occupations?**]{.body-text-s}
+[We'll use these data to explore: **(1) occupations with the highest median earnings (across males and females)? (2) how earnings change across years for different occupations (3) How median earnings differ between males and females within occupations?**]{.body-text-s}
 
 ::: {.footer}
 <sup>1</sup>We recognize the limitations and issues in defining gender as binary.
@@ -142,6 +142,7 @@ Be sure to check out the [data dictionary](https://github.com/rfordatascience/ti
 
 #..........................load packages.........................
 library(tidyverse)
+library(scales)
 
 #..........................import data...........................
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
@@ -634,6 +635,8 @@ Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal
 
 [When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to focus on key takeaways (max and min risk scores).]{.body-text-s} 
 
+<br>
+
 ::: {.center-text .body-text-s}
 *Create a dot plot using `geom_point()`, then adjust `panel.grid` lines inside `theme()`.*
 :::
@@ -647,7 +650,7 @@ Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week4/ca-bar.png")
+knitr::include_graphics("images/week4/nj-bar.png")
 ```
 :::
 
@@ -657,7 +660,7 @@ knitr::include_graphics("images/week4/ca-bar.png")
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week4/ca-lollipop.png")
+knitr::include_graphics("images/week4/nj-lollipop.png")
 ```
 :::
 
@@ -667,7 +670,7 @@ knitr::include_graphics("images/week4/ca-lollipop.png")
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week4/ca-dot.png")
+knitr::include_graphics("images/week4/nj-dot.png")
 ```
 :::
 
@@ -790,7 +793,7 @@ ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
   geom_tile() +
   labs(fill = "Total earnings") +
   coord_fixed() + 
-  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "K")) +
+  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "k")) +
   scale_y_discrete(labels = scales::label_wrap(30)) +
   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
   theme_minimal() +
@@ -914,7 +917,7 @@ ggplot(subset_jobs) +
   
   # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+                     breaks = c(25000, 50000, 75000, 100000))
 ```
 
 ::: {.footer}
@@ -1027,7 +1030,7 @@ ggplot(subset_jobs) +
   
   # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+                     breaks = c(25000, 50000, 75000, 100000))
 
 ```
 

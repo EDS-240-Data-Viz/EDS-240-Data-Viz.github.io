@@ -22,8 +22,11 @@ This template follows [lecture 4.2 slides](../lecture-slides/lecture4.2-relation
 #..........................load packages.........................
 library(metajam) 
 library(tidyverse)
+library(ggExtra)
+library(ggdensity)
 
 #...................download data from DataOne...................
+# you only need to do this once (then I recommend commenting it out)!
 download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
                  path = here::here("week4")) 
 
@@ -120,17 +123,19 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 
 ## Trend lines
 
-### Default: LOESS method
+### Default (<1000 data points): LOESS method
 
 - similar to a moving average
 
 ```{r}
 #| eval: true
 #| echo: true
+#| warning: false
+#| message: false
 # add a smoothed line ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
-  filter(site == "W8") |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth()
@@ -141,10 +146,12 @@ stream_chem_data |>
 ```{r}
 #| eval: true
 #| echo: true
+#| warning: false
+#| message: false
 # add a trend line ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
-  filter(site == "W8") |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |>  
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = FALSE)
@@ -243,7 +250,7 @@ stream_chem_data |>
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # wayyyy too many points ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
@@ -256,7 +263,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # smaller + more transparent points ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
@@ -267,7 +274,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # added rug plot ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
@@ -279,20 +286,20 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # added rug plot ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH, color = site)) + 
   geom_point(size = 0.5, alpha = 0.3) 
 ```
 
-### Alt 1: heatmaps
+### Alt 1: 2d heatmaps
 
 - e.g. like you're looking down on a histogram
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # heatmap of 2d bin counts ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
@@ -305,13 +312,13 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # heatmap of 2d bin counts ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_hex() +
   scale_fill_viridis_c() +
-  guides(fill = guide_colourbar(title = "Count", 
+  guides(fill = guide_colorbar(title = "Count", 
                                 barwidth = 1, barheight = 15))
 ```
 
@@ -323,7 +330,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 # contour plot ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
@@ -338,7 +345,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #| warning: false
 #  ----
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +

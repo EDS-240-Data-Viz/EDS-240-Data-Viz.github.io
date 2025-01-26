@@ -159,16 +159,14 @@ knitr::include_graphics("images/week4/hbef-map.png")
 ```{r}
 #| eval: false
 #| echo: true
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 #..........................load packages.........................
 library(metajam) 
 library(tidyverse)
 library(ggExtra)
+library(ggdensity)
 
 #...................download data from DataOne...................
+# you only need to do this once (then I recommend commenting it out)!
 download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
                  path = here::here("week4")) 
 
@@ -328,24 +326,44 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 
 <hr>
 
-[You may consider adding a best fit line to help you readers more easily identify trends in your data. Let's do that for a subset of our data (site W8, year 2021).]{.body-text-s}
+[You may consider adding a best fit line to help you readers more easily identify trends in your data. Let's do that for a subset of our data (site W5, years 2011-2021).]{.body-text-s}
 
 . . . 
 
-[If you have <1000 data points, **`geom_smooth()` defaults to using a method called “[LOESS](https://en.wikipedia.org/wiki/Local_regression)” (locally estimated scatter plot smoothing)**, which draws a line that's similar to a moving average. It will also include a confidence interval ribbon:]{.body-text-s}
+[If you have **<1000 data points, `geom_smooth()` defaults to using a method called “[LOESS](https://en.wikipedia.org/wiki/Local_regression)” (locally estimated scatter plot smoothing)**, which draws a line that's similar to a moving average. It will also include a confidence interval ribbon:]{.body-text-s}
 
+:::: {.columns}
+::: {.column width="50%"}
+<br>
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: true
-#| fig-align: "center"
-#| out-width: "45%"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
-  filter(site == "W8") |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth()
 ```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+stream_chem_data |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |> 
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+:::
+::::
+
+[`geom_smooth()` can be a great tool for exploring general trends in your data, but you should be cautious when using it in a final visualization. It is often *not* appropriate when you have sparse data, or if no clear relationship between your variables exists.]{.body-text-s}
 
 ---
 
@@ -359,25 +377,43 @@ stream_chem_data |>
 
 [It's also best to **remove the confidence interval band** -- it can make it a bit clearer to your audience that this is *just* a trend line and not a properly analyzed linear model (e.g. we haven't checked for equal variances, normality of residuals).]{.body-text-s}
 
+<br>
+
+:::: {.columns}
+::: {.column width="50%"}
+<br>
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: true
 #| fig-align: "center"
-#| out-width: "45%"
-#| code-line-numbers: "6"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
-  filter(site == "W8") |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = FALSE)
 ```
-
-<br>
-
-::: {.footer}
-Check out [chapter 5.2](https://intro2r.com/the-start-of-the-end.html#the-purest-of-ggplots) & [chapter 6.3](https://intro2r.com/simple_lm.html) in [An Introduction to R](https://intro2r.com/), by Alex Douglas, Deon Roos, Francesca Mancini, Ana Couto & David Lusseau, for a great (re)introduction to `geom_smooth()` and simple linear modeling.
 :::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+#| code-line-numbers: "6"
+stream_chem_data |> 
+  filter(waterYr %in% c(2011:2021)) |> 
+  filter(site == "W5") |> 
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+:::
+
+::::
+
+[Check out [chapter 5.2](https://intro2r.com/the-start-of-the-end.html#the-purest-of-ggplots) & [chapter 6.3](https://intro2r.com/simple_lm.html) in [An Introduction to R](https://intro2r.com/), by Alex Douglas, Deon Roos, Francesca Mancini, Ana Couto & David Lusseau, for a great (re)introduction to `geom_smooth()` and simple linear modeling.]{.body-text-s}
 
 ---
 
@@ -447,7 +483,11 @@ stream_chem_data |>
   labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
 ```
 
-Alternatively, using `scale_size_area()` ensures that [the value of 0 is mapped to a size of 0](https://community.rstudio.com/t/ggplot2-scale-size-area-not-mapping-zero-to-zero-area/173705).
+<br>
+
+::: {.footer}
+If you have values of 0 in your data set, you may consider using `scale_size_area()`. This ensures that those 0s are mapped to a size of 0 (i.e. a tiny dot with no visible area).
+:::
 
 ---
 
@@ -750,7 +790,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 <hr>
 
-These are the 2d equivalents to creating a density plot using `geom_density()` (see [week 3 materials](https://samanthacsik.github.io/EDS-240-data-viz/slides/week3.2-distributions-slides.html#/density-overview)).
+These are the 2d equivalents to creating a density plot using `geom_density()` (see [week 3 materials](lecture2.2-distributions-slides.qmd)).
 
 :::: {.columns}
 
