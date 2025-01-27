@@ -107,7 +107,7 @@ In this lesson, we'll be exploring two main primary chart types:
 
 <hr>
 
-[The [Hubbard Brook Experimenatal Forest](https://hubbardbrook.org/) is a 8,700-acre hardwood research forest in the White Mountains of New Hampshire and home to a series of small watersheds occupying the valley’s north- and south-facing slopes.]{.body-text-s}
+[The [Hubbard Brook Experimenatal Forest](https://hubbardbrook.org/){target="_blank"} is a 8,700-acre hardwood research forest in the White Mountains of New Hampshire and home to a series of small watersheds occupying the valley’s north- and south-facing slopes.]{.body-text-s}
 
 <br>
 
@@ -131,7 +131,7 @@ knitr::include_graphics("images/week4/hbef-map.png")
 
 <br>
 
-[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these long term data on DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11).]{.body-text-s}
+[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these long term data on DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"}.]{.body-text-s}
 
 [These long-term data have contributed to important research, including the **discovery of acid rain** in North America.]{.body-text-s}
 
@@ -152,7 +152,7 @@ knitr::include_graphics("images/week4/hbef-map.png")
 
 <hr>
 
-[Our data don't require much wrangling, though we will practice using the [`{metajam}` package](https://github.com/NCEAS/metajam) for downloading and reading in data from repositories in the  [DataOne](https://www.dataone.org/) network.]{.body-text-s}
+[Our data don't require much wrangling, though we will practice using the [`{metajam}` package](https://github.com/NCEAS/metajam){target="_blank"} for downloading and reading in data from repositories in the  [DataOne](https://www.dataone.org/){target="_blank"} network.]{.body-text-s}
 
 {{< include sections/4.2-stream.qmd >}}
 
@@ -237,7 +237,7 @@ stream_chem_data |>
 
 <hr>
 
-The [`{ggExtra}` package](https://cran.r-project.org/web/packages/ggExtra/vignettes/ggExtra.html) can be used to add marginal histograms / boxplots / density plots to ggplot scatter plots:
+The [`{ggExtra}` package](https://cran.r-project.org/web/packages/ggExtra/vignettes/ggExtra.html){target="_blank"} can be used to add marginal histograms / boxplots / density plots to ggplot scatter plots:
 
 :::: {.columns}
 
@@ -330,7 +330,7 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 
 . . . 
 
-[If you have **<1000 data points, `geom_smooth()` defaults to using a method called “[LOESS](https://en.wikipedia.org/wiki/Local_regression)” (locally estimated scatter plot smoothing)**, which draws a line that's similar to a moving average. It will also include a confidence interval ribbon:]{.body-text-s}
+[If you have **<1000 data points, `geom_smooth()` defaults to using a method called “[LOESS](https://en.wikipedia.org/wiki/Local_regression){target="_blank"}” (locally estimated scatter plot smoothing)**, which draws a line that's similar to a moving average. It will also include a confidence interval ribbon:]{.body-text-s}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -413,7 +413,7 @@ stream_chem_data |>
 
 ::::
 
-[Check out [chapter 5.2](https://intro2r.com/the-start-of-the-end.html#the-purest-of-ggplots) & [chapter 6.3](https://intro2r.com/simple_lm.html) in [An Introduction to R](https://intro2r.com/), by Alex Douglas, Deon Roos, Francesca Mancini, Ana Couto & David Lusseau, for a great (re)introduction to `geom_smooth()` and simple linear modeling.]{.body-text-s}
+[Check out [chapter 5.2](https://intro2r.com/the-start-of-the-end.html#the-purest-of-ggplots){target="_blank"} & [chapter 6.3](https://intro2r.com/simple_lm.html){target="_blank"} in [An Introduction to R](https://intro2r.com/){target="_blank"}, by Alex Douglas, Deon Roos, Francesca Mancini, Ana Couto & David Lusseau, for a great (re)introduction to `geom_smooth()` and simple linear modeling.]{.body-text-s}
 
 ---
 
@@ -423,7 +423,7 @@ stream_chem_data |>
 
 <hr>
 
-[Low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/) of aquatic species.]{.body-text-s}
+[Low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/){target="_blank"} of aquatic species.]{.body-text-s}
 
 [We can use a bubble chart to represent this third numeric variable (Al) through the size of our scatter plot points. Here, we also update our x-axis and legend titles:]{.body-text-s}
 
@@ -790,7 +790,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 <hr>
 
-These are the 2d equivalents to creating a density plot using `geom_density()` (see [week 3 materials](lecture2.2-distributions-slides.qmd)).
+These are the 2d equivalents to creating a density plot using `geom_density()` (see [week 3 materials](lecture2.2-distributions-slides.qmd){target="_blank"}).
 
 :::: {.columns}
 
@@ -861,7 +861,7 @@ In this example, 0-2% of of points fall within a 1x1 square in the darkest blue 
 
 <hr>
 
-[The [`{ggdensity}` package](https://jamesotto852.github.io/ggdensity/index.html) provides alternative functions, `geom_hdr_lines()` and `geom_hdr()`, as drop-in replacements for `geom_density_2d()` and `geom_density_2d_filled()` (respectively).]{.body-text-s}
+[The [`{ggdensity}` package](https://jamesotto852.github.io/ggdensity/index.html){target="_blank"} provides alternative functions, `geom_hdr_lines()` and `geom_hdr()`, as drop-in replacements for `geom_density_2d()` and `geom_density_2d_filled()` (respectively).]{.body-text-s}
 
 <br>
 

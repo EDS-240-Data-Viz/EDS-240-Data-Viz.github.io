@@ -35,37 +35,27 @@ editor_options:
 Choosing the right graphic form is just the first step! It's important to consider how you can enhance your visualization by: 
 :::
 
-. . . 
+<br>
 
 ::: {.center-text}
 {{< fa palette title="a paint palette" >}} applying pre-made and custom color palettes
 :::
 
-. . . 
-
 ::: {.center-text}
 {{< fa font title="a stylized capital letter 'A'" >}} updating fonts
 :::
-
-. . . 
 
 ::: {.center-text}
 {{< fa pencil title="pencil" >}} adding annotations
 :::
 
-. . . 
-
 ::: {.center-text}
 {{< fa chart-line title="a line chart with an upwards trending line" >}} fine-tuning themes
 :::
 
-. . . 
-
 ::: {.center-text}
 {{< fa highlighter title="highlighter" >}} centering our primary message
 :::
-
-. . . 
 
 <br>
 
@@ -328,7 +318,7 @@ Doing so increases the data-ink ratio and reduces overall eye movement.
 
 <hr>
 
-We can use a combination of `coord_flip()`, `geom_text()`, `labs()`, and `theme()` to further eliminate non-data ink and reduce overall eye movement. 
+We can use a combination of `coord_flip()` (or remap aesthetics), `geom_text()`, `labs()`, and `theme()` to further eliminate non-data ink and reduce overall eye movement. 
 
 <br>
 
@@ -419,7 +409,7 @@ Reduce eye movement by updating the legend position (e.g.  move it onto the plot
 #| echo: true
 plot + 
   theme(
-    legend.position = c(0.85, 0.15) # you'll need to adjust these values for your plot!
+    legend.position = c(x = 0.85, y = 0.15) # you'll need to adjust these values for your plot; values range from 0 - 1
   )
 ```
 
@@ -858,7 +848,9 @@ plot +
 
 ::::
 
+::: {.footer}
 [**Fig cap:** Temporal Variation in Bottom Temperature. Monthly bottom (4.5 m depth) temperatures at Mohawk Reef (34.396290, -119.731297) in Santa Barbara, CA compiled from 2005-2017. Vertical dashed lines represent three of four treatment temperatures (11, 16, 21°C). Data Source: Santa Barbara Coastal Long-Term Ecological Research group (adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807){target="_blank"})]{.body-text-s}
+:::
 
 ---
 
@@ -1149,7 +1141,7 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, color = species)) +
 . . . 
 
 ::: {.center-text}
-**Our job is to make it as easy as possible for our readers to understand our data without having to do mental gymnastics.** The chart types above (more often than not) ask too much of our readers in their quest to understand the information being presented.
+**Our job is to make it as easy as possible for our readers to understand our data without having to do mental gymnastics.** The chart types described above (more often than not) ask too much of our readers in their quest to understand the information being presented.
 :::
 
 . . . 
@@ -1241,7 +1233,7 @@ knitr::include_graphics("images/week5/parallel-plot.png")
 - **highlighting** the most important groups / values
 - **faceting** (small multiples)
 - creating **separate visualizations**
-- cohesive and intuitive **color scheme** (more on colors next week)
+- cohesive and intuitive **color scheme** (more on colors in the next lecture)
 
 <br>
 
