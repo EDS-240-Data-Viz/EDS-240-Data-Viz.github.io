@@ -1810,7 +1810,7 @@
     "href": "course-materials/lecture-slides/lecture4.2-relationships-slides.html#cont-legend",
     "title": "EDS 240",
     "section": "",
-    "text": "Adjust legend appearance using guides()\n\nCheck out the guides() function for tweaking the appearance of your legend (e.g. increasing the height can help readers more easily read the continuous color scale):\n\nggplot(stream_chem_data, aes(x = SO4, y = pH)) +\n  geom_hex() +\n  scale_fill_viridis_c() + \n  guides(fill = guide_colourbar(title = \"Count\", \n                                barwidth = 1, barheight = 15))"
+    "text": "Adjust legend appearance using guides()\n\nCheck out the guides() function for tweaking the appearance of your legend (e.g. increasing the height can help readers more easily read the continuous color scale):\n\nggplot(stream_chem_data, aes(x = SO4, y = pH)) +\n  geom_hex() +\n  scale_fill_viridis_c() + \n  guides(fill = guide_colorbar(title = \"Count\", \n                                barwidth = 1, barheight = 15))"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture4.2-relationships-slides.html#2d-density",
@@ -1824,7 +1824,7 @@
     "href": "course-materials/lecture-slides/lecture4.2-relationships-slides.html#2d-density-interpretation",
     "title": "EDS 240",
     "section": "",
-    "text": "What’s up with that legend?\n\nThe legend provides us with an estimate of the proportion of data points fall within a colored region. The density of the distribution of points sums to 1.\n\nIn this example, 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region."
+    "text": "What’s up with that legend?\n\nThe legend provides us with an estimate of the proportion of data points that fall within a colored region. The density of the distribution of points sums to 1.\n\nIn this example, 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture4.2-relationships-slides.html#ggdensity",
