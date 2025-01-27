@@ -489,13 +489,13 @@
 <span id="cb1-6"><a></a></span>
 <span id="cb1-7"><a></a><span class="co">#...................download data from DataOne...................</span></span>
 <span id="cb1-8"><a></a><span class="co"># you only need to do this once (then I recommend commenting it out)!</span></span>
-<span id="cb1-9"><a></a><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
+<span id="cb1-9"><a></a>metajam<span class="sc">::</span><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
 <span id="cb1-10"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
 <span id="cb1-11"><a></a></span>
 <span id="cb1-12"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
 <span id="cb1-13"><a></a></span>
 <span id="cb1-14"><a></a><span class="co">#....................read in downloaded files....................</span></span>
-<span id="cb1-15"><a></a>stream_chem_all <span class="ot">&lt;-</span> <span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
+<span id="cb1-15"><a></a>stream_chem_all <span class="ot">&lt;-</span> metajam<span class="sc">::</span><span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
 <span id="cb1-16"><a></a></span>
 <span id="cb1-17"><a></a><span class="co">#........................get the data file.......................</span></span>
 <span id="cb1-18"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

@@ -12,6 +12,8 @@ This template follows [lecture 4.2 slides](../lecture-slides/lecture4.2-relation
 
 ## Setup
 
+Data are downloaded from [DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"} (find instructions for getting the download link on the [`{metajam}` package README](https://github.com/NCEAS/metajam?tab=readme-ov-file#how-to-get-the-url-to-your-dataset-of-interest-){target="_blank"}).
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -27,13 +29,13 @@ library(ggdensity)
 
 #...................download data from DataOne...................
 # you only need to do this once (then I recommend commenting it out)!
-download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
+metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
                  path = here::here("week4")) 
 
 #  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
 
 #....................read in downloaded files....................
-stream_chem_all <- read_d1_files(here::here("week4", "data"))
+stream_chem_all <- metajam::read_d1_files(here::here("week4", "data"))
 
 #........................get the data file.......................
 stream_chem_data <- stream_chem_all$data

@@ -409,7 +409,7 @@
 <p><span class="slide-title">Visualizing data <em>amounts / rankings</em>?</span></p>
 <hr>
 <p><br> <br></p>
-<p><span class="body-text-m">Showing the relationship between a <strong>numeric and categorical variable</strong>, i.e.&nbsp;comparing categorical groups based on their numeric values.</span></p>
+<p><span class="body-text-m">Showing the relationship between a <strong>numeric and categorical variable(s)</strong>, i.e.&nbsp;comparing categorical groups based on their numeric values.</span></p>
 <p><br></p>
 
 <img data-src="lecture4.1-amounts-slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -419,14 +419,14 @@
 <hr>
 <p>We’ll first explore two (highly interchangeable) chart types for visualizing amounts across a categorical variable (great for highlighting rank or hierarchy):</p>
 <p><br></p>
-<p><span class="body-text-m">1. bar plots</span><br>
-<span class="body-text-m">2. lollipop plots</span> (and dot plot variant)</p>
+<p><span class="body-text-m">1. bar charts</span><br>
+<span class="body-text-m">2. lollipop charts</span> (and dot plot variant)</p>
 <p><br></p>
 <div class="fragment">
 <p>We’ll also learn about a couple alternatives, which may be better suited for you data depending on the context, data structure, and narrative you want to tell:</p>
 <p><br></p>
 <p><span class="body-text-m">3. heat maps</span> (for when you have 2 categorical + 1 numeric variable and / or want to focus on patterns rather than precise amounts)</p>
-<p><span class="body-text-m">4. dumbbell plots</span> (for visualizing change / difference between two groups)</p>
+<p><span class="body-text-m">4. dumbbell charts</span> (for visualizing change / difference between two groups)</p>
 <!-- We'll discuss: -->
 <!-- <br> -->
 <!-- - handling long x-axis labels -->
@@ -444,7 +444,7 @@
 <p><br></p>
 
 <img data-src="images/week4/pay-gap.png" class="quarto-figure quarto-figure-center r-stretch" style="width:5.0%"><p><br></p>
-<p><span class="body-text-s">We’ll use these data to explore: <strong>(1) occupations with the highest median earnings (across males and females)? (2) how earnings change across years for different occupations (3) How median earnings differ between males and females within occupations?</strong></span></p>
+<p><span class="body-text-s">We’ll use these data to explore: <strong>(1) occupations with the highest median earnings (across males and females)? (2) how earnings change across years for different occupations (3) how median earnings differ between males and females within occupations?</strong></span></p>
 <div class="footer">
 <p><sup>1</sup>We recognize the limitations and issues in defining gender as binary.</p>
 </div>
@@ -733,7 +733,7 @@ Bar charts &amp; lollipop charts
 </div>
 </div></div>
 <div class="footer center-text body-text-s">
-<p>For some more advanced label manipulation, see <a href="https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/">A Quick How-to on Labelling Bar Graphs in ggplot2</a>, by Cédric Scherer | Also, see this Posit Community <a href="https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244">post</a> regarding the use of <code>scales::dollar()</code></p>
+<p>For some more advanced label manipulation, see <a href="https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/" target="_blank">A Quick How-to on Labelling Bar Graphs in ggplot2</a>, by Cédric Scherer | Also, see this Posit Community <a href="https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244" target="_blank">post</a> regarding the use of <code>scales::dollar()</code></p>
 </div>
 </section>
 <section id="col-vs-bar" class="slide level2" data-menu-title="geom_col() vs. geom_bar()">
@@ -893,7 +893,7 @@ Bar charts &amp; lollipop charts
 <div class="center-text body-text-m">
 <p>The axis of a bar (or related) plot <strong>must</strong> start at zero</p>
 </div>
-<p><span class="body-text-s">Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e.&nbsp;a truncation effect). <a href="https://doi.org/10.1016/j.jarmac.2020.10.002">Yang et al.&nbsp;(2021)</a> empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.</span></p>
+<p><span class="body-text-s">Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e.&nbsp;a truncation effect). <a href="https://doi.org/10.1016/j.jarmac.2020.10.002" target="_blank">Yang et al.&nbsp;(2021)</a> empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.</span></p>
 <p><br></p>
 
 <img data-src="images/week4/yang-etal-2021.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="center-text gray-text body-text-s">
@@ -901,14 +901,14 @@ Bar charts &amp; lollipop charts
 </div>
 <p><br></p>
 <div class="footer">
-<p>Yang et al.&nbsp;(2021) Truncating bar graphs persistently misleads viewers. <em>Journal of Applied Research in Memory and Cognition</em> 10:2, 298-311. <a href="https://doi.org/10.1016/j.jarmac.2020.10.002" class="uri">https://doi.org/10.1016/j.jarmac.2020.10.002</a></p>
+<p>Yang et al.&nbsp;(2021) Truncating bar graphs persistently misleads viewers. <em>Journal of Applied Research in Memory and Cognition</em> 10:2, 298-311. <a href="https://doi.org/10.1016/j.jarmac.2020.10.002" target="_blank">https://doi.org/10.1016/j.jarmac.2020.10.002</a></p>
 </div>
 </section>
 <section id="dot-plot" class="slide level2" data-menu-title="Dot plots ">
 <h2></h2>
 <p><span class="slide-title">But you can cut the y-axis of dot plots!</span></p>
 <hr>
-<p><span class="body-text-s">When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to focus on key takeaways (max and min risk scores).</span></p>
+<p><span class="body-text-s">When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to identify differences in the max and min values.</span></p>
 <p><br></p>
 <div class="center-text body-text-s">
 <p><em>Create a dot plot using <code>geom_point()</code>, then adjust <code>panel.grid</code> lines inside <code>theme()</code>.</em></p>
@@ -992,7 +992,7 @@ Bar charts &amp; lollipop charts
 </div></div>
 <p><br></p>
 <div class="footer">
-<p><strong>Left:</strong> <a href="https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001">Figure 1</a> from Weissgerber et al.&nbsp;(2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. <em>PLOS Biology</em> 13:e1002128. <a href="https://doi.org/10.1371/journal.pbio.1002128" class="uri">https://doi.org/10.1371/journal.pbio.1002128</a> | <strong>Right:</strong> Artwork by <a href="https://allisonhorst.com/">Allison Horst</a></p>
+<p><strong>Left:</strong> <a href="https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001" target="_blank">Figure 1</a> from Weissgerber et al.&nbsp;(2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. <em>PLOS Biology</em> 13:e1002128. <a href="https://doi.org/10.1371/journal.pbio.1002128" target="_blank">https://doi.org/10.1371/journal.pbio.1002128</a> | <strong>Right:</strong> Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></p>
 </div>
 <aside class="notes">
 <ul>
@@ -1094,7 +1094,7 @@ Dumbbell plots
 <h2></h2>
 <p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
 <hr>
-<p>Let’s say we want to <strong>explore the difference in median salaries between male and female workers, by occupation</strong>. We can use a dumbbell (aka Cleveland) plot to display median salaries by female (numeric) and male (numeric) workers, by occupation (categorical):</p>
+<p>Let’s say we want to <strong>explore the difference in median salaries between male and female workers, by occupation</strong>. We can use a dumbbell (aka Cleveland) plot to display median salaries (numeric) for female and male workers (categorical), by occupation (categorical):</p>
 
 <img data-src="lecture4.1-amounts-slides_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
 <p>There are more modifications we would need to make before calling this plot done (e.g.&nbsp;adding a title, legend info, theme) – we’ll come back to this in a later lecture!</p>
@@ -1200,7 +1200,7 @@ Dumbbell plots
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_9474237e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_8ab06327" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

@@ -32,7 +32,7 @@ editor_options:
 <br>
 <br>
 
-[Showing the relationship between a **numeric and categorical variable**, i.e. comparing categorical groups based on their numeric values.]{.body-text-m}
+[Showing the relationship between a **numeric and categorical variable(s)**, i.e. comparing categorical groups based on their numeric values.]{.body-text-m}
 
 <br>
 
@@ -69,8 +69,8 @@ We'll first explore two (highly interchangeable) chart types for visualizing amo
 
 <br>
 
-[1. bar plots]{.body-text-m}  
-[2. lollipop plots]{.body-text-m} (and dot plot variant)
+[1. bar charts]{.body-text-m}  
+[2. lollipop charts]{.body-text-m} (and dot plot variant)
 
 <br>
 
@@ -82,7 +82,7 @@ We'll also learn about a couple alternatives, which may be better suited for you
 
 [3. heat maps]{.body-text-m} (for when you have 2 categorical + 1 numeric variable and / or want to focus on patterns rather than precise amounts)
 
-[4. dumbbell plots]{.body-text-m} (for visualizing change / difference between two groups)
+[4. dumbbell charts]{.body-text-m} (for visualizing change / difference between two groups)
 
 <!-- We'll discuss: -->
 
@@ -116,7 +116,7 @@ knitr::include_graphics("images/week4/pay-gap.png")
 
 <br>
 
-[We'll use these data to explore: **(1) occupations with the highest median earnings (across males and females)? (2) how earnings change across years for different occupations (3) How median earnings differ between males and females within occupations?**]{.body-text-s}
+[We'll use these data to explore: **(1) occupations with the highest median earnings (across males and females)? (2) how earnings change across years for different occupations (3) how median earnings differ between males and females within occupations?**]{.body-text-s}
 
 ::: {.footer}
 <sup>1</sup>We recognize the limitations and issues in defining gender as binary.
@@ -431,7 +431,7 @@ jobs_clean |>
 ::::
 
 ::: {.footer .center-text .body-text-s}
-For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/), by Cédric Scherer | Also, see this Posit Community [post](https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244) regarding the use of `scales::dollar()`
+For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/){target="_blank"}, by Cédric Scherer | Also, see this Posit Community [post](https://community.rstudio.com/t/using-label-percent-with-the-label-argument-of-geom-text-and-geom-label/54244){target="_blank"} regarding the use of `scales::dollar()`
 :::
 
 ---
@@ -603,7 +603,7 @@ Also note from [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot
 The axis of a bar (or related) plot **must** start at zero
 :::
 
-[Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e. a truncation effect). [Yang et al. (2021)](https://doi.org/10.1016/j.jarmac.2020.10.002) empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.]{.body-text-s} 
+[Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e. a truncation effect). [Yang et al. (2021)](https://doi.org/10.1016/j.jarmac.2020.10.002){target="_blank"} empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.]{.body-text-s} 
 
 <br>
 
@@ -622,7 +622,7 @@ Figure 2 from Yang et al. 2021. The left-most plot without a truncated y-axis wa
 <br>
 
 ::: {.footer}
-Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal of Applied Research in Memory and Cognition* 10:2, 298-311. <https://doi.org/10.1016/j.jarmac.2020.10.002>
+Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal of Applied Research in Memory and Cognition* 10:2, 298-311. [https://doi.org/10.1016/j.jarmac.2020.10.002](https://doi.org/10.1016/j.jarmac.2020.10.002){target="_blank"}
 :::
 
 ---
@@ -633,7 +633,7 @@ Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal
 
 <hr>
 
-[When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to focus on key takeaways (max and min risk scores).]{.body-text-s} 
+[When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to identify differences in the max and min values.]{.body-text-s} 
 
 <br>
 
@@ -737,7 +737,7 @@ knitr::include_graphics("images/week4/horst-barplot.png")
 <br>
 
 ::: {.footer}
-**Left:** [Figure 1](https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001) from Weissgerber et al. (2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. *PLOS Biology* 13:e1002128. <https://doi.org/10.1371/journal.pbio.1002128> | **Right:** Artwork by [Allison Horst](https://allisonhorst.com/)
+**Left:** [Figure 1](https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001){target="_blank"} from Weissgerber et al. (2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. *PLOS Biology* 13:e1002128. [https://doi.org/10.1371/journal.pbio.1002128](https://doi.org/10.1371/journal.pbio.1002128){target="_blank"} | **Right:** Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}
 :::
 
 ::: {.notes}
@@ -867,7 +867,7 @@ ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
 
 <hr>
 
-Let's say we want to **explore the difference in median salaries between male and female workers, by occupation**. We can use a dumbbell (aka Cleveland) plot to display median salaries by female (numeric) and male (numeric) workers, by occupation (categorical):
+Let's say we want to **explore the difference in median salaries between male and female workers, by occupation**. We can use a dumbbell (aka Cleveland) plot to display median salaries (numeric) for female and male workers (categorical), by occupation (categorical):
 
 ```{r}
 #| eval: true
