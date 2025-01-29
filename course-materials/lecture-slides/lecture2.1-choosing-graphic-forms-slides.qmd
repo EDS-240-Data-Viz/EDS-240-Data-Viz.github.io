@@ -385,7 +385,7 @@ ggplot(circles_bars, aes(x = size, y = id)) +
 <!-- Followed instructions for creating choropleth map here: <https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html> -->
 <!-- Download precipitation data here: <https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value> -->
 
-{{< include sections/3.1-choropleth.qmd >}}
+{{< include sections/2.1-choropleth-jan20-dec24.qmd >}}
 
 . . .
 
@@ -754,7 +754,7 @@ If we want to show both big picture patterns and detailed comparisons, we may **
 <br>
 
 <!-- THROWING ERROR THAT I CAN'T EXPLAIN SO ADDING CODE HERE -->
-<!-- {{< include sections/3.1-county-precip.qmd >}} -->
+<!-- {{< include sections/3.2-county-precip.qmd >}} -->
 
 ```{r}
 #| eval: true
@@ -775,7 +775,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan19-dec23-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -833,7 +833,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared to the 20th century average",
-       subtitle = "January 2019 - December 2023",
+       subtitle = "January 2020 - December 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
@@ -881,7 +881,7 @@ joined_precip_geom |>
   geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
   coord_flip() +
   labs(x = "", y = "Total Precipitation (inches)",
-       title = "Top 10 California counties to recieve the most rainfall, Jan 2019 - Dec 2023") +
+       title = "Top 10 California counties to recieve the most rainfall, Jan 2020 - Dec 2024") +
   theme_classic() +
   theme(
     plot.title.position = "plot",

@@ -1,0 +1,121 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
+#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(tigris)
+
+#.........................get shape data.........................
+county_geo <- tigris::counties(class = "sf", cb = TRUE) |> 
+  shift_geometry()
+
+#....................import precipitation data...................
+precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), skip = 4)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                               data wrangling                             ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle geometries  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+county_geo_wrangled <- county_geo |>
+  janitor::clean_names() |>
+  rename(county = namelsad, state = state_name) |>
+  filter(!state %in% c("Alaska", "Hawaii", "District of Columbia",
+                       "United States Virgin Islands", "Puerto Rico", "American Samoa",
+                       "Commonwealth of the Northern Mariana Islands", "Guam")) |>
+  mutate(county = str_replace(string = county, pattern = " city", replacement = " City"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle precipitation data  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+precip_wrangled <- precip_data |>
+  janitor::clean_names() |>
+  rename(county = name) |>
+  filter(!county %in% c("Washington, D.C.")) |>
+  mutate(county = str_replace(string = county, pattern = "Dona Ana County", replacement = "Doña Ana County")) |>
+  mutate(value = as.numeric(value),
+         x1901_2000_mean = as.numeric(x1901_2000_mean)) |>
+  mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |>
+  select(id, state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period)
+
+##~~~~~~~~~~~~~~~~~~
+##  ~ join dfs  ----
+##~~~~~~~~~~~~~~~~~~
+
+# join dfs (see https://github.com/tidyverse/ggplot2/issues/3936 & https://map-rfun.library.duke.edu/032_thematic_mapping_geom_sf.html) -------
+joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                 create map                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ create base map  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~
+
+base_map <- ggplot(joined_precip_geom) +
+  geom_sf(aes(fill = perc_change), linewidth = 0.1) +
+  labs(title = "5-year precipitation compared to the 20th century average",
+       subtitle = "January 2020 - December 2024",
+       caption = "Source: National Centers for Environmental Information") +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    plot.caption = element_text(face = "italic",
+                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, "lines"))
+  )
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ create color palette  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ create final map  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+base_map + 
+  scale_fill_gradientn(colors = my_brew_palette11,
+                       labels = scales::label_percent(scale = 1),
+                       breaks = scales::breaks_width(width = 10),
+                       values = scales::rescale(x = c(
+                         min(na.omit(joined_precip_geom)$perc_change),
+                         0,
+                         max(na.omit(joined_precip_geom)$perc_change)))) +
+  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+
+```
+

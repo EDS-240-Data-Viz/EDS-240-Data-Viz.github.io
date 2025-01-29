@@ -38,3 +38,147 @@ Access all of your Google Apps (including Goolge Docs) using your **UCSBnetID@uc
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 *Coming soon!*
+
+
+
+```{r}
+#| eval: false
+#| echo: false
+#| fig-align: "center"
+#| fig-asp: 0.7
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................load libraries.........................
+library(tidyverse)
+
+#..........................read in data..........................
+
+# read in Google Sheet ----
+lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
+  mutate(temp = as.factor(temp))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            create lobster plot                           ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................create theme..........................
+# lob_theme <- function(){
+#   theme_light() +
+#     theme(
+#       axis.title.x = ggtext::element_markdown(size = 13,
+#                                               margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
+#       axis.title.y = ggtext::element_markdown(size = 13,
+#                                               margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
+#       axis.text = element_text(color = "black", size = 12),
+#       panel.border = element_rect(colour = "black", size = 0.7),
+#       panel.grid = element_blank(),
+#       legend.title = element_text(size = 11),
+#       legend.text = element_text(size = 10),
+#       legend.position = c(0.95, 0.95),
+#       legend.justification = c(0.95, 0.95),
+#       legend.box.background = element_rect(color = "black", size = 1.1)
+# 
+#     )
+# }
+
+# lob_theme <- function(){
+#   theme_light() +
+#     theme(
+#       axis.title.x = ggtext::element_markdown(size = 16,
+#                                               margin = margin(t = 10, r = 0, b = 0, l = 0),
+#                                               lineheight = 1.5),
+#       axis.title.y = ggtext::element_markdown(size = 16,
+#                                               margin = margin(t = 0, r = 10, b = 0, l = 0),
+#                                               lineheight = 1.5),
+#       axis.text = element_text(color = "black", size = 14),
+#       panel.border = element_rect(colour = "black", linewidth = 0.7),
+#       panel.grid = element_blank(),
+#       legend.title = element_text(size = 15),
+#       legend.text = element_text(size = 13),
+#       #legend.justification.inside = c(0.95, 0.95),
+#       #legend.position.inside = c(0.95, 0.95),
+#       #legend.justification = c(0.95, 0.95),
+#       legend.box.background = element_rect(color = "black", linewidth = 1.1)
+#     )
+# }
+
+#..........................create scales.........................
+lob_palette <- c("11" = "#7B8698",
+                 "16" = "#BAD7E5",
+                 "21" = "#DC7E7C",
+                 "26" = "#7D3E40")
+
+lob_shapes <-  c("11" = 15,
+                 "16" = 16,
+                 "21" = 17,
+                 "26" = 18)
+
+lob_sizes <- c("11" = 6,
+               "16" = 6,
+               "21" = 5.5,
+               "26" = 7)
+
+#........................create plot text........................
+x_axis_lab <- glue::glue("Resting Metabolic Rate<br>
+                         (mg O<sub>2</sub> kg<sup>-1</sup> min<sup>-1</sup>)")
+
+y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
+                         (prey consumed predator<sup>-1</sup> 24hr<sup>-1</sup>)")
+
+#............................plot data...........................
+lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
+                             color = temp, shape = temp, size = temp)) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = lob_palette) +
+  scale_shape_manual(values = lob_shapes) +
+  scale_size_manual(values = lob_sizes) +
+  scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
+  scale_y_continuous(breaks = seq(0, 35, by = 5)) +
+  labs(x = x_axis_lab,
+       y = y_axis_lab,
+       color = "Temp (ºC)",
+       shape = "Temp (ºC)",
+       size = "Temp (ºC)") +
+  guides(
+    color = guide_legend(position = "inside"),
+    shape = guide_legend(position = "inside")
+    ) +
+  theme_light() +
+    theme(
+      axis.title.x = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 15, r = 0, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.title.y = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 0, r = 15, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.text = element_text(color = "black", size = 16),
+      panel.border = element_rect(colour = "black", linewidth = 0.7),
+      panel.grid = element_blank(),
+      legend.title = element_text(size = 16),
+      legend.text = element_text(size = 14),
+      legend.position.inside = c(0.83, 0.8),
+      legend.box.background = element_rect(color = "gray30", linewidth = 1)
+    )
+
+lob_plot
+
+lob_plot_marg <- ggExtra::ggMarginal(lob_plot, type = "density", groupFill = TRUE, groupColour = TRUE)
+
+ggsave(filename = "lob_plot_updated_colors.png", 
+       plot = lob_plot_marg,
+       path = here::here("course-materials", "images"))
+
+lob_plot +
+  theme(
+    legend.position.inside = c(1, 1),
+  )
+
+ggsave(filename = "lob_plot_updated_colors2.png", 
+       plot = lob_plot,
+       path = here::here("course-materials", "images"))
+```
+
+
+

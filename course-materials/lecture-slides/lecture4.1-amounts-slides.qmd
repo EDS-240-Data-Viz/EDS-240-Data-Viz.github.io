@@ -916,7 +916,7 @@ ggplot(subset_jobs) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
   
   # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000))
 ```
 
