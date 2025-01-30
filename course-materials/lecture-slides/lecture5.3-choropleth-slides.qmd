@@ -194,7 +194,7 @@ Spatial data can take many forms -- **[simple features]{.teal-text} is a standar
 
 . . . 
 
-[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/){target="_blank"} provide tools for working with simple features (`sf` objects), but we'll only need to rely on `{ggplot2}`s built-in `geom_sf()` geometry to plot our data.]{.body-text-s}
+[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/){target="_blank"} provide tools for working with simple features (`sf` objects), but we'll only need to rely on `{ggplot2}`s built-in `geom_sf()` geometry to plot our data today.]{.body-text-s}
 
 <br>
 
@@ -233,7 +233,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |> # cb = TRUE to use ca
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("week5", "data", "county-feb19-jan24-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("week5", "data", "county-jan20-dec24-precip.csv"), skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
