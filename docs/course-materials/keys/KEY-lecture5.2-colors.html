@@ -345,11 +345,28 @@ Note
 <span id="cb1-16"><a href="#cb1-16"></a>                             <span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
 <span id="cb1-17"><a href="#cb1-17"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span>
 <span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># requires continuous color scale ----</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>cont_color_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), </span>
-<span id="cb1-21"><a href="#cb1-21"></a>                          <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, </span>
-<span id="cb1-22"><a href="#cb1-22"></a>                              <span class="at">color =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-19"><a href="#cb1-19"></a>cat_color_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># requires continuous color scale ----</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>con_color_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), </span>
+<span id="cb2-3"><a href="#cb2-3"></a>                         <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>                             <span class="at">color =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) </span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>con_color_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="colors-for-inclusive-accessible-design" class="level2">
@@ -360,9 +377,9 @@ Note
 <li>Check out the <a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">documentation</a> for additional viridis palette options.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># discrete viridis scales ----</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"viridis"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># discrete viridis scales ----</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>cat_color_plot <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"viridis"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -370,9 +387,9 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># continuous color scales ----</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>cont_color_plot <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"magma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># continuous color scales ----</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>con_color_plot <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"magma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -388,8 +405,8 @@ Note
 <li>Exploring available palettes and generating HEX codes (or check out the <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">web-based interface</a>):</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># display only colorblind-friendly RColorBrewer palettes ----</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.all</span>(<span class="at">colorblindFriendly =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># display only colorblind-friendly RColorBrewer palettes ----</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.all</span>(<span class="at">colorblindFriendly =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -397,8 +414,8 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># preview palette with your number of desired colors ----</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># preview palette with your number of desired colors ----</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -406,13 +423,13 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># print the HEX codes of your palette ----</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># print the HEX codes of your palette ----</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "#1B9E77" "#D95F02" "#7570B3"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># or save hex codes as a vector ----</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>my_brewer_pal <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># or save hex codes as a vector ----</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>my_brewer_pal <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">'Dark2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- Omitting this for now -->
 <!-- ```{r} -->
@@ -424,9 +441,9 @@ Note
 <li>Using RColorBrewer palettes</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># for qualitative palettes ----</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># for qualitative palettes ----</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>cat_color_plot <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -434,9 +451,9 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># for unclassed continuous color scales ----</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>cont_color_plot <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">scale_color_distiller</span>(<span class="at">palette =</span> <span class="st">"BuPu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># for unclassed continuous color scales ----</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>con_color_plot <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">scale_color_distiller</span>(<span class="at">palette =</span> <span class="st">"BuPu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -444,9 +461,9 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># for classed continuous color scales ----</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>cont_color_plot <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">scale_color_fermenter</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># for classed continuous color scales ----</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>con_color_plot <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">scale_color_fermenter</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -462,9 +479,9 @@ Note
 <li>outline light-colored points, which are difficult to see</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"BuPu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"BuPu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -474,12 +491,12 @@ Note
 </div>
 </div>
 <ul>
-<li>use redundant mapping (colors &amp; shapes) whenever possible (recall our original plot, with an added viridis color palette)</li>
+<li>use redundant mapping (colors &amp; shapes) whenever possible</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"turbo"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"turbo"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -492,36 +509,46 @@ Note
 </section>
 <section id="paletteer" class="level2">
 <h2 class="anchored" data-anchor-id="paletteer">Paletteer</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># import {paletteer} ----</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(paletteer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Explore available packages in the form of built-in data frames:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># view names of supported pkgs/palettes ----</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">View</span>(palettes_d_names)</span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">View</span>(palettes_c_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="i.-apply-palette-using-scale__paletteer_" class="level3">
 <h3 class="anchored" data-anchor-id="i.-apply-palette-using-scale__paletteer_">I. apply palette using <code>scale_*_paletteer_*()</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># discrete data / palette ----</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_d</span>(<span class="st">"calecopal::superbloom3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># discrete data / palette ----</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>cat_color_plot <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_d</span>(<span class="st">"calecopal::superbloom3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># continuous data / palette (unclassed) ----</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>cont_color_plot <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_c</span>(<span class="st">"scico::batlow"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># continuous data / palette (unclassed) ----</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>con_color_plot <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_c</span>(<span class="st">"scico::batlow"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># continuous data / palette (classed) ----</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>cont_color_plot <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_binned</span>(<span class="st">"scico::batlow"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># continuous data / palette (classed) ----</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>con_color_plot <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_binned</span>(<span class="st">"scico::batlow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -533,31 +560,34 @@ Note
 <li>discrete data / palette example:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># create palette ----</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>pal_d </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># view names of pkgs/palettes ----</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co"># View(palettes_d_names)</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co"># create palette ----</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a>pal_d </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;colors&gt;
 #F1BB7BFF #FD6467FF #5B1A18FF </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># apply to scatter plot (use `color` variant) ----</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>cat_color_plot <span class="sc">+</span> </span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># apply to scatter plot (use `color` variant) ----</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>cat_color_plot <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># apply to histogram (use `fill` variant) ----</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># apply to histogram (use `fill` variant) ----</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -566,30 +596,33 @@ Note
 <li>continuous data / palette example:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># create palette ----</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"ggthemes::Gold-Purple Diverging"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb21-3"><a href="#cb21-3"></a>pal_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># view names of pkgs/palettes ----</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># View(palettes_c_names)</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># create palette ----</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"scico::grayC"</span>, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>pal_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;colors&gt;
-#AD9024FF #CBAE4DFF #E3D8CFFF #CA96B9FF #AC7299FF </code></pre>
+#FFFFFFFF #AFAFAFFF #777777FF #434343FF #000000FF </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># apply to scatter plot as an unclassed palette (use `gradientn` variant) ---- </span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>cont_color_plot <span class="sc">+</span> </span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># apply to scatter plot as an unclassed palette (use `gradientn` variant) ---- </span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>con_color_plot <span class="sc">+</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># apply to scatter plot as a classed (binned) palette (use `stepsn` variant) ---- </span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>cont_color_plot <span class="sc">+</span> </span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">scale_color_stepsn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># apply to scatter plot as a classed (binned) palette (use `stepsn` variant) ---- </span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>con_color_plot <span class="sc">+</span> </span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">scale_color_stepsn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -602,13 +635,13 @@ Note
 <li>Adjust <strong>saturation</strong> when selecting a HEX code from Google’s color picker, <a href="https://g.co/kgs/9SQkdgv" class="uri">https://g.co/kgs/9SQkdgv</a>, or adjust <strong>chroma</strong> directly in your ggplot:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">scale_fill_hue</span>(<span class="at">c =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">scale_fill_hue</span>(<span class="at">c =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -617,13 +650,13 @@ Note
 <li>Adjust <strong>value</strong> when selecting a HEX code from Google’s color picker, <a href="https://g.co/kgs/9SQkdgv" class="uri">https://g.co/kgs/9SQkdgv</a>, or adjust <strong>lightness</strong> directly in your ggplot:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">scale_color_hue</span>(<span class="at">l =</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">scale_color_hue</span>(<span class="at">l =</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -632,13 +665,13 @@ Note
 <li>Increase transparency using the <code>alpha</code> argument in ggplot</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#00FF33"</span>, <span class="at">color =</span> <span class="st">"gray7"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">theme_classic</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#00FF33"</span>, <span class="at">color =</span> <span class="st">"gray7"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">theme_classic</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -649,16 +682,16 @@ Note
 <section id="save-palette-outside-of-plot" class="level3">
 <h3 class="anchored" data-anchor-id="save-palette-outside-of-plot">Save palette outside of plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># create palette ----</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co"># apply to plot ----</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># create palette ----</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3"></a></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># apply to plot ----</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>cat_color_plot <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -667,30 +700,30 @@ Note
 <section id="set-color-names" class="level3">
 <h3 class="anchored" data-anchor-id="set-color-names">Set color names</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># create palette ----</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>my_palette_named <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#32DE8A"</span>,<span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#E36414"</span>, <span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0F4C5C"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="co"># apply to plot (all penguins) ----</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb29-7"><a href="#cb29-7"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># create palette ----</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>my_palette_named <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#32DE8A"</span>,<span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#E36414"</span>, <span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0F4C5C"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co"># apply to plot (all penguins) ----</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># apply to plot (just adelie &amp; gentoo) ----</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># apply to plot (just adelie &amp; gentoo) ----</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -698,42 +731,53 @@ Note
 </section>
 <section id="use-scale__identity" class="level3">
 <h3 class="anchored" data-anchor-id="use-scale__identity">Use <code>scale_*_identity()</code></h3>
+<ul>
+<li>Ex 1: color points based on value</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># example 1 (color points based on value) ----</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb31-4"><a href="#cb31-4"></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
-<span id="cb31-5"><a href="#cb31-5"></a>      bill_length_mm <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
-<span id="cb31-6"><a href="#cb31-6"></a>      <span class="fu">between</span>(bill_length_mm, <span class="dv">40</span>, <span class="dv">50</span>) <span class="sc">~</span> <span class="st">"#E4BB97"</span>,</span>
-<span id="cb31-7"><a href="#cb31-7"></a>      bill_length_mm <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"#386150"</span></span>
-<span id="cb31-8"><a href="#cb31-8"></a>    )</span>
-<span id="cb31-9"><a href="#cb31-9"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-10"><a href="#cb31-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb31-12"><a href="#cb31-12"></a>  <span class="fu">scale_color_identity</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># example 1 ----</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>penguins_ex1 <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-4"><a href="#cb34-4"></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-5"><a href="#cb34-5"></a>      bill_length_mm <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6"></a>      <span class="fu">between</span>(<span class="at">x =</span> bill_length_mm, <span class="at">left =</span> <span class="dv">40</span>, <span class="at">right =</span> <span class="dv">50</span>) <span class="sc">~</span> <span class="st">"#E4BB97"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7"></a>      bill_length_mm <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"#386150"</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>    )</span>
+<span id="cb34-9"><a href="#cb34-9"></a>  ) </span>
+<span id="cb34-10"><a href="#cb34-10"></a></span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="fu">ggplot</span>(penguins_ex1, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
+<span id="cb34-12"><a href="#cb34-12"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a>  <span class="fu">scale_color_identity</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># example 2 (highlight points based on criteria)</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb32-4"><a href="#cb32-4"></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
-<span id="cb32-5"><a href="#cb32-5"></a>      body_mass_g <span class="sc">&gt;</span> <span class="dv">6000</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
-<span id="cb32-6"><a href="#cb32-6"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"gray50"</span></span>
-<span id="cb32-7"><a href="#cb32-7"></a>    )</span>
-<span id="cb32-8"><a href="#cb32-8"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb32-9"><a href="#cb32-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
-<span id="cb32-10"><a href="#cb32-10"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb32-11"><a href="#cb32-11"></a>  <span class="fu">scale_color_identity</span>(<span class="at">guide =</span> <span class="st">"legend"</span>, </span>
-<span id="cb32-12"><a href="#cb32-12"></a>                       <span class="at">name =</span> <span class="st">"Body mass (g)"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&gt;6000"</span>, <span class="st">"&lt;= 6000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Ex 2: color points based on criteria</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># example 2 ----</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>penguins_ex2 <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-4"><a href="#cb35-4"></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb35-5"><a href="#cb35-5"></a>      body_mass_g <span class="sc">&gt;</span> <span class="dv">6000</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"gray50"</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a>    )</span>
+<span id="cb35-8"><a href="#cb35-8"></a>  ) </span>
+<span id="cb35-9"><a href="#cb35-9"></a></span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="fu">ggplot</span>(penguins_ex2, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a>  <span class="fu">scale_color_identity</span>(<span class="at">guide =</span> <span class="st">"legend"</span>, </span>
+<span id="cb35-13"><a href="#cb35-13"></a>                       <span class="at">name =</span> <span class="st">"Body mass (g)"</span>, </span>
+<span id="cb35-14"><a href="#cb35-14"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&gt;6000"</span>, <span class="st">"&lt;= 6000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture5.2-colors_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
