@@ -23,23 +23,21 @@ knitr::include_graphics(here::here("images", "graphic-design-logos.png"))
 
 ### A. Download / install your *free* Affinity V2 Designer Trial
 
-The Affinity team was kind enough to provide us with 40(!) extended Affinity V2 app licenses, which are valid now until March 31, 2025. Follow [these installation instructions](https://docs.google.com/document/d/1atPlULR0zttKtwRcw2CcKUYfKH9BLMtC2nHArbSUE5c/edit?tab=t.0){target="_blank"} ahead of class. 
+The Affinity team was kind enough to provide us with enough extended Affinity V2 app licenses for all enrolled students, which are valid now until March 31, 2025. Follow [these installation instructions](https://docs.google.com/document/d/1atPlULR0zttKtwRcw2CcKUYfKH9BLMtC2nHArbSUE5c/edit?tab=t.0){target="_blank"} ahead of class. 
 
 Affinity is a subscription-free product -- if you are interested in purchasing it after your trial ends, visit [their website](https://affinity.serif.com/en-us/affinity-pricing/){target="_blank"}.
 
-### B. *(Optional)* Create a *free* Canva account
+### B. Download saved ggplots
 
-Visit [canva.com](https://www.canva.com/free/){target="_blank"} to get started.
+We'll learn how to use Affinity to edit exported ggplots and transform them into (mini) infographics. Download both the [PNG](https://drive.google.com/file/d/1AHn-jJn80-li6W7fBjtX5sJEemJQ0l1J/view?usp=sharing){target="_blank"} and [PDF](https://drive.google.com/file/d/16H9M_mDSzyYqS7c_yB06jQIfSYhLH-Ce/view?usp=sharing){target="_blank"} versions of this plot ahead of class.
 
-### C. *(Optional)* Make sure you know how to access Google Docs
+### C. *(Optional)* Explore Canva & Google Docs as alternative tools (on your own time)
 
-Access all of your Google Apps (including Goolge Docs) using your **UCSBnetID@ucsb.edu** account.
+You can create a *free* Canva account by visiting [canva.com](https://www.canva.com/free/){target="_blank"}, and / or access all of your Google Apps (including Goolge Docs) using your **UCSBnetID@ucsb.edu** account.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 *Coming soon!*
-
-
 
 ```{r}
 #| eval: false
@@ -131,7 +129,7 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
                              color = temp, shape = temp, size = temp)) +
   geom_point(alpha = 0.8) +
-  scale_color_manual(values = lob_palette) +
+  #scale_color_manual(values = lob_palette) +
   scale_shape_manual(values = lob_shapes) +
   scale_size_manual(values = lob_sizes) +
   scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
@@ -166,7 +164,7 @@ lob_plot
 
 lob_plot_marg <- ggExtra::ggMarginal(lob_plot, type = "density", groupFill = TRUE, groupColour = TRUE)
 
-ggsave(filename = "lob_plot_updated_colors.png", 
+ggsave(filename = "lob_plot_updated_colors.pdf", 
        plot = lob_plot_marg,
        path = here::here("course-materials", "images"))
 

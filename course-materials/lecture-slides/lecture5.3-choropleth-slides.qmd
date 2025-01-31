@@ -184,7 +184,7 @@ Spatial data can take many forms -- **[simple features]{.teal-text} is a standar
 
 . . .   
 
-**Simple features are comprised of:**
+**Simple feature comprise:**
 
 [1. [**a geometry object**]{.teal-text} (e.g. a point, line, polygon) that describes where on Earth the feature is located]{.body-text-s}
 
@@ -194,7 +194,7 @@ Spatial data can take many forms -- **[simple features]{.teal-text} is a standar
 
 . . . 
 
-[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/){target="_blank"} provide tools for working with simple features (`sf` objects), but we'll only need to rely on `{ggplot2}`s built-in `geom_sf()` geometry to plot our data.]{.body-text-s}
+[Because of how simple feature (`sf`) objects are represented in R (they look like data frames!), **simple features can be maniupulated and plotted by other well-known packages like `{dplyr}` and `{ggplot2}`**. Packages like [`{sf}`](https://r-spatial.github.io/sf/){target="_blank"} provide additional tools for working with simple features (`sf` objects).]{.body-text-s}
 
 <br>
 
@@ -210,7 +210,7 @@ When we download our shapefile using `{tigris}`, **it'll be loaded as a simple f
 
 <hr>
 
-Here, we'll use the `{tigris}` package to import geometries for our US counties, then join it with our precipitation data:
+[Here, we'll use the `{tigris}` package to import geometries for our US counties, then join it with our precipitation data:]{.body-text-s}
 
 {{< include sections/5.3-choropleth.qmd >}}
 
@@ -225,15 +225,20 @@ Here, we'll use the `{tigris}` package to import geometries for our US counties,
 #..........................load packages.........................
 library(tidyverse)
 library(tigris)
+library(sf)
+library(RColorBrewer)
+library(scales)
 
 #.........................get shape data.........................
 county_geo <- tigris::counties(class = "sf", cb = TRUE) |> # cb = TRUE to use cartographic boundary files
   
-  # shift US to fit AK, HI, PR (we'll be filtering these out though) and transform CRS to USA Contiguous Albers Equal Area Conic (ESRI:102003) ----
-  shift_geometry()
+  # transform CRS to USA Contiguous Albers Equal Area Conic ----
+  # see https://gis.stackexchange.com/questions/141580/which-projection-is-best-for-mapping-the-contiguous-united-states
+  sf::st_transform("ESRI:102003")
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("week5", "data", "county-feb19-jan24-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("week5", "data", "county-jan20-dec24-precip.csv"), 
+                        skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -251,12 +256,11 @@ county_geo_wrangled <- county_geo |>
   # rename county & state cols ----
   rename(county = namelsad, state = state_name) |>
   
-  # remove states / territories that we don't have precip data for ----
-  filter(!state %in% c("Alaska", "Hawaii", "District of Columbia",
-                       "United States Virgin Islands", "Puerto Rico", "American Samoa",
-                       "Commonwealth of the Northern Mariana Islands", "Guam")) |>
+  # keep only 50 US states (minus AK & HI) ----
+  filter(state %in% state.name) |> # `state.name` is a build-in vector of the 50 US States
+  filter(!state %in% c("Alaska", "Hawaii")) |> 
   
-  # capitalize "city" (VA) ----
+  # capitalize "city" in county names (so that it matches those in `precip_data`) ----
   mutate(county = str_replace(string = county, pattern = " city", replacement = " City"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -274,14 +278,14 @@ precip_wrangled <- precip_data |>
   # filter out DC ----
   filter(!county %in% c("Washington, D.C.")) |>
   
-  # update name to match that in county_geo df ----
+  # update county name so that it matches the spelling in `county_geo` df ----
   mutate(county = str_replace(string = county, pattern = "Dona Ana County", replacement = "Doña Ana County")) |>
   
   # coerce precip & 20th centruy avg from chr to numeric ----
   mutate(value = as.numeric(value),
          x1901_2000_mean = as.numeric(x1901_2000_mean)) |>
   
-  # calculate % change ----
+  # calculate % change in precip from 20th century avg ----
   mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |>
   
   # select, rename, reorder cols ----
@@ -291,9 +295,13 @@ precip_wrangled <- precip_data |>
 ##  ~ join dfs  ----
 ##~~~~~~~~~~~~~~~~~~
 
-# join dfs (be sure to join precip TO sf object, not the other way around) -------
+# join dfs (be sure to join precip TO sf object, not the other way around; see https://github.com/tidyverse/ggplot2/issues/3936 & https://map-rfun.library.duke.edu/032_thematic_mapping_geom_sf.html)) -------
 joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
 ```
+
+::: {.footer}
+Read more about cartographic boundary shapefiles (and the `cb` argument) in [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html?q=cartographic%20boundaries#tigerline-and-cartographic-boundary-shapefiles){target="_blank"}, by [Kyle Walker](https://github.com/walkerke){target="_blank"}.
+:::
 
 ---
 
@@ -310,14 +318,14 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared with the 20th century average",
-       subtitle = "February 2019 - January 2024",
+       subtitle = "January 2020 - December 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
     legend.position = "bottom",
     legend.title = element_blank(),
     plot.caption = element_text(face = "italic",
-                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, "lines"))
+                                margin = margin(t = 10, r = 5, b = 0, l = 0))
   )
 
 base_map
@@ -465,7 +473,7 @@ base_map +
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10)) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
 
 ---
@@ -485,7 +493,7 @@ base_map +
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10)) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
 
 ---
@@ -505,7 +513,7 @@ base_map +
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10)) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
 
 <br>
@@ -513,7 +521,7 @@ base_map +
 ::: {.center-text}
 **0%** (i.e. no change between 5-year precipitation and 20th century average) **is currently on the bluer side of our color scale**, rather than on the off-white color that's at the center of our palette. 
 
-As a result, **our map may be misleading** -- it would appear as if more counties received higher-than-average precipitation than in actuality.
+As a result, **our map is misleading** -- it would appear as if more counties received higher-than-average precipitation than in actuality.
 :::
 
 ---
@@ -528,7 +536,27 @@ As a result, **our map may be misleading** -- it would appear as if more countie
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-#| code-line-numbers: "5-8"
+#| code-line-numbers: "5"
+base_map + 
+  scale_fill_gradientn(colors = my_brew_palette11,
+                       labels = scales::label_percent(scale = 1),
+                       breaks = scales::breaks_width(width = 10),
+                       values = scales::rescale(x = c(-40, 0, 20))) +
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
+```
+
+::: {.notes}
+See [this StackExchange post](https://stackoverflow.com/questions/74224130/r-scale-fill-stepsn-error-in-breaks-and-colors)
+
+`values = scales::rescale(x = c(min, 0, max))`
+
+- `scales::rescale()` transforms the input vector `(c(min, 0, max))` into the range `[0, 1]`.
+- This ensures that 0 is always mapped to the middle of the color scale.
+- The minimum value of `perc_change` maps to 0, the maximum to 1, and 0 remains the center point.
+
+```{r}
+#| eval: false
+# OLD CODE ----
 base_map + 
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
@@ -537,8 +565,10 @@ base_map +
                          min(na.omit(joined_precip_geom)$perc_change),
                          0,
                          max(na.omit(joined_precip_geom)$perc_change)))) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
+
+:::
 
 ---
 
@@ -552,16 +582,12 @@ base_map +
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| code-line-numbers: "5-8"
 base_map + 
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10),
-                       values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change)))) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+                       values = scales::rescale(x = c(-40, 0, 20))) +
+  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
 
 ---
@@ -572,7 +598,7 @@ base_map +
 
 <hr>
 
-We'll be using the same color palette for our classed map, but this time, **let's keep [10 hues]{.teal-text} (this will drop the middle-most off-white hue)**:
+We'll be using the same color palette for our classed map, but this time, **let's keep [10 hues]{.teal-text} (this will drop the middle off-white hue)**:
 
 :::: {.columns}
 
@@ -617,7 +643,7 @@ my_brew_palette10
 
 <hr>
 
-We only get 4 bins by default, which means we lose a lot of detail in our map:
+We only get 5 bins by default, which means we lose a lot of detail in our map:
 
 ```{r}
 #| eval: true
@@ -643,7 +669,7 @@ base_map +
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-Breaks set to a width of **10**
+Breaks set to a width of **10** *(note: 0 not at center)*
 :::
 
 ```{r}
@@ -669,15 +695,12 @@ Breaks set to a width of **5** & rescaled with 0 at center
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-#| code-line-numbers: "4-8"
+#| code-line-numbers: "4-5"
 base_map + 
   scale_fill_stepsn(colors = my_brew_palette10,
                     labels = scales::label_percent(scale = 1),
-                    values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change))), 
-                    breaks = scales::breaks_width(width = 5)) +
+                    breaks = scales::breaks_width(width = 5),
+                    values = scales::rescale(x = c(-40, 0, 20))) + 
   guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))
 ```
 :::
@@ -717,12 +740,9 @@ base_map +
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10),
-                       values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change)))) +
+                       values = scales::rescale(x = c(-40, 0, 20))) +
   guides(fill = guide_colorbar(label.hjust = 0.5,
-                               barwidth = 15, barheight = 0.75))
+                               barwidth = 25, barheight = 0.75))
 ```
 :::
 
@@ -740,7 +760,8 @@ Classed map:
 base_map + 
   scale_fill_stepsn(colors = my_brew_palette10,
                     labels = scales::label_percent(scale = 1),
-                    breaks = scales::breaks_width(width = 10)) +
+                    breaks = scales::breaks_width(width = 10),
+                    values = scales::rescale(x = c(-40, 0, 20))) +
   guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))
 ```
 :::

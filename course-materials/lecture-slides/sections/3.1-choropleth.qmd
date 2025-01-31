@@ -24,13 +24,16 @@ editor_options:
 #..........................load packages.........................
 library(tidyverse)
 library(tigris)
+library(sf)
+library(scales)
 
 #.........................get shape data.........................
 county_geo <- tigris::counties(class = "sf", cb = TRUE) |> 
-  shift_geometry()
+  sf::st_transform("ESRI:102003")
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-feb19-jan24-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), 
+                        skip = 4) 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -43,9 +46,8 @@ precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data",
 county_geo_wrangled <- county_geo |>
   janitor::clean_names() |>
   rename(county = namelsad, state = state_name) |>
-  filter(!state %in% c("Alaska", "Hawaii", "District of Columbia",
-                       "United States Virgin Islands", "Puerto Rico", "American Samoa",
-                       "Commonwealth of the Northern Mariana Islands", "Guam")) |>
+  filter(state %in% state.name) |> 
+  filter(!state %in% c("Alaska", "Hawaii")) |> 
   mutate(county = str_replace(string = county, pattern = " city", replacement = " City"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,7 +68,6 @@ precip_wrangled <- precip_data |>
 ##  ~ join dfs  ----
 ##~~~~~~~~~~~~~~~~~~
 
-# join dfs (see https://github.com/tidyverse/ggplot2/issues/3936 & https://map-rfun.library.duke.edu/032_thematic_mapping_geom_sf.html) -------
 joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
 ```
 
@@ -87,14 +88,14 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared to the 20th century average",
-       subtitle = "February 2019 - January 2024",
+       subtitle = "January 2020 - December 2024",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
     legend.position = "bottom",
     legend.title = element_blank(),
     plot.caption = element_text(face = "italic",
-                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, "lines"))
+                                margin = margin(t = 10, r = 5, b = 0, l = 0))
   )
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,10 +112,7 @@ base_map +
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
                        breaks = scales::breaks_width(width = 10),
-                       values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change)))) +
+                       values = scales::rescale(x = c(-40, 0, 20))) +
   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
 
 ```
