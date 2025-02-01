@@ -237,7 +237,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |> # cb = TRUE to use ca
   sf::st_transform("ESRI:102003")
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("week5", "data", "county-jan20-dec24-precip.csv"), 
+precip_data <- read_csv(here::here("week5", "data", "NCEI-county-jan20-dec24-precip.csv"), 
                         skip = 4)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -275,8 +275,8 @@ precip_wrangled <- precip_data |>
   # rename county col ----
   rename(county = name) |>
   
-  # filter out DC ----
-  filter(!county %in% c("Washington, D.C.")) |>
+  # keep only US states (this will filter out DC) ----
+  filter(state %in% state.name) |> 
   
   # update county name so that it matches the spelling in `county_geo` df ----
   mutate(county = str_replace(string = county, pattern = "Dona Ana County", replacement = "Doña Ana County")) |>
@@ -435,7 +435,7 @@ Preview the palette using `display.brewer.pal()` with our desired number of hues
 #| echo: true
 #| fig-align: "center"
 #| out-width: "100%"
-RColorBrewer::display.brewer.pal(n = 11, name = 'BrBG')
+RColorBrewer::display.brewer.pal(n = 11, name = "BrBG")
 ```
 :::
 
@@ -448,7 +448,7 @@ Save the HEX codes to a named object using `brewer.pal()` (we'll call this in ou
 ```{r}
 #| eval: true
 #| echo: true
-my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')
+my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = "BrBG")
 my_brew_palette11
 ```
 :::
@@ -613,7 +613,7 @@ Preview the palette using `display.brewer.pal()` with our desired number of hues
 #| echo: true
 #| fig-align: "center"
 #| out-width: "90%"
-RColorBrewer::display.brewer.pal(n = 10, name = 'BrBG')
+RColorBrewer::display.brewer.pal(n = 10, name = "BrBG")
 ```
 :::
 
@@ -626,7 +626,7 @@ Save the HEX codes to a named object using `brewer.pal()` (we'll call this in ou
 ```{r}
 #| eval: true
 #| echo: true
-my_brew_palette10 <- RColorBrewer::brewer.pal(n = 10, name = 'BrBG')
+my_brew_palette10 <- RColorBrewer::brewer.pal(n = 10, name = "BrBG")
 my_brew_palette10
 ```
 :::

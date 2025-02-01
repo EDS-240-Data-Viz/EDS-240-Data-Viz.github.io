@@ -774,7 +774,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <span id="cb1-17"><a></a>  sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="st">"ESRI:102003"</span>)</span>
 <span id="cb1-18"><a></a></span>
 <span id="cb1-19"><a></a><span class="co">#....................import precipitation data...................</span></span>
-<span id="cb1-20"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"county-jan20-dec24-precip.csv"</span>), </span>
+<span id="cb1-20"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"NCEI-county-jan20-dec24-precip.csv"</span>), </span>
 <span id="cb1-21"><a></a>                        <span class="at">skip =</span> <span class="dv">4</span>)</span>
 <span id="cb1-22"><a></a></span>
 <span id="cb1-23"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
@@ -812,8 +812,8 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <span id="cb1-55"><a></a>  <span class="co"># rename county col ----</span></span>
 <span id="cb1-56"><a></a>  <span class="fu">rename</span>(<span class="at">county =</span> name) <span class="sc">|&gt;</span></span>
 <span id="cb1-57"><a></a>  </span>
-<span id="cb1-58"><a></a>  <span class="co"># filter out DC ----</span></span>
-<span id="cb1-59"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>county <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Washington, D.C."</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a></a>  <span class="co"># keep only US states (this will filter out DC) ----</span></span>
+<span id="cb1-59"><a></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> state.name) <span class="sc">|&gt;</span> </span>
 <span id="cb1-60"><a></a>  </span>
 <span id="cb1-61"><a></a>  <span class="co"># update county name so that it matches the spelling in `county_geo` df ----</span></span>
 <span id="cb1-62"><a></a>  <span class="fu">mutate</span>(<span class="at">county =</span> <span class="fu">str_replace</span>(<span class="at">string =</span> county, <span class="at">pattern =</span> <span class="st">"Dona Ana County"</span>, <span class="at">replacement =</span> <span class="st">"Doña Ana County"</span>)) <span class="sc">|&gt;</span></span>
@@ -943,7 +943,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>Preview the palette using <code>display.brewer.pal()</code> with our desired number of hues:</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">'BrBG'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -957,7 +957,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>Save the HEX codes to a named object using <code>brewer.pal()</code> (we’ll call this in our plot later):</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>my_brew_palette11 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">'BrBG'</span>)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>my_brew_palette11 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span>
 <span id="cb4-2"><a></a>my_brew_palette11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "#543005" "#8C510A" "#BF812D" "#DFC27D" "#F6E8C3" "#F5F5F5" "#C7EAE5"
@@ -1047,7 +1047,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>Preview the palette using <code>display.brewer.pal()</code> with our desired number of hues:</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">'BrBG'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1061,7 +1061,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <p>Save the HEX codes to a named object using <code>brewer.pal()</code> (we’ll call this in our plot later):</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>my_brew_palette10 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">'BrBG'</span>)</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>my_brew_palette10 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span>
 <span id="cb9-2"><a></a>my_brew_palette10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "#543005" "#8C510A" "#BF812D" "#DFC27D" "#F6E8C3" "#C7EAE5" "#80CDC1"
