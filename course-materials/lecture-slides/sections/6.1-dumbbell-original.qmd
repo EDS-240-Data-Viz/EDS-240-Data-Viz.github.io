@@ -1,0 +1,109 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(scales)
+
+#..........................import data...........................
+jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jobs_clean <- jobs |> 
+  
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
+  mutate(percent_male = 100 - percent_female) |>
+         
+  # rearrange columns ----
+  relocate(year, major_category, minor_category, occupation,
+          total_workers, workers_male, workers_female,
+          percent_male, percent_female,
+          total_earnings, total_earnings_male, total_earnings_female, 
+          wage_percent_of_male) |> 
+  
+  # drop rows with missing earnings data ----
+  drop_na(total_earnings_male, total_earnings_female) |> 
+  
+  # make occupation a factor (for reordering groups in our plot) ----
+  mutate(occupation = as.factor(occupation)) |> 
+ 
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
+  mutate(group_label = case_when(
+    percent_female >= 75 ~ "Occupations that are 75%+ female",
+    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
+    percent_male >= 75 ~ "Occupations that are 75%+ male"
+  )) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                              create subset df                            ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#....guarantee the same random samples each time we run code.....
+set.seed(0)
+
+#.........get 10 random jobs that are 75%+ female (2016).........
+f75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
+  slice_sample(n = 10)
+
+#..........get 10 random jobs that are 75%+ male (2016)..........
+m75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
+  slice_sample(n = 10)
+
+#........get 10 random jobs that are 45-55%+ female (2016).......
+f50 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
+  slice_sample(n = 10)
+
+#.......combine dfs & relevel factors (for plotting order).......
+subset_jobs <- rbind(f75, m75, f50) |> 
+  mutate(group_label = fct_relevel(.f = group_label, 
+                                   "Occupations that are 75%+ female", 
+                                   "Occupations that are 45-55% female", 
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings))
+
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    plot                                  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
+ggplot(subset_jobs) +
+  
+  # create dumbbells ----
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", 
+             size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000))
+```
+

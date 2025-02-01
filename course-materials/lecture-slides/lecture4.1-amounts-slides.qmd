@@ -918,6 +918,13 @@ ggplot(subset_jobs) +
   # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000))
+
+
+# for lecture 6.1 (typography) ----
+# ggsave(filename = "earnings_plot.png", 
+#        path = here::here("course-materials", "lecture-slides", "images", "week6"),
+#        width = 9,
+#        height = 7)
 ```
 
 ::: {.footer}
@@ -974,6 +981,10 @@ There are more modifications we would need to make before calling this plot done
 ```{r}
 #| eval: true
 #| echo: true
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                              create subset df                            ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #....guarantee the same random samples each time we run code.....
 set.seed(0)
 
@@ -1012,6 +1023,11 @@ subset_jobs <- rbind(f75, m75, f50) |>
 ```{r}
 #| eval: false
 #| echo: true
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    plot                                  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # initialize plot (we'll map our aesthetics locally for each geom, below) ----
 ggplot(subset_jobs) +
   
@@ -1029,7 +1045,7 @@ ggplot(subset_jobs) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
   
   # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000))
 
 ```

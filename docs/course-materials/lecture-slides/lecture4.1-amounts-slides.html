@@ -1135,31 +1135,35 @@ Dumbbell plots
 <hr>
 <p><span class="body-text-s">. . .to explore differences in male vs.&nbsp;female median salaries across occupations that are female dominated (75%+ female), male dominated (75%+ male), and those that are a relatively even split (45-55% female).</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
-<span id="cb19-2"><a></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb19-3"><a></a></span>
-<span id="cb19-4"><a></a><span class="co">#.........get 10 random jobs that are 75%+ female (2016).........</span></span>
-<span id="cb19-5"><a></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb19-6"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-7"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb19-8"><a></a></span>
-<span id="cb19-9"><a></a><span class="co">#..........get 10 random jobs that are 75%+ male (2016)..........</span></span>
-<span id="cb19-10"><a></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb19-11"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-12"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb19-13"><a></a></span>
-<span id="cb19-14"><a></a><span class="co">#........get 10 random jobs that are 45-55%+ female (2016).......</span></span>
-<span id="cb19-15"><a></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb19-16"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-17"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb19-18"><a></a></span>
-<span id="cb19-19"><a></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
-<span id="cb19-20"><a></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
-<span id="cb19-21"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(<span class="at">.f =</span> group_label, </span>
-<span id="cb19-22"><a></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
-<span id="cb19-23"><a></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb19-24"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
-<span id="cb19-25"><a></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb19-2"><a></a><span class="do">##                              create subset df                            ----</span></span>
+<span id="cb19-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb19-4"><a></a></span>
+<span id="cb19-5"><a></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
+<span id="cb19-6"><a></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb19-7"><a></a></span>
+<span id="cb19-8"><a></a><span class="co">#.........get 10 random jobs that are 75%+ female (2016).........</span></span>
+<span id="cb19-9"><a></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb19-10"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-11"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb19-12"><a></a></span>
+<span id="cb19-13"><a></a><span class="co">#..........get 10 random jobs that are 75%+ male (2016)..........</span></span>
+<span id="cb19-14"><a></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb19-15"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-16"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb19-17"><a></a></span>
+<span id="cb19-18"><a></a><span class="co">#........get 10 random jobs that are 45-55%+ female (2016).......</span></span>
+<span id="cb19-19"><a></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
+<span id="cb19-20"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-21"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb19-22"><a></a></span>
+<span id="cb19-23"><a></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
+<span id="cb19-24"><a></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
+<span id="cb19-25"><a></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(<span class="at">.f =</span> group_label, </span>
+<span id="cb19-26"><a></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
+<span id="cb19-27"><a></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
+<span id="cb19-28"><a></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
+<span id="cb19-29"><a></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dumbbell-plot-create" class="slide level2" data-menu-title="Dumbbell plot - M vs. F salaries (code)">
@@ -1167,25 +1171,29 @@ Dumbbell plots
 <p><span class="slide-title">Create dumbbell plot</span></p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># initialize plot (we'll map our aesthetics locally for each geom, below) ----</span></span>
-<span id="cb20-2"><a></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb20-3"><a></a>  </span>
-<span id="cb20-4"><a></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb20-5"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
-<span id="cb20-6"><a></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
-<span id="cb20-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
-<span id="cb20-8"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
-<span id="cb20-9"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb20-10"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
-<span id="cb20-11"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
-<span id="cb20-12"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb20-13"><a></a>  </span>
-<span id="cb20-14"><a></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb20-15"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb20-16"><a></a>  </span>
-<span id="cb20-17"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb20-18"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb20-19"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb20-2"><a></a><span class="do">##                                    plot                                  ----</span></span>
+<span id="cb20-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a><span class="co"># initialize plot (we'll map our aesthetics locally for each geom, below) ----</span></span>
+<span id="cb20-6"><a></a><span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
+<span id="cb20-7"><a></a>  </span>
+<span id="cb20-8"><a></a>  <span class="co"># create dumbbells ----</span></span>
+<span id="cb20-9"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
+<span id="cb20-10"><a></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
+<span id="cb20-11"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
+<span id="cb20-12"><a></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
+<span id="cb20-13"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
+<span id="cb20-15"><a></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
+<span id="cb20-16"><a></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb20-17"><a></a>  </span>
+<span id="cb20-18"><a></a>  <span class="co"># facet wrap by group ----</span></span>
+<span id="cb20-19"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
+<span id="cb20-20"><a></a>  </span>
+<span id="cb20-21"><a></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
+<span id="cb20-22"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb20-23"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="end-break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
@@ -1200,7 +1208,7 @@ Dumbbell plots
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8463a6af" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_230ee28a" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

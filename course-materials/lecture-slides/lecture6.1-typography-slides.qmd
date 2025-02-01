@@ -418,7 +418,7 @@ Lisa Charlotte Muth
 
 <hr>
 
-[[Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG21/#:~:text=Web%20Content%20Accessibility%20Guidelines%20(WCAG)%202.1%20defines%20how%20to%20make,%2C%20learning%2C%20and%20neurological%20disabilities.){target="_blank"} (WCAG) recommends **a minimum contrast ratio of 4.5:1** -- use a color contrast checker to check your ratio. This particular **[color contrast checker](https://coolors.co/contrast-checker/112a46-acc8e5){target="_blank"}** will enhance poor color combinations to meet WCAG guidelines. For example, here is a color combo with a [bad contrast ratio](https://coolors.co/contrast-checker/5cdc8d-ffffff){target="_blank"}, and here is the updated color combo with an [improved contrast ratio](https://coolors.co/contrast-checker/104c27-ffffff){target="_blank"}.]{.body-text-s}
+[[Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG21/#:~:text=Web%20Content%20Accessibility%20Guidelines%20(WCAG)%202.1%20defines%20how%20to%20make,%2C%20learning%2C%20and%20neurological%20disabilities.){target="_blank"} (WCAG) recommends **a minimum contrast ratio of 4.5:1** -- use a color contrast checker to check your ratio. The **[Coolers color contrast checker](https://coolors.co/contrast-checker/112a46-acc8e5){target="_blank"}** will enhance poor color combinations to meet WCAG guidelines. For example, here is a color combo with a [bad contrast ratio](https://coolors.co/contrast-checker/5cdc8d-ffffff){target="_blank"}, and here is the updated color combo with an [improved contrast ratio](https://coolors.co/contrast-checker/104c27-ffffff){target="_blank"}.]{.body-text-s}
 
 <br>
 
@@ -752,12 +752,14 @@ knitr::include_graphics("images/week6/showtext.png")
 
 Let's improve this plot by updating the colors, modifying the theme, and using some new fonts!
 
+{{< include sections/6.1-dumbbell-original.qmd >}}
+
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week6/earnings-plot.png")
+#knitr::include_graphics("images/week6/earnings-plot.png")
 ```
 
 ---
@@ -768,7 +770,8 @@ knitr::include_graphics("images/week6/earnings-plot.png")
 
 <hr>
 
-This code should look familiar (copied from [Lecture 4.1](lecture4.1-rankings-slides.qmd){target="_blank"}):
+This code should look familiar (copied from [Lecture 4.1](lecture4.1-amounts-slides.qmd){target="_blank"}):
+
 ```{r}
 #| eval: true
 #| echo: true
@@ -778,6 +781,7 @@ This code should look familiar (copied from [Lecture 4.1](lecture4.1-rankings-sl
 
 #..........................load packages.........................
 library(tidyverse)
+library(scales)
 
 #..........................import data...........................
 jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
@@ -786,9 +790,9 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-jobs_clean <- jobs |>
-
- # add col with % men in a given occupation (% females in a given occupation was already included) ----
+jobs_clean <- jobs |> 
+  
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
   mutate(percent_male = 100 - percent_female) |>
          
   # rearrange columns ----
@@ -797,14 +801,14 @@ jobs_clean <- jobs |>
           percent_male, percent_female,
           total_earnings, total_earnings_male, total_earnings_female, 
           wage_percent_of_male) |> 
-
-  # drop rows with missing earning data ----
-  drop_na(total_earnings_male, total_earnings_female) |>
-
-  # make occupation a factor (necessary for reordering groups in our plot) ----
-  mutate(occupation = as.factor(occupation)) |>
-
-  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  
+  # drop rows with missing earnings data ----
+  drop_na(total_earnings_male, total_earnings_female) |> 
+  
+  # make occupation a factor (for reordering groups in our plot) ----
+  mutate(occupation = as.factor(occupation)) |> 
+ 
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -818,30 +822,28 @@ jobs_clean <- jobs |>
 #....guarantee the same random samples each time we run code.....
 set.seed(0)
 
-#...............get random samples from each group...............
-
-# 10 random jobs that are 75%+ female (2016) ----
-f75 <- jobs_clean |>
-  filter(year == 2016, group_label == "Occupations that are 75%+ female") |>
+#.........get 10 random jobs that are 75%+ female (2016).........
+f75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
   slice_sample(n = 10)
 
-# 10 random jobs that are 75%+ male (2016) ----
-m75 <- jobs_clean |>
-  filter(year == 2016, group_label == "Occupations that are 75%+ male") |>
+#..........get 10 random jobs that are 75%+ male (2016)..........
+m75 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
   slice_sample(n = 10)
 
-# 10 random jobs that are 45-55%+ female (2016) ----
-f50 <- jobs_clean |>
-  filter(year == 2016, group_label == "Occupations that are 45-55% female") |>
+#........get 10 random jobs that are 45-55%+ female (2016).......
+f50 <- jobs_clean |> 
+  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
   slice_sample(n = 10)
 
 #.......combine dfs & relevel factors (for plotting order).......
-subset_jobs <- rbind(f75, m75, f50) |>
+subset_jobs <- rbind(f75, m75, f50) |> 
   mutate(group_label = fct_relevel(group_label, 
-                                   "Occupations that are 75%+ female",
+                                   "Occupations that are 75%+ female", 
                                    "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male"))
-
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings)) 
 ```
 
 ---
@@ -852,28 +854,35 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 <hr>
 
-This code was copied from [Lecture 4.1](lecture4.1-rankings-slides.qmd){target="_blank"}. Resulting plot is rendered on the next slide!
-
-<br>
+This code was copied from [Lecture 4.1](lecture4.1-amounts-slides.qmd){target="_blank"}. Resulting plot is rendered on the next slide!
 
 ```{r}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
 #| out-width: "100%"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    plot                                  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# initialize plot (we'll map our aesthetics locally for each geom, below) ----
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male,
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) +
-  geom_point(aes(x = total_earnings_male, y = occupation),
+  
+  # create dumbbells ----
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
              color = "#CD93D8", 
-             size = 3.25) +
-  geom_point(aes(x = total_earnings_female, y = occupation),
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
              color = "#6A1E99", 
-             size = 3.25) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+             size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
 
 plot
@@ -928,7 +937,7 @@ earnings_pal <- c("males" = "#2D7787",
                   "light_text" = "#4E514D") 
 ```
 
-[The primary purpose of the [`{monochromeR}` package](https://github.com/cararthompson/monochromeR){target="_blank"} is for creating monochrome colour palettes, however, it also includes a **helpful function for viewing our palette**:]{.body-text-s}
+[The primary purpose of the [`{monochromeR}` package](https://github.com/cararthompson/monochromeR){target="_blank"} is for creating monochrome color palettes, however, it also includes a **helpful function for viewing our palette**:]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -950,18 +959,18 @@ monochromeR::view_palette(earnings_pal)
 #| echo: true
 #| fig-align: "center"
 #| out-width: "100%"
-#| code-line-numbers: "5,7"
+#| code-line-numbers: "5,8"
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male,
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) +
-  geom_point(aes(x = total_earnings_male, y = occupation),
-             color = earnings_pal["males"], size = 3.25) +
-  geom_point(aes(x = total_earnings_female, y = occupation),
-             color = earnings_pal["females"], size = 3.25) +
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = earnings_pal["males"], 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = earnings_pal["females"], 
+             size = 2.5) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
 
 plot
@@ -984,7 +993,19 @@ Resulting plot is rendered on the next slide!
 #| echo: true
 #| fig-align: "center"
 #| out-height: "100%"
-updated_plot <- plot +
+#| code-line-numbers: "13-35"
+plot <- ggplot(subset_jobs) +
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = earnings_pal["males"], 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = earnings_pal["females"], 
+             size = 2.5) +
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -1009,7 +1030,7 @@ updated_plot <- plot +
     axis.title = element_blank()
   )
 
-updated_plot
+plot
 ```
 
 ::: {.footer}
@@ -1028,7 +1049,18 @@ updated_plot
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-updated_plot <- plot +
+plot <- ggplot(subset_jobs) +
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = earnings_pal["males"], 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = earnings_pal["females"], 
+             size = 2.5) +
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
   labs(title = "Males earn more than females across most occupations",
        subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
        caption = "Data Source: TidyTuesday (March 5, 2019)") +
@@ -1036,24 +1068,24 @@ updated_plot <- plot +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 25,
+                              size = 18,
                               color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(size = 17,
+    plot.subtitle = element_text(size = 11.5,
                                  color = earnings_pal["light_text"],
                                  margin = margin(t = 2, r = 0, b = 6, l = 0)),
     plot.caption = element_text(face = "italic",
                                 color = earnings_pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     strip.text.x = element_text(face = "bold",
-                                size = 12,
+                                size = 10,
                                 hjust = 0),
     panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(color = earnings_pal["light_text"]),
-    axis.text.x = element_text(size = 10),
+    axis.text = element_text(size = 9,
+                             color = earnings_pal["light_text"]),
     axis.title = element_blank()
   )
 
-updated_plot
+plot
 ```
 
 ---
