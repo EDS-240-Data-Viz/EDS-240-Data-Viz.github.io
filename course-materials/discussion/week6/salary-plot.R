@@ -34,7 +34,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 jobs_clean <- jobs |>
 
-  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
 mutate(percent_male = 100 - percent_female) |>
 
   # rearrange columns ----
@@ -47,10 +47,10 @@ relocate(year, major_category, minor_category, occupation,
   # drop rows with missing earnings data ----
 drop_na(total_earnings_male, total_earnings_female) |>
 
-  # make occupation a factor (necessary for reordering groups in our plot) ----
+  # make occupation a factor (for reordering groups in our plot) ----
 mutate(occupation = as.factor(occupation)) |>
 
-  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
 mutate(group_label = case_when(
   percent_female >= 75 ~ "Occupations that are 75%+ female",
   percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -64,29 +64,28 @@ mutate(group_label = case_when(
 #....guarantee the same random samples each time we run code.....
 set.seed(0)
 
-#...............get random samples from each group...............
-
-# 10 random jobs that are 75%+ female (2016) ----
+#.........get 10 random jobs that are 75%+ female (2016).........
 f75 <- jobs_clean |>
   filter(year == 2016, group_label == "Occupations that are 75%+ female") |>
   slice_sample(n = 10)
 
-# 10 random jobs that are 75%+ male (2016) ----
+#..........get 10 random jobs that are 75%+ male (2016)..........
 m75 <- jobs_clean |>
   filter(year == 2016, group_label == "Occupations that are 75%+ male") |>
   slice_sample(n = 10)
 
-# 10 random jobs that are 45-55%+ female (2016) ----
+#........get 10 random jobs that are 45-55%+ female (2016).......
 f50 <- jobs_clean |>
   filter(year == 2016, group_label == "Occupations that are 45-55% female") |>
   slice_sample(n = 10)
 
 #.......combine dfs & relevel factors (for plotting order).......
 subset_jobs <- rbind(f75, m75, f50) |>
-  mutate(group_label = fct_relevel(group_label,
+  mutate(group_label = fct_relevel(.f = group_label,
                                    "Occupations that are 75%+ female",
                                    "Occupations that are 45-55% female",
-                                   "Occupations that are 75%+ male"))
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                create plot                               ----
@@ -117,12 +116,15 @@ subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</spa
                        workers by occupation in 2016")
 
 salary_plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                   y = fct_reorder(occupation, total_earnings), yend = occupation)) +
+  # create dumbbells ----
+  geom_linerange(aes(y = occupation,
+                   xmin = total_earnings_female, xmax = total_earnings_male)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
-             color = earnings_pal["males"], size = 3.25) +
+             color = earnings_pal["males"],
+             size = 3.25) + # was 2.5
   geom_point(aes(x = total_earnings_female, y = occupation),
-             color = earnings_pal["females"], size = 3.25) +
+             color = earnings_pal["females"],
+             size = 3.25) + # was 2.5
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000)) +

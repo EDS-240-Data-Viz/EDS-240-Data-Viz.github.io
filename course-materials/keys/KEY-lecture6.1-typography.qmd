@@ -42,8 +42,8 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 ## Setup 
 
 ::: {.callout-note}
-## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd){target="_blank"}
-Our "first draft" of this plot began in week 4 during our rankings lecture. We'll focus on improving colors and fonts today.
+## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}
+Our "first draft" of this plot began in week 4 during our amounts / rankings lecture. We'll focus on improving colors and fonts today.
 :::
 
 ```{r}
@@ -83,7 +83,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 ## Wrangle data
 
-See lecture 4.1 slides [#4](../lecture-slides/lecture4.1-rankings-slides.qmd#job-data){target="_blank"}, [#5](../lecture-slides/lecture4.1-rankings-slides.qmd#data-wrangling){target="_blank"}, & [#17](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-subset){target="_blank"} as reminders of where we left off.
+See [lecture 4.1 slides](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"} (specifically, [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling){target="_blank"} and [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset){target="_blank"}) as a reminder of where we left off.
 
 ```{r}
 #| eval: true
@@ -95,7 +95,7 @@ See lecture 4.1 slides [#4](../lecture-slides/lecture4.1-rankings-slides.qmd#job
 
 jobs_clean <- jobs |> 
   
-  # add col with % men in a given occupation (% females in a given occupation was already included) ----
+  # add col with % men in a given occupation (% females in a given occupation is already included) ----
   mutate(percent_male = 100 - percent_female) |>
          
   # rearrange columns ----
@@ -108,10 +108,10 @@ jobs_clean <- jobs |>
   # drop rows with missing earnings data ----
   drop_na(total_earnings_male, total_earnings_female) |> 
   
-  # make occupation a factor (necessary for reordering groups in our plot) ----
+  # make occupation a factor (for reordering groups in our plot) ----
   mutate(occupation = as.factor(occupation)) |> 
  
-  # classify jobs by percentage male or female (these will become facet labels in our plot) ----
+  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
   mutate(group_label = case_when(
     percent_female >= 75 ~ "Occupations that are 75%+ female",
     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
@@ -125,52 +125,58 @@ jobs_clean <- jobs |>
 #....guarantee the same random samples each time we run code.....
 set.seed(0)
 
-#...............get random samples from each group...............
-
-# 10 random jobs that are 75%+ female (2016) ----
+#.........get 10 random jobs that are 75%+ female (2016).........
 f75 <- jobs_clean |> 
   filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
   slice_sample(n = 10)
 
-# 10 random jobs that are 75%+ male (2016) ----
+#..........get 10 random jobs that are 75%+ male (2016)..........
 m75 <- jobs_clean |> 
   filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
   slice_sample(n = 10)
 
-# 10 random jobs that are 45-55%+ female (2016) ----
+#........get 10 random jobs that are 45-55%+ female (2016).......
 f50 <- jobs_clean |> 
   filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
   slice_sample(n = 10)
 
 #.......combine dfs & relevel factors (for plotting order).......
 subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(group_label, 
+  mutate(group_label = fct_relevel(.f = group_label, 
                                    "Occupations that are 75%+ female", 
                                    "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male")) 
+                                   "Occupations that are 75%+ male"),
+         occupation = fct_reorder(.f = occupation, .x = total_earnings))
 ```
 
 ## Recreate original plot 
 
-See [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
+See [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
+#| out-width: "100%"
 # recreate original plot ----
 plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male,
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) +
-  geom_point(aes(x = total_earnings_male, y = occupation),
-             color = "#CD93D8", size = 3.25) +
-  geom_point(aes(x = total_earnings_female, y = occupation),
-             color = "#6A1E99", size = 3.25) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+  
+  # create dumbbells ----
+  geom_linerange(aes(y = occupation,
+                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
+  geom_point(aes(x = total_earnings_male, y = occupation), 
+             color = "#CD93D8", 
+             size = 2.5) +
+  geom_point(aes(x = total_earnings_female, y = occupation), 
+             color = "#6A1E99", 
+             size = 2.5) +
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
+  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
+                     breaks = c(25000, 50000, 75000, 100000))
 
 plot
 ```
@@ -197,15 +203,22 @@ monochromeR::view_palette(earnings_pal)
 #| eval: true
 #| echo: true
 #| warning: false
+#| out-width: "100%"
 # update plot colors using palette ----
 plot <- ggplot(subset_jobs) +
+  
+  # create dumbbells ----
   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
                  y = fct_reorder(occupation, total_earnings), yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
-             color = earnings_pal["males"], size = 3.25) +
+             color = earnings_pal["males"], size = 3.25) + # update with colors from `earnings_pal`
   geom_point(aes(x = total_earnings_female, y = occupation),
-             color = earnings_pal["females"], size = 3.25) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
+             color = earnings_pal["females"], size = 3.25) + # update with colors from `earnings_pal`
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
 
@@ -240,7 +253,7 @@ subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</spa
                        workers by occupation in 2016")
 
 #..........................updated plot..........................
-salary_plot <-plot +
+final_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -271,7 +284,41 @@ salary_plot <-plot +
     axis.title = element_blank()
   )
 
-salary_plot
+final_plot
 ```
 
+## Save plot as a PNG file
+
+```{r}
+#| eval: false
+#| echo: true
+# write plot to file (aka save as png) ----
+ggsave(
+  filename = here::here("week6", "images", "final-plot.png"),
+  plot = final_plot, 
+  device = "png",
+  width = 8, 
+  height = 7,
+  unit = "in"
+)
+```
+
+Our final plot, saved as a PNG file. We'll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week's discussion section!
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/final-plot.png")
+```
+
+## Turn off `{showtext}` text rendering 
+
+```{r}
+#| eval: true
+#| echo: true
+# turn off {showtext} text rendering ----
+showtext_auto(FALSE)
+```
 
