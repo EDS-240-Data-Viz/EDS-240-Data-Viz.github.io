@@ -256,7 +256,7 @@ Read these two *great* posts: [What to consider when using text in data visualiz
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-**Metabolism Effects on Foraging Across Temperatures**
+**Metabolism effects on foraging across temperatures**
 :::
 
 ```{r}
@@ -280,52 +280,10 @@ lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVc
 # alternatively, read in downloaded files ----
 # lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |> 
   # mutate(temp = as.factor(temp))
-# lobs <- read_csv(here::here("course-materials", "lecture-slides", "data", "metabolism-foraging-data.csv")) |> 
-#   mutate(temp = as.factor(temp))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................create theme..........................
-# lob_theme <- function(){
-#   theme_light() +
-#     theme(
-#       axis.title.x = ggtext::element_markdown(size = 13,
-#                                               margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
-#       axis.title.y = ggtext::element_markdown(size = 13,
-#                                               margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
-#       axis.text = element_text(color = "black", size = 12),
-#       panel.border = element_rect(colour = "black", size = 0.7),
-#       panel.grid = element_blank(),
-#       legend.title = element_text(size = 11),
-#       legend.text = element_text(size = 10),
-#       legend.position = c(0.95, 0.95),
-#       legend.justification = c(0.95, 0.95),
-#       legend.box.background = element_rect(color = "black", size = 1.1)
-# 
-#     )
-# }
-
-lob_theme <- function(){
-  theme_light() +
-    theme(
-      axis.title.x = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.title.y = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.text = element_text(color = "black", size = 14),
-      panel.border = element_rect(colour = "black", linewidth = 0.7),
-      panel.grid = element_blank(),
-      legend.title = element_text(size = 15),
-      legend.text = element_text(size = 13),
-      legend.position = c(0.95, 0.95),
-      legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", linewidth = 1.1)
-    )
-}
 
 #..........................create scales.........................
 lob_palette <- c("11" = "#7B8698",
@@ -353,15 +311,32 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
                              color = temp, shape = temp, size = temp)) +
-  geom_point() +
-  scale_color_manual(values = lob_palette, name = "Temperature (ºC)") +
-  scale_shape_manual(values = lob_shapes, name = "Temperature (ºC)") +
-  scale_size_manual(values = lob_sizes, name = "Temperature (ºC)") +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = lob_palette) +
+  scale_shape_manual(values = lob_shapes) +
+  scale_size_manual(values = lob_sizes) +
   scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
   scale_y_continuous(breaks = seq(0, 35, by = 5)) +
   labs(x = x_axis_lab,
-       y = y_axis_lab) +
-  lob_theme()
+       y = y_axis_lab,
+       color = "Temp (ºC)",
+       shape = "Temp (ºC)",
+       size = "Temp (ºC)") +
+  theme_light() +
+    theme(
+      axis.title.x = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 15, r = 0, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.title.y = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 0, r = 15, b = 0, l = 0),
+                                              lineheight = 1.5),
+      axis.text = element_text(color = "black", size = 16),
+      panel.border = element_rect(colour = "black", linewidth = 0.7),
+      panel.grid = element_blank(),
+      legend.position = "top",
+      legend.title = element_text(size = 16),
+      legend.text = element_text(size = 14)
+    )
 
 lob_plot
 ```
@@ -456,12 +431,9 @@ Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](htt
 <hr>
 
 ::: {.body-text-s}
-Note that this starter code incorporates many of the strategies we've discussed in past lectures: turning a theme into a function, creating a color palette (and also point shape and size scales), and axis labels outside of the ggplot code, and using `{ggtext}` to apply markdown to plot text:
+Note that this starter code incorporates some of the strategies we've discussed in past lectures: creating a named color palette, building (axis) labels outside of the ggplot code, and using `{ggtext}` to apply markdown to plot text:
 :::
 
-:::: {.columns}
-
-::: {.column width="50%"}
 ```{r}
 #| eval: false
 #| echo: true
@@ -478,34 +450,13 @@ library(tidyverse)
 lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
   mutate(temp = as.factor(temp))
 
-# alternatively, read in csv file ----
-# lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |>
-#   mutate(temp = as.factor(temp))
+# alternatively, read in downloaded files ----
+# lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |> 
+  # mutate(temp = as.factor(temp))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................create theme..........................
-lob_theme <- function(){
-  theme_light() +
-    theme(
-      axis.title.x = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.title.y = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.text = element_text(color = "black", size = 14),
-      panel.border = element_rect(colour = "black", linewidth = 0.7),
-      panel.grid = element_blank(),
-      legend.title = element_text(size = 15),
-      legend.text = element_text(size = 13),
-      legend.position = c(0.95, 0.95),
-      legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", linewidth = 0.9)
-    )
-}
 
 #..........................create scales.........................
 lob_palette <- c("11" = "#7B8698",
@@ -533,106 +484,35 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
                              color = temp, shape = temp, size = temp)) +
-  geom_point() +
-  scale_color_manual(values = lob_palette, name = "Temperature (ºC)") +
-  scale_shape_manual(values = lob_shapes, name = "Temperature (ºC)") +
-  scale_size_manual(values = lob_sizes, name = "Temperature (ºC)") +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = lob_palette) +
+  scale_shape_manual(values = lob_shapes) +
+  scale_size_manual(values = lob_sizes) +
   scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
   scale_y_continuous(breaks = seq(0, 35, by = 5)) +
   labs(x = x_axis_lab,
-       y = y_axis_lab) +
-  lob_theme()
-
-lob_plot
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| fig-asp: 0.7
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#.........................load libraries.........................
-library(tidyverse)
-
-#..........................read in data..........................
-
-# read in Google Sheet ----
-lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
-  mutate(temp = as.factor(temp))
-
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create lobster plot                           ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................create theme..........................
-lob_theme <- function(){
+       y = y_axis_lab,
+       color = "Temp (ºC)",
+       shape = "Temp (ºC)",
+       size = "Temp (ºC)") +
   theme_light() +
     theme(
-      axis.title.x = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 10, r = 0, b = 0, l = 0),
+      axis.title.x = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 15, r = 0, b = 0, l = 0),
                                               lineheight = 1.5),
-      axis.title.y = ggtext::element_markdown(size = 16,
-                                              margin = margin(t = 0, r = 10, b = 0, l = 0),
+      axis.title.y = ggtext::element_markdown(size = 17,
+                                              margin = margin(t = 0, r = 15, b = 0, l = 0),
                                               lineheight = 1.5),
-      axis.text = element_text(color = "black", size = 14),
+      axis.text = element_text(color = "black", size = 16),
       panel.border = element_rect(colour = "black", linewidth = 0.7),
       panel.grid = element_blank(),
-      legend.title = element_text(size = 15),
-      legend.text = element_text(size = 13),
-      legend.position = c(0.95, 0.95),
-      legend.justification = c(0.95, 0.95),
-      legend.box.background = element_rect(color = "black", linewidth = 0.9)
+      legend.position = "top",
+      legend.title = element_text(size = 16),
+      legend.text = element_text(size = 14)
     )
-}
-
-#..........................create scales.........................
-lob_palette <- c("11" = "#7B8698",
-                 "16" = "#BAD7E5",
-                 "21" = "#DC7E7C",
-                 "26" = "#7D3E40")
-
-lob_shapes <-  c("11" = 15,
-                 "16" = 16,
-                 "21" = 17,
-                 "26" = 18)
-
-lob_sizes <- c("11" = 6,
-               "16" = 6,
-               "21" = 6,
-               "26" = 7)
-
-#........................create plot text........................
-x_axis_lab <- glue::glue("Resting Metabolic Rate<br>
-                         (mg O<sub>2</sub> kg<sup>-1</sup> min<sup>-1</sup>)")
-
-y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
-                         (prey consumed predator<sup>-1</sup> 24hr<sup>-1</sup>)")
-
-#............................plot data...........................
-lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
-                 color = temp, shape = temp, size = temp)) +
-  geom_point() +
-  scale_color_manual(values = lob_palette, name = "Temperature (ºC)") +
-  scale_shape_manual(values = lob_shapes, name = "Temperature (ºC)") +
-  scale_size_manual(values = lob_sizes, name = "Temperature (ºC)") +
-  scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
-  scale_y_continuous(breaks = seq(0, 35, by = 5)) +
-  labs(x = x_axis_lab,
-       y = y_axis_lab) +
-  lob_theme()
 
 lob_plot
 ```
-:::
-
-::::
 
 ---
 
@@ -739,7 +619,7 @@ str(lobs)
 #| eval: false
 #| echo: true
 # from our `lob_plot` code
-scale_size_manual(values = lob_sizes, name = "Temperature (ºC)") 
+scale_size_manual(values = lob_sizes) 
 ```
 
 ---
@@ -750,7 +630,7 @@ scale_size_manual(values = lob_sizes, name = "Temperature (ºC)")
 
 <hr>
 
-[Alternatively, `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`). We can also omit the `show.lengend` argument, since `annotate()` doesn't produce a legend.]{.body-text-s}
+[Alternatively, `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`). We'll also omit the `show.lengend` argument, since `annotate()` doesn't produce a legend.]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -1072,9 +952,9 @@ lob_plot +
 
 <hr>
 
-:::: {.columns}
+<!-- :::: {.columns} -->
 
-::: {.column width="50%"}
+<!-- ::: {.column width="50%"} -->
 ```{r}
 #| eval: false
 #| echo: true
@@ -1091,7 +971,7 @@ library(tidyverse)
 mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
 
 # alternatively, read in csv ----
-mono <- read_csv(here::here("week6", "data", "mono.csv"))
+# mono <- read_csv(here::here("week6", "data", "mono.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create Mono Lake plot                         ----
@@ -1119,58 +999,58 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     plot.caption = element_text(face = "italic")
     )
 ```
-:::
+<!-- ::: -->
 
-::: {.column width="50%"}
+<!-- ::: {.column width="50%"} -->
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#.........................load libraries.........................
-library(tidyverse)
-
-#..........................read in data..........................
-
-# read in Google Sheet ----
-# mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
-
-# alternatively, read in csv ----
-mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv"))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create Mono Lake plot                         ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-ggplot(data = mono, aes(x = year, y = lake_level)) +
-  geom_line() +
-  labs(x = "\nYear",
-       y = "Lake surface level\n(feet above sea level)\n",
-       title = "Mono Lake levels (1850 - 2017)\n",
-       caption = "Data: Mono Basin Clearinghouse") +
-  scale_x_continuous(limits = c(1850, 2020),
-                     expand = c(0,0),
-                     breaks = seq(1850, 2010, by = 20)) +
-  scale_y_continuous(limits = c(6350, 6440),
-                     breaks = c(6370, 6400, 6430),
-                     expand = c(0,0),
-                     labels = scales::label_comma()) +
-  theme_light() +
-  theme(
-    plot.title.position = "plot",
-    plot.title = element_text(size = 16),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    plot.caption = element_text(face = "italic")
-    )
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##                                    setup                                 ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 
+# #.........................load libraries.........................
+# library(tidyverse)
+# 
+# #..........................read in data..........................
+# 
+# # read in Google Sheet ----
+# # mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
+# 
+# # alternatively, read in csv ----
+# mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv"))
+# 
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##                            create Mono Lake plot                         ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 
+# ggplot(data = mono, aes(x = year, y = lake_level)) +
+#   geom_line() +
+#   labs(x = "\nYear",
+#        y = "Lake surface level\n(feet above sea level)\n",
+#        title = "Mono Lake levels (1850 - 2017)\n",
+#        caption = "Data: Mono Basin Clearinghouse") +
+#   scale_x_continuous(limits = c(1850, 2020),
+#                      expand = c(0,0),
+#                      breaks = seq(1850, 2010, by = 20)) +
+#   scale_y_continuous(limits = c(6350, 6440),
+#                      breaks = c(6370, 6400, 6430),
+#                      expand = c(0,0),
+#                      labels = scales::label_comma()) +
+#   theme_light() +
+#   theme(
+#     plot.title.position = "plot",
+#     plot.title = element_text(size = 16),
+#     axis.title = element_text(size = 12),
+#     axis.text = element_text(size = 10),
+#     plot.caption = element_text(face = "italic")
+#     )
 ```
-:::
+<!-- ::: -->
 
-::::
+<!-- :::: -->
 
 ---
 
@@ -1848,7 +1728,7 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 - [the [`{ggtext}` package](https://wilkelab.org/ggtext/index.html){target="_blank"} includes two geoms for annotating plots, `geom_richtext()` & `geom_textbox()` -- both permit Markdown styling]{.body-text-s}
 
-- [the [`{ggforce}` package](https://ggforce.data-imaginist.com/) has *so* many awesome functions, including a series of [annotation functions](https://ggforce.data-imaginist.com/reference/index.html#annotation){target="_blank"} (e.g. check out [`geom_mark_ellipse()`](https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html){target="_blank"}, demoed in [lecture 5.1](lecture5.1-good-viz-slides.qmd#ggforce){target="_blank"}), and [`facet_zoom()`](https://ggforce.data-imaginist.com/reference/facet_zoom.html){target="_blank"}, for zooming into a subset of data; [Tuo Wang](https://tuowang.rbind.io/) also has some great examples in [this blog post](https://tuowang.rbind.io/blog/ggplot2-extensions/02-ggplot2-extensions/#3-span-stylecolor-coralggforcespan-package){target="_blank"}]{.body-text-s}
+- [the [`{ggforce}` package](https://ggforce.data-imaginist.com/){target="_blank"} has *so* many awesome functions, including a series of [annotation functions](https://ggforce.data-imaginist.com/reference/index.html#annotation){target="_blank"} (e.g. check out [`geom_mark_ellipse()`](https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html){target="_blank"}, demoed in [lecture 5.1](lecture5.1-good-viz-slides.qmd#ggforce){target="_blank"}), and [`facet_zoom()`](https://ggforce.data-imaginist.com/reference/facet_zoom.html){target="_blank"}, for zooming into a subset of data; [Tuo Wang](https://tuowang.rbind.io/){target="_blank"} also has some great examples in [this blog post](https://tuowang.rbind.io/blog/ggplot2-extensions/02-ggplot2-extensions/#3-span-stylecolor-coralggforcespan-package){target="_blank"}]{.body-text-s}
 
 [**Tutorials:**]{.body-text-m}
 
@@ -1856,7 +1736,7 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 - [[Recreating the Storytelling with Data look with ggplot](https://albert-rapp.de/posts/ggplot2-tips/10_recreating_swd_look/10_recreating_swd_look.html#add-text-labels){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/){target="_blank"}]{.body-text-s}
 
-- [[4 Ways to use colors in ggplot more efficiently](https://albert-rapp.de/posts/ggplot2-tips/07_four_ways_colors_more_efficiently/07_four_ways_colors_more_efficiently#label-directly){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/) (includes some great annotation examples){target="_blank"}]{.body-text-s}
+- [[4 Ways to use colors in ggplot more efficiently](https://albert-rapp.de/posts/ggplot2-tips/07_four_ways_colors_more_efficiently/07_four_ways_colors_more_efficiently#label-directly){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/){target="_blank"} (includes some great annotation examples)]{.body-text-s}
 
 ---
 

@@ -57,7 +57,7 @@ However, when we tried saving our plot as a PNG file using `ggsave()`, we got so
 #| eval: false 
 #| echo: true
 ggsave(
-  filename = here::here("week6", "images", "final-plot.png"),
+  filename = here::here("week6", "images", "salary-plot.png"),
   plot = final_plot, 
   device = "png",
   width = 8, 
@@ -267,7 +267,7 @@ updated_plot <- plot +
                               face = "bold",
                               size = 18),
     plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 11.5,
+                                            size = 12,
                                             color = earnings_pal["light_text"],
                                             fill = "lightblue", # for debugging 
                                             margin = margin(t = 2, r = 0, b = 6, l = 0)),
@@ -344,7 +344,7 @@ updated_plot <- plot +
                               face = "bold",
                               size = 18),
     plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 11.5,
+                                            size = 12,
                                             color = earnings_pal["light_text"],
                                             fill = "lightblue", # for debugging 
                                             width = unit(25, "cm"),
@@ -410,7 +410,7 @@ updated_plot <- plot +
                               face = "bold",
                               size = 18),
     plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 11.5,
+                                            size = 12,
                                             color = earnings_pal["light_text"],
                                             fill = "lightblue", # for debugging 
                                             width = unit(25, "cm"),
@@ -480,7 +480,7 @@ Our final saved PNG (8 x 7", 300 DPI)!
 #| echo: true
 ggsave(
   filename = here::here("week6", "images", "salary-plot-14x12.png"),
-  plot = updated_plot,
+  plot = final_plot,
   device = "png",
   width = 14,
   height = 12,
@@ -539,7 +539,7 @@ updated_plot <- plot +
                               face = "bold",
                               size = 18),
     plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 11.5,
+                                            size = 12,
                                             color = earnings_pal["light_text"],
                                             # fill = "lightblue", # for debugging 
                                             width = unit(25, "cm"),
@@ -691,7 +691,7 @@ Noooo not again {{< fa face-sad-cry title="a crying face" >}}
 
 ## {#adjust-basesize data-menu-title="Adjust basesize"}
 
-[Just adjust `basesize`!]{.slide-title}
+[Just adjust `base_size`!]{.slide-title}
 
 <hr>
 
@@ -779,7 +779,7 @@ Margins use `unit = "pt"` = 0.35mm by default
 . . . 
 
 2. **Use relative text sizes wherever possible**
-    - set a `basesize` in your complete theme
+    - set a `base_size` in your complete theme
     - use `rel()` to set relative text sizes
 
 <br>
