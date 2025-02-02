@@ -42,8 +42,8 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 ## Setup 
 
 ::: {.callout-note}
-## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd){target="_blank"}
-Our "first draft" of this plot began in week 4 during our rankings lecture. We'll focus on improving colors and fonts today.
+## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}
+Our "first draft" of this plot began in week 4 during our amounts / rankings lecture. We'll focus on improving colors and fonts today.
 :::
 
 ```{r}
@@ -83,7 +83,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 ## Wrangle data
 
-See lecture 4.1 slides [#4](../lecture-slides/lecture4.1-amounts-slides.qmd#job-data){target="_blank"}, [#5](../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling){target="_blank"}, [#23](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset){target="_blank"} & [#24](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create){target="_blank"} as reminders of where we left off.
+See [lecture 4.1 slides](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"} (specifically, [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling){target="_blank"} and [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset){target="_blank"}) as a reminder of where we left off.
 
 ```{r}
 #| eval: true
@@ -151,7 +151,7 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 ## Recreate original plot 
 
-See [lecture 4.1](../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
+See [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
 
 ```{r}
 #| eval: true
@@ -203,15 +203,22 @@ monochromeR::view_palette(earnings_pal)
 #| eval: true
 #| echo: true
 #| warning: false
+#| out-width: "100%"
 # update plot colors using palette ----
 plot <- ggplot(subset_jobs) +
+  
+  # create dumbbells ----
   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
                  y = fct_reorder(occupation, total_earnings), yend = occupation)) +
   geom_point(aes(x = total_earnings_male, y = occupation),
-             color = earnings_pal["males"], size = 3.25) +
+             color = earnings_pal["males"], size = 3.25) + # update with colors from `earnings_pal`
   geom_point(aes(x = total_earnings_female, y = occupation),
-             color = earnings_pal["females"], size = 3.25) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
+             color = earnings_pal["females"], size = 3.25) + # update with colors from `earnings_pal`
+  
+  # facet wrap by group ----
+  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
+  
+  # axis breaks & $ labels ----
   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000))
 
@@ -246,7 +253,7 @@ subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</spa
                        workers by occupation in 2016")
 
 #..........................updated plot..........................
-salary_plot <-plot +
+final_plot <- plot +
   labs(title = "Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
@@ -277,7 +284,41 @@ salary_plot <-plot +
     axis.title = element_blank()
   )
 
-salary_plot
+final_plot
 ```
 
+## Save plot as a PNG file
+
+```{r}
+#| eval: false
+#| echo: true
+# write plot to file (aka save as png) ----
+ggsave(
+  filename = here::here("week6", "images", "final-plot.png"),
+  plot = final_plot, 
+  device = "png",
+  width = 8, 
+  height = 7,
+  unit = "in"
+)
+```
+
+Our final plot, saved as a PNG file. We'll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week's discussion section!
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/final-plot.png")
+```
+
+## Turn off `{showtext}` text rendering 
+
+```{r}
+#| eval: true
+#| echo: true
+# turn off {showtext} text rendering ----
+showtext_auto(FALSE)
+```
 

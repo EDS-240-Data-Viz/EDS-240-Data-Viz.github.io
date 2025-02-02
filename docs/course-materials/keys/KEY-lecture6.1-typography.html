@@ -289,6 +289,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-new-palette" id="toc-create-new-palette" class="nav-link" data-scroll-target="#create-new-palette">Create new palette</a></li>
   <li><a href="#update-plot-colors" id="toc-update-plot-colors" class="nav-link" data-scroll-target="#update-plot-colors">Update plot colors</a></li>
   <li><a href="#titles-theme" id="toc-titles-theme" class="nav-link" data-scroll-target="#titles-theme">Add titles &amp; theme</a></li>
+  <li><a href="#save-plot-as-a-png-file" id="toc-save-plot-as-a-png-file" class="nav-link" data-scroll-target="#save-plot-as-a-png-file">Save plot as a PNG file</a></li>
+  <li><a href="#turn-off-showtext-text-rendering" id="toc-turn-off-showtext-text-rendering" class="nav-link" data-scroll-target="#turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</a></li>
   </ul>
 </nav>
     </div>
@@ -350,11 +352,11 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-slides.qmd" target="_blank">lecture 4.1</a>
+Recall our original plot from <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html" target="_blank">lecture 4.1</a>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Our “first draft” of this plot began in week 4 during our rankings lecture. We’ll focus on improving colors and fonts today.</p>
+<p>Our “first draft” of this plot began in week 4 during our amounts / rankings lecture. We’ll focus on improving colors and fonts today.</p>
 </div>
 </div>
 <div class="cell">
@@ -390,7 +392,7 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 </section>
 <section id="wrangle-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-data">Wrangle data</h2>
-<p>See lecture 4.1 slides <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#job-data" target="_blank">#4</a>, <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#data-wrangling" target="_blank">#5</a>, <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#dumbbell-plot-subset" target="_blank">#23</a> &amp; <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#dumbbell-plot-create" target="_blank">#24</a> as reminders of where we left off.</p>
+<p>See <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html" target="_blank">lecture 4.1 slides</a> (specifically, <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#data-wrangling" target="_blank">this slide</a> and <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#dumbbell-plot-subset" target="_blank">this slide</a>) as a reminder of where we left off.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="do">##                                wrangle data                              ----</span></span>
@@ -454,7 +456,7 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 </section>
 <section id="recreate-original-plot" class="level2">
 <h2 class="anchored" data-anchor-id="recreate-original-plot">Recreate original plot</h2>
-<p>See <a href="../lecture-slides/lecture4.1-rankings-slides.qmd#dumbbell-plot-create" target="_blank">lecture 4.1</a> as a reminder.</p>
+<p>See <a href="../../course-materials/lecture-slides/lecture4.1-amounts-slides.html#dumbbell-plot-create" target="_blank">lecture 4.1</a> as a reminder.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># recreate original plot ----</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
@@ -511,21 +513,27 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># update plot colors using palette ----</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
-<span id="cb6-6"><a href="#cb6-6"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
-<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb6-11"><a href="#cb6-11"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
-<span id="cb6-12"><a href="#cb6-12"></a></span>
-<span id="cb6-13"><a href="#cb6-13"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a>  </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="co"># create dumbbells ----</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
+<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span> <span class="co"># update with colors from `earnings_pal`</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
+<span id="cb6-10"><a href="#cb6-10"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span> <span class="co"># update with colors from `earnings_pal`</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  </span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="co"># facet wrap by group ----</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  </span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb6-17"><a href="#cb6-17"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
+<span id="cb6-18"><a href="#cb6-18"></a></span>
+<span id="cb6-19"><a href="#cb6-19"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-lecture6.1-typography_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -554,7 +562,7 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 <span id="cb7-18"><a href="#cb7-18"></a><span class="st">                       workers by occupation in 2016"</span>)</span>
 <span id="cb7-19"><a href="#cb7-19"></a></span>
 <span id="cb7-20"><a href="#cb7-20"></a><span class="co">#..........................updated plot..........................</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a>salary_plot <span class="ot">&lt;-</span>plot <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>final_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
 <span id="cb7-22"><a href="#cb7-22"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
 <span id="cb7-23"><a href="#cb7-23"></a>       <span class="at">subtitle =</span> subtitle,</span>
 <span id="cb7-24"><a href="#cb7-24"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
@@ -585,7 +593,7 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 <span id="cb7-49"><a href="#cb7-49"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb7-50"><a href="#cb7-50"></a>  )</span>
 <span id="cb7-51"><a href="#cb7-51"></a></span>
-<span id="cb7-52"><a href="#cb7-52"></a>salary_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-52"><a href="#cb7-52"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -593,6 +601,37 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-rankings-sli
 </figure>
 </div>
 </div>
+</div>
+</section>
+<section id="save-plot-as-a-png-file" class="level2">
+<h2 class="anchored" data-anchor-id="save-plot-as-a-png-file">Save plot as a PNG file</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># write plot to file (aka save as png) ----</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggsave</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week6"</span>, <span class="st">"images"</span>, <span class="st">"final-plot.png"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">plot =</span> final_plot, </span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our final plot, saved as a PNG file. We’ll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week’s discussion section!</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/final-plot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="turn-off-showtext-text-rendering" class="level2">
+<h2 class="anchored" data-anchor-id="turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># turn off {showtext} text rendering ----</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
