@@ -422,11 +422,12 @@ Top image source: [Why we use bad color maps and what you can do about it](https
 
 ## {#rainbow-colormaps-alt data-menu-title="Alt rainbow colormaps"} 
 
-[Rainbow colormaps aren't all bad]{.slide-title}
+[If you're going to use a rainbow colormap. . . ]{.slide-title2}
 
 <hr>
 
-<br>
+Try one of these improved versions (right), instead:
+
 <br>
 
 :::: {.columns}
@@ -1328,7 +1329,7 @@ Common color models: RYB (used by painters), RGB (used in electonic displays), C
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-When using a color picker, **adjust the HEX code sliding scale** to pick a hue and ensure that the selector is set to the **far right edge** of the box:
+When using a color picker, **adjust the HEX code sliding scale** to pick a hue and ensure that the selector is set to the **top right edge** of the box:
 :::
 
 ```{r}
@@ -1637,7 +1638,7 @@ Image source: [5 pitfalls to avoid when working with color in data visualization
 
 [1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.body-text-m}
 
-[2. **adjust lightness**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
 
 [3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
 
@@ -1689,7 +1690,7 @@ Saturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read
 
 [1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.body-text-m}
 
-[2. **adjust lightness**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
 
 [3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
 
@@ -1745,7 +1746,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 
 [1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
 
-[2. **adjust lightness**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
 
 [3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
 
@@ -1754,7 +1755,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-Green (132° on the color wheel) with lightness adjusted to 90% (more white) 
+Green (132° on the color wheel) with luminance adjusted to 90% (more white) 
 :::
 
 ```{r}
@@ -1769,7 +1770,7 @@ knitr::include_graphics("images/week5/green-tint.png")
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-Green (132° on the color wheel) with lightness adjusted to 10% (more black)
+Green (132° on the color wheel) with luminance adjusted to 10% (more black)
 :::
 
 ```{r}
@@ -1797,7 +1798,7 @@ Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read 
 
 [1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
 
-[2. **adjust lightness**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
 
 [3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
 
@@ -1806,7 +1807,7 @@ Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read 
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-The default lightness for ggplots is set to 65%
+The default luminance for ggplots is set to 65%
 :::
 
 ```{r}
@@ -1822,7 +1823,7 @@ ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s}
-Use `scale_*_hue()` to adjust lightness / darkness
+Use `scale_*_hue()` to adjust luminance
 :::
 
 ```{r}
@@ -1840,7 +1841,7 @@ ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex
 ::::
 
 ::: {.footer}
-`scale_*_hue()` uses colors based on the [HCL color space](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}. The default lightness value of 65(%) is good for filled areas but may be a bit light for points and lines.
+`scale_*_hue()` uses colors based on the [HCL color space](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}. The default luminance value of 65(%) is good for filled areas but may be a bit light for points and lines.
 :::
 
 ---
@@ -1853,7 +1854,7 @@ ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex
 
 [1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
 
-[2. **adjust lightness**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
 
 [3. **increase transparency** (e.g. using the `alpha` argument)]{.body-text-m}
 

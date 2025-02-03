@@ -95,7 +95,7 @@
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#rainbow-colormaps-alt",
     "title": "EDS 240",
     "section": "",
-    "text": "Rainbow colormaps aren’t all bad\n\n \n\n\n\nProblematic, perceptually nonuniform and unordered rainbow colormaps\n\n\n\n\n\n\n\n\n\n\n\n\nImproved, perceptual uniform and diverging rainbow colormaps\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 10.1109/MCG.2023.3246111\nAlso check out Stoelzle & Stein (2021) (Figure 1 is particularly helpful!) and Crameri et al. (2020) for some really great supplemental reading"
+    "text": "If you’re going to use a rainbow colormap. . .\n\nTry one of these improved versions (right), instead:\n\n\n\n\nProblematic, perceptually nonuniform and unordered rainbow colormaps\n\n\n\n\n\n\n\n\n\n\n\n\nImproved, perceptual uniform and diverging rainbow colormaps\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: Ware C, Stone M, Albers Szafir D (2023) Rainbow colormaps are not all bad. IEEE Computer Graphics and Applications 43:88-93 10.1109/MCG.2023.3246111\nAlso check out Stoelzle & Stein (2021) (Figure 1 is particularly helpful!) and Crameri et al. (2020) for some really great supplemental reading"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#viridis",
@@ -242,7 +242,7 @@
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#select-hue",
     "title": "EDS 240",
     "section": "",
-    "text": "Select hues using color wheels / pickers\n\n\n\n\n\n\n\n\nThere are lots of different variations of color wheels, but look for hues along the outer edge:\n\n\n\n\n\n\n\n\n\n\n\n \n\nCommon color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: medium.com\n\n\n\nWhen using a color picker, adjust the HEX code sliding scale to pick a hue and ensure that the selector is set to the far right edge of the box:\n\n\n\n\n\n\n\n\n\n\n\nThere are lots of great color pickers out there, though Google color picker is a quick one to navigate to. HTML color codes is my personal favorite.\n\n\n\n\n\nRGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)\nRYB: known as painting color system (used by artists in painting)\nCMYK: used on modern printing"
+    "text": "Select hues using color wheels / pickers\n\n\n\n\n\n\n\n\nThere are lots of different variations of color wheels, but look for hues along the outer edge:\n\n\n\n\n\n\n\n\n\n\n\n \n\nCommon color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: medium.com\n\n\n\nWhen using a color picker, adjust the HEX code sliding scale to pick a hue and ensure that the selector is set to the top right edge of the box:\n\n\n\n\n\n\n\n\n\n\n\nThere are lots of great color pickers out there, though Google color picker is a quick one to navigate to. HTML color codes is my personal favorite.\n\n\n\n\n\nRGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)\nRYB: known as painting color system (used by artists in painting)\nCMYK: used on modern printing"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#colors-harmonies1",
@@ -305,35 +305,35 @@
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-sat1",
     "title": "EDS 240",
     "section": "",
-    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust lightness: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) at 100% saturation\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) at 20% saturation (HSL)\n\n\n\n\n\n\n\n\n\n\n\n\nSaturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about HSL vs HSV color models if you want a deeper dive."
+    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust luminance: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) at 100% saturation\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) at 20% saturation (HSL)\n\n\n\n\n\n\n\n\n\n\n\n\nSaturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about HSL vs HSV color models if you want a deeper dive."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-sat2",
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-sat2",
     "title": "EDS 240",
     "section": "",
-    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust lightness: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nThe default chroma for ggplots is set to 100%\n\n\nggplot(na.omit(penguins), aes(x = species, fill = sex)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\nUse scale_*_hue() to adjust chroma (saturation)\n\n\nggplot(na.omit(penguins), aes(x = species, fill = sex)) +\n  geom_bar() +\n  scale_fill_hue(c = 70)\n\n\n\n\n\n\n\n\n\n\nscale_*_hue() uses colors based on the HCL color model."
+    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust luminance: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nThe default chroma for ggplots is set to 100%\n\n\nggplot(na.omit(penguins), aes(x = species, fill = sex)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\nUse scale_*_hue() to adjust chroma (saturation)\n\n\nggplot(na.omit(penguins), aes(x = species, fill = sex)) +\n  geom_bar() +\n  scale_fill_hue(c = 70)\n\n\n\n\n\n\n\n\n\n\nscale_*_hue() uses colors based on the HCL color model."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-lightness1",
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-lightness1",
     "title": "EDS 240",
     "section": "",
-    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust lightness: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) with lightness adjusted to 90% (more white)\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) with lightness adjusted to 10% (more black)\n\n\n\n\n\n\n\n\n\n\n\n\nLightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about HSL vs HSV color models if you want a deeper dive."
+    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust luminance: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) with luminance adjusted to 90% (more white)\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) with luminance adjusted to 10% (more black)\n\n\n\n\n\n\n\n\n\n\n\n\nLightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about HSL vs HSV color models if you want a deeper dive."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-lightness2",
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-lightness2",
     "title": "EDS 240",
     "section": "",
-    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust lightness: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nThe default lightness for ggplots is set to 65%\n\n\nggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nUse scale_*_hue() to adjust lightness / darkness\n\n\nggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +\n  geom_point() +\n  scale_color_hue(l = 45)\n\n\n\n\n\n\n\n\n\n\nscale_*_hue() uses colors based on the HCL color space. The default lightness value of 65(%) is good for filled areas but may be a bit light for points and lines."
+    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust luminance: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nThe default luminance for ggplots is set to 65%\n\n\nggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nUse scale_*_hue() to adjust luminance\n\n\nggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +\n  geom_point() +\n  scale_color_hue(l = 45)\n\n\n\n\n\n\n\n\n\n\nscale_*_hue() uses colors based on the HCL color space. The default luminance value of 65(%) is good for filled areas but may be a bit light for points and lines."
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-opacity",
     "href": "course-materials/lecture-slides/lecture5.2-colors-slides.html#adjust-opacity",
     "title": "EDS 240",
     "section": "",
-    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust lightness: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) with default opacity (100%)\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) with opacity reduced to 50%"
+    "text": "A few approaches for subduing a pure hue\n\n1. adjust the saturation / chroma (i.e. the level of intensity of a color)\n2. adjust luminance: tint (+ white), tone (+ gray), or shade (+ black)\n3. increase transparency (e.g. using the alpha argument)\n\n\n\nGreen (132° on the color wheel) with default opacity (100%)\n\n\n\n\n\n\n\n\n\n\n\n\nGreen (132° on the color wheel) with opacity reduced to 50%"
   },
   {
     "objectID": "course-materials/lecture-slides/lecture5.2-colors-slides.html#build-palettes",
