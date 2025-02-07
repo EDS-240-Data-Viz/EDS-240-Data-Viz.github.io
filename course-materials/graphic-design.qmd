@@ -37,7 +37,10 @@ You can create a *free* Canva account by visiting [canva.com](https://www.canva.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
-*Coming soon!*
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-lines title="A file" >}} Exercise materials |
+|------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| [Graphic Design with Affinity](https://docs.google.com/presentation/d/1MG-v6P2PuaD5T8qHnFNeiMafVncV5BvcaPK33iI8CaI/edit?usp=sharing){target="_blank"}  | [Infographic elements](https://docs.google.com/document/d/1wRwi3WIblXqK9hzEm30VZmPePohAUGfl_NcEO2chxeg/edit?usp=sharing){target="_blank"} | 
+: {.hover .bordered tbl-colwidths="[50,50]"} 
 
 ```{r}
 #| eval: false
@@ -60,47 +63,6 @@ lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVc
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create lobster plot                           ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................create theme..........................
-# lob_theme <- function(){
-#   theme_light() +
-#     theme(
-#       axis.title.x = ggtext::element_markdown(size = 13,
-#                                               margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "lines")),
-#       axis.title.y = ggtext::element_markdown(size = 13,
-#                                               margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "lines")),
-#       axis.text = element_text(color = "black", size = 12),
-#       panel.border = element_rect(colour = "black", size = 0.7),
-#       panel.grid = element_blank(),
-#       legend.title = element_text(size = 11),
-#       legend.text = element_text(size = 10),
-#       legend.position = c(0.95, 0.95),
-#       legend.justification = c(0.95, 0.95),
-#       legend.box.background = element_rect(color = "black", size = 1.1)
-# 
-#     )
-# }
-
-# lob_theme <- function(){
-#   theme_light() +
-#     theme(
-#       axis.title.x = ggtext::element_markdown(size = 16,
-#                                               margin = margin(t = 10, r = 0, b = 0, l = 0),
-#                                               lineheight = 1.5),
-#       axis.title.y = ggtext::element_markdown(size = 16,
-#                                               margin = margin(t = 0, r = 10, b = 0, l = 0),
-#                                               lineheight = 1.5),
-#       axis.text = element_text(color = "black", size = 14),
-#       panel.border = element_rect(colour = "black", linewidth = 0.7),
-#       panel.grid = element_blank(),
-#       legend.title = element_text(size = 15),
-#       legend.text = element_text(size = 13),
-#       #legend.justification.inside = c(0.95, 0.95),
-#       #legend.position.inside = c(0.95, 0.95),
-#       #legend.justification = c(0.95, 0.95),
-#       legend.box.background = element_rect(color = "black", linewidth = 1.1)
-#     )
-# }
 
 #..........................create scales.........................
 lob_palette <- c("11" = "#7B8698",
