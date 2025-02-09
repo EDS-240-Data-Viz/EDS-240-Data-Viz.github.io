@@ -22,7 +22,7 @@ This template follows [lecture 6.2 slides](../lecture-slides/lecture6.2-annotati
 #.........................load libraries.........................
 library(tidyverse)
 library(googlesheets4)
-library(ggtext)
+library(ggrepel)
 library(scales)
 
 #......................read in lobster data......................
@@ -81,7 +81,7 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
                              color = temp, shape = temp, size = temp)) +
-  geom_point(alpha = 0.8) +
+  geom_point() +
   scale_color_manual(values = lob_palette) +
   scale_shape_manual(values = lob_shapes) +
   scale_size_manual(values = lob_sizes) +
@@ -294,6 +294,12 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     ymin = 6350, ymax = 6440,
     fill = "gray90"
   ) +
+  annotate(
+    geom = "text", 
+    x = 1962, y = 6425,
+    label = "unrestricted diversions\n(1941 - 1983)",
+    size = 3
+  ) +
   geom_line() +
   labs(x = "\nYear",
        y = "Lake surface level\n(feet above sea level)\n",
@@ -306,18 +312,12 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
                      breaks = c(6370, 6400, 6430),
                      expand = c(0,0),
                      labels = scales::label_comma()) +
-  annotate(
-    geom = "text", 
-    x = 1962, y = 6425,
-    label = "unrestricted diversions\n(1941 - 1983)",
-    size = 3
-  ) +
   geom_hline(yintercept = 6360, 
              linetype = "dashed") +
   annotate(
     geom = "text",
-    x = 1910, y = 6366,
-    label = "Decreased shrimp abundance expected\n(6,360 feet above sea level)",
+    x = 1900, y = 6366,
+    label = "Decreased brine shrimp abundance expected\n(6,360 feet above sea level)",
     size = 3
     ) +
   theme_light() +
