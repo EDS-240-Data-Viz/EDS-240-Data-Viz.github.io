@@ -27,6 +27,7 @@ knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 #| code-line-numbers: false
 install.packages("monochromeR") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)
 install.packages("showtext") # for using fonts more easily in R graphs
+install.packages("glue") # for string interpolation (aka helps us insert variables directly into text strings)
 install.packages("ggtext") # improved text rendering support for ggplot2
 install.packages("ggrepel") # ggplot2 extension to repel overlapping labels
 install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4
@@ -47,7 +48,7 @@ We'll learn how to use [Font Awesome](https://fontawesome.com/){target="_blank"}
 
 1. **Download Font Awesome fonts:** Go to [https://fontawesome.com/download](https://fontawesome.com/download){target="_blank"} and download the latest release available. Choose the **Free For Desktop** option.
 2. **Unzip the downloaded file:** You should see a folder inside called `otfs/` -- this contains three `.otf` files (aka OpenType font format files)
-3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `~/fonts/*.otf`)
+3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `EDS-240-data-viz-examples/fonts/*.otf`)
 
 ### C. Download .qmd templates & review data wrangling code
 
@@ -82,14 +83,14 @@ We'll learn how to use [Font Awesome](https://fontawesome.com/){target="_blank"}
 
 ## {{< fa pencil title="pencil" >}} Assignment Reminders {#assignment-reminders}
 
-| Assignment Type | Assignment Title        | Date Assigned  | Date Due                   |
-|-----------------|-------------------------|----------------|----------------------------|
-| EOC             | EOC (week 6)            | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT |
-| HW              | Homework Assignment #3  | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT |
-: {.hover .bordered tbl-colwidths="[20,30,20,30]"}
-
-<!-- | Assignment Type | Assignment Title                                     | Date Assigned  | Date Due                   | -->
-<!-- |-----------------|------------------------------------------------------|----------------|----------------------------| -->
-<!-- | EOC             | [EOC (week 6)](https://forms.gle/inCUJQHNCRVbcBBQ6)  | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT | -->
-<!-- | HW              | [Homework Assignment #3](assignments/HW3.qmd)        | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT | -->
+<!-- | Assignment Type | Assignment Title        | Date Assigned  | Date Due                   | -->
+<!-- |-----------------|-------------------------|----------------|----------------------------| -->
+<!-- | EOC             | EOC (week 6)            | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT | -->
+<!-- | HW              | Homework Assignment #3  | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT | -->
 <!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->
+
+| Assignment Type | Assignment Title                                     | Date Assigned  | Date Due                   |
+|-----------------|------------------------------------------------------|----------------|----------------------------|
+| EOC             | [EOC (week 6)](https://forms.gle/inCUJQHNCRVbcBBQ6)  | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT |
+| HW              | [Homework Assignment #3](assignments/HW3.qmd)        | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT |
+: {.hover .bordered tbl-colwidths="[20,30,20,30]"}

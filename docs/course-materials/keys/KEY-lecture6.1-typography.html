@@ -367,27 +367,29 @@ Recall our original plot from <a href="../../course-materials/lecture-slides/lec
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#......................import Google fonts.......................</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggpplot</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Josefin Sans"</span>, <span class="at">family =</span> <span class="st">"josefin"</span>)</span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sen"</span>, <span class="at">family =</span> <span class="st">"sen"</span>)</span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
-<span id="cb2-17"><a href="#cb2-17"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Brands-Regular-400.otf"</span>))</span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
-<span id="cb2-19"><a href="#cb2-19"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Regular-400.otf"</span>)) </span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb2-25"><a href="#cb2-25"></a></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(glue)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#......................import Google fonts.......................</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggpplot</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Josefin Sans"</span>, <span class="at">family =</span> <span class="st">"josefin"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sen"</span>, <span class="at">family =</span> <span class="st">"sen"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Brands-Regular-400.otf"</span>))</span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Regular-400.otf"</span>)) </span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
+<span id="cb2-24"><a href="#cb2-24"></a></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-27"><a href="#cb2-27"></a></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wrangle-data" class="level2">

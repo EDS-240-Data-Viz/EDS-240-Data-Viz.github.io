@@ -311,7 +311,7 @@ y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
 #............................plot data...........................
 lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
                              color = temp, shape = temp, size = temp)) +
-  geom_point(alpha = 0.8) +
+  geom_point() +
   scale_color_manual(values = lob_palette) +
   scale_shape_manual(values = lob_shapes) +
   scale_size_manual(values = lob_sizes) +
@@ -407,7 +407,7 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html){target="_blank"} materials
+Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html){target="_blank"} materials.
 :::
 
 :::
@@ -595,7 +595,7 @@ lob_plot +
 
 <hr>
 
-[Like all other `geom_*()` functions we've worked with, **`geom_text()` & `geom_label()` take aesthetic mappings**. You can either define `aes()` within the geom, *or* it'll inherit global mappings from `ggplot()` (as in our case).]{.body-text-s}
+[Like all other `geom_*()` functions we've worked with, **`geom_text()` (and related geoms) take aesthetic mappings**. You can either define `aes()` within the geom, *or* it'll inherit global mappings from `ggplot()` (as in our case).]{.body-text-s}
 
 <br>
 
@@ -610,8 +610,6 @@ str(lobs)
 ```
 
 . . . 
-
-<br>
 
 [It's also inheriting the `size` aesthetic for our box border.]{.body-text-s}
 
@@ -1060,14 +1058,14 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 <hr>
 
-[Let's say we want to call particular attention to the sharp decline in lake surface level between 1941 - 1983 as a result of unrestricted water diversions. Let's do so using `annotate()` (**note** the order of our annotation layers matters!).]{.body-text-s}
+[Let's say we want to call particular attention to the **sharp decline in lake surface level between 1941 - 1983** as a result of [unrestricted water diversions](https://www.monolake.org/learn/aboutmonolake/savingmonolake/#:~:text=In%201941%2C%20the%20Los%20Angeles,volume%2C%20and%20doubled%20in%20salinity.){target="_blank"}. Let's do so using `annotate()` (**note** the order of our annotation layers matters!).]{.body-text-s}
 
 ```{r}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-#| code-line-numbers: "2-7,20-25"
+#| code-line-numbers: "2-13"
 #| output-location: column
 ggplot(data = mono, aes(x = year, y = lake_level)) +
   annotate(
@@ -1075,6 +1073,12 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     xmin = 1941, xmax = 1983,
     ymin = 6350, ymax = 6440,
     fill = "gray90"
+  ) +
+  annotate(
+    geom = "text", 
+    x = 1962, y = 6425,
+    label = "unrestricted diversions\n(1941 - 1983)",
+    size = 3
   ) +
   geom_line() +
   labs(x = "\nYear",
@@ -1088,12 +1092,6 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
                      breaks = c(6370, 6400, 6430),
                      expand = c(0,0),
                      labels = scales::label_comma()) +
-  annotate(
-    geom = "text", 
-    x = 1962, y = 6425,
-    label = "unrestricted diversions\n(1941 - 1983)",
-    size = 3
-  ) +
   theme_light() +
   theme(
     plot.title.position = "plot",
@@ -1106,6 +1104,19 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 <!-- [Note the importance of *order* here! Plotting our `geom_line()` layer *after* creating our gray rectangle ensures that it isn't blocked.]{.body-text-s} -->
 
+::: {.notes}
+- Mono Lake is an ancient saline lake that sits at the edge of the Great Basin and Sierra Nevada mountains and covers >70 square miles.
+- Supports a highly productive ecosystem
+- No fish, but trillions of brine shrimp and alkali flies, which sustain millions of migratory birds a year
+- In 1941, the LA Department of Water & Power began diverting water from the streams that feed Mono Lake to meet growing demand in LA
+- Over 40 years, Mono Lake dropped 45 vertical feet, lost half it's volume of water, and doubled in salinity
+- Nesting sites were compromised, and air quality degraded from the exposed lake bed dust
+- Grassroots efforts to save Mono Lake began in 1976, led by UC Davis & Stanford students (eventually becoming the Mono Lake Committee)
+- In 1983, the CA Supreme Court sided with Mono Lake Committee and ruled that the state had an obligation to protect places like Mono Lake "as far as feasible"
+
+
+:::
+
 ---
 
 ## {#add-context data-menu-title="Add context"} 
@@ -1114,7 +1125,7 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 <hr>
 
-[We can add any other important information to provide better context for our readers. Let's say we're also interested in shrimp abundances, which decline above 6,360 feet. Here, we add a baseline at that elevation, along with text:]{.body-text-s}
+[[Mono Lake's brine shrimp](https://www.monolake.org/learn/aboutmonolake/naturalhistory/brineshrimp/#:~:text=Within%20Mono%20Lake's%20briny%20waters,during%20the%20warmer%20summer%20months.){target="_blank"} provide food for millions of migratory birds. Abundances are expected to decline if water levels drop below 6,360 feet above sea level. We can provide context by adding a benchmark line and text.]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -1152,8 +1163,8 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
              linetype = "dashed") +
   annotate(
     geom = "text",
-    x = 1910, y = 6366,
-    label = "Decreased shrimp abundance expected\n(6,360 feet above sea level)",
+    x = 1900, y = 6366,
+    label = "Decreased brine shrimp abundance expected\n(6,360 feet above sea level)",
     size = 3
     ) +
   theme_light() +

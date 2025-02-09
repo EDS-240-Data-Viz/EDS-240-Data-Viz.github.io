@@ -316,9 +316,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"monochromeR"</span>) <span class="co"># a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"showtext"</span>) <span class="co"># for using fonts more easily in R graphs</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggtext"</span>) <span class="co"># improved text rendering support for ggplot2</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>) <span class="co"># ggplot2 extension to repel overlapping labels</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"googlesheets4"</span>) <span class="co"># provides an R interface to Google Sheets via the Sheets API v4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"glue"</span>) <span class="co"># for string interpolation (aka helps us insert variables directly into text strings)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggtext"</span>) <span class="co"># improved text rendering support for ggplot2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>) <span class="co"># ggplot2 extension to repel overlapping labels</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"googlesheets4"</span>) <span class="co"># provides an R interface to Google Sheets via the Sheets API v4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ### B. Download Data -->
 <!-- In case we have trouble with the `{googlesheets4}` API, you can download and read in the following data files as normal (i.e. using `readr::read_csv()`): -->
@@ -332,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><strong>Download Font Awesome fonts:</strong> Go to <a href="https://fontawesome.com/download" target="_blank">https://fontawesome.com/download</a> and download the latest release available. Choose the <strong>Free For Desktop</strong> option.</li>
 <li><strong>Unzip the downloaded file:</strong> You should see a folder inside called <code>otfs/</code> – this contains three <code>.otf</code> files (aka OpenType font format files)</li>
-<li><strong>Copy the three <code>.otf</code> files to your class repo:</strong> I recommend creating a <code>fonts/</code> folder inside your root directory, and dropping all three of them in there (e.g.&nbsp;<code>~/fonts/*.otf</code>)</li>
+<li><strong>Copy the three <code>.otf</code> files to your class repo:</strong> I recommend creating a <code>fonts/</code> folder inside your root directory, and dropping all three of them in there (e.g.&nbsp;<code>EDS-240-data-viz-examples/fonts/*.otf</code>)</li>
 </ol>
 </section>
 <section id="c.-download-.qmd-templates-review-data-wrangling-code" class="level3">
@@ -413,6 +414,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="assignment-reminders" class="level2">
 <h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
+<!-- | Assignment Type | Assignment Title        | Date Assigned  | Date Due                   | -->
+<!-- |-----------------|-------------------------|----------------|----------------------------| -->
+<!-- | EOC             | EOC (week 6)            | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT | -->
+<!-- | HW              | Homework Assignment #3  | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT | -->
+<!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -431,23 +437,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>EOC</td>
-<td>EOC (week 6)</td>
+<td><a href="https://forms.gle/inCUJQHNCRVbcBBQ6">EOC (week 6)</a></td>
 <td>Mon 02/10/2025</td>
 <td>Mon 02/10/2025, 11:55pm PT</td>
 </tr>
 <tr class="even">
 <td>HW</td>
-<td>Homework Assignment #3</td>
+<td><a href="../course-materials/assignments/HW3.html">Homework Assignment #3</a></td>
 <td>Tue 02/11/2025</td>
 <td>Tue 02/25/2025, 11:59pm PT</td>
 </tr>
 </tbody>
 </table>
-<!-- | Assignment Type | Assignment Title                                     | Date Assigned  | Date Due                   | -->
-<!-- |-----------------|------------------------------------------------------|----------------|----------------------------| -->
-<!-- | EOC             | [EOC (week 6)](https://forms.gle/inCUJQHNCRVbcBBQ6)  | Mon 02/10/2025 | Mon 02/10/2025, 11:55pm PT | -->
-<!-- | HW              | [Homework Assignment #3](assignments/HW3.qmd)        | Tue 02/11/2025 | Tue 02/25/2025, 11:59pm PT | -->
-<!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->
 
 
 </section>
