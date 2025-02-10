@@ -1141,6 +1141,12 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     ymin = 6350, ymax = 6440,
     fill = "gray90"
   ) +
+  annotate(
+    geom = "text", 
+    x = 1962, y = 6425,
+    label = "unrestricted diversions\n(1941 - 1983)",
+    size = 3
+  ) +
   geom_line() +
   labs(x = "\nYear",
        y = "Lake surface level\n(feet above sea level)\n",
@@ -1153,12 +1159,6 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
                      breaks = c(6370, 6400, 6430),
                      expand = c(0,0),
                      labels = scales::label_comma()) +
-  annotate(
-    geom = "text", 
-    x = 1962, y = 6425,
-    label = "unrestricted diversions\n(1941 - 1983)",
-    size = 3
-  ) +
   geom_hline(yintercept = 6360, 
              linetype = "dashed") +
   annotate(
