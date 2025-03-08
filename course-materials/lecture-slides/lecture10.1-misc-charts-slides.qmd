@@ -38,7 +38,7 @@ knitr::include_graphics("images/week10/pie-waffle.png")
 ```
  
 ::: {.center-text .gray-text .body-text-s}
-Image source: [How to visualise your data: parts-to-whole charts](https://culturecounts.cc/blog/how-to-visualise-your-data-parts-to-whole-charts), by Tom McKenzie
+Image source: [How to visualise your data: parts-to-whole charts](https://culturecounts.cc/blog/how-to-visualise-your-data-parts-to-whole-charts){target="_blank"}, by Tom McKenzie
 :::
 
 ---
@@ -49,7 +49,7 @@ Image source: [How to visualise your data: parts-to-whole charts](https://cultur
 
 <hr>
 
-[Anyone may report a [Bigfoot sighting](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13) to the [Bigfoot Field Researchers Organization (BFRO)](https://www.bfro.net/). TidyTuesday featured these compiled BFRO reports on [2022-09-13](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13).]{.body-text-s}
+[Anyone may report a [Bigfoot sighting](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13){target="_blank"} to the [Bigfoot Field Researchers Organization (BFRO)](https://www.bfro.net/){target="_blank"}. TidyTuesday featured these compiled BFRO reports on [2022-09-13](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13){target="_blank"}.]{.body-text-s}
 
 <br>
 
@@ -79,17 +79,17 @@ font_add_google(name = "Josefin Sans", family = "josefin")
 showtext_auto()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                               data wrangling                             ----
+##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ca_season_counts <- bigfoot |> 
   filter(state == "California") |> 
   group_by(season) |> 
   count(season) |> 
-  filter(season != "Unknown") |> 
-  arrange(match(season, c("Spring", "Summer", "Fall", "Winter"))) |> 
   ungroup() |> 
-  mutate(season = fct_relevel(season, "Spring", "Summer", "Fall", "Winter"))
+  filter(season != "Unknown") |> 
+  mutate(season = fct_relevel(season, "Spring", "Summer", "Fall", "Winter")) |> # set factor levels for legend
+  arrange(season, c("Spring", "Summer", "Fall", "Winter")) # order df rows; {waffle} fills color based on the order that values appear in df
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                Waffle chart                              ----
@@ -111,8 +111,7 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
-  geom_waffle(color = "white", size = 0.3, 
-              n_rows = 10, make_proportional = FALSE) +
+  geom_waffle(color = "white", size = 0.3, n_rows = 10) +
   coord_equal() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
@@ -175,17 +174,17 @@ font_add_google(name = "Josefin Sans", family = "josefin")
 showtext_auto()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                               data wrangling                             ----
+##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ca_season_counts <- bigfoot |> 
   filter(state == "California") |> 
   group_by(season) |> 
   count(season) |> 
-  filter(season != "Unknown") |> 
-  arrange(match(season, c("Spring", "Summer", "Fall", "Winter"))) |> 
   ungroup() |> 
-  mutate(season = fct_relevel(season, "Spring", "Summer", "Fall", "Winter"))
+  filter(season != "Unknown") |> 
+  mutate(season = fct_relevel(season, "Spring", "Summer", "Fall", "Winter")) |> # set factor levels for legend
+  arrange(season, c("Spring", "Summer", "Fall", "Winter")) # order df rows; {waffle} fills color based on the order that values appear in df
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                waffle chart                              ----
@@ -236,6 +235,9 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                    color = plot_palette["beige"]),
     plot.margin = margin(t = 2, r = 2, b = 2, l = 2, "cm")
   )
+
+#........................turn off showtext.......................
+showtext_auto(FALSE)
 ```
 
 ---
@@ -272,8 +274,8 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
-  geom_waffle(color = "white", size = 0.3, 
-              n_rows = 10, make_proportional = TRUE) +
+  geom_waffle(color = "white", size = 0.3, n_rows = 10, 
+              make_proportional = TRUE) +
   coord_equal() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
@@ -302,6 +304,9 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                    color = plot_palette["beige"]),
     plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
   )
+
+#........................turn off showtext.......................
+showtext_auto(FALSE)
 ```
 
 ---
@@ -336,8 +341,8 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
-  geom_waffle(color = "white", size = 0.3, 
-              n_rows = 10, make_proportional = TRUE) +
+  geom_waffle(color = "white", size = 0.3, n_rows = 10, 
+              make_proportional = TRUE) +
   coord_equal() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
@@ -366,6 +371,9 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                    color = plot_palette["beige"]),
     plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
   )
+
+#........................turn off showtext.......................
+showtext_auto(FALSE)
 ```
 
 ---
@@ -396,7 +404,7 @@ knitr::include_graphics("images/week10/rapp-bump-charts.png")
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-[European flight ranking](https://github.com/AlbertRapp/PublicTidyTuesday/tree/main/2022_w28_euroflights), by [Albert Rapp](https://albert-rapp.de/)
+[European flight ranking](https://github.com/AlbertRapp/PublicTidyTuesday/tree/main/2022_w28_euroflights){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/){target="_blank"}
 :::
 :::
 
@@ -410,7 +418,7 @@ knitr::include_graphics("images/week10/rapp-bump-charts.png")
 
 <hr>
 [
-The [US Bureau of Labor Statistics](https://www.bls.gov/) provides data on occupations and earnings. TidyTuesday featured these compiled data on [2019-03-05](https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-03-05/readme.md) (these are the same data we used to create our dumbbell plot during lectures [4.1](https://samanthacsik.github.io/EDS-240-data-viz/slides/week4.1-rankings-slides.html#/dumbbell-plot-output) and [6.1](https://samanthacsik.github.io/EDS-240-data-viz/slides/week6.1-typography-slides.html#/updated-text)).]{.body-text-s}
+The [US Bureau of Labor Statistics](https://www.bls.gov/){target="_blank"} provides data on occupations and earnings. TidyTuesday featured these compiled data on [2019-03-05](https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-03-05/readme.md){target="_blank"} (these are the same data we used to create our dumbbell plot during lectures [4.1](lecture4.1-amounts-slides.qmd){target="_blank"} and [6.1](lecture6.1-typography-slides.qmd){target="_blank"}).]{.body-text-s}
 
 <br>
 
@@ -454,7 +462,7 @@ salary_rank_by_year <- jobs |>
   ungroup() |> 
   arrange(rank, year)
 
-#..........get top 8 occupations for final year (2016)...........
+#........get top 8 occupation names for final year (2016)........
 top2016 <- salary_rank_by_year |>  
   filter(year == 2016, rank <= 8) |>  
   pull(occupation) 
@@ -463,19 +471,25 @@ top2016 <- salary_rank_by_year |>
 ##                                 bump chart                               ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#.................create palette & assign colors.................
-occupations_palette <- viridisLite::magma(12)
+# grab magma palette ----
+magma_pal <- viridisLite::magma(12)
+
+# view magma colors ----
+# monochromeR::view_palette(magma_pal)
+
+# assign magma colors to top 8 occupations ----
 occupation_colors <- c(
-  "Physicians and surgeons" = occupations_palette[3],
-  "Nurse anesthetists" = occupations_palette[4],
-  "Dentists" = occupations_palette[5],
-  "Architectural and engineering managers" = occupations_palette[6],
-  "Lawyers" = occupations_palette[7], 
-  "Podiatrists" = occupations_palette[8],
-  "Chief executives" = occupations_palette[9],
-  "Petroleum engineers" = occupations_palette[10]
+  "Physicians and surgeons" = magma_pal[3],
+  "Nurse anesthetists" = magma_pal[4],
+  "Dentists" = magma_pal[5],
+  "Architectural and engineering managers" = magma_pal[6],
+  "Lawyers" = magma_pal[7], 
+  "Podiatrists" = magma_pal[8],
+  "Chief executives" = magma_pal[9],
+  "Petroleum engineers" = magma_pal[10]
 )
 
+# create palette for additional plot theming ----
 plot_palette <- c(dark_purple = "#2A114E", 
                   dark_gray = "#6D6B71",
                   light_pink = "#FFF8F4")
@@ -522,14 +536,15 @@ salary_rank_by_year |>
   ) +
   scale_y_reverse() +
   scale_color_manual(values = occupation_colors) +
-  coord_cartesian(xlim = c(2010, 2016), ylim = c(11, 0.25), 
+  coord_cartesian(xlim = c(2010, 2016), 
+                  ylim = c(11, 0.25), 
                   clip = "off") +
   labs(title = title,
        subtitle = subtitle,
        caption = caption) +
   theme_void() +
   theme(
-    legend.position = "blank",
+    legend.position = "none",
     plot.title = element_text(family = "passion",
                               size = 25,
                               color = plot_palette["dark_purple"],
@@ -546,6 +561,8 @@ salary_rank_by_year |>
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
+#........................turn off showtext.......................
+showtext_auto(FALSE)
 ```
 
 ---
@@ -595,7 +612,7 @@ salary_rank_by_year <- jobs |>
   ungroup() |> 
   arrange(rank, year)
 
-#..........get top 8 occupations for final year (2016)...........
+#........get top 8 occupation names for final year (2016)........
 top2016 <- salary_rank_by_year |>  
   filter(year == 2016, rank <= 8) |>  
   pull(occupation) 
@@ -604,19 +621,25 @@ top2016 <- salary_rank_by_year |>
 ##                                 bump chart                               ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#.................create palette & assign colors.................
-occupations_palette <- viridisLite::magma(12)
+# grab magma palette ----
+magma_pal <- viridisLite::magma(12)
+
+# view magma colors ----
+# monochromeR::view_palette(magma_pal)
+
+# assign magma colors to top 8 occupations ----
 occupation_colors <- c(
-  "Physicians and surgeons" = occupations_palette[3],
-  "Nurse anesthetists" = occupations_palette[4],
-  "Dentists" = occupations_palette[5],
-  "Architectural and engineering managers" = occupations_palette[6],
-  "Lawyers" = occupations_palette[7], 
-  "Podiatrists" = occupations_palette[8],
-  "Chief executives" = occupations_palette[9],
-  "Petroleum engineers" = occupations_palette[10]
+  "Physicians and surgeons" = magma_pal[3],
+  "Nurse anesthetists" = magma_pal[4],
+  "Dentists" = magma_pal[5],
+  "Architectural and engineering managers" = magma_pal[6],
+  "Lawyers" = magma_pal[7], 
+  "Podiatrists" = magma_pal[8],
+  "Chief executives" = magma_pal[9],
+  "Petroleum engineers" = magma_pal[10]
 )
 
+# create palette for additional plot theming ----
 plot_palette <- c(dark_purple = "#2A114E", 
                   dark_gray = "#6D6B71",
                   light_pink = "#FFF8F4")
@@ -663,14 +686,15 @@ salary_rank_by_year |>
   ) +
   scale_y_reverse() +
   scale_color_manual(values = occupation_colors) +
-  coord_cartesian(xlim = c(2010, 2016), ylim = c(11, 0.25), 
+  coord_cartesian(xlim = c(2010, 2016), 
+                  ylim = c(11, 0.25), 
                   clip = "off") +
   labs(title = title,
        subtitle = subtitle,
        caption = caption) +
   theme_void() +
   theme(
-    legend.position = "blank",
+    legend.position = "none",
     plot.title = element_text(family = "passion",
                               size = 25,
                               color = plot_palette["dark_purple"],
@@ -687,6 +711,8 @@ salary_rank_by_year |>
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
+#........................turn off showtext.......................
+showtext_auto(FALSE)
 ```
 
 ---
@@ -695,7 +721,7 @@ salary_rank_by_year |>
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p>
+<p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p>
 </div>
 
 ```{r}

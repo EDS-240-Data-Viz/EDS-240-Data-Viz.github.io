@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -240,7 +274,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
+  <li><a href="#b.-download-.qmd-templates" id="toc-b.-download-.qmd-templates" class="nav-link" data-scroll-target="#b.-download-.qmd-templates">B. Download .qmd templates</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
   <ul class="collapse">
@@ -273,26 +311,47 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>Coming soon!</em> <!-- Please be sure to complete the following before class: --></p>
-<!-- ### A. Install required packages -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: false -->
-<!-- library(waffle) # for making waffle (square pie) charts in R -->
-<!-- library(ggbump) # a geom for creating bump charts -->
-<!-- ``` -->
-<!-- ### B. Prompt engineering prep -->
-<!-- To follow along with Sevan's lesson on ChatGPT prompt engineering for data wrangling & visualization, you'll need to first: -->
-<!-- 1. [Create a free OpenAI account](https://chat.openai.com/auth/login) (if you don't already have one), or make sure you know your login credentials -->
-<!-- 2. [Download this `.xlsx` data file](https://docs.google.com/spreadsheets/d/1VeWF01_2--KXS7sB-IfPGVNNkGdGcGpN/edit?usp=sharing&ouid=103292946495291407556&rtpof=true&sd=true) and save it somewhere you can easily find -->
+<p><em>Coming soon!</em></p>
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waffle) <span class="co"># for making waffle (square pie) charts in R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbump) <span class="co"># a geom for creating bump charts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-download-.qmd-templates" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-.qmd-templates">B. Download .qmd templates</h3>
+<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week10/</code> folder. No need to review any of the code ahead of class – we’ll be walking through it all together.</p>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<p><em>Coming soon!</em></p>
-<!-- - Misc. charts: week10.1-misc-charts-slides.qmd -->
-<!-- - Prompt engineering: https://docs.google.com/presentation/d/11i_Q33FCaKlQYNlGUpzOa8zb9fpfxB3eTFfD6cjdlZo/edit#slide=id.p -->
-<!-- - Quarter recap: lecture-slides/week10.3-recap.qmd -->
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
+<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
+<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../course-materials/lecture-slides/lecture10.1-misc-charts-slides.html" target="_blank">Lecture 10.1: misc. chart types</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week10/TEMPLATE-10.1-misc-charts.qmd" target="_blank">10.1 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture10.1-misc-charts.html" target="_blank">10.1 key</a></td>
+</tr>
+<tr class="even">
+<td><a href="../course-materials/lecture-slides/lecture10.2-recap-slides.html" target="_blank">Lecture 10.2: quarter recap</a></td>
+<td><em>NA</em></td>
+<td><em>NA</em></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="pre-discussion-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
@@ -332,6 +391,12 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="assignment-reminders" class="level2">
 <h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
+<!-- | Assignment Type | Assignment Title                 | Date Assigned  | Date Due                   | -->
+<!-- |-----------------|----------------------------------|----------------|----------------------------| -->
+<!-- | EOC             | EOC (week 10)                    | Mon 03/10/2025 | Mon 03/10/2025, 11:55pm PT | -->
+<!-- | HW              | [Homework Assignment #4](assignments/HW4.qmd)           | Tue 02/25/2025 | Tue 03/11/2025, 11:59pm PT | -->
+<!-- | SR              | End-of-course reflection (SR #3) | Mon 03/10/2025 | Sat 03/15/2025, 11:59pm PT | -->
+<!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -350,9 +415,9 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>EOC</td>
-<td>EOC (week 10)</td>
+<td><a href="https://forms.gle/p6W89kVHguXJrkDb7">EOC (week 10)</a></td>
 <td>Mon 03/10/2025</td>
-<td>Mon 03/10/2025, 11:55pm PT</td>
+<td>Mon 03/11/2025, 11:55pm PT</td>
 </tr>
 <tr class="even">
 <td>HW</td>
@@ -362,18 +427,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td>SR</td>
-<td>End-of-course reflection (SR #3)</td>
+<td><a href="../course-materials/assignments/SR3-endcourse.html">End-of-course reflection (SR #3)</a></td>
 <td>Mon 03/10/2025</td>
 <td>Sat 03/15/2025, 11:59pm PT</td>
 </tr>
 </tbody>
 </table>
-<!-- | Assignment Type | Assignment Title                                                   | Date Assigned  | Date Due                  | -->
-<!-- |-----------------|-------------------------------------------------------------------|----------------|----------------------------| -->
-<!-- | EOC             | [EOC (week 10)](https://forms.gle/p6W89kVHguXJrkDb7)              | Mon 03/10/2025 | Mon 03/11/2025, 11:55pm PT | -->
-<!-- | HW              | [Homework Assignment #4](assignments/HW4.qmd)                     | Tue 02/25/2025 | Tue 03/11/2025, 11:59pm PT | -->
-<!-- | SR              | [End-of-course reflection (SR #3)](assignments/SR3-endcourse.qmd) | Mon 03/10/2025 | Sat 03/15/2025, 11:59pm PT | -->
-<!-- : {.hover .bordered tbl-colwidths="[20,30,20,30]"} -->
 
 
 </section>
