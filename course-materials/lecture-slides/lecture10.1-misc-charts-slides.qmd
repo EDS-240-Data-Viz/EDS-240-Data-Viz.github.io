@@ -112,7 +112,7 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
   geom_waffle(color = "white", size = 0.3, n_rows = 10) +
-  coord_equal() +
+  coord_fixed() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
        subtitle = subtitle,
@@ -208,7 +208,7 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
   geom_waffle(color = "white", size = 0.3, 
               n_rows = 10, make_proportional = FALSE) +
-  coord_equal() +
+  coord_fixed() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
        subtitle = subtitle,
@@ -276,7 +276,7 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
   geom_waffle(color = "white", size = 0.3, n_rows = 10, 
               make_proportional = TRUE) +
-  coord_equal() +
+  coord_fixed() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
        subtitle = subtitle,
@@ -343,7 +343,7 @@ caption <- "Source: Bigfoot Field Researchers Organization"
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
   geom_waffle(color = "white", size = 0.3, n_rows = 10, 
               make_proportional = TRUE) +
-  coord_equal() +
+  coord_fixed() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
        subtitle = subtitle,
