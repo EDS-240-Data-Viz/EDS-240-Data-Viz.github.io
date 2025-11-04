@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Assignment #4 (HW #4) – EDS 240</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">EDS 240</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?usp=sharing" target="_blank"> 
+<span class="menu-text">syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">course materials</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week1.html">
+ <span class="dropdown-text">week 1 (1/6)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week2.html">
+ <span class="dropdown-text">week 2 (1/13)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week3.html">
+ <span class="dropdown-text">week 3 (1/20)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week4.html">
+ <span class="dropdown-text">week 4 (1/27)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week5.html">
+ <span class="dropdown-text">week 5 (2/3)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/graphic-design.html">
+ <span class="dropdown-text">week 5 (2/7) - attendance optional</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week6.html">
+ <span class="dropdown-text">week 6 (2/10)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week7.html">
+ <span class="dropdown-text">week 7 (2/17)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week8.html">
+ <span class="dropdown-text">week 8 (2/24)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week9.html">
+ <span class="dropdown-text">week 9 (3/3)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week10.html">
+ <span class="dropdown-text">week 10 (3/10)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week11.html">
+ <span class="dropdown-text">week 11 (3/17) - finals week</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../assignments.html"> 
+<span class="menu-text">assignments</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/ePS4Hm4kH1PhusGX7" target="_blank"> 
+<span class="menu-text">redeem tokens</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../../resources.html">
+ <span class="dropdown-text">recommended reading &amp; materials</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../clean-code-guide.html">
+ <span class="dropdown-text">guide for writing clean code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../getting-unstuck.html">
+ <span class="dropdown-text">getting unstuck</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ucsb-meds.github.io/MEDS-installation-guide/" target="_blank">
+ <span class="dropdown-text">MEDS installation guide</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/samanthacsik/EDS-240-data-viz" target="_blank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/samanthacsik/EDS-240-data-viz/issues" target="_blank">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Assignment #4 (HW #4)</h1>
+            <p class="subtitle lead">Assigned Tue 01/06/2025 | Due Tue 03/11/2025</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#LOs" id="toc-LOs" class="nav-link active" data-scroll-target="#LOs">Learning Outcomes</a></li>
+  <li><a href="#hw4-options" id="toc-hw4-options" class="nav-link" data-scroll-target="#hw4-options">Description</a>
+  <ul class="collapse">
+  <li><a href="#part1-choose" id="toc-part1-choose" class="nav-link" data-scroll-target="#part1-choose">1. Choose <em>one</em> of the following project options</a></li>
+  <li><a href="#part2-write" id="toc-part2-write" class="nav-link" data-scroll-target="#part2-write">2. Share your design process in a blog post-style write up</a></li>
+  <li><a href="#part3-present" id="toc-part3-present" class="nav-link" data-scroll-target="#part3-present">3. Present your data viz product to the class</a></li>
+  </ul></li>
+  <li><a href="#rubric-specifications" id="toc-rubric-specifications" class="nav-link" data-scroll-target="#rubric-specifications">Rubric (specifications)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope</p>
+</div>
+</div>
+<section id="LOs" class="level2">
+<h2 class="anchored" data-anchor-id="LOs">Learning Outcomes</h2>
+<p>Your final assignment is meant to combine all of the course learning outcomes(!):</p>
+<ul>
+<li>identify which types of visualizations are most appropriate for your data and your audience</li>
+<li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>
+<li>build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
+<li>write code from scratch and read and adapt code written by others</li>
+<li>apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</li>
+<li>assess, critique, and provide constructive feedback on data visualizations</li>
+</ul>
+</section>
+<section id="hw4-options" class="level2">
+<h2 class="anchored" data-anchor-id="hw4-options">Description</h2>
+<p>Your final project consists of three parts. Please read all parts carefully:</p>
+<section id="part1-choose" class="level3">
+<h3 class="anchored" data-anchor-id="part1-choose">1. Choose <em>one</em> of the following project options</h3>
+<section id="option1-infographic" class="level4">
+<h4 class="anchored" data-anchor-id="option1-infographic">OPTION 1: Infographic</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Option 1 (infograpic) details
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="teal-text"><strong>Build a cohesive infographic-style visualization that includes <em>at least three</em> different, but complementary visualizations that work together to tell a complete story. You should have one overarching question with (at least) three sub-questions which are addressed using each of the component pieces of the infographic.</strong></span></p>
+<p>Infographics are useful science communication pieces, which can serve a variety of audiences, but are particularly well-suited for engaging general audiences. An infographic typically exists to address one overarching question or idea, and it’s subcomponents (e.g.&nbsp;visualizations, numbers, imagery) each help to tell part of the story (or in other words, help to answer sub-questions). While text is important in all visualizations, it can be particularly critical in weaving together all of your infographic elements to successfully convey your story. The order and orientation in which your elements are positioned will also be essential for creating a visual hierarchy that successfully guides your readers.</p>
+<p>All component visualizations must be produced using code (e.g.&nbsp;leveraging the <code>{ggplot2}</code> package), but you may assemble your final infographic using a tool(s) / software of your choice. It is possible to create your infographic entirely in R (you may consider using the <a href="https://patchwork.data-imaginist.com/"><code>{patchwork}</code> package</a> for stitching together different elements – see <a href="https://ramhunte.github.io/blogs/china_fishing/" target="_blank">Ray Hunter’s infographic</a>, or refer back to <a href="HW1.qmd#hw1-p1a" target="_blank">HW #1</a>). You may also consider tools like <a href="https://www.adobe.com/products/illustrator.html" target="_blank">Adobe Illustrator</a>, <a href="https://affinity.serif.com/en-us/" target="_blank">Affinity</a>, <a href="https://www.canva.com/" target="_blank">Canva</a>, or <a href="https://docs.google.com/" target="_blank">Google Docs</a> (there will be an optional class on Friday 02/07/2025 where you will learn how to use a number of these tools, led by <a href="https://bren.ucsb.edu/people/alexandra-phillips" target="_blank">Dr.&nbsp;Alex Phillips</a>).</p>
+<p><strong>A few examples from Winter 2024 submissions:</strong></p>
+<ul>
+<li><a href="https://lunacatalan.github.io/blog/2024-03-09-housing-la/images/infographic.png" target="_blank">Who, What, Where?</a>, by <a href="https://lunacatalan.github.io/blog/2024-03-09-housing-la/" target="_blank">Luna Catalán</a> (MEDS 2024)</li>
+<li><a href="https://ramhunte.github.io/blogs/china_fishing/images/final_fig.jpeg" target="_blank">The World’s Largest Fishing Fleet</a>, by <a href="https://ramhunte.github.io/blogs/china_fishing/" target="_blank">Ray Hunter</a> (MESM 2024)</li>
+<li><a href="https://shmuir.github.io/projects/2024-03-09-georgia-marsh/final-infographic.png" target="_blank">Invertebrate Investigations</a>, by <a href="https://shmuir.github.io/projects/2024-03-09-georgia-marsh/" target="_blank">Sam Muir</a> (MEDS 2024)</li>
+<li><a href="https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/Feeling-buzzed.png" target="_blank">Feeling Buzzed</a>, by <a href="https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/" target="_blank">Melissa Widas</a> (MEDS 2024)</li>
+<li><a href="https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/final_infographic.png" target="_blank">Are California Wildfires Truly Getting Worse?</a>, by <a href="https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/" target="_blank">Amanda Herbst</a> (MEDS 2024)</li>
+</ul>
+<p><strong>And a few more fun examples from other <code>{ggplot2}</code> creators:</strong></p>
+<ul>
+<li><a href="https://github.com/doehm/tidytues?tab=readme-ov-file#week-25-ufo-sightings" target="_blank">UFO Sightings</a>, by <a href="https://github.com/doehm" target="_blank">Dan Oehm</a> (from HW #1!)</li>
+<li><a href="https://github.com/doehm/tidytues?tab=readme-ov-file#week-10-numbats" target="_blank">Numbats</a>, by <a href="https://github.com/doehm" target="_blank">Dan Oehm</a></li>
+<li><a href="https://github.com/doehm/tidytues?tab=readme-ov-file#week-41-haunted-places" target="_blank">Haunted Places</a>, by <a href="https://github.com/doehm" target="_blank">Dan Oehm</a></li>
+<li><a href="https://github.com/z3tt/TidyTuesday?tab=readme-ov-file#week-201939%EF%B8%8F-%EF%B8%8F-school-diversity-by-nces" target="_blank">School Diversity</a>, by <a href="https://github.com/z3tt" target="_blank">Cédric Scherer</a></li>
+<li><a href="https://twitter.com/thedivtagguy/status/1731323379171447048" target="_blank">Allons-y to Gallifrey</a>, by <a href="https://aman.bh/" target="_blank">Aman Bhargava</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="option2-diff-audiences" class="level4">
+<h4 class="anchored" data-anchor-id="option2-diff-audiences">OPTION 2: Three viz, same question, different audiences</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Option 2 (three viz) details
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="teal-text"><strong>Build three separate visualizations, each to serve a different target audience / purpose. Each visualization should use the same data to answer the same question, but how you choose to present those data should change based on the following:</strong></span></p>
+<ol type="1">
+<li><p><strong>A visualization for technical writing / subject matter experts:</strong> The purpose of this visualization is to clearly communicate key insights, trends, or patterns, and is one that could be published in a technical report or academic paper. These types of visualizations may include more details and domain-specific language. They should, however, still prioritize clarity by finding ways to highlight the most important takeaway message(s). Two great examples are Michael Mann’s infamous <a href="https://www.psu.edu/news/research/story/iconic-graph-center-climate-debate" target="_blank">“Hockey Stick” graph</a>, and Figure 1 (<em>Unusual climate anomalies in 2023</em>) in <a href="https://doi.org/10.1093/biosci/biad080" target="_blank">Ripple et al.&nbsp;2023</a>.</p></li>
+<li><p><strong>A visualization for policy- or decision-makers:</strong> The purpose of this visualization is to balance clarity and insight with actionable and evidence-backed data to influence or inform policy decisions. A challenge is effectively communicating key insights, trends, forecasts, comparisons, etc. while remaining accessible to non-experts. These visuals often leverage clear, catchy titles, minimize potentially distracting design elements, present only the most essential data, and use text annotations to draw attention to key areas of a the graphic / help tell a story. A great example is Figure SPM.1(c) (<em>Adverse impacts from human-caused climate change will continue to intensify</em>) from the Intergovernmental Panel on Climate Change (IPCC)’s <a href="https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf" target="_blank">Climate Change 2023 Synthesis Report</a> (see page 7).</p></li>
+<li><p><strong>A visualization for public outreach / a general audience:</strong> The purpose of this visualization is to raise awareness, prompt discussion, or otherwise engage an audience who may not have domain-specific knowledge or expertise. These types of visuals should limit (or fully omit) the use of any jargon. They may display findings in an atypical but creative way, as well as blend both art and science. A great (and famous) example is <a href="https://research.reading.ac.uk/meteorology/people/ed-hawkins/" target="_blank">Ed Hawkins</a>’ <a href="https://showyourstripes.info/s" target="_blank">Warming Strips</a></p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="option3-alternative" class="level4">
+<h4 class="anchored" data-anchor-id="option3-alternative">OPTION 3: Propose an alternative project idea</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Option 3 (propose an alternative) details
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="teal-text"><strong>I want this assignment to serve <em>you</em> and your goals – if you’re not excited about Options 1 or 2, you may choose to <em>propose</em> an alternative idea.</strong></span> Please submit a brief (should not exceed 1 page) proposal at the time of your HW #1 submission. Your proposal must include / address:</p>
+<ul>
+<li>a clear description of your proposed project</li>
+<li>how you plan to incorporate at least three distinct data visualizations</li>
+<li>the intended audience(s) of your data visualizations</li>
+<li>any software or tools you’ll need to use and / or learn (beyond the necessary data wrangling / plotting packages, e.g.&nbsp;<code>{tidyverse}</code>)</li>
+<li>how this alternative project option serves your growth in the field of data visualization and communication</li>
+</ul>
+<p><em>Please be aware that proposing an alternative project idea does not guarantee that it will be accepted as-is. You may be asked to modify your proposal to effectively meet EDS 240 final project requirements.</em></p>
+</div>
+</div>
+</div>
+<p><span class="teal-text"><strong>Regardless of which option you choose, you are expected to consider all design elements discussed throughout the quarter, implement as appropriate, and justify your decisions.</strong></span> These include, but are not limited to:</p>
+<ol type="1">
+<li>graphic form (you are <strong>not</strong> limited to just those fundamental chart types discussed in weeks 2 &amp; 4 – explore other chart types and don’t be afraid to get creative with it; check out some of these awesome <a href="../../resources.qmd#inspiration" target="_blank">data viz creators</a> to find inspiration)</li>
+<li>text (e.g.&nbsp;titles, captions, annotations, axis labels, axis text)</li>
+<li>themes (i.e.&nbsp;all non-data plot elements; these should be intentionally modified and visually-pleasing)</li>
+<li>colors</li>
+<li>typography</li>
+<li>general design (e.g.&nbsp;group order, spacing, text orientation, data-ink ratio, creating a visual hierarchy, avoiding information overload)</li>
+<li>contextualizing your data</li>
+<li>centering your primary message</li>
+<li>considering accessibility (e.g.&nbsp;colorblind-friendly palettes / contrast, alt text)</li>
+<li>applying a DEI lens to your design, as appropriate (e.g.&nbsp;considering the people / communities / places represented in your data, consider how you frame your questions / issue)</li>
+</ol>
+<!-- [**In addition to producing your visualizations, you are expected to follow clean and organized coding practices:**]{.teal-text} -->
+<!-- - follow the [tidyverse style guide](https://style.tidyverse.org/){target="_blank"} (important styles are outlined on the [course website](../../clean-code-guide.qmd#general-conventions){target="_blank"}) -->
+<!-- - organize and annotate code (see [these recommendations](../../clean-code-guide.qmd#annotating-code){target="_blank"}) -->
+<!-- ::: {.callout-important} -->
+<!-- ## TODO -->
+<!-- revise / move this -->
+<!-- - apply the appropriate code chunk options (e.g. in most cases, code and outputs should be rendered but warnings and messages should not) -- see the Quarto documentation on [HTML Code Blocks](https://quarto.org/docs/output-formats/html-code.html){target="_blank"} and [Execution Options](https://quarto.org/docs/computations/execution-options.html){target="_blank"} for more -->
+<p><!-- - (optional) I recommend also applying the [`code-fold: true` option](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"}, which collapses code chunks and makes it easier for readers to focus on your writing and embedded visualizations (while still allowing them to explore your code) --></p>
+<!-- ::: -->
+</section>
+</section>
+<section id="part2-write" class="level3">
+<h3 class="anchored" data-anchor-id="part2-write">2. Share your design process in a blog post-style write up</h3>
+<p>You will share your data design process and decisions in a short, 1-2 page (~500-1,000 words) science communication blog post-style write up. Your writing should be structured as follows:</p>
+<ol type="1">
+<li><p>Open with an engaging introduction paragraph(s), which states your motivation, question(s), data / data source(s), and goal(s) of your visualization. Be sure to review the <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html" target="_blank">EDS 296</a> materials on <a href="https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide" target="_blank">writing data science blog posts</a> for tips on crafting a story and engaging your readers. <!-- A few examples: --> <!-- - [Relationship between bee behavior and vineyard types in Germany](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"}, by Melissa Widas (MEDS 2024) --> <!-- - [Visualizing Millions of People on the Move](https://www.visualcinnamon.com/portfolio/urbanization/){target="_blank"}, by Nadieh Bremer --> <!-- - [the Kuijpers familytree](https://www.studioterp.nl/my-family-a-visualization/){target="_blank"}, by Sonja Kuijpers --></p></li>
+<li><p>Embed / render your final data visualization product(s) (e.g.&nbsp;your full infographic, your three data visualizations, or your approved deliverable) following your introduction. If you are rendering your data viz product from code, be sure that:</p>
+<ul>
+<li><em>just</em> the output renders and <em>not</em> the code (e.g.&nbsp;using code chunk options <code>eval: true</code> &amp; <code>echo: false</code>)</li>
+<li>warnings and messages are suppressed, as necessary (e.g.&nbsp;using code chunk options <code>warning: false</code> &amp; <code>message: false</code>); other intermediate products should not be rendered</li>
+<li>see the Quarto documentation on <a href="https://quarto.org/docs/output-formats/html-code.html" target="_blank">HTML Code Blocks</a> and <a href="https://quarto.org/docs/computations/execution-options.html" target="_blank">Execution Options</a> for more</li>
+</ul></li>
+<li><p>The body of your blog post should address your approach and decisions for each of the ten design elements listed above (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your visualizations do not include or consider a listed element(s), please comment on why (it’s possible that not all ten elements will be applicable to <em>your</em> visualizations). You may choose to render and refer to individual / component data visualizations throughout the body of your blog post, as necessary or appropriate.</p></li>
+<li><p>Include the all code used to generate your final data viz products in a foldable code chunk (folded by default; see code chunk option, <a href="https://quarto.org/docs/output-formats/html-code.html#folding-code" target="_blank"><code>code-fold: true</code></a>), at the end of your blog post. Be sure to include some written text beforehand that lets your readers know that they can explore the full code by expanding the chunk. Here, your code should:</p>
+<ul>
+<li>print, but not execute (i.e.&nbsp;use code chunk options <code>eval: false</code> &amp; <code>echo: true</code>)</li>
+<li>follow the <a href="https://style.tidyverse.org/" target="_blank">tidyverse style guide</a> (important styles are outlined on the <a href="../../clean-code-guide.qmd#general-conventions" target="_blank">course website</a>)</li>
+<li>be appropriately organized and annotated (see <a href="../../clean-code-guide.qmd#annotating-code" target="_blank">these recommendations</a>)</li>
+</ul></li>
+</ol>
+<!-- 1. include an engaging introduction paragraph(s), which states your motivation, question(s), data / data source(s), and goal(s) of your visualization. A few great examples: -->
+<!--     - [Relationship between bee behavior and vineyard types in Germany](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"}, by Melissa Widas (MEDS 2024) -->
+<!--     - [Visualizing Millions of People on the Move](https://www.visualcinnamon.com/portfolio/urbanization/){target="_blank"}, by Nadieh Bremer -->
+<!--     - [the Kuijpers familytree](https://www.studioterp.nl/my-family-a-visualization/){target="_blank"}, by Sonja Kuijpers -->
+<!-- 2. address your approach and decisions for each of the ten design elements listed above (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your visualizations do not include or consider a listed element(s), please comment on why (it's possible that not all ten elements will be applicable to *your* visualizations). -->
+<!-- ::: {.callout-tip} -->
+<!-- ## Storytelling helps to engage your readers -->
+<!-- Be sure to review the [EDS 296](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html){target="_blank"} materials on [writing data science blog posts](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} for tips on crafting a story and engaging your readers! -->
+<!-- ::: -->
+<p><span class="teal-text"><strong>You may submit your write-up in one of two ways:</strong></span></p>
+<ol type="1">
+<li><p>As a blog post on your personal website – check out the <a href="https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/">Adding a blog to your existing Quarto website</a> materials for a refresher, if needed</p></li>
+<li><p>As a published Quarto document that is deployed using GitHub Pages. Expand the note below for detailed instructions on how to do so:</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Instructions for publishing a Quarto doc using GitHub Pages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Your Quarto doc must be named <code>index.qmd</code> <em>and</em> live in your repository’s root directory. Be sure to rename / move it, if necessary.</li>
+<li>Render <code>index.qmd</code> and ensure that <code>index.html</code> appears in your root directory as well (this is the file that will be deployed by GitHub Pages).</li>
+<li>Head to your remote repository on GitHub. Navigate to the <strong>Settings</strong> page (top navbar), then select <strong>Pages</strong> from the left-hand menu. Once there, you should see something that looks like this:</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/pages.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Under <strong>Build and deployment</strong> &gt; <strong>Branch</strong>, update the drop down that says <strong>None</strong> to <strong>main</strong>. Leave the second drop down on <strong>/(root)</strong> (this tells GitHub to look for and deploy our <code>index.html</code> file from the root directory of the main branch). Click <strong>Save</strong>. Your URL will appear at the top of the page once it’s deployed (you will need to refresh the page – this could take a few minutes):</li>
+</ol>
+<div>
+
+</div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="../images/settings-mod.png" class="img-fluid" width="1552"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="../images/deployed.png" class="img-fluid" width="1552"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Remember</strong>, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz <em>and</em> writing). The more thought, organization, and care you put into this write-up, the more confident you can be showing this to a potential employer!</p>
+<!-- ::: {.callout-tip} -->
+<!-- ## Remember, this is an opportunity to grow your professional portfolio! -->
+<!-- Regardless of which of the two publishing options you choose, consider storytelling strategies for effective and engaging data science writing -- review the [Blogging for data science slides](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} from the [EDS 296-1F course materials](https://ucsb-meds.github.io/EDS-296-DS-portfolios/){target="_blank"} for guidance. **Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz *and* writing).  -->
+<!-- ::: -->
+</section>
+<section id="part3-present" class="level3">
+<h3 class="anchored" data-anchor-id="part3-present">3. Present your data viz product to the class</h3>
+<!-- [**Finally, you are expected to present your final data visualization product to the class.**]{.teal-text} -->
+<p>Final project flash talks will take place <strong>in person during finals week</strong>. You will have <strong>3 minutes</strong> to present your final data visualization(s). You may structure your presentation however you’d like, so long as you address the following:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">the question(s) you set out to answer with this project / your visualization(s)</label></li>
+<li><label><input type="checkbox">your data source(s) and why those data are appropriate for answering your defined question(s)</label></li>
+<li><label><input type="checkbox">your intended audience</label></li>
+<li><label><input type="checkbox">two key insights from your visualization(s) – these should focus on what your audience should take away from the data</label></li>
+<li><label><input type="checkbox">two to three design choices (e.g.&nbsp;colors, typography, graphic form, layout) that helped to shape the visualization(s) and improve communication for your intended audience</label></li>
+<li><label><input type="checkbox">one to two challenges that you encountered during this project, and how you addressed / iterated on these issues</label></li>
+<li><label><input type="checkbox">one to two things that you are especially proud of completing / learning / accomplishing for this project</label></li>
+</ul>
+<p>The presentation format is flexible, but it should be something that can easily be shared with Sam and opened on her computer during the day of presentations.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>IMPORTANT: You are expected to present <em>in person</em></strong>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make up presentations will not be permitted. Please plan accordingly!</p>
+</div>
+</div>
+</section>
+</section>
+<section id="rubric-specifications" class="level2">
+<h2 class="anchored" data-anchor-id="rubric-specifications">Rubric (specifications)</h2>
+<p>You must complete sections <a href="HW4.qmd#part1-choose">1</a>, <a href="HW4.qmd#part2-write">2</a>, and <a href="HW4.qmd#part3-present">3</a>, as described above to receive a “Satisfactory” mark for Assignment #4. Please carefully review all assignment details before submitting! A few important self-checks:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">I have carefully reviewed my chosen option and completed the project as described</label></li>
+<li><label><input type="checkbox">I have considered and implemented (as appropriate) the ten design elements listed in <a href="HW4.qmd#part1-choose">part 1</a>. I acknowledge that it is up to me to decide how to consider, include, omit, and / or modify any of these elements. If I have ignored any of these ten design elements, I have communicated why that decision was made.</label></li>
+<li><label><input type="checkbox">I have reviewed and incorporated (or otherwise addressed in writing) any prior feedback from the instructor / TA.</label></li>
+<li><label><input type="checkbox">I have described my design process and decisions in a blog post-style write up, which includes all required sections as detailed in <a href="HW4.qmd#part2-write">part 2</a>.</label></li>
+<li><label><input type="checkbox">My code is in a collapsed code chunk at the bottom of my blog post, and I’ve made it clear to my readers that they can find all necessary code by expanding that collapsed code chunk.</label></li>
+<li><label><input type="checkbox">All code is appropriately organized, formatted, and annotated, and code chunk(s) have the appropriate chunk options specified.</label></li>
+<li><label><input type="checkbox">I have added the URL to my blog post-style write up to <a href="https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing" target="_blank">this Google Sheet</a> by Tuesday, 03/11/2025 11:59pm. I have also verified that the URL works (e.g.&nbsp;I don’t receive a 404 error when I try to open it).</label></li>
+<li><label><input type="checkbox">I have prepared a 3 minute-long presentation, which addresses each of the points detailed in <a href="HW4.qmd#part3-present">part 3</a>. I acknowledge that this in-person presentation is required to receive a “Satisfactory” mark on HW #4 and that no make up presentations will be permitted.</label></li>
+</ul>
+<!-- ORIGINAL -->
+<!-- - [ ] Complete [option 1](HW4.qmd#option1-infographic), [option 2](HW4.qmd#option2-diff-audiences), or a pre-approved [option 3](HW4.qmd#option3-alternative). -->
+<!-- - [ ] All data visualizations should consider and implement (as appropriate) the ten design elements (listed above). It’s up to you to decide how to consider, include, omit, and / or modify any of these elements. -->
+<!-- - [ ] You work must incorporate (or otherwise address in writing) any prior feedback from the instructor / TA. -->
+<!-- - [ ] All code should be appropriately formatted and annotated, and code chunks should have the appropriate chunk options specified (e.g. suppress warnings and messages). -->
+<!-- - [ ] Describe your design process and decisions in a 1-2 page write-up, as described above. -->
+<!-- - [ ] Submit your work as either a published Quarto doc or as a blog post on your personal website. -->
+<!-- - [ ] Add the link to your published Quarto doc / blog post to this Google Sheet by Saturday, 03/08/2025 11:59pm. -->
+<!-- - [ ] Present your visualizations to the class on [date TBD] (finals week). -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website is built with <a href="https://github.com/samanthacsik/EDS-240-data-viz"><i class="fa-brands fa-github" title="the github octocat logo" aria-label="github"></i></a>, <a href="https://www.r-project.org/about.html"><i class="fa-brands fa-r-project" title="R Project" aria-label="r-project"></i></a> and <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

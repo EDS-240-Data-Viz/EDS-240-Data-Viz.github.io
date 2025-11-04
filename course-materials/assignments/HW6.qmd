@@ -1,0 +1,151 @@
+---
+title: "HW #6: Final Project (Drafting Visualizations)"
+subtitle: "Assigned Wed 02/11/2026 | Due Wed 02/25/2026"
+---
+
+::: {.callout-important}
+TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope
+:::
+
+## Learning Objectives
+
+HW #3 will have you focus on making more progress towards completing your final assignment (HW #4). As a reminder, your final assignment is meant to combine all of the course learning outcomes(!):
+
+- identify which types of visualizations are most appropriate for your data and your audience
+- prepare (e.g. clean, explore, wrangle) data so that its appropriately formatted for building data visualizations
+- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+- write code from scratch and read and adapt code written by others
+- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
+- assess, critique, and provide constructive feedback on data visualizations
+
+## Description 
+
+[**Please begin by reviewing [HW #4](HW4.qmd){target="_blank"} in full**]{.teal-text} to refamiliarize yourself with the expectations for your final submission at the end of the quarter -- you'll again be making some incremental steps towards your final deliverables here in HW #3. 
+
+[**For HW #3, you must answer / complete the following:**]{.teal-text}
+
+- [ ] **1.** Which option do you plan to pursue? It's okay if this has changed since HW #1.
+- [ ] **2.** Restate your question(s). Has this changed at all since HW #1? If yes, how so? 
+
+::: {.callout-note}
+## Be mindful that the number of questions you list above will depend on which option you choose to pursue:
+
+- If you choose [option 1](HW4.qmd#option-1){target="_blank"}, you should have **one overarching question** and **at least three sub-questions** that each of your infographic components answer.
+- If you choose [option 2 ](HW4.qmd#option-2){target="_blank"}, you should have **one question** that each of your three visualizations works to answer, where each visualization is meant to reach / serve a different target audience and purpose.
+- If you chose [option 3](HW4.qmd#option-3){target="_blank"}, you should refer back to your approved proposal to determine how many questions you should list.
+:::
+
+- [ ] **3.** Explain which variables from your data set(s) you will use to answer your question(s), and how.
+
+::: {.callout-important}
+## Important -- be specific here!
+For example, let's say I'm interested in how Lyme disease incidence is changing over time for states X, Y and Z. An appropriate explanation of variables might look something like this: 
+
+>*"I have two data sets, one containing population estimates by state from the `{tidycensus}` package, and another from the CDC containing lyme disease case counts by county and year. After wrangling / joining these data sets, I was able to calculate disease incidence as cases per 100k people at the state level. Doing so provides me with three variables to visualize: time (years), disease incidence (cases per 100k people), and state."*
+:::
+
+- [ ] **4.** In [HW #2](HW2.qmd){target="_blank"}, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it's *incredibly* helpful to look at visualizations by other creators for inspiration. Find *at least two* data visualizations that you could (potentially) borrow / adapt pieces from. Link to them or download and embed them into your `.qmd` file, and explain which elements you might borrow (e.g. the graphic form, legend design, layout, etc.). 
+
+::: {.callout-tip}
+## Tip: Remember to check out the Resources page!!
+It lists tons of really wonderful websites, tutorials, and links to the repos / websites of some seriously incredible [data viz creators](../../resources.qmd#inspiration){target="_blank"}. This is an excellent place to start when looking for inspiration.
+:::
+
+- [ ] **5.** Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered `.qmd` file -- **note** that these are not *exploratory* visualizations, but rather your plan for your final visualizations that you will eventually polish and submit with HW #4. You should have:
+    - a sketch of your infographic (which should include at least three component visualizations) if you are pursuing [option 1](HW4.qmd#option-1){target="_blank"}
+    - a sketch of all three separate visualizations if you are pursuing [option 2](HW4.qmd#option-2){target="_blank"}
+    - a sketch of the approved number of visualizations, as outlined in your proposal, if you are pursuing [option 3](HW4.qmd#option-3){target="_blank"}
+
+::: {.callout-tip}
+## Tip: Embedding images into a `.qmd` file
+
+There are a number of ways to render an image in `.qmd` file. Two ways I find easiest are:
+
+1. Using `knitr::include_graphics()` in a code chunk. Here are the chunk options I often specify:
+
+```{{r}}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+#| fig-alt: "Alt text here"
+knitr::include_graphics("path/to/image")
+```
+
+2. Using Markdown syntax:
+
+`![](file/path/to/image){fig-alt="Alt text goes here"}`
+
+**Here is a minimal example of a hand-drawn plot -- you don't need to be an artist, but your vision (and handwriting) should be clear:**
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "40%"
+knitr::include_graphics("images/hand-drawn-plot.png")
+```
+
+:::
+
+- [ ] **6.** Mock up **all** of your hand drawn visualizations using code. We understand that you will continue to iterate on these into HW #4 (particularly after receiving feedback), but by the end of HW #3, you should:
+
+  - [ ] have your data plotted (if you're experimenting with a graphic form(s) that was not explicitly covered in class, we understand that this may take some more time to build; you should have as much put together as possible)
+  - [ ] use appropriate strategies to highlight / focus attention on a clear message
+  - [ ] include appropriate text such as titles, captions, axis labels 
+  - [ ] experiment with colors and typefaces / fonts
+  - [ ] create a presentable / aesthetically-pleasing theme (e.g. (re)move gridlines / legends as appropriate, adjust font sizes, etc.)
+
+- [ ] **7.** Answer the following questions:
+    - [ ] **a.** What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations (from #6, above), describe those challenges here.
+    - [ ] **b.** What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven't covered in class that you'll be learning how to use for your visualizations?
+    - [ ] **c.** What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?
+
+## Rubric (specifications)
+
+You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #3:
+
+::: {.callout-note}
+## A few notes on expectations
+
+- Your plots don't have to be perfect but the message you want to convey should be clear
+- The more progress you make now, the more feedback we can provide ahead of HW #4
+- There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully 
+- Low-effort responses and plots will result in a "Not Yet" mark
+:::
+
+- [ ] Complete all work in a file named, `HW3-drafting-viz.qmd`, which lives in your `lastName-eds240-HW4` repository -- you are welcome to draft / practice things in different files / scripts, but you must have all required elements of the assignment available in *this* file for us to reference and grade.
+- [ ] Add any necessary YAML options (title, author, date, etc.). You must also include the following options:
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+---
+# ~ additional YAML options omitted for brevity ~
+format:
+  html:
+    embed-resources: true
+---
+```
+
+- [ ] Ensure all code chunks have the correct options set so that **(a)** code *and* visualizations render, and **(b)** warnings and messages are suppressed (unless there is a reason to have them print). You should never print out entire data frames. *Please note that rendered documents that don't have appropriately specified chunk options will receive a "Not Yet" score.*
+- [ ] Code should be appropriately styled and annotated (please see [this resource](../../clean-code-guide.qmd){target="_blank"} on the course website), and your `.qmd` file should be easy to navigate.
+- [ ] Complete all exercises and answer all questions under the [Description section](HW3.qmd#description) above (use the check boxes to ensure you've completed all 7 required parts).
+- [ ] Submit both an HTML *and* PDF version of your HW #3 via Gradscope by 11:59pm on Tue 02/25/2025 following these instructions:
+    - [ ] **To submit your HTML file:** Render your `HW3-drafting-viz.qmd`, verify that you can open the resulting `HW3-drafting-viz.html` file in your browser and that all formatting looks good. Submit your HTML file to the Gradscope assignment titled, "Homework 3 - HTML"
+    - [ ] **To submit your PDF file:** Convert your HTML to PDF by either **(a)** `Cmd / Ctrl` + `P` to Print > Save as PDF (easiest option), or **(b)** rendering your `HW3-drafting-viz.qmd` file directly to PDF. Submit your PDF file to Gradescope assignment titled, "Homework 3 - PDF"
+        - [ ] ***IMPORTANT:** If you have folded code chunks, please be sure to unfold them before saving as a PDF (to ensure that all code is visible)*
+
+<!-- ::: {.callout-note} -->
+<!-- ## A few notes on expectations -->
+
+<!-- - Your plots don't have to be perfect but the message you want to convey should be clear -->
+<!-- - The more progress you make now, the more feedback we can provide ahead of HW #4 -->
+<!-- - There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully  -->
+<!-- - Low-effort responses and plots will result in a "Not Yet" mark -->
+<!-- ::: -->
+
+
+<!-- - [ ] When complete, **render** your `HW3-drafting-viz.qmd` file, **verify** that you can open the resulting `HW3-drafting-viz.html` file in your browser and that all formatting looks good. **Rename** your `.html` file so that it has your first initial / last name at the start (e.g. `SCsik-HW3-drafting-viz.html`), then **send** it to both Sam and Annie on Slack via direct message by 11:59pm on Sat 02/22/2025. -->
+
+

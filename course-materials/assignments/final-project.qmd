@@ -1,0 +1,89 @@
+---
+title: "EDS 240 Final Project"
+subtitle: "You'll be working on this bit-by-bit throughout the quarter!"
+editor_options: 
+  chunk_output_type: console
+---
+
+::: {.callout-important}
+This document outlines the overarching goals and outcomes of your EDS 240 Final Project. You will develop these final deliverables incrementally through multiple assignments (HW #2, HW #4, HW #6, HW #7, HW #8). Each of these assignments will be include detailed instructions and rubric specifications.
+:::
+
+## Learning Outcomes {#LOs}
+
+Your final assignment is meant to combine all of the course learning outcomes(!):
+
+- identify which types of visualizations are most appropriate for your data and your audience
+- prepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations
+- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+- write code from scratch and read and adapt code written by others
+- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
+- assess, critique, and provide constructive feedback on data visualizations
+
+## Description {#description}
+
+### Part I: Create a data-driven infographic {#partI}
+
+[**You will be building a cohesive data-driven, infographic-style visualization that includes *at least three* different, but complementary visualizations that work together to tell a complete story. You should have one overarching question with (at least) three sub-questions which are addressed using each of the component pieces of the infographic.**]{.teal-text}
+
+Infographics are useful science communication pieces, which can serve a variety of audiences, but are particularly well-suited for engaging general audiences. An infographic typically exists to address one overarching question or idea, and it's subcomponents (e.g. visualizations, numbers, imagery) each help to tell part of the story (or in other words, help to answer sub-questions). While text is important in all visualizations, it can be particularly critical in weaving together all of your infographic elements to successfully convey your story. The order and orientation in which your elements are positioned will also be essential for creating a visual hierarchy that successfully guides your readers through your story. 
+
+All component visualizations must be produced using code (e.g. leveraging the `{ggplot2}` package), but you may assemble your final infographic using a tool(s) / software of your choice. It is possible to create your infographic entirely in R (you may consider using the [`{patchwork}` package](https://patchwork.data-imaginist.com/) for stitching together different elements -- see [Ray Hunter's infographic](https://ramhunte.github.io/blogs/china_fishing/){target="_blank"}, or refer back to [HW #1](HW1.qmd#hw1-p1a){target="_blank"}). You may also consider tools like [Adobe Illustrator](https://www.adobe.com/products/illustrator.html){target="_blank"}, [Affinity](https://affinity.serif.com/en-us/){target="_blank"}, [Canva](https://www.canva.com/){target="_blank"}, or [Google Docs](https://docs.google.com/){target="_blank"} ([Dr. Alex Phillips](https://bren.ucsb.edu/people/alexandra-phillips){target="_blank"} will be leading a class on using Affinity Designer on [ADD DATE]).
+
+::: {.callout-note collapse="true"}
+## Check out some example infographics
+**A few great examples from 2024 & 2025:**
+
+- [An Upstream Battle for Winter-Run Chinook in California](https://nicolelpepper.github.io/blogs/2025-03-25-an-upstream-battle/images/an-upstream-battle-small.png){target="_blank"}, by [Nicole Pepper](https://nicolelpepper.github.io/blogs/2025-03-25-an-upstream-battle/){target="_blank"} (MEDS 2025)
+- [Un-sung Pollination Hero](https://marinakochuten.github.io/blog-posts/hoverflies/Hover-fly-infographic.png){target="_blank"}, by [Marina Kochuten](https://marinakochuten.github.io/blog-posts/hoverflies/){target="_blank"} (MEDS 2025)
+- [The Gender Gap in Academic Publishing](https://haylee360.github.io/posts/2025-03-11-gender-academia/images/hw4-eds240-sam-edits.png){target="_blank"}, by [Haylee Oyler](https://haylee360.github.io/posts/2025-03-11-gender-academia/gender-academia.html){target="_blank"} (MEDS 2025)
+- [What Makes a Healthy Kelp Forest?](https://jordancsibley.github.io/posts/2025-03-20-kelp-infograph/pics/kelp_infographic_3:20.jpg){target="_blank"}, by [Jordan Sibley](https://jordancsibley.github.io/posts/2025-03-20-kelp-infograph/){target="_blank"} (MEDS 2025)
+- [What are partisan trends among Santa Barbara voters?](https://leirubinstein.github.io/posts/2025-03-17-voter-data-viz/SB-voter-visualization.html){target="_blank"}, by [Leilanie Rubinstein](https://leirubinstein.github.io/posts/2025-03-17-voter-data-viz/SB-voter-visualization.html){target="_blank"} (MEDS 2025)
+- [25 Years of Natural Disasters](https://jocardelle.github.io/posts/2025-03-11-natural-disasters-infographic/natural_disasters_infographic2.jpg){target="_blank"}, by [Jo Cardelle](https://jocardelle.github.io/posts/2025-03-11-natural-disasters-infographic/natural-disasters-infographic.html){target="_blank"} (MEDS 2025)
+- [Benefits of Forest Restoration](https://ohemond25.github.io/oliviahemond.github.io/posts/2025-03-11-forest-restoration/#final-infographic){target="_blank"}, by [Olivia Hemond](https://ohemond25.github.io/oliviahemond.github.io/posts/2025-03-11-forest-restoration/){target="_blank"} (MESM 2025)
+- [Breaking Down California's Shoreline Armoring](https://liliamourier.github.io/Mourier-eds240-HW4/){target="_blank"}, by [Lilia Mourier](https://liliamourier.github.io/Mourier-eds240-HW4/){target="_blank"} (MESM 2026)
+- [Who, What, Where?](https://lunacatalan.github.io/blog/2024-03-09-housing-la/images/infographic.png){target="_blank"}, by [Luna Catalán](https://lunacatalan.github.io/blog/2024-03-09-housing-la/){target="_blank"} (MEDS 2024)
+- [The World's Largest Fishing Fleet](https://ramhunte.github.io/blogs/china_fishing/images/final_fig.jpeg){target="_blank"}, by [Ray Hunter](https://ramhunte.github.io/blogs/china_fishing/){target="_blank"} (MESM 2024)
+- [Invertebrate Investigations](https://shmuir.github.io/projects/2024-03-09-georgia-marsh/final-infographic.png){target="_blank"}, by [Sam Muir](https://shmuir.github.io/projects/2024-03-09-georgia-marsh/){target="_blank"} (MEDS 2024)
+- [Feeling Buzzed](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/Feeling-buzzed.png){target="_blank"}, by [Melissa Widas](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"} (MEDS 2024)
+- [Are California Wildfires Truly Getting Worse?](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/final_infographic.png){target="_blank"}, by [Amanda Herbst](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/){target="_blank"} (MEDS 2024)
+
+**And a few more fun examples from other `{ggplot2}` creators:**
+
+- [UFO Sightings](https://github.com/doehm/tidytues?tab=readme-ov-file#week-25-ufo-sightings){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"} (from HW #1!)
+- [Numbats](https://github.com/doehm/tidytues?tab=readme-ov-file#week-10-numbats){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"}
+- [Haunted Places](https://github.com/doehm/tidytues?tab=readme-ov-file#week-41-haunted-places){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"}
+- [School Diversity](https://github.com/z3tt/TidyTuesday?tab=readme-ov-file#week-201939%EF%B8%8F-%EF%B8%8F-school-diversity-by-nces){target="_blank"}, by [Cédric Scherer](https://github.com/z3tt){target="_blank"}
+- [Allons-y to Gallifrey](https://twitter.com/thedivtagguy/status/1731323379171447048){target="_blank"}, by [Aman Bhargava](https://aman.bh/){target="_blank"}
+:::
+
+[**You are expected to consider all design elements discussed throughout the quarter, implement as appropriate, and justify your decisions.**]{.teal-text} These include, but are not limited to:
+
+1. graphic form (you are **not** limited to just those fundamental chart types discussed in weeks 2 & 4 -- explore other chart types and don't be afraid to get creative with it; check out some of these awesome [data viz creators](../../resources.qmd#inspiration){target="_blank"} to find inspiration)
+2. text (e.g. titles, captions, annotations, axis labels, axis text)
+3. themes (i.e. all non-data plot elements; these should be intentionally modified and visually-pleasing)
+4. colors
+5. typography
+6. general design (e.g. group order, spacing, text orientation, data-ink ratio, creating a visual hierarchy, avoiding information overload)
+7. contextualizing your data 
+8. centering your primary message
+9. considering accessibility (e.g. colorblind-friendly palettes / contrast, alt text) 
+10. applying a DEI lens to your design, as appropriate (e.g. considering the people / communities / places represented in your data, consider how you frame your questions / issue)
+
+### Part II: Share your design process in a blog post-style write up {#partII}
+
+::: {.callout-important}
+ELABORATE ON THIS
+:::
+
+[Marina Kochuten](https://marinakochuten.github.io/blog-posts/hoverflies/){target="_blank"} (MEDS 2025) does an excellent job...
+
+- engaging
+- succinct
+- describes design descisions + implementation approach
+- hide code at end for people to explore if they want to
+
+### Part III: Flash talks {#partIII}
+
+This is a time to celebrate all the creativity, thought and hard work you've put into your final infographics! It's also an opportunity to learn from, and be inspired by, your peers' work. Flash talks will take place in person during finals week. 
+

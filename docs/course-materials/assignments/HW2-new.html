@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HW #4: Final Project (Exploratory Data Visualization) – EDS 240</title>
+<title>HW #2: Final Project (Finding Data) – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -246,8 +212,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">HW #4: Final Project (Exploratory Data Visualization)</h1>
-            <p class="subtitle lead">Assigned Wed 01/28/2026 | Due Wed 02/04/2026</p>
+      <h1 class="title">HW #2: Final Project (Finding Data)</h1>
+            <p class="subtitle lead">Assigned Wed 01/14/2025 | Due Wed 01/21/2025</p>
                       </div>
   </div>
     
@@ -268,14 +234,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-outcomes-los" id="toc-learning-outcomes-los" class="nav-link active" data-scroll-target="#learning-outcomes-los">Learning Outcomes (#LOs)</a></li>
-  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
-  <li><a href="#part-a" id="toc-part-a" class="nav-link" data-scroll-target="#part-a">a. Review final project instructions</a>
+  <li><a href="#LOs" id="toc-LOs" class="nav-link active" data-scroll-target="#LOs">Learning Outcomes</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a>
   <ul class="collapse">
-  <li><a href="#part-b" id="toc-part-b" class="nav-link" data-scroll-target="#part-b">b. Import &amp; wrangle data, then create exploratory data viz</a></li>
+  <li><a href="#part-a" id="toc-part-a" class="nav-link" data-scroll-target="#part-a">a. Review HW #4 instructions</a></li>
+  <li><a href="#part-b" id="toc-part-b" class="nav-link" data-scroll-target="#part-b">b. Find data and brainstorm questions</a></li>
   <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c">c.&nbsp;Answer questions</a></li>
   </ul></li>
-  <li><a href="#rubric" id="toc-rubric" class="nav-link" data-scroll-target="#rubric">Rubric (specifications)</a></li>
+  <li><a href="#specs" id="toc-specs" class="nav-link" data-scroll-target="#specs">Rubric (specifications)</a></li>
   </ul>
 </nav>
     </div>
@@ -286,80 +252,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="learning-outcomes-los" class="level2">
-<h2 class="anchored" data-anchor-id="learning-outcomes-los">Learning Outcomes (#LOs)</h2>
-</section>
-<section id="description" class="level2">
-<h2 class="anchored" data-anchor-id="description">Description</h2>
-</section>
-<section id="part-a" class="level2">
-<h2 class="anchored" data-anchor-id="part-a">a. Review final project instructions</h2>
-<p><span class="teal-text"><strong>Please begin by re-reading <a href="../../course-materials/assignments/HW4.html">HW #4</a> in full</strong></span> as a reminder of the options, goals, and requirements for your final class assignment.</p>
-<section id="part-b" class="level3">
-<h3 class="anchored" data-anchor-id="part-b">b. Import &amp; wrangle data, then create exploratory data viz</h3>
-<p><span class="teal-text"><strong>This week, you’ll focus on importing and wrangling your data (found as part of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a>), followed by the exploratory data visualization phase. Complete the following:</strong></span></p>
-<ul class="task-list">
-<li><label><input type="checkbox">Create an file named, <code>HW2-exploration.qmd</code> within your <code>lastName-eds240-HW4</code> repo and add appropriate YAML fields.</label></li>
-<li><label><input type="checkbox">Load necessary packages and read in your data.</label></li>
-<li><label><input type="checkbox">Clean &amp; wrangle your data.</label></li>
-<li><label><input type="checkbox">Create at least <strong>three</strong> exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots <em>do not</em> need to be polished (e.g.&nbsp;updated theme), but it may be helpful to try arranging data to identify any trends.</label></li>
-<li><label><input type="checkbox"><strong>IMPORTANT:</strong> If you have a downloaded data file saved to your repo (e.g.&nbsp;you’re not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your <code>.gitignore</code>, particularly if this file is large.</label></li>
-</ul>
-</section>
-<section id="part-c" class="level3">
-<h3 class="anchored" data-anchor-id="part-c">c.&nbsp;Answer questions</h3>
-<p><span class="teal-text"><strong>After completing the above steps, answer the following questions:</strong></span></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged?</label></li>
-<li><label><input type="checkbox"><strong>2.</strong> In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)?</label></li>
-<li><label><input type="checkbox"><strong>3.</strong> What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges.</label></li>
-</ul>
-</section>
-</section>
-<section id="rubric" class="level2">
-<h2 class="anchored" data-anchor-id="rubric">Rubric (specifications)</h2>
-<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part II:</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<strong>Complete the following steps under your <code>lastName-eds240-HW4</code> repo, <em>not</em> in GitHub Classroom:</strong>
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See details below.</p>
+<p>TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope</p>
 </div>
 </div>
-<ul class="task-list">
-<li><label><input type="checkbox">Perform all Part 2b steps (as described above) in your <code>HW2-exploration.qmd</code> file.</label></li>
-<li><label><input type="checkbox">Answer Part 2c questions in your <code>HW2-exploration.qmd</code> file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
-<li><label><input type="checkbox">All three plot outputs should appear in your rendered doc.</label></li>
-<li><label><input type="checkbox"><code>HW2-exploration.qmd</code> should be neatly organized – this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.</label></li>
-<li><label><input type="checkbox">Code chunks should have appropriate chunk options set (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).</label></li>
-<li><label><input type="checkbox">Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your <code>HW2-exploration.qmd</code> file by 11:59pm PT on Sat 02/04/2025 following these steps:</label>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> ensure that your <strong>YAML specifies these options</strong>, at a minimum:</label></li>
-</ul></li>
+<section id="LOs" class="level2">
+<h2 class="anchored" data-anchor-id="LOs">Learning Outcomes</h2>
+<p><em><strong>Note:</strong> This HW is the the first step in working towards your final course assignment, <a href="HW4.qmd" target="_blank">HW #4</a> (we’ll be breaking it down a bit, week-by-week). <strong>This week, we’ll mostly be focused on some prep work.</strong> Your final assignment is meant to combine nearly all of the course learning outcomes(!):</em></p>
+<ul>
+<li>identify which types of visualizations are most appropriate for your data and your audience</li>
+<li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>
+<li>build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
+<li>write code from scratch and read and adapt code written by others</li>
+<li>apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"your HW #2 title"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"your Name"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> xxxx<span class="sc">-</span>xx<span class="sc">-</span>xx</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  html<span class="sc">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    embed<span class="sc">-</span>resources<span class="sc">:</span> true <span class="co"># this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<section id="part-a" class="level3">
+<h3 class="anchored" data-anchor-id="part-a">a. Review HW #4 instructions</h3>
+<p><span class="teal-text"><strong>Begin by reading <a href="HW4.qmd" target="_blank">HW #4</a> in full</strong></span> so that you have a clear understanding of the options, goals, and requirements for your final class assignment.</p>
+</section>
+<section id="part-b" class="level3">
+<h3 class="anchored" data-anchor-id="part-b">b. Find data and brainstorm questions</h3>
+<p>Now that you have a better understanding of where we’re headed, let’s make a bit of progress towards that end goal. <span class="teal-text"><strong>This week, you’ll focus on finding data that interest you and begin brainstorming some questions that you might explore / answer using those data.</strong></span> Your data set(s) may be related to a past project, or even your current Capstone or GP. It may also be a completely new data set(s), unrelated to anything you’re currently working on. Explore the <a href="../../resources.html#data-sources" target="_blank">Data sources</a> section of the course website’s resources page if you need some inspiration on where to start (you are <em>not</em> limited to just these data sources):</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Asking the right question is <em>critical</em> and also one of the most challenging steps
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I highly recommend checking out the following resources before diving in:</p>
+<ul>
+<li>this short Substack piece by <a href="https://enrico.bertini.io/" target="_blank">Enrico Bertini</a>, titled <a href="https://filwd.substack.com/p/asking-the-right-data-questions-and" target="_blank"><em>Asking the right data questions and asking the data questions right</em></a>, for some great insights on the challenges and approaches to discovering and revising your data question</li>
+<li>this TED talk titled, <a href="https://www.youtube.com/watch?v=0e52QfQngrM" target="_blank">The Power in Effective Data Storytelling</a>, by <a href="https://www.linkedin.com/in/malavica-sridhar/" target="_blank">Malavica Sridhar</a> (~15 min; yes, I know the audio gets a little wonky part-way through <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="part-c" class="level3">
+<h3 class="anchored" data-anchor-id="part-c">c.&nbsp;Answer questions</h3>
+<p><span class="teal-text"><strong>Once you’ve found your data set(s), answer the following questions:</strong></span></p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>1.</strong> Which of the <a href="HW4.qmd#hw4-options" target="_blank">options</a> are you most interested in pursuing (<strong>Important:</strong> If you plan to pursue <a href="HW4.qmd#option3-alternative" target="&quot;_blank">Option 3</a>, you must submit your proposal by the HW #1 due date)? It’s okay if you change your mind later on, but it’s helpful to decide on a starting point.</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> Describe your data set(s). Be sure to address the following:</label>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>a.</strong> Where did you find these data?</label></li>
+<li><label><input type="checkbox"><strong>b.</strong> What variables do these data contain? Is there sufficient metadata for understanding what those variables are?</label></li>
+</ul></li>
+<li><label><input type="checkbox"><strong>3.</strong> What steps are involved in downloading or accessing the data (e.g.&nbsp;“I can download using a button via this online portal,” “I need to use an API to retrieve the data,” “There’s an R package with functions for accessing the API,” etc.)?</label></li>
+<li><label><input type="checkbox"><strong>4.</strong> What question(s) do you hope to answer using these data (remember to read over Enrico Bertini’s <a href="https://filwd.substack.com/p/asking-the-right-data-questions-and" target="_blank">article</a>)?</label></li>
+<li><label><input type="checkbox"><strong>5.</strong> Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g.&nbsp;matching key values across all data sets)?</label></li>
+<li><label><input type="checkbox"><em><strong>Optional:</strong> Import your data into R! (this will be a part of the next homework assignment) <strong>IMPORTANT:</strong> If your data files are large (&gt;2GB) DO NOT push your data to GitHub – instead, add your data file(s) or entire data folder to your <code>.gitignore</code> (you’ll practice this in week 1 discussion section).</em></label></li>
+</ul>
+</section>
+</section>
+<section id="specs" class="level2">
+<h2 class="anchored" data-anchor-id="specs">Rubric (specifications)</h2>
+<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #1, Part II:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Part 2 to be completed under your own GitHub profile
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following step under your own personal GitHub profile, <em>not</em> via GitHub Classroom. See details below.</p>
+</div>
 </div>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>b. render</strong> your <code>HW2-exploration.qmd</code> file, <strong>verify</strong> that you can open the resulting <code>HW2-exploration.html</code> file in your browser, and that all formatting looks good</label></li>
-<li><label><input type="checkbox"><strong>c.&nbsp;save a copy</strong> of <code>HW2-exploration.html</code> to your Desktop, <strong>rename it</strong> it so that it has your first initial / last name at the start (e.g.&nbsp;<code>SShannyCsik-HW2-exploration.html</code>), then <strong>send</strong> it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message</label></li>
+<li><label><input type="checkbox">Create a GitHub repository named <code>yourLastName-eds240-HW4</code>, which is where you’ll be doing any / all work related to Assignment #4. Be sure to make your repository public, initialize your repository with a <code>README</code>, and add a <code>.gitignore</code> file.</label></li>
+<li><label><input type="checkbox">Create a <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues">GitHub issue</a> (find the <strong>Issues</strong> tab in the top menu bar of your <code>lastName-eds240-HW4</code> repo, then click <strong>New issue</strong>) and name it, <code>HW1 - finding data / initial brainstorming</code>. Address the following in your issue:</label>
+<ul class="task-list">
+<li><label><input type="checkbox">Link to (or otherwise prove the existence of) at least one data set that you plan to use for Assignment #4.</label></li>
+<li><label><input type="checkbox">Answer all five Part 2c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
+<li><label><input type="checkbox">Ensure that your GitHub issue is neatly organized / formatted (you can use Markdown syntax here!).</label></li>
+<li><label><input type="checkbox">Tag your instructor (<strong><a href="https://github.com/samanthacsik" target="_blank"><span class="citation" data-cites="samanthacsik">@samanthacsik</span></a></strong>) and TA (<strong><a href="https://github.com/annieradams" target="_blank"><span class="citation" data-cites="annieradams">@annieradams</span></a></strong>) somewhere in your issue (at the start or end may make the most sense) – this will send us an email notification linking to your issue.</label></li>
+</ul></li>
+<li><label><input type="checkbox">Importing your data is <em>optional</em> – if you’d like to start playing around with your data, do so in a file named, <code>HW1-find-data.qmd</code>.</label></li>
+<li><label><input type="checkbox">Add your repository’s URL next to your name on <a href="https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing" target="_blank">this Google Sheet</a> by 11:59pm on Sat 01/18/2025.</label></li>
+<li><label><input type="checkbox"><em><strong>Optional:</strong> If you are pursuing (<a href="HW4.qmd#option3-alternative" target="_blank">Option 3</a>), please share a Google Doc with your proposal via email by 11:59pm on Sat 01/18/2025. Be sure to send it to both your instructor (<strong>scsik@ucsb.edu</strong>) and TA (<strong>annieradams@ucsb.edu</strong>) with the subject line: <strong>EDS 240 HW4 Proposal Submission.</strong></em></label></li>
 </ul>
 <p><br></p>
 <div class="center-text large-fa-icon teal-text">
-<p><i class="fa-solid fa-chart-column" title="A column chart" aria-label="chart-column"></i> End HW #4 <i class="fa-solid fa-chart-area" title="An area chart" aria-label="chart-area"></i></p>
+<p><i class="fa-solid fa-table" title="A data table with two columns and two rows" aria-label="table"></i> End HW #2 <i class="fa-solid fa-table" title="A data table with two columns and two rows" aria-label="table"></i></p>
 </div>
 
 

@@ -1,0 +1,232 @@
+---
+title: "HW #7: Final Project (Infographic + Blog Post)"
+subtitle: "Assigned Wed 02/25/2026 | Due Wed 03/11/2026"
+---
+
+::: {.callout-important}
+TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope
+:::
+
+## Learning Outcomes {#LOs}
+
+Your final assignment is meant to combine all of the course learning outcomes(!):
+
+- identify which types of visualizations are most appropriate for your data and your audience
+- prepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations
+- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+- write code from scratch and read and adapt code written by others
+- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
+- assess, critique, and provide constructive feedback on data visualizations
+
+## Description{#hw4-options} 
+
+Your final project consists of three parts. Please read all parts carefully:
+
+### 1. Choose *one* of the following project options {#part1-choose}
+
+#### OPTION 1: Infographic {#option1-infographic}
+
+::: {.callout-note collapse=true}
+## Option 1 (infograpic) details
+
+[**Build a cohesive infographic-style visualization that includes *at least three* different, but complementary visualizations that work together to tell a complete story. You should have one overarching question with (at least) three sub-questions which are addressed using each of the component pieces of the infographic.**]{.teal-text}
+
+Infographics are useful science communication pieces, which can serve a variety of audiences, but are particularly well-suited for engaging general audiences. An infographic typically exists to address one overarching question or idea, and it's subcomponents (e.g. visualizations, numbers, imagery) each help to tell part of the story (or in other words, help to answer sub-questions). While text is important in all visualizations, it can be particularly critical in weaving together all of your infographic elements to successfully convey your story. The order and orientation in which your elements are positioned will also be essential for creating a visual hierarchy that successfully guides your readers. 
+
+All component visualizations must be produced using code (e.g. leveraging the `{ggplot2}` package), but you may assemble your final infographic using a tool(s) / software of your choice. It is possible to create your infographic entirely in R (you may consider using the [`{patchwork}` package](https://patchwork.data-imaginist.com/) for stitching together different elements -- see [Ray Hunter's infographic](https://ramhunte.github.io/blogs/china_fishing/){target="_blank"}, or refer back to [HW #1](HW1.qmd#hw1-p1a){target="_blank"}). You may also consider tools like [Adobe Illustrator](https://www.adobe.com/products/illustrator.html){target="_blank"}, [Affinity](https://affinity.serif.com/en-us/){target="_blank"}, [Canva](https://www.canva.com/){target="_blank"}, or [Google Docs](https://docs.google.com/){target="_blank"} (there will be an optional class on Friday 02/07/2025 where you will learn how to use a number of these tools, led by [Dr. Alex Phillips](https://bren.ucsb.edu/people/alexandra-phillips){target="_blank"}).
+
+**A few examples from Winter 2024 submissions:**
+
+- [Who, What, Where?](https://lunacatalan.github.io/blog/2024-03-09-housing-la/images/infographic.png){target="_blank"}, by [Luna Catalán](https://lunacatalan.github.io/blog/2024-03-09-housing-la/){target="_blank"} (MEDS 2024)
+- [The World's Largest Fishing Fleet](https://ramhunte.github.io/blogs/china_fishing/images/final_fig.jpeg){target="_blank"}, by [Ray Hunter](https://ramhunte.github.io/blogs/china_fishing/){target="_blank"} (MESM 2024)
+- [Invertebrate Investigations](https://shmuir.github.io/projects/2024-03-09-georgia-marsh/final-infographic.png){target="_blank"}, by [Sam Muir](https://shmuir.github.io/projects/2024-03-09-georgia-marsh/){target="_blank"} (MEDS 2024)
+- [Feeling Buzzed](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/Feeling-buzzed.png){target="_blank"}, by [Melissa Widas](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"} (MEDS 2024)
+- [Are California Wildfires Truly Getting Worse?](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/final_infographic.png){target="_blank"}, by [Amanda Herbst](https://amandaherbst.github.io/blog/2024-03-12-ca-wildfires/){target="_blank"} (MEDS 2024)
+
+**And a few more fun examples from other `{ggplot2}` creators:**
+
+- [UFO Sightings](https://github.com/doehm/tidytues?tab=readme-ov-file#week-25-ufo-sightings){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"} (from HW #1!)
+- [Numbats](https://github.com/doehm/tidytues?tab=readme-ov-file#week-10-numbats){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"}
+- [Haunted Places](https://github.com/doehm/tidytues?tab=readme-ov-file#week-41-haunted-places){target="_blank"}, by [Dan Oehm](https://github.com/doehm){target="_blank"}
+- [School Diversity](https://github.com/z3tt/TidyTuesday?tab=readme-ov-file#week-201939%EF%B8%8F-%EF%B8%8F-school-diversity-by-nces){target="_blank"}, by [Cédric Scherer](https://github.com/z3tt){target="_blank"}
+- [Allons-y to Gallifrey](https://twitter.com/thedivtagguy/status/1731323379171447048){target="_blank"}, by [Aman Bhargava](https://aman.bh/){target="_blank"}
+:::
+
+#### OPTION 2: Three viz, same question, different audiences {#option2-diff-audiences}
+
+::: {.callout-note collapse=true}
+## Option 2 (three viz) details
+
+[**Build three separate visualizations, each to serve a different target audience / purpose. Each visualization should use the same data to answer the same question, but how you choose to present those data should change based on the following:**]{.teal-text}
+
+1. **A visualization for technical writing / subject matter experts:** The purpose of this visualization is to clearly communicate key insights, trends, or patterns, and is one that could be published in a technical report or academic paper. These types of visualizations may include more details and domain-specific language. They should, however, still prioritize clarity by finding ways to highlight the most important takeaway message(s). Two great examples are Michael Mann's infamous ["Hockey Stick" graph](https://www.psu.edu/news/research/story/iconic-graph-center-climate-debate){target="_blank"}, and Figure 1 (*Unusual climate anomalies in 2023*) in [Ripple et al. 2023](https://doi.org/10.1093/biosci/biad080){target="_blank"}.
+
+2. **A visualization for policy- or decision-makers:** The purpose of this visualization is to balance clarity and insight with actionable and evidence-backed data to influence or inform policy decisions. A challenge is effectively communicating key insights, trends, forecasts, comparisons, etc. while remaining accessible to non-experts. These visuals often leverage clear, catchy titles, minimize potentially distracting design elements, present only the most essential data, and use text annotations to draw attention to key areas of a the graphic / help tell a story. A great example is Figure SPM.1(c) (*Adverse impacts from human-caused climate change will continue to intensify*) from the Intergovernmental Panel on Climate Change (IPCC)'s [Climate Change 2023 Synthesis Report](https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf){target="_blank"} (see page 7).
+
+3. **A visualization for public outreach / a general audience:** The purpose of this visualization is to raise awareness, prompt discussion, or otherwise engage an audience who may not have domain-specific knowledge or expertise. These types of visuals should limit (or fully omit) the use of any jargon. They may display findings in an atypical but creative way, as well as blend both art and science. A great (and famous) example is [Ed Hawkins](https://research.reading.ac.uk/meteorology/people/ed-hawkins/){target="_blank"}' [Warming Strips](https://showyourstripes.info/s){target="_blank"}
+:::
+
+#### OPTION 3: Propose an alternative project idea {#option3-alternative}
+
+::: {.callout-note collapse=true}
+## Option 3 (propose an alternative) details
+
+[**I want this assignment to serve *you* and your goals -- if you're not excited about Options 1 or 2, you may choose to *propose* an alternative idea.**]{.teal-text} Please submit a brief (should not exceed 1 page) proposal at the time of your HW #1 submission. Your proposal must include / address:
+
+- a clear description of your proposed project
+- how you plan to incorporate at least three distinct data visualizations
+- the intended audience(s) of your data visualizations
+- any software or tools you'll need to use and / or learn (beyond the necessary data wrangling / plotting packages, e.g. `{tidyverse}`)
+- how this alternative project option serves your growth in the field of data visualization and communication
+
+*Please be aware that proposing an alternative project idea does not guarantee that it will be accepted as-is. You may be asked to modify your proposal to effectively meet EDS 240 final project requirements.* 
+:::
+
+[**Regardless of which option you choose, you are expected to consider all design elements discussed throughout the quarter, implement as appropriate, and justify your decisions.**]{.teal-text} These include, but are not limited to:
+
+1. graphic form (you are **not** limited to just those fundamental chart types discussed in weeks 2 & 4 -- explore other chart types and don't be afraid to get creative with it; check out some of these awesome [data viz creators](../../resources.qmd#inspiration){target="_blank"} to find inspiration)
+2. text (e.g. titles, captions, annotations, axis labels, axis text)
+3. themes (i.e. all non-data plot elements; these should be intentionally modified and visually-pleasing)
+4. colors
+5. typography
+6. general design (e.g. group order, spacing, text orientation, data-ink ratio, creating a visual hierarchy, avoiding information overload)
+7. contextualizing your data 
+8. centering your primary message
+9. considering accessibility (e.g. colorblind-friendly palettes / contrast, alt text) 
+10. applying a DEI lens to your design, as appropriate (e.g. considering the people / communities / places represented in your data, consider how you frame your questions / issue)
+
+<!-- [**In addition to producing your visualizations, you are expected to follow clean and organized coding practices:**]{.teal-text} -->
+
+<!-- - follow the [tidyverse style guide](https://style.tidyverse.org/){target="_blank"} (important styles are outlined on the [course website](../../clean-code-guide.qmd#general-conventions){target="_blank"}) -->
+<!-- - organize and annotate code (see [these recommendations](../../clean-code-guide.qmd#annotating-code){target="_blank"}) -->
+
+<!-- ::: {.callout-important} -->
+<!-- ## TODO -->
+<!-- revise / move this -->
+
+<!-- - apply the appropriate code chunk options (e.g. in most cases, code and outputs should be rendered but warnings and messages should not) -- see the Quarto documentation on [HTML Code Blocks](https://quarto.org/docs/output-formats/html-code.html){target="_blank"} and [Execution Options](https://quarto.org/docs/computations/execution-options.html){target="_blank"} for more -->
+  <!-- - (optional) I recommend also applying the [`code-fold: true` option](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"}, which collapses code chunks and makes it easier for readers to focus on your writing and embedded visualizations (while still allowing them to explore your code) -->
+
+<!-- ::: -->
+
+### 2. Share your design process in a blog post-style write up {#part2-write}
+
+You will share your data design process and decisions in a short, 1-2 page (~500-1,000 words) science communication blog post-style write up. Your writing should be structured as follows:
+
+1. Open with an engaging introduction paragraph(s), which states your motivation, question(s), data / data source(s), and goal(s) of your visualization. Be sure to review the [EDS 296](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html){target="_blank"} materials on [writing data science blog posts](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} for tips on crafting a story and engaging your readers. 
+<!-- A few examples: -->
+    <!-- - [Relationship between bee behavior and vineyard types in Germany](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"}, by Melissa Widas (MEDS 2024) -->
+    <!-- - [Visualizing Millions of People on the Move](https://www.visualcinnamon.com/portfolio/urbanization/){target="_blank"}, by Nadieh Bremer -->
+    <!-- - [the Kuijpers familytree](https://www.studioterp.nl/my-family-a-visualization/){target="_blank"}, by Sonja Kuijpers -->
+    
+2. Embed / render your final data visualization product(s) (e.g. your full infographic, your three data visualizations, or your approved deliverable) following your introduction. If you are rendering your data viz product from code, be sure that: 
+    - *just* the output renders and *not* the code (e.g. using code chunk options `eval: true` & `echo: false`)
+    - warnings and messages are suppressed, as necessary (e.g. using code chunk options `warning: false` & `message: false`); other intermediate products should not be rendered
+    - see the Quarto documentation on [HTML Code Blocks](https://quarto.org/docs/output-formats/html-code.html){target="_blank"} and [Execution Options](https://quarto.org/docs/computations/execution-options.html){target="_blank"} for more
+
+3. The body of your blog post should address your approach and decisions for each of the ten design elements listed above (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your visualizations do not include or consider a listed element(s), please comment on why (it's possible that not all ten elements will be applicable to *your* visualizations). You may choose to render and refer to individual / component data visualizations throughout the body of your blog post, as necessary or appropriate.
+
+4. Include the all code used to generate your final data viz products in a foldable code chunk (folded by default; see code chunk option, [`code-fold: true`](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"}), at the end of your blog post. Be sure to include some written text beforehand that lets your readers know that they can explore the full code by expanding the chunk. Here, your code should: 
+    - print, but not execute (i.e. use code chunk options `eval: false` & `echo: true`)
+    - follow the [tidyverse style guide](https://style.tidyverse.org/){target="_blank"} (important styles are outlined on the [course website](../../clean-code-guide.qmd#general-conventions){target="_blank"})
+    - be appropriately organized and annotated (see [these recommendations](../../clean-code-guide.qmd#annotating-code){target="_blank"})
+    
+<!-- 1. include an engaging introduction paragraph(s), which states your motivation, question(s), data / data source(s), and goal(s) of your visualization. A few great examples: -->
+<!--     - [Relationship between bee behavior and vineyard types in Germany](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"}, by Melissa Widas (MEDS 2024) -->
+<!--     - [Visualizing Millions of People on the Move](https://www.visualcinnamon.com/portfolio/urbanization/){target="_blank"}, by Nadieh Bremer -->
+<!--     - [the Kuijpers familytree](https://www.studioterp.nl/my-family-a-visualization/){target="_blank"}, by Sonja Kuijpers -->
+<!-- 2. address your approach and decisions for each of the ten design elements listed above (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your visualizations do not include or consider a listed element(s), please comment on why (it's possible that not all ten elements will be applicable to *your* visualizations). -->
+
+<!-- ::: {.callout-tip} -->
+<!-- ## Storytelling helps to engage your readers -->
+
+<!-- Be sure to review the [EDS 296](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html){target="_blank"} materials on [writing data science blog posts](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} for tips on crafting a story and engaging your readers! -->
+<!-- ::: -->
+
+[**You may submit your write-up in one of two ways:**]{.teal-text}
+
+1. As a blog post on your personal website -- check out the [Adding a blog to your existing Quarto website](https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/) materials for a refresher, if needed
+
+2. As a published Quarto document that is deployed using GitHub Pages. Expand the note below for detailed instructions on how to do so:
+
+::: {.callout-note collapse=true}
+## Instructions for publishing a Quarto doc using GitHub Pages
+
+1. Your Quarto doc must be named `index.qmd` *and* live in your repository's root directory. Be sure to rename / move it, if necessary.
+2. Render `index.qmd` and ensure that `index.html` appears in your root directory as well (this is the file that will be deployed by GitHub Pages).
+3. Head to your remote repository on GitHub. Navigate to the **Settings** page (top navbar), then select **Pages** from the left-hand menu. Once there, you should see something that looks like this: 
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "70%"
+#| fig-align: "center"
+knitr::include_graphics("images/pages.png")
+```
+
+4. Under **Build and deployment** > **Branch**, update the drop down that says **None** to **main**. Leave the second drop down on **/(root)** (this tells GitHub to look for and deploy our `index.html` file from the root directory of the main branch). Click **Save**. Your URL will appear at the top of the page once it's deployed (you will need to refresh the page -- this could take a few minutes):
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+knitr::include_graphics("images/settings-mod.png")
+knitr::include_graphics("images/deployed.png")
+```
+
+:::
+
+**Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz *and* writing). The more thought, organization, and care you put into this write-up, the more confident you can be showing this to a potential employer!
+
+<!-- ::: {.callout-tip} -->
+<!-- ## Remember, this is an opportunity to grow your professional portfolio! -->
+<!-- Regardless of which of the two publishing options you choose, consider storytelling strategies for effective and engaging data science writing -- review the [Blogging for data science slides](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} from the [EDS 296-1F course materials](https://ucsb-meds.github.io/EDS-296-DS-portfolios/){target="_blank"} for guidance. **Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz *and* writing).  -->
+<!-- ::: -->
+
+### 3. Present your data viz product to the class {#part3-present}
+
+<!-- [**Finally, you are expected to present your final data visualization product to the class.**]{.teal-text} -->
+
+Final project flash talks will take place **in person during finals week**. You will have **3 minutes** to present your final data visualization(s). You may structure your presentation however you'd like, so long as you address the following: 
+
+- [ ] the question(s) you set out to answer with this project / your visualization(s)
+- [ ] your data source(s) and why those data are appropriate for answering your defined question(s)
+- [ ] your intended audience
+- [ ] two key insights from your visualization(s) -- these should focus on what your audience should take away from the data
+- [ ] two to three design choices (e.g. colors, typography, graphic form, layout) that helped to shape the visualization(s) and improve communication for your intended audience
+- [ ] one to two challenges that you encountered during this project, and how you addressed / iterated on these issues
+- [ ] one to two things that you are especially proud of completing / learning / accomplishing for this project
+
+The presentation format is flexible, but it should be something that can easily be shared with Sam and opened on her computer during the day of presentations.
+
+::: {.callout-important}
+## **IMPORTANT: You are expected to present *in person*** 
+Make up presentations will not be permitted. Please plan accordingly!
+:::
+
+## Rubric (specifications)
+
+You must complete sections [1](HW4.qmd#part1-choose), [2](HW4.qmd#part2-write), and [3](HW4.qmd#part3-present), as described above to receive a "Satisfactory" mark for Assignment #4. Please carefully review all assignment details before submitting! A few important self-checks:
+
+- [ ] I have carefully reviewed my chosen option and completed the project as described
+- [ ] I have considered and implemented (as appropriate) the ten design elements listed in [part 1](HW4.qmd#part1-choose). I acknowledge that it is up to me to decide how to consider, include, omit, and / or modify any of these elements. If I have ignored any of these ten design elements, I have communicated why that decision was made. 
+- [ ] I have reviewed and incorporated (or otherwise addressed in writing) any prior feedback from the instructor / TA.
+- [ ] I have described my design process and decisions in a blog post-style write up, which includes all required sections as detailed in [part 2](HW4.qmd#part2-write). 
+- [ ] My code is in a collapsed code chunk at the bottom of my blog post, and I've made it clear to my readers that they can find all necessary code by expanding that collapsed code chunk. 
+- [ ] All code is appropriately organized, formatted, and annotated, and code chunk(s) have the appropriate chunk options specified.
+- [ ] I have added the URL to my blog post-style write up to [this Google Sheet](https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing){target="_blank"} by Tuesday, 03/11/2025 11:59pm. I have also verified that the URL works (e.g. I don't receive a 404 error when I try to open it).
+-  [ ] I have prepared a 3 minute-long presentation, which addresses each of the points detailed in [part 3](HW4.qmd#part3-present). I acknowledge that this in-person presentation is required to receive a "Satisfactory" mark on HW #4 and that no make up presentations will be permitted.
+
+
+
+
+
+
+<!-- ORIGINAL -->
+<!-- - [ ] Complete [option 1](HW4.qmd#option1-infographic), [option 2](HW4.qmd#option2-diff-audiences), or a pre-approved [option 3](HW4.qmd#option3-alternative). -->
+<!-- - [ ] All data visualizations should consider and implement (as appropriate) the ten design elements (listed above). It’s up to you to decide how to consider, include, omit, and / or modify any of these elements. -->
+<!-- - [ ] You work must incorporate (or otherwise address in writing) any prior feedback from the instructor / TA. -->
+<!-- - [ ] All code should be appropriately formatted and annotated, and code chunks should have the appropriate chunk options specified (e.g. suppress warnings and messages). -->
+<!-- - [ ] Describe your design process and decisions in a 1-2 page write-up, as described above. -->
+<!-- - [ ] Submit your work as either a published Quarto doc or as a blog post on your personal website. -->
+<!-- - [ ] Add the link to your published Quarto doc / blog post to this Google Sheet by Saturday, 03/08/2025 11:59pm. -->
+<!-- - [ ] Present your visualizations to the class on [date TBD] (finals week). -->
