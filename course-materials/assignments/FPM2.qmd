@@ -21,29 +21,32 @@ FPM #2 is the the second step in working towards your [final project](final-proj
 
 ### II. Read up on the process of Exploratory Data Analysis (EDA) {#partII}
 
-Exploratory Data Analysis (EDA) is a critical first step in understanding your data and understanding where it might lead you. I particularly like this definition, from [R for Data Science (2e), Chapter 10](https://r4ds.hadley.nz/EDA.html){target"_blank"}:
+Exploratory Data Analysis (EDA) is a critical first step in understanding your data and understanding where it might lead you. I particularly like this definition, from [R for Data Science (2e), Chapter 10](https://r4ds.hadley.nz/EDA.html){target="_blank"}:
 
 >"EDA is not a formal process with a strict set of rules. More than anything, EDA is a state of mind. During the initial phases of EDA you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will home in on a few particularly productive insights that you’ll eventually write up and communicate to others."
 
 [**Read (or skim) through [Chapter 10](https://r4ds.hadley.nz/EDA.html){target="_blank"} to learn more about the EDA process before beginning your own EDA.**]{.teal-text}
 
-### III. Import & wrangle data, then create exploratory data viz {#partIII}
+### III. Create `exploration.qmd` {#partIII}
+
+[**Create an file named, `exploration.qmd` within your `lastName-eds240-infographic` repo**]{.teal-text} and add appropriate YAML fields. You'll completing all sections of this assigment (Parts IV-V) here.
+
+### IV. Import & wrangle data, then create exploratory data viz {#partIV}
 
 [**This week, you’ll focus on importing and wrangling your data (which you identified in [FPM #1](FPM1.qmd){target="_blank"}), followed by building some exploratory data visualizations. Complete the following:**]{.teal-text} 
 
-- [ ] Create an file named, `exploration.qmd` within your `lastName-eds240-infographic` repo and add appropriate YAML fields.
 - [ ] Load necessary packages and read in your data.
 - [ ] Clean & wrangle your data. 
 - [ ] Create at least **three** exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots *do not* need to be polished (e.g. updated theme), but it may be helpful to try arranging data to identify any trends. **NOTE:** You may need to create differently arranged subsets of your data in order to produce your various exploratory data visualizations. 
 - [ ] **IMPORTANT:** If you have a downloaded data file(s) saved to your repo (e.g. you're not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your `.gitignore`, particularly if this file is large.
 
-### IV. Answer questions {#partIV}
+### V. Answer questions {#partV}
 
 [**After completing the above steps, answer the following questions:**]{.teal-text}
 
 - [ ] **1.** What have you learned about your data? Have any potentially interesting patterns emerged? Point to specific visualizations that you created as you describe your findings.
 
-- [ ] **2.** In FPM #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g. I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? Have any new questions emerged?
+- [ ] **2.** In [FPM #1](FPM1.qmd){target="_blank"}, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g. I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? Have any new questions emerged?
 
 - [ ] **3.** What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges. 
 
@@ -51,37 +54,10 @@ Exploratory Data Analysis (EDA) is a critical first step in understanding your d
 
 To receive a "Satisfactory" mark for FPM #2:        
 
-- [ ] **Perform all Part III steps** (as described above) in your `exploration.qmd` file.
-- [ ] **Answer all three Part IV questions** in your `exploration.qmd` file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score. 
-- [ ] **Ensure that all three plot outputs appear** in your rendered doc.
-- [ ] **Ensure that `exploration.qmd` is neatly organized** -- this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.
-- [ ] **Ensure that code chunks have appropriate chunk options set** (e.g. code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).
-- [ ] **Render `exploration.qmd`, then "print" and save as a PDF.** Double check that all of your outputs, code, and prose are visible.
+- [ ] **Complete all Part IV steps,** as described above. This includes building at least three distinct exploratory data visualizations. 
+- [ ] **Code in Part IV should follow appropriate styling conventions and include clear, informative annotations.** We will not enforce any particular code style guide (you may use conventions from prior courses if you prefer; we recommend following [these conventions](../../clean-code-guide.qmd){target="_blank"} from the [Tidyverse style guide](https://style.tidyverse.org/index.html){target="_blank"} if you're unsure where to start). You don’t need to explain every line, but your annotations should make it easy to follow your thinking and understand important decisions in your code.
+- [ ] **Answer all three Part V questions.** There are no strict length requirements for free-response questions, however we expect that you answer them thoughtfully and fully.
+- [ ] **Ensure that everything described above is included in your neatly-organized and polished `exploration.qmd`** -- this includes appropriate document YAML (at a minimum, title, author, date), clearly labeled sections, appropriately-formatted prose, appropriate code chunk options (e.g. code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.)
+- [ ] **Render `exploration.qmd` as a PDF.** Double check that all of your outputs, code, and prose are visible.
 - [ ] **Upload your PDF to Gradescope** by 11:59pm on 02/04/2026.
-
-<!-- - [ ] Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your `HW2-exploration.qmd` file by 11:59pm PT on Sat 02/04/2025 following these steps:
-  - [ ] **a.** ensure that your **YAML specifies these options**, at a minimum:
-  
-```{r}
-#| eval: false
-#| echo: true
-#| code-line-numbers: false
----
-title: "your FPM #2 title"
-author: "your Name"
-date: xxxx-xx-xx
-format:
-  html:
-    embed-resources: true # this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work
----
-```
-  
-  - [ ] **b. render** your `HW2-exploration.qmd` file, **verify** that you can open the resulting `HW2-exploration.html` file in your browser, and that all formatting looks good
-  - [ ] **c. save a copy** of `HW2-exploration.html` to your Desktop, **rename it** it so that it has your first initial / last name at the start (e.g. `SShannyCsik-HW2-exploration.html`), then **send** it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message  -->
-  
-<!-- <br>
-
-::: {.center-text .large-fa-icon .teal-text}
-{{< fa chart-column title="A column chart" >}} End FPM #2 {{< fa chart-area title="An area chart" >}}
-::: -->
 
