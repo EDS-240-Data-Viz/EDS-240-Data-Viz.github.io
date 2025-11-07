@@ -7,35 +7,27 @@ subtitle: "Assigned Wed 02/11/2026 | Due Wed 02/25/2026"
 TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope
 :::
 
-## Learning Objectives
-
-HW #3 will have you focus on making more progress towards completing your final assignment (HW #4). As a reminder, your final assignment is meant to combine all of the course learning outcomes(!):
-
-- identify which types of visualizations are most appropriate for your data and your audience
-- prepare (e.g. clean, explore, wrangle) data so that its appropriately formatted for building data visualizations
-- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
-- write code from scratch and read and adapt code written by others
-- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
-- assess, critique, and provide constructive feedback on data visualizations
-
-## Description 
-
-[**Please begin by reviewing [HW #4](HW4.qmd){target="_blank"} in full**]{.teal-text} to refamiliarize yourself with the expectations for your final submission at the end of the quarter -- you'll again be making some incremental steps towards your final deliverables here in HW #3. 
-
-[**For HW #3, you must answer / complete the following:**]{.teal-text}
-
-- [ ] **1.** Which option do you plan to pursue? It's okay if this has changed since HW #1.
-- [ ] **2.** Restate your question(s). Has this changed at all since HW #1? If yes, how so? 
-
 ::: {.callout-note}
-## Be mindful that the number of questions you list above will depend on which option you choose to pursue:
-
-- If you choose [option 1](HW4.qmd#option-1){target="_blank"}, you should have **one overarching question** and **at least three sub-questions** that each of your infographic components answer.
-- If you choose [option 2 ](HW4.qmd#option-2){target="_blank"}, you should have **one question** that each of your three visualizations works to answer, where each visualization is meant to reach / serve a different target audience and purpose.
-- If you chose [option 3](HW4.qmd#option-3){target="_blank"}, you should refer back to your approved proposal to determine how many questions you should list.
+FPM #3 is the the third step in working towards your [final project](final-project.qmd){target="_blank"}, which is meant to combine nearly all of the course [learning outcomes](final-project.qmd#LOs){target="_blank"}. **This week, you'll begin drafting the visualizations that will become part of your final infographic.**
 :::
 
-- [ ] **3.** Explain which variables from your data set(s) you will use to answer your question(s), and how.
+## Description {#description}
+
+### I. Review the final project instructions {#partI}
+
+[**Begin by reading the [final project description](final-project.qmd){target="_blank"} in full**]{.teal-text} to remind yourself of the goals and requirements. 
+
+### II. Create `drafting-viz.qmd` {#partII}
+
+[**Create an file named, `drafting-viz.qmd` within your `lastName-eds240-infographic` repo**]{.teal-text} and add appropriate YAML fields. You'll completing all sections of this assigment (Parts II-tbd) here.
+
+### III. Some pre-planning {#partIII}
+
+[**Before you start drafing your viz, answer the following questions:**]{.teal-text}
+
+- [ ] **1.** Restate the questions you hope to answer with your inforgraphic. This should include *one overarching question* (think of this as driving the overall theme of your infographic) and *at least three subquestions* (each of which will be addressed by your infographic's component visualizations). Have these questions changed at all since FPM #1? If yes, how so? 
+
+- [ ] **2.** Explain which variables from your data set(s) you will use to answer the above questions, and how.
 
 ::: {.callout-important}
 ## Important -- be specific here!
@@ -44,24 +36,19 @@ For example, let's say I'm interested in how Lyme disease incidence is changing 
 >*"I have two data sets, one containing population estimates by state from the `{tidycensus}` package, and another from the CDC containing lyme disease case counts by county and year. After wrangling / joining these data sets, I was able to calculate disease incidence as cases per 100k people at the state level. Doing so provides me with three variables to visualize: time (years), disease incidence (cases per 100k people), and state."*
 :::
 
-- [ ] **4.** In [HW #2](HW2.qmd){target="_blank"}, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it's *incredibly* helpful to look at visualizations by other creators for inspiration. Find *at least two* data visualizations that you could (potentially) borrow / adapt pieces from. Link to them or download and embed them into your `.qmd` file, and explain which elements you might borrow (e.g. the graphic form, legend design, layout, etc.). 
+- [ ] **3.** In [FPM #2](FPM2.qmd){target="_blank"}, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it's *incredibly* helpful to look at visualizations by other creators for inspiration. Find *at least two* data visualizations that you could (potentially) borrow / adapt pieces from. Download and embed them into your `drafting-viz.qmd` file, and explain which elements you might borrow (e.g. the graphic form, legend design, layout, etc.). 
 
-::: {.callout-tip}
-## Tip: Remember to check out the Resources page!!
+::: {.callout-tip collapse="true"}
+## Tip: Remember to check out the Resources page for lots of great inspiration!!
 It lists tons of really wonderful websites, tutorials, and links to the repos / websites of some seriously incredible [data viz creators](../../resources.qmd#inspiration){target="_blank"}. This is an excellent place to start when looking for inspiration.
 :::
 
-- [ ] **5.** Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered `.qmd` file -- **note** that these are not *exploratory* visualizations, but rather your plan for your final visualizations that you will eventually polish and submit with HW #4. You should have:
-    - a sketch of your infographic (which should include at least three component visualizations) if you are pursuing [option 1](HW4.qmd#option-1){target="_blank"}
-    - a sketch of all three separate visualizations if you are pursuing [option 2](HW4.qmd#option-2){target="_blank"}
-    - a sketch of the approved number of visualizations, as outlined in your proposal, if you are pursuing [option 3](HW4.qmd#option-3){target="_blank"}
-
-::: {.callout-tip}
+::: {.callout-tip collapse="true"}
 ## Tip: Embedding images into a `.qmd` file
 
 There are a number of ways to render an image in `.qmd` file. Two ways I find easiest are:
 
-1. Using `knitr::include_graphics()` in a code chunk. Here are the chunk options I often specify:
+1. Using `knitr::include_graphics()` in a code chunk (if you're using R). Here are the chunk options I often specify:
 
 ```{{r}}
 #| eval: true
@@ -76,41 +63,67 @@ knitr::include_graphics("path/to/image")
 
 `![](file/path/to/image){fig-alt="Alt text goes here"}`
 
-**Here is a minimal example of a hand-drawn plot -- you don't need to be an artist, but your vision (and handwriting) should be clear:**
+:::
+
+
+### IV. Hand-draw your anticipated visualizations {#partIV}
+
+[**Before you begin coding, it's a super useful practice to sketch out your anticipated visualizations by hand.**]{.teal-text} This [Medium article](https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403){target="_blank"} does a great job summarizing why this step matters.
+
+- [ ] Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered `drafting-viz.qmd` file -- **note** that these are not *exploratory* visualizations, but rather your plan for your final visualizations that you will eventually polish and include in your infographic. 
+
+::: {.callout-note collapse="true"}
+## Open me for an example!
+
+Here's a great example of some hand-sketched visualizations, by [Marine Kochuten](){target="_blank"} (MEDS 2025). Marina chose to also hand-draft a potential layout of her final infographic:
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "40%"
-knitr::include_graphics("images/hand-drawn-plot.png")
+#| out-width: "100%"
+knitr::include_graphics("images/mkochuten-sketch.png")
+```
+
+And if you're curious how the final infographic turned out:
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/mkochuten-final.png")
 ```
 
 :::
 
-- [ ] **6.** Mock up **all** of your hand drawn visualizations using code. We understand that you will continue to iterate on these into HW #4 (particularly after receiving feedback), but by the end of HW #3, you should:
+### V. Recreate your hand-drawn visualizations using code {#partV}
+
+[**Mock up *all* of your hand drawn visualizations using code.**]{.teal-text} We understand that you will continue to iterate on these into FPM #4 (particularly after receiving feedback), but by the end of FPM #3, you should:
 
   - [ ] have your data plotted (if you're experimenting with a graphic form(s) that was not explicitly covered in class, we understand that this may take some more time to build; you should have as much put together as possible)
   - [ ] use appropriate strategies to highlight / focus attention on a clear message
-  - [ ] include appropriate text such as titles, captions, axis labels 
+  - [ ] include appropriate text such as titles, captions, axis labels (**note:** you may eventually convert some text, such as titles and captions, into annotations or text elements on your infographic; it's still helpful to include titles, etc. on these stand-alone visualizations *now*, to provide your peer reviewers and instructional team with necessary context)
   - [ ] experiment with colors and typefaces / fonts
   - [ ] create a presentable / aesthetically-pleasing theme (e.g. (re)move gridlines / legends as appropriate, adjust font sizes, etc.)
 
-- [ ] **7.** Answer the following questions:
-    - [ ] **a.** What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations (from #6, above), describe those challenges here.
-    - [ ] **b.** What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven't covered in class that you'll be learning how to use for your visualizations?
-    - [ ] **c.** What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?
+### VI. Answer a few last questions about your work and progress
+
+- [ ] **1.** What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations, describe those challenges here.
+
+- [ ] **2.** What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven't covered in class that you'll be learning how to use for your visualizations?
+
+- [ ] **3.** What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?
 
 ## Rubric (specifications)
 
-You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #3:
+You must complete the following, as detailed below, to receive a "Satisfactory" mark for FPM #3:
 
 ::: {.callout-note}
 ## A few notes on expectations
 
-- Your plots don't have to be perfect but the message you want to convey should be clear
-- The more progress you make now, the more feedback we can provide ahead of HW #4
-- There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully 
-- Low-effort responses and plots will result in a "Not Yet" mark
+- Your visulizations don't have to be perfect, but the message you want your viz to convey should be clear. If you're unable to figure out how to implement that successfully in code, be sure to describe in writing where you're headed.
+- The more progress you make now, the more feedback we can provide ahead of FPM #4.
+- There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully. 
+- Low-effort responses and visualizations will result in a "Not Yet" mark.
 :::
 
 - [ ] Complete all work in a file named, `HW3-drafting-viz.qmd`, which lives in your `lastName-eds240-HW4` repository -- you are welcome to draft / practice things in different files / scripts, but you must have all required elements of the assignment available in *this* file for us to reference and grade.

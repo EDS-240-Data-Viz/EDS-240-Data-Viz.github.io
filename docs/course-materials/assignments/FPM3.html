@@ -129,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?usp=sharing" target="_blank"> 
+    <a class="nav-link" href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?usp=sharing" target="_blank"> 
 <span class="menu-text">syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -268,8 +268,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a>
+  <ul class="collapse">
+  <li><a href="#partI" id="toc-partI" class="nav-link" data-scroll-target="#partI">I. Review the final project instructions</a></li>
+  <li><a href="#partII" id="toc-partII" class="nav-link" data-scroll-target="#partII">II. Create <code>drafting-viz.qmd</code></a></li>
+  <li><a href="#partIII" id="toc-partIII" class="nav-link" data-scroll-target="#partIII">III. Some pre-planning</a></li>
+  <li><a href="#partIV" id="toc-partIV" class="nav-link" data-scroll-target="#partIV">IV. Hand-draw your anticipated visualizations</a></li>
+  <li><a href="#partV" id="toc-partV" class="nav-link" data-scroll-target="#partV">V. Recreate your hand-drawn visualizations using code</a></li>
+  <li><a href="#vi.-answer-a-few-last-questions-about-your-work-and-progress" id="toc-vi.-answer-a-few-last-questions-about-your-work-and-progress" class="nav-link" data-scroll-target="#vi.-answer-a-few-last-questions-about-your-work-and-progress">VI. Answer a few last questions about your work and progress</a></li>
+  </ul></li>
   <li><a href="#rubric-specifications" id="toc-rubric-specifications" class="nav-link" data-scroll-target="#rubric-specifications">Rubric (specifications)</a></li>
   </ul>
 </nav>
@@ -294,45 +301,35 @@ Important
 <p>TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope</p>
 </div>
 </div>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>HW #3 will have you focus on making more progress towards completing your final assignment (HW #4). As a reminder, your final assignment is meant to combine all of the course learning outcomes(!):</p>
-<ul>
-<li>identify which types of visualizations are most appropriate for your data and your audience</li>
-<li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that its appropriately formatted for building data visualizations</li>
-<li>build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
-<li>write code from scratch and read and adapt code written by others</li>
-<li>apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</li>
-<li>assess, critique, and provide constructive feedback on data visualizations</li>
-</ul>
-</section>
-<section id="description" class="level2">
-<h2 class="anchored" data-anchor-id="description">Description</h2>
-<p><span class="teal-text"><strong>Please begin by reviewing <a href="HW4.qmd" target="_blank">HW #4</a> in full</strong></span> to refamiliarize yourself with the expectations for your final submission at the end of the quarter – you’ll again be making some incremental steps towards your final deliverables here in HW #3.</p>
-<p><span class="teal-text"><strong>For HW #3, you must answer / complete the following:</strong></span></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> Which option do you plan to pursue? It’s okay if this has changed since HW #1.</label></li>
-<li><label><input type="checkbox"><strong>2.</strong> Restate your question(s). Has this changed at all since HW #1? If yes, how so?</label></li>
-</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Be mindful that the number of questions you list above will depend on which option you choose to pursue:
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>If you choose <a href="HW4.qmd#option-1" target="_blank">option 1</a>, you should have <strong>one overarching question</strong> and <strong>at least three sub-questions</strong> that each of your infographic components answer.</li>
-<li>If you choose <a href="HW4.qmd#option-2" target="_blank">option 2</a>, you should have <strong>one question</strong> that each of your three visualizations works to answer, where each visualization is meant to reach / serve a different target audience and purpose.</li>
-<li>If you chose <a href="HW4.qmd#option-3" target="_blank">option 3</a>, you should refer back to your approved proposal to determine how many questions you should list.</li>
-</ul>
+<p>FPM #3 is the the third step in working towards your <a href="../../course-materials/assignments/final-project.html" target="_blank">final project</a>, which is meant to combine nearly all of the course <a href="../../course-materials/assignments/final-project.html#LOs" target="_blank">learning outcomes</a>. <strong>This week, you’ll begin drafting the visualizations that will become part of your final infographic.</strong></p>
 </div>
 </div>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<section id="partI" class="level3">
+<h3 class="anchored" data-anchor-id="partI">I. Review the final project instructions</h3>
+<p><span class="teal-text"><strong>Begin by reading the <a href="../../course-materials/assignments/final-project.html" target="_blank">final project description</a> in full</strong></span> to remind yourself of the goals and requirements.</p>
+</section>
+<section id="partII" class="level3">
+<h3 class="anchored" data-anchor-id="partII">II. Create <code>drafting-viz.qmd</code></h3>
+<p><span class="teal-text"><strong>Create an file named, <code>drafting-viz.qmd</code> within your <code>lastName-eds240-infographic</code> repo</strong></span> and add appropriate YAML fields. You’ll completing all sections of this assigment (Parts II-tbd) here.</p>
+</section>
+<section id="partIII" class="level3">
+<h3 class="anchored" data-anchor-id="partIII">III. Some pre-planning</h3>
+<p><span class="teal-text"><strong>Before you start drafing your viz, answer the following questions:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>3.</strong> Explain which variables from your data set(s) you will use to answer your question(s), and how.</label></li>
+<li><p><label><input type="checkbox"><strong>1.</strong> Restate the questions you hope to answer with your inforgraphic. This should include <em>one overarching question</em> (think of this as driving the overall theme of your infographic) and <em>at least three subquestions</em> (each of which will be addressed by your infographic’s component visualizations). Have these questions changed at all since FPM #1? If yes, how so?</label></p></li>
+<li><p><label><input type="checkbox"><strong>2.</strong> Explain which variables from your data set(s) you will use to answer the above questions, and how.</label></p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -351,42 +348,39 @@ Important – be specific here!
 </div>
 </div>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>4.</strong> In <a href="../../course-materials/assignments/HW2.html" target="_blank">HW #2</a>, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it’s <em>incredibly</em> helpful to look at visualizations by other creators for inspiration. Find <em>at least two</em> data visualizations that you could (potentially) borrow / adapt pieces from. Link to them or download and embed them into your <code>.qmd</code> file, and explain which elements you might borrow (e.g.&nbsp;the graphic form, legend design, layout, etc.).</label></li>
+<li><label><input type="checkbox"><strong>3.</strong> In <a href="../../course-materials/assignments/FPM2.html" target="_blank">FPM #2</a>, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it’s <em>incredibly</em> helpful to look at visualizations by other creators for inspiration. Find <em>at least two</em> data visualizations that you could (potentially) borrow / adapt pieces from. Download and embed them into your <code>drafting-viz.qmd</code> file, and explain which elements you might borrow (e.g.&nbsp;the graphic form, legend design, layout, etc.).</label></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip: Remember to check out the Resources page!!
+Tip: Remember to check out the Resources page for lots of great inspiration!!
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>It lists tons of really wonderful websites, tutorials, and links to the repos / websites of some seriously incredible <a href="../../resources.html#inspiration" target="_blank">data viz creators</a>. This is an excellent place to start when looking for inspiration.</p>
 </div>
 </div>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>5.</strong> Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered <code>.qmd</code> file – <strong>note</strong> that these are not <em>exploratory</em> visualizations, but rather your plan for your final visualizations that you will eventually polish and submit with HW #4. You should have:</label>
-<ul>
-<li>a sketch of your infographic (which should include at least three component visualizations) if you are pursuing <a href="HW4.qmd#option-1" target="_blank">option 1</a></li>
-<li>a sketch of all three separate visualizations if you are pursuing <a href="HW4.qmd#option-2" target="_blank">option 2</a></li>
-<li>a sketch of the approved number of visualizations, as outlined in your proposal, if you are pursuing <a href="HW4.qmd#option-3" target="_blank">option 3</a></li>
-</ul></li>
-</ul>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Tip: Embedding images into a <code>.qmd</code> file
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are a number of ways to render an image in <code>.qmd</code> file. Two ways I find easiest are:</p>
 <ol type="1">
-<li>Using <code>knitr::include_graphics()</code> in a code chunk. Here are the chunk options I often specify:</li>
+<li>Using <code>knitr::include_graphics()</code> in a code chunk (if you’re using R). Here are the chunk options I often specify:</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="in">#| eval: true</span></span>
@@ -400,38 +394,75 @@ Tip: Embedding images into a <code>.qmd</code> file
 <li>Using Markdown syntax:</li>
 </ol>
 <p><code>![](file/path/to/image){fig-alt="Alt text goes here"}</code></p>
-<p><strong>Here is a minimal example of a hand-drawn plot – you don’t need to be an artist, but your vision (and handwriting) should be clear:</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="partIV" class="level3">
+<h3 class="anchored" data-anchor-id="partIV">IV. Hand-draw your anticipated visualizations</h3>
+<p><span class="teal-text"><strong>Before you begin coding, it’s a super useful practice to sketch out your anticipated visualizations by hand.</strong></span> This <a href="https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403" target="_blank">Medium article</a> does a great job summarizing why this step matters.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered <code>drafting-viz.qmd</code> file – <strong>note</strong> that these are not <em>exploratory</em> visualizations, but rather your plan for your final visualizations that you will eventually polish and include in your infographic.</label></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Open me for an example!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here’s a great example of some hand-sketched visualizations, by <a href="" target="_blank">Marine Kochuten</a> (MEDS 2025). Marina chose to also hand-draft a potential layout of her final infographic:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/hand-drawn-plot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
+<p><img src="images/mkochuten-sketch.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And if you’re curious how the final infographic turned out:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mkochuten-final.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<ul class="task-list">
-<li><p><label><input type="checkbox"><strong>6.</strong> Mock up <strong>all</strong> of your hand drawn visualizations using code. We understand that you will continue to iterate on these into HW #4 (particularly after receiving feedback), but by the end of HW #3, you should:</label></p>
+</div>
+</section>
+<section id="partV" class="level3">
+<h3 class="anchored" data-anchor-id="partV">V. Recreate your hand-drawn visualizations using code</h3>
+<p><span class="teal-text"><strong>Mock up <em>all</em> of your hand drawn visualizations using code.</strong></span> We understand that you will continue to iterate on these into FPM #4 (particularly after receiving feedback), but by the end of FPM #3, you should:</p>
 <ul class="task-list">
 <li><label><input type="checkbox">have your data plotted (if you’re experimenting with a graphic form(s) that was not explicitly covered in class, we understand that this may take some more time to build; you should have as much put together as possible)</label></li>
 <li><label><input type="checkbox">use appropriate strategies to highlight / focus attention on a clear message</label></li>
-<li><label><input type="checkbox">include appropriate text such as titles, captions, axis labels</label></li>
+<li><label><input type="checkbox">include appropriate text such as titles, captions, axis labels (<strong>note:</strong> you may eventually convert some text, such as titles and captions, into annotations or text elements on your infographic; it’s still helpful to include titles, etc. on these stand-alone visualizations <em>now</em>, to provide your peer reviewers and instructional team with necessary context)</label></li>
 <li><label><input type="checkbox">experiment with colors and typefaces / fonts</label></li>
 <li><label><input type="checkbox">create a presentable / aesthetically-pleasing theme (e.g.&nbsp;(re)move gridlines / legends as appropriate, adjust font sizes, etc.)</label></li>
-</ul></li>
-<li><p><label><input type="checkbox"><strong>7.</strong> Answer the following questions:</label></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations (from #6, above), describe those challenges here.</label></li>
-<li><label><input type="checkbox"><strong>b.</strong> What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven’t covered in class that you’ll be learning how to use for your visualizations?</label></li>
-<li><label><input type="checkbox"><strong>c.</strong> What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?</label></li>
-</ul></li>
 </ul>
+</section>
+<section id="vi.-answer-a-few-last-questions-about-your-work-and-progress" class="level3">
+<h3 class="anchored" data-anchor-id="vi.-answer-a-few-last-questions-about-your-work-and-progress">VI. Answer a few last questions about your work and progress</h3>
+<ul class="task-list">
+<li><p><label><input type="checkbox"><strong>1.</strong> What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations, describe those challenges here.</label></p></li>
+<li><p><label><input type="checkbox"><strong>2.</strong> What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven’t covered in class that you’ll be learning how to use for your visualizations?</label></p></li>
+<li><p><label><input type="checkbox"><strong>3.</strong> What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?</label></p></li>
+</ul>
+</section>
 </section>
 <section id="rubric-specifications" class="level2">
 <h2 class="anchored" data-anchor-id="rubric-specifications">Rubric (specifications)</h2>
-<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #3:</p>
+<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for FPM #3:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -443,10 +474,10 @@ A few notes on expectations
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Your plots don’t have to be perfect but the message you want to convey should be clear</li>
-<li>The more progress you make now, the more feedback we can provide ahead of HW #4</li>
-<li>There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully</li>
-<li>Low-effort responses and plots will result in a “Not Yet” mark</li>
+<li>Your visulizations don’t have to be perfect, but the message you want your viz to convey should be clear. If you’re unable to figure out how to implement that successfully in code, be sure to describe in writing where you’re headed.</li>
+<li>The more progress you make now, the more feedback we can provide ahead of FPM #4.</li>
+<li>There are no strict length requirements for the free-response questions above, however we expect that you answer them thoughtfully and fully.</li>
+<li>Low-effort responses and visualizations will result in a “Not Yet” mark.</li>
 </ul>
 </div>
 </div>

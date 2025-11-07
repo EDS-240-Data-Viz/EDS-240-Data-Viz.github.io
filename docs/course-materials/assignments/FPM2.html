@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -271,7 +237,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a>
   <ul class="collapse">
   <li><a href="#partI" id="toc-partI" class="nav-link" data-scroll-target="#partI">I. Review the final project instructions</a></li>
-  <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c">c.&nbsp;Answer questions</a></li>
+  <li><a href="#partII" id="toc-partII" class="nav-link" data-scroll-target="#partII">II. Read up on the process of Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#partIII" id="toc-partIII" class="nav-link" data-scroll-target="#partIII">III. Import &amp; wrangle data, then create exploratory data viz</a></li>
+  <li><a href="#partIV" id="toc-partIV" class="nav-link" data-scroll-target="#partIV">IV. Answer questions</a></li>
   </ul></li>
   <li><a href="#rubric" id="toc-rubric" class="nav-link" data-scroll-target="#rubric">Rubric (specifications)</a></li>
   </ul>
@@ -284,6 +252,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>TODO: check with Annie &amp; update submissions instructions; add GenAI survey</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -294,78 +275,92 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>FPM #2 is the the first step in working towards your <a href="../../course-materials/assignments/final-project.html" target="_blank">final project</a>, which is meant to combine nearly all of the course <a href="../../course-materials/assignments/final-project.html#LOs" target="_blank">learning outcomes</a>. <strong>This week, we’ll be creating some exploratory data visualizations.</strong></p>
+<p>FPM #2 is the the second step in working towards your <a href="../../course-materials/assignments/final-project.html" target="_blank">final project</a>, which is meant to combine nearly all of the course <a href="../../course-materials/assignments/final-project.html#LOs" target="_blank">learning outcomes</a>. <strong>This week, we’ll be building some exploratory data visualizations.</strong></p>
 </div>
 </div>
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
 <section id="partI" class="level3">
 <h3 class="anchored" data-anchor-id="partI">I. Review the final project instructions</h3>
-<p><span class="teal-text"><strong>Begin by reading the <a href="../../course-materials/assignments/final-project.html" target="_blank">final project description</a> in full</strong></span> so that you have a clear understanding of the goals and requirements. ### b. Import &amp; wrangle data, then create exploratory data viz {#part-b}</p>
-<p><span class="teal-text"><strong>This week, you’ll focus on importing and wrangling your data (found as part of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a>), followed by the exploratory data visualization phase. Complete the following:</strong></span></p>
+<p><span class="teal-text"><strong>Begin by reading the <a href="../../course-materials/assignments/final-project.html" target="_blank">final project description</a> in full</strong></span> to remind yourself of the goals and requirements.</p>
+</section>
+<section id="partII" class="level3">
+<h3 class="anchored" data-anchor-id="partII">II. Read up on the process of Exploratory Data Analysis (EDA)</h3>
+<p>Exploratory Data Analysis (EDA) is a critical first step in understanding your data and understanding where it might lead you. I particularly like this definition, from <a href="https://r4ds.hadley.nz/EDA.html">R for Data Science (2e), Chapter 10</a>{target”_blank”}:</p>
+<blockquote class="blockquote">
+<p>“EDA is not a formal process with a strict set of rules. More than anything, EDA is a state of mind. During the initial phases of EDA you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will home in on a few particularly productive insights that you’ll eventually write up and communicate to others.”</p>
+</blockquote>
+<p><span class="teal-text"><strong>Read (or skim) through <a href="https://r4ds.hadley.nz/EDA.html" target="_blank">Chapter 10</a> to learn more about the EDA process before beginning your own EDA.</strong></span></p>
+</section>
+<section id="partIII" class="level3">
+<h3 class="anchored" data-anchor-id="partIII">III. Import &amp; wrangle data, then create exploratory data viz</h3>
+<p><span class="teal-text"><strong>This week, you’ll focus on importing and wrangling your data (which you identified in <a href="../../course-materials/assignments/FPM1.html" target="_blank">FPM #1</a>), followed by building some exploratory data visualizations. Complete the following:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox">Create an file named, <code>HW2-exploration.qmd</code> within your <code>lastName-eds240-HW4</code> repo and add appropriate YAML fields.</label></li>
+<li><label><input type="checkbox">Create an file named, <code>exploration.qmd</code> within your <code>lastName-eds240-infographic</code> repo and add appropriate YAML fields.</label></li>
 <li><label><input type="checkbox">Load necessary packages and read in your data.</label></li>
 <li><label><input type="checkbox">Clean &amp; wrangle your data.</label></li>
-<li><label><input type="checkbox">Create at least <strong>three</strong> exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots <em>do not</em> need to be polished (e.g.&nbsp;updated theme), but it may be helpful to try arranging data to identify any trends.</label></li>
-<li><label><input type="checkbox"><strong>IMPORTANT:</strong> If you have a downloaded data file saved to your repo (e.g.&nbsp;you’re not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your <code>.gitignore</code>, particularly if this file is large.</label></li>
+<li><label><input type="checkbox">Create at least <strong>three</strong> exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots <em>do not</em> need to be polished (e.g.&nbsp;updated theme), but it may be helpful to try arranging data to identify any trends. <strong>NOTE:</strong> You may need to create differently arranged subsets of your data in order to produce your various exploratory data visualizations.</label></li>
+<li><label><input type="checkbox"><strong>IMPORTANT:</strong> If you have a downloaded data file(s) saved to your repo (e.g.&nbsp;you’re not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your <code>.gitignore</code>, particularly if this file is large.</label></li>
 </ul>
 </section>
-<section id="part-c" class="level3">
-<h3 class="anchored" data-anchor-id="part-c">c.&nbsp;Answer questions</h3>
+<section id="partIV" class="level3">
+<h3 class="anchored" data-anchor-id="partIV">IV. Answer questions</h3>
 <p><span class="teal-text"><strong>After completing the above steps, answer the following questions:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged?</label></li>
-<li><label><input type="checkbox"><strong>2.</strong> In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)?</label></li>
+<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged? Point to specific visualizations that you created as you describe your findings.</label></li>
+<li><label><input type="checkbox"><strong>2.</strong> In FPM #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? Have any new questions emerged?</label></li>
 <li><label><input type="checkbox"><strong>3.</strong> What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges.</label></li>
 </ul>
 </section>
 </section>
 <section id="rubric" class="level2">
 <h2 class="anchored" data-anchor-id="rubric">Rubric (specifications)</h2>
-<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part II:</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<strong>Complete the following steps under your <code>lastName-eds240-HW4</code> repo, <em>not</em> in GitHub Classroom:</strong>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>See details below.</p>
-</div>
-</div>
+<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for FPM #2:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Perform all Part 2b steps (as described above) in your <code>HW2-exploration.qmd</code> file.</label></li>
-<li><label><input type="checkbox">Answer Part 2c questions in your <code>HW2-exploration.qmd</code> file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
-<li><label><input type="checkbox">All three plot outputs should appear in your rendered doc.</label></li>
-<li><label><input type="checkbox"><code>HW2-exploration.qmd</code> should be neatly organized – this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.</label></li>
-<li><label><input type="checkbox">Code chunks should have appropriate chunk options set (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).</label></li>
-<li><label><input type="checkbox">Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your <code>HW2-exploration.qmd</code> file by 11:59pm PT on Sat 02/04/2025 following these steps:</label>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> ensure that your <strong>YAML specifies these options</strong>, at a minimum:</label></li>
-</ul></li>
+<li><label><input type="checkbox"><strong>Perform all Part III steps</strong> (as described above) in your <code>exploration.qmd</code> file.</label></li>
+<li><label><input type="checkbox"><strong>Answer all three Part IV questions</strong> in your <code>exploration.qmd</code> file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
+<li><label><input type="checkbox"><strong>Ensure that all three plot outputs appear</strong>in your rendered doc.</label></li>
+<li><label><input type="checkbox"><strong>Ensure that <code>exploration.qmd</code> is neatly organized</strong> – this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.</label></li>
+<li><label><input type="checkbox"><strong>Ensure that code chunks have appropriate chunk options set</strong> (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).</label></li>
+<li><label><input type="checkbox"><strong>Render <code>exploration.qmd</code>, then “print” and save as a PDF.</strong> Double check that all of your outputs, code, and prose are visible.</label></li>
+<li><label><input type="checkbox"><strong>Upload your PDF to Gradescope</strong> by 11:59pm on 02/04/2026.</label></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"your HW #2 title"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"your Name"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> xxxx<span class="sc">-</span>xx<span class="sc">-</span>xx</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  html<span class="sc">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    embed<span class="sc">-</span>resources<span class="sc">:</span> true <span class="co"># this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>b. render</strong> your <code>HW2-exploration.qmd</code> file, <strong>verify</strong> that you can open the resulting <code>HW2-exploration.html</code> file in your browser, and that all formatting looks good</label></li>
-<li><label><input type="checkbox"><strong>c.&nbsp;save a copy</strong> of <code>HW2-exploration.html</code> to your Desktop, <strong>rename it</strong> it so that it has your first initial / last name at the start (e.g.&nbsp;<code>SShannyCsik-HW2-exploration.html</code>), then <strong>send</strong> it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message</label></li>
-</ul>
-<p><br></p>
-<div class="center-text large-fa-icon teal-text">
-<p><i class="fa-solid fa-chart-column" title="A column chart" aria-label="chart-column"></i> End HW #4 <i class="fa-solid fa-chart-area" title="An area chart" aria-label="chart-area"></i></p>
-</div>
+<!-- - [ ] Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your `HW2-exploration.qmd` file by 11:59pm PT on Sat 02/04/2025 following these steps:
+  - [ ] **a.** ensure that your **YAML specifies these options**, at a minimum:
+  
+
+
+::: {.cell}
+
+```{.r .cell-code  code-line-numbers="false"}
+---
+title: "your FPM #2 title"
+author: "your Name"
+date: xxxx-xx-xx
+format:
+  html:
+    embed-resources: true # this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work
+---
+```
+:::
+
+
+  
+  - [ ] **b. render** your `HW2-exploration.qmd` file, **verify** that you can open the resulting `HW2-exploration.html` file in your browser, and that all formatting looks good
+  - [ ] **c. save a copy** of `HW2-exploration.html` to your Desktop, **rename it** it so that it has your first initial / last name at the start (e.g. `SShannyCsik-HW2-exploration.html`), then **send** it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message  -->
+<!-- <br>
+
+::: {.center-text .large-fa-icon .teal-text}
+
+
+
+ End FPM #2 
+
+
+
+
+
+::: -->
 
 
 </section>
