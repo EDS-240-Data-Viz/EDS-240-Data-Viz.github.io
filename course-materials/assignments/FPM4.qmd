@@ -3,8 +3,8 @@ title: "FPM #4: Infographic & Blog Post"
 subtitle: "Assigned Wed 02/25/2026 | Due Sun 03/08/2026"
 ---
 
-::: {.callout-important}
-TODO: revise assignment; add final Q about using genAI; update submission instructions to include upload to gradescope
+::: {.callout-note}
+FPM #4 is the the fourth step in working towards your [final project](final-project.qmd){target="_blank"}, which is meant to combine nearly all of the course [learning outcomes](final-project.qmd#LOs){target="_blank"}. **You'll assemble your final infographic and publish a blog post describing your motivations and design process.**
 :::
 
 ## Description {#description} 
@@ -15,52 +15,60 @@ TODO: revise assignment; add final Q about using genAI; update submission instru
 
 ### II. Review feedback and plan your revisions {#partII}
 
-[**Begin by reviewing the feedback you received on FPM #3 from your instructional team and from your in-lab peer reviews. Make a short plan describing what specific changes you intend to make based on that feedback.**]{.teal-text}
+[**Begin by reviewing the feedback you received on FPM #3 from your instructional team and from your in-lab peer reviews. Make a short plan describing what specific changes you intend to make based on that feedback. Respond to the following in an issue titled, `FPM4 - reviewing feedback`**]{.teal-text}
 
 - [ ] **1.** Summarize the key feedback points you received on your FPM #3 draft visualizations.
+
 - [ ] **2.** Explain which of these suggestions you plan to implement and how.
+
 - [ ] **3.** Identify any areas where you decided *not* to follow feedback and explain why (e.g. “it didn’t align with my main message” or “I found a different design solution”).
 
-### III. Assemble your infographic {#partIII}
+- [ ] **4.** Address which (if any) of the [ten design elements](final-project.qmd#partI){target="_blank"} you *do not* plan to implement (rememeber, not all ten will necessarily apply to your project, and that's okay!).
 
-[**Assemble your infographic using the tool of your choice**]{.teal-text} (e.g. using `{ggplot2}`, Affinity, Canva, Google Docs/Slides, etc.).
+### III. Refine your data visualizations and assemble your infographic {#partIII}
 
-As you refine your work, be sure to incorporate feedback and revisit the ten design elements listed in the [final project description](final-project.qmd#partI){target="_blank"} to guide your design choices.
+[**Continue refining your data visualizations based on feedback, then assemble your infographic using the tool of your choice**]{.teal-text} (e.g. using `{ggplot2}`, Affinity, Canva, Google Docs/Slides, etc.).
+
+Be sure to revisit the ten design elements listed in the [final project description](final-project.qmd#partI){target="_blank"} to guide your design choices.
 
 ### IV. Write your blog post {#partIV}
 
-[**Share your data design process in a short, 1-2 page (~500-1,000 words) science communication blog post-style write up.**]{.teal-text} Your writing should be structured as follows:
+[**Share your data design process in a short, 1-2 page (~500-1,000 words) science communication blog post-style write up.**]{.teal-text} Your blog post should be structured as follows:
 
 - [ ] **1.** Open with an engaging introduction, which states any necesssary background, your motivation, question(s), data / data source(s), and goal(s) of your visualization. 
 
-::: {.callout-tip}
-## Storytelling helps to engage your reader
+::: {.callout-tip collapse="true"}
+## TODO Storytelling helps to engage your reader
+
+- [Un-sung Pollination Hero](https://marinakochuten.github.io/blog-posts/hoverflies/){target="_blank"}, by Marina Kochuten (MEDS 2025)
+- [Forest Restoration Reduces Wildfire Risk and Increases Carbon Storage](https://ohemond25.github.io/oliviahemond.github.io/posts/2025-03-11-forest-restoration/){target="_blank"}, by Liv Hemond (MESM 2025)
+- [Designing an Infographic on Shoreline Armoring and Coastal Resilience](https://liliamourier.github.io/Mourier-eds240-HW4/), by Lilia Mourier (MESM 2026)
+
 <!-- Be sure to review the [EDS 296](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html){target="_blank"} materials on [writing data science blog posts](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} for tips on crafting a story and engaging your readers! -->
 :::
 
 <!-- Be sure to review the [EDS 296](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/week4-writing-blogs.html){target="_blank"} materials on [writing data science blog posts](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} for tips on crafting a story and engaging your readers.  -->
 
-- [ ] **2.** Embed / render your final infographic following your introduction. If you are rendering your infographic from code, be sure that: 
+- [ ] **2.** Embed / render your final infographic following your introduction. If you are embedding a png file, ensure that it's centered and an apppropriate size. The same applies if you are rendering your infographic from code, though you should additionally ensure that: 
     - *just* the output renders and *not* the code (e.g. using code chunk options `eval: true` & `echo: false`)
     - warnings and messages are suppressed, as necessary (e.g. using code chunk options `warning: false` & `message: false`); other intermediate products should not be rendered
-    - see the Quarto documentation on [HTML Code Blocks](https://quarto.org/docs/output-formats/html-code.html){target="_blank"} and [Execution Options](https://quarto.org/docs/computations/execution-options.html){target="_blank"} for more
 
-- [ ] **3.** The body of your blog post should address your approach and decisions for each of the ten design elements listed in the [final project description](final-project.qmd#partI){target="_blank"} (though you are welcome and encouraged to comment on any others that are not explicitly listed). If your infographic doees not include or consider a listed element(s), please comment on why (it's possible that not all ten elements will be applicable to *your* visualizations). You may choose to render and refer to individual / component data visualizations throughout the body of your blog post, as *necessary or appropriate* -- if you do so, be sure to suppress code from printing.
+- [ ] **3.** The body of your blog post should address your approach and decisions for the ten design elements listed in the [final project description](final-project.qmd#partI){target="_blank"} (though you are welcome and encouraged to comment on any others that are not explicitly listed). You may choose to render and refer to individual / component data visualizations throughout the body of your blog post, as *necessary or appropriate* -- if you do so, be sure to suppress code from printing.
 
-- [ ] **4.** Include the all code used to generate your final data viz products in a foldable code chunk (see code chunk option, [`code-fold: true`](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"}), at the end of your blog post. Be sure to include some written text beforehand that lets your readers know that they can explore the full code by expanding the chunk. Here, your code should: 
+- [ ] **4.** Include the all code used to generate your final data viz products in a *single* foldable code chunk (see code chunk option, [`code-fold: true`](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"}), at the end of your blog post. Be sure to include some written text beforehand that lets your readers know that they can explore the full code by expanding the chunk. Here, your code should: 
     - print, but not execute (i.e. use code chunk options `eval: false` & `echo: true`)
     - be appropriately styled (e.g. following [tidyverse style guide](../../clean-code-guide.qmd#general-conventions){target="_blank"}) and annotated
 
 [**You may submit your write-up in one of two ways:**]{.teal-text}
 
-a. As a blog post on your personal website -- check out the [Adding a blog to your existing Quarto website](https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/) materials for a refresher, if needed
+a. **As a blog post on your personal website** -- check out the [Adding a blog to your existing Quarto website](https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/) materials for a refresher, if needed
 
-b. As a published Quarto document that is deployed using GitHub Pages. Expand the note below for detailed instructions on how to do so:
+b. **As a published Quarto document that is deployed using GitHub Pages.** Expand the note below for detailed instructions on how to do so:
 
 ::: {.callout-note collapse=true}
 ## Instructions for publishing a Quarto doc using GitHub Pages
 
-1. Your Quarto doc must be named `index.qmd` *and* live in your repository's root directory. Be sure to rename / move it, if necessary.
+1. Your Quarto doc must be named `index.qmd` *and* live in your repository's (`eds240-infographic`) root directory. Be sure to rename / move it, if necessary.
 2. Render `index.qmd` and ensure that `index.html` appears in your root directory as well (this is the file that will be deployed by GitHub Pages).
 3. Head to your remote repository on GitHub. Navigate to the **Settings** page (top navbar), then select **Pages** from the left-hand menu. Once there, you should see something that looks like this: 
 
@@ -83,27 +91,23 @@ knitr::include_graphics("images/deployed.png")
 
 :::
 
-**Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz *and* writing). The more thought, organization, and care you put into this write-up, the more confident you can be showing this to a potential employer!
-
-<!-- ::: {.callout-tip} -->
-<!-- ## Remember, this is an opportunity to grow your professional portfolio! -->
-<!-- Regardless of which of the two publishing options you choose, consider storytelling strategies for effective and engaging data science writing -- review the [Blogging for data science slides](https://ucsb-meds.github.io/EDS-296-DS-portfolios/course-materials/materials/blogging-tips.html#/title-slide){target="_blank"} from the [EDS 296-1F course materials](https://ucsb-meds.github.io/EDS-296-DS-portfolios/){target="_blank"} for guidance. **Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz *and* writing).  -->
-<!-- ::: -->
+***Remember**, this is an opportunity to grow your portfolio and showcase both your technical and communication skills (through data viz and writing). The more thought, organization, and care you put into this write-up, the more confident you can be showing this to a potential employer!*
 
 ## Rubric (specifications)
 
 To recieve a "Satisfactory" on FPM #4:
 
-- free of typos, grammatically correct
+- [ ] **Address your plan for implementing feedback** by responding to the four Part II prompts in an issue titled, `FPM4 - reviewing feedback`. There are no strict length requirements for the free-response questions, however we expect that you answer them thoughtfully and fully.
+- [ ] **Tag your instructors** ([@samanthacsik](https://github.com/samanthacsik){target="_blank"} & [@annieradams](https://github.com/annieradams){target="_blank"}) somewhere in your issue (at the start or end may make the most sense) -- this will send us an email notification linking to your issue.
+- [ ] **Build a cohesive, data-driven infographic** that takes into consideration the ten design elements described in the [final project description](final-project.qmd#partI){target="_blank"} and incorporates peer- and instructor-provided feedback, as appropriate. All graphical elements must be constructed using code to ensure that data are represented accurately. These graphical elements may be enhanced using alternative graphic design tools (e.g. Affinity). The final infographic (and any supporting elements), may also be created / modified using alternative graphic design tools.
+- [ ] **Author an engaging science-communication piece** in the form of a blog post, which features your infographic and describes your motivations, data, goals, and design choices. Your writing should be free of typos and grammatical errors. Any code should be well-organized and annotated, and included in a single, collapsed code chunk at the end of your blog post. You should follow code chunk option recommendations as described in Part IV.
+- [ ] **Add your published blog post URL to [this Google Sheet](https://docs.google.com/spreadsheets/d/1eCGNK4Bl2QHXZ0ucs0wYegm1BiNo9RyI8r17DyrNgM4/edit?gid=0#gid=0){target="_blank"}** by 11:59pm on 03/08/2026.
+- [ ] **Submit a [Generative AI Statement of Use](https://forms.gle/uCw7U5jzJAKahjA4A){target="_blank}** for FPM #4 by 11:59pm on Wed 03/08/2026.
 
-- [ ] I have carefully reviewed my chosen option and completed the project as described
-- [ ] I have considered and implemented (as appropriate) the ten design elements listed in [part 1](HW4.qmd#part1-choose). I acknowledge that it is up to me to decide how to consider, include, omit, and / or modify any of these elements. If I have ignored any of these ten design elements, I have communicated why that decision was made. 
-- [ ] I have reviewed and incorporated (or otherwise addressed in writing) any prior feedback from the instructor / TA.
-- [ ] I have described my design process and decisions in a blog post-style write up, which includes all required sections as detailed in [part 2](HW4.qmd#part2-write). 
-- [ ] My code is in a collapsed code chunk at the bottom of my blog post, and I've made it clear to my readers that they can find all necessary code by expanding that collapsed code chunk. 
-- [ ] All code is appropriately organized, formatted, and annotated, and code chunk(s) have the appropriate chunk options specified.
-- [ ] I have added the URL to my blog post-style write up to [this Google Sheet](https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing){target="_blank"} by Tuesday, 03/11/2025 11:59pm. I have also verified that the URL works (e.g. I don't receive a 404 error when I try to open it).
--  [ ] I have prepared a 3 minute-long presentation, which addresses each of the points detailed in [part 3](HW4.qmd#part3-present). I acknowledge that this in-person presentation is required to receive a "Satisfactory" mark on HW #4 and that no make up presentations will be permitted.
+
+
+
+
 
 
 
