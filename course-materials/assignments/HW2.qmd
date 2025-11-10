@@ -5,26 +5,28 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Learning Outcomes {#p1-learning-outcomes}
+## Learning Outcomes {#LOs}
 
 - identify which types of visualizations are most appropriate for your data and your audience
 - prepare (e.g. clean, explore, wrangle) data so that it's appropriately formatted for building data visualizations
 - build effective, responsible, accessible, and aesthetically-pleasing, visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
 
-## Description {#p1-description}
+## Description {#description}
 
-In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the **[FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)** and the **[US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS)**.
+[**In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning while exploring natural hazards data, courtesy of the [FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)**]{.teal-text}.
 
-### 1a. Background reading {#p1a-background}
+<!-- In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the **[FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)** and the **[US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS)**. -->
 
-Unfold the following note to read more about the data before continuing on (collapsed to save space):
+### I. Background reading {#partI}
+
+[**Read more about FEMA's NRI before continuing on**]{.teal-text} (unfold the following note, which is collapsed to save space):
 
 ::: {.callout-note collapse=true}
 ## About the data
 
-#### About FEMA's National Risk Index (NRI) for Natural Hazards
+### About FEMA's National Risk Index (NRI) for Natural Hazards
 
-[FEMA](https://www.fema.gov/about/strategic-plan/about-fema){target="_blank"} (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the **[National Risk Index (NRI)](https://hazards.fema.gov/nri/){target="_blank"}**, "a [dataset](https://hazards.fema.gov/nri/data-resources){target="_blank"} and [online tool](https://hazards.fema.gov/nri/map){target="_blank"} to help illustrate the United States communities most at risk for [18 natural hazards](https://hazards.fema.gov/nri/natural-hazards){target="_blank"}".
+[FEMA](https://www.fema.gov/about){target="_blank"} (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the **[National Risk Index (NRI)](https://hazards.fema.gov/nri/){target="_blank"}**, "a [dataset](https://hazards.fema.gov/nri/data-resources){target="_blank"} and [online tool](https://hazards.fema.gov/nri/map){target="_blank"} to help illustrate the United States communities most at risk for [18 natural hazards](https://hazards.fema.gov/nri/natural-hazards){target="_blank"}".
 
 **Risk** is defined as the potential for negative impacts resulting from natural hazards. It's calculated using the following equation (and illustrated in [this graphic](https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg){target="_blank"}; read more about [determining risk](https://hazards.fema.gov/nri/determining-risk){target="_blank"}):
 
@@ -50,49 +52,83 @@ knitr::include_graphics("images/NRI.png")
 
 Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles & CSVs) from NRI's [Data Resources page](https://hazards.fema.gov/nri/data-resources){target="_blank"}.
 
-### About the US Census Bureau's American Community Survey (ACS)
-
-The **[American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"}** is a nationwide, continuous survey designed to provide communities with reliable and timely social, economic, housing, and demographic data every year. Unlike the **Decennial Census** (which counts every person in the US every 10 years for the purpose of congressional appointment), the ACS collects detailed information from a small subset of the population (~3.5 million households) at 1- and 5-year intervals. Learn more about the [differences between these 1- and 5-year estimates](https://www.census.gov/programs-surveys/acs/guidance/estimates.html){target="_blank"}.
-
-#### Accessing ACS Data
-
-The US Census Bureau provides a couple of tools for accessing their data, including: 
-
-1. **[data.census.gov](https://data.census.gov){target="_blank"}:** a browser-based portal for exploring the many available [data tables](https://data.census.gov/table){target="_blank"} (e.g. [Table B02001](https://data.census.gov/table?q=B02001){target="_blank"}: Race)
-2. **[The Census Data API](https://www.census.gov/data/developers/data-sets.html){target="_blank"}:** a data service that enables software developers to access and use Census Bureau data within their applications
-
-*However,* when working in R, the **[`{tidycensus}`](https://walker-data.com/tidycensus/){target="_blank"} package** is arguably the easiest way to query and retrieve Census data -- use the [`get_acs()` function](https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data){target="_blank"} to obtain ACS data for specified geographies (e.g. counties or census tracts), tables (e.g. B02001), variables (e.g. B02001_002, B02001_003), years (e.g. 2023), states (e.g. CA), surveys (e.g. acs1, acs5), etc.
 :::
 
-[**The following sections (Part 1b - 1d) should be completed via GitHub Classroom (find and accept the assignment link on Slack). Read on for the full assignment description.**]{.teal-text}
+### II. Create your `eds240-nri-acs-viz` GitHub repo {#partII}
 
-### 1b. Create viz #1 + answer questions {#p1b-viz1}
+[**Create a public GitHub repository named `eds240-nri-acs-viz` and add the following:**]{.teal-text}
 
-Create a data viz that helps to answer the question, [***How do FEMA National Risk Index scores for counties in California compare to those in other states?***]{.teal-text}, following these steps:
+- [ ] an informative and polished README
+- [ ] a `HW2.qmd` file with the necessary YAML 
+- [ ] a folder named `data/`
+- [ ] a `.gitignore` file
 
-1. **Download and unzip the data:** You'll use the [All Counties - County-level detail (Table)](https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip) (2023 Release; accessed on the [NRI Data Resources page](https://hazards.fema.gov/nri/data-resources#csvDownload){target="_blank"}). Unzip the file, then drop the whole `NRI_Table_Counties/` folder into a `data/` folder in your HW repository.
-2. **Add your `data/` folder to `.gitignore`**: So we don't accidentally push our data to GitHub!
-3. **Read in `NRIDataDictionary.csv`:** `NRI_Table_Counties/` contains a few different files, including this CSV file which describes each of the NRI variables found in `NRI_Table_Counties.csv`. This is a helpful place to start!
-4. **Read in `NRI_Table_Counties.csv`:** This is your data.
-5. **Build your viz:** This may require some data wrangling first. Your final viz should: 
-    - [ ] include data for the 50 US states only (no territories)
-    - [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula described in [week 3 discussion](../discussion/week3/.qmd#discussion-materials){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
-    - [ ] consider and implement strategies for highlighting trends / important information (e.g. arranging data, highlighting data, adjusting scales)
-    - [ ] use custom colors (if applicable), rather than ggplot defaults 
-    - [ ] have an updated / polished theme (you'll learn more about fine-tuning ggplot themes in [week 4 discussion](../week4.qmd#discussion-materials){target="_blank"}) 
+::: {.callout-note}
+## We'll use this same repository for both HWs #2 & #3. 
+
+For this assignment, you'll only be working with FEMA NRI data. During HW #3, you'll be asked to incorporate [American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} data (hence the repo name, `eds240-nri-acs-viz`).
+:::
+
+### III. Download data & add it to your repo {#partIII}
+
+[**Next, let's download the necessary data, and add it to our `eds240-nri-acs-viz` repo:**]{.teal-text}
+
+- [ ] **1.** Download and unzip the data. You'll use the [All Counties - County-level detail (Table)](https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip) (2023 Release; accessed on the [NRI Data Resources page](https://hazards.fema.gov/nri/data-resources#csvDownload:~:text=All%20Counties%20%2D%20County%2Dlevel%20detail%20(Table)){target="_blank"}). Unzip the file, then drop the whole `NRI_Table_Counties/` folder into a `data/` folder in your HW repository.
+
+- [ ] **2.** Add your `data/` folder to `.gitignore`, so you don't accidentally push the data to GitHub!
+
+### IV. Build your visualization {#partIV}
+
+[**Create a data viz that helps to answer the question, *How do FEMA National Risk Index scores for counties in California compare to those in other states?***]{.teal-text} This may require some data wrangling.
 
 ::: {.callout-tip}
 ## BEFORE you start wrangling / building your viz, be sure to...
 
-- identify / jot down your variables of interest and consider which data types they are
-- use online tools like [from Data to Viz](https://www.data-to-viz.com/){target="_blank} to help determine appropriate graph types, given your variables 
-- roughly sketch out your plots by hand (I find this *incredibly* helpful for understanding how my data needs to be wrangled to achieve my desired output(s))
-
-(You'll also want to repeat this process when creating your second data viz in [Part 1c](HW2.qmd#p1c-viz2))
+- **explore the metadata** -- `NRI_Table_Counties/` contains a metadata file named, `NRIDataDictionary.csv`, which describes each of the variables found in the data file (`NRI_Table_Counties.csv`). This is a helpful place to start!
+- **identify / jot down your variables of interest** and consider which data types they are
+- **use online tools like [from Data to Viz](https://www.data-to-viz.com/){target="_blank}** to help determine appropriate graph types, given your variables 
+- **roughly sketch out your plots by hand** (see [why](https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403){target="_blank"} this step matters!)
 :::
 
-6. **Answer the following questions:**
-    - [ ] **a.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
-    - [ ] **b.** How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?
-    - [ ] **c.** What modifications did you make to this viz to make it more easily readable?
-    - [ ] **d.** Is there anything you wanted to implement, but didn't know how? If so, please describe.
+Your final visualization should:
+
+- [ ] include data for the 50 US states only (no territories)
+- [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula described in [week 3 discussion](../discussion/week3/.qmd#discussion-materials){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
+- [ ] consider and implement strategies for highlighting trends / important information (e.g. arranging data, highlighting data, adjusting scales)
+- [ ] use custom colors (if applicable), rather than ggplot defaults 
+- [ ] have an updated / polished theme (you'll learn more about fine-tuning ggplot themes in [week 4 discussion](../week4.qmd#discussion-materials){target="_blank"}) 
+
+::: {.callout-tip}
+## Is your plot looking squished in your rendered `.qmd` file? Adjust the aspect ratio!
+You can adjust the aspect ratio of your plot (i.e. its width to height ratio) so that your data / groups are easy to read. Add the `fig-asp` option to your code chunk YAML, which makes adjusting aspect ratios for rendered outputs quite easy. Values > 1 make your plot taller and values < 1 make your plot wider. 
+:::
+
+::: {.callout-important}
+## There is not necessarily one right answer (but don't build a map)!
+There are a number of different chart types that could work for these data and question, *however* we do not intend for you to build a choropleth map (e.g. replicating what you see on the [The National Risk Index's interactive mapping and data-based interface](https://hazards.fema.gov/nri/map){target="_blank"}).
+:::
+
+### V. Answer some questions
+
+- [ ] **1.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
+
+- [ ] **2.** How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?
+
+- [ ] **3.** Summarize your main finding in one sentence.
+
+- [ ] **4.** What modifications did you make to this visualization to make it more easily readable?
+
+- [ ] **5.** Is there anything you wanted to implement, but didn't know how? If so, please describe.
+
+## Rubric (specifications)
+
+To recieve a "Satisfactory" on HW #2:
+
+- [ ] **Create one visualization** that answers the question, *"How do FEMA National Risk Index scores for counties in California compare to those in other states?"* and fulfills the requirements listed in Part IV.
+- [ ] **All code should follow appropriate styling conventions and include clear, informative annotations.** We will not enforce any particular code style guide (you may use conventions from prior courses if you prefer; we recommend following [these conventions](../../clean-code-guide.qmd){target="_blank"} from the [Tidyverse style guide](https://style.tidyverse.org/index.html){target="_blank"} if you're unsure where to start). You don’t need to explain every line, but your annotations should make it easy to follow your thinking and understand important decisions in your code.
+- [ ] **Answer all five Part V questions.** There are no strict length requirements for free-response questions, however we expect that you answer them thoughtfully and fully.
+- [ ] **Ensure that everything described above is included in your neatly-organized and polished `HW2.qmd` file** -- this includes appropriate document YAML (at a minimum, title, author, date), clearly labeled sections, appropriately-formatted prose, appropriate code chunk options (e.g. code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.)
+- [ ] **All your work is housed in an organized and polished `eds240-nri-acs-viz` GitHub repository.** Your README includes all required information, as described in the [MEDS README Guidelines](https://ucsb-meds.github.io/README-guidelines/){target="_blank"}. Your data folder should is added to your `.gitignore`.
+- [ ] **Render `HW2.qmd` as a PDF.** Double check that all of your outputs, code, and prose are visible.
+- [ ] **Upload your PDF to Gradescope** by 11:59pm on Wed 01/28/2026.
+- [ ] **Submit a [Generative AI Statement of Use](https://forms.gle/uCw7U5jzJAKahjA4A){target="_blank}** for HW #2 by 11:59pm on Wed 01/28/2026.
