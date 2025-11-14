@@ -6,6 +6,8 @@ date: 2025-01-27
 toc: true
 ---
 
+[UPDATE: `stream_chem_data <- stream_chem_all$data` no longer works]
+
 ::: {.callout-note}
 This template follows [lecture 4.2 slides](../lecture-slides/lecture4.2-relationships-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
@@ -38,7 +40,8 @@ metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpa
 stream_chem_all <- metajam::read_d1_files(here::here("week4", "data"))
 
 #........................get the data file.......................
-stream_chem_data <- stream_chem_all$data
+#stream_chem_data <- stream_chem_all$data
+stream_chem_data <- stream_chem_all$HubbardBrook_weekly_stream_chemistry.csv
 ```
 
 ```{r}
@@ -64,7 +67,8 @@ library(tidyverse)
 stream_chem_all <- read_d1_files(here::here("course-materials", "lecture-slides", "data", "https_pasta.lternet.edu_package_metadata_eml_knb-lter-hbr_208_11__HubbardBrook_weekly_stream_chemistry__csv"))
 
 #........................get the data file.......................
-stream_chem_data <- stream_chem_all$data
+#stream_chem_data <- stream_chem_all$data
+stream_chem_data <- stream_chem_all$HubbardBrook_weekly_stream_chemistry.csv
 ```
 
 ## Scatter plots
@@ -77,7 +81,7 @@ stream_chem_data <- stream_chem_all$data
 #| warning: false
 # basic scatter plot ----
 p1 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5)
 
@@ -114,7 +118,7 @@ ggExtra::ggMarginal(p1, type = "histogram")
 #| warning: false
 # scatter plot with points colored by site ----
 p2 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5) +
   theme(legend.position = "bottom")
@@ -136,8 +140,8 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 #| message: false
 # add a smoothed line ----
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
-  filter(site == "W5") |> 
+  dplyr::filter(waterYr %in% c(2011:2021)) |> 
+  dplyr::filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth()
@@ -152,8 +156,8 @@ stream_chem_data |>
 #| message: false
 # add a trend line ----
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
-  filter(site == "W5") |>  
+  dplyr::filter(waterYr %in% c(2011:2021)) |> 
+  dplyr::filter(site == "W5") |>  
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = FALSE)
@@ -176,7 +180,7 @@ stream_chem_data |>
 #| warning: false
 # bubble chart ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
@@ -190,7 +194,7 @@ stream_chem_data |>
 #| warning: false
 # scale size by area ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   scale_size(range = c(1, 10)) +
@@ -205,7 +209,7 @@ stream_chem_data |>
 #| warning: false
 # don't scale size by radius ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   scale_radius(range = c(1, 10)) +
@@ -219,7 +223,7 @@ stream_chem_data |>
 #| echo: true
 #| warning: false
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + 
   geom_point(alpha = 0.5, size = 2) +
   scale_color_viridis_c() +
@@ -235,13 +239,13 @@ stream_chem_data |>
 #| layout-ncol: 2
 # effect of DOC on pH ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5)
 
 # effect of DOC on Al_ICP ----
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = Al_ICP, y = pH, color = site)) + 
   geom_point(alpha = 0.5)
 ```

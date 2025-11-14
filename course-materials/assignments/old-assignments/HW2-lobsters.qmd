@@ -1,0 +1,246 @@
+---
+title: "Assignment #2 (HW #2)"
+subtitle: "Assigned Tue 01/21/2025 | Due Tue 02/04/2025"
+---
+
+::: {.callout-important}
+## You must earn a "Satisfactory" mark for each individual Part (I and II) to earn a "Satisfactory" mark for Assignment #1.
+
+**Read each part of the assignment carefully**, and use the check boxes to ensure you've addressed all elements of the assignment!
+:::
+
+# [Part I: Choosing the right graphic form]{.pink-text}
+
+## Learning Outcomes 
+
+- identify which types of visualizations are most appropriate for your data and your audience
+- prepare (e.g. clean, explore, wrangle) data so that it's appropriately formatted for building data visualizations
+- build effective, responsible, accessible, and aesthetically-pleasing, visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+
+## Description 
+
+In class, we discussed strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we've learned to a data set on lobster abundance and sizes, collected from coastal rocky reef sites within the [Santa Barbara Coastal LTER](https://sbclter.msi.ucsb.edu/){target="_blank"}. 
+
+### 1a. Background reading & importing data
+
+Unfold the following note to read more about the data before continuing on (collapsed to save space):
+
+::: {.callout-note icon=false collapse=true}
+## Learn about the data:
+
+#### About SBC LTER
+The [Santa Barbara Coastal Long Term Ecological Research](https://sbclter.msi.ucsb.edu/){target="_blank"} (SBC LTER) site was established in 2000 as part of the [LTER Network](https://lternet.edu/){target="_blank"} to understand the ecology of coastal kelp forest ecosystems. Research and long-term ecological and environmental monitoring data is collected within a 10,000 square kilometer area of the northern portion of the Southern California Bight, which includes the Santa Barbara Channel, coastal watersheds, small estuaries, and sandy beaches that border the Channel. You can explore the full [data catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}.
+
+#### About the data set
+
+There are five coastal rocky reef research sites at which the SBC LTER collects long-term monitoring data:
+
+- Naples Reef (NAPL)
+- Isla Vista Reef (IVEE)
+- Arroyo Quemado Reef (AQUE)
+- Mohawk Reef (MOHK)
+- Carpinteria Reef (CARP)
+
+In January 2012, [Naples Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Naples){target="_blank"} and [Isla Vista Reef](https://wildlife.ca.gov/Conservation/Marine/MPAs/Campus-Point){target="_blank"} were [designated as Marine Protected Areas](https://www.parks.ca.gov/?page_id=27928){target="_blank"} (MPAs), prohibiting any future take of lobsters (along with other living marine resources). Since then, the SBC LTER has conducted annual (late summer) benthic surveys at each of the above five sites, where SCUBA divers record lobster abundance and sizes. Explore the [metadata](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} for more information.  
+
+#### Data citation
+
+Reed, D, R. Miller. 2023. SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (*Panulirus interruptus*), ongoing since 2012 ver 9. Environmental Data Initiative. <https://doi.org/10.6073/pasta/3595322687af94cd532620ad9db94c77>. 
+
+#### Finding this data set
+
+*Knowing how to search for data can be tricky! Here's how I accessed this particular data set, should you want to search for LTER data yourself, in the future:*
+
+1. **Filter the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/){target="_blank"}** for data sets related to **Reef/Kelp Forest** habitats by checking the appropriate box. This produces a table of data collections, descriptions, and links to individual data and metadata records.
+2. **Choose a data set of interest.** I was interested in the *SBC LTER: Spiny lobster in California* Collection, which includes three different data sets. I specifically chose, [Lobster abundace, size, and fishing pressure](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} -- here, you'll find lots of metadata, including people and organizations involved in this data collection, temporal, geographic, and taxonomic coverage, methods and protocols, and links to data files. Additionally, you'll see a link to the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (top right corner), which is the data repository that maintains all data and metadata produced by the LTER. EDI assigns a DOI (Digital Object Identifier) to each version of a data package (data package = data + metadata; SBC LTER updates this data set each year when new data is collected -- each update receives a new DOI).
+3. **Download or import the data.** You can download the data file from either the [SBC LTER Data Catalog](https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.77){target="_blank"} *or* the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"}. *However* I prefer reading in the data directly from online (that way, I don't need to worry about storing large data files). I recommend doing this from the [EDI Data Package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=77){target="_blank"} (rather than the SBC LTER Data Catalog), since the DOI ensures you can re-reference the exact same version, even after the data set is updated with new data (SBC LTER Data Catalog only has a download link for the most up-to-date version of the data). To do so, right click on the *Download Data* button, then select *Copy Link Address*.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "assignments", "images", "download-lob-data.png"))
+```
+
+Use this url inside `read_csv()` to import the data into your script or Qmd / Rmd file:
+
+```{r}
+#| eval: false
+#| echo: true
+lobster_data <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.9&entityid=f32823fba432f58f66c06b589b7efac6")
+```
+
+:::
+
+### 1b. Data wrangling
+
+**Your goal is to create a visualization that explores how lobster size differs across each of the five coastal rocky reef SBC LTER sites for the years 2012 (when IVEE and NAPL were established as MPAs) and 2022 (10 years later).**
+
+This will first require some data exploration and wrangling. Some tips (unfold below):
+
+::: {.callout-tip icon=false collapse=true}
+## Data exploration & wrangling tips
+
+#### Exploration tips: 
+
+- Use `glimpse()` and / or `str()` to check out your variables and data types
+- Use `names()` to return all column names
+- Extract unique elements using `unique(df$column_name)`
+- Open up the spreadsheet-style data viewer using `View(df)`
+- Be sure to review the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-sbc.77.9){target="_blank"} (including methods & protocols) to fully understand the data
+
+#### Wrangling tips:
+
+- I love starting my cleaning pipelines with `janitor::clean_names()` to convert column headers into lowercase snake_case (not necessary, but easy to implement and super helpful for yourself and others)
+- You'll want to keep just the years of interest
+- Missing size measurements are denoted with `-99999` -- you do not want to leave those values as-is (what's a lobster with -9999 mm carapace length?? {{< fa face-smile title="a smiling face" >}}); consider how to deal with these
+- Each row is **not** always a single observation, but rather summed lobster counts at each size observed within a site / transect / replicate. You'll want to wrangle the data such that each row represents a single lobster observation. You may need to do some Googling to figure out a solution for this (HINT: you're looking to perform the opposite of `count()`).
+- I often find that I'll need to return to my data wrangling pipeline again *after* I start plotting my data --  it's at this stage that I'll often catch variables that are the wrong data type (e.g. numeric, factor, character) for plotting and need to make the appropriate updates.
+:::
+
+### 1c. Answer questions
+
+- [ ] **1.** What are your variables of interest and what kinds of data (e.g. numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?
+- [ ] **2.** Using [From Data to Viz](https://www.data-to-viz.com/){target="_blank"}, identify and list which graphic forms / geoms are appropriate, given your data (a bullet point list here is fine). 
+- [ ] **3.** Now that you have a list of options, what are some of your considerations as you decide which type of graph create? For example, is it important / valuable to show sample size? Why or why not? How will you represent multiple groups? etc.
+
+### 1d. Create data viz
+
+Now that you've explored and starting wrangling your data, it's time to create some plots. It's often important to try out multiple graphic forms (e.g. `geom_*()`s) as you decide which is the most effective way of presenting your data. This process is commonly referred to as **Exploratory Data Analysis or Exploratory Data Visualization**. Some tips (unfold below):
+
+::: {.callout-tip icon=false collapse=true}
+## Data viz creation tips
+
+- I always find it helpful to sketch things out on paper first
+- There's no need to create anything special or particularly visually-pleasing during this exploratory visualization phase. It *can* be helpful to make minor modifications, (e.g. rearranging groups in a logical order, color groups, etc.) to help you identify any emerging patterns
+- We created a number of different plot types together in class, exploring different geoms and some of the arguments that each ggplot layer can take. Be sure to take a look back at the lecture materials, but also know that you may need to reference documentation and / or online examples to create / modify your intended visualizations.
+:::
+
+- [ ] Create at least **three** different plots as part of your exploratory data visualization phase to test out which graphic forms / geoms works best. Your last plot should be the version that you feel is best suited for presenting your data. (***NOTE:** Your first two plots do not need to be at all polished -- during the exploratory data visualization phase, we're most concerned with choosing a graphic form / geom(s) for effectively presenting our data.*) 
+
+### 1e. Answer (a few more) questions
+
+-  [ ] **1.** Consider all three of your plots. What about the graphic forms / geoms used in plots #1 and #2 was not as effective as plot #3? Justify your decision to pursue plot #3. 
+- [ ] **2.** (For plot #3 only) Consider modifications that we discussed in lecture that may make this plot easier to interpret (e.g. updating colors, moving or removing legends, highlighting groups, ordering groups) -- be sure to update your plot as appropriate, then explain why you chose to make the above modifications. If you chose not to make any of these modifications, why not? 
+- [ ] **3.** Polish plot #3 by updating the labels and theme (we'll cover theme modifications during [week 4 discussion section](../discussion/week4/week4-slides.qmd#theme){target="_blank"}, so you may consider holding off completing this step until then). List out the changes you made to your plot's theme (e.g. "updated axis text size", "removed minor gridlines", etc.; a bullet list is fine).
+- [ ] **4.** Describe two or more challenges you encountered while deciding on / creating your plots -- these can be conceptual (e.g. challenges in determining how to best represent your data) and / or technical (e.g. code-based challenges).
+- [ ] **5.** Add alt text to your final visualization following the formula discussed during [week 3's discussion section](../discussion/week3/week3-slides.qmd#alt-text-formula){target="_blank"} and using the `#| fig-alt:` code chunk option.
+
+## Rubric (specifications)
+
+You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #2, Part I:
+
+::: {.callout-important}
+## Complete the following steps in your **GitHub Classroom repo** (`eds240-hw2-username/Part1.qmd`):
+
+Everyone receives one "free pass" for not submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
+:::
+
+- [ ] Include your preferred name in the author field of the `Part1.qmd` YAML.
+- [ ] Review the background information provided in Part 1a, then import the data directly from the EDI data portal (as described)
+- [ ] Wrangle the data so that it's structured appropriately for addressing the question described in Part 1b (How does lobster size differ across each of the five coastal rocky reef SBC LTER sites for the years 2012 and 2022?).
+- [ ] Answer the three Part 1c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
+- [ ] Create three different plots (two can remain as unpolished exploratory data visualizations; one must be a polished final plot) in accordance with Part 1d instructions. 
+
+<!-- (**NOTE:** there isn't necessarily a single correct answer here, but your final plot should clearly display the variables of interest and you should be able to justify your choice in your written responses). -->
+
+::: {.callout-note}
+## You must choose an appropriate graphic form, given these data, *but* there isn't one single correct answer.
+
+Choosing an incorrect graphic form to present these data will result in a "Not Yet" score. However, there are numerous graphic forms that are appropriate! Your final plot should clearly display the variables of interest, and you should be able to justify your choice in your written responses.
+:::
+
+- [ ] Answer the five Part 1e questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
+- [ ] Add appropriate alt text to your finalized visualization in accordance with Part 1e instructions.
+- [ ] All code (setup, data exploration, wrangling, and plotting code) should be clearly organized and annotated following conventions and guidelines outlined in the [Writing clean code](../../clean-code-guide.qmd){target="_blank"} page on the course website.
+- [ ] Code chunks should have the appropriate chunk options specified (e.g. suppress warnings and messages; don't print out long data frames, etc.).
+- [ ] We (instructor & TA) should be able to run individual lines / chunks of code *and* render `Part1.qmd` without errors.
+- [ ] All three plot outputs should appear in your rendered doc.
+- [ ] Push your completed `Part1.qmd` to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/01/2025.
+
+<br>
+
+::: {.center-text .large-fa-icon .teal-text}
+{{< fa chart-line title="A simple line chart" >}} End Part I {{< fa chart-line title="A simple line chart" >}}
+:::
+
+<br>
+
+# [Part II: Data wrangling & exploratory data viz using your chosen data]{.pink-text}
+
+## Learning Outcomes
+
+**Note:** This part of HW #2 is a continuation of [HW #1, Part II](HW1.qmd#hw1-p2){target="_blank"} and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):
+
+- identify which types of visualizations are most appropriate for your data and your audience
+- prepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations
+- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+- write code from scratch and read and adapt code written by others
+- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
+
+## Description 
+
+### 2a. Review HW #4 instructions
+
+[**Please begin by re-reading [HW #4](HW4.qmd) in full**]{.teal-text} as a reminder of the options, goals, and requirements for your final class assignment. 
+
+### 2b. Import & wrangle data, then create exploratory data viz
+
+[**This week, you’ll focus on importing and wrangling your data (found as part of [HW #1, Part II](HW1.qmd#hw1-p2)), followed by the exploratory data visualization phase. Complete the following:**]{.teal-text} 
+
+- [ ] Create an file named, `HW2-exploration.qmd` within your `lastName-eds240-HW4` repo and add appropriate YAML fields.
+- [ ] Load necessary packages and read in your data.
+- [ ] Clean & wrangle your data.
+- [ ] Create at least **three** (but of course feel free to create more!) exploratory visualizations (similar to plot #1 and #2 in Part I of this assignment). 
+- [ ] **IMPORTANT:** If you have a downloaded data file saved to your repo (e.g. you're not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your `.gitignore`, particularly if this file is large.
+
+### 2c. Answer questions 
+
+[**After completing the above steps, answer the following questions:**]{.teal-text}
+
+- [ ] **1.** What have you learned about your data? Have any potentially interesting patterns emerged? 
+- [ ] **2.** In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g. I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)? 
+- [ ] **3.** What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges. 
+
+## Rubric (specifications)
+
+You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #2, Part II:
+
+::: {.callout-important}
+## **Complete the following steps under your `lastName-eds240-HW4` repo, *not* in GitHub Classroom:**
+See details below.
+:::
+
+- [ ] Perform all Part 2b steps (as described above) in your `HW2-exploration.qmd` file.
+- [ ] Answer Part 2c questions in your `HW2-exploration.qmd` file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score. 
+- [ ] All three plot outputs should appear in your rendered doc.
+- [ ] `HW2-exploration.qmd` should be neatly organized -- this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.
+- [ ] Code chunks should have appropriate chunk options set (e.g. code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).
+- [ ] Send your instructor and TA a rendered version of your `HW2-exploration.qmd` file by 11:59pm PT on Sat 02/01/2025 following these steps:
+  - [ ] ensure that your YAML specifies these options, at a minimum:
+  
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+---
+title: "your HW #2 title"
+author: "your Name"
+date: xxxx-xx-xx
+format:
+  html:
+    embed-resources: true
+---
+```
+  
+  - [ ] **render** your `HW2-exploration.qmd` file, **verify** that you can open the resulting `HW2-exploration.html` file in your browser, and that all formatting looks good
+  - [ ] **rename** your `.html` file so that it has your first initial / last name at the start (e.g. `SCsik-HW3-drafting-viz.html`), then **send** it to both your instructor and TA on Slack via direct message
+  
+<br>
+
+::: {.center-text .large-fa-icon .teal-text}
+{{< fa chart-column title="A column chart" >}} End Part II {{< fa chart-area title="An area chart" >}}
+:::
+
+

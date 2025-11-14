@@ -113,6 +113,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <div id="quarto-announcement" data-announcement-id="2b93c32b8af55417febb6ffaf7e045fb" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2026. In the meantime, things here might get a little messy <i class="fa-solid fa-face-grin-beam-sweat" aria-label="face-grin-beam-sweat"></i></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -131,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?usp=sharing" target="_blank"> 
+    <a class="nav-link" href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?usp=sharing" target="_blank"> 
 <span class="menu-text">syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -318,6 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<p>[UPDATE: <code>stream_chem_data &lt;- stream_chem_all$data</code> no longer works]</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -356,7 +360,8 @@ Note
 <span id="cb1-19"><a href="#cb1-19"></a>stream_chem_all <span class="ot">&lt;-</span> metajam<span class="sc">::</span><span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
 <span id="cb1-20"><a href="#cb1-20"></a></span>
 <span id="cb1-21"><a href="#cb1-21"></a><span class="co">#........................get the data file.......................</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#stream_chem_data &lt;- stream_chem_all$data</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>HubbardBrook_weekly_stream_chemistry.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="scatter-plots" class="level2">
@@ -366,7 +371,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># basic scatter plot ----</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
@@ -415,7 +420,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># scatter plot with points colored by site ----</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>p2 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
 <span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
@@ -442,8 +447,8 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># add a smoothed line ----</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -461,8 +466,8 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># add a trend line ----</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span>  </span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -493,7 +498,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># bubble chart ----</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -511,7 +516,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># scale size by area ----</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
@@ -530,7 +535,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># don't scale size by radius ----</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">scale_radius</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
@@ -548,7 +553,7 @@ Note
 <h3 class="anchored" data-anchor-id="use-color-for-third-variable">Use color for third variable</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
@@ -566,12 +571,12 @@ Note
 <h3 class="anchored" data-anchor-id="but-oftentimes-best-to-just-create-two-different-plots">But oftentimes best to just create two different plots</h3>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># effect of DOC on pH ----</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
 <span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
 <span id="cb12-6"><a href="#cb12-6"></a><span class="co"># effect of DOC on Al_ICP ----</span></span>
 <span id="cb12-7"><a href="#cb12-7"></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Al_ICP, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
 <span id="cb12-10"><a href="#cb12-10"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">

@@ -196,6 +196,8 @@ We'll be exploring **bottom temperatures recorded at Mohawk Reef**, a near-shore
 
 <hr>
 
+[UPDATE reading data in from EDI not working; fix later] 
+
 Data are imported directly from the [EDI Data Portal](https://portal.edirepository.org/nis/home.jsp){target="_blank"}. Explore the [metadata package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007){target="_blank"} online to learn more about these data.
 
 ```{r}
@@ -216,7 +218,8 @@ library(see)
 library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
-mko <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
+# mko <- readr::read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
+mko <- read_csv(here::here("course-materials", "lecture-slides", "data", "mohawk_mooring_mko_20250117.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----

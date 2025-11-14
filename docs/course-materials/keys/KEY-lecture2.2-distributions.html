@@ -113,6 +113,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <div id="quarto-announcement" data-announcement-id="2b93c32b8af55417febb6ffaf7e045fb" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2026. In the meantime, things here might get a little messy <i class="fa-solid fa-face-grin-beam-sweat" aria-label="face-grin-beam-sweat"></i></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -131,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?usp=sharing" target="_blank"> 
+    <a class="nav-link" href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?usp=sharing" target="_blank"> 
 <span class="menu-text">syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -345,6 +348,7 @@ Note
 </div>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>[UPDATE reading data in from EDI not working]</p>
 <ul>
 <li>Find data &amp; metadata on the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007">EDI Data Portal</a>.</li>
 <li>Get data download link by right-clicking on the <strong>Download</strong> button &gt; <strong>Copy Link Address</strong> &gt; then paste into <code>read_csv()</code></li>
@@ -365,52 +369,53 @@ Note
 <span id="cb1-13"><a href="#cb1-13"></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
 <span id="cb1-14"><a href="#cb1-14"></a></span>
 <span id="cb1-15"><a href="#cb1-15"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a></span>
-<span id="cb1-22"><a href="#cb1-22"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a></span>
-<span id="cb1-24"><a href="#cb1-24"></a>  <span class="co"># keep only necessary columns ----</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a></span>
-<span id="cb1-32"><a href="#cb1-32"></a>  <span class="co"># coerce data types ----</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
-<span id="cb1-34"><a href="#cb1-34"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
-<span id="cb1-35"><a href="#cb1-35"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
-<span id="cb1-36"><a href="#cb1-36"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
-<span id="cb1-37"><a href="#cb1-37"></a></span>
-<span id="cb1-38"><a href="#cb1-38"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
-<span id="cb1-40"><a href="#cb1-40"></a></span>
-<span id="cb1-41"><a href="#cb1-41"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-43"><a href="#cb1-43"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-44"><a href="#cb1-44"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-45"><a href="#cb1-45"></a></span>
-<span id="cb1-46"><a href="#cb1-46"></a>  <span class="co"># select/reorder desired columns ----</span></span>
-<span id="cb1-47"><a href="#cb1-47"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
-<span id="cb1-48"><a href="#cb1-48"></a></span>
-<span id="cb1-49"><a href="#cb1-49"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a><span class="do">##                            explore missing data                          ----</span></span>
-<span id="cb1-51"><a href="#cb1-51"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-52"><a href="#cb1-52"></a></span>
-<span id="cb1-53"><a href="#cb1-53"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
-<span id="cb1-54"><a href="#cb1-54"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-55"><a href="#cb1-55"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb1-56"><a href="#cb1-56"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-57"><a href="#cb1-57"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
-<span id="cb1-58"><a href="#cb1-58"></a></span>
-<span id="cb1-59"><a href="#cb1-59"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
-<span id="cb1-60"><a href="#cb1-60"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
-<span id="cb1-61"><a href="#cb1-61"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># mko &lt;- readr::read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&amp;entityid=02629ecc08a536972dec021f662428aa")</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"course-materials"</span>, <span class="st">"lecture-slides"</span>, <span class="st">"data"</span>, <span class="st">"mohawk_mooring_mko_20250117.csv"</span>))</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="co"># keep only necessary columns ----</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  <span class="co"># coerce data types ----</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
+<span id="cb1-35"><a href="#cb1-35"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
+<span id="cb1-36"><a href="#cb1-36"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
+<span id="cb1-37"><a href="#cb1-37"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-44"><a href="#cb1-44"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-45"><a href="#cb1-45"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a></span>
+<span id="cb1-47"><a href="#cb1-47"></a>  <span class="co"># select/reorder desired columns ----</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
+<span id="cb1-49"><a href="#cb1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="do">##                            explore missing data                          ----</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-57"><a href="#cb1-57"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
+<span id="cb1-59"><a href="#cb1-59"></a></span>
+<span id="cb1-60"><a href="#cb1-60"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
+<span id="cb1-62"><a href="#cb1-62"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="histograms" class="level2">
@@ -428,10 +433,10 @@ Note
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 74425 rows containing non-finite outside the scale range
+<pre><code>Warning: Removed 69427 rows containing non-finite outside the scale range
 (`stat_bin()`).</code></pre>
 </div>
 <div class="cell-output-display">

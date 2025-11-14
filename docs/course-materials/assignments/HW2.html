@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Assignment #2 (HW #2) – EDS 240</title>
+<title>HW #2: Visualizing FEMA NRI Data – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -140,6 +106,9 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <div id="quarto-announcement" data-announcement-id="2b93c32b8af55417febb6ffaf7e045fb" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2026. In the meantime, things here might get a little messy <i class="fa-solid fa-face-grin-beam-sweat" aria-label="face-grin-beam-sweat"></i></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -158,7 +127,7 @@ window.Quarto = {
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?usp=sharing" target="_blank"> 
+    <a class="nav-link" href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?usp=sharing" target="_blank"> 
 <span class="menu-text">syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -275,8 +244,8 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Assignment #2 (HW #2)</h1>
-            <p class="subtitle lead">Assigned Tue 01/21/2025 | Due Tue 02/04/2025</p>
+      <h1 class="title">HW #2: Visualizing FEMA NRI Data</h1>
+            <p class="subtitle lead">Assigned Wed 01/21/2026 | Due Wed 01/28/2026</p>
                       </div>
   </div>
     
@@ -297,29 +266,16 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part1" id="toc-part1" class="nav-link active" data-scroll-target="#part1"><span class="pink-text">Part I: Choosing the right graphic form</span></a>
+  <li><a href="#LOs" id="toc-LOs" class="nav-link active" data-scroll-target="#LOs">Learning Outcomes</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a>
   <ul class="collapse">
-  <li><a href="#p1-learning-outcomes" id="toc-p1-learning-outcomes" class="nav-link" data-scroll-target="#p1-learning-outcomes">Learning Outcomes</a></li>
-  <li><a href="#p1-description" id="toc-p1-description" class="nav-link" data-scroll-target="#p1-description">Description</a>
-  <ul class="collapse">
-  <li><a href="#p1a-background" id="toc-p1a-background" class="nav-link" data-scroll-target="#p1a-background">1a. Background reading</a></li>
-  <li><a href="#p1b-viz1" id="toc-p1b-viz1" class="nav-link" data-scroll-target="#p1b-viz1">1b. Create viz #1 + answer questions</a></li>
-  <li><a href="#p1c-viz2" id="toc-p1c-viz2" class="nav-link" data-scroll-target="#p1c-viz2">1c. Create viz #2 + answer questions</a></li>
-  <li><a href="#p1d-polish-qmd" id="toc-p1d-polish-qmd" class="nav-link" data-scroll-target="#p1d-polish-qmd">1d. Polish your <code>.qmd</code> file</a></li>
+  <li><a href="#partI" id="toc-partI" class="nav-link" data-scroll-target="#partI">I. Background reading</a></li>
+  <li><a href="#partII" id="toc-partII" class="nav-link" data-scroll-target="#partII">II. Create your <code>eds240-nri-acs-viz</code> GitHub repo</a></li>
+  <li><a href="#partIII" id="toc-partIII" class="nav-link" data-scroll-target="#partIII">III. Download data &amp; add it to your repo</a></li>
+  <li><a href="#partIV" id="toc-partIV" class="nav-link" data-scroll-target="#partIV">IV. Build your visualization</a></li>
+  <li><a href="#v.-answer-some-questions" id="toc-v.-answer-some-questions" class="nav-link" data-scroll-target="#v.-answer-some-questions">V. Answer some questions</a></li>
   </ul></li>
-  <li><a href="#p1-rubric" id="toc-p1-rubric" class="nav-link" data-scroll-target="#p1-rubric">Rubric (specifications)</a></li>
-  </ul></li>
-  <li><a href="#part2" id="toc-part2" class="nav-link" data-scroll-target="#part2"><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your chosen data</span></a>
-  <ul class="collapse">
-  <li><a href="#p2-learning-outcomes" id="toc-p2-learning-outcomes" class="nav-link" data-scroll-target="#p2-learning-outcomes">Learning Outcomes</a></li>
-  <li><a href="#p2-description" id="toc-p2-description" class="nav-link" data-scroll-target="#p2-description">Description</a>
-  <ul class="collapse">
-  <li><a href="#p2a-review-HW4" id="toc-p2a-review-HW4" class="nav-link" data-scroll-target="#p2a-review-HW4">2a. Review HW #4 instructions</a></li>
-  <li><a href="#p2b-explore-data" id="toc-p2b-explore-data" class="nav-link" data-scroll-target="#p2b-explore-data">2b. Import &amp; wrangle data, then create exploratory data viz</a></li>
-  <li><a href="#p2c-questions" id="toc-p2c-questions" class="nav-link" data-scroll-target="#p2c-questions">2c. Answer questions</a></li>
-  </ul></li>
-  <li><a href="#p2-rubric" id="toc-p2-rubric" class="nav-link" data-scroll-target="#p2-rubric">Rubric (specifications)</a></li>
-  </ul></li>
+  <li><a href="#rubric-specifications" id="toc-rubric-specifications" class="nav-link" data-scroll-target="#rubric-specifications">Rubric (specifications)</a></li>
   </ul>
 </nav>
     </div>
@@ -330,37 +286,23 @@ window.Quarto = {
 
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-You must earn a “Satisfactory” mark for each individual Part (I and II) to earn a “Satisfactory” mark for Assignment #1.
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Read each part of the assignment carefully</strong>, and use the check boxes to ensure you’ve addressed all elements of the assignment!</p>
-</div>
-</div>
-<section id="part1" class="level1">
-<h1><span class="pink-text">Part I: Choosing the right graphic form</span></h1>
-<section id="p1-learning-outcomes" class="level2">
-<h2 class="anchored" data-anchor-id="p1-learning-outcomes">Learning Outcomes</h2>
+<section id="LOs" class="level2">
+<h2 class="anchored" data-anchor-id="LOs">Learning Outcomes</h2>
 <ul>
 <li>identify which types of visualizations are most appropriate for your data and your audience</li>
 <li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>
 <li>build effective, responsible, accessible, and aesthetically-pleasing, visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
 </ul>
 </section>
-<section id="p1-description" class="level2">
-<h2 class="anchored" data-anchor-id="p1-description">Description</h2>
-<p>In class, we’ve been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’re learning to natural hazards and demographics data, courtesy of the <strong><a href="https://hazards.fema.gov/nri/" target="_blank">FEMA National Risk Index</a> (NRI)</strong> and the <strong><a href="https://www.census.gov/programs-surveys/acs/about.html" target="_blank">US Census Bureau’s American Community Survey</a> (ACS)</strong>.</p>
-<section id="p1a-background" class="level3">
-<h3 class="anchored" data-anchor-id="p1a-background">1a. Background reading</h3>
-<p>Unfold the following note to read more about the data before continuing on (collapsed to save space):</p>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<p><span class="teal-text"><strong>In class, we’ve been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’re learning while exploring natural hazards data, courtesy of the <a href="https://hazards.fema.gov/nri/" target="_blank">FEMA National Risk Index</a> (NRI)</strong></span>.</p>
+<!-- In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the **[FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)** and the **[US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS)**. -->
+<section id="partI" class="level3">
+<h3 class="anchored" data-anchor-id="partI">I. Background reading</h3>
+<p><span class="teal-text"><strong>Read more about FEMA’s NRI before continuing on</strong></span> (unfold the following note, which is collapsed to save space):</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -369,11 +311,10 @@ About the data
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<section id="about-femas-national-risk-index-nri-for-natural-hazards" class="level4">
-<h4 class="anchored" data-anchor-id="about-femas-national-risk-index-nri-for-natural-hazards">About FEMA’s National Risk Index (NRI) for Natural Hazards</h4>
-<p><a href="https://www.fema.gov/about/strategic-plan/about-fema" target="_blank">FEMA</a> (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the <strong><a href="https://hazards.fema.gov/nri/" target="_blank">National Risk Index (NRI)</a></strong>, “a <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">dataset</a> and <a href="https://hazards.fema.gov/nri/map" target="_blank">online tool</a> to help illustrate the United States communities most at risk for <a href="https://hazards.fema.gov/nri/natural-hazards" target="_blank">18 natural hazards</a>”.</p>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<section id="about-femas-national-risk-index-nri-for-natural-hazards" class="level3 callout-body-container callout-body">
+<h3 class="anchored" data-anchor-id="about-femas-national-risk-index-nri-for-natural-hazards">About FEMA’s National Risk Index (NRI) for Natural Hazards</h3>
+<p><a href="https://www.fema.gov/about" target="_blank">FEMA</a> (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the <strong><a href="https://hazards.fema.gov/nri/" target="_blank">National Risk Index (NRI)</a></strong>, “a <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">dataset</a> and <a href="https://hazards.fema.gov/nri/map" target="_blank">online tool</a> to help illustrate the United States communities most at risk for <a href="https://hazards.fema.gov/nri/natural-hazards" target="_blank">18 natural hazards</a>”.</p>
 <p><strong>Risk</strong> is defined as the potential for negative impacts resulting from natural hazards. It’s calculated using the following equation (and illustrated in <a href="https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg" target="_blank">this graphic</a>; read more about <a href="https://hazards.fema.gov/nri/determining-risk" target="_blank">determining risk</a>):</p>
 <p><span class="math display">\[Risk\:Index = Expected\:Annual\:Loss \times \frac{Social\:Vulnerability}{Community\:Resilience}\]</span></p>
 <p>NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community’s <strong>risk score</strong> is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience – for example, if a given county’s Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a <strong>risk rating</strong>, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.”</p>
@@ -390,46 +331,48 @@ About the data
 <div class="center-text gray-text body-text-s">
 <p><em>Screenshot of the <a href="https://hazards.fema.gov/nri/map">The National Risk Index’s interactive mapping and data-based interface</a></em></p>
 </div>
-</section>
 <section id="accessing-nri-data" class="level4">
 <h4 class="anchored" data-anchor-id="accessing-nri-data">Accessing NRI Data</h4>
 <p>Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles &amp; CSVs) from NRI’s <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">Data Resources page</a>.</p>
 </section>
-<section id="about-the-us-census-bureaus-american-community-survey-acs" class="level3">
-<h3 class="anchored" data-anchor-id="about-the-us-census-bureaus-american-community-survey-acs">About the US Census Bureau’s American Community Survey (ACS)</h3>
-<p>The <strong><a href="https://www.census.gov/programs-surveys/acs/about.html" target="_blank">American Community Survey (ACS)</a></strong> is a nationwide, continuous survey designed to provide communities with reliable and timely social, economic, housing, and demographic data every year. Unlike the <strong>Decennial Census</strong> (which counts every person in the US every 10 years for the purpose of congressional appointment), the ACS collects detailed information from a small subset of the population (~3.5 million households) at 1- and 5-year intervals. Learn more about the <a href="https://www.census.gov/programs-surveys/acs/guidance/estimates.html" target="_blank">differences between these 1- and 5-year estimates</a>.</p>
-<section id="accessing-acs-data" class="level4">
-<h4 class="anchored" data-anchor-id="accessing-acs-data">Accessing ACS Data</h4>
-<p>The US Census Bureau provides a couple of tools for accessing their data, including:</p>
-<ol type="1">
-<li><strong><a href="https://data.census.gov" target="_blank">data.census.gov</a>:</strong> a browser-based portal for exploring the many available <a href="https://data.census.gov/table" target="_blank">data tables</a> (e.g.&nbsp;<a href="https://data.census.gov/table?q=B02001" target="_blank">Table B02001</a>: Race)</li>
-<li><strong><a href="https://www.census.gov/data/developers/data-sets.html" target="_blank">The Census Data API</a>:</strong> a data service that enables software developers to access and use Census Bureau data within their applications</li>
-</ol>
-<p><em>However,</em> when working in R, the <strong><a href="https://walker-data.com/tidycensus/" target="_blank"><code>{tidycensus}</code></a> package</strong> is arguably the easiest way to query and retrieve Census data – use the <a href="https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data" target="_blank"><code>get_acs()</code> function</a> to obtain ACS data for specified geographies (e.g.&nbsp;counties or census tracts), tables (e.g.&nbsp;B02001), variables (e.g.&nbsp;B02001_002, B02001_003), years (e.g.&nbsp;2023), states (e.g.&nbsp;CA), surveys (e.g.&nbsp;acs1, acs5), etc.</p>
-</section>
 </section>
 </div>
 </div>
-</div>
-<p><span class="teal-text"><strong>The following sections (Part 1b - 1d) should be completed via GitHub Classroom (find and accept the assignment link on Slack). Read on for the full assignment description.</strong></span></p>
 </section>
-<section id="p1b-viz1" class="level3">
-<h3 class="anchored" data-anchor-id="p1b-viz1">1b. Create viz #1 + answer questions</h3>
-<p>Create a data viz that helps to answer the question, <span class="teal-text"><strong><em>How do FEMA National Risk Index scores for counties in California compare to those in other states?</em></strong></span>, following these steps:</p>
-<ol type="1">
-<li><strong>Download and unzip the data:</strong> You’ll use the <a href="https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip">All Counties - County-level detail (Table)</a> (2023 Release; accessed on the <a href="https://hazards.fema.gov/nri/data-resources#csvDownload" target="_blank">NRI Data Resources page</a>). Unzip the file, then drop the whole <code>NRI_Table_Counties/</code> folder into a <code>data/</code> folder in your HW repository.</li>
-<li><strong>Add your <code>data/</code> folder to <code>.gitignore</code></strong>: So we don’t accidentally push our data to GitHub!</li>
-<li><strong>Read in <code>NRIDataDictionary.csv</code>:</strong> <code>NRI_Table_Counties/</code> contains a few different files, including this CSV file which describes each of the NRI variables found in <code>NRI_Table_Counties.csv</code>. This is a helpful place to start!</li>
-<li><strong>Read in <code>NRI_Table_Counties.csv</code>:</strong> This is your data.</li>
-<li><strong>Build your viz:</strong> This may require some data wrangling first. Your final viz should:
+<section id="partII" class="level3">
+<h3 class="anchored" data-anchor-id="partII">II. Create your <code>eds240-nri-acs-viz</code> GitHub repo</h3>
+<p><span class="teal-text"><strong>Create a public GitHub repository named <code>eds240-nri-acs-viz</code> and add the following:</strong></span></p>
 <ul class="task-list">
-<li><label><input type="checkbox">include data for the 50 US states only (no territories)</label></li>
-<li><label><input type="checkbox">include a title (short, descriptive) &amp; subtitle (describes main takeaway) (see <a href="https://clauswilke.com/dataviz/figure-titles-captions.html" target="_blank">Fundamentals of Data Visualization, Ch 22</a> for an example), a caption (describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2023 Release)”), and alt text (following the formula described in <a href="../discussion/week3/.qmd#discussion-materials" target="_blank">week 3 discussion</a>; use the <code>fig-alt</code> code chunk option to apply your alt text)</label></li>
-<li><label><input type="checkbox">consider and implement strategies for highlighting trends / important information (e.g.&nbsp;arranging data, highlighting data, adjusting scales)</label></li>
-<li><label><input type="checkbox">use custom colors (if applicable), rather than ggplot defaults</label></li>
-<li><label><input type="checkbox">have an updated / polished theme (you’ll learn more about fine-tuning ggplot themes in <a href="../../course-materials/week4.html#discussion-materials" target="_blank">week 4 discussion</a>)</label></li>
-</ul></li>
-</ol>
+<li><label><input type="checkbox">an informative and polished README</label></li>
+<li><label><input type="checkbox">a <code>HW2.qmd</code> file with the necessary YAML</label></li>
+<li><label><input type="checkbox">a folder named <code>data/</code></label></li>
+<li><label><input type="checkbox">a <code>.gitignore</code> file</label></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+We’ll use this same repository for both HWs #2 &amp; #3.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For this assignment, you’ll only be working with FEMA NRI data. During HW #3, you’ll be asked to incorporate <a href="https://www.census.gov/programs-surveys/acs/about.html" target="_blank">American Community Survey (ACS)</a> data (hence the repo name, <code>eds240-nri-acs-viz</code>).</p>
+</div>
+</div>
+</section>
+<section id="partIII" class="level3">
+<h3 class="anchored" data-anchor-id="partIII">III. Download data &amp; add it to your repo</h3>
+<p><span class="teal-text"><strong>Next, let’s download the necessary data, and add it to our <code>eds240-nri-acs-viz</code> repo:</strong></span></p>
+<ul class="task-list">
+<li><p><label><input type="checkbox"><strong>1.</strong> Download and unzip the data. You’ll use the <a href="https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip">All Counties - County-level detail (Table)</a> (2023 Release; accessed on the <a href="https://hazards.fema.gov/nri/data-resources#csvDownload:~:text=All%20Counties%20%2D%20County%2Dlevel%20detail%20(Table)" target="_blank">NRI Data Resources page</a>). Unzip the file, then drop the whole <code>NRI_Table_Counties/</code> folder into a <code>data/</code> folder in your HW repository.</label></p></li>
+<li><p><label><input type="checkbox"><strong>2.</strong> Add your <code>data/</code> folder to <code>.gitignore</code>, so you don’t accidentally push the data to GitHub!</label></p></li>
+</ul>
+</section>
+<section id="partIV" class="level3">
+<h3 class="anchored" data-anchor-id="partIV">IV. Build your visualization</h3>
+<p><span class="teal-text"><strong>Create a data viz that helps to answer the question, <em>How do FEMA National Risk Index scores for counties in California compare to those in other states?</em></strong></span> This may require some data wrangling.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -441,236 +384,74 @@ BEFORE you start wrangling / building your viz, be sure to…
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>identify / jot down your variables of interest and consider which data types they are</li>
-<li>use online tools like <a href="https://www.data-to-viz.com/" target="&quot;_blank">from Data to Viz</a> to help determine appropriate graph types, given your variables</li>
-<li>roughly sketch out your plots by hand (I find this <em>incredibly</em> helpful for understanding how my data needs to be wrangled to achieve my desired output(s))</li>
+<li><strong>explore the metadata</strong> – <code>NRI_Table_Counties/</code> contains a metadata file named, <code>NRIDataDictionary.csv</code>, which describes each of the variables found in the data file (<code>NRI_Table_Counties.csv</code>). This is a helpful place to start!</li>
+<li><strong>identify / jot down your variables of interest</strong> and consider which data types they are</li>
+<li><strong>use online tools like <a href="https://www.data-to-viz.com/" target="&quot;_blank">from Data to Viz</a></strong> to help determine appropriate graph types, given your variables</li>
+<li><strong>roughly sketch out your plots by hand</strong> (see <a href="https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403" target="_blank">why</a> this step matters!)</li>
 </ul>
-<p>(You’ll also want to repeat this process when creating your second data viz in <a href="../../course-materials/assignments/HW2.html#p1c-viz2">Part 1c</a>)</p>
 </div>
 </div>
-<ol start="6" type="1">
-<li><strong>Answer the following questions:</strong>
+<p>Your final visualization should:</p>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?</label></li>
-<li><label><input type="checkbox"><strong>b.</strong> How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?</label></li>
-<li><label><input type="checkbox"><strong>c.</strong> What modifications did you make to this viz to make it more easily readable?</label></li>
-<li><label><input type="checkbox"><strong>d.</strong> Is there anything you wanted to implement, but didn’t know how? If so, please describe.</label></li>
-</ul></li>
-</ol>
-</section>
-<section id="p1c-viz2" class="level3">
-<h3 class="anchored" data-anchor-id="p1c-viz2">1c. Create viz #2 + answer questions</h3>
-<p>Create a data viz that helps to answer the question, <span class="teal-text"><strong><em>How does climate hazard risk exposure vary across racial / ethnic groups in California?</em></strong></span>, following these steps:</p>
-<ol type="1">
-<li><strong>Import ACS data using <code>tidycensus::get_acs()</code>:</strong> You’ll need your API key to use <code>{tidycensus}</code> (revisit <a href="../../course-materials/week2.html#download-templates" target="_blank">week 2 pre-class prep instructions</a>, if necessary). You may use the following code:</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#.........see all available ACS variables + descriptions.........</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>acs_vars <span class="ot">&lt;-</span> tidycensus<span class="sc">::</span><span class="fu">load_variables</span>(<span class="at">year =</span> <span class="dv">2023</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">dataset =</span> <span class="st">"acs1"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#..................import race &amp; ethnicity data..................</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>race_ethnicity <span class="ot">&lt;-</span> tidycensus<span class="sc">::</span><span class="fu">get_acs</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> <span class="st">"acs1"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">"B01003_001"</span>, <span class="st">"B02001_002"</span>, <span class="st">"B02001_003"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B02001_004"</span>, <span class="st">"B02001_005"</span>, <span class="st">"B02001_006"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B02001_007"</span>, <span class="st">"B02001_008"</span>, <span class="st">"B03002_012"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">"B03002_002"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"CA"</span>, </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(acs_vars, <span class="at">by =</span> dplyr<span class="sc">::</span><span class="fu">join_by</span>(variable <span class="sc">==</span> name)) <span class="co"># join variable descriptions (so we know what's what!)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="2" type="1">
-<li><strong>Optionally, write your data to <code>.csv</code>:</strong> It’s always a good idea to write your data (i.e.&nbsp;the <code>race_ethnicity</code> data frame, from above) to file, in case the Census Bureau’s API goes down. You may use the following code:</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(race_ethnicity, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ACS-race-ethnicity.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="3" type="1">
-<li><strong>Build your viz:</strong> This will require some data wrangling first (including joining the NRI and ACS data). Your final viz should:
-<ul class="task-list">
-<li><label><input type="checkbox">include the following racial / ethnic groups: White, Black or African American, American Indian and Alaska Native, Asian, Native Hawaiian and Other Pacific Islander, Some Other Race, Two or More Races, Hispanic or Latino</label></li>
-<li><label><input type="checkbox">include a title (short, descriptive) &amp; subtitle (describes main takeaway) (see <a href="https://clauswilke.com/dataviz/figure-titles-captions.html" target="_blank">Fundamentals of Data Visualization, Ch 22</a> for an example), a caption (describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2023 Release)”), and alt text (following the formula discussed in <a href="../../course-materials/discussion/week3/week3-slides.html" target="_blank">week 3 discussion</a>; use the <code>fig-alt</code> code chunk option to apply your alt text)</label></li>
+<li><label><input type="checkbox">include data for the 50 US states only (no territories)</label></li>
+<li><label><input type="checkbox">include a title (short, descriptive) &amp; subtitle (describes main takeaway) (see <a href="https://clauswilke.com/dataviz/figure-titles-captions.html" target="_blank">Fundamentals of Data Visualization, Ch 22</a> for an example), a caption (describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2023 Release)”), and alt text (following the formula described in <a href="../discussion/week3/.qmd#discussion-materials" target="_blank">week 3 discussion</a>; use the <code>fig-alt</code> code chunk option to apply your alt text)</label></li>
 <li><label><input type="checkbox">consider and implement strategies for highlighting trends / important information (e.g.&nbsp;arranging data, highlighting data, adjusting scales)</label></li>
 <li><label><input type="checkbox">use custom colors (if applicable), rather than ggplot defaults</label></li>
-<li><label><input type="checkbox">have an updated theme / polished theme (you’ll learn more about fine-tuning ggplot themes in <a href="../../course-materials/week4.html#discussion-materials" target="_blank">week 4 discussion</a>)</label></li>
-</ul></li>
-<li><strong>Answer the following questions:</strong>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?</label></li>
-<li><label><input type="checkbox"><strong>b.</strong> How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?</label></li>
-<li><label><input type="checkbox"><strong>d.</strong> What modifications did you make to this viz to make it more easily readable?</label></li>
-<li><label><input type="checkbox"><strong>d.</strong> Is there anything you wanted to implement, but didn’t know how? If so, please describe.</label></li>
-</ul></li>
-</ol>
-</section>
-<section id="p1d-polish-qmd" class="level3">
-<h3 class="anchored" data-anchor-id="p1d-polish-qmd">1d. Polish your <code>.qmd</code> file</h3>
-<p>Your rendered <code>.qmd</code> file should be polished and neatly organized. Be sure to consider / implement (as appropriate) the following:</p>
-<ul class="task-list">
-<li><label><input type="checkbox">update the YAML with your name using the <code>author</code> option</label></li>
-<li><label><input type="checkbox">set appropriate code chunk options, such that:</label>
-<ul class="task-list">
-<li><label><input type="checkbox">your code <em>and</em> outputs (i.e.&nbsp;data viz) render (see <code>eval</code>, <code>echo</code>)</label></li>
-<li><label><input type="checkbox">warnings and messages are suppressed (see <code>warning</code>, <code>message</code>)</label></li>
-<li><label><input type="checkbox">(optional) outputs are center-aligned (if you find this more visually-pleasing than the default left-alignment; see <code>fig-align: "center"</code>)</label></li>
-<li><label><input type="checkbox">adjust the aspect ratio of your plot(s) so that your data / groups are easy to read (see <code>fig-asp</code>, which makes adjusting aspect ratios for rendered outputs quite easy; values &gt; 1 make your plot taller and values &lt; 1 make your plot wider)</label></li>
-</ul></li>
-<li><label><input type="checkbox">code is appropriately annotated (NOTE: you <em>do not</em> need to annotate every line (like in <a href="../../course-materials/assignments/HW1.html#hw1-p1" target="&quot;_blank">HW #1 Part 1</a>), but you should include enough so that someone else reading your code understands the purpose of each discrete block of code)</label></li>
-<li><label><input type="checkbox">include any necessary section headers / prose in the body of your Quarto doc to effectively organize your document</label></li>
+<li><label><input type="checkbox">have an updated / polished theme (you’ll learn more about fine-tuning ggplot themes in <a href="../../course-materials/week4.html#discussion-materials" target="_blank">week 4 discussion</a>)</label></li>
 </ul>
-</section>
-</section>
-<section id="p1-rubric" class="level2">
-<h2 class="anchored" data-anchor-id="p1-rubric">Rubric (specifications)</h2>
-<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part I:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Is your plot looking squished in your rendered <code>.qmd</code> file? Adjust the aspect ratio!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can adjust the aspect ratio of your plot (i.e.&nbsp;its width to height ratio) so that your data / groups are easy to read. Add the <code>fig-asp</code> option to your code chunk YAML, which makes adjusting aspect ratios for rendered outputs quite easy. Values &gt; 1 make your plot taller and values &lt; 1 make your plot wider.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Complete the following steps in your <strong>GitHub Classroom repo</strong> (<code>eds240-hw2-username/Part1.qmd</code>):
+There is not necessarily one right answer (but don’t build a map)!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Everyone receives one “free pass” for not successfully submitting assignments via specified channels, after which you will receive a “Not Yet” mark.</p>
+<p>There are a number of different chart types that could work for these data and question, <em>however</em> we do not intend for you to build a choropleth map (e.g.&nbsp;replicating what you see on the <a href="https://hazards.fema.gov/nri/map" target="_blank">The National Risk Index’s interactive mapping and data-based interface</a>).</p>
 </div>
 </div>
-<ul class="task-list">
-<li><label><input type="checkbox">build and embed one data visualization that <sup>1</sup>effectively addresses the part 1b question <em>(<span class="teal-text">How do FEMA National Risk Index scores for counties in California compare to those in other states?</span>)</em>, and which includes:</label>
-<ul class="task-list">
-<li><label><input type="checkbox">data for the 50 US states</label></li>
-<li><label><input type="checkbox">an appropriate title, subtitle, caption, and alt text (using the <code>fig-alt</code> chunk option)</label></li>
-<li><label><input type="checkbox"><strong>at least 2</strong> adjustments to highlight trends / important information (e.g.&nbsp;arranging data, highlighting data, adjusting scales)</label></li>
-<li><label><input type="checkbox">custom colors (as necessary)</label></li>
-<li><label><input type="checkbox"><strong>at least 2</strong> theme adjustments (e.g.&nbsp;applying an alternative pre-built theme, removing unnecessary text, modifying text, modifying plot panel, etc.) to improve readability / visual appeal</label></li>
-</ul></li>
-<li><label><input type="checkbox">build and embed one data visualization that <sup>1</sup>effectively addresses the part 1c question <em>(<span class="teal-text">How does climate hazard risk exposure vary across racial / ethnic groups in California?</span>)</em>, and which aslo includes:</label>
-<ul class="task-list">
-<li><label><input type="checkbox">data for the racial / ethnic groups described in the Part 1c instructions, above</label></li>
-<li><label><input type="checkbox">an appropriate title, subtitle, caption, and alt text (using the <code>fig-alt</code> chunk option)</label></li>
-<li><label><input type="checkbox"><strong>at least 2</strong> adjustments to highlight trends / important information (e.g.&nbsp;arranging data, highlighting data, adjusting scales)</label></li>
-<li><label><input type="checkbox">custom colors (as necessary)</label></li>
-<li><label><input type="checkbox"><strong>at least 2</strong> theme adjustments (e.g.&nbsp;applying an alternative pre-built theme, removing unnecessary text, modifying text, modifying plot panel, etc.) to improve readability / visual appeal</label></li>
-</ul></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<sup>1</sup>You must choose an appropriate graphic form, given these data, <em>but</em> there isn’t necessarily one single correct answer.
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Choosing an incorrect graphic form (i.e.&nbsp;one that’s inappropriate for your data) will result in a “Not Yet” score. However, there are numerous graphic forms which may be appropriate. Your final plots should clearly display the variables of interest, and you should be able to justify your choice in your written responses.</p>
-</div>
-</div>
-<ul class="task-list">
-<li><label><input type="checkbox">answer all questions (a-d) in full for <em>both</em> data visualizations</label></li>
-<li><label><input type="checkbox">include <em>all</em> code, which is neatly organized and appropriately annotated</label></li>
-<li><label><input type="checkbox">organize and polish your Quarto doc as described in <a href="../../course-materials/assignments/HW2.html#p1d-polish-qmd">Part 1d</a></label></li>
-<li><label><input type="checkbox">we (instructor &amp; TA) should be able to run individual lines / chunks of code <em>and</em> render <code>Part1.qmd</code> without errors</label></li>
-<li><label><input type="checkbox">push your completed <code>Part1.qmd</code> to GitHub via GitHub Classrooms by 11:59pm PT on Sat 02/04/2025</label></li>
-</ul>
-<p><br></p>
-<div class="center-text large-fa-icon teal-text">
-<p><i class="fa-solid fa-chart-line" title="A simple line chart" aria-label="chart-line"></i> End Part I <i class="fa-solid fa-chart-line" title="A simple line chart" aria-label="chart-line"></i></p>
-</div>
-<p><br></p>
 </section>
-</section>
-<section id="part2" class="level1">
-<h1><span class="pink-text">Part II: Data wrangling &amp; exploratory data viz using your chosen data</span></h1>
-<section id="p2-learning-outcomes" class="level2">
-<h2 class="anchored" data-anchor-id="p2-learning-outcomes">Learning Outcomes</h2>
-<p><strong>Note:</strong> This part of HW #2 is a continuation of <a href="../../course-materials/assignments/HW1.html#hw1-p2" target="_blank">HW #1, Part II</a> and is the next step in working towards your final course assignment. Your final assignment is meant to combine nearly all of the course learning outcomes(!):</p>
-<ul>
-<li>identify which types of visualizations are most appropriate for your data and your audience</li>
-<li>prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</li>
-<li>build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</li>
-<li>write code from scratch and read and adapt code written by others</li>
-<li>apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</li>
-</ul>
-</section>
-<section id="p2-description" class="level2">
-<h2 class="anchored" data-anchor-id="p2-description">Description</h2>
-<section id="p2a-review-HW4" class="level3">
-<h3 class="anchored" data-anchor-id="p2a-review-HW4">2a. Review HW #4 instructions</h3>
-<p><span class="teal-text"><strong>Please begin by re-reading <a href="../../course-materials/assignments/HW4.html">HW #4</a> in full</strong></span> as a reminder of the options, goals, and requirements for your final class assignment.</p>
-</section>
-<section id="p2b-explore-data" class="level3">
-<h3 class="anchored" data-anchor-id="p2b-explore-data">2b. Import &amp; wrangle data, then create exploratory data viz</h3>
-<p><span class="teal-text"><strong>This week, you’ll focus on importing and wrangling your data (found as part of <a href="../../course-materials/assignments/HW1.html#hw1-p2">HW #1, Part II</a>), followed by the exploratory data visualization phase. Complete the following:</strong></span></p>
+<section id="v.-answer-some-questions" class="level3">
+<h3 class="anchored" data-anchor-id="v.-answer-some-questions">V. Answer some questions</h3>
 <ul class="task-list">
-<li><label><input type="checkbox">Create an file named, <code>HW2-exploration.qmd</code> within your <code>lastName-eds240-HW4</code> repo and add appropriate YAML fields.</label></li>
-<li><label><input type="checkbox">Load necessary packages and read in your data.</label></li>
-<li><label><input type="checkbox">Clean &amp; wrangle your data.</label></li>
-<li><label><input type="checkbox">Create at least <strong>three</strong> exploratory data visualizations (but of course feel free to create more!). The goal of these visualizations is to explore your data for any potentially interesting patterns or trends, which you or may not decide to pursue further as you iterate on your final project deliverable. These plots <em>do not</em> need to be polished (e.g.&nbsp;updated theme), but it may be helpful to try arranging data to identify any trends.</label></li>
-<li><label><input type="checkbox"><strong>IMPORTANT:</strong> If you have a downloaded data file saved to your repo (e.g.&nbsp;you’re not reading in your data directly from online, from a server, etc.) be sure to add your data folder / file to your <code>.gitignore</code>, particularly if this file is large.</label></li>
-</ul>
-</section>
-<section id="p2c-questions" class="level3">
-<h3 class="anchored" data-anchor-id="p2c-questions">2c. Answer questions</h3>
-<p><span class="teal-text"><strong>After completing the above steps, answer the following questions:</strong></span></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>1.</strong> What have you learned about your data? Have any potentially interesting patterns emerged?</label></li>
-<li><label><input type="checkbox"><strong>2.</strong> In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g.&nbsp;I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)?</label></li>
-<li><label><input type="checkbox"><strong>3.</strong> What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges.</label></li>
+<li><p><label><input type="checkbox"><strong>1.</strong> What are your variables of interest and what kinds of data (e.g.&nbsp;numeric, categorical, ordered, etc.) are they (a bullet point list is fine)?</label></p></li>
+<li><p><label><input type="checkbox"><strong>2.</strong> How did you decide which type of graphic form was best suited for answering the question? What alternative graphic forms could you have used instead? Why did you settle on this particular graphic form?</label></p></li>
+<li><p><label><input type="checkbox"><strong>3.</strong> Summarize your main finding in no more than two sentences.</label></p></li>
+<li><p><label><input type="checkbox"><strong>4.</strong> What modifications did you make to this visualization to make it more easily readable?</label></p></li>
+<li><p><label><input type="checkbox"><strong>5.</strong> Is there anything you wanted to implement, but didn’t know how? If so, please describe.</label></p></li>
 </ul>
 </section>
 </section>
-<section id="p2-rubric" class="level2">
-<h2 class="anchored" data-anchor-id="p2-rubric">Rubric (specifications)</h2>
-<p>You must complete the following, as detailed below, to receive a “Satisfactory” mark for Assignment #2, Part II:</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<strong>Complete the following steps under your <code>lastName-eds240-HW4</code> repo, <em>not</em> in GitHub Classroom:</strong>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>See details below.</p>
-</div>
-</div>
+<section id="rubric-specifications" class="level2">
+<h2 class="anchored" data-anchor-id="rubric-specifications">Rubric (specifications)</h2>
+<p>To recieve a “Satisfactory” on HW #2:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Perform all Part 2b steps (as described above) in your <code>HW2-exploration.qmd</code> file.</label></li>
-<li><label><input type="checkbox">Answer Part 2c questions in your <code>HW2-exploration.qmd</code> file. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.</label></li>
-<li><label><input type="checkbox">All three plot outputs should appear in your rendered doc.</label></li>
-<li><label><input type="checkbox"><code>HW2-exploration.qmd</code> should be neatly organized – this does not need to be a perfectly polished document, but sections should be clearly labeled with prose and / or annotations so that we can easily follow along.</label></li>
-<li><label><input type="checkbox">Code chunks should have appropriate chunk options set (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.).</label></li>
-<li><label><input type="checkbox">Send your instructor (Sam Shanny-Csik) and TA (Annie Adams) a rendered version of your <code>HW2-exploration.qmd</code> file by 11:59pm PT on Sat 02/04/2025 following these steps:</label>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>a.</strong> ensure that your <strong>YAML specifies these options</strong>, at a minimum:</label></li>
-</ul></li>
+<li><label><input type="checkbox"><strong>Create one visualization</strong> that answers the question, <em>“How do FEMA National Risk Index scores for counties in California compare to those in other states?”</em> and fulfills the requirements listed in Part IV.</label></li>
+<li><label><input type="checkbox"><strong>All code should follow appropriate styling conventions and include clear, informative annotations.</strong> We will not enforce any particular code style guide (you may use conventions from prior courses if you prefer; we recommend following <a href="../../clean-code-guide.html" target="_blank">these conventions</a> from the <a href="https://style.tidyverse.org/index.html" target="_blank">Tidyverse style guide</a> if you’re unsure where to start). You don’t need to explain every line, but your annotations should make it easy to follow your thinking and understand important decisions in your code.</label></li>
+<li><label><input type="checkbox"><strong>Answer all five Part V questions.</strong> There are no strict length requirements for free-response questions, however we expect that you answer them thoughtfully and fully.</label></li>
+<li><label><input type="checkbox"><strong>Ensure that everything described above is included in your neatly-organized and polished <code>HW2.qmd</code> file</strong> – this includes appropriate document YAML (at a minimum, title, author, date), clearly labeled sections, appropriately-formatted prose, appropriate code chunk options (e.g.&nbsp;code should render and execute, but warnings and messages should be suppressed, long data frames should not be printed out, etc.)</label></li>
+<li><label><input type="checkbox"><strong>All your work is housed in an organized and polished <code>eds240-nri-acs-viz</code> GitHub repository.</strong> Your README includes all required information, as described in the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>. Your data folder should is added to your <code>.gitignore</code>.</label></li>
+<li><label><input type="checkbox"><strong>Render <code>HW2.qmd</code> as a PDF.</strong> Double check that all of your outputs, code, and prose are visible.</label></li>
+<li><label><input type="checkbox"><strong>Upload your PDF to Gradescope</strong> by 11:59pm on Wed 01/28/2026.</label></li>
+<li><label><input type="checkbox"><strong>Submit a <a href="https://forms.gle/uCw7U5jzJAKahjA4A" target="&quot;_blank">Generative AI Statement of Use</a></strong> for HW #2 by 11:59pm on Wed 01/28/2026.</label></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"your HW #2 title"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"your Name"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> xxxx<span class="sc">-</span>xx<span class="sc">-</span>xx</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  html<span class="sc">:</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    embed<span class="sc">-</span>resources<span class="sc">:</span> true <span class="co"># this ensures that your rendered .html file is self-contained, so we (your instructors) can open it and view all your work</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>b. render</strong> your <code>HW2-exploration.qmd</code> file, <strong>verify</strong> that you can open the resulting <code>HW2-exploration.html</code> file in your browser, and that all formatting looks good</label></li>
-<li><label><input type="checkbox"><strong>c.&nbsp;save a copy</strong> of <code>HW2-exploration.html</code> to your Desktop, <strong>rename it</strong> it so that it has your first initial / last name at the start (e.g.&nbsp;<code>SShannyCsik-HW2-exploration.html</code>), then <strong>send</strong> it to both your instructor (Sam Shanny-Csik) and TA (Annie Adams) on Slack via direct message</label></li>
-</ul>
-<p><br></p>
-<div class="center-text large-fa-icon teal-text">
-<p><i class="fa-solid fa-chart-column" title="A column chart" aria-label="chart-column"></i> End Part II <i class="fa-solid fa-chart-area" title="An area chart" aria-label="chart-area"></i></p>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
