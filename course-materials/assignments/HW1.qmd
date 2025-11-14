@@ -16,17 +16,17 @@ TODO: revise assignment -- make focus the responses to questions to verify under
 
 ## Description {#description}
 
-Much of your time as a data scientist will be spent looking at code written by others -- you may imagine scenarios such as trying to learn from and adapt someone else's code for your own work, conducting a code review for a colleague, or validating the code output of a generative AI tool. Being able to look at and make sense of code that you did not write yourself is an invaluable skill and an important one to practice throughout your learning journey. [**Here, you'll be asked to interpret and annotate `{ggplot2}` code written by someone else. This will likely require running code (both as a whole *and* line-by-line), as well as Googling and / or reading documentation.**]{.teal-text}
+Much of your time as a data scientist will be spent looking at code written by others -- you may imagine scenarios such as trying to learn from and adapt someone else's code for your own work, conducting a code review for a colleague, or validating the code output of a generative AI tool. Being able to look at and make sense of code that you did not write yourself is an invaluable skill and an important one to practice throughout your learning journey. [**Here, you'll be asked to interpret `{ggplot2}` code written by someone else. This will likely require running code (both as a whole *and* line-by-line), as well as reading documentation, Googling and / or leveraging genAI tools to aid in your understanding.**]{.teal-text}
 
 *I recognize that there is (likely) **a lot** of new code presented here that we haven't yet covered in this course (we'll get there eventually though!). This is intentionally an exercise is resourcefulness! By the end of this exercise, you should feel a bit more confident in your ability to interpret (and maybe even reuse!) code written by others.*
 
-### I. Create a repository using the `eds240-hw1` template
+### I. Create a repository using the `eds240-hw1-ufo` template
 
-[**Follow [these instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template){target="_blank"} to create a repository from the [`eds240-SR1` template](https://github.com/EDS-240-Data-Viz/eds240-sr1){target="_blank"}.**]{.teal-text} The template repository includes `SR1.qmd`, where you'll be responding to the self reflection prompts in the following section(s).
+[**Follow [these instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template){target="_blank"} to create a repository from the [`eds240-hw1-ufo` template](https://github.com/EDS-240-Data-Viz/eds240-hw1-ufo){target="_blank"}.**]{.teal-text} The template repository includes `HW1.qmd`, which is where you'll be completing your work.
 
-### a. Annotate code {#part-a}
+### II. Interpret `{ggplot2}` code {#partII}
 
-Annotate code adapted from [Dan Oehm](https://gradientdescending.com/#google_vignette){target="_blank"}'s ***UFO Sightings*** visualization ([original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"} & [original visualization](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.png){target="_blank"}). You can find metadata and additional information about the data set on the [rfordatascience/tidytuesday (2023-06-20) `readme.md`](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-06-20/readme.md#data-dictionary){target="_blank"}. [**Part 1 should be completed via GitHub Classroom (find the assignment link on Slack).**]{.teal-text}
+[**Annotate code adapted from [Dan Oehm](https://gradientdescending.com/#google_vignette){target="_blank"}'s *UFO Sightings* visualization ([original code](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.R){target="_blank"} & [original visualization](https://github.com/doehm/tidytues/blob/main/scripts/2023/week-25-ufo/ufo.png){target="_blank"})**]{.teal-text}. You can find metadata and additional information about the data set on the [rfordatascience/tidytuesday (2023-06-20) `readme.md`](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-06-20/readme.md#data-dictionary){target="_blank"}. 
 
 ::: {.callout-note}
 ## You'll be annotating *refactored* code
@@ -85,15 +85,9 @@ Modified viz, by Sam Shanny-Csik (refactored code, see below)
 <!-- - Text will look *super* big and squished in the RStudio Viewer pane and Zoom window -- this is because text is sized so that it renders appropriately when the full infographic is saved as a PNG  -->
  - **Keep in mind:** ggplots are constructed in *layers* -- sometimes temporarily removing or rearranging layers can help clarify what's going on 
 - Use RStudio's search bar (`Command` / `Ctrl` + `F`) to ensure that you've replaced all instances of `# ANNOTATE` with your own annotated description
-
-# Code
-
-**Note:** This is sample code. Please refer to the GitHub Classroom link (shared in Slack) for completing the assignment.
-
-{{< include sections/HW1-code.qmd >}}
 :::
 
-### b. Answer questions {#part-b}
+### III. Answer questions {#partIII}
 
 Once you're done annotating, respond to the following questions about this data visualization: 
 
@@ -108,94 +102,13 @@ Once you're done annotating, respond to the following questions about this data 
 
 ## Rubric (specifications) {#hw1-p1-specs}
 
-You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #1, Part I:
-
-::: {.callout-important}
-## Complete the following steps in your **GitHub Classroom repo** (`eds240-hw1-username/Part1.qmd`).
-
-Everyone receives one "free pass" for not submitting assignments via specified channels, after which you will receive a "Not Yet" mark.
-:::
+To recieve a "Satisfactory" on HW #1:
 
 - [ ] Include your preferred name in the `author` field of the `Part1.qmd` YAML. 
 - [ ] Update each comment line in the code that reads, `# ANNOTATE`, with a *brief* description, written in your own words. Some lines that have already been annotated for you -- you do not need to re-write these annotations. You are **allowed up to five incorrect or missing annotations**.
 - [ ] Leave the code chunk options set to `eval: false` and `echo: true`, which ensures that your code renders, but the output(s) is suppressed. If you decide to break your code into smaller code chunks, ensure that each has the same options set. 
 - [ ] Answer all Part B questions. Questions 1 and 2 have correct answers. Responses to questions 3-5 should be unique to you but answered in full. There is no set length requirement, and bullet points are acceptable.
-- [ ] We (your instructors) should be able to successfully render `Part1.qmd` locally without errors (in other words, be sure that *you* can render `Part1.qmd` locally before submitting).
-- [ ] Push your completed `Part1.qmd` to GitHub via GitHub Classroom by 11:59pm PT on Wed 01/14/2026.
+- [ ] **Render `HW1.qmd` as a PDF.** Double check that all of your outputs, code, and prose are visible.
+- [ ] **Upload your PDF to Gradescope** by 11:59pm on Wed 01/14/2026.
+- [ ] **Submit a [Generative AI Statement of Use](https://forms.gle/uCw7U5jzJAKahjA4A){target="_blank}** for HW #1 by 11:59pm on Wed 01/14/2026.
 
-<br>
-
-::: {.center-text .large-fa-icon .teal-text}
-{{< fa code title="The symbol for code, </>" >}} End HW #1 {{< fa code title="The symbol for code, </>" >}}
-:::
-
-<!-- <br> -->
-
-<!-- # [Part II: Find a data set(s) that interests you]{.pink-text} {#hw1-p2}
-
-## Learning Outcomes {#hw1-p2-LOs}
-
-***Note:** This part of HW #1 is the first step in working towards your final course assignment, [HW #4](HW4.qmd){target="_blank"} (we'll be breaking it down a bit, week-by-week). **This week, we'll mostly be focused on some prep work.** Your final assignment is meant to combine nearly all of the course learning outcomes(!):*
-
-- identify which types of visualizations are most appropriate for your data and your audience
-- prepare (e.g. clean, explore, wrangle) data so that it's appropriately formatted for building data visualizations
-- build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
-- write code from scratch and read and adapt code written by others
-- apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations 
-
-## Description {#hw1-p2-description}
-
-### 2a. Review HW #4 instructions {#hw1-p2a}
-
-[**Begin by reading [HW #4](HW4.qmd){target="_blank"} in full**]{.teal-text} so that you have a clear understanding of the options, goals, and requirements for your final class assignment. 
-
-### 2b. Find data and brainstorm questions {#hw1-p2b}
-
-Now that you have a better understanding of where we're headed, let's make a bit of progress towards that end goal. [**This week, you'll focus on finding data that interest you and begin brainstorming some questions that you might explore / answer using those data.**]{.teal-text} Your data set(s) may be related to a past project, or even your current Capstone or GP. It may also be a completely new data set(s), unrelated to anything you're currently working on. Explore the [Data sources](../../resources.qmd#data-sources){target="_blank"} section of the course website's resources page if you need some inspiration on where to start (you are *not* limited to just these data sources): 
-
-::: {.callout-tip}
-## Asking the right question is *critical* and also one of the most challenging steps
-
-I highly recommend checking out the following resources before diving in:
-
-- this short Substack piece by [Enrico Bertini](https://enrico.bertini.io/){target="_blank"}, titled [*Asking the right data questions and asking the data questions right*](https://filwd.substack.com/p/asking-the-right-data-questions-and){target="_blank"}, for some great insights on the challenges and approaches to discovering and revising your data question
-- this TED talk titled, [The Power in Effective Data Storytelling](https://www.youtube.com/watch?v=0e52QfQngrM){target="_blank"}, by [Malavica Sridhar](https://www.linkedin.com/in/malavica-sridhar/){target="_blank"} (~15 min; yes, I know the audio gets a little wonky part-way through {{< fa face-smile title="a smiling face" >}})
-:::
-
-### 2c. Answer questions {#hw1-p2c}
-
-[**Once you've found your data set(s), answer the following questions:**]{.teal-text}
-
-- [ ] **1.** Which of the [options](HW4.qmd#hw4-options){target="_blank"} are you most interested in pursuing (**Important:** If you plan to pursue [Option 3](HW4.qmd#option3-alternative){target="_blank}, you must submit your proposal by the HW #1 due date)? It's okay if you change your mind later on, but it's helpful to decide on a starting point. 
-- [ ] **2.** Describe your data set(s). Be sure to address the following:
-    - [ ] **a.** Where did you find these data?
-    - [ ] **b.** What variables do these data contain? Is there sufficient metadata for understanding what those variables are?
-- [ ] **3.** What steps are involved in downloading or accessing the data (e.g. "I can download using a button via this online portal," "I need to use an API to retrieve the data," "There's an R package with functions for accessing the API,"  etc.)?
-- [ ] **4.** What question(s) do you hope to answer using these data (remember to read over Enrico Bertini's [article](https://filwd.substack.com/p/asking-the-right-data-questions-and){target="_blank"})? 
-- [ ] **5.** Will you need to combine multiple data sets to successfully answer your question(s)? If so, have you found all the necessary data? Do you have a way to combine it (e.g. matching key values across all data sets)?
-- [ ] ***Optional:** Import your data into R! (this will be a part of the next homework assignment) **IMPORTANT:** If your data files are large (>2GB) DO NOT push your data to GitHub -- instead, add your data file(s) or entire data folder to your `.gitignore` (you'll practice this in week 1 discussion section).*
-
-## Rubric (specifications) {#hw1-p2-specs}
-
-You must complete the following, as detailed below, to receive a "Satisfactory" mark for Assignment #1, Part II:
-
-::: {.callout-important}
-## Part 2 to be completed under your own GitHub profile
-Complete the following step under your own personal GitHub profile, *not* via GitHub Classroom. See details below.
-:::
-
-- [ ] Create a GitHub repository named `yourLastName-eds240-HW4`, which is where you'll be doing any / all work related to Assignment #4. Be sure to make your repository public, initialize your repository with a `README`, and add a `.gitignore` file.
-- [ ] Create a [GitHub issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) (find the **Issues** tab in the top menu bar of your `lastName-eds240-HW4` repo, then click **New issue**) and name it, `HW1 - finding data / initial brainstorming`. Address the following in your issue:
-    - [ ] Link to (or otherwise prove the existence of) at least one data set that you plan to use for Assignment #4.
-    - [ ] Answer all five Part 2c questions. There is no set length requirement, but you must answer each question in full to receive a Satisfactory score.
-    - [ ] Ensure that your GitHub issue is neatly organized / formatted (you can use Markdown syntax here!).
-    - [ ] Tag your instructor (**[@samanthacsik](https://github.com/samanthacsik){target="_blank"}**) and TA (**[@annieradams](https://github.com/annieradams){target="_blank"}**) somewhere in your issue (at the start or end may make the most sense) -- this will send us an email notification linking to your issue.
-- [ ] Importing your data is *optional* -- if you'd like to start playing around with your data, do so in a file named, `HW1-find-data.qmd`.
-- [ ] Add your repository's URL next to your name on [this Google Sheet](https://docs.google.com/spreadsheets/d/1VizY_Yc1m_EwudpIHcCPHlFIo8BIXyoQzlcFg7FhRiw/edit?usp=sharing){target="_blank"} by 11:59pm on Sat 01/18/2025.
-- [ ] ***Optional:** If you are pursuing ([Option 3](HW4.qmd#option3-alternative){target="_blank"}), please share a Google Doc with your proposal via email by 11:59pm on Sat 01/18/2025. Be sure to send it to both your instructor (**scsik@ucsb.edu**) and TA (**annieradams@ucsb.edu**) with the subject line: **EDS 240 HW4 Proposal Submission.***
-
-<br>
-
-::: {.center-text .large-fa-icon .teal-text}
-{{< fa table title="A data table with two columns and two rows" >}} End Part II {{< fa table title="A data table with two columns and two rows" >}}
-::: -->

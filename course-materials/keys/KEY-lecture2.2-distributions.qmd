@@ -12,6 +12,8 @@ This template follows [lecture 2.2 slides](../lecture-slides/lecture2.2-distribu
 
 ## Setup
 
+[UPDATE reading data in from EDI not working] 
+
 - Find data & metadata on the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007). 
 - Get data download link by right-clicking on the **Download** button > **Copy Link Address** > then paste into `read_csv()`
 
@@ -35,7 +37,8 @@ library(see)
 library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
-mko <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
+# mko <- readr::read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
+mko <- read_csv(here::here("course-materials", "lecture-slides", "data", "mohawk_mooring_mko_20250117.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
