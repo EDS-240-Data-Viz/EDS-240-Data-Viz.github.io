@@ -1,0 +1,857 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../meds-slides-styles.scss
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#053660"} 
+
+[EDS 240: Lecture 1.1]{.custom-title}
+
+[*Course logistics & syllabus*]{.custom-subtitle}
+
+<hr class="hr-teal">
+
+[Week 1 | January 7^th^, 2026]{.custom-subtitle3}
+
+---
+
+## {#welcome data-menu-title="Welcome to EDS 240!"} 
+
+[Welcome to EDS 240!]{.slide-title}
+
+<hr>
+
+::: {.center-text}
+This course will focus on the basic principles for effective communication through data visualization and using programmatic tools and workflows for creating and sharing data visualizations with diverse audiences.
+:::
+
+```{r}
+#| eval: true 
+#| echo: false
+#| fig-align: "center"
+#| out-width: "45%" 
+#| fig-alt: "An extended version of the classic R4DS schematic from Grolemund & Wickham, with environmental data science, communities, and communication added."
+knitr::include_graphics("images/week1/horst-eco-r4ds.png")
+```
+
+:::{.gray-text .body-text-s .center-text}
+*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
+:::
+
+---
+
+## {#logistics data-menu-title="Course logistics"} 
+
+[Meeting times & locations]{.slide-title}
+
+<hr>
+
+::: {.body-text-m}
+- **Lecture:** Wednesdays 1:30-4:00pm PT 
+    - Bren 3022A (SCF)
+- **Lab:** Thursdays 12:30-1:50pm PT
+    - Bren 3022A (SCF)
+:::
+
+```{r}
+#| eval: true 
+#| echo: false
+#| fig-align: "center"
+#| out-width: "45%" 
+#| fig-alt: "An aerial shot of Bren Hall."
+knitr::include_graphics("images/week1/bren-hall.jpg")
+```
+
+---
+
+## {#instructor data-menu-title="Teaching team"} 
+
+[Teaching team]{.slide-title}
+
+<hr>
+
+:::: columns
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-l}
+**Instructor**
+:::
+
+```{r}
+#| eval: true 
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%" 
+knitr::include_graphics("images/week1/sam.png")
+```
+
+::: {.center-text}
+[**Sam Shanny-Csik**]{.teal-text}  
+[**Email:** [scsik@ucsb.edu](mailto::scsik@ucsb.edu)]{.body-text-s}  
+[**Learn more:** [samanthacsik.github.io](https://samanthacsik.github.io/){target="_blank"} ]{.body-text-s}   
+[**Student hours:** TBD]{.body-text-s}  
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-l}
+**Co-instructor**
+:::
+
+```{r}
+#| eval: true 
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%" 
+knitr::include_graphics("images/week1/annie.png")
+```
+
+::: {.center-text}
+[**Annie Adams**]{.teal-text}  
+[**Email:** [aradams@ucsb.edu](mailto::aradams@ucsb.edu)]{.body-text-s}   
+[**Learn more:** [annieradams.github.io](https://annieradams.github.io/){target="_blank"}]{.body-text-s}    
+[**Student hours:** TBD]{.body-text-s} 
+:::
+
+:::
+
+::::
+
+---
+
+##  {#meet-one-another data-menu-title="# Meet one another #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa comments title="two talking bubbles" >}} Meet one another!</p>
+<p class="caption-text">*Spend the next few minutes getting to know your Learning Partners! Below are some conversation starters:*</p>
+<p class="dark-blue-text">**Where do you feel most at home?**</p>
+<p class="dark-blue-text">**What parts of Santa Barbara have you enjoyed exploring?**</p>
+<p class="dark-blue-text">**What's the most exciting thing you've learned this year, so far?**</p>
+<p class="dark-blue-text">**What's your favorite color or typeface?**</p>
+</div>
+
+```{r}
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+---
+
+## {#student-resources data-menu-title="Student Resources"} 
+
+[Student Resources]{.slide-title}
+
+<hr>
+
+- **Disabled Students Program (DSP)**: <https://dsp.sa.ucsb.edu/students/how-apply> 
+- **Basic Needs Resources & Food Security:** <https://basicneeds.ucsb.edu/> (schedule a [CalFresh Appoinment](https://www.google.com/url?q=https://shoreline.ucsb.edu/meetings/m2727/bookanadvocate&sa=D&source=docs&ust=1698264138992010&usg=AOvVaw2qVVM5nn4p5oruh-LxtWik) or [Basic Needs Advising Session](https://shoreline.ucsb.edu/otp_signup?module=meeting&redirect=%2fmeetings%2fm2820%2fbook))
+- **Counseling & Psychological Services (CAPS):** <http://caps.sa.ucsb.edu>
+- **Resource Center for Sexual and Gender Diversity (RCSGD):** <https://rcsgd.sa.ucsb.edu/>
+- **Undocumented Student Services (USS) Program:** <https://uss.sa.ucsb.edu/>
+- **Campus Learning Assistance Services (CLAS):** <http://clas.sa.ucsb.edu>
+- **Student Resource Building (SRB):** <http://www.sa.ucsb.edu/student-resource-building/home> 
+- **Multicultural Center (MCC):** <http://mcc.sa.ucsb.edu/>
+- **Campus Advocacy, Resources, & Education (CARE):** <http://wgse.sa.ucsb.edu/care/home> 
+- **Financial Crisis Response Team:** <financialcrisis@sa.ucsb.edu> (contact)
+- **Health and Wellness:** <https://wellbeing.ucsb.edu/>
+
+::: {.footer}
+*Your mental and physical health is more important than your grade in any course. I'm always happy to help you identify resources or help on campus -- DM or email me!*
+:::
+
+::: {.notes}
+Applying for DSP accommodations is a multi-step process and students should begin this as soon as possible as it can take 10 days to process applications. 
+
+Step 1: Submit an application with DSP, upload documentation and select the services needed. 
+
+Step 2: For exam accommodations (more time, private setting, etc.) students need to submit a proctor request for each exam in each course that they need accommodations for. DSP has instructions on their [website](https://dsp.sa.ucsb.edu/) for completing these tasks and students can login to the DSP portal to check the status of their application and requests.
+::: 
+
+<!-- ---
+
+## {#conduct data-menu-title="Conduct, Inclusion, Accommodations"} 
+
+[Conduct, Inclusion, Accommodations]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+**Course Conduct:** We are committed to actively creating, modeling, and maintaining an inclusive climate and supportive learning environment for all -- *harassment of any kind will not be tolerated*. Everyone is expected read and adhere to the [Bren School Code of Conduct](https://bren.ucsb.edu/sites/default/files/2024-25%20Bren%20Graduate%20Student%20Handbook.docx.pdf){target="_blank"} and the [UCSB Code of Conduct](https://www.sa.ucsb.edu/docs/default-source/default-document-library/conduct-code-fall-2020_final.pdf?sfvrsn=fada724f_0){target="_blank"}
+
+<br>
+
+. . . 
+
+**Access & accommodations:** It's never too late to apply for [DSP accommodations](https://dsp.sa.ucsb.edu/accommodations/how-apply){target="_blank"}
+
+<br>
+
+. . .
+
+**Names & pronouns:** Everyone has the right to be addressed and referred by to name and pronouns in accordance with their identity -- you can add your pronouns to your UCSB Registrar [profile](https://sso.my.ucsb.edu/adfs/ls/?wa=wsignin1.0&wtrealm=http%3a%2f%2fblue.sa.ucsb.edu%2fLanding%2f&wctx=rm%3d0%26id%3dpassive%26ru%3d%252fLanding%252fHomepage.aspx&wct=2023-08-09T18%3a30%3a46Z&rpsa-rn=5TFey%252fVSv9IF17J4Pn8osgH1LticIlQr%252blbEYGshM3OOsDWYP4J7emNKxAxFivBYQ9bjUpX68pv2TfPF1l10Gw%253d%253d&rpsa-an=AQYFW%252bAMuZU5NJ2X8VVjYJfEUAIzGOJ5TsVA9tf6taioBLLASrEwwwTwL3CfnBo0hlWxXzchkFxh%252frWqIlUAXA%253d%253d&rpsa-se=f5hRpBYXKP06s9Rp4Upm1RVnbN1guWDIEz%252bUg2%252fhCNeRJJGUTljXkJhT2q3Jc3CVoQo8gAKnlHeyxBa48wHcTA%253d%253d&rpsa-sedn=Ua%252fdFKWiVmSNkCOjsPoWPa%252bDhhvj5Uj6jpegUTzkSC8%253d){target="_blank"}
+
+::: {.notes}
+Applying for DSP accommodations is a multi-step process and students should begin this as soon as possible as it can take 10 days to process applications. 
+
+Step 1: Submit an application with DSP, upload documentation and select the services needed. 
+
+Step 2: For exam accommodations (more time, private setting, etc.) students need to submit a proctor request for each exam in each course that they need accommodations for. DSP has instructions on their [website](https://dsp.sa.ucsb.edu/) for completing these tasks and students can login to the DSP portal to check the status of their application and requests.
+::: -->
+
+---
+
+## {#course-website data-menu-title="Course website"} 
+
+[Everything you'll need lives on the course website!]{.slide-title2}
+
+<hr>
+
+::: {.center-text .body-text-m}
+**[https://eds-240-data-viz.github.io/](https://eds-240-data-viz.github.io/){target="_blank"}**
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/eds240-website.png")
+```
+
+::: {.body-text-m .center-text}
+Link is also bookmarked at the top of the **#eds-240-data-viz** Slack channel and on the [Bren website](https://bren.ucsb.edu/courses/eds-240){target="_blank"}.
+:::
+
+---
+
+## {#tentative-schedule data-menu-title="Tentative Schedule"} 
+
+[Tentative Schedule & Materials]{.slide-title}
+
+<hr>
+
+<br>
+
+:::: columns
+
+::: {.column width="50%"}
+| Week | Date   | Tentative Topic                                                     |
+| -----|--------|---------------------------------------------------------------------|
+| 1   | 1/07    | course logistics, intro, `{ggplot2}` review                         |
+| 2   | 1/14    | tbd                     |
+| 3   | 1/21    | tbd                                           |
+| 4   | 1/28    | tbd                                   |
+| 5   | 2/05    | tbd                                   |
+| 6   | 2/11    | tbd                                  |
+| 7   | 2/18    | tbd                                           |
+| 8   | 2/25    | tbd                                          |
+| 9   | 3/04    | tbd                                   |
+| 10  | 3/11    | tbd                                                 |
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/eds240-website-course-materials.png")
+```
+:::
+
+::::
+
+<!-- ::: {.center-text}
+*Lab sections are held every week*
+::: -->
+
+---
+
+## {#pre-class-prep data-menu-title="Pre-class Prep"} 
+
+[Complete all items under *Pre-class Prep* before lecture]{.slide-title3}
+
+<hr>
+
+Please be sure to carefully complete all required prep (e.g. installing packages, downloading data) under the **Pre-class Prep** section (organized by week) before lecture -- be mindful that some items may take time to download/install. 
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/pre-lecture-prep.png")
+```
+
+::: {.center-text}
+***It is highly recommended that you do this well in advance<sup>1</sup> of attending lecture.***
+:::
+
+::: {.footer}
+<sup>1</sup>Except downloading `.qmd` templates -- please hold off until each Monday morning, as changes are likely to occur up until just before class {{< fa face-smile title="a smiling face" >}}
+:::
+
+---
+
+## {#assignments data-menu-title="Assignments"} 
+
+[Assignments]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.body-text-l .center-text}
+Your course grade will be based off the following:
+:::
+
+::: {.incremental}
+- **3 Homeworks (HWs)** - longer assignments where you'll apply conceptual knowledge & technical skills to data viz tasks
+- **5 Final Project Milestones (FPMs)** - required milestones designed to help you make ssteady progress on y our final project deliverables
+- **3 Self-reflections (SRs)** - a place to reflect on your learning plan / goals, challenges, etc. 
+- **3 rounds of Peer Feedback (PF)** - opportunities to give and receive constructive feedback on your final project data visualizations (lab sessions, weeks 7-9)
+:::
+
+<br>
+<br>
+
+. . . 
+
+::: {.center-text .teal-text}
+**PLEASE NOTE:** Your last FPM is an in-person flash talk during finals week (date TBD)
+:::
+
+---
+
+## {#grading data-menu-title="Alternative Grading"} 
+
+[How will I be evaluated?]{.slide-title}
+
+<hr>
+
+::: {.body-text-l .center-text}
+This class will implement an alternative grading approach called **specifications (specs) grading**. 
+:::
+
+. . .
+
+:::{.body-text-m}
+>“an alternative grading method where instructors create a **list 
+of specifications that describe the qualities and characteristics of a successful 
+submission** for an assignment. Student work is **graded holistically** based on 
+those specifications, earning a single mark: **“Satisfactory” or “Not Yet”**. Students 
+have the **chance to use feedback** by revisiting and resubmitting for full credit.” 
+:::
+
+::: {.right-align-text} 
+-expert from *“Grading for Growth: A Guide to Alternative Grading 
+Practices That Promote Authentic Learning and Student Engagement in 
+Higher Education”, by David Clark & Robert Talbert*
+:::
+
+---
+
+## {#why-specs data-menu-title="Why Specs Grading?"} 
+
+[Why Specs grading?]{.slide-title}
+
+<hr>
+
+<br>
+
+["Traditional" grading can come with some challenges:]{.body-text-m}
+
+<br>
+
+::: {.incremental}
+- lacks feedback loops
+- benefits those who learn fast or have prior experience
+- bias-prone (e.g. awarding points, granting extensions)
+- can discourage learning for its own sake
+- can promote unhealthy student-instructor relationships
+:::
+
+::: {.notes}
+Traditional grading = points are awarded for correct answers on assessments; graded assessments contribute some percentage towards your overall course grade; course score (typically a percentage) is convered to a letter grade
+:::
+
+---
+
+## {#how-does-specs-look data-menu-title="What does specs grading look like?"} 
+
+[How does specs grading look in practice for *this* course?]{.slide-title2}
+
+<hr>
+
+[{{< fa list-check >}}]{.teal-text} each assignment will have a **clear rubric** that outlines what must be completed and how in order to receive a *Satisfactory* mark; *not* meeting all specifications results in a *Not Yet* mark
+
+<br>
+
+. . .
+
+[{{< fa comment >}}]{.teal-text} if you receive a *Not Yet* mark, you will **receive feedback** from your instructors and have one opportunity to **revise & resubmit at no penalty** to earn a *Satisfactory* mark
+
+<br>
+
+. . .
+
+[{{< fa coins >}}]{.teal-text} **earn tokens** by completing self reflections (SRs 1 & 2) and by attending lab (weeks 1-6)
+
+<br>
+
+. . .
+
+[{{< fa cart-shopping >}}]{.teal-text} **trade tokens** for a second revision & resubmission attempt and / or 24hr extension on assignments; track & use your tokens using the EDS 240 Token Dashboard [ADD LINK]
+
+<br>
+
+. . .
+
+::: {.center-text}
+Everyone has different responsibilities & demands -- ***tokens give you the power and freedom to ask for the accommodations you need.*** You *do not* need to provide a reason to request an extension, resubmission, or to miss class, but *you must* have enough tokens to do so.
+:::
+
+<!-- ---
+
+## {#tokens data-menu-title="Tokens"} 
+
+[Earning & using tokens]{.slide-title}
+
+<hr>
+
+<br>
+
+[**Earn tokens:**]{.body-text-l}
+
+::: incremental
+- everyone starts with **0 tokens**
+- earn your **first token** by attending discussion section on Tuesday 1/7
+- earn **2 more tokens** by submitting Self-reflection #1 
+- earn **1 token per week** by attending discussion section (*full 50 min*)
+:::
+
+<br>
+
+. . . 
+
+[**Use tokens:**]{.body-text-l}
+
+Fill out this Google form: [https://forms.gle/TzD7ihnuK9vbnQbb6](https://forms.gle/TzD7ihnuK9vbnQbb6){target="_blank"} and email Sam, Annie & Sloane to let them know -->
+
+---
+
+## {#grade-tracker data-menu-title="Grade Tracker"} 
+
+<!-- [Use the Grade Tracker to determine your course grade]{.slide-title3}
+
+<hr> -->
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/grade-tracker.png")
+```
+
+::: {.footer}
+Use the Grade Tracker to determine your course grade & read the syllabus for additional [grading clarifications & notes](https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?tab=t.0#heading=h.o6q63avz97mp){target="_blank"}
+:::
+
+---
+
+## {#assignment-links data-menu-title="You can view all assignments"} 
+
+[All assignments are published]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+:::: {.columns}
+::: {.column width="50%"}
+All assignments (HWs, FPMs, SRs) are published on the [assignments page](../../assignments.qmd){target="_blank"}.
+
+<br>
+
+**You are not expected to look ahead**, but materials are available so you can see what's coming throughout the quarter and plan your time, if helpful.
+
+<br>
+
+**Please note:** we will not be grading assignments before thier listed due dates.
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/assignments.png")
+```
+:::
+::::
+---
+
+## {#GenAI data-menu-title="GenAI"} 
+
+[Policy on Generative AI (GenAI)]{.slide-title}
+
+<hr>
+
+You may use GenAI tools in this class **as long as it aligns with the learning outcomes or goals** associated with assignments. You are **fully responsible for the information you submit** based on a GenAI query.
+
+:::: {.columns}
+::: {.column width="50%"}
+[**Permitted use:** ]{.body-text-m .teal-text}
+
+::: {.incremental}
+- Troubleshooting code or technical issues
+- Fine-tuning your research question
+- Finding information on your topic
+- Clarifying your own prose
+:::
+:::
+::: {.column width="50%"}
+[**Not permitted use:**]{.body-text-m .teal-text}
+
+::: {.incremental}
+- Writing code wholesale 
+- Drafting written portions of assignments
+- Writing entire sentences, paragraphs or blog posts
+:::
+:::
+::::
+
+. . .
+
+::: {.center-text}
+**To promote transparency and support reflective practice in your use of generative AI tools, you must submit a [GenAI Statement of Use](https://docs.google.com/forms/d/e/1FAIpQLSf0ggwvSztQiy7gzrGsXB50CC-geOjdAx18xNXiFdItAUjybA/viewform){target="_blank"} with each assignment.**
+:::
+
+<br>
+
+. . . 
+
+::: {.center-text .body-text-l}
+**Please read the full policy on the [course syllabus](https://docs.google.com/document/d/1ZALT0Ef9GQga5rkBAWJhzQ2npC4l-FkcNV4kMYFud0Q/edit?tab=t.0#heading=h.y681rehhz56a){target="_blank"}**
+:::
+
+---
+
+## {#attendance data-menu-title="Attendance"} 
+
+[Attendance is important!]{.slide-title}
+
+<hr>
+
+For both building a collaborative learning community *and* because it mirrors professional expectations.
+
+If you need to miss a class, be proactive and work with your instructors on a catch up plan.
+
+Please stay home if you're sick!
+
+Extended absenses (>2 classes) necessitate us involving academic personnel at Bren.
+
+---
+
+<!-- ---
+
+## {#help data-menu-title="Getting help"} 
+
+[Getting unstuck]{.slide-title}
+
+<hr>
+
+Troubleshooting, deciphering code, and trying (and failing at) new things is a **large** part of being a data scientist. Grad school is a safe space to get comfy with and practice these!
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/getting-help-steps.png")
+```
+
+Check out the [getting unstuck](../../getting-unstuck.qmd){target="_blank"} page (under "resources") on the course website for more tips -- especially on **how to ask a question.**
+
+---
+
+## {#sucking-less data-menu-title="Sucking less"} 
+
+[A note on pushing through the challenges]{.slide-title}
+
+<hr>
+
+:::: columns
+
+::: {.column width="50%"}
+
+<br>
+<br>
+
+::: {.body-text-m}
+>“There is no way of [going from] knowing nothing about a subject to knowing something about a subject without going through a period of much frustration and suckiness.”
+**"Push through. You'll suck less."**
+:::
+
+::: {.right-align-text} 
+-Hadley Wickham, author of `{ggplot2}`
+:::
+:::
+
+::: {.column width="50%"}
+
+<br>
+<br>
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/adventure-time.gif")
+```
+:::
+
+::::
+
+::: {.body-text-s .gray-text .center-text}
+Slide adapted from [Andrew Heiss'](https://www.andrewheiss.com/){target="_blank"} lesson, [Truth, beauty, and data](https://datavizs23.classes.andrewheiss.com/content/01-content.html){target="_blank"} ([PMAP 8101: Data Visualization](https://datavizs23.classes.andrewheiss.com/){target="_blank"})
+::: -->
+
+---
+
+## {#slack data-menu-title="Slack"} 
+
+[Ask questions in our Slack channel]{.slide-title}
+
+<hr>
+
+:::: columns
+
+::: {.column width="50%"}
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/slack.png")
+```
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+**All course-related content questions should be asked in the `#eds-240-data-viz` channel** -- oftentimes there are others who have the same question and will benefit from seeing the discussion! 
+
+<br>
+
+Any questions sent as DMs will be copied into `#eds-240-data-viz` and answered there.
+
+<br>
+
+*Of course, please direct message or email with any personal questions or concerns.*
+:::
+
+::::
+
+---
+
+## {#expectations data-menu-title="Expectations"} 
+
+[A note on expectations]{.slide-title3}
+
+<hr>
+
+[**Reminders:**]{.teal-text} 
+
+- [We are not mind-readers (as helpful as that would be!). Please help us help you by **bringing any issues to our attention** (EOC surveys are a great place to do this, or via DM / email) -- **the earlier the better!**]{.body-text-s} 
+
+. . . 
+
+[**Promises:**]{.teal-text} 
+
+::: incremental
+- [We are working, and will continue to work, *really* hard to **make this a great class!**]{.body-text-s}
+- [We are super passionate about teaching, but doesn't mean it's easy or that we're infallible. We will **do our best to adapt** to student / class needs as the quarter progresses. There may be times where we won't or can't make changes to the course plan -- if so, we will be **transparent** in our reasoning why.]{.body-text-s} 
+:::
+
+. . .
+
+[**Boundaries:**]{.teal-text}
+
+::: .incremental 
+- [This course (unfortunately) isn't our only professional responsibility this quarter -- **we will not be available at all times** to respond to requests / questions. Here's what you can expect:]{.body-text-s} 
+   - [We will try our best to **respond to Slack** questions **within 24hr** (during the week)]{.body-text-s} 
+   - [A **response after-hours (5pm - 9am) is not guaranteed** (we will try our best, as our personal lives allow for)]{.body-text-s} 
+   - [We will **not be responding** to questions over the **weekend**]{.body-text-s} 
+:::
+
+---
+
+## {#this-course1 data-menu-title="What is EDS 240?"} 
+
+[What is EDS 240?]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.center-text .body-text-m}
+EDS 240: Data Visualization and Communication is about two related, but distinct things:
+:::
+
+<br>
+
+. . . 
+
+**1. The theory of effective communication and data design**
+
+[{{< fa eye title="an eye">}}]{.teal-text} How people perceive and interpret graphical information  
+[{{< fa circle-user title="a user inside a circle">}}]{.teal-text} Human-centered design as it relates to data visualizations
+
+<br>
+
+. . . 
+
+**2. The physical act of building effective data visualizations using software and data science tools** 
+
+[{{< fa code title="the symbol for code, </>">}}]{.teal-text} Using the Grammar of Graphics / `{ggplot2}` framework to create effective, truthful, and beautiful data visualizations [{{< fa chart-column title="a bar chart">}}]{.teal-text}
+
+---
+
+## {#this-course2 data-menu-title="What is EDS 240?"} 
+
+[What is EDS 240?]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.center-text .body-text-m}
+**The topic of data visualization is pretty darn massive.**
+:::
+
+. . . 
+
+::: {.center-text}
+We cannot and will not cover every data visualization type, consideration, package, etc. 
+:::
+
+<br>
+
+. . . 
+
+::: {.center-text}
+We *will* work towards a conceptual and technical understanding of [**data viz fundamentals**]{.teal-text}. 
+:::
+
+<br>
+
+. . . 
+
+::: {.center-text}
+Data viz is a science and technical skill, but there's also a lot of [**space for creativity**]{.teal-text}.
+:::
+
+<br>
+
+. . . 
+
+::: {.center-text}
+What you create can be used in your [**professional portfolio**]{.teal-text}! The more you put in, the more you'll get out.
+:::
+
+---
+
+## {#LOs data-menu-title="Learning Objectives"} 
+
+[Course Learning Objectives]{.slide-title}
+
+<hr>
+
+[{{< fa magnifying-glass >}}]{.teal-text} Identify which types of visualizations are most appropriate for your data and your audience
+
+<br>
+
+. . .
+
+[{{< fa broom >}}]{.teal-text} Prepare (e.g. clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations
+
+<br>
+
+. . .
+
+[{{< fa chart-column >}}]{.teal-text} Build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically `{ggplot2}` + ggplot2 extension packages
+
+<br>
+
+. . .
+
+[{{< fa file-code >}}]{.teal-text} Write code from scratch *and* interpret and adapt code written by others
+
+<br>
+
+. . .
+
+[{{< fa users >}}]{.teal-text} Apply a DEI (Diversity, Equity & Inclusion) lens to the process of designing data visualizations
+
+<br>
+
+. . .
+
+[{{< fa comments >}}]{.teal-text} Assess, critique, and provide constructive feedback on data visualizations
+
+---
+
+##  {#end-break data-menu-title="# Break #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p>
+</div>
+
+```{r}
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
