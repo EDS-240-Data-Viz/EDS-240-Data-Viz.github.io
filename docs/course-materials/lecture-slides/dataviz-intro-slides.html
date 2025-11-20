@@ -13,7 +13,7 @@
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
-  <title>EDS 240 – syllabus-slides</title>
+  <title>EDS 240 – dataviz-intro-slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,6 +31,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -334,360 +399,619 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Lecture 1.1</span></p>
-<p><span class="custom-subtitle"><em>Course logistics &amp; syllabus</em></span></p>
+<p><span class="custom-title">EDS 240: Lecture 1.2</span></p>
+<p><span class="custom-subtitle"><em>Data visualization: an intro</em></span></p>
 <hr class="hr-teal">
 <p><span class="custom-subtitle3">Week 1 | January 7<sup>th</sup>, 2026</span></p>
 </section>
-<section id="welcome" class="slide level2" data-menu-title="Welcome to EDS 240!">
+<section id="what-is-visualization1" class="slide level2" data-menu-title="What is data viz?">
 <h2></h2>
-<p><span class="slide-title">Welcome to EDS 240!</span></p>
+<p><span class="slide-title">What is data visualization?</span></p>
 <hr>
-<div class="center-text">
-<p>This course will focus on the basic principles for effective communication through data visualization and using programmatic tools and workflows for creating and sharing data visualizations with diverse audiences.</p>
+<blockquote>
+<p><em>“…the practice of designing and creating easy-to-communicate and easy-to-understand graphic or visual representations of a large amount of complex quantitative and qualitative data and information with the help of static, dynamic or interactive visual items.”</em></p>
+</blockquote>
+<div class="right-align-text body-text-s">
+<p>-from <a href="https://en.wikipedia.org/wiki/Data_and_information_visualization" target="_blank">Wikipedia</a></p>
 </div>
-
-<img data-src="images/week1/horst-eco-r4ds.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%" alt="An extended version of the classic R4DS schematic from Grolemund &amp; Wickham, with environmental data science, communities, and communication added."><div class="gray-text body-text-s center-text">
-<p><em>Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
-</div>
-</section>
-<section id="logistics" class="slide level2" data-menu-title="Course logistics">
-<h2></h2>
-<p><span class="slide-title">Meeting times &amp; locations</span></p>
-<hr>
-<div class="body-text-m">
-<ul>
-<li><strong>Lecture:</strong> Wednesdays 1:30-4:00pm PT
-<ul>
-<li>Bren 3022A (SCF)</li>
-</ul></li>
-<li><strong>Lab:</strong> Thursdays 12:30-1:50pm PT
-<ul>
-<li>Bren 3022A (SCF)</li>
-</ul></li>
-</ul>
-</div>
-
-<img data-src="images/week1/bren-hall.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%" alt="An aerial shot of Bren Hall."></section>
-<section id="instructor" class="slide level2" data-menu-title="Teaching team">
-<h2></h2>
-<p><span class="slide-title">Teaching team</span></p>
-<hr>
+<p><br></p>
+<div class="fragment">
 <div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-l">
-<p><strong>Instructor</strong></p>
-</div>
+<div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/sam.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<p><img data-src="images/week1/ggplot-example.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text">
-<p><span class="teal-text"><strong>Sam Shanny-Csik</strong></span><br>
-<span class="body-text-s"><strong>Email:</strong> <a href="mailto::scsik@ucsb.edu">scsik@ucsb.edu</a></span><br>
-<span class="body-text-s"><strong>Learn more:</strong> <a href="https://samanthacsik.github.io/" target="_blank">samanthacsik.github.io</a></span><br>
-<span class="body-text-s"><strong>Student hours:</strong> TBD</span></p>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-l">
-<p><strong>Co-instructor</strong></p>
-</div>
+</div><div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/annie.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<p><img data-src="images/week1/gganimate-example.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text">
-<p><span class="teal-text"><strong>Annie Adams</strong></span><br>
-<span class="body-text-s"><strong>Email:</strong> <a href="mailto::aradams@ucsb.edu">aradams@ucsb.edu</a></span><br>
-<span class="body-text-s"><strong>Learn more:</strong> <a href="https://annieradams.github.io/" target="_blank">annieradams.github.io</a></span><br>
-<span class="body-text-s"><strong>Student hours:</strong> TBD</span></p>
+</div><div class="column" style="width:33%;">
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/shiny-example.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </div></div>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="center-text">
+<p>Created using <a href="https://ggplot2.tidyverse.org/" target="_blank"><code>{ggplot2}</code></a></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="center-text">
+<p>Created using <a href="https://gganimate.com/" target="_blank"><code>{gganimate}</code></a></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="center-text">
+<p>Created using <a href="https://shiny.posit.co/" target="_blank"><code>{shiny}</code></a></p>
+</div>
+</div></div>
+</div>
 </section>
-<section id="meet-one-another" class="slide level2" data-menu-title="# Meet one another #" data-background="#047C90">
+<section id="what-is-visualization2" class="slide level2" data-menu-title="Data Viz: alternative definitions">
+<h2></h2>
+<p><span class="slide-title">What is data visualization?</span></p>
+<hr>
+<p><br> <br></p>
+<div class="body-text-m">
+<blockquote>
+<p><em>“any graphical representation of information and data”</em></p>
+</blockquote>
+</div>
+<div class="right-align-text">
+<p>-<a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a>, <a href="https://www.youtube.com/watch?v=swzFdMc6WPk" target="_blank">Effective Data Visualization</a></p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="body-text-m">
+<blockquote>
+<p><em>“part art and part science”</em></p>
+</blockquote>
+</div>
+<div class="right-align-text">
+<p>-<a href="https://clauswilke.com/" target="_blank">Claus O. Wilke</a>, <a href="https://clauswilke.com/dataviz/index.html" target="_blank">Fundamentals of Data Visualization</a></p>
+</div>
+</div>
+</section>
+<section id="lascaux" class="slide level2" data-menu-title="Lascaux">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>16,500 years ago, Pleistocene</strong></span></p>
+<p>The Lascaux Cave Paintings are thought to be some of the first charted stars and constellations.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/lascaux1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/lascaux2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>Sources: <a href="http://news.bbc.co.uk/2/hi/science/nature/871930.stm" target="_blank">BBC</a> &amp; <a href="https://rockartblog.blogspot.com/2018/08/are-lascaux-cave-paintings-encoded.html" target="_blank">Rock Art Blog</a></p>
+<p><span class="teal-text"><strong>16,500 years ago</strong></span> | ~1150 BC | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Lascaux Caves in the southwest of France; Pleiades star cluster (seven sisters) also found on the cave walls</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="Amennakhte" class="slide level2" data-menu-title="Amennakhte">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>~1150 BC</strong></span></p>
+<p>Oldest known geologic map, the Turin Papyrus Map, depicts a dry riverbed (Wadi Hammamat) and major mining region in Egypt’s Eastern Desert.</p>
+</div>
+
+<img data-src="images/week1/turin-papyrus.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://en.wikipedia.org/wiki/Turin_Papyrus_Map" target="_blank">Wikipedia</a></p>
+<p>16,500 years ago | <span class="teal-text"><strong>~1150 BC</strong></span> | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
+</div>
+<aside class="notes">
+<p>It was prepared by Amennakhte, Scribe-of-the-Tomb, for Ramses IV’s quarrying expedition to the Wadi Hammamat for the purpose of obtaining blocks of stone for building statues of the king.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="Inca-empire" class="slide level2" data-menu-title="Inca-empire">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1400 - 1532 AD</strong></span></p>
+<p>Quipus (kee-poos) were recording devices used by the Inca Empire for data collection, census records, calendaring, etc.</p>
+</div>
+
+<img data-src="images/week1/quipu.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://www.si.edu/newsdesk/snapshot/quipu" target="_blank">Smithsonian</a></p>
+<p>16,500 years ago | ~1150 BC | <span class="teal-text"><strong>1400 - 1532 AD</strong></span> | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
+</div>
+</section>
+<section id="van-Langren" class="slide level2" data-menu-title="van Langren">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1644</strong></span></p>
+<p>Michael Florent van Langren, Flemish astronomer, created the first (known) statistical graph showing differences in estimates of longitudinal distance between Toledo and Rome.</p>
+</div>
+<p><br></p>
+
+<img data-src="images/week1/toledo-rome.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><div class="footer">
+<p>Source: <a href="https://en.wikipedia.org/wiki/Michael_van_Langren" target="_blank">Wikipedia</a></p>
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | <span class="teal-text"><strong>1644</strong></span> | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
+</div>
+<aside class="notes">
+<ul>
+<li>van Langren was a dutch mathematician / astronomer</li>
+<li>served as royal mathematician to King Phillip IV of Spain</li>
+<li>worked on one of the most significant problems of his time (accurate determination of longitude between Toledo &amp; Rome, particularly navigation by sea)</li>
+<li>graph shows all available estimates in distance (inaccuracies resulted in many shipwrecks)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="playfair" class="slide level2" data-menu-title="Playfair">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1786</strong></span></p>
+<p>William Playfair, Scottish engineer and political economist, is credited as the creator of the first bar chart (featuring Scottish trade data, 1780 - 1781), as well as line and pie charts.</p>
+</div>
+<p><br></p>
+
+<img data-src="images/week1/playfair-bar.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://en.wikipedia.org/wiki/William_Playfair" target="_blank">Wikipedia</a></p>
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | <span class="teal-text"><strong>1786</strong></span> | 1846 | 1856 | 1869 | 1900 | modern day</p>
+</div>
+</section>
+<section id="willard" class="slide level2" data-menu-title="Willard">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1846</strong></span></p>
+<p>Emma Hart Willard, America’s first professional female cartographer, created the <em>Temple of Time</em>, which depicts the fall and rise of empires throughout history. It won a medal at the 1851 World’s Fair in London.</p>
+</div>
+<p><br></p>
+
+<img data-src="images/week1/temple-of-time.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://www.themarginalian.org/2019/07/09/emma-willard/" target="_blank">The Marginalian</a></p>
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | <span class="teal-text"><strong>1846</strong></span> | 1856 | 1869 | 1900 | modern day</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Willard map maker &amp; founder of first school for women’s higher education in the US</li>
+<li>Temple of Time uses the architecture as a metaphor for history; foreground = present; columns represent centuries</li>
+<li>she believed that facts must be connected to one another to be meaningful and that they will they be most easily retained if presented visually</li>
+<li><a href="https://www.londonmuseum.org.uk/collections/london-stories/what-was-great-exhibition-1851/#:~:text=The%20creation%20of%20Queen%20Victoria's,in%20a%20giant%20glass%20building.">World’s Fair in London</a> = one of the most popular public attractions in 19th-century London, aimed to celebrate modern design and promote Britain as an industrial and imperial power</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="nightingale" class="slide level2" data-menu-title="Nightingale">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1856</strong></span></p>
+<p>Florence Nightingale was an English wartime nurse who campaigned to improve sanitary conditions of military hospitals. The <em>Diagram of the Causes of Mortality in the Army of the East</em> shows that deaths from preventable diseases (blue) outnumbered combat fatalities (red) in military hospitals in 1854 &amp; early 1855.</p>
+</div>
+<p><br></p>
+
+<img data-src="images/week1/nightingale.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://www.scientificamerican.com/article/how-florence-nightingale-changed-data-visualization-forever/" target="_blank">Scientific American</a></p>
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | <span class="teal-text"><strong>1856</strong></span> | 1869 | 1900 | modern day</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Nightingale dedicated much of her life to conveying public health statistics in exciting &amp; easy-to-understand ways.</li>
+<li>The changes she put in place greatly <a href="https://daily.jstor.org/florence-nightingale-data-visualization-visionary/" target="_blank">reduced those deaths</a> by April 1855.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="minard" class="slide level2" data-menu-title="Minard">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1869</strong></span></p>
+<p>Charles Minard, a French civil engineer, produced what is referred to as, “the greatest visualization created.” <em>Napoleon’s Russian Campaign</em> displays 6 types of data in 2D (# troops, distance traveled, temperature, lat / lon, direction of travel, location relative to specific dates).</p>
+</div>
+<p><br></p>
+
+<img data-src="images/week1/minard.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="footer">
+<p>Source: <a href="https://en.wikipedia.org/wiki/Charles_Joseph_Minard" target="_blank">Wikipedia</a></p>
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | <span class="teal-text"><strong>1869</strong></span> | 1900 | modern day</p>
+</div>
+</section>
+<section id="DuBois" class="slide level2" data-menu-title="DuBois">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p><span class="body-text-m"><strong>1900</strong></span></p>
+<p>W.E.B. DuBois, was an African American writer, scholar and activist. He used photographs and data visualizations to commemorate the lives of African Americans at the turn of the century and challenge the racist caricatures and stereotypes of the day.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/DuBois-anyene.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><em>Assessed value of household and kitchen furnitures owned by Georgia Negroes</em> <a href="https://github.com/Ijeamakaanyene/tidytuesday/blob/master/outputs/2021_06_webdubois.png" target="_blank">Recreation</a> by <a href="https://ijeamaka-anyene.netlify.app/" target="_blank">Ijeamaka Anyene</a> for the 2021 <a href="https://nightingaledvs.com/the-dubois-challenge/" target="_blank">#DuBoisChallenge</a></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/DuBois-freites.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><em>Proportion of Freemen and Slaves Among American Negroes.</em> <a href="https://github.com/luisfrein/R_Tidytuesday/tree/master/2021/W08_Dubois_Challenge" target="_blank">Recreation</a> by <a href="https://github.com/luisfrein" target="_blank">Luis Freites</a> for the 2021 <a href="https://nightingaledvs.com/the-dubois-challenge/" target="_blank">#DuBoisChallenge</a>. Source: <a href="https://x.com/ijeamaka_a/status/1361715338027560962" target="_blank">Twitter</a></p>
+</div>
+</div></div>
+<p><br> <br></p>
+<div class="footer">
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | <span class="teal-text"><strong>1900</strong></span> | modern day</p>
+</div>
+<!-- <br> -->
+<!-- ::: {.footer} -->
+<!-- Source: [Twitter](https://x.com/ijeamaka_a/status/1361715338027560962){target="_blank"} -->
+<!-- ::: -->
+<aside class="notes">
+<ul>
+<li>WEB DuBois was the first African American to earn a PhD from Harvard University</li>
+<li>helped found the National Association for the Advancement of Colored People (NAACP)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="modern-day" class="slide level2" data-menu-title="Modern day">
+<h2></h2>
+<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
+<hr>
+<div class="center-text">
+<p>The emergence of programming languages and tools in recent years has made data visualization design easier than every before.</p>
+</div>
+
+<img data-src="images/week1/modern-viz-tools.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | 1900 | <span class="teal-text"><strong>modern day</strong></span></p>
+</div>
+</section>
+<section id="why-visualize" class="slide level2" data-menu-title="# Why visualize data? #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">
-<i class="fa-solid fa-comments" title="two talking bubbles" aria-label="comments"></i> Meet one another!
+<i class="fa-solid fa-comments" title="two talking bubbles" aria-label="comments"></i> Why do we visualize data?
 </p>
 <p class="caption-text">
-<em>Spend the next few minutes getting to know your Learning Partners! Below are some conversation starters:</em>
-</p>
-<p class="dark-blue-text">
-<strong>Where do you feel most at home?</strong>
-</p>
-<p class="dark-blue-text">
-<strong>What parts of Santa Barbara have you enjoyed exploring?</strong>
-</p>
-<p class="dark-blue-text">
-<strong>What’s the most exciting thing you’ve learned this year, so far?</strong>
-</p>
-<p class="dark-blue-text">
-<strong>What’s your favorite color or typeface?</strong>
+<em>Spend the next few minutes discussing with your Learning Partners, and if possible, pull up some example visualizations that demonstrate your thoughts / discussion points</em>
 </p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_41319530" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_ed4dc441" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="student-resources" class="slide level2" data-menu-title="Student Resources">
+<section id="answer-qs" class="slide level2" data-menu-title="Data viz for answering Qs">
 <h2></h2>
-<p><span class="slide-title">Student Resources</span></p>
+<p><span class="slide-title">. . . to answer questions / derive insights</span></p>
 <hr>
-<ul>
-<li><strong>Disabled Students Program (DSP)</strong>: <a href="https://dsp.sa.ucsb.edu/students/how-apply" class="uri">https://dsp.sa.ucsb.edu/students/how-apply</a></li>
-<li><strong>Basic Needs Resources &amp; Food Security:</strong> <a href="https://basicneeds.ucsb.edu/" class="uri">https://basicneeds.ucsb.edu/</a> (schedule a <a href="https://www.google.com/url?q=https://shoreline.ucsb.edu/meetings/m2727/bookanadvocate&amp;sa=D&amp;source=docs&amp;ust=1698264138992010&amp;usg=AOvVaw2qVVM5nn4p5oruh-LxtWik">CalFresh Appoinment</a> or <a href="https://shoreline.ucsb.edu/otp_signup?module=meeting&amp;redirect=%2fmeetings%2fm2820%2fbook">Basic Needs Advising Session</a>)</li>
-<li><strong>Counseling &amp; Psychological Services (CAPS):</strong> <a href="http://caps.sa.ucsb.edu" class="uri">http://caps.sa.ucsb.edu</a></li>
-<li><strong>Resource Center for Sexual and Gender Diversity (RCSGD):</strong> <a href="https://rcsgd.sa.ucsb.edu/" class="uri">https://rcsgd.sa.ucsb.edu/</a></li>
-<li><strong>Undocumented Student Services (USS) Program:</strong> <a href="https://uss.sa.ucsb.edu/" class="uri">https://uss.sa.ucsb.edu/</a></li>
-<li><strong>Campus Learning Assistance Services (CLAS):</strong> <a href="http://clas.sa.ucsb.edu" class="uri">http://clas.sa.ucsb.edu</a></li>
-<li><strong>Student Resource Building (SRB):</strong> <a href="http://www.sa.ucsb.edu/student-resource-building/home" class="uri">http://www.sa.ucsb.edu/student-resource-building/home</a></li>
-<li><strong>Multicultural Center (MCC):</strong> <a href="http://mcc.sa.ucsb.edu/" class="uri">http://mcc.sa.ucsb.edu/</a></li>
-<li><strong>Campus Advocacy, Resources, &amp; Education (CARE):</strong> <a href="http://wgse.sa.ucsb.edu/care/home" class="uri">http://wgse.sa.ucsb.edu/care/home</a></li>
-<li><strong>Financial Crisis Response Team:</strong> <a href="mailto:financialcrisis@sa.ucsb.edu" class="email">financialcrisis@sa.ucsb.edu</a> (contact)</li>
-<li><strong>Health and Wellness:</strong> <a href="https://wellbeing.ucsb.edu/" class="uri">https://wellbeing.ucsb.edu/</a></li>
-</ul>
-<div class="footer">
-<p><em>Your mental and physical health is more important than your grade in any course. I’m always happy to help you identify resources or help on campus – DM or email me!</em></p>
-</div>
-<aside class="notes">
-<p>Applying for DSP accommodations is a multi-step process and students should begin this as soon as possible as it can take 10 days to process applications.</p>
-<p>Step 1: Submit an application with DSP, upload documentation and select the services needed.</p>
-<p>Step 2: For exam accommodations (more time, private setting, etc.) students need to submit a proctor request for each exam in each course that they need accommodations for. DSP has instructions on their <a href="https://dsp.sa.ucsb.edu/">website</a> for completing these tasks and students can login to the DSP portal to check the status of their application and requests.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<!-- ---
-
-## {#conduct data-menu-title="Conduct, Inclusion, Accommodations"} 
-
-[Conduct, Inclusion, Accommodations]{.slide-title}
-
-<hr>
-
-<br>
-<br>
-
-**Course Conduct:** We are committed to actively creating, modeling, and maintaining an inclusive climate and supportive learning environment for all -- *harassment of any kind will not be tolerated*. Everyone is expected read and adhere to the [Bren School Code of Conduct](https://bren.ucsb.edu/sites/default/files/2024-25%20Bren%20Graduate%20Student%20Handbook.docx.pdf){target="_blank"} and the [UCSB Code of Conduct](https://www.sa.ucsb.edu/docs/default-source/default-document-library/conduct-code-fall-2020_final.pdf?sfvrsn=fada724f_0){target="_blank"}
-
-<br>
-
-. . . 
-
-**Access & accommodations:** It's never too late to apply for [DSP accommodations](https://dsp.sa.ucsb.edu/accommodations/how-apply){target="_blank"}
-
-<br>
-
-. . .
-
-**Names & pronouns:** Everyone has the right to be addressed and referred by to name and pronouns in accordance with their identity -- you can add your pronouns to your UCSB Registrar [profile](https://sso.my.ucsb.edu/adfs/ls/?wa=wsignin1.0&wtrealm=http%3a%2f%2fblue.sa.ucsb.edu%2fLanding%2f&wctx=rm%3d0%26id%3dpassive%26ru%3d%252fLanding%252fHomepage.aspx&wct=2023-08-09T18%3a30%3a46Z&rpsa-rn=5TFey%252fVSv9IF17J4Pn8osgH1LticIlQr%252blbEYGshM3OOsDWYP4J7emNKxAxFivBYQ9bjUpX68pv2TfPF1l10Gw%253d%253d&rpsa-an=AQYFW%252bAMuZU5NJ2X8VVjYJfEUAIzGOJ5TsVA9tf6taioBLLASrEwwwTwL3CfnBo0hlWxXzchkFxh%252frWqIlUAXA%253d%253d&rpsa-se=f5hRpBYXKP06s9Rp4Upm1RVnbN1guWDIEz%252bUg2%252fhCNeRJJGUTljXkJhT2q3Jc3CVoQo8gAKnlHeyxBa48wHcTA%253d%253d&rpsa-sedn=Ua%252fdFKWiVmSNkCOjsPoWPa%252bDhhvj5Uj6jpegUTzkSC8%253d){target="_blank"}
-
-::: {.notes}
-Applying for DSP accommodations is a multi-step process and students should begin this as soon as possible as it can take 10 days to process applications. 
-
-Step 1: Submit an application with DSP, upload documentation and select the services needed. 
-
-Step 2: For exam accommodations (more time, private setting, etc.) students need to submit a proctor request for each exam in each course that they need accommodations for. DSP has instructions on their [website](https://dsp.sa.ucsb.edu/) for completing these tasks and students can login to the DSP portal to check the status of their application and requests.
-::: -->
-</section>
-<section id="course-website" class="slide level2" data-menu-title="Course website">
-<h2></h2>
-<p><span class="slide-title2">Everything you’ll need lives on the course website</span></p>
-<hr>
-<div class="center-text body-text-m">
-<p><strong><a href="https://eds-240-data-viz.github.io/" target="_blank">https://eds-240-data-viz.github.io/</a></strong></p>
-</div>
-
-<img data-src="images/week1/eds240-website.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="body-text-m center-text">
-<p>Please <strong>read the <a href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?tab=t.0" target="_blank">syllabus</a> in full</strong> this week, if you haven’t already!</p>
-</div>
-<div class="footer">
-<p>Website link is also bookmarked at the top of the <strong>#eds-240-data-viz</strong> Slack channel and on the <a href="https://bren.ucsb.edu/courses/eds-240" target="_blank">Bren website</a>.</p>
-</div>
-</section>
-<section id="tentative-schedule" class="slide level2" data-menu-title="Tentative Schedule">
-<h2></h2>
-<p><span class="slide-title">Tentative Schedule &amp; Materials</span></p>
-<hr>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<table class="caption-top">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 84%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Week</th>
-<th>Date</th>
-<th>Tentative Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>1/07</td>
-<td>course logistics, intro, <code>{ggplot2}</code> review</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1/14</td>
-<td>tbd</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>1/21</td>
-<td>tbd</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>1/28</td>
-<td>tbd</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>2/05</td>
-<td>tbd</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>2/11</td>
-<td>tbd</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>2/18</td>
-<td>tbd</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>2/25</td>
-<td>tbd</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>3/04</td>
-<td>tbd</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>3/11</td>
-<td>tbd</td>
-</tr>
-</tbody>
-</table>
-</div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/eds240-website-course-materials.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week1/ripple-etal-2023-fig1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
-<!-- ::: {.center-text}
-*Lab sections are held every week*
-::: -->
-</section>
-<section id="pre-class-prep" class="slide level2" data-menu-title="Pre-class Prep">
-<h2></h2>
-<p><span class="slide-title3">Complete all items under <em>Pre-class Prep</em> before lecture</span></p>
-<hr>
-<p>Please be sure to carefully complete all required prep (e.g.&nbsp;installing packages, downloading data) under the <strong>Pre-class Prep</strong> section (organized by week) before lecture – be mindful that some items may take time to download/install.</p>
-
-<img data-src="images/week1/pre-lecture-prep.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text">
-<p><strong><em>It is highly recommended that you do this well in advance<sup>1</sup> of attending lecture.</em></strong></p>
+</div><div class="column" style="width:50%;">
+<div class="center-text body-text-m">
+<p><a href="https://doi.org/10.1093/biosci/biad080" target="_blank"><strong>Ripple et al.&nbsp;2023</strong></a></p>
 </div>
-<div class="footer">
-<p><sup>1</sup>Except downloading <code>.qmd</code> templates – please hold off until each Monday morning, as changes are likely to occur up until just before class <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i></p>
-</div>
-</section>
-<section id="assignments" class="slide level2" data-menu-title="Assignments">
-<h2></h2>
-<p><span class="slide-title">Assignments</span></p>
-<hr>
+<p><span class="body-text-s"><strong>Fig Caption:</strong> Unusual climate anomalies in 2023 (the red line, which appears bold in print). Sea ice extent (a, b), temperatures (c–e), and area burned in Canada (f) are presently far outside their historical ranges. These anomalies may be due to both climate change and other factors. Sources and additional details about each variable are provided in supplemental file S1. Each line corresponds to a different year, with darker gray representing later years.</span></p>
 <p><br></p>
-<div class="body-text-l center-text">
-<p>Your course grade will be based off the following:</p>
+<div class="body-text-s gray-text center-text">
+<p><em>A nice <a href="https://twitter.com/DoctorVive/status/1717187963036049669" target="_blank">Twitter thread</a> on key takeaways from the above paper</em></p>
 </div>
-<div>
-<ul>
-<li class="fragment"><strong>3 Homeworks (HWs)</strong> - longer assignments where you’ll apply conceptual knowledge &amp; technical skills to data viz tasks</li>
-<li class="fragment"><strong>5 Final Project Milestones (FPMs)</strong> - required milestones designed to help you make ssteady progress on y our final project deliverables</li>
-<li class="fragment"><strong>3 Self-reflections (SRs)</strong> - a place to reflect on your learning plan / goals, challenges, etc.</li>
-<li class="fragment"><strong>3 rounds of Peer Feedback (PF)</strong> - opportunities to give and receive constructive feedback on your final project data visualizations (lab sessions, weeks 7-9)</li>
-</ul>
-</div>
-<p><br> <br></p>
-<div class="fragment">
-<div class="center-text teal-text">
-<p><strong>PLEASE NOTE:</strong> Your last FPM is an in-person flash talk during finals week (date TBD)</p>
-</div>
-</div>
+</div></div>
 </section>
-<section id="grading" class="slide level2" data-menu-title="Alternative Grading">
+<section id="exploration" class="slide level2" data-menu-title="Data viz for exploration">
 <h2></h2>
-<p><span class="slide-title">How will I be evaluated?</span></p>
+<p><span class="slide-title">. . . to explore &amp; generate new questions</span></p>
 <hr>
-<div class="body-text-l center-text">
-<p>This class will implement an alternative grading approach called <strong>specifications (specs) grading</strong>.</p>
-</div>
-<div class="fragment">
-<div class="body-text-m">
 <blockquote>
-<p>“an alternative grading method where instructors create a <strong>list of specifications that describe the qualities and characteristics of a successful submission</strong> for an assignment. Student work is <strong>graded holistically</strong> based on those specifications, earning a single mark: <strong>“Satisfactory” or “Not Yet”</strong>. Students have the <strong>chance to use feedback</strong> by revisiting and resubmitting for full credit.”</p>
+<p><em>“<strong>Exploratory data analysis (EDA)</strong> is not a formal process with a strict set of rules. More than anything, EDS is a state of mind…you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will hone in on a few particularly productive insights that you’ll eventually write-up and communicate to others.”</em></p>
 </blockquote>
+<div class="right-align-text body-text-s">
+<p>-Hadley Wickham, author of <a href="https://r4ds.hadley.nz/eda" target="_blank">R for Data Science</a></p>
 </div>
-<div class="right-align-text">
-<p>-expert from <em>“Grading for Growth: A Guide to Alternative Grading Practices That Promote Authentic Learning and Student Engagement in Higher Education”, by David Clark &amp; Robert Talbert</em></p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/diamond-hist.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat)) <span class="sc">+</span></span>
+<span id="cb1-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/cars-boxplot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(class, hwy, median), <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb2-2"><a></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/diamonds-freqplot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">geom_freqpoly</span>(<span class="fu">aes</span>(<span class="at">color =</span> cut), <span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
 </div>
 </section>
-<section id="why-specs" class="slide level2" data-menu-title="Why Specs Grading?">
+<section id="see-trends" class="slide level2" data-menu-title="Data viz to see trends">
 <h2></h2>
-<p><span class="slide-title">Why Specs grading?</span></p>
+<p><span class="slide-title">. . . to identify trends</span></p>
+<hr>
+<div class="center-text body-text-l">
+<p><strong>Same summary statistics, different distributions!</strong></p>
+</div>
+<div class="columns">
+<div class="column" style="width:&quot;50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/anscombes-quartet.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:&quot;50%;">
+<p><br> <br></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/datasaurus-dozen.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text">
+<p>Anscombe’s Quartet<br>
+(<a href="https://doi.org/10.2307/2682899" target="_blank">Anscombe 1973</a>)</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="center-text">
+<p>Datasaurus Dozen<br>
+(<a href="https://doi.org/10.1145/3025453.3025912" target="_blank">Matejka &amp; Fitzmaurice 2017</a>, expanding upon Alberto Cairo’s <a href="http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html" target="_blank">Datasaurus</a>)</p>
+</div>
+</div></div>
+</section>
+<section id="prompt-discussion1" class="slide level2" data-menu-title="Data viz for discussion (a)">
+<h2></h2>
+<p><span class="slide-title">. . . to prompt discussion</span></p>
 <hr>
 <p><br></p>
-<p><span class="body-text-m">“Traditional” grading can come with some challenges:</span></p>
+
+<img data-src="images/week1/hawkins-warming-stripes.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="center-text gray-text">
+<p><a href="https://showyourstripes.info/" target="_blank">Warming Strips</a>, by <a href="http://www.met.reading.ac.uk/~ed/home/index.php" target="_blank">Ed Hawkins</a></p>
+</div>
+</section>
+<section id="prompt-discussion2" class="slide level2" data-menu-title="Data viz for discussion (b)">
+<h2></h2>
+<p><span class="slide-title">. . . to prompt discussion</span></p>
+<hr>
 <p><br></p>
-<div>
-<ul>
-<li class="fragment">lacks feedback loops</li>
-<li class="fragment">benefits those who learn fast or have prior experience</li>
-<li class="fragment">bias-prone (e.g.&nbsp;awarding points, granting extensions)</li>
-<li class="fragment">can discourage learning for its own sake</li>
-<li class="fragment">can promote unhealthy student-instructor relationships</li>
-</ul>
+
+<img data-src="images/week1/lipponen-anomalies.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="center-text gray-text">
+<p>gif created from <a href="https://anttilip.net/" target="_blank">Antti Lipponen</a>’s <a href="https://www.flickr.com/photos/150411108@N06/35471910724/" target="_blank">Temperature Anomolies</a>.</p>
+</div>
+</section>
+<section id="prompt-discussion3" class="slide level2" data-menu-title="Data viz for discussion (c)">
+<h2></h2>
+<p><span class="slide-title">. . . to prompt discussion</span></p>
+<hr>
+<p><br></p>
+
+<img data-src="images/week1/sabbarao-climate-spiral.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<div class="center-text gray-text">
+<p>gif created from <a href="https://www.linkedin.com/in/msubbarao/" target="_blank">Mark SubbaRao</a>’s <a href="https://svs.gsfc.nasa.gov/5161" target="_blank">Climate Spiral</a>. For a similar visualization with accompanying <code>{ggplot2}</code> code, see <a href="https://nrennie.rbind.io/" target="_blank">Nicola Rennie</a>’s <a href="https://github.com/nrennie/tidytuesday/tree/main/2023/2023-07-11" target="_blank">TidyTuesday contribution</a>!</p>
+</div>
+</section>
+<section id="bremer-pathwork" class="slide level2" data-menu-title="Data viz for aRt (N. Bremer">
+<h2></h2>
+<p><span class="slide-title">. . . to create art / tell a story</span></p>
+<hr>
+<p><br> <br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/bremer-patchwork-kingdoms1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/bremer-patchwork-kingdoms2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/bremer-patchwork-kingdoms3.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="center-text gray-text">
+<p><a href="https://www.visualcinnamon.com/art/patchwork-kingdoms/" target="_blank">Patchwork Kingdoms</a>, by <a href="https://www.visualcinnamon.com/about/" target="_blank">Nadieh Bremer</a> portraying the “digital divide” in schools across the world</p>
 </div>
 <aside class="notes">
-<p>Traditional grading = points are awarded for correct answers on assessments; graded assessments contribute some percentage towards your overall course grade; course score (typically a percentage) is convered to a letter grade</p>
+<ul>
+<li>a data &amp; generative art charity collection for the <a href="https://www.unicefusa.org/stories/giga-initiative-connecting-worlds-schools-internet" target="_blank">Giga Connect</a> project of UNICEF which aims to connect all of the schools in the world to the internet.</li>
+<li>a dataset of 1 million schools and for ±280,000 of those they know if those schools are connected to the internet</li>
+<li>took this data about the schools, split it into 1000 subsets, and turned each school into a tiny square</li>
+<li>upright kingdoms are schools that are already connected to the internet, while those in the hidden / upside down kingdoms are not. Each of the 1000 pieces is thereby showing the “digital divide” that still exists in our world, and the funds from this sale will help to bring more schools from the hidden to the upright kingdom.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -700,353 +1024,115 @@ Step 2: For exam accommodations (more time, private setting, etc.) students need
           display:block!important;
       }</style></aside>
 </section>
-<section id="how-does-specs-look" class="slide level2" data-menu-title="What does specs grading look like?">
+<section id="astronauts" class="slide level2" data-menu-title="Data viz for aRt (C. Scherer &amp; I. Anyene">
 <h2></h2>
-<p><span class="slide-title2">How does specs grading look in practice for <em>this</em> course?</span></p>
+<p><span class="slide-title">. . . to create art / tell a story</span></p>
 <hr>
-<p><span class="teal-text"><i class="fa-solid fa-list-check" aria-label="list-check"></i></span> each assignment will have a <strong>clear rubric</strong> that outlines what must be completed and how in order to receive a <em>Satisfactory</em> mark; <em>not</em> meeting all specifications results in a <em>Not Yet</em> mark</p>
-<p><br></p>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-comment" aria-label="comment"></i></span> if you receive a <em>Not Yet</em> mark, you will <strong>receive feedback</strong> from your instructors and have one opportunity to <strong>revise &amp; resubmit at no penalty</strong> to earn a <em>Satisfactory</em> mark</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-coins" aria-label="coins"></i></span> <strong>earn tokens</strong> by completing self reflections (SRs 1 &amp; 2) and by attending lab (weeks 1-6)</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-cart-shopping" aria-label="cart-shopping"></i></span> <strong>trade tokens</strong> for a second revision &amp; resubmission attempt and / or 24hr extension on assignments; track &amp; use your tokens using the EDS 240 Token Dashboard [ADD LINK]</p>
-<p><br></p>
-</div>
-<div class="fragment">
 <div class="center-text">
-<p>Everyone has different responsibilities &amp; demands – <strong><em>tokens give you the power and freedom to ask for the accommodations you need.</em></strong> You <em>do not</em> need to provide a reason to request an extension or resubmission, but <em>you must</em> have enough tokens to do so.</p>
+<p>To enlarge, <strong>Right click</strong> &gt; <strong>Open Image in New Tab</strong></p>
 </div>
-<!-- ---
-
-## {#tokens data-menu-title="Tokens"} 
-
-[Earning & using tokens]{.slide-title}
-
-<hr>
-
-<br>
-
-[**Earn tokens:**]{.body-text-l}
-
-::: incremental
-- everyone starts with **0 tokens**
-- earn your **first token** by attending discussion section on Tuesday 1/7
-- earn **2 more tokens** by submitting Self-reflection #1 
-- earn **1 token per week** by attending discussion section (*full 50 min*)
-:::
-
-<br>
-
-. . . 
-
-[**Use tokens:**]{.body-text-l}
-
-Fill out this Google form: [https://forms.gle/TzD7ihnuK9vbnQbb6](https://forms.gle/TzD7ihnuK9vbnQbb6){target="_blank"} and email Sam, Annie & Sloane to let them know -->
-</div>
-</section>
-<section id="grade-tracker" class="slide level2" data-menu-title="Grade Tracker">
-<h2></h2>
-<!-- [Use the Grade Tracker to determine your course grade]{.slide-title3}
-
-<hr> -->
-
-<img data-src="images/week1/grade-tracker.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>Use the Grade Tracker to determine your course grade &amp; read the syllabus for additional <a href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?tab=t.0#heading=h.o6q63avz97mp" target="_blank">grading clarifications &amp; notes</a></p>
-</div>
-</section>
-<section id="assignment-links" class="slide level2" data-menu-title="You can view all assignments">
-<h2></h2>
-<p><span class="slide-title">All assignments are published</span></p>
-<hr>
-<p><br> <br></p>
+<p><br></p>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p>All assignments (HWs, FPMs, SRs) are published on the <a href="../../assignments.html" target="_blank">assignments page</a>.</p>
-<p><br></p>
-<p><strong>You are not expected to look ahead</strong>, but materials are available so you can see what’s coming throughout the quarter and plan your time, if helpful.</p>
-<p><br></p>
-<p><strong>Please note:</strong> we will not be grading assignments before thier listed due dates.</p>
-</div><div class="column" style="width:50%;">
+<div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/assignments.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week1/scherer-space-travel.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
-</section>
-<section id="GenAI" class="slide level2" data-menu-title="GenAI">
-<h2></h2>
-<p><span class="slide-title">Policy on Generative AI (GenAI)</span></p>
-<hr>
-<p>You may use GenAI tools in this class <strong>as long as it aligns with the learning outcomes or goals</strong> associated with assignments. You are <strong>fully responsible for the information you submit</strong> based on a GenAI query.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><span class="body-text-m teal-text"><strong>Permitted use:</strong></span></p>
-<div>
-<ul>
-<li class="fragment">Troubleshooting code or technical issues</li>
-<li class="fragment">Clarifying concepts, methods, documentation</li>
-<li class="fragment">Iterating on your research question</li>
-<li class="fragment">Strengthening your prose through revision suggestions</li>
-<li class="fragment">As a sounding board to explore ideas or approaches</li>
-</ul>
+<div class="center-text gray-text">
+<p><a href="https://github.com/z3tt/TidyTuesday/blob/main/R/2020_29_Astronauts.Rmd" target="_blank">Traveling to Outer Space</a>, by <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a></p>
 </div>
-</div><div class="column" style="width:50%;">
-<p><span class="body-text-m teal-text"><strong>Not permitted use:</strong></span></p>
-<div>
-<ul>
-<li class="fragment">Relying on AI to complete substantial portions of an assignment in place of your own reasoning and understanding</li>
-<li class="fragment">Using GenAI output without verifying its correctness or ensuring alignment with the defined task(s)</li>
-</ul>
-</div>
-</div></div>
-<div class="fragment">
-<div class="center-text">
-<p><strong>To promote transparency and support reflective practice in your use of generative AI tools, you must submit a <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0ggwvSztQiy7gzrGsXB50CC-geOjdAx18xNXiFdItAUjybA/viewform" target="_blank">GenAI Statement of Use</a> with each assignment.</strong></p>
-</div>
-<p><br></p>
-</div>
-</section>
-<section id="attendance" class="slide level2" data-menu-title="Attendance">
-<h2></h2>
-<p><span class="slide-title">Attendance is important!</span></p>
-<hr>
-<p><br> <br></p>
-<p><span class="body-text-m"><span class="teal-text"><i class="fa-solid fa-people-carry-box" aria-label="people-carry-box"></i></span> For both building a collaborative learning community <em>and</em> because it mirrors professional expectations (it’s also UCSB policy).</span></p>
-<p><br></p>
-<div class="fragment">
-<p><span class="body-text-m"><span class="teal-text"><i class="fa-solid fa-calendar-check" aria-label="calendar-check"></i></span> If you need to miss a class, be proactive and work with your instructors on a catch up plan.</span></p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="body-text-m"><span class="teal-text"><i class="fa-solid fa-viruses" aria-label="viruses"></i></span> Please stay home if you’re sick!</span></p>
-<p><br></p>
-<!-- . . . 
-
-[[]{.teal-text} Extended absenses (>2 classes) necessitate us involving academic personnel at Bren.]{.body-text-m} -->
-</div>
-</section>
-<section id="slack" class="slide level2" data-menu-title="Slack">
-<h2></h2>
-<p><span class="slide-title">Ask questions in our Slack channel</span></p>
-<hr>
-<div class="columns">
-<div class="column" style="width:50%;">
+</div><div class="column" style="width:33%;">
 <p><br></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/slack.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week1/anyene-astronauts.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p><br></p>
-<p><strong>All course-related content questions should be asked in the <code>#eds-240-data-viz</code> channel</strong> – oftentimes there are others who have the same question and will benefit from seeing the discussion.</p>
-<p><br></p>
-<p><strong>We will do our best to respond to Slack questions within 24hr</strong> (during the week). Responses after hours (5pm - 9am) are not guaranteed.</p>
-<!-- <br>
-
-Any questions sent as DMs will be copied into `#eds-240-data-viz` and answered there. -->
+<div class="center-text gray-text">
+<p><a href="https://github.com/Ijeamakaanyene/tidytuesday/blob/master/scripts/2020_12_astronaut.Rmd" target="_blank">Galaxy of Astronauts</a>, by <a href="https://ijeamaka-anyene.netlify.app/" target="_blank">Ijeamaka Anyene</a></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/thompson-astronauts.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text gray-text">
+<p><a href="https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007b_astronauts.R" target="_blank">Ages Through Time and Space</a>, by <a href="https://www.cararthompson.com/" target="_blank">Cara Thompson</a></p>
+</div>
+</div></div>
 <p><br></p>
 <div class="footer">
-<p><em>Of course, please direct message or email with any personal questions or concerns.</em></p>
+<p>Find the data on the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-14/readme.md" target="_blank">TidyTuesday repo</a></p>
+</div>
+</section>
+<section id="vertices" class="slide level2" data-menu-title="Vertices of Visualization">
+<h2></h2>
+<p><span class="slide-title">Vertices of Visualization</span></p>
+<hr>
+
+<img data-src="images/week1/vertices.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>Vertices of Communication by <a href="https://www.albertocairo.com/" target="_blank">Alberto Cairo</a>, as presented by <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a> during his 2022 <a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/" target="_blank">Graphic Design with ggplot2</a> workshop (<a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/04_data_communication.pdf" target="_blank">slides</a>)</p>
+</div>
+</section>
+<section id="r-for-data-viz" class="slide level2" data-menu-title="R for data viz">
+<h2></h2>
+<p><span class="slide-title">Why R for data viz?</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br> <br></p>
+<div>
+<ul>
+<li class="fragment"><span class="body-text-m">great ecosystem of data wrangling &amp; visualization packages (inc. a massive and growing collection of <code>{ggplot2}</code> extensions)</span></li>
+<li class="fragment"><span class="body-text-m">amazing online learning communities</span></li>
+<li class="fragment"><span class="body-text-m">data viz fundamentals apply no matter the language / tool</span></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br> <br></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week1/why-r.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </div></div>
-<!-- ---
-
-## {#expectations data-menu-title="Expectations"} 
-
-[A note on expectations]{.slide-title}
-
-<hr>
-
-- We are not mind-readers (as helpful as that would be!). Please help us help you by **bringing any issues to our attention** – the earlier the better!
-- We are working, and will continue to work, really hard to make this a great class!
-- We are super passionate about teaching, but doesn't mean it's easy or that we're infallible. We will **do our best to adapt** to student / class needs as the quarter progresses. There may be times where we won't or can't make changes to the course plan -- if so, we will be **transparent** in our reasoning why.
-- This course (unfortunately) isn't our only professional responsibility this quarter -- **we will not be available at all times** to respond to requests / questions. Here's what you can expect:
-   - [We will try our best to **respond to Slack** questions **within 24hr** (during the week)]{.body-text-s} 
-   - [A **response after-hours (5pm - 9am) is not guaranteed** (we will try our best, as our personal lives allow for)]{.body-text-s} 
-   - [We will **not be responding** to questions over the **weekend**]{.body-text-s}  -->
 </section>
-<section id="this-course1" class="slide level2" data-menu-title="What is EDS 240?">
-<h2></h2>
-<p><span class="slide-title">What is EDS 240?</span></p>
-<hr>
-<p><br></p>
-<div class="center-text body-text-m">
-<p>EDS 240: Data Visualization and Communication is about two related, but distinct things:</p>
-</div>
-<p><br></p>
-<div class="fragment">
-<p><strong>1. The theory of effective communication and data design</strong></p>
-<p><span class="teal-text"><i class="fa-solid fa-eye" title="an eye" aria-label="eye"></i></span> How people perceive and interpret graphical information<br>
-<span class="teal-text"><i class="fa-solid fa-circle-user" title="a user inside a circle" aria-label="circle-user"></i></span> Human-centered design as it relates to data visualizations</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><strong>2. The physical act of building effective data visualizations using software and data science tools</strong></p>
-<p><span class="teal-text"><i class="fa-solid fa-code" title="the symbol for code, </>" aria-label="code"></i></span> Using the Grammar of Graphics / <code>{ggplot2}</code> framework to create effective, truthful, and beautiful data visualizations <span class="teal-text"><i class="fa-solid fa-chart-column" title="a bar chart" aria-label="chart-column"></i></span></p>
-</div>
-</section>
-<section id="this-course2" class="slide level2" data-menu-title="What is EDS 240?">
-<h2></h2>
-<p><span class="slide-title">What is EDS 240?</span></p>
-<hr>
-<p><br></p>
-<div class="center-text body-text-m">
-<p><strong>The topic of data visualization is pretty darn massive.</strong></p>
-</div>
-<div class="fragment">
-<div class="center-text">
-<p>We cannot and will not cover every data visualization type, consideration, package, etc.</p>
-</div>
-<p><br></p>
-</div>
-<div class="fragment">
-<div class="center-text">
-<p>We <em>will</em> work towards a conceptual and technical understanding of <span class="teal-text"><strong>data viz fundamentals</strong></span>.</p>
-</div>
-<p><br></p>
-</div>
-<div class="fragment">
-<div class="center-text">
-<p>Data viz is a science and technical skill, but there’s also a lot of <span class="teal-text"><strong>space for creativity</strong></span>.</p>
-</div>
-<p><br></p>
-</div>
-<div class="fragment">
-<div class="center-text">
-<p>What you create can be used in your <span class="teal-text"><strong>professional portfolio</strong></span>! The more you put in, the more you’ll get out.</p>
-</div>
-</div>
-</section>
-<section id="LOs" class="slide level2" data-menu-title="Learning Objectives">
-<h2></h2>
-<p><span class="slide-title">Course Learning Objectives</span></p>
-<hr>
-<p><span class="teal-text"><i class="fa-solid fa-magnifying-glass" aria-label="magnifying-glass"></i></span> Identify which types of visualizations are most appropriate for your data and your audience</p>
-<p><br></p>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-broom" aria-label="broom"></i></span> Prepare (e.g.&nbsp;clean, explore, wrangle) data so that it’s appropriately formatted for building data visualizations</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-chart-column" aria-label="chart-column"></i></span> Build effective, responsible, accessible, and aesthetically-pleasing visualizations using the R programming language, and specifically <code>{ggplot2}</code> + ggplot2 extension packages</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-file-code" aria-label="file-code"></i></span> Write code from scratch <em>and</em> interpret and adapt code written by others</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-users" aria-label="users"></i></span> Apply a DEI (Diversity, Equity &amp; Inclusion) lens to the process of designing data visualizations</p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><span class="teal-text"><i class="fa-solid fa-comments" aria-label="comments"></i></span> Assess, critique, and provide constructive feedback on data visualizations</p>
-</div>
-</section>
-<section id="end-break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
+<section id="end-break" class="slide level2" data-menu-title="# End / Break #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">
 <i class="fa-solid fa-mug-hot" title="a mug with steam rising out the top" aria-label="mug-hot"></i> Take a Break
 </p>
 <p class="caption-text">
-<em>~ This is the end of Lesson 1 (of 3) ~</em>
+<em>~ This is the end of Lesson 2 (of 3) ~</em>
 </p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_c1b401ac" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_58581dcd" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
-<!-- ---
-
-## {#help data-menu-title="Getting help"} 
-
-[Getting unstuck]{.slide-title}
-
-<hr>
-
-Troubleshooting, deciphering code, and trying (and failing at) new things is a **large** part of being a data scientist. Grad school is a safe space to get comfy with and practice these!
-
-
-
-::: {.cell layout-align="center"}
-::: {.cell-output-display}
-![](images/week1/getting-help-steps.png){fig-align='center' width=100%}
-:::
-:::
-
-
-
-Check out the [getting unstuck](../../getting-unstuck.qmd){target="_blank"} page (under "resources") on the course website for more tips -- especially on **how to ask a question.**
-
----
-
-## {#sucking-less data-menu-title="Sucking less"} 
-
-[A note on pushing through the challenges]{.slide-title}
-
-<hr>
-
-:::: columns
-
-::: {.column width="50%"}
-
-<br>
-<br>
-
-::: {.body-text-m}
->“There is no way of [going from] knowing nothing about a subject to knowing something about a subject without going through a period of much frustration and suckiness.”
-**"Push through. You'll suck less."**
-:::
-
-::: {.right-align-text} 
--Hadley Wickham, author of `{ggplot2}`
-:::
-:::
-
-::: {.column width="50%"}
-
-<br>
-<br>
-<br>
-
-
-
-::: {.cell layout-align="center"}
-::: {.cell-output-display}
-![](images/week1/adventure-time.gif){fig-align='center' width=100%}
-:::
-:::
-
-
-:::
-
-::::
-
-::: {.body-text-s .gray-text .center-text}
-Slide adapted from [Andrew Heiss'](https://www.andrewheiss.com/){target="_blank"} lesson, [Truth, beauty, and data](https://datavizs23.classes.andrewheiss.com/content/01-content.html){target="_blank"} ([PMAP 8101: Data Visualization](https://datavizs23.classes.andrewheiss.com/){target="_blank"})
-::: -->
-<!-- --- -->
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
