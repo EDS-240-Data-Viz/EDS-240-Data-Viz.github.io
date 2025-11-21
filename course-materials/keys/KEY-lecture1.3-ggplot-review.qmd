@@ -58,24 +58,16 @@ Explore the relationship between penguin **bill length** and **bill depth**. Our
 
 1. initializing a plot object and adding a geometry layer to represent our data
 2. when to define data & map variables globally (e.g. within `ggplot()`) vs. locally (e.g. within a `geom_*()`)
-3. updating how aesthetic mappings manifest visually aka scaling
+3. updating how aesthetic mappings manifest visually, aka scaling
 4. piping into a ggplot
 
 ### Example 1 (the basics)
 
 - initialize a plot object
-- map aesthetics
-- show that you can omit argument names
+- define data & map aesthetics (also, omitting argument names)
 - add a geometry layer
 - update how aesthetic mappings manifest visually (i.e. scaling)
-
-```{r}
-#| warning: false
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + 
-  geom_point()
-```
-
-### Example 2 (mapping custom colors)
+- map custom colors
 
 ```{r}
 #| warning: false
@@ -84,7 +76,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
   scale_color_manual(values = c("darkorange","purple","cyan4"))
 ```
 
-### Example 3 (mapping color to continuous variable)
+### Example 2 (mapping color to continuous variable)
 
 ```{r}
 #| warning: false
@@ -93,7 +85,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)
   scale_color_gradient(low = "#132B43", high = "#F7DD4C")
 ```
 
-### Example 4 (updating color for all points)
+### Example 3 (updating color for all points)
 
 ```{r}
 #| warning: false
@@ -101,7 +93,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(color = "blue")
 ```
 
-### Example 5 (local vs. global data & variable mappings) 
+### Example 4 (local vs. global data & variable mappings) 
 
 - define data and mappings within `geom_*()` (locally) rather than in `ggplot()` (globally) -- helpful if you plan to include multiple geoms with different mappings (e.g. you're plotting data from multiple data frames):
 
@@ -127,7 +119,7 @@ ggplot() +
              size = 5, shape = 24)
 ```
 
-### Example 6 & 7 (mapping variables globally vs. locally)
+### Example 5 & 6 (mapping variables globally vs. locally)
 
 - global mappings are passed down to all subsequent layers:
 
@@ -151,7 +143,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_smooth(method = "lm")
 ```
 
-### Example 8 (piping data into a ggplot)
+### Example 7 (piping data into a ggplot)
 
 - useful if you need to do a small bit of wrangling first, but don't want to create a whole new df
 
@@ -178,8 +170,7 @@ Explore **penguin species counts**. Our goals are to review:
 - initialize a plot object
 - map aesthetics
 - add a geometry layer
-- explore default statistical transformations 
-  - reading documentation is important here!
+- explore default statistical transformations (reading documentation is important here!)
 
 ```{r}
 #| warning: false
@@ -203,17 +194,9 @@ ggplot(penguin_summary, aes(x = species, y = n)) +
   geom_bar(stat = "identity")
 ```
 
-### Example 3 (override default stat *mapping*)
+**Note:** See the slides for an example of overriding the default stat *mapping* (e.g. displaying these y-axis values as proportions, rather than counts)
 
-- e.g. we can display the same data but with y-axis values as *proportions* rather than counts
-
-```{r}
-#| warning: false
-ggplot(data = penguins, mapping = aes(x = species, y = after_stat(prop), group = 1)) +
-  geom_bar()
-```
-
-### Example 4 (default position adjustment)
+### Example 3 (default position adjustment)
 
 - position adjustments tweak position of elements to resolve overlapping geoms
 - all geoms have a default position (e.g. barplots have `position = "stack"`) -- see documentation
@@ -225,7 +208,7 @@ ggplot(penguins, aes(x = species, fill = island)) +
   geom_bar(position = "stack") # this is the default, so you don't actually need to specify!
 ```
 
-### Example 5 & 6 (override default position adjustments)
+### Example 4 & 5 (override default position adjustments)
 
 - `position = "fill"` creates stacked bars of the same height (easier to compare proportions):
 
@@ -243,7 +226,7 @@ ggplot(penguins, aes(x = species, fill = island)) +
   geom_bar(position = "dodge") 
 ```
 
-### Example 7 (alternatively, use `position_*()`)
+### Example 6 (alternatively, use `position_*()`)
 
 ```{r}
 #| warning: false
@@ -251,7 +234,7 @@ ggplot(penguins, aes(x = species, fill = island)) +
   geom_bar(position = position_dodge2(preserve = "single"))
 ```
 
-### Example 8 (default coordinate system)
+### Example 7 (default coordinate system)
 
 ```{r}
 #| warning: false
@@ -260,7 +243,7 @@ ggplot(penguins, aes(x = species)) +
   coord_cartesian() # you don't need to explicitly include `coord_cartesian()` since it's the default
 ```
 
-### Example 9 & 10 (alternative coordinate systems)
+### Example 8 & 9 (alternative coordinate systems)
 
 - flip x & y axes:
 
@@ -280,16 +263,7 @@ ggplot(penguins, aes(x = species)) +
   coord_polar()
 ```
 
-### Example 11 (pre-made themes)
-
-```{r}
-#| warning: false
-ggplot(penguins, aes(x = species)) +
-  geom_bar() +
-  theme_light() 
-```
-
-### Example 12 (customize further with `theme()`)
+### Example 10 (pre-made themes + futher customization with `theme()`)
 
 ```{r}
 #| warning: false
