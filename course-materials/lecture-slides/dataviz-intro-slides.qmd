@@ -1,0 +1,981 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../meds-slides-styles.scss
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#053660"} 
+
+[EDS 240: Lecture 1.2]{.custom-title}
+
+[*Data visualization: an intro*]{.custom-subtitle}
+
+<hr class="hr-teal">
+
+[Week 1 | January 7^th^, 2026]{.custom-subtitle3}
+
+---
+
+## {#what-is-visualization1 data-menu-title="What is data viz?"}
+
+[What is data visualization?]{.slide-title}
+
+<hr>
+
+>*"...the practice of designing and creating easy-to-communicate and easy-to-understand graphic or visual representations of a large amount of complex quantitative and qualitative data and information with the help of static, dynamic or interactive visual items."*
+
+::: {.right-align-text .body-text-s}
+-from [Wikipedia](https://en.wikipedia.org/wiki/Data_and_information_visualization){target="_blank"}
+:::
+
+<br>
+
+. . .
+
+:::: columns
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/ggplot-example.png")
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/gganimate-example.gif")
+```
+:::
+
+::: {.column width="33%"}
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/shiny-example.gif")
+```
+:::
+
+::::
+
+:::: columns
+
+::: {.column width="33%"}
+::: {.center-text}
+Created using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}
+:::
+:::
+
+::: {.column width="33%"}
+::: {.center-text}
+Created using [`{gganimate}`](https://gganimate.com/){target="_blank"}
+:::
+:::
+
+::: {.column width="33%"}
+::: {.center-text}
+Created using [`{shiny}`](https://shiny.posit.co/){target="_blank"}
+:::
+:::
+
+::::
+
+---
+
+## {#what-is-visualization2 data-menu-title="Data Viz: alternative definitions"}
+
+[What is data visualization?]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+::: {.body-text-m}
+> *"any graphical representation of information and data"*
+:::
+
+::: {.right-align-text}
+-[Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}, [Effective Data Visualization](https://www.youtube.com/watch?v=swzFdMc6WPk){target="_blank"}
+:::
+
+<br>
+
+. . . 
+
+::: {.body-text-m}
+> *"part art and part science"*
+:::
+
+::: {.right-align-text}
+-[Claus O. Wilke](https://clauswilke.com/){target="_blank"}, [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/index.html){target="_blank"}
+:::
+
+
+---
+
+## {#lascaux data-menu-title="Lascaux"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**16,500 years ago, Pleistocene**]{.body-text-m}
+
+The Lascaux Cave Paintings are thought to be some of the first charted stars and constellations.
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/lascaux1.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/lascaux2.png")
+``` 
+:::
+::::
+
+::: {.footer}
+Sources: [BBC](http://news.bbc.co.uk/2/hi/science/nature/871930.stm){target="_blank"} & [Rock Art Blog](https://rockartblog.blogspot.com/2018/08/are-lascaux-cave-paintings-encoded.html){target="_blank"}
+
+[**16,500 years ago**]{.teal-text} | ~1150 BC | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day
+:::
+
+::: {.notes}
+- Lascaux Caves in the southwest of France; Pleiades star cluster (seven sisters) also found on the cave walls
+:::
+
+---
+
+## {#Amennakhte data-menu-title="Amennakhte"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**~1150 BC**]{.body-text-m}
+
+Oldest known geologic map, the Turin Papyrus Map, depicts a dry riverbed (Wadi Hammamat) and major mining region in Egypt's Eastern Desert. 
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/turin-papyrus.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Turin_Papyrus_Map){target="_blank"}
+
+16,500 years ago | [**~1150 BC**]{.teal-text} | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day
+:::
+
+::: {.notes}
+It was prepared by Amennakhte, Scribe-of-the-Tomb, for Ramses IV's quarrying expedition to the Wadi Hammamat for the purpose of obtaining blocks of stone for building statues of the king.
+:::
+
+---
+
+## {#Inca-empire data-menu-title="Inca-empire"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1400 - 1532 AD**]{.body-text-m}
+
+Quipus (kee-poos) were recording devices used by the Inca Empire for data collection, census records, calendaring, etc.
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/quipu.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [Smithsonian](https://www.si.edu/newsdesk/snapshot/quipu){target="_blank"}
+
+16,500 years ago | ~1150 BC | [**1400 - 1532 AD**]{.teal-text} | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day
+:::
+
+---
+
+## {#van-Langren data-menu-title="van Langren"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1644**]{.body-text-m}
+
+Michael Florent van Langren, Flemish astronomer, created the first (known) statistical graph showing differences in estimates of longitudinal distance between Toledo and Rome.
+:::
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "90%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/toledo-rome.png")
+```
+
+::: {.footer}
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Michael_van_Langren){target="_blank"}
+
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | [**1644**]{.teal-text} | 1786 | 1846 | 1856 | 1869 | 1900 | modern day
+:::
+
+::: {.notes}
+- van Langren was a dutch mathematician / astronomer
+- served as royal mathematician to King Phillip IV of Spain
+- worked on one of the most significant problems of his time (accurate determination of longitude between Toledo & Rome, particularly navigation by sea)
+- graph shows all available estimates in distance (inaccuracies resulted in many shipwrecks)
+:::
+
+---
+
+## {#playfair data-menu-title="Playfair"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1786**]{.body-text-m}
+
+William Playfair, Scottish engineer and political economist, is credited as the creator of the first bar chart (featuring Scottish trade data, 1780 - 1781), as well as line and pie charts.
+:::
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "90%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/playfair-bar.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [Wikipedia](https://en.wikipedia.org/wiki/William_Playfair){target="_blank"}
+
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | [**1786**]{.teal-text} | 1846 | 1856 | 1869 | 1900 | modern day
+:::
+
+---
+
+## {#willard data-menu-title="Willard"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1846**]{.body-text-m}
+
+Emma Hart Willard, America's first professional female cartographer, created the *Temple of Time*, which depicts the fall and rise of empires throughout history. It won a medal at the 1851 World's Fair in London.
+:::
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/temple-of-time.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [The Marginalian](https://www.themarginalian.org/2019/07/09/emma-willard/){target="_blank"}
+
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | [**1846**]{.teal-text} | 1856 | 1869 | 1900 | modern day
+:::
+
+::: {.notes}
+- Willard map maker & founder of first school for women’s higher education in the US
+- Temple of Time uses the architecture as a metaphor for history; foreground = present; columns represent centuries 
+- she believed that facts must be connected to one another to be meaningful and that they will they be most easily retained if presented visually
+- [World’s Fair in London](https://www.londonmuseum.org.uk/collections/london-stories/what-was-great-exhibition-1851/#:~:text=The%20creation%20of%20Queen%20Victoria's,in%20a%20giant%20glass%20building.) = one of the most popular public attractions in 19th-century London, aimed to celebrate modern design and promote Britain as an industrial and imperial power
+:::
+
+---
+
+## {#nightingale data-menu-title="Nightingale"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1856**]{.body-text-m}
+
+Florence Nightingale was an English wartime nurse who campaigned to improve sanitary conditions of military hospitals. The  *Diagram of the Causes of Mortality in the Army of the East* shows that deaths from preventable diseases (blue) outnumbered combat fatalities (red) in military hospitals in 1854 & early 1855.
+:::
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/nightingale.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [Scientific American](https://www.scientificamerican.com/article/how-florence-nightingale-changed-data-visualization-forever/){target="_blank"}
+
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | [**1856**]{.teal-text} | 1869 | 1900 | modern day
+:::
+
+::: {.notes}
+- Nightingale dedicated much of her life to conveying public health statistics in exciting & easy-to-understand ways.
+- The changes she put in place greatly [reduced those deaths](https://daily.jstor.org/florence-nightingale-data-visualization-visionary/){target="_blank"} by April 1855.
+:::
+
+---
+
+## {#minard data-menu-title="Minard"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1869**]{.body-text-m}
+
+Charles Minard, a French civil engineer, produced what is referred to as, "the greatest visualization created." *Napoleon's Russian Campaign* displays 6 types of data in 2D (# troops, distance traveled, temperature, lat / lon, direction of travel, location relative to specific dates).
+:::
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/minard.png")
+```
+
+<br>
+
+::: {.footer}
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Charles_Joseph_Minard){target="_blank"}
+
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | [**1869**]{.teal-text} | 1900 | modern day
+:::
+
+---
+
+## {#DuBois data-menu-title="DuBois"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+[**1900**]{.body-text-m}
+
+W.E.B. DuBois, was an African American writer, scholar and activist. He used photographs and data visualizations to commemorate the lives of African Americans at the turn of the century and challenge the racist caricatures and stereotypes of the day.
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "50%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/DuBois-anyene.png")
+```
+
+::: {.center-text .body-text-xs .gray-text}
+*Assessed value of household and kitchen furnitures owned by Georgia Negroes* [Recreation](https://github.com/Ijeamakaanyene/tidytuesday/blob/master/outputs/2021_06_webdubois.png){target="_blank"} by [Ijeamaka Anyene](https://ijeamaka-anyene.netlify.app/){target="_blank"} for the 2021 [#DuBoisChallenge](https://nightingaledvs.com/the-dubois-challenge/){target="_blank"}
+:::
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "50%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/DuBois-freites.png")
+```
+
+::: {.center-text .body-text-xs .gray-text}
+*Proportion of Freemen and Slaves Among American Negroes.* [Recreation](https://github.com/luisfrein/R_Tidytuesday/tree/master/2021/W08_Dubois_Challenge){target="_blank"} by [Luis Freites](https://github.com/luisfrein){target="_blank"} for the 2021 [#DuBoisChallenge](https://nightingaledvs.com/the-dubois-challenge/){target="_blank"}. Source: [Twitter](https://x.com/ijeamaka_a/status/1361715338027560962){target="_blank"}
+:::
+:::
+::::
+
+<br>
+<br>
+
+::: {.footer}
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | [**1900**]{.teal-text} | modern day
+:::
+
+<!-- <br> -->
+
+<!-- ::: {.footer} -->
+<!-- Source: [Twitter](https://x.com/ijeamaka_a/status/1361715338027560962){target="_blank"} -->
+<!-- ::: -->
+
+::: {.notes}
+- WEB DuBois was the first African American to earn a PhD from Harvard University
+- helped found the National Association for the Advancement of Colored People (NAACP)
+:::
+
+---
+
+## {#modern-day data-menu-title="Modern day"}
+
+[(A little bit of the) History of data visualization]{.slide-title2}
+
+<hr>
+
+::: {.center-text}
+The emergence of programming languages and tools in recent years has made data visualization design easier than every before.
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/modern-viz-tools.png")
+```
+
+::: {.footer}
+16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | 1900 | [**modern day**]{.teal-text}
+:::
+
+---
+
+##  {#why-visualize data-menu-title="# Why visualize data? #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa comments title="two talking bubbles" >}} Why do we visualize data?</p>
+<p class="caption-text">*Spend the next few minutes discussing with your Learning Partners, and if possible, pull up some example visualizations that demonstrate your thoughts / discussion points*</p>
+</div>
+
+```{r}
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+---
+
+## {#answer-qs data-menu-title="Data viz for answering Qs"} 
+
+[. . . to answer questions / derive insights]{.slide-title}
+
+<hr>
+
+:::: columns
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/ripple-etal-2023-fig1.png")
+```
+:::
+
+::: {.column width="50%"}
+::: {.center-text .body-text-m}
+[**Ripple et al. 2023**](https://doi.org/10.1093/biosci/biad080){target="_blank"}
+:::
+
+[**Fig Caption:** Unusual climate anomalies in 2023 (the red line, which appears bold in print). Sea ice extent (a, b), temperatures (c–e), and area burned in Canada (f) are presently far outside their historical ranges. These anomalies may be due to both climate change and other factors. Sources and additional details about each variable are provided in supplemental file S1. Each line corresponds to a different year, with darker gray representing later years.]{.body-text-s}
+
+<br>
+
+::: {.body-text-s .gray-text .center-text}
+*A nice [Twitter thread](https://twitter.com/DoctorVive/status/1717187963036049669){target="_blank"} on key takeaways from the above paper*
+:::
+
+:::
+
+::::
+
+---
+
+## {#exploration data-menu-title="Data viz for exploration"} 
+
+[. . . to explore & generate new questions]{.slide-title}
+
+<hr>
+
+>*"**Exploratory data analysis (EDA)** is not a formal process with a strict set of rules. More than anything, EDS is a state of mind...you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will hone in on a few particularly productive insights that you'll eventually write-up and communicate to others."*
+
+::: {.right-align-text .body-text-s} 
+-Hadley Wickham, author of [R for Data Science](https://r4ds.hadley.nz/eda){target="_blank"}
+:::
+
+. . .
+
+:::: columns
+
+::: {.column width="33%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/diamond-hist.png")
+```
+
+```{r}
+#| eval: false
+#| echo: true
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(binwidth = 0.5)
+```
+:::
+
+::: {.column width="33%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/cars-boxplot.png")
+```
+
+```{r}
+#| eval: false
+#| echo: true
+ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
+  geom_boxplot()
+```
+:::
+
+::: {.column width="33%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/diamonds-freqplot.png")
+```
+
+```{r}
+#| eval: false
+#| echo: true
+ggplot(diamonds, aes(x = price, y = after_stat(density))) + 
+  geom_freqpoly(aes(color = cut), binwidth = 500, linewidth = 0.75)
+```
+:::
+
+::::
+
+---
+
+## {#see-trends data-menu-title="Data viz to see trends"} 
+
+[. . . to identify trends]{.slide-title}
+
+<hr>
+
+::: {.center-text .body-text-l}
+**Same summary statistics, different distributions!**
+:::
+
+:::: columns
+
+::: {.column width="50%}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/anscombes-quartet.png")
+```
+
+:::
+
+::: {.column width="50%}
+
+<br>
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/datasaurus-dozen.gif")
+```
+:::
+
+::::
+
+:::: columns
+
+::: {.column width="50%"}
+::: {.center-text}
+Anscombe's Quartet  
+([Anscombe 1973](https://doi.org/10.2307/2682899){target="_blank"})
+:::
+:::
+
+::: {.column width="50%"}
+::: {.center-text}
+Datasaurus Dozen  
+([Matejka & Fitzmaurice 2017](https://doi.org/10.1145/3025453.3025912){target="_blank"}, expanding upon Alberto Cairo's [Datasaurus](http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html){target="_blank"})
+:::
+:::
+
+::::
+
+---
+
+## {#prompt-discussion1 data-menu-title="Data viz for discussion (a)"} 
+
+[. . . to prompt discussion]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/hawkins-warming-stripes.png")
+```
+
+<br>
+
+::: {.center-text .gray-text}
+[Warming Strips](https://showyourstripes.info/){target="_blank"}, by [Ed Hawkins](http://www.met.reading.ac.uk/~ed/home/index.php){target="_blank"}
+:::
+
+---
+
+## {#prompt-discussion2 data-menu-title="Data viz for discussion (b)"} 
+
+[. . . to prompt discussion]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/lipponen-anomalies.gif")
+```
+
+<br>
+
+::: {.center-text .gray-text}
+gif created from [Antti Lipponen](https://anttilip.net/){target="_blank"}'s [Temperature Anomolies](https://www.flickr.com/photos/150411108@N06/35471910724/){target="_blank"}.
+:::
+
+---
+
+## {#prompt-discussion3 data-menu-title="Data viz for discussion (c)"} 
+
+[. . . to prompt discussion]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/sabbarao-climate-spiral.gif")
+```
+
+<br>
+
+::: {.center-text .gray-text}
+gif created from [Mark SubbaRao](https://www.linkedin.com/in/msubbarao/){target="_blank"}'s [Climate Spiral](https://svs.gsfc.nasa.gov/5161){target="_blank"}. For a similar visualization with accompanying `{ggplot2}` code, see [Nicola Rennie](https://nrennie.rbind.io/){target="_blank"}'s [TidyTuesday contribution](https://github.com/nrennie/tidytuesday/tree/main/2023/2023-07-11){target="_blank"}!
+:::
+
+---
+
+## {#bremer-pathwork data-menu-title="Data viz for aRt (N. Bremer"}
+
+[. . . to create art / tell a story]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+:::: columns
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/bremer-patchwork-kingdoms1.png")
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/bremer-patchwork-kingdoms2.png")
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/bremer-patchwork-kingdoms3.png")
+```
+:::
+
+::::
+
+::: {.center-text .gray-text}
+[Patchwork Kingdoms](https://www.visualcinnamon.com/art/patchwork-kingdoms/){target="_blank"}, by [Nadieh Bremer](https://www.visualcinnamon.com/about/){target="_blank"} portraying the "digital divide" in schools across the world
+:::
+
+::: notes
+- a data & generative art charity collection for the [Giga Connect](https://www.unicefusa.org/stories/giga-initiative-connecting-worlds-schools-internet){target="_blank"} project of UNICEF which aims to connect all of the schools in the world to the internet. 
+- a dataset of 1 million schools and for ±280,000 of those they know if those schools are connected to the internet
+- took this data about the schools, split it into 1000 subsets, and turned each school into a tiny square
+- upright kingdoms are schools that are already connected to the internet, while those in the hidden / upside down kingdoms are not. Each of the 1000 pieces is thereby showing the “digital divide” that still exists in our world, and the funds from this sale will help to bring more schools from the hidden to the upright kingdom.
+:::
+
+---
+
+## {#astronauts data-menu-title="Data viz for aRt (C. Scherer & I. Anyene"}
+
+[. . . to create art / tell a story]{.slide-title}
+
+<hr>
+
+::: {.center-text}
+To enlarge, **Right click** > **Open Image in New Tab**
+:::
+
+<br>
+
+:::: columns
+
+::: {.column width="33%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/scherer-space-travel.png")
+```
+
+::: {.center-text .gray-text}
+[Traveling to Outer Space](https://github.com/z3tt/TidyTuesday/blob/main/R/2020_29_Astronauts.Rmd){target="_blank"}, by [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}
+:::
+:::
+
+::: {.column width="33%"}
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/anyene-astronauts.png")
+```
+
+::: {.center-text .gray-text}
+[Galaxy of Astronauts](https://github.com/Ijeamakaanyene/tidytuesday/blob/master/scripts/2020_12_astronaut.Rmd){target="_blank"}, by [Ijeamaka Anyene](https://ijeamaka-anyene.netlify.app/){target="_blank"}
+:::
+:::
+
+::: {.column width="33%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/thompson-astronauts.png")
+```
+
+::: {.center-text .gray-text}
+[Ages Through Time and Space](https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007b_astronauts.R){target="_blank"}, by [Cara Thompson](https://www.cararthompson.com/){target="_blank"}
+:::
+:::
+
+::::
+
+<br>
+
+::: {.footer}
+Find the data on the [TidyTuesday repo](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-14/readme.md){target="_blank"}
+:::
+
+---
+
+## {#vertices data-menu-title="Vertices of Visualization"} 
+
+[Vertices of Visualization]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/week1/vertices.png")
+```
+
+::: footer
+Vertices of Communication by [Alberto Cairo](https://www.albertocairo.com/){target="_blank"}, as presented by [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"} during his 2022 [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/){target="_blank"} workshop ([slides](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/04_data_communication.pdf){target="_blank"})
+:::
+
+---
+
+## {#r-for-data-viz data-menu-title="R for data viz"} 
+
+[Why R for data viz?]{.slide-title}
+
+<hr>
+
+:::: columns
+
+::: {.column width="50%"}
+
+<br>
+<br>
+
+::: {.incremental}
+- [great ecosystem of data wrangling & visualization packages (inc. a massive and growing collection of `{ggplot2}` extensions)]{.body-text-m}
+- [amazing online learning communities]{.body-text-m}
+- [data viz fundamentals apply no matter the language / tool]{.body-text-m}
+:::
+
+:::
+
+::: {.column width="50%"}
+
+<br>
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week1/why-r.png")
+```
+:::
+
+::::
+
+---
+
+##  {#end-break data-menu-title="# End / Break #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p>
+</div>
+
+```{r}
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+

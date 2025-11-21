@@ -280,17 +280,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</a>
   <ul class="collapse">
   <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
-  <li><a href="#create-class-repo" id="toc-create-class-repo" class="nav-link" data-scroll-target="#create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</a></li>
+  <li><a href="#create-class-repo" id="toc-create-class-repo" class="nav-link" data-scroll-target="#create-class-repo">B. Create &amp; organize your <code>EDS-240-class-examples</code> repository</a></li>
   <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">C. Download the <code>.qmd</code> template</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
-  <ul class="collapse">
-  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-download-necessary-data" id="toc-b.-download-necessary-data" class="nav-link" data-scroll-target="#b.-download-necessary-data">B. Download necessary data</a></li>
-  <li><a href="#c.-add-data-to-.gitignore" id="toc-c.-add-data-to-.gitignore" class="nav-link" data-scroll-target="#c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></a></li>
-  <li><a href="#d.-prepare-a-week1-discussion.qmd-file" id="toc-d.-prepare-a-week1-discussion.qmd-file" class="nav-link" data-scroll-target="#d.-prepare-a-week1-discussion.qmd-file">D. Prepare a <code>week1-discussion.qmd</code> file</a></li>
-  </ul></li>
+  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a></li>
   <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
   <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
   </ul>
@@ -322,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="create-class-repo" class="level3">
-<h3 class="anchored" data-anchor-id="create-class-repo">B. Create your <code>EDS-240-class-examples</code> repository</h3>
+<h3 class="anchored" data-anchor-id="create-class-repo">B. Create &amp; organize your <code>EDS-240-class-examples</code> repository</h3>
 <p>We’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). <strong>Create and clone a GitHub repository named <code>EDS-240-class-examples</code></strong> (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -340,10 +334,11 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 <ol type="1">
 <li>Navigate to your GitHub profile and click on <strong>Repositories</strong> (top menu bar)</li>
 <li>Click on the green <strong>New</strong> button in the upper right-hand corner</li>
-<li>Give it the name <code>EDS-240-class-examples</code>, and optionally, a short description. Select the radio button for <strong>Public</strong> repository (it should be selected by default). <strong>Initialize this repository with a README</strong> by checking the box. Click <strong>Create repository</strong>.</li>
+<li>Give it the name <code>EDS-240-class-examples</code>, and optionally, a short description. Select the radio button for <strong>Public</strong> repository (it should be selected by default). <strong>Initialize this repository with a README</strong>, then click <strong>Create repository</strong>.</li>
 <li>From your repo’s main page, click the green <strong>Code</strong> button and copy the URL to your clipboard</li>
 </ol>
 <p><strong>Clone your repo:</strong></p>
+<p><em>You may choose the IDE of your choice, though the instructions below describe a workflow for RStudio users.</em></p>
 <ol start="5" type="1">
 <li>Open up RStudio</li>
 <li>Click on the drop down menu next to the R project icon (top right corner)</li>
@@ -354,7 +349,7 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 </div>
 </div>
 <p><strong>You should also create a folder for each week (e.g.&nbsp;<code>week1/</code>, <code>week2/</code>, <code>week3/</code>, etc.)</strong> inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g.&nbsp;data files) to your <code>.gitignore</code> file, which is automatically created when you clone your repo as an R project (you’ll add data to your <code>.gitignore</code> for the first time during this week’s pre-discussion prep).</p>
-<p><strong>Remember to fill out your repo’s README,</strong> referencing the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>, as well.</p>
+<p><strong>Remember to also fill out your repo’s README,</strong> referencing the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>.</p>
 </section>
 <section id="download-templates" class="level3">
 <h3 class="anchored" data-anchor-id="download-templates">C. Download the <code>.qmd</code> template</h3>
@@ -378,17 +373,17 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/lecture-slides/lecture1.1-logistics-slides.html" target="_blank">Lecture 1.1: course logistics &amp; syllabus</a></td>
+<td><a href="../course-materials/lecture-slides/syllabus-slides.html" target="_blank">Lecture 1.1: course logistics &amp; syllabus</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
 </tr>
 <tr class="even">
-<td><a href="../course-materials/lecture-slides/lecture1.2-intro-slides.html" target="_blank">Lecture 1.2: data viz intro</a></td>
+<td><a href="../course-materials/lecture-slides/dataviz-intro-slides.html" target="_blank">Lecture 1.2: data viz intro</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
 </tr>
 <tr class="odd">
-<td><a href="../course-materials/lecture-slides/lecture1.3-ggplot-review-slides.html" target="_blank">Lecture 1.3: <code>{ggplot2}</code> review</a></td>
+<td><a href="lecture-slides/lecture1.3-ggplot-review-slides.qmd" target="_blank">Lecture 1.3: <code>{ggplot2}</code> review</a></td>
 <td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week1/TEMPLATE-lecture1.3-ggplot-review.qmd" target="_blank">1.3 template</a></td>
 <td><a href="../course-materials/keys/KEY-lecture1.3-ggplot-review.html" target="_blank">1.3 key</a></td>
 </tr>
@@ -397,104 +392,83 @@ Step-by-step instructions for creating and cloning a GitHub repo:
 </section>
 <section id="pre-discussion-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
-<!-- Today's discussion will **focus on data cleaning / wrangling**. Before coming to section, you'll need to install some packages and download data. -->
-<section id="a.-install-required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"here"</span>) <span class="co"># for reproducible, relative file paths</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>) <span class="co"># tools for cleaning dirty data</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usdata"</span>) <span class="co"># demographic data on the United States at the county and state levels spanning multiple years.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="b.-download-necessary-data" class="level3">
-<h3 class="anchored" data-anchor-id="b.-download-necessary-data">B. Download necessary data</h3>
-<p><a href="https://drive.google.com/file/d/1H2lilk6lF3oTZtAT8UP4Fa4MSuQ5VQ9Y/view?usp=sharing" target="_blank">Download fracking data (<code>registryupload_1.csv</code>)</a> from Google Drive and save it to your class repo in the following location: <code>EDS-240-class-examples/week1/data/registryupload_1.csv</code></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Why are we downloading from Google Drive and not directly from FracFocus?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>These data were originally downloaded as a <a href="https://drive.google.com/file/d/1XUW-660tXKhxTl0tSkWFqtvaJcRedD7r/view?usp=sharing" target="_blank">zip file</a> from <a href="https://fracfocus.org/data-download" target="_blank">FracFocus</a> in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>. For this reason, we’ll be working with this saved version of the data, rather than downloading directly from <a href="https://fracfocus.org/data-download" target="_blank">FracFocus’s data download page</a>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="c.-add-data-to-.gitignore" class="level3">
-<h3 class="anchored" data-anchor-id="c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></h3>
-<p>We don’t want to push any data in our repo to GitHub (GitHub enforces file size limits, and you’ll run into some serious headaches when you try to push a file that’s too big). To avoid doing this, we can add our data files to our <code>.gitignore</code> file, which, as the name implies, is a collection of files that we want Git to ignore. <strong>Open up your <code>.gitignore</code> file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):</strong></p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.gitignore</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/week*/data/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>Notice that when you <strong>Save</strong> your modified <code>.gitignore</code> file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified <code>.gitignore</code> file appears in it’s place (this is what we want!). Stage / add, commit, and push <code>.gitignore</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-A gif of this whole process (in case it’s helpful!)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/gitignore.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="center-text gray-text">
-<p>An example repo with three folders: <code>week1/</code>, <code>week2/</code>, and <code>other-stuff/</code>. Each of those folders has a subfolder named <code>data/</code>, and each <code>data/</code> folder contains a <code>.csv</code> file. Adding the line, <code>/week*/data/</code> to the <code>.gitignore</code> tells Git to ignore folders (and their contents) named <code>data/</code> that are within a parent folder named <code>week__</code> (the <code>*</code> acts as a wildcard). If we wanted to ignore all three <code>data/</code> folders (including <code>other-stuff/data/</code>), we can instead include <code>/*/data/</code> to our <code>.gitignore</code>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="d.-prepare-a-week1-discussion.qmd-file" class="level3">
-<h3 class="anchored" data-anchor-id="d.-prepare-a-week1-discussion.qmd-file">D. Prepare a <code>week1-discussion.qmd</code> file</h3>
-<p>Add a new blank file to your class repo – you’ll complete your discussion exercises here. For organization’s sake, it should live in the following location: <code>EDS-240-class-examples/week1/week1-discussion.qmd</code>. Fill out the necessary YAML information (<code>title</code>, <code>author</code>, <code>date</code> + any other information you find helpful).</p>
-</section>
+<p><em>Comming soon</em></p>
+<!-- ### A. Install required packages
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-line-numbers="false"}
+install.packages("here") # for reproducible, relative file paths
+install.packages("janitor") # tools for cleaning dirty data
+install.packages("usdata") # demographic data on the United States at the county and state levels spanning multiple years.
+```
+:::
+
+
+
+
+### B. Download necessary data
+
+[Download fracking data (`registryupload_1.csv`)](https://drive.google.com/file/d/1H2lilk6lF3oTZtAT8UP4Fa4MSuQ5VQ9Y/view?usp=sharing){target="_blank"} from Google Drive and save it to your class repo in the following location: `EDS-240-class-examples/week1/data/registryupload_1.csv` 
+
+::: {.callout-note collapse=true} 
+## Why are we downloading from Google Drive and not directly from FracFocus?
+These data were originally downloaded as a [zip file](https://drive.google.com/file/d/1XUW-660tXKhxTl0tSkWFqtvaJcRedD7r/view?usp=sharing){target="_blank"} from [FracFocus](https://fracfocus.org/data-download){target="_blank"} in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise . For this reason, we'll be working with this saved version of the data, rather than downloading directly from [FracFocus's data download page](https://fracfocus.org/data-download){target="_blank"}.
+:::
+
+### C. Add data to `.gitignore`
+
+We don't want to push any data in our repo to GitHub (GitHub enforces file size limits, and you'll run into some serious headaches when you try to push a file that's too big). To avoid doing this, we can add our data files to our `.gitignore` file, which, as the name implies, is a collection of files that we want Git to ignore. **Open up your `.gitignore` file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):**
+
+
+
+
+::: {.cell filename='.gitignore'}
+
+```{.bash .cell-code  code-line-numbers="false"}
+# ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)
+/week*/data/
+```
+:::
+
+
+
+
+Notice that when you **Save** your modified `.gitignore` file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified `.gitignore` file appears in it's place (this is what we want!). Stage / add, commit, and push `.gitignore`.
+
+::: {.callout-tip collapse=true}
+## A gif of this whole process (in case it's helpful!)
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/gitignore.gif){fig-align='center' width=60%}
+:::
+:::
+
+
+
+
+::: {.center-text .gray-text}
+An example repo with three folders: `week1/`, `week2/`, and `other-stuff/`. Each of those folders has a subfolder named `data/`, and each `data/` folder contains a `.csv` file. Adding the line, `/week*/data/` to the `.gitignore` tells Git to ignore folders (and their contents) named `data/` that are within a parent folder named `week__` (the `*` acts as a wildcard). If we wanted to ignore all three `data/` folders (including `other-stuff/data/`), we can instead include `/*/data/` to our `.gitignore`.
+:::
+:::
+
+### D. Prepare a `week1-discussion.qmd` file
+
+Add a new blank file to your class repo -- you'll complete your discussion exercises here. For organization's sake, it should live in the following location: `EDS-240-class-examples/week1/week1-discussion.qmd`. Fill out the necessary YAML information (`title`, `author`, `date` + any other information you find helpful). -->
 </section>
 <section id="discussion-materials" class="level2">
 <h2 class="anchored" data-anchor-id="discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 35%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Discussion Slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/discussion/week1/week1-slides.html" target="_blank">D1 slides: data wrangling</a></td>
-<td><a href="../course-materials/discussion/week1/week1-exercise.html">D1 exercise: wrangle fracking data</a></td>
-<td><a href="../course-materials/discussion/week1/week1-solution.html">D1 solution</a></td>
-</tr>
-</tbody>
-</table>
+<p><em>Comming soon</em></p>
+<!-- |  Discussion Slides |  Exercise instructions |  Exercise solutions |
+|-------------------|-------------------|--------------|
+| [D1 slides: data wrangling](discussion/week1/week1-slides.qmd){target="_blank"} | [D1 exercise: wrangle fracking data](discussion/week1/week1-exercise.qmd) | [D1 solution](discussion/week1/week1-solution.qmd) |
+: {.hover .bordered tbl-colwidths="[35,35,30]"}  -->
 </section>
 <section id="assignment-reminders" class="level2">
 <h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
