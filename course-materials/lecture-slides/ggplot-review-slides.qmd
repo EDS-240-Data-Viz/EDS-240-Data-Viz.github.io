@@ -1439,12 +1439,28 @@ knitr::include_graphics("images/week1/scherer-evo-ggplot.gif")
 
 ---
 
-##  {#end-break data-menu-title="# End #" background="#047C90"}
+##  {#end-break data-menu-title="# End / Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">See you next week!</p>
-<p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p>
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p> -->
 </div>
+
+```{r}
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 
 <!-- --- -->
 

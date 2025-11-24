@@ -4,8 +4,7 @@ format:
     slide-number: true
     highlight-style: a11y
     chalkboard: true
-    theme: 
-      - ../../../meds-slides-styles.scss
+    theme: ../../../meds-slides-styles.scss
 editor_options: 
   chunk_output_type: console
 ---
@@ -16,7 +15,6 @@ editor_options:
 #| message: false
 #| warning: false
 #| include: false
-#| fig-align: "center"
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,16 +24,18 @@ library(tidyverse)
 library(tigris)
 
 #.........................get shape data.........................
-county_geo <- tigris::counties(class = "sf", cb = TRUE) |> 
+county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-nov20-oct25-precip.csv"), skip = 3)
+
+# "county-feb19-jan24-precip.csv"
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##  ~ wrangle geometries  ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,7 +67,7 @@ precip_wrangled <- precip_data |>
 ##~~~~~~~~~~~~~~~~~~
 
 # join dfs (see https://github.com/tidyverse/ggplot2/issues/3936 & https://map-rfun.library.duke.edu/032_thematic_mapping_geom_sf.html) -------
-joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
+joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 ```
 
 ```{r}
@@ -76,46 +76,65 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 #| message: false
 #| warning: false
 #| fig-align: "center"
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                 create map                               ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##                                 create map                               ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~
-##  ~ create base map  ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##  ~ create base map  ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~
 
-base_map <- ggplot(joined_precip_geom) +
-  geom_sf(aes(fill = perc_change), linewidth = 0.1) +
-  labs(title = "5-year precipitation compared to the 20th century average",
-       subtitle = "January 2020 - December 2024",
-       caption = "Source: National Centers for Environmental Information") +
-  theme_void() +
+# base_map <- ggplot(joined_precip_geom) +
+#   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
+#   labs(title = "5-year precipitation compared with the 20th century average",
+#        subtitle = "November 2020 - October 2025",
+#        caption = "Source: National Centers for Environmental Information") +
+#   theme_void() +
+#   theme(
+#     legend.position = "bottom",
+#     legend.title = element_blank(),
+#     plot.caption = element_text(face = "italic",
+#                                 margin = margin(t = 2, r = 0.5, b = 0, l = 0, "lines"))
+#   )
+
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##  ~ create color palette  ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')
+
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##  ~ create final map  ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# base_map +
+#   scale_fill_gradientn(colors = my_brew_palette11,
+#                        labels = scales::label_percent(scale = 1),
+#                        breaks = scales::breaks_width(width = 10),
+#                        values = scales::rescale(x = c(
+#                          min(na.omit(joined_precip_geom)$perc_change),
+#                          0,
+#                          max(na.omit(joined_precip_geom)$perc_change)))) +
+#   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ create bar chart  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+df <- joined_precip_geom |>
+  filter(state == "California") |>
+  mutate(county = str_remove(county, " County")) |>
+  slice_max(n = 10, order_by = precip)
+
+
+ggplot(df, aes(x = reorder(county, precip), y = precip)) +
+  geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
+  coord_flip() +
+  labs(x = "", y = "Total Precipitation (inches)",
+       title = "California counties with the highest rainfall (Nov 2020 - Oct 2025)") +
+  theme_classic() +
   theme(
-    legend.position = "bottom",
-    legend.title = element_blank(),
-    plot.caption = element_text(face = "italic",
-                                margin = margin(t = 2, r = 0.5, b = 0, l = 0, "lines"))
+    plot.title.position = "plot"
   )
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##  ~ create color palette  ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = 'BrBG')
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~
-##  ~ create final map  ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-base_map + 
-  scale_fill_gradientn(colors = my_brew_palette11,
-                       labels = scales::label_percent(scale = 1),
-                       breaks = scales::breaks_width(width = 10),
-                       values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change)))) +
-  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75))
-
 ```
 

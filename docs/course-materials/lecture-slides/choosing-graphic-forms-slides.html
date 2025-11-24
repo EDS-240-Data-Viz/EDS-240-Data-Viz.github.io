@@ -13,7 +13,7 @@
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
-  <title>EDS 240 – dataviz-intro-slides</title>
+  <title>EDS 240 – choosing-graphic-forms-slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,71 +31,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #767676;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
-    div.sourceCode
-      { color: #545454; background-color: #fefefe; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #545454; } /* Normal */
-    code span.al { color: #7928a1; } /* Alert */
-    code span.an { color: #696969; } /* Annotation */
-    code span.at { color: #a55a00; } /* Attribute */
-    code span.bn { color: #7928a1; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #d91e18; } /* ControlFlow */
-    code span.ch { color: #008000; } /* Char */
-    code span.cn { color: #d91e18; } /* Constant */
-    code span.co { color: #696969; } /* Comment */
-    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
-    code span.do { color: #696969; font-style: italic; } /* Documentation */
-    code span.dt { color: #7928a1; } /* DataType */
-    code span.dv { color: #7928a1; } /* DecVal */
-    code span.er { color: #7928a1; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #a55a00; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #696969; } /* Information */
-    code span.kw { color: #d91e18; } /* Keyword */
-    code span.op { color: #00769e; } /* Operator */
-    code span.ot { color: #d91e18; } /* Other */
-    code span.pp { color: #7928a1; } /* Preprocessor */
-    code span.sc { color: #00769e; } /* SpecialChar */
-    code span.ss { color: #008000; } /* SpecialString */
-    code span.st { color: #008000; } /* String */
-    code span.va { color: #a55a00; } /* Variable */
-    code span.vs { color: #008000; } /* VerbatimString */
-    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -391,6 +326,10 @@
   </style>
   <link href="../../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
   <script src="../../site_libs/countdown-0.4.0/countdown.js"></script>
+  <script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="../../site_libs/d3-4.9.1/d3.min.js"></script>
+  <script src="../../site_libs/sankey-1/sankey.js"></script>
+  <script src="../../site_libs/sankeyNetwork-binding-0.4.1/sankeyNetwork.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -399,619 +338,524 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Lecture 1.2</span></p>
-<p><span class="custom-subtitle"><em>Data visualization: an intro</em></span></p>
+<p><span class="custom-title">EDS 240: Lecture 2.1</span></p>
+<p><span class="custom-subtitle"><em>Choosing the right graphic form</em></span></p>
 <hr class="hr-teal">
-<p><span class="custom-subtitle3">Week 1 | January 7<sup>th</sup>, 2026</span></p>
+<p><span class="custom-subtitle3">Week 2 | January 14<sup>th</sup>, 2026</span></p>
 </section>
-<section id="what-is-visualization1" class="slide level2" data-menu-title="What is data viz?">
+<section id="viz-complex-nums" class="slide level2" data-menu-title="Visualizing complex numbers">
 <h2></h2>
-<p><span class="slide-title">What is data visualization?</span></p>
+<p><span class="slide-title3">We understand complex numbers better when they’re represented visually</span></p>
 <hr>
 <blockquote>
-<p><em>“…the practice of designing and creating easy-to-communicate and easy-to-understand graphic or visual representations of a large amount of complex quantitative and qualitative data and information with the help of static, dynamic or interactive visual items.”</em></p>
+<p>“Exams will have a total of 137 points rather than the usual 100. This scoring system has no effect on the grade you get in the course, but it seems to make you happier”</p>
 </blockquote>
-<div class="right-align-text body-text-s">
-<p>-from <a href="https://en.wikipedia.org/wiki/Data_and_information_visualization" target="_blank">Wikipedia</a></p>
+<div class="right-align-text">
+<p>-<a href="https://www.chicagobooth.edu/faculty/directory/t/richard-h-thaler" target="_blank">Richard H. Thaler</a>, economist &amp; professor</p>
 </div>
+<ul>
+<li><span class="body-text-s"><strong>Early years:</strong> exam graded 0 - 100 with an average score of 72 points = lots of complaints</span></li>
+<li><span class="body-text-s"><strong>Later years:</strong> exam graded 0 - 137 with an average score of 96 points = very few complaints</span></li>
+</ul>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/thaler-exams.png" class="quarto-figure quarto-figure-center" style="width:35.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="body-text-s gray-text center-text">
+<p>Alberto Cairo’s visualization of the scores from Thaler’s exam case study, from <a href="https://www.amazon.com/gp/product/0321934075/" target="_blank">The Truthful Art</a></p>
+</div>
+</div>
+</section>
+<section id="vision-sense" class="slide level2" data-menu-title="Vision = most important sense">
+<h2></h2>
+<p><span class="slide-title">Vision is our most well-developed sense</span></p>
+<hr>
+<p><br> <br> <br></p>
+<div class="center-text body-text-m teal-text">
+<p><strong>Mapping data into visual properties is powerful</strong></p>
+</div>
+<p><br> <br></p>
+<div class="fragment">
+<div class="center-text body-text-m">
+<p><span class="teal-text"><strong>Mapping?</strong></span></p>
+<p><em>How values of a variable(s) of interest are represented by visuals (e.g height of bar, shaded region of area plot, color of data points)</em></p>
+</div>
+</div>
+</section>
+<section id="choose-graphic" class="slide level2" data-menu-title="How to choose the right graphic?">
+<h2></h2>
+<p><span class="slide-title2">How do you choose the right graphic form to represent your data?</span></p>
+<hr>
+<p><br> <br> <br></p>
+<div class="body-text-m">
+<blockquote>
+<p>“If I had the answer to that, I’d be rich by now…I have no idea, but I can give you some clues to make your own choices based on what we know about why and how visualization works”</p>
+</blockquote>
+</div>
+<div class="right-align-text">
+<p>-Alberto Cairo<sup>1</sup>, in his book, <a href="https://www.amazon.com/Truthful-Art-Data-Charts-Communication/dp/0321934075" target="_blank"><em>The Truthful Art</em></a></p>
+</div>
+<div class="footer">
+<p><sup>1</sup>Someone who, in fact, knows <em>a lot</em> about effectively visualizing data</p>
+</div>
+</section>
+<section id="ex-choose-graph" class="slide level2" data-menu-title="Ex: choose graphic form">
+<h2></h2>
+<p><span class="slide-title">Exercise: Map data to visual properties</span></p>
+<hr>
+<p><br> <br> <br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_365e8c12" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+<p><span class="body-text-m">Let’s say <strong>you want to compare unemployment rates of 5 countries</strong>: A, B, C, D, E (the actual values here are not important).</span></p>
 <p><br></p>
 <div class="fragment">
+<p><span class="body-text-m">How would you <strong>map the unemployment rates to visual properties</strong> in a way that enables your readers to accurately compare values without having to read all the numbers?</span></p>
+<div class="footer">
+<p>Example adapted from Alberto Cairo’s, <em>The Truthful Art</em></p>
+</div>
+</div>
+</section>
+<section id="ex-possible-choices" class="slide level2" data-menu-title="Ex: possible choices">
+<h2></h2>
+<p><span class="slide-title2">Different methods of encoding the same data</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>Graphs recreated based on Alberto Cairo’s example (Fig 5.2) in <em>The Truthful Art</em></p>
+<p><strong>For all graphics: A (22%), B (25%), C (34%), D (29%), E (32%)</strong></p>
+</div>
+<aside class="notes">
+<p>LENGHT, HEIGHT, POSITION probably the best (have students discuss)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="hierarchy" class="slide level2" data-menu-title="Hierarchy">
+<h2></h2>
+<p><span class="slide-title">“Hierarchy of elementary perceptual tasks”</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-text body-text-s">
+<p>William S. Cleveland &amp; Robert McGill (1984) <strong>Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods</strong>, <em>Journal of the American Statistical Association</em>, 79:387, 531-554, DOI: <a href="https://doi.org/10.1080/01621459.1984.10478080" target="_blank">10.1080/01621459.1984.10478080</a></p>
+</div>
+<p><br></p>
+<ul>
+<li><p>a viewer performs one or more of these mental-visual tasks (judging position, perceiving angles / areas, etc.) to extract the values of real variables represented on most graphs</p></li>
+<li><p>successful charts are constructed based on elementary tasks “as high in the hierarchy as possible”</p></li>
+</ul>
+<p><span class="body-text-s gray-text"><a href="https://badriadhikari.github.io/data-viz-workshop-2021/activity-perceptual-task/Solution.html" target="_blank">Alberto Cairo’s recreation</a> of Cleveland &amp; McGill’s Hierarchy of Elementary Perceptual Tasks <i class="fa-solid fa-arrow-right" title="an arrow pointing to the right" aria-label="arrow-right"></i></span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/cairo-elementary-visual-perception.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="compare-circles" class="slide level2" data-menu-title="Ex: compare circles">
+<h2></h2>
+<p><span class="slide-title2">Exercise: How many times bigger is the larger circle?</span></p>
+<hr>
+
+<img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_28d10ae9" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-bars" class="slide level2" data-menu-title="Ex: compare bars">
+<h2></h2>
+<p><span class="slide-title2">Exercise: How many times bigger is the larger bar?</span></p>
+<hr>
+
+<img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_e9511b18" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+</div>
+</div>
+</section>
+<section id="7x" class="slide level2" data-menu-title="Ex: 7x">
+<h2></h2>
+<p><span class="slide-title">Both the circles &amp; rectangles differ by a magnitude of 7</span></p>
+<hr>
+<p><br> <br></p>
+<div>
+
+</div>
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-12-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="caveats1" class="slide level2" data-menu-title="Caveats 1">
+<h2></h2>
+<p><span class="slide-title">Caveats to the hierarchy</span></p>
+<hr>
+<p><br> <br></p>
+<p><span class="body-text-m">1. Cleveland &amp; McGill only considered <em>statistical charts</em>. What about data maps, for example, that rely on area / shading / hue, which fall lower on the hierarchy?</span></p>
+</section>
+<section id="caveats1.1" class="slide level2" data-menu-title="Caveats 1 (example)">
+<h2></h2>
+<p><span class="slide-title">Caveats to the hierarchy - an example</span></p>
+<hr>
+<!-- Followed instructions for creating choropleth map here: <https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html> -->
+<!-- Download precipitation data here: <https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value> -->
+
+<img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="fragment">
+<p><strong>Lower scale methods can be appropriate when the goal is to reveal general patterns.</strong> For example, a choropleth map displays divided geographical areas / regions, which are colored in relation to a numeric variable.</p>
+<div class="footer">
+<p>Map created using precipitation data from NOAA’s <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202510/60/value" target="_blank">National Centers for Environmental Information</a>.</p>
+</div>
+</div>
+</section>
+<section id="caveats2" class="slide level2" data-menu-title="Caveats 2">
+<h2></h2>
+<p><span class="slide-title">Caveats to the hierarchy</span></p>
+<hr>
+<p><br> <br></p>
+<p><span class="gray-text body-text-m">1. Cleveland &amp; McGill only considered <em>statistical charts</em>. What about data maps, for example, that reply on area / shading / hue, which fall lower on the hierarchy?</span></p>
+<p><br></p>
+<p><span class="body-text-m">2. No method of choosing a graphic form is perfect! It’s important to think critically about your graphic’s purpose and how best to represent your data to serve that purpose.</span></p>
+</section>
+<section id="caveats2.1" class="slide level2" data-menu-title="Caveats 2 (example)">
+<h2></h2>
+<p><span class="slide-title">Caveats to the hierarchy - an example</span></p>
+<hr>
+<p>Consider how you might display the same data in the following Sankey diagram, which depicts the flow of refugees in 2022, using graph types from the top of Cleveland &amp; McGill’s hierarchy. <strong>What is the purpose of this chart?</strong></p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="htmlwidget-b6f04e4c57a001c6ab0d" style="width:600px;height:400px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b6f04e4c57a001c6ab0d">{"x":{"links":{"source":[0,0,1,2,1,1,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,1,0,1,2,1,0,1,0,1,2,1,2,0,1,2,0,1,2,0,1,2,0,1,2,1,0,1,2,0,1,2,1,1,1,0,1,2,1,2,0,1,0,1,2,0,1,2,0,1,2,1,0,1,2,0,1,2,0,1,2,1,0,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,2,1,0,0,0,1,2,0,1,2,0,1,2,1,0,1,2,0,1,0,1,2,0,0,1,2,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,0,1,2,0,1,2,0,1,1,0,1,0,1,2,1,2,0,0,1,2,0,1,2,0,1,2,0,1,1,1,2,1,0,1,2,0,1,2,1,0,1,0,0,1,1,0,1,2,0,1,2,0,2,0,1,2,1,0,1,2,0,1,2,0,0,1,2,1,0,1,0,1,2,0,1,2,0,1,2,0,1,2,0,0,1,2,0,1,2,1,0,1,2,0,1,0,1,2,1,1,0,1,2,1,0,1,2,0,1,0,1,2,0,1,2,0,1,2,0,1,2,0,1,1,0,1,0,0,1,1,0,1,2,0,1,2,0,1,0,1,0,1,2,0,1,2,0,1,2,0,0,1,1,0,1,2],"target":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,6,6,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"value":[0,14,23,2542,7803,0,47,145658,0,11,450,121,9,4888,406,7787,536,1527,45282,73923,89862,1161,35,4770,5,6238,17808,61975,41,5,0,118,49,19384,22,5,267,3969,43,5,25,147,319,23726,149215,987,512,75098,50,31,37,0,19,113,46,5,9,12,9,13,8,6,13,12,27,43,10902,12472,187,341,433501,1625,19153,32839,10,0,5,0,147,153,79,33,107,40298,69,5,3855,2594,44953,63506,40339,69302,11265,12682,182423,78,448,26446,180810,522575,1002999,10,243,0,35467,42827,21827,0,14,0,11,99,550,19416,1452,819,29632,227,256,2335,148,9858,71,0,5872,19,1324,2520,70578,3413249,14,257439,0,30,18367,3578,149872,8,660892,0,570,309,2013,285,13,0,18,5,189,61,14,50,1261,17,0,165,40,0,424,33,814715,0,34,402,87,265,488,65175,531,2912,4500,207,318,37800,16,5,378,0,6816,5,27,203,98910,6,38,31,24,1860,409,5,12,5511,0,0,1988,1765,0,0,32346,52,0,8415,56580,102643,5,5,515,0,3041,15964,33243,5,62,60,5,8,1743278,50,5,5,11,0,79,9,0,47,29,10,141,0,18,919,280,958147,679,918,44960,30,420,2332,100086,5,36,1324,194,1275315,5,293,33,47,1108,1121,2740,16670,159194,0,93478,382,55,94858,67,340,7748,26197,111199,46857,16520,20330,60162,1172,0,10,128,208,8601,9,19,50,0,2497,0,10581,3535898,2768,10,475,33,28,1039,517,0,6,66,18,8931,8807,3063,13026,10,33,2520,0,21,0]},"nodes":{"name":["Afghanistan","Syrian Arab Rep.","Ukraine","other","Germany","Iran (Islamic Rep. of)","Türkiye"],"group":["Afghanistan","Syrian Arab Rep.","Ukraine","other","Germany","Iran (Islamic Rep. of)","Türkiye"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal([`#94438B`, `#B6366A`,`#E1AAC9`, `#909497`,`#6AA26F`, `#A3C7AC`, `#E3EEAE`])","fontSize":13,"fontFamily":null,"nodeWidth":40,"nodePadding":20,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/cairo-elementary-visual-perception.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="footer">
+<p>Graphic recreated using the <a href="https://christophergandrud.github.io/networkD3/" target="_blank"><code>{networkD3}</code> package</a> following <a href="https://lsinks.github.io/" target="_blank">Louise E. Sinks’</a> blog post, <a href="https://lsinks.github.io/posts/2023-08-28-TidyTuesday-Refugees/TidyTuesday34-refugees.html" target="_blank">TidyTuesday: Exploring Refugee Flow with A Sankey Diagram</a></p>
+</div>
+<aside class="notes">
+<p>It would be hard to use a method of encoding from the top of the hierarchy! In this Sankey diagram, readers need to decode length and area, but that’s not a huge issue since the purpose of the chart is to show high-level trends / flows of refugees</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="beyond-scatter-plots" class="slide level2" data-menu-title="Beyond scatter plots">
+<h2></h2>
+<p><span class="slide-title2">Unique visualizations are important!</span></p>
+<hr>
+<blockquote>
+<p><em>“Charts are often designed to persuade, educate, and motivate. Designing for serendipitous discovery, educational impact, hedonic response, or changes in behavior is in some cases only tangentially connected with the precision of a particular visualization”</em></p>
+</blockquote>
+
+<img data-src="images/week2/Bertini-etal.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>Bertini E, Correll M, Franconeri S (2020) <a href="https://arxiv.org/pdf/2008.11310" target="&quot;_blank">Why Shouldn’t All Charts Be Scatter Plots? Beyond Precision-Driven Visualizations</a>. IEEE Visualization Conference (VIS), pp 206-210.</p>
+</div>
+</section>
+<section id="tips" class="slide level2" data-menu-title="Tips for choosing a graph">
+<h2></h2>
+<p><span class="slide-title">Tips for choosing the right graphic form</span></p>
+<hr>
+<div class="fragment">
+<ol type="1">
+<li><span class="teal-text"><strong>Think about the task(s) you want to enable or message(s) you want to convey.</strong></span> For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li><span class="teal-text"><strong>Consider the number of variables and the number of data points, as well as the data types you’re working with.</strong></span> For example, do you have several vs.&nbsp;many data points? How many categorical and/or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><span class="teal-text"><strong>Try multiple different graphic forms,</strong></span> especially if you have more than one task to enable or message to convey.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li><span class="teal-text"><strong>Arrange the components of the graphic</strong></span> to make it as easy as possible to extract meaning from your graphic quickly.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
+<li><span class="teal-text"><strong>Test the outcomes of your graphic on others,</strong></span> particularly on those who are representative of the audience you are trying to reach.</li>
+</ol>
+<div class="footer">
+<p><span class="gray-text body-text-s"><em>Most of the above tips are adapted from <a href="https://www.albertocairo.com/" target="_blank">Alberto Cairo’s</a> <a href="https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&amp;creative=9325&amp;creativeASIN=0321934075&amp;ie=UTF8&amp;linkCode=as2&amp;linkId=A7BVNPNHHPEPJU7K&amp;tag=thefunart03-20" target="_blank">The Truthful Art</a></em></span></p>
+</div>
+</div>
+</section>
+<section id="chart-selectors" class="slide level2" data-menu-title="Resources for selecting charts">
+<h2></h2>
+<p><span class="slide-title2">1. What task(s) to enable / message(s) to convey</span></p>
+<p><span class="slide-title2">2. Number of variables &amp; data points, data types</span></p>
+<hr>
 <div class="columns">
 <div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/ggplot-example.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/dtv.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
+</div>
+<div class="center-text">
+<p><a href="https://www.data-to-viz.com/" target="_blank">From Data to Viz</a> <span class="body-text-s">search graphic types by data type or by function (+ R &amp; Python Graph Gallery)</span></p>
 </div>
 </div><div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/gganimate-example.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/dvp.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
+</div>
+<div class="center-text">
+<p><a href="https://datavizproject.com/" target="_blank">Data Viz Project</a> <span class="body-text-s">displays one small data set 100 different ways</span></p>
 </div>
 </div><div class="column" style="width:33%;">
-<p><br></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/shiny-example.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/vv.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
-<div class="columns">
-<div class="column" style="width:33%;">
 <div class="center-text">
-<p>Created using <a href="https://ggplot2.tidyverse.org/" target="_blank"><code>{ggplot2}</code></a></p>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="center-text">
-<p>Created using <a href="https://gganimate.com/" target="_blank"><code>{gganimate}</code></a></p>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="center-text">
-<p>Created using <a href="https://shiny.posit.co/" target="_blank"><code>{shiny}</code></a></p>
-</div>
-</div></div>
-</div>
-</section>
-<section id="what-is-visualization2" class="slide level2" data-menu-title="Data Viz: alternative definitions">
-<h2></h2>
-<p><span class="slide-title">What is data visualization?</span></p>
-<hr>
-<p><br> <br></p>
-<div class="body-text-m">
-<blockquote>
-<p><em>“any graphical representation of information and data”</em></p>
-</blockquote>
-</div>
-<div class="right-align-text">
-<p>-<a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a>, <a href="https://www.youtube.com/watch?v=swzFdMc6WPk" target="_blank">Effective Data Visualization</a></p>
-</div>
-<p><br></p>
-<div class="fragment">
-<div class="body-text-m">
-<blockquote>
-<p><em>“part art and part science”</em></p>
-</blockquote>
-</div>
-<div class="right-align-text">
-<p>-<a href="https://clauswilke.com/" target="_blank">Claus O. Wilke</a>, <a href="https://clauswilke.com/dataviz/index.html" target="_blank">Fundamentals of Data Visualization</a></p>
-</div>
-</div>
-</section>
-<section id="lascaux" class="slide level2" data-menu-title="Lascaux">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>16,500 years ago, Pleistocene</strong></span></p>
-<p>The Lascaux Cave Paintings are thought to be some of the first charted stars and constellations.</p>
-</div>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/lascaux1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/lascaux2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
+<p><a href="https://ft-interactive.github.io/visual-vocabulary/" target="_blank">Visual Vocabulary</a> <span class="body-text-s">consider which data relationship is most important in your story</span></p>
 </div>
 </div></div>
 <div class="footer">
-<p>Sources: <a href="http://news.bbc.co.uk/2/hi/science/nature/871930.stm" target="_blank">BBC</a> &amp; <a href="https://rockartblog.blogspot.com/2018/08/are-lascaux-cave-paintings-encoded.html" target="_blank">Rock Art Blog</a></p>
-<p><span class="teal-text"><strong>16,500 years ago</strong></span> | ~1150 BC | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
-</div>
-<aside class="notes">
-<ul>
-<li>Lascaux Caves in the southwest of France; Pleiades star cluster (seven sisters) also found on the cave walls</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="Amennakhte" class="slide level2" data-menu-title="Amennakhte">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>~1150 BC</strong></span></p>
-<p>Oldest known geologic map, the Turin Papyrus Map, depicts a dry riverbed (Wadi Hammamat) and major mining region in Egypt’s Eastern Desert.</p>
-</div>
-
-<img data-src="images/week1/turin-papyrus.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://en.wikipedia.org/wiki/Turin_Papyrus_Map" target="_blank">Wikipedia</a></p>
-<p>16,500 years ago | <span class="teal-text"><strong>~1150 BC</strong></span> | 1400 - 1532 AD | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
-</div>
-<aside class="notes">
-<p>It was prepared by Amennakhte, Scribe-of-the-Tomb, for Ramses IV’s quarrying expedition to the Wadi Hammamat for the purpose of obtaining blocks of stone for building statues of the king.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="Inca-empire" class="slide level2" data-menu-title="Inca-empire">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1400 - 1532 AD</strong></span></p>
-<p>Quipus (kee-poos) were recording devices used by the Inca Empire for data collection, census records, calendaring, etc.</p>
-</div>
-
-<img data-src="images/week1/quipu.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://www.si.edu/newsdesk/snapshot/quipu" target="_blank">Smithsonian</a></p>
-<p>16,500 years ago | ~1150 BC | <span class="teal-text"><strong>1400 - 1532 AD</strong></span> | 1644 | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
-</div>
-</section>
-<section id="van-Langren" class="slide level2" data-menu-title="van Langren">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1644</strong></span></p>
-<p>Michael Florent van Langren, Flemish astronomer, created the first (known) statistical graph showing differences in estimates of longitudinal distance between Toledo and Rome.</p>
-</div>
-<p><br></p>
-
-<img data-src="images/week1/toledo-rome.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><div class="footer">
-<p>Source: <a href="https://en.wikipedia.org/wiki/Michael_van_Langren" target="_blank">Wikipedia</a></p>
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | <span class="teal-text"><strong>1644</strong></span> | 1786 | 1846 | 1856 | 1869 | 1900 | modern day</p>
-</div>
-<aside class="notes">
-<ul>
-<li>van Langren was a dutch mathematician / astronomer</li>
-<li>served as royal mathematician to King Phillip IV of Spain</li>
-<li>worked on one of the most significant problems of his time (accurate determination of longitude between Toledo &amp; Rome, particularly navigation by sea)</li>
-<li>graph shows all available estimates in distance (inaccuracies resulted in many shipwrecks)</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="playfair" class="slide level2" data-menu-title="Playfair">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1786</strong></span></p>
-<p>William Playfair, Scottish engineer and political economist, is credited as the creator of the first bar chart (featuring Scottish trade data, 1780 - 1781), as well as line and pie charts.</p>
-</div>
-<p><br></p>
-
-<img data-src="images/week1/playfair-bar.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://en.wikipedia.org/wiki/William_Playfair" target="_blank">Wikipedia</a></p>
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | <span class="teal-text"><strong>1786</strong></span> | 1846 | 1856 | 1869 | 1900 | modern day</p>
-</div>
-</section>
-<section id="willard" class="slide level2" data-menu-title="Willard">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1846</strong></span></p>
-<p>Emma Hart Willard, America’s first professional female cartographer, created the <em>Temple of Time</em>, which depicts the fall and rise of empires throughout history. It won a medal at the 1851 World’s Fair in London.</p>
-</div>
-<p><br></p>
-
-<img data-src="images/week1/temple-of-time.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://www.themarginalian.org/2019/07/09/emma-willard/" target="_blank">The Marginalian</a></p>
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | <span class="teal-text"><strong>1846</strong></span> | 1856 | 1869 | 1900 | modern day</p>
-</div>
-<aside class="notes">
-<ul>
-<li>Willard map maker &amp; founder of first school for women’s higher education in the US</li>
-<li>Temple of Time uses the architecture as a metaphor for history; foreground = present; columns represent centuries</li>
-<li>she believed that facts must be connected to one another to be meaningful and that they will they be most easily retained if presented visually</li>
-<li><a href="https://www.londonmuseum.org.uk/collections/london-stories/what-was-great-exhibition-1851/#:~:text=The%20creation%20of%20Queen%20Victoria's,in%20a%20giant%20glass%20building.">World’s Fair in London</a> = one of the most popular public attractions in 19th-century London, aimed to celebrate modern design and promote Britain as an industrial and imperial power</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="nightingale" class="slide level2" data-menu-title="Nightingale">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1856</strong></span></p>
-<p>Florence Nightingale was an English wartime nurse who campaigned to improve sanitary conditions of military hospitals. The <em>Diagram of the Causes of Mortality in the Army of the East</em> shows that deaths from preventable diseases (blue) outnumbered combat fatalities (red) in military hospitals in 1854 &amp; early 1855.</p>
-</div>
-<p><br></p>
-
-<img data-src="images/week1/nightingale.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://www.scientificamerican.com/article/how-florence-nightingale-changed-data-visualization-forever/" target="_blank">Scientific American</a></p>
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | <span class="teal-text"><strong>1856</strong></span> | 1869 | 1900 | modern day</p>
-</div>
-<aside class="notes">
-<ul>
-<li>Nightingale dedicated much of her life to conveying public health statistics in exciting &amp; easy-to-understand ways.</li>
-<li>The changes she put in place greatly <a href="https://daily.jstor.org/florence-nightingale-data-visualization-visionary/" target="_blank">reduced those deaths</a> by April 1855.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="minard" class="slide level2" data-menu-title="Minard">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1869</strong></span></p>
-<p>Charles Minard, a French civil engineer, produced what is referred to as, “the greatest visualization created.” <em>Napoleon’s Russian Campaign</em> displays 6 types of data in 2D (# troops, distance traveled, temperature, lat / lon, direction of travel, location relative to specific dates).</p>
-</div>
-<p><br></p>
-
-<img data-src="images/week1/minard.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Source: <a href="https://en.wikipedia.org/wiki/Charles_Joseph_Minard" target="_blank">Wikipedia</a></p>
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | <span class="teal-text"><strong>1869</strong></span> | 1900 | modern day</p>
-</div>
-</section>
-<section id="DuBois" class="slide level2" data-menu-title="DuBois">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p><span class="body-text-m"><strong>1900</strong></span></p>
-<p>W.E.B. DuBois, was an African American writer, scholar and activist. He used photographs and data visualizations to commemorate the lives of African Americans at the turn of the century and challenge the racist caricatures and stereotypes of the day.</p>
-</div>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/DuBois-anyene.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="center-text body-text-xs gray-text">
-<p><em>Assessed value of household and kitchen furnitures owned by Georgia Negroes</em> <a href="https://github.com/Ijeamakaanyene/tidytuesday/blob/master/outputs/2021_06_webdubois.png" target="_blank">Recreation</a> by <a href="https://ijeamaka-anyene.netlify.app/" target="_blank">Ijeamaka Anyene</a> for the 2021 <a href="https://nightingaledvs.com/the-dubois-challenge/" target="_blank">#DuBoisChallenge</a></p>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/DuBois-freites.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="center-text body-text-xs gray-text">
-<p><em>Proportion of Freemen and Slaves Among American Negroes.</em> <a href="https://github.com/luisfrein/R_Tidytuesday/tree/master/2021/W08_Dubois_Challenge" target="_blank">Recreation</a> by <a href="https://github.com/luisfrein" target="_blank">Luis Freites</a> for the 2021 <a href="https://nightingaledvs.com/the-dubois-challenge/" target="_blank">#DuBoisChallenge</a>. Source: <a href="https://x.com/ijeamaka_a/status/1361715338027560962" target="_blank">Twitter</a></p>
-</div>
-</div></div>
-<p><br> <br></p>
-<div class="footer">
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | <span class="teal-text"><strong>1900</strong></span> | modern day</p>
-</div>
-<!-- <br> -->
-<!-- ::: {.footer} -->
-<!-- Source: [Twitter](https://x.com/ijeamaka_a/status/1361715338027560962){target="_blank"} -->
-<!-- ::: -->
-<aside class="notes">
-<ul>
-<li>WEB DuBois was the first African American to earn a PhD from Harvard University</li>
-<li>helped found the National Association for the Advancement of Colored People (NAACP)</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="modern-day" class="slide level2" data-menu-title="Modern day">
-<h2></h2>
-<p><span class="slide-title2">(A little bit of the) History of data visualization</span></p>
-<hr>
-<div class="center-text">
-<p>The emergence of programming languages and tools in recent years has made data visualization design easier than every before.</p>
-</div>
-
-<img data-src="images/week1/modern-viz-tools.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>16,500 years ago | ~1150 BC | 1400 - 1532 AD | 1644 | 1786} | 1846 | 1856 | 1869 | 1900 | <span class="teal-text"><strong>modern day</strong></span></p>
-</div>
-</section>
-<section id="why-visualize" class="slide level2" data-menu-title="# Why visualize data? #" data-background="#047C90">
-<h2></h2>
-<div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">
-<i class="fa-solid fa-comments" title="two talking bubbles" aria-label="comments"></i> Why do we visualize data?
-</p>
-<p class="caption-text">
-<em>Spend the next few minutes discussing with your Learning Partners, and if possible, pull up some example visualizations that demonstrate your thoughts / discussion points</em>
-</p>
+<p>Spend a couple minutes exploring these tools.</p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_203465cf" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_c957c23d" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="answer-qs" class="slide level2" data-menu-title="Data viz for answering Qs">
+<section id="cat-disc1" class="slide level2" data-menu-title="Categorical vs. discrete">
 <h2></h2>
-<p><span class="slide-title">. . . to answer questions / derive insights</span></p>
+<p><span class="slide-title2">2. Number of variables &amp; data points, data types</span></p>
 <hr>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="center-text">
+<p><span class="teal-text"><strong>Quantitative data</strong></span></p>
+</div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/ripple-etal-2023-fig1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/horst-cont-disc.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="Cartoon comparison of continuous versus discrete data. On the left: 'Continuous - measured data, can have infinite values within possible range.' Below is an illustration of a chick, with text 'I am 3.1 inches tall, I weight 34.16 grams.' On the right: 'Discrete - observations can only exist at limited values, often counts.' Below is an illustration of an octopus with text 'I have 8 legs and 4 spots!'"></p>
 </figure>
 </div>
 </div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><strong>Continuous variables:</strong> temperature (10.6°C, 14.9°C, 8.1°C), rainfall (1.7”, 3.3”, 9.4”)</p>
+<p><strong>Discrete variables:</strong> # of species counted in a region (1, 4, 6), a county’s population size (1,578, 10,324, 540,013)</p>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="center-text body-text-m">
-<p><a href="https://doi.org/10.1093/biosci/biad080" target="_blank"><strong>Ripple et al.&nbsp;2023</strong></a></p>
-</div>
-<p><span class="body-text-s"><strong>Fig Caption:</strong> Unusual climate anomalies in 2023 (the red line, which appears bold in print). Sea ice extent (a, b), temperatures (c–e), and area burned in Canada (f) are presently far outside their historical ranges. These anomalies may be due to both climate change and other factors. Sources and additional details about each variable are provided in supplemental file S1. Each line corresponds to a different year, with darker gray representing later years.</span></p>
-<p><br></p>
-<div class="body-text-s gray-text center-text">
-<p><em>A nice <a href="https://twitter.com/DoctorVive/status/1717187963036049669" target="_blank">Twitter thread</a> on key takeaways from the above paper</em></p>
-</div>
+
 </div></div>
-</section>
-<section id="exploration" class="slide level2" data-menu-title="Data viz for exploration">
-<h2></h2>
-<p><span class="slide-title">. . . to explore &amp; generate new questions</span></p>
-<hr>
-<blockquote>
-<p><em>“<strong>Exploratory data analysis (EDA)</strong> is not a formal process with a strict set of rules. More than anything, EDS is a state of mind…you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will hone in on a few particularly productive insights that you’ll eventually write-up and communicate to others.”</em></p>
-</blockquote>
-<div class="right-align-text body-text-s">
-<p>-Hadley Wickham, author of <a href="https://r4ds.hadley.nz/eda" target="_blank">R for Data Science</a></p>
-</div>
-<div class="fragment">
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/diamond-hist.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat)) <span class="sc">+</span></span>
-<span id="cb1-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/cars-boxplot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(class, hwy, median), <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-2"><a></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/diamonds-freqplot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> </span>
-<span id="cb3-2"><a></a>  <span class="fu">geom_freqpoly</span>(<span class="fu">aes</span>(<span class="at">color =</span> cut), <span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div></div>
+<div class="footer">
+<p><em>Art by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
 </div>
 </section>
-<section id="see-trends" class="slide level2" data-menu-title="Data viz to see trends">
+<section id="cat-disc2" class="slide level2" data-menu-title="Discrete types" data-visibility="uncounted">
 <h2></h2>
-<p><span class="slide-title">. . . to identify trends</span></p>
+<p><span class="slide-title2">2. Number of variables &amp; data points, data types</span></p>
 <hr>
-<div class="center-text body-text-l">
-<p><strong>Same summary statistics, different distributions!</strong></p>
-</div>
-<div class="columns">
-<div class="column" style="width:&quot;50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/anscombes-quartet.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:&quot;50%;">
-<p><br> <br></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/datasaurus-dozen.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="center-text">
-<p>Anscombe’s Quartet<br>
-(<a href="https://doi.org/10.2307/2682899" target="_blank">Anscombe 1973</a>)</p>
+<p><span class="teal-text"><strong>Quantitative data</strong></span></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/horst-cont-disc.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="Cartoon comparison of continuous versus discrete data. On the left: 'Continuous - measured data, can have infinite values within possible range.' Below is an illustration of a chick, with text 'I am 3.1 inches tall, I weight 34.16 grams.' On the right: 'Discrete - observations can only exist at limited values, often counts.' Below is an illustration of an octopus with text 'I have 8 legs and 4 spots!'"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><strong>Continuous variables:</strong> temperature (10.6°C, 14.9°C, 8.1°C), rainfall (1.7”, 3.3”, 9.4”)</p>
+<p><strong>Discrete variables:</strong> # of species counted in a region (1, 4, 6), a county’s population size (1,578, 10,324, 540,013)</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="center-text">
-<p>Datasaurus Dozen<br>
-(<a href="https://doi.org/10.1145/3025453.3025912" target="_blank">Matejka &amp; Fitzmaurice 2017</a>, expanding upon Alberto Cairo’s <a href="http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html" target="_blank">Datasaurus</a>)</p>
+<p><span class="teal-text"><strong>Qualitative data</strong></span></p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/horst-nom-org-binary.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="Visual representations of nominal, ordinal, and binary variables. Left: Nominal (ordered descriptions) with illustrations below of a turtle, snail, and butterfly. Center: Ordinal (ordered descriptions) with illustrations below of three bees - one looks unhappy (saying 'I am unhappy'), one looks ok (saying 'I am OK'), and one looks very happy (saying 'I am awesome!'). Right: Binary (only 2 mutually exclusive outcomes), with below a T-rex saying 'I am extinct' and a shark saying 'HA.'"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-xs gray-text">
+<p><strong>Nominal variables:</strong> gender identity (cisgender, transgender, non-binary), species (dog, cat, bird), land use (residential, parks, agriculture)</p>
+<p><strong>Ordinal variables:</strong> income level (low / middle / high), satisfaction level (unsatisfied, neutral, satisfied)</p>
+<p><strong>Binary:</strong> penguin sex (male / female), habitat type (shade / sun)</p>
 </div>
 </div></div>
-</section>
-<section id="prompt-discussion1" class="slide level2" data-menu-title="Data viz for discussion (a)">
-<h2></h2>
-<p><span class="slide-title">. . . to prompt discussion</span></p>
-<hr>
-<p><br></p>
-
-<img data-src="images/week1/hawkins-warming-stripes.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="center-text gray-text">
-<p><a href="https://showyourstripes.info/" target="_blank">Warming Strips</a>, by <a href="http://www.met.reading.ac.uk/~ed/home/index.php" target="_blank">Ed Hawkins</a></p>
+<div class="footer">
+<p><em>Art by <a href="https://allisonhorst.com/">Allison Horst</a></em></p>
 </div>
 </section>
-<section id="prompt-discussion2" class="slide level2" data-menu-title="Data viz for discussion (b)">
+<section id="choro-bar" class="slide level2" data-menu-title="Choropleth &amp; Bar chart">
 <h2></h2>
-<p><span class="slide-title">. . . to prompt discussion</span></p>
+<p><span class="slide-title">3. Try multiple different graphic forms</span></p>
 <hr>
+<p>If we want to show both big picture patterns and detailed comparisons, we may <strong>consider including multiple graphic forms.</strong></p>
 <p><br></p>
+<!-- THROWING ERROR THAT I CAN'T EXPLAIN SO ADDING CODE HERE -->
+<!-- {{< include sections/county-precip.qmd >}} -->
+<div>
 
-<img data-src="images/week1/lipponen-anomalies.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="center-text gray-text">
-<p>gif created from <a href="https://anttilip.net/" target="_blank">Antti Lipponen</a>’s <a href="https://www.flickr.com/photos/150411108@N06/35471910724/" target="_blank">Temperature Anomolies</a>.</p>
 </div>
-</section>
-<section id="prompt-discussion3" class="slide level2" data-menu-title="Data viz for discussion (c)">
-<h2></h2>
-<p><span class="slide-title">. . . to prompt discussion</span></p>
-<hr>
-<p><br></p>
-
-<img data-src="images/week1/sabbarao-climate-spiral.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="center-text gray-text">
-<p>gif created from <a href="https://www.linkedin.com/in/msubbarao/" target="_blank">Mark SubbaRao</a>’s <a href="https://svs.gsfc.nasa.gov/5161" target="_blank">Climate Spiral</a>. For a similar visualization with accompanying <code>{ggplot2}</code> code, see <a href="https://nrennie.rbind.io/" target="_blank">Nicola Rennie</a>’s <a href="https://github.com/nrennie/tidytuesday/tree/main/2023/2023-07-11" target="_blank">TidyTuesday contribution</a>!</p>
-</div>
-</section>
-<section id="bremer-pathwork" class="slide level2" data-menu-title="Data viz for aRt (N. Bremer">
-<h2></h2>
-<p><span class="slide-title">. . . to create art / tell a story</span></p>
-<hr>
-<p><br> <br></p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/bremer-patchwork-kingdoms1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="choosing-graphic-forms-slides_files/figure-revealjs/unnamed-chunk-26-2.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/bremer-patchwork-kingdoms2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/week1/bremer-patchwork-kingdoms3.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="center-text gray-text">
-<p><a href="https://www.visualcinnamon.com/art/patchwork-kingdoms/" target="_blank">Patchwork Kingdoms</a>, by <a href="https://www.visualcinnamon.com/about/" target="_blank">Nadieh Bremer</a> portraying the “digital divide” in schools across the world</p>
 </div>
 <aside class="notes">
-<ul>
-<li>a data &amp; generative art charity collection for the <a href="https://www.unicefusa.org/stories/giga-initiative-connecting-worlds-schools-internet" target="_blank">Giga Connect</a> project of UNICEF which aims to connect all of the schools in the world to the internet.</li>
-<li>a dataset of 1 million schools and for ±280,000 of those they know if those schools are connected to the internet</li>
-<li>took this data about the schools, split it into 1000 subsets, and turned each school into a tiny square</li>
-<li>upright kingdoms are schools that are already connected to the internet, while those in the hidden / upside down kingdoms are not. Each of the 1000 pieces is thereby showing the “digital divide” that still exists in our world, and the funds from this sale will help to bring more schools from the hidden to the upright kingdom.</li>
-</ul>
+<p>Consider how easy / difficult comparing precipitation across a subset of counties might be using only color to encode data.</p>
+<p>Our choropleth map displays 5-year precipitation as compared to the 20th century average by US county. But what if we wanted to explore precipitation across CA counties? A choropleth, which uses colors to encode information, may not be the easiest for making these comparisons. Choosing a graphical form from the top of the hierarchy (e.g.&nbsp;bar chart) may be more effective.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1024,96 +868,318 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="astronauts" class="slide level2" data-menu-title="Data viz for aRt (C. Scherer &amp; I. Anyene">
+<section id="ad-methods1" class="slide level2" data-menu-title="Advertising methods 1">
 <h2></h2>
-<p><span class="slide-title">. . . to create art / tell a story</span></p>
+<p><span class="slide-title">4. Arrange components of the graphic</span></p>
 <hr>
-<div class="center-text">
-<p>To enlarge, <strong>Right click</strong> &gt; <strong>Open Image in New Tab</strong></p>
-</div>
-<p><br></p>
+<p><br> How does the influence of <strong>in-theater advertising</strong> change across generations? <br> <br></p>
 <div class="columns">
-<div class="column" style="width:33%;">
+<div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/scherer-space-travel.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/cairo-advertising-v1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
+
+</div></div>
+<div class="footer">
 <div class="center-text gray-text">
-<p><a href="https://github.com/z3tt/TidyTuesday/blob/main/R/2020_29_Astronauts.Rmd" target="_blank">Traveling to Outer Space</a>, by <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a></p>
+<p>Images from <a href="https://www.albertocairo.com/" target="_blank">Alberto Cairo’s <em>The Truthful Art</em></a></p>
 </div>
-</div><div class="column" style="width:33%;">
-<p><br></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_05f6f93a" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+</section>
+<section id="ad-methods2" class="slide level2" data-menu-title="Advertising methods 2">
+<h2></h2>
+<p><span class="slide-title">4. Arrange components of the graphic</span></p>
+<hr>
+<p><br> How does the influence of <strong>in-theater advertising</strong> change across generations? <br> <br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/anyene-astronauts.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/cairo-advertising-v1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text gray-text">
-<p><a href="https://github.com/Ijeamakaanyene/tidytuesday/blob/master/scripts/2020_12_astronaut.Rmd" target="_blank">Galaxy of Astronauts</a>, by <a href="https://ijeamaka-anyene.netlify.app/" target="_blank">Ijeamaka Anyene</a></p>
-</div>
-</div><div class="column" style="width:33%;">
+</div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/thompson-astronauts.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/cairo-advertising-v2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-</div>
-<div class="center-text gray-text">
-<p><a href="https://github.com/cararthompson/tidytuesdays/blob/main/scripts/202007b_astronauts.R" target="_blank">Ages Through Time and Space</a>, by <a href="https://www.cararthompson.com/" target="_blank">Cara Thompson</a></p>
 </div>
 </div></div>
-<p><br></p>
 <div class="footer">
-<p>Find the data on the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-14/readme.md" target="_blank">TidyTuesday repo</a></p>
+<div class="center-text gray-text">
+<p>Images from <a href="https://www.albertocairo.com/" target="_blank">Alberto Cairo’s <em>The Truthful Art</em></a></p>
+</div>
 </div>
 </section>
-<section id="vertices" class="slide level2" data-menu-title="Vertices of Visualization">
+<section id="fed-spending1" class="slide level2" data-menu-title="Federal spending (a)">
 <h2></h2>
-<p><span class="slide-title">Vertices of Visualization</span></p>
+<p><span class="slide-title">4. Arrange components of the graphic</span></p>
+<hr>
+<p><strong>Let’s say we’re interested in:</strong></p>
+<ol type="a">
+<li>changes in the amount spent on Social Security relative to other major spending categories over time (2012-2015)?</li>
+</ol>
+
+<img data-src="images/week2/sonderegger-fed-spending1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><br></p>
+<div class="footer">
+<div class="center-text gray-text">
+<p>Example from Derek L. Sonderegger’s online textbook, <a href="https://bookdown.org/dereksonderegger/141/" target="_blank">STA 141 - Exploratory Data Analysis and Visualization</a></p>
+</div>
+</div>
+</section>
+<section id="fed-spending2" class="slide level2" data-menu-title="Federal spending (b)">
+<h2></h2>
+<p><span class="slide-title">4. Arrange components of the graphic</span></p>
+<hr>
+<p><strong>Let’s say we’re interested in:</strong></p>
+<ol type="a">
+<li><p>changes in the amount spent on Social Security relative to other major spending categories over time (2012-2015)?</p></li>
+<li><p>the amount of money spent on Social Security over time (2012-2015)?</p></li>
+</ol>
+
+<img data-src="images/week2/sonderegger-fed-spending2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><br></p>
+<div class="footer">
+<div class="center-text gray-text">
+<p>Example from Derek L. Sonderegger’s online textbook, <a href="https://bookdown.org/dereksonderegger/141/" target="_blank">STA 141 - Exploratory Data Analysis and Visualization</a></p>
+</div>
+</div>
+<!-- ---
+
+## {#internet1 data-menu-title="Internet (a)"}
+
+[4. Arrange components of the graphic]{.slide-title}
+
 <hr>
 
-<img data-src="images/week1/vertices.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>Vertices of Communication by <a href="https://www.albertocairo.com/" target="_blank">Alberto Cairo</a>, as presented by <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer</a> during his 2022 <a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/" target="_blank">Graphic Design with ggplot2</a> workshop (<a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/04_data_communication.pdf" target="_blank">slides</a>)</p>
-</div>
+**Do we want to convey:**
+
+a. internet usage in 2016? or
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](images/week2/wilkes-a.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+::: footer
+::: {.center-text .gray-text}
+Example from Claus Wilke's, [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/visualizing-amounts.html){target="_blank"}
+:::
+:::
+
+---
+
+## {#internet2 data-menu-title="Internet (b)"}
+
+[4. Arrange components of the graphic]{.slide-title}
+
+<hr>
+
+**Do we want to convey:**
+
+a. internet usage in 2016? or
+
+b.  how early or late adoption of internet relates to current-day usage?
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](images/week2/wilkes-b.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+::: footer
+::: {.center-text .gray-text}
+Example from Claus Wilke's, [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/visualizing-amounts.html){target="_blank"}
+:::
+::: -->
 </section>
-<section id="r-for-data-viz" class="slide level2" data-menu-title="R for data viz">
+<section id="iraq" class="slide level2" data-menu-title="Iraq deaths">
 <h2></h2>
-<p><span class="slide-title">Why R for data viz?</span></p>
+<p><span class="slide-title2">5. Test the outcomes of your graphic on others</span></p>
 <hr>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><br> <br></p>
-<div>
-<ul>
-<li class="fragment"><span class="body-text-m">great ecosystem of data wrangling &amp; visualization packages (inc. a massive and growing collection of <code>{ggplot2}</code> extensions)</span></li>
-<li class="fragment"><span class="body-text-m">amazing online learning communities</span></li>
-<li class="fragment"><span class="body-text-m">data viz fundamentals apply no matter the language / tool</span></li>
-</ul>
-</div>
-</div><div class="column" style="width:50%;">
-<p><br> <br></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/week1/why-r.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="images/week2/iraq-deaths.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text gray-text body-text-s">
+<p>Source: <a href="https://www.scmp.com/infographics/article/1284683/iraqs-bloody-toll" target="_blank">Iraq’s bloody toll</a>, by <a href="https://www.simonscarr.com/" target="_blank">Simon Scarr</a></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div class="center-text">
+<p><strong>To enlarge image (in Chrome), right click on image &gt; Open image in New Tab</strong></p>
+</div>
+<p><br></p>
+<ul>
+<li>What is the take home message of this graphic?</li>
+<li>What is effective? What is confusing?</li>
+</ul>
+</div><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_b174dc91" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="guns1" class="slide level2" data-menu-title="Gun deaths (original)">
+<h2></h2>
+<p><span class="slide-title2">5. Test the outcomes of your graphic on others</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/gun-deaths-original.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text gray-text body-text-s">
+<p>Source: <a href="https://www.businessinsider.com/gun-deaths-in-florida-increased-with-stand-your-ground-2014-2" target="_blank">This Chart Shows An Alarming Rise In Florida Gun Deaths After ‘Stand Your Ground’ Was Enacted</a>.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div class="center-text">
+<p><strong>To enlarge image (in Chrome), right click on image &gt; Open image in New Tab</strong></p>
+</div>
+<p><br></p>
+<ul>
+<li>What is the take home message of this graphic?</li>
+<li>What is effective? What is confusing?</li>
+</ul>
+</div><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_f41218e6" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="iraq-guns" class="slide level2" data-menu-title="Iraq vs. Gun deaths critique">
+<h2></h2>
+<p><span class="slide-title2">5. Test the outcomes of your graphic on others</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/iraq-deaths.png" class="quarto-figure quarto-figure-center" style="width:47.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="body-text-s">Baseline at the <em>top</em> is clear, suggesting that bars are <em>falling</em> from it. Clear metaphor (dripping blood).</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/gun-deaths-original.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="body-text-s">Eyes are drawn to baseline at the <em>bottom</em>, on top of which data are sitting. Headline indicates <em>rise</em> but visually represented by <em>falling</em>. Thick black line makes white area stand out over red (data).</span></p>
+</div></div>
+<div class="footer">
+<div class="gray-text center-text">
+<p>Critique by Alberto Cairo in his post <a href="http://www.thefunctionalart.com/2014/04/in-visualization-baselines-and-negative.html" target="_blank">In visualization, baselines and negative space matter</a> (NOTE 2025-01-10: link broken, haven’t found replacement)</p>
+</div>
+</div>
+</section>
+<section id="guns2" class="slide level2" data-menu-title="Gun deaths (revised)">
+<h2></h2>
+<p><span class="slide-title2">5. Test the outcomes of your graphic on others</span></p>
+<hr>
+<p>Business Insider <a href="https://www.businessinsider.com/gun-deaths-in-florida-increased-with-stand-your-ground-2014-2" target="_blank">published</a> an updated graphic (originally designed by Reuters), which was submitted by a reader that, <strong>“more clearly shows that gun deaths increased between 2005 and 2007 by flipping the y-axis”</strong>:</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/gun-deaths-original.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/week2/gun-deaths-revised.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
+<!-- --- -->
+<!-- ## {#critique-considerations data-menu-title="Critique considerations"} -->
+<!-- [5. Test the outcomes of your graphic on others]{.slide-title2} -->
+<!-- <hr> -->
+<!-- <br> -->
+<!-- [**Critiquing a data visualization:**]{.teal-text .body-text-l} -->
+<!-- 1. Identify the primary and secondary insights that the graphic is trying to convey. -->
+<!-- . .  . -->
+<!-- 2. Identify elementary perceptual tasks (e.g. comparing lengths, angles) and what is confusing or difficult to do. -->
+<!-- . .  . -->
+<!-- 3. Identify if it's possible (*and* if it makes sense) to use more effective elementary perceptual tasks for the primary and secondary insights -->
+<!-- . .  . -->
+<!-- 4. Identify points of confusion and decide how those could be addressed (e.g. a different graphic form, rearranging components, including an introduction graph, better annotation) -->
+<!-- ::: footer -->
+<!-- ::: {.center-text .gray-text} -->
+<!-- Adapted from Derek L. Sonderegger's online textbook, [STA 141 - Exploratory Data Analysis and Visualization](https://bookdown.org/dereksonderegger/141/12-critiques.html) -->
+<!-- ::: -->
+<!-- ::: -->
 </section>
 <section id="end-break" class="slide level2" data-menu-title="# End / Break #" data-background="#047C90">
 <h2></h2>
@@ -1121,11 +1187,11 @@
 <p class="custom-subtitle bottombr">
 <i class="fa-solid fa-mug-hot" title="a mug with steam rising out the top" aria-label="mug-hot"></i> Take a Break
 </p>
-<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_ca04393a" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_74dca5da" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
