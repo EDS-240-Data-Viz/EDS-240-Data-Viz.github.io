@@ -18,7 +18,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 2 | January 13^th^, 2024]{.custom-subtitle3}
+[Week 2 | January 14^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -186,7 +186,7 @@ knitr::include_graphics("images/week2/sbc-kelp.png")
 
 ::::
 
-We'll be exploring **bottom temperatures recorded at Mohawk Reef**, a near-shore rocky reef and one of the Santa Barbara Coastal (SBC) LTER research sites.
+We'll be exploring **bottom temperatures recorded at Mohawk Reef**, a near-shore rocky reef and one of the Santa Barbara Coastal (SBC) LTER research sites. 
 
 ---
 
@@ -196,12 +196,12 @@ We'll be exploring **bottom temperatures recorded at Mohawk Reef**, a near-shore
 
 <hr>
 
-[UPDATE reading data in from EDI not working; fix later] 
+Download data from the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007){target="_blank"} & explore the full [metadata package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007){target="_blank"} to learn more about these data.
 
-Data are imported directly from the [EDI Data Portal](https://portal.edirepository.org/nis/home.jsp){target="_blank"}. Explore the [metadata package](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007){target="_blank"} online to learn more about these data.
+<!-- [CODE CHUNK RENDERS BUT DOES NOT EVALUATE -- FIILEPATH REFLECTS STUDENTS FILEPATH] -->
 
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: true
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
@@ -218,7 +218,81 @@ library(see)
 library(palmerpenguins) # for some minimal examples
 
 #..........................import data...........................
-# mko <- readr::read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.2007.17&entityid=02629ecc08a536972dec021f662428aa")
+mko <- read_csv(here::here("week2", "data", "mohawk_mooring_mko_20250117.csv"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mko_clean <- mko |>
+
+  # keep only necessary columns ----
+  select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
+
+  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
+  unite(date, year, month, day, sep = "-", remove = FALSE) |>
+  mutate(time = chron::times(decimal_time)) |>
+  unite(date_time, date, time, sep = " ") |>
+
+  # coerce data types ----
+  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+         year = as.factor(year),
+         month = as.factor(month),
+         day = as.numeric(day)) |>
+
+  # add month name by indexing the built-in `month.name` vector ----
+  mutate(month_name = month.name[month]) |> 
+
+  # replace 9999s with NAs ----
+  naniar::replace_with_na(replace = list(Temp_bot = 9999, 
+                                         Temp_top = 9999, 
+                                         Temp_mid = 9999)) |>
+
+  # select/reorder desired columns ----
+  select(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            explore missing data                          ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Missing data can have unexpected effects on your analyses
+# It's imporatant to explore your data for missing values so that you can decide if and how to deal handle them
+# Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
+# We can use {naniar} to explore the frequency and patterns in missing data
+# Below is a short example of some naniar tools for doing so
+# Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
+
+#..........counts & percentages of missing data by year..........
+see_NAs <- mko_clean |> 
+  group_by(year) |> 
+  naniar::miss_var_summary() |>
+  filter(variable == "Temp_bot")
+
+#...................visualize missing Temp_bot...................
+bottom <- mko_clean |> select(Temp_bot)
+missing_temps <- naniar::vis_miss(bottom)
+```
+
+<!-- [CODE CHUNK THAT RUNS BUT DOES NOT RENDER ON SLIDE] -->
+
+```{r}
+#| eval: true
+#| echo: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(chron)
+library(naniar)
+library(ggridges)
+library(gghighlight)
+library(ggbeeswarm)
+library(see)
+library(palmerpenguins) # for some minimal examples
+
+#..........................import data...........................
 mko <- read_csv(here::here("course-materials", "lecture-slides", "data", "mohawk_mooring_mko_20250117.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -255,6 +329,13 @@ mko_clean <- mko |>
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            explore missing data                          ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Missing data can have unexpected effects on your analyses
+# It's imporatant to explore your data for missing values so that you can decide if and how to deal handle them
+# Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
+# We can use {naniar} to explore the frequency and patterns in missing data
+# Below is a short example of some naniar tools for doing so
+# Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
 
 #..........counts & percentages of missing data by year..........
 see_NAs <- mko_clean |> 

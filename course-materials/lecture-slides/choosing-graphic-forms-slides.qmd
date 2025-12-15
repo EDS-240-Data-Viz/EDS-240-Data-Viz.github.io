@@ -18,7 +18,7 @@ editor_options:
 
 <hr class="hr-teal">
 
-[Week 2 | January 13^th^, 2024]{.custom-subtitle3}
+[Week 2 | January 14^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -180,11 +180,11 @@ Example adapted from Alberto Cairo's, *The Truthful Art*
 :::: columns
 
 ::: {.column width="50%"}
-{{< include sections/3.1-length-height.qmd >}}
+{{< include sections/map-length-height.qmd >}}
 :::
 
 ::: {.column width="50%"}
-{{< include sections/3.1-pos-area.qmd >}}
+{{< include sections/map-pos-area.qmd >}}
 :::
 
 ::::
@@ -383,9 +383,9 @@ ggplot(circles_bars, aes(x = size, y = id)) +
 <hr>
 
 <!-- Followed instructions for creating choropleth map here: <https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html> -->
-<!-- Download precipitation data here: <https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value> -->
+<!-- Download precipitation data here: <https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value> --> 
 
-{{< include sections/2.1-choropleth-jan20-dec24.qmd >}}
+{{< include sections/choropleth.qmd >}}
 
 . . .
 
@@ -393,7 +393,7 @@ ggplot(circles_bars, aes(x = size, y = id)) +
 
 
 ::: {.footer}
-Map created using precipitation data from NOAA's [National Centers for Environmental Information](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value){target="_blank"}.
+Map created using precipitation data from NOAA's [National Centers for Environmental Information](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202510/60/value){target="_blank"}.
 :::
 
 ---
@@ -491,7 +491,7 @@ Bertini E, Correll M, Franconeri S (2020) [Why Shouldn't All Charts Be Scatter P
 
 . . .
 
-3. [**Try different graphic forms,**]{.teal-text} especially if you have more than one task to enable or message to convey.
+3. [**Try multiple different graphic forms,**]{.teal-text} especially if you have more than one task to enable or message to convey.
 
 . . .
 
@@ -505,28 +505,6 @@ Bertini E, Correll M, Franconeri S (2020) [Why Shouldn't All Charts Be Scatter P
 [*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s}
 :::
 
-<!-- --- -->
-
-<!-- ## {#tips1-2 data-menu-title="Tips for choosing a graph 1 & 2"} -->
-
-<!-- [Tips for choosing the right graphic form]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- 1. [**Think about the task(s) you want to enable or message(s) you want to convey.**]{.teal-text} For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values. -->
-
-<!-- 2. [**Consider the number of variables and the number of data points, as well as the data types you're working with.**]{.teal-text} For example, do you have several vs. many data points? How many categorical and / or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate. -->
-
-<!-- 3. [**Try different graphic forms,** especially if you have more than one task to enable or message to convey.]{.gray-text} -->
-
-<!-- 4. [**Arrange the components of the graphic** to make it as easy as possible to extract meaning from your graphic quickly.]{.gray-text} -->
-
-<!-- 5. [**Test the outcomes of your graphic on others,** particularly on those who are representative of the audience you are trying to reach.]{.gray-text} -->
-
-<!-- ::: footer -->
-<!-- [*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s} -->
-<!-- ::: -->
-
 ---
 
 ## {#chart-selectors data-menu-title="Resources for selecting charts"}
@@ -537,24 +515,7 @@ Bertini E, Correll M, Franconeri S (2020) [Why Shouldn't All Charts Be Scatter P
 
 <hr>
 
-:::: columns
-
-::: {.column width="33%"}
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics("images/week2/dvp.png")
-```
-
-::: {.center-text}
-[Data Viz Project](https://datavizproject.com/){target="_blank"}
-[displays one small data set 100 different ways]{.body-text-s}
-:::
-
-:::
+:::: {.columns}
 
 ::: {.column width="33%"}
 
@@ -580,12 +541,29 @@ knitr::include_graphics("images/week2/dtv.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week2/vu.png")
+knitr::include_graphics("images/week2/dvp.png")
 ```
 
 ::: {.center-text}
-[The Visualization Universe](https://visualizationuniverse.com/){target="_blank"}
-[compares most popular graphic forms]{.body-text-s}
+[Data Viz Project](https://datavizproject.com/){target="_blank"}
+[displays one small data set 100 different ways]{.body-text-s}
+:::
+
+:::
+
+::: {.column width="33%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/week2/vv.png")
+```
+
+::: {.center-text}
+[Visual Vocabulary](https://ft-interactive.github.io/visual-vocabulary/){target="_blank"}
+[consider which data relationship is most important in your story]{.body-text-s}
 :::
 
 :::
@@ -719,42 +697,21 @@ knitr::include_graphics("images/week2/horst-nom-org-binary.png")
 *Art by [Allison Horst](https://allisonhorst.com/)*
 :::
 
-<!-- --- -->
-
-<!-- ## {#tips3 data-menu-title="Tips for choosing a graph 3"} -->
-
-<!-- [Tips for choosing the right graphic form]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- 1. [**Think about the task(s) you want to enable or message(s) you want to convey.** For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values.]{.gray-text} -->
-
-<!-- 2. [**Consider the number of variables and the number of data points, as well as the data types you're working with.** For example, do you have several vs. many data points? How many categorical and/or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate.]{.gray-text} -->
-
-<!-- 3. [**Try different graphic forms**]{.teal-text} especially if you have more than one task to enable or message to convey. -->
-
-<!-- 4. [**Arrange the components of the graphic** to make it as easy as possible to extract meaning from your graphic quickly.]{.gray-text} -->
-
-<!-- 5. [**Test the outcomes of your graphic on others,** particularly on those who are representative of the audience you are trying to reach.]{.gray-text} -->
-
-<!-- ::: footer -->
-<!-- [*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s} -->
-<!-- ::: -->
-
 ---
 
 ## {#choro-bar data-menu-title="Choropleth & Bar chart"}
 
-[3. Try different graphic forms]{.slide-title}
+[3. Try multiple different graphic forms]{.slide-title}
 
 <hr>
 
-If we want to show both big picture patterns and detailed comparisons, we may **consider including multiple graphic forms in the same visualization.**
+If we want to show both big picture patterns and detailed comparisons, we may **consider including multiple graphic forms.**
 
 <br>
 
 <!-- THROWING ERROR THAT I CAN'T EXPLAIN SO ADDING CODE HERE -->
-<!-- {{< include sections/3.2-county-precip.qmd >}} -->
+<!-- {{< include sections/county-precip.qmd >}} -->
+
 
 ```{r}
 #| eval: true
@@ -833,7 +790,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared to the 20th century average",
-       subtitle = "January 2020 - December 2024",
+       subtitle = "November 2020 - October 2025",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(
@@ -881,7 +838,7 @@ joined_precip_geom |>
   geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
   coord_flip() +
   labs(x = "", y = "Total Precipitation (inches)",
-       title = "Top 10 California counties to recieve the most rainfall, Jan 2020 - Dec 2024") +
+       title = "California counties with the highest rainfall (Nov 2020 - Oct 2025)") +
   theme_classic() +
   theme(
     plot.title.position = "plot",
@@ -892,33 +849,10 @@ joined_precip_geom |>
 ```
 
 ::: {.notes}
-
 Consider how easy / difficult comparing precipitation across a subset of counties might be using only color to encode data.
 
 Our choropleth map displays 5-year precipitation as compared to the 20th century average by US county. But what if we wanted to explore precipitation across CA counties? A choropleth, which uses colors to encode information, may not be the easiest for making these comparisons. Choosing a graphical form from the top of the hierarchy (e.g. bar chart) may be more effective.
 :::
-
-<!-- --- -->
-
-<!-- ## {#tips4 data-menu-title="Tips for choosing a graph 4"} -->
-
-<!-- [Tips for choosing the right graphic form]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- 1. [**Think about the task(s) you want to enable or message(s) you want to convey.** For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values.]{.gray-text} -->
-
-<!-- 2. [**Consider the number of variables and the number of data points, as well as the data types you're working with.** For example, do you have several vs. many data points? How many categorical and/or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate.]{.gray-text} -->
-
-<!-- 3. [**Try different graphic forms,** especially if you have more than one task to enable or message to convey.]{.gray-text} -->
-
-<!-- 4. [**Arrange the components of the graphic**]{.teal-text} to make it as easy as possible to extract meaning from your graphic quickly. -->
-
-<!-- 5. [**Test the outcomes of your graphic on others,** particularly on those who are representative of the audience you are trying to reach.]{.gray-text} -->
-
-<!-- ::: footer -->
-<!-- [*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s} -->
-<!-- ::: -->
 
 ---
 
@@ -1074,7 +1008,7 @@ Example from Derek L. Sonderegger's online textbook, [STA 141 - Exploratory Data
 :::
 :::
 
----
+<!-- ---
 
 ## {#internet1 data-menu-title="Internet (a)"}
 
@@ -1126,29 +1060,7 @@ knitr::include_graphics("images/week2/wilkes-b.png")
 ::: {.center-text .gray-text}
 Example from Claus Wilke's, [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/visualizing-amounts.html){target="_blank"}
 :::
-:::
-
-<!-- --- -->
-
-<!-- ## {#tips5 data-menu-title="Tips for choosing a graph 5"} -->
-
-<!-- [Tips for choosing the right graphic form]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- 1. [**Think about the task(s) you want to enable or message(s) you want to convey.** For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values.]{.gray-text} -->
-
-<!-- 2. [**Consider the number of variables and the number of data points, as well as the data types you're working with.** For example, do you have several vs. many data points? How many categorical and/or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate.]{.gray-text} -->
-
-<!-- 3. [**Try different graphic forms,** especially if you have more than one task to enable or message to convey.]{.gray-text} -->
-
-<!-- 4. [**Arrange the components of the graphic** to make it as easy as possible to extract meaning from your graphic quickly.]{.gray-text} -->
-
-<!-- 5. [**Test the outcomes of your graphic on others,**]{.teal-text} particularly on those who are representative of the audience you are trying to reach. -->
-
-<!-- ::: footer -->
-<!-- [*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s} -->
-<!-- ::: -->
+::: --> 
 
 ---
 
@@ -1193,7 +1105,7 @@ Source: [Iraq's bloody toll](https://www.scmp.com/infographics/article/1284683/i
 
 ```{r}
 countdown::countdown(
-  minutes = 2.5,
+  minutes = 2,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -1252,7 +1164,7 @@ Source: [This Chart Shows An Alarming Rise In Florida Gun Deaths After 'Stand Yo
 
 ```{r}
 countdown::countdown(
-  minutes = 2.5,
+  minutes = 2,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -1387,7 +1299,7 @@ knitr::include_graphics("images/week2/gun-deaths-revised.png")
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
 </div>
 
 ```{r}
