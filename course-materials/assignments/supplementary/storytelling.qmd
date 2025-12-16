@@ -1,0 +1,888 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#053660"} 
+
+[Storytelling for data science bloggers]{.custom-title}
+
+[*Tips for crafting your EDS 240 final project*]{.custom-subtitle}
+
+<hr class="hr-teal">
+
+[[FPM #4](../FPM4.qmd){target="_blank"}]{.custom-subtitle3}
+
+---
+
+## {#blogging data-menu-title="Blogging?"} 
+
+[Blogging . . . in a data science program??]{.slide-title}
+
+<hr>
+
+<br>
+
+[It's actually quite popular!]{.body-text-m}  
+
+<br>
+
+. . . 
+
+[And I *cannot overstate* just how much my learning journey benefits from reading personal data science blogs. Just a few reasons:]{.body-text-m} 
+
+<br>
+
+- oftentimes **shorter** and / or **more approachable** than book chapters or documentation
+- a **versatile medium** that can incorporate storytelling, humor, and non-traditional media (e.g. gifs, memes, videos, etc.) -- things that make the **author relatable**!
+- posts on **niche topics or approaches** that I haven't always found clear documentation for elsewhere
+- **networking** / getting to know active participants in the data science world
+
+---
+
+## {#visibility data-menu-title="Visibility"} 
+
+[Your blog can draw viewers to your website]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "60%"
+#| fig-align: "center"
+knitr::include_graphics("images/analytics-quarto-blog.png")
+```
+
+::: {.footer}
+A screenshot from my Google Analytics dashboard. My most highly-visited page is consistently [this blog post](https://samanthacsik.github.io/posts/2022-10-24-quarto-blogs/){target="_blank"}.
+:::
+
+---
+
+## {#promote data-menu-title="Promoting posts"} 
+
+[And you can drive engagement by promoting your posts]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "60%"
+#| fig-align: "center"
+knitr::include_graphics("images/analytics-linkedin-post.png")
+```
+
+::: {.footer}
+A screenshot from my Google Analytics dashboard. Views peaked when I [shared my blog post on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7181031975984488449/){target="_blank"}. 
+:::
+
+---
+
+## {#intimidating data-menu-title="Writing can be intimidating"} 
+
+[Writing (in any form) can feel intimidating . . .]{.slide-title2}
+
+<hr>
+
+<br>
+
+[. . . but with practice throughout MEDS, I hope you'll find *blogging* to be:]{.body-text-m}
+
+<br>
+
+- a creative and flexible outlet
+- a motivator for learning new skills
+- a way to reflect on your work / find closure after a large effort
+- a fun way to showcase / market your technical skills (both programming and writing)
+
+<br>
+
+. . . 
+
+[Data science blogging can (and should) be more than just the code you've written or the tool you've learned -- this is what we'll (primarily) focus on here.]{.body-text-m}
+
+---
+
+## {#how-to data-menu-title="How to?"} 
+
+[Okay, where do we actually start?]{.slide-title}
+
+<hr>
+
+[There's no single formula, but here are some steps you might consider taking to help you craft not only informative, but also engaging blog posts:]{.body-text-m}
+
+<br>
+
+. . . 
+
+[[{{< fa lightbulb title="lightbulb" >}}]{.teal-text} Find your topic]{.body-text-m}
+
+<br>
+
+. . . 
+
+[[{{< fa book-open title="an open book" >}}]{.teal-text} Craft your story]{.body-text-m}
+
+<br>
+
+. . . 
+
+[[{{< fa wand-sparkles title="a wand with sparkles" >}}]{.teal-text} Add embellishments]{.body-text-m}
+
+<br>
+
+. . . 
+
+[[{{< fa file-pen title="a file and pen" >}}]{.teal-text} Write it / get feedback / revise / publish]{.body-text-m}
+
+---
+
+## {#find-topic-start data-menu-title="Find your topic (start)" background="#047C90"} 
+
+<div class="vertical-center center-text">
+<p class="custom-subtitle bottombr">{{< fa lightbulb title="lightbulb" >}} Find your topic</p>
+</div>
+
+---
+
+## {#find-topic data-menu-title="Find your topic"} 
+
+[{{< fa lightbulb title="lightbulb" >}} Find your topic]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+[For EDS 240, that topic is **chosen for you** (though beyond class, you'll have **full creative freedom** -- consider leaning on your [personal brand](https://docs.google.com/presentation/d/1vhRnICrX_i1tarCA3rHrpNgpteckC5VX_nZQxMjyAM8/edit){target="_blank"} to help guide your blog post topics).]{.body-text-m}
+
+<br>
+
+[Reference the [final project instructions]((../final-project.qmd)){target="_blank"} to remind youself of the goals for this blog post.]{.body-text-m}
+
+---
+
+## {#craft-story-start data-menu-title="Craft story (start)" background="#047C90"} 
+
+<div class="vertical-center center-text">
+<p class="custom-subtitle bottombr">{{< fa book-open title="an open book" >}} Craft your story</p>
+</div>
+
+---
+
+## {#craft-story data-menu-title="Craft story"} 
+
+[{{< fa book-open title="an open book" >}} Craft your story]{.slide-title2}
+
+<hr>
+
+[Storytelling is a powerful mechanism for effective (data) science communication]{.body-text-m}
+
+<br>
+
+**Communicating via stories has been found to:**
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Increase likelihood of people remembering information
+- Reduce disbelief and counter-arguing 
+- Make people feel the experience as if it was their own
+- Be much more convincing than just data or code
+- Increase engagement with a more general audience
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "80%"
+#| fig-align: "center"
+knitr::include_graphics("images/storytelling.png")
+```
+
+::: {.center-text .body-text-s .gray-text}
+Image source: Shutterstock
+:::
+
+:::
+
+::::
+
+::: {.footer}
+From [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials
+:::
+
+---
+
+## {#freytags-pyramid data-menu-title="Freytag's Pyramid"} 
+
+[{{< fa book-open title="an open book" >}} One storytelling approach: build tension]{.slide-title2}
+
+<hr>
+
+[Good stories build narrative tension over time with a distinct beginning, middle, and end]{.body-text-m}
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/freytags-pyramid.png")
+```
+
+<br>
+
+::: {.footer}
+Freytag's Pyramid is just one possible narrative structure. From [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials
+:::
+
+---
+
+## {#starwars-exposition data-menu-title="Starwars exposition"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-exposition.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/) [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#starwars-incident data-menu-title="Starwars incident"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-incident.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/) [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#starwars-rising-action data-menu-title="Starwars rising action"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-rising-action.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#starwars-climax data-menu-title="Starwars climax"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-climax.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#starwars-falling-action data-menu-title="Starwars falling action"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-falling-action.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#starwars-resolution data-menu-title="Starwars resolution"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: Starwars (A New Hope)]{.slide-title2}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/starwars-resolution.png")
+```
+
+<br>
+
+::: {.footer}
+Adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials and [this article on Freytag's Pyramid](https://nofilmschool.com/freytag-s-pyramid){target="_blank"}
+:::
+
+---
+
+## {#intro-concl data-menu-title="Intro / Conclusion"} 
+
+[{{< fa book-open title="an open book" >}} Storytelling / scene-setting in an intro (and conclusion)]{.slide-title2}
+
+<hr>
+
+<br>
+
+[**A common approach:**]{.body-text-m}
+
+- storytelling / scene-setting in the intro (and maybe conclusion)
+- technical instruction / discussion / tutorial-style writing in the body
+
+<br>
+
+. . . 
+
+[Of course, there's no one *right* way to blog (or storytell for that matter) -- don't let this constrain you]{.body-text-m}
+
+---
+
+## {#sam-story data-menu-title="Storytelling (EXAMPLE - Sam)"} 
+
+[{{< fa book-open title="an open book" >}} EXAMPLE: My first ever blog post]{.slide-title2}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/sam-post-pyramid.png")
+```
+
+<br>
+
+::: {.footer}
+This storytelling / scene-setting all occurs in the intro / conclusion of my blog post, [Why create presentations slides bout blogging when you can just blog about it instead?](https://samanthacsik.github.io/posts/2021-09-21-distill-blogs/){target="_blank"}
+:::
+
+---
+
+## {#science-story-structures data-menu-title="Science story structures"} 
+
+[{{< fa book-open title="an open book" >}} No one way to tell a story -- there are many narrative structures!]{.slide-title2}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/science-story-structures.png")
+```
+
+::: {.footer}
+Source: [Uniting science and stories: Perspectives on the value of storytelling for communicating science](https://www.facetsjournal.com/doi/full/10.1139/facets-2016-0079#sec-3{target="_blank"}) (Green et al. 2018); See additional examples of some of the many other possible [narrative structures](https://www.campfirewriting.com/learn/narrative-structure){target="_blank"}.
+:::
+
+---
+
+## {#mgans-ex data-menu-title="EXAMPLE - Maya"} 
+
+[{{< fa book-open title="an open book" >}} ANOTHER EXAMPLE: Maya Gans]{.slide-title2}
+
+<hr>
+
+[**From [My First Live Coding Interview](https://maya.rbind.io/posts/live-coding-interview/){target="_blank"}, by [Maya Gans](https://maya.rbind.io/){target="_blank"}:**]{.body-text-m}
+
+::: {.body-text-s}
+>***Intro:** "Yesterday I interviewed for a position maintaining and creating ShinyApps. To call that a JOB is crazy to me. I love developing reactive web applications, the fact that you can get paid to do that is still mind blowing. I’m realizing that having fun at work is actually a possibility!*
+>
+>*That said, the data scientist position usually includes a live coding portion. I went into it trying to treat my first one as practice, but every second I didn’t spend typing spanned an eternity. It was horrifying… but thinking about how to solve these questions was also kind of really fun?*
+>
+>*I’m fairly certain I won’t get the job. But I’m also certain it was an experience to learn and grow. The interview was so intense that it was pretty easy to recall the questions almost verbatim. I wanted to explore the questions again on my own with no pressure. And I’d love input on how to answer these more elegantly!"*
+>
+>***Conclusion:** "I left the interview feeling exhausted and deflated. I found myself asking: if I can’t answer these questions, what am I doing trying to become a data scientist? But now that I’ve spent a day to reflect, the interview was an incredible learning experience. It pinpointed concrete areas where I can grow and I honestly had fun thinking about these problems. I’m not sure I’ll ever perform smoothly under pressure, but at the very least I now have a function to separate duplicates from unique values!"*
+
+:::
+
+```{r}
+countdown::countdown(
+  minutes = 2,
+  # right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+---
+
+## {#motivation data-menu-title="Describe motivation"} 
+
+[{{< fa book-open title="an open book" >}} Storytell by describing your motivation]{.slide-title2}
+
+<hr>
+
+[**A few examples:**]{.body-text-m}
+
+::: {.body-text-s}
+>*"In previous years, when it gets to the end of the year, I’ve written blog posts about reflecting on a year of #TidyTuesday data visualisations, or making your own #RStats Wrapped in the style of SpotifyWrapped. This year, I wanted to reflect on some of the changes I’ve made to the way I write R code that have helped to streamline my workflows."* **-[Nicola Rennie](https://nrennie.rbind.io/){target="_blank"}, in [Four ways to streamline your R workflows](https://nrennie.rbind.io/blog/four-ways-streamline-r-workflows/){target="_blank"}**
+:::
+
+<!-- ::: {.body-text-s} -->
+<!-- >*"As I approach four months of unemployment I’m finding I need projects to work on purely for the sake of my mental health. One project that has helped a lot is working on the [ggplot2](https://ggplot2-book.org/) book (which I coauthor with Hadley Wickham and Thomas Lin Pedersen). At the moment I’m working on the book chapters that discuss the ggplot2 extension system: it’s been quite a lot of fun. One really nice thing about working on those chapters is that I’ve ended up learning a lot about the [grid](https://stat.auckland.ac.nz/~paul/grid/grid.html) graphics system upon which ggplot2 is built. At this point we’re really not sure how much grid to incorporate into the book, but as a fun side-project I decided to adapt some of it and use it as the basis for a post on generative art."* **-[Danielle Navarro](https://blog.djnavarro.net/), in [Generative art with grid](https://blog.djnavarro.net/posts/2023-03-31_generative-art-with-grid/)** -->
+<!-- ::: -->
+
+::: {.body-text-s}
+>*"Around 11pm last night I saw [this tweet](https://x.com/tcarpenter216/status/1580771753873518593){target="_blank"} [SCREENSHOT OF TWEET]. Tom’s instinct makes perfect sense. My first thought was “[CHICKEN WINGS.”](https://www.businessinsider.com/restaurants-pricing-confusing-math-2018-10){target="_blank"} So I spent a couple sleepless hours with this weird (and obviously fake) data set about bird attacks in 1974, because it felt like a good October distraction and an opportunity to get some data wrangling rust off."* **-[Allison Horst](https://allisonhorst.github.io/){target="_blank"}, in [1974…bird attacks?](https://allisonhorst.github.io/posts/2022-10-14-bird-attacks/){target="_blank"}**
+:::
+
+::: {.body-text-s}
+>*"Hello and welcome back to my multi-part series about what I like to call slidecrafting; The art of putting together slides that are functional and aesthetically pleasing. I will be using [quarto presentations](https://quarto.org/){target="_blank"}. This is the fifth post, you can find all other posts in the [slidecraft 101](https://emilhvitfeldt.com/project/slidecraft-101/){target="_blank"} project."* **-[Emil Hvitfeldt](https://emilhvitfeldt.com/){target="_blank"}, in [Slidecraft 101: Layout](https://emilhvitfeldt.com/post/slidecraft-layout/){target="_blank"}**
+:::
+
+---
+
+## {#add-embellishments-start data-menu-title="Add embellishments (start)" background="#047C90"} 
+
+<div class="vertical-center center-text">
+<p class="custom-subtitle bottombr">{{< fa wand-sparkles title="a wand with sparkles" >}} Add embellishments</p>
+</div>
+
+---
+
+## {#embellishments data-menu-title="Embellishment types"} 
+
+[{{< fa wand-sparkles title="a wand with sparkles" >}} Embellishments can improve engagement]{.slide-title2}
+
+<hr>
+
+[Once your story framework is scaffolded, adding in one (or more) of the following embellishment types can help you engage your readers:]{.body-text-m}
+
+<br>
+
+::: {.body-text-m}
+1. Humor
+2. Hooks
+3. Metaphors
+4. Supporting media
+:::
+
+[[Matt Dray](https://www.matt-dray.com/){target="_blank"} and [Adriana De Palma](https://adrianadepalma.com/){target="_blank"}'s blog, [rostrum.blog](https://www.rostrum.blog/){target="_blank"} is one that often (always?) leverages embellishments to engage their readers. Examples from their post, **[Base slaps!](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/){target="_blank"}**, on the following slides.]{.body-text-m}
+
+::: {.footer}
+The following slide content is adapted from [Alex Phillips'](https://www.alexandraatleephillips.com/){target="_blank"} [ESM 438](https://bren.ucsb.edu/courses/esm-438){target="_blank"} course materials, with the added example of [Base Slaps!](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/){target="_blank"}.
+:::
+
+---
+
+## {#humor data-menu-title="Humor"} 
+
+[{{< fa wand-sparkles title="a wand with sparkles" >}} 1. Humor]{.slide-title2}
+
+<hr>
+
+To start, the title (**Base slaps!**) is pretty punny {{< fa face-laugh-beam title="a laughing face with squinty eyes" >}} (spoiler, it's about base R):
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/base-slaps.png")
+```
+
+<br>
+
+And ends with this final closing paragraph:
+
+::: {.body-text-s}
+>*"But ultimately, I just wanted to do this terrible ‘base slaps’/‘slap bass’ pun, sorry. But also, I hear that zoomers say ‘slaps’ to mean ‘cool’. I think. Oh dear, this was a flimsy premise for a talk. Cringe-driven development?"*
+:::
+
+- maybe you like reading it, maybe you like writing with it, maybe you like both, maybe you like neither
+- should be an authentic extension of you (e.g. if you like sarcasm, go for it!)
+- keep it professional
+
+---
+
+## {#hooks data-menu-title="Hooks"} 
+
+[{{< fa wand-sparkles title="a wand with sparkles" >}} 2. Hooks]{.slide-title2}
+
+<hr>
+
+[Good hooks inspire wonder, curiosity, humor, or other connecting emotions.]{.body-text-m}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[**Classic hooks:**]{.body-text-m}
+
+- what if I told you...
+- think about the last time you...
+- how many of you...
+- imagine that...
+- take a look at...
+- did you know...
+:::
+
+::: {.column width="50%"}
+<br>
+
+Matt opens his abstract for [this talk](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/#video){target="_blank"} (under the section titled, [Premise](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/#premise){target="_blank"}) with the hook:
+
+<br>
+
+::: {.body-text-m}
+>*"Did you hear? Base R is dead! Or is it?"*
+:::
+:::
+
+::::
+
+---
+
+## {#metaphors-media data-menu-title="Metaphors & Media"} 
+
+[{{< fa wand-sparkles title="a wand with sparkles" >}} 3/4. Metaphors & Supporting media]{.slide-title2}
+
+<hr>
+
+Use metaphors to improve connections or visualizations for your audience. And because blog posts are a versatile medium, don't shy away from including media that helps to demonstrate examples (and importantly, gives your readers a break from a wall of text and code).
+
+:::: {.columns}
+
+::: {.column width="50%"}
+>*"Re stability, vanilla R has changed little over time. Code written a couple of decades ago has a high chance of running now and will (likely) be executable for a long time into the future. As a result, I contend that R is a horseshoe crab (unchanged for aeons, cryptically beautiful)."*
+:::
+
+::: {.column width="50%"}
+>*"Note that base R is the literal, unyielding base of the teetering tower of packages used by your project (incredible metaphor)."*
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "40%"
+#| fig-align: "center"
+knitr::include_graphics("images/xkcd.png")
+```
+:::
+
+::::
+
+::: {.footer}
+Both quotes and [xkcd adaptation](https://xkcd.com/2347/){target="_blank"} come from the section titled, [Content](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/#content){target="_blank"}. Find many more metaphors and media throughout the [blog post](https://www.rostrum.blog/posts/2023-10-17-nhs-r-2023/){target="_blank"}.
+:::
+
+---
+
+## {#write-it-start data-menu-title="Write it (start)" background="#047C90"} 
+
+<div class="vertical-center center-text">
+<p class="custom-subtitle bottombr">{{< fa file-pen title="a file and pen" >}} Write it / get feedback / revise / publish</p>
+</div>
+
+---
+
+## {#complete-blog-post data-menu-title="Complete blog post"} 
+
+[{{< fa file-pen title="a file and pen" >}} Continue drafting & polishing your post]{.slide-title2}
+
+<hr>
+
+<br>
+<br>
+
+[**Getting feedback:**]{.body-text-l}
+
+
+- [Trade with a friend (even better if you can both give feedback to one another)]{.body-text-m}
+
+- [See us at student hours!]{.body-text-m}
+
+- [Opportunity to receive, incorporate and address feedback through FPM #4 revision & resubmission]{.body-text-m}
+
+---
+
+## {#tips-start data-menu-title="Additional tips (start)" background="#047C90"} 
+
+<div class="vertical-center center-text">
+<p class="custom-subtitle bottombr">{{< fa plus title="a plus sign" >}} A few final tips to consider, as appropriate</p>
+</div>
+
+---
+
+## {#tldr data-menu-title="TL;DR"} 
+
+[{{< fa plus title="a plus sign" >}} Include a TL;DR, especially for long posts]{.slide-title2}
+
+<hr>
+
+[TL;DR - internet slang for Too Long; Didn't Read]{.body-text-m}
+
+Should be a **short and succinct** summary of your main discussion points. It *should not* introduce new / additional information. 
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/tldr.png")
+```
+
+::: {.footer}
+H/T: [Julie Lowndes](https://openscapes.org/team){target="_blank"} for recommending using TL;DRs in blog posts! I gave it a shot for the first time in my post, [Porting the Openscapes website from blogdown to Quarto](https://samanthacsik.github.io/posts/2023-08-01-openscapes-website/){target="_blank"}.
+:::
+
+---
+
+## {#headers data-menu-title="Headers"} 
+
+[{{< fa plus title="a plus sign" >}} Use headers to help readers navigate content]{.slide-title2}
+
+<hr>
+
+Most visitors won't read your entire blog post, but rather want to jump to the parts that are relevant for them -- help them easily navigate by creating clear section headers (e.g. `#` - `####`) and enabling a [table of contents](https://quarto.org/docs/reference/formats/html.html#table-of-contents){target="_blank"}.
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/toc.png")
+```
+
+<br>
+
+::: {.footer}
+Set `toc: true` in either your `_quarto.yml` file (which would make this the default behavior across *all* your website pages), or in your blog post's YAML (which turns on table of contents for *just* that page). You may also adjust the `toc-depth` (number of section levels to include; defaults to 3). Screenshot from my blog post, [Building (and teaching) a graduate-level data science course](https://samanthacsik.github.io/posts/2024-04-02-data-viz-course/#building-the-course){target="_blank"}
+:::
+
+---
+
+## {#chunk-options data-menu-title="Chunk options"} 
+
+[{{< fa plus title="a plus sign" >}} Set the appropriate code chunk options]{.slide-title2}
+
+<hr>
+
+Your data science blog posts will often include example code. Thoughtfully set your code chunk options so that your examples are easy to follow, but don't bog down your post by requiring readers to scroll past loonnngggg data frames or messages / warnings (unless there's an important and demonstrative reason to do so). Consider:
+
+<br>
+
+- do you need to show messages / warnings to demonstrate your point? if not, suppress them: `message: false` & `warning: false`
+- show just the code, but not the output (e.g. loading libraries): `eval: false` & `echo: true`
+- show just the output (and not code): `eval: true` & `echo: false`
+
+. . . 
+
+<br>
+
+***[FPM #4](../FPM4.qmd){target="_blank"} details where you should include your code chunk and how to set the code chunk options. Please follow the instructions for your EDS 240 blog post (but consider the above for other / future posts!).***
+
+::: {.footer}
+Remember, you can set options in your blog post's YAML or on a chunk-by-chunk basis.
+:::
+
+---
+
+## {#consider-code data-menu-title="Consider code"} 
+
+[{{< fa plus title="a plus sign" >}} Consider how you write / display your code]{.slide-title2}
+
+<hr>
+
+- use logical variable / object names
+- include clear, succinct, and nicely structured code annotations, as appropriate (check out the [`{ARTofR}` package](https://github.com/Hzhang-ouce/ARTofR){target="_blank"})
+- consider [*folding* code](https://quarto.org/docs/output-formats/html-code.html#folding-code){target="_blank"} so that readers can expand / collapse code as needed (set `code-fold: true` in your post's YAML, or on a chunk-by-chunk basis)
+
+<!-- :::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics("images/mkochuten.png")
+```
+:::
+
+::: {.column width="50%"}
+<br>
+<br>
+<br>
+[Check out [Marina Kochuten](https://mwidas.github.io/){target="_blank"}' (MEDS 2024) post, [Relationship between bee behavior and vineyard types in Germany](https://mwidas.github.io/blog-posts/2024-03-05-infographic-bees-wine/){target="_blank"}, which demonstrates the above approaches (Melissa also does a great job telling a story in her intro).]{.body-text-s}
+:::
+:::: -->
+
+--- 
+
+## {#categories data-menu-title="Categories"} 
+
+[{{< fa plus title="a plus sign" >}} Strategically assign categories]{.slide-title2}
+
+<hr>
+
+<br>
+
+[Add [category](https://quarto.org/docs/websites/website-blog.html#categories){target="_blank"} tags to individual blog posts to strategically group related posts. Some ideas / examples:]{.body-text-m}
+
+<br>
+
+- [**MEDS-related posts (e.g. course projects):**]{.teal-text} MEDS-project, grad-school
+- [**Short / unpolished posts:**]{.teal-text} quick-thoughts, raw-reflections, code-bites, short-takes (thanks ChatGPT for these suggestions)
+- [**Posts that use a particular language:**]{.teal-text} R, Python, JavaScript
+- [**Domain-specific categories:**]{.teal-text} data-viz, machine-learning, GIS, databases, statistics, environmental-modeling
+
+::: {.footer}
+**Note:** To ensure clean URLs, avoid categories with spaces (e.g. rather than **data viz**, use **data-viz**)
+:::
+
+---
+
+## {#media data-menu-title="Embed media"} 
+
+[{{< fa plus title="a plus sign" >}} Embed media]{.slide-title2}
+
+<hr>
+
+There are a few ways to embed media (screenshots, screen recordings, gifs, images, etc.):
+
+<br>
+
+**In a code chunk using `{knitr}` (great when you're using R):**
+
+```{{r}}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center" # or right, left
+#| fig-cap: "Caption goes here"
+#| fig-alt: "Alt text goes here"
+knitr::include_graphics("file/path/to/image/file")
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Using markdown syntax:**
+
+```{r}
+#| eval: false
+#| echo: true
+![Caption goes here](file/path/to/image/file){width="100%" fig-alt="Alt text goes here"} # no alignment options using markdown; need to use HTML :(
+```
+:::
+
+
+::: {.column width="50%"}
+
+**Using HTML syntax:**
+
+```{r}
+#| eval: false
+#| echo: true
+<img src="file/path/to/image/file" width="100%" alt="Alt text goes here"> # see https://gist.github.com/DavidWells/7d2e0e1bc78f4ac59a123ddf8b74932d for info on how to align images; see https://www.w3schools.com/tags/tag_figcaption.asp when you want to add a figure caption
+```
+:::
+
+::::
+
+::: {.footer}
+**Note:** I prefer using CSS for styling and aligning my figure captions. See [this example image caption](https://github.com/samanthacsik/samanthacsik.github.io/blob/main/posts/2024-04-02-data-viz-course/index.qmd#L72){target="_blank"} and the associated CSS rules ([1](https://github.com/samanthacsik/samanthacsik.github.io/blob/061b2e1986f718307b56ca16017af74eab2f8730/styles.scss#L134){target="_blank"} & [2](https://github.com/samanthacsik/samanthacsik.github.io/blob/061b2e1986f718307b56ca16017af74eab2f8730/styles.scss#L118){target="_blank"}).
+:::
+
+---
+
+##  {#end-break data-menu-title="# BREAK / END #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa flag-checkered title="a checkered flag" >}} End</p>
+</div>
+
