@@ -1,5 +1,5 @@
 ---
-title: "tbd"
+title: "Fundamental chart types (evolution & amounts / rankings)"
 subtitle: "Week 3"
 description: "Wednesday January 21^st^, 2026"
 ---
@@ -19,11 +19,73 @@ knitr::include_graphics(here::here("images", "alt-text.png"))
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*NA*
+### A. Install required packages {#install-pkgs}
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+install.packages("usethis") # for editing .Renviron (see step C. in pre-class prep)
+install.packages("naniar") # tools for exploring & handing missing data
+install.packages("tidytuesdayR") # used to download TidyTuesday data
+install.packages("tidycensus") # an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames
+install.packages("scales") # provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})
+```
+
+### B. Download data {#download-data}
+
+Save data to your class repo at `EDS-240-class-examples/week3/data/`:
+
+|Lecture | Dataset title | Download link | Notes |
+|--------|---------------|---------------|-------|
+| 3.1 | Lyme Disease Cases by State or Locality | [download link](https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv) | Data made available by the CDC (read more on the CDC's [Lyme Disease Surveillance Data page](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"}; see other available data under the "Dashboard data files" section) |
+: {.hover .bordered tbl-colwidths="[10,30,30,30]"} 
+
+### C. Request a US Census Bureau API key & add it to your `.Renviron` file {#request-API-key}
+
+1. To use the [`{tidycensus}` package](https://walker-data.com/tidycensus/){target="_blank} to access US Census Bureau data, you'll first need to **request and activate an API key**. Do so by following these steps:
+
+    a. Request an API key at <http://api.census.gov/data/key_signup.html>{target="_blank}
+    b. After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (**Note:** if you get an error when activating your key, close your browser window and try clicking the activation link again).
+
+2. **Add your API key to your `.Renviron` file**. For security purposes, you should *NEVER* push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our `.Renviron` file. Follow these steps:
+
+    a. Run `usethis::edit_r_environ()` in your Console, which will open up your `.Renviron` file (it will create it if you don't already have one).
+    b. Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.
+    
+```{r filename=".Renviron"}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+# be sure to name it exactly as written here (all caps) 
+CENSUS_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
+- **Note:** You may also consider storing your API key in a password manager for safe keeping (e.g. in case your computer decides to call a quits, is lost, etc.) 
+
+::: {.callout-note collapse=true}
+## What exactly is `.Renviron`?
+
+[Dotfiles](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory){target="_blank"} (files which are preceded by a dot, `.`) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as `.gitconfig` and `.gitignore`.
+
+**The `.Renviron` file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.** It lives in your computer's home directory (e.g. `/Users/yourUserName` on macOS, or `C:/Users/yourUserName/Documents` on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Variables should be stored as key / value pairs (e.g. `KEY_NAME="VALUE"`. Access them using `Sys.getenv("KEY_NAME")`.
+
+Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your `.Renviron` file (e.g. see [`tidycensus::census_api_key()`](https://walker-data.com/tidycensus/reference/census_api_key.html){target="_blank"}). You may choose to use these helper functions in place of `usethis::edit_r_environ()`, if you prefer.
+:::
+
+### D. Download `.qmd` templates & review initial data wrangling code {#download-templates}
+
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
+
+2. Review the data wrangling code under the `## Setup` section of each template file and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through the data wrangling code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
-*There is no lecture this week!*
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
+|------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
+| [Lecture 2.3: visualizing evolution](lecture-slides/lecture2.3-evolution-slides.qmd){target="_blank"}  | [2.3 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd){target="_blank"} | [2.3 key](keys/KEY-lecture2.3-evolution.qmd){target="_blank"} |
+| [Lecture 4.1: visualizing amounts / rankings](lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}  | [4.1 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week4/TEMPLATE-lecture4.1-amounts.qmd){target="_blank"} | [4.1 key](keys/KEY-lecture4.1-amounts.qmd){target="_blank"} |
+: {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
 

@@ -8,7 +8,7 @@
 
 <meta name="description" content="Wednesday January 21st, 2026">
 
-<title>tbd – EDS 240</title>
+<title>Fundamental chart types (evolution &amp; amounts / rankings) – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -109,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
         <li>
     <a class="dropdown-item" href="../course-materials/week1.html">
- <span class="dropdown-text">week 1 (1/7) - <strong>syllabus, intro, review</strong></span></a>
+ <span class="dropdown-text">week 1 (1/7) - <strong>syllabus, intro, {ggplot2} review</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week2.html">
@@ -117,43 +151,39 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week3.html">
- <span class="dropdown-text">week 3 (1/21)</span></a>
+ <span class="dropdown-text">week 3 (1/21) - <strong>evolution &amp; amounts / rankings</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week4.html">
- <span class="dropdown-text">week 4 (1/28)</span></a>
+ <span class="dropdown-text">week 4 (1/28) - <strong>relationships, good viz</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week5.html">
- <span class="dropdown-text">week 5 (2/4)</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../course-materials/graphic-design.html">
- <span class="dropdown-text">week 5 (2/7) - attendance optional</span></a>
+ <span class="dropdown-text">week 5 (2/4) - <strong>colors</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week6.html">
- <span class="dropdown-text">week 6 (2/11)</span></a>
+ <span class="dropdown-text">week 6 (2/11) - <strong>infographic design with Affinity</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week7.html">
- <span class="dropdown-text">week 7 (2/18)</span></a>
+ <span class="dropdown-text">week 7 (2/18) - <strong>typography &amp; annotations</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week8.html">
- <span class="dropdown-text">week 8 (2/25)</span></a>
+ <span class="dropdown-text">week 8 (2/25) - <strong>data storytelling, people as data</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week9.html">
- <span class="dropdown-text">week 9 (3/4)</span></a>
+ <span class="dropdown-text">week 9 (3/4) - <strong>alternative chart types</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week10.html">
- <span class="dropdown-text">week 10 (3/111)</span></a>
+ <span class="dropdown-text">week 10 (3/11) - <strong>TBD, wrap-up</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week11.html">
- <span class="dropdown-text">week 11 (3/19) - finals week</span></a>
+ <span class="dropdown-text">week 11 (3/19) - <strong>finals week presentations</strong></span></a>
   </li>  
     </ul>
   </li>
@@ -216,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">tbd</h1>
+      <h1 class="title">Fundamental chart types (evolution &amp; amounts / rankings)</h1>
             <p class="subtitle lead">Week 3</p>
                   <div>
         <div class="description">
@@ -243,7 +273,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
+  <li><a href="#download-data" id="toc-download-data" class="nav-link" data-scroll-target="#download-data">B. Download data</a></li>
+  <li><a href="#request-API-key" id="toc-request-API-key" class="nav-link" data-scroll-target="#request-API-key">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</a></li>
+  <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">D. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
   <ul class="collapse">
@@ -275,11 +311,125 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>NA</em></p>
+<section id="install-pkgs" class="level3">
+<h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="download-data" class="level3">
+<h3 class="anchored" data-anchor-id="download-data">B. Download data</h3>
+<p>Save data to your class repo at <code>EDS-240-class-examples/week3/data/</code>:</p>
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lecture</th>
+<th>Dataset title</th>
+<th>Download link</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.1</td>
+<td>Lyme Disease Cases by State or Locality</td>
+<td><a href="https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv">download link</a></td>
+<td>Data made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under the “Dashboard data files” section)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="request-API-key" class="level3">
+<h3 class="anchored" data-anchor-id="request-API-key">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</h3>
+<ol type="1">
+<li><p>To use the <a href="https://walker-data.com/tidycensus/" target="&quot;_blank"><code>{tidycensus}</code> package</a> to access US Census Bureau data, you’ll first need to <strong>request and activate an API key</strong>. Do so by following these steps:</p>
+<ol type="a">
+<li>Request an API key at <a href="http://api.census.gov/data/key_signup.html" target="&quot;_blank">http://api.census.gov/data/key_signup.html</a></li>
+<li>After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again).</li>
+</ol></li>
+<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our <code>.Renviron</code> file. Follow these steps:</p>
+<ol type="a">
+<li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one).</li>
+<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.</li>
+</ol></li>
+</ol>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>.Renviron</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li><strong>Note:</strong> You may also consider storing your API key in a password manager for safe keeping (e.g.&nbsp;in case your computer decides to call a quits, is lost, etc.)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What exactly is <code>.Renviron</code>?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> (files which are preceded by a dot, <code>.</code>) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as <code>.gitconfig</code> and <code>.gitignore</code>.</p>
+<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Variables should be stored as key / value pairs (e.g.&nbsp;<code>KEY_NAME="VALUE"</code>. Access them using <code>Sys.getenv("KEY_NAME")</code>.</p>
+<p>Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your <code>.Renviron</code> file (e.g.&nbsp;see <a href="https://walker-data.com/tidycensus/reference/census_api_key.html" target="_blank"><code>tidycensus::census_api_key()</code></a>). You may choose to use these helper functions in place of <code>usethis::edit_r_environ()</code>, if you prefer.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="download-templates" class="level3">
+<h3 class="anchored" data-anchor-id="download-templates">D. Download <code>.qmd</code> templates &amp; review initial data wrangling code</h3>
+<ol type="1">
+<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week2/</code> folder.</p></li>
+<li><p>Review the data wrangling code under the <code>## Setup</code> section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
+</ol>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<p><em>There is no lecture this week!</em></p>
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
+<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
+<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../course-materials/lecture-slides/lecture2.3-evolution-slides.html" target="_blank">Lecture 2.3: visualizing evolution</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.3-evolution.qmd" target="_blank">2.3 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture2.3-evolution.html" target="_blank">2.3 key</a></td>
+</tr>
+<tr class="even">
+<td><a href="../course-materials/lecture-slides/lecture4.1-amounts-slides.html" target="_blank">Lecture 4.1: visualizing amounts / rankings</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week4/TEMPLATE-lecture4.1-amounts.qmd" target="_blank">4.1 template</a></td>
+<td><a href="../course-materials/keys/KEY-lecture4.1-amounts.html" target="_blank">4.1 key</a></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="pre-discussion-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
