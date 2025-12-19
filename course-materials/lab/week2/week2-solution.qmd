@@ -1,0 +1,82 @@
+---
+title: "Week 2 Lab: Solution"
+subtitle: "Recreating the USDM visualization (graphic form)"
+description: "Tuesday January 14^th^, 2025"
+---
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-align: "center"
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+
+#..........................import data...........................
+drought <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            wrangle drought data                          ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+drought_clean <- drought |>
+
+  # select cols of interest & update names for clarity (as needed) ----
+  select(date = valid_start, state_abb, drought_lvl, area_pct) |> 
+
+  # add year, month & day cols using {lubridate} fxns ----
+  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class Date using {lubridate} ----
+  mutate(year = year(date),
+         month = month(date, label = TRUE, abbr = TRUE),
+         day = day(date)) |>
+
+  # add drought level conditions names ----
+  mutate(drought_lvl_long = factor(drought_lvl,
+                            levels = c("D4", "D3", "D2", "D1","D0", "None"),
+                            labels = c("(D4) Exceptional", "(D3) Extreme",
+                                       "(D2) Severe", "(D1) Moderate", 
+                                       "(D0) Abnormally Dry", 
+                                       "No Drought"))) |>
+  
+  # reorder cols ----
+  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##       create stacked area plot of CA drought conditions through time     ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+drought_clean |> 
+  
+  # remove drought_lvl "None" & filter for just CA ----
+  filter(drought_lvl != "None",
+         state_abb == "CA") |> 
+  
+  # initialize ggplot ----
+  ggplot(mapping = aes(x = date, y = area_pct, fill = drought_lvl_long)) +
+  
+  # reverse order of groups so level D4 is closest to x-axis ----
+  geom_area(position = position_stack(reverse = TRUE)) +
+  
+  # update colors to match US Drought Monitor ----
+ # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) 
+  scale_fill_manual(values = c("#853904", "#FF0000", "#FFC100", "#FFD965", "#FFFF00")) +
+  
+  # set x-axis breaks & remove padding between data and x-axis ----
+  scale_x_date(breaks = scales::breaks_pretty(n = 10),
+               expand = c(0, 0)) +
+
+  # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----
+  scale_y_continuous(breaks = seq(0, 100, by = 10),
+                     expand = c(0, 0),
+                     labels = scales::label_percent(scale = 1)) +
+  
+  # add title ----
+  labs(title = "Drought area in California") 
+
+```

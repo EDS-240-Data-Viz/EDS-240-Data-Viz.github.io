@@ -1,5 +1,5 @@
 ---
-title: "tbd"
+title: "Enhancing visualizations (typography & annotations)"
 subtitle: "Week 7"
 description: "Wednesday February 18^th^, 2026"
 ---
@@ -8,9 +8,9 @@ description: "Wednesday February 18^th^, 2026"
 #| eval: true 
 #| echo: false
 #| fig-align: "center"
-#| out-width: "70%" 
-#| fig-alt: "A little purple fuzzy monster wearing a backpack stands just before a drawbridge, leading to a castle covered in flowers and confetti, with flags that say 'R' and 'Hi Friend!' flapping in the wind. A crow wearing a party hat is perched on a welome sign the start of the bridge and says 'SQUAAWK YOU CAN DO IT!'. A green fuzzy monster with a party hat stands on the opposite end of the bridge, in front of the castle, with it's arms outstretched."
-knitr::include_graphics(here::here("images", "horst-happy-castle.png"))
+#| out-width: "65%" 
+#| fig-alt: "A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"
+knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
 ```
 
 :::{.gray-text .center-text}
@@ -19,23 +19,64 @@ knitr::include_graphics(here::here("images", "horst-happy-castle.png"))
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*NA* 
+### A. Install required packages
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+install.packages("monochromeR") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)
+install.packages("showtext") # for using fonts more easily in R graphs
+install.packages("glue") # for string interpolation (aka helps us insert variables directly into text strings)
+install.packages("ggtext") # improved text rendering support for ggplot2
+install.packages("ggrepel") # ggplot2 extension to repel overlapping labels
+install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4
+```
+
+### B. Download Data
+
+In case we have trouble with the `{googlesheets4}` API, you can download and read in the following data files as normal (i.e. using `readr::read_csv()`):
+
+- [metabolism-foraging-data.csv](https://drive.google.com/file/d/1NQV40ZHVkPUNA6FeFFQR0OxqYM4trM3w/view?usp=sharing){target="_blank"}
+- [mono.csv](https://drive.google.com/file/d/13chLNHTLd0GRCFl-7OB921FzOKc6I-GK/view?usp=sharing){target="_blank"}
+
+If you choose (or need) to download and read in these files, be sure to save them to your class repo at `~/week6/data/`.
+
+### C. Download Font Awesome fonts
+
+We'll learn how to use [Font Awesome](https://fontawesome.com/){target="_blank"} icons in our ggplots. To do so, you'll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:
+
+1. **Download Font Awesome fonts:** Go to [https://fontawesome.com/download](https://fontawesome.com/download){target="_blank"} and download the latest release available. Choose the **Free For Desktop** option.
+2. **Unzip the downloaded file:** You should see a folder inside called `otfs/` -- this contains three `.otf` files (aka OpenType font format files)
+3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `EDS-240-data-viz-examples/fonts/*.otf`)
+
+### D. Download .qmd templates & review data wrangling code
+
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week6/` folder.
+
+2. Review setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through all code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}. Specifically:
+    - Template 6.1 begins where we left off in creating our salary plot (in [lecture 4.1](lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}). Review the code under the `## Setup`, `## Wrangle Data` and `## Recreate original plot` sections to re-familiarize yourself.  
+    - Template 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the `### Setup` and `### Create base plot` sections for both these visualizations.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
-*There is no lecture this week!*
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
+|------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
+| [Lecture 6.1: typography](lecture-slides/SLIDES-typography.qmd){target="_blank"}  | [6.1 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-typography.qmd){target="_blank"} | [6.1 key](keys/KEY-typography.qmd){target="_blank"} |
+| [Lecture 6.2: annotations](lecture-slides/SLIDES-annotations.qmd){target="_blank"} | [6.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-annotations.qmd){target="_blank"} | [6.2 key](keys/KEY-annotations.qmd){target="_blank"} |
+: {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
-## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
+## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-lab Prep {#pre-lab-prep} 
 
-From here on out, we'll be using discussion sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:
+From here on out, we'll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:
 
 ### A. Prepare your data viz slide 
 
 <!-- Add *one* of your draft data vizualizations to your slide -->
 
-[HW #3](assignments/HW3.qmd){target="_blank"}, asks you to draft all three required visualizations for your chosen [final project (HW #4)](assignments/HW4.qmd){target="_blank"} option. Find your assigned slide from the correct Google Slide deck (see table, under the [Discussion Materials](week7.qmd#discussion-materials) section, below) and add the following:
+[HW #3](assignments/HW3.qmd){target="_blank"}, asks you to draft all three required visualizations for your chosen [final project (HW #4)](assignments/HW4.qmd){target="_blank"} option. Find your assigned slide from the correct Google Slide deck (see table, under the [Lab Materials](week7.qmd#lab-materials) section, below) and add the following:
 
-<!-- plan to bring the following to discussion: -->
+<!-- plan to bring the following to lab: -->
 <!-- (i.e. one of the three viz that will make up your infographic for [option 1](../assignments/HW4.qmd#option-1), *or* one of the three required viz for for [option 2](../assignments/HW4.qmd#option-1#option-2), *or*) -->
 
 1. ***one*** of your three visualizations
@@ -87,11 +128,11 @@ The following tips were largely adapted from this [LinkedIn article](https://www
 - [Design and Redesign](https://medium.com/@hint_fm/design-and-redesign-4ab77206cf9){target="_blank"}, by Fernanda Viégas & Martin Wattenberg
 - [A Better Path Toward Criticizing Data Visualizations](https://policyviz.com/2023/02/01/a-better-path-toward-criticizing-data-visualization/){target="_blank"}, on PolicyViz
 
-## {{< fa comments title="two speech bubbles" >}} Discussion Materials {#discussion-materials}
+## {{< fa comments title="two speech bubbles" >}} Lab Materials {#lab-materials}
 
-| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Discussion Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lab Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
 |-------------------|-------------------|--------------|
-| [D7 slides: critiquing data viz](discussion/week7/week7-slides.qmd){target="_blank"} | *NA* | *NA* |
+| [L7 slides: critiquing data viz](lab/week7/week7-slides.qmd){target="_blank"} | *NA* | *NA* |
 | Google Slides for the [1pm Section](https://docs.google.com/presentation/d/1Rcwv4H5TVWyYGorkNV6zhAtBqo3_7A2ndXoeAe8VdlI/edit?usp=sharing){target="_blank"} & [2pm Section](https://docs.google.com/presentation/d/1RpOUikXIxE0S5PU7PWJOwKMvopxi1tltO6FVFlkOoMQ/edit?usp=sharing){target="_blank"} | *NA* | *NA* |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 

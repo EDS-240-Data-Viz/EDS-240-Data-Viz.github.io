@@ -1,0 +1,86 @@
+---
+title: "Week 3 Lab: Exercise"
+subtitle: "Writing alt text"
+description: "Tuesday January 21^st^, 2025"
+---
+
+::: {.callout-note}
+It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+:::
+
+## Example 1: `{palmerpenguins}` ggplot
+
+1. Copy the following code into your `week3-lab.qmd` file and add code chunk options that:
+    - render the output (i.e. plot), but not the code
+    - suppress any warnings or messages
+2. Add alt text using the `fig-alt:` code chunk option
+3. "Inspect" your plot (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram(alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Body mass (g)",
+       y = "Frequency",
+       title = "Penguin body masses")
+```
+
+## Example 2 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
+
+1. Download this viz (right click > Save Image As... > save to your class repo)
+2. Embed the viz in `week3-lab.qmd` using Markdown syntax *and* add alt text:
+
+```{md}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+![](file/path/to/your/image){fig-alt="Alt text goes here"}
+```
+
+3. "Inspect" your image (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML 
+
+::: {.callout-note}
+This graphic form is called a [**dot plot**](https://en.wikipedia.org/wiki/Dot_plot_(statistics)){target="_blank"}. 
+
+Dot plots are particularly useful for visualizing variability within a single measured numerical variable -- here, that's how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.
+
+It's easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables.
+:::
+
+![](images/nyt-monthly-temp.png){fig-alt="Alt text goes here"}
+
+## Example 3 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
+
+1. Download this viz (right click > Save Image As... > save to your class repo)
+2. Embed the viz in `week3-lab.qmd` using HTML syntax *and* add alt text (you'll also need to include the `width` attribute to make the image a bit smaller):
+
+```{html}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+<img src="file/path/to/image" alt="Alt text goes here" width="700px">
+```
+
+3. "Inspect" your image (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
+
+::: {.callout-note}
+The associated figure caption for this figure: 
+
+>The >2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries.
+:::
+ 
+<img src="images/chapman-etal-2024.png" alt="Alt text goes here" width="700px">
+
+## Example 4 (Write alt text for a viz of your choice)
+
+1. Save and embed a data viz of your choice using Markdown or HTML syntax
+2. Add alt text 
+3. Share and discuss your alt text with a partner / group
