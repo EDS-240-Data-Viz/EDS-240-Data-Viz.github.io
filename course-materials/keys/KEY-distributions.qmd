@@ -6,14 +6,14 @@ toc: true
 ---
 
 ::: {.callout-note}
-This template follows the [visualizing-distributions slides](../lecture-slides/SLIDES-distributions.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This key follows the [visualizing-distributions slides](../lecture-slides/SLIDES-distributions.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## Setup
 
 - download data & explore metadata on the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007) 
 
-```{r}
+```{r setup-echo}
 #| eval: false
 #| echo: true
 #| message: false
@@ -69,6 +69,13 @@ mko_clean <- mko |>
 ##                            explore missing data                          ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Missing data can have unexpected effects on your analyses
+# It's important to explore your data for missing values so that you can decide if and how to handle them
+# Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
+# We can use {naniar} to explore the frequency and patterns in missing data
+# Below is a short example of some naniar tools for doing so
+# Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
+
 #..........counts & percentages of missing data by year..........
 see_NAs <- mko_clean |> 
   group_by(year) |> 
@@ -80,7 +87,7 @@ bottom <- mko_clean |> select(Temp_bot)
 missing_temps <- naniar::vis_miss(bottom)
 ```
 
-```{r}
+```{r setup-run}
 #| eval: true
 #| echo: false
 #| message: false
@@ -136,6 +143,13 @@ mko_clean <- mko |>
 ##                            explore missing data                          ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Missing data can have unexpected effects on your analyses
+# It's important to explore your data for missing values so that you can decide if and how to handle them
+# Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
+# We can use {naniar} to explore the frequency and patterns in missing data
+# Below is a short example of some naniar tools for doing so
+# Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
+
 #..........counts & percentages of missing data by year..........
 see_NAs <- mko_clean |> 
   group_by(year) |> 
@@ -156,7 +170,7 @@ missing_temps <- naniar::vis_miss(bottom)
 - **Histograms** show the counts (frequency) of values in each range (bin), represented by the height of the bars.
 - **Density plots** show the relative proportion of values across the range of a variable. The total area under the curve equals 1, and peaks indicate values are more concentrated. Density plots do not show the absolute number of observations.
 
-```{r}
+```{r dummy-hist-dens}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -204,7 +218,7 @@ mko_clean |>
 
 ### Consider faceting (small multiples)
 
-```{r}
+```{r too-many-groups}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -230,7 +244,7 @@ mko_clean |>
 
 - histograms & density plots are best suited for visualizing the distribution of one to a small number of groups
 
-```{r}
+```{r fewer-groups}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -261,7 +275,7 @@ Why are the months in our density plot still in chronological order, despite not
 
 -  consider your scale of interest e.g. does a bin width of 1 (°C) make sense for our histogram? Does your density plot's bandwidth show the true underlying data distribution shape while reducing noise?
 
-```{r}
+```{r modify-bins-bands}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -290,12 +304,13 @@ mko_clean |>
 What should you carefully consider when checking the smoothing asumptions of your density curve against a histogram?
 :::
 
-```{r}
+```{r overlay-hist-dens}
 #| eval: true
 #| echo: true
 #| warning: false
 #| message: false
 
+# overlay histogram & density ----
 ggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down hist to match density curve
   geom_histogram(fill = "gray", color = "black", alpha = 0.75) +
   geom_density(linewidth = 1) 
@@ -305,7 +320,7 @@ ggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down his
 
 - great for comparing distribution shapes of a numeric variable across many ordered groups 
 
-```{r}
+```{r ridgeline}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -330,7 +345,7 @@ mko_clean |>
 
 - great for *summarizing* the distribution of a numeric variable for multiple to many groups
 
-```{r}
+```{r basic-boxplot}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -349,14 +364,13 @@ What are the tradeoffs between reordering groups within a ggplot (as above) vs. 
 
 ### Highlight group(s) of interest to focus attention
 
-```{r}
+```{r boxplot-highlight}
 #| eval: true
 #| echo: true
 #| warning: false
 
 # highlight a particular group ----
-mko_clean |> 
-  ggplot(aes(x = month_name, y = Temp_bot, fill = month_name)) +
+ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
   geom_boxplot() +
   scale_x_discrete(limits = rev(month.name)) +
   gghighlight::gghighlight(month_name == "October") +
@@ -366,7 +380,7 @@ mko_clean |>
 
 ### Overlay jittered data, if appropriate 
 
-```{r}
+```{r boxplot-jitter}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -386,7 +400,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 
 ### Beeswarm plots as an alternative
 
-```{r}
+```{r boxplot-beeswarm}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -399,7 +413,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 
 ### Dodge when you have an additional grouping variable
 
-```{r}
+```{r boxplot-dodge}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -416,7 +430,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
 - great for visualizing the shape of the distribution of a numeric variable for multiple to many groups
 - consider overlaying another chart type for added context
 
-```{r}
+```{r violin-boxplot}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -428,19 +442,3 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
   scale_x_discrete(limits = rev(month.name)) +
   coord_flip()
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

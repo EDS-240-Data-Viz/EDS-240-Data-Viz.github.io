@@ -319,7 +319,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This template follows the <a href="../../course-materials/lecture-slides/SLIDES-distributions.html" target="&quot;_blank">visualizing-distributions slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
+<p>This key follows the <a href="../../course-materials/lecture-slides/SLIDES-distributions.html" target="&quot;_blank">visualizing-distributions slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
 </div>
 </div>
 <section id="setup" class="level2">
@@ -379,15 +379,22 @@ Note
 <span id="cb1-49"><a href="#cb1-49"></a><span class="do">##                            explore missing data                          ----</span></span>
 <span id="cb1-50"><a href="#cb1-50"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-51"><a href="#cb1-51"></a></span>
-<span id="cb1-52"><a href="#cb1-52"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
-<span id="cb1-53"><a href="#cb1-53"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb1-55"><a href="#cb1-55"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
-<span id="cb1-57"><a href="#cb1-57"></a></span>
-<span id="cb1-58"><a href="#cb1-58"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
-<span id="cb1-59"><a href="#cb1-59"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
-<span id="cb1-60"><a href="#cb1-60"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="co"># Missing data can have unexpected effects on your analyses</span></span>
+<span id="cb1-53"><a href="#cb1-53"></a><span class="co"># It's important to explore your data for missing values so that you can decide if and how to handle them</span></span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="co"># Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a><span class="co"># We can use {naniar} to explore the frequency and patterns in missing data</span></span>
+<span id="cb1-56"><a href="#cb1-56"></a><span class="co"># Below is a short example of some naniar tools for doing so</span></span>
+<span id="cb1-57"><a href="#cb1-57"></a><span class="co"># Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a></span>
+<span id="cb1-59"><a href="#cb1-59"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-61"><a href="#cb1-61"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-62"><a href="#cb1-62"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-63"><a href="#cb1-63"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
+<span id="cb1-64"><a href="#cb1-64"></a></span>
+<span id="cb1-65"><a href="#cb1-65"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
+<span id="cb1-66"><a href="#cb1-66"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
+<span id="cb1-67"><a href="#cb1-67"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="histograms-density-plots" class="level2">
@@ -418,10 +425,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/dummy-hist-dens-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/dummy-hist-dens-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -441,10 +448,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -466,10 +473,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/too-many-groups-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/too-many-groups-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -495,10 +502,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/fewer-groups-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/fewer-groups-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -537,10 +544,10 @@ Question:
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/modify-bins-bands-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/modify-bins-bands-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -561,13 +568,14 @@ Question:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># overlay histogram &amp; density ----</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/overlay-hist-dens-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -593,10 +601,10 @@ Question:
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/ridgeline-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/ridgeline-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -615,7 +623,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/basic-boxplot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -637,17 +645,16 @@ Question:
 <h3 class="anchored" data-anchor-id="highlight-groups-of-interest-to-focus-attention">Highlight group(s) of interest to focus attention</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># highlight a particular group ----</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/boxplot-highlight-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -665,7 +672,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -676,7 +683,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -692,7 +699,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/boxplot-beeswarm-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -709,7 +716,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/boxplot-dodge-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -732,7 +739,7 @@ Question:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-distributions_files/figure-html/violin-boxplot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

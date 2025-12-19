@@ -252,7 +252,7 @@ mko_clean <- mko |>
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Missing data can have unexpected effects on your analyses
-# It's important to explore your data for missing values so that you can decide if and how to deal handle them
+# It's important to explore your data for missing values so that you can decide if and how to handle them
 # Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
 # We can use {naniar} to explore the frequency and patterns in missing data
 # Below is a short example of some naniar tools for doing so
@@ -1154,8 +1154,7 @@ The [`{gghighlight}` package](https://yutannihilation.github.io/gghighlight/inde
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-mko_clean |> 
-  ggplot(aes(x = month_name, y = Temp_bot, fill = month_name)) +
+ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
   geom_boxplot() +
   scale_x_discrete(limits = rev(month.name)) +
   gghighlight::gghighlight(month_name == "October") +

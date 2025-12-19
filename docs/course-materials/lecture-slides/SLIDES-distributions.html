@@ -589,7 +589,7 @@
 <span id="cb1-50"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-51"><a></a></span>
 <span id="cb1-52"><a></a><span class="co"># Missing data can have unexpected effects on your analyses</span></span>
-<span id="cb1-53"><a></a><span class="co"># It's important to explore your data for missing values so that you can decide if and how to deal handle them</span></span>
+<span id="cb1-53"><a></a><span class="co"># It's important to explore your data for missing values so that you can decide if and how to handle them</span></span>
 <span id="cb1-54"><a></a><span class="co"># Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)</span></span>
 <span id="cb1-55"><a></a><span class="co"># We can use {naniar} to explore the frequency and patterns in missing data</span></span>
 <span id="cb1-56"><a></a><span class="co"># Below is a short example of some naniar tools for doing so</span></span>
@@ -1294,13 +1294,12 @@ penguins |>
 <hr>
 <p>The <a href="https://yutannihilation.github.io/gghighlight/index.html" target="_blank"><code>{gghighlight}</code> package</a> makes this super easy:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb17-3"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb17-4"><a></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb17-5"><a></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
-<span id="cb17-6"><a></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb17-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb17-2"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb17-4"><a></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-6"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="SLIDES-distributions_files/figure-revealjs/boxplot-gghighlight-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -1417,7 +1416,7 @@ penguins |>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_da6695df" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_43c912ef" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
