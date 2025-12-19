@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Tuesday February 11th, 2025">
+
+<title>Week 6 Discussion: Solution – EDS 240</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <div id="quarto-announcement" data-announcement-id="2b93c32b8af55417febb6ffaf7e045fb" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2026. In the meantime, things here might get a little messy <i class="fa-solid fa-face-grin-beam-sweat" aria-label="face-grin-beam-sweat"></i></p>
+</div></div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">EDS 240</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/19Fr6XxobSM7OAdqcpZ7AyZ4qGHO5iLyS6iGEkP4W7SU/edit?usp=sharing" target="_blank"> 
+<span class="menu-text">syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">course materials</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week1.html">
+ <span class="dropdown-text">week 1 (1/7) - <strong>syllabus, intro, {ggplot2} review</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week2.html">
+ <span class="dropdown-text">week 2 (1/14) - <strong>graphic forms, distributions</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week3.html">
+ <span class="dropdown-text">week 3 (1/21) - <strong>evolution &amp; amounts / rankings</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week4.html">
+ <span class="dropdown-text">week 4 (1/28) - <strong>relationships, good viz</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week5.html">
+ <span class="dropdown-text">week 5 (2/4) - <strong>colors</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week6.html">
+ <span class="dropdown-text">week 6 (2/11) - <strong>infographic design with Affinity</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week7.html">
+ <span class="dropdown-text">week 7 (2/18) - <strong>typography &amp; annotations</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week8.html">
+ <span class="dropdown-text">week 8 (2/25) - <strong>data storytelling, people as data</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week9.html">
+ <span class="dropdown-text">week 9 (3/4) - <strong>alternative chart types</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week10.html">
+ <span class="dropdown-text">week 10 (3/11) - <strong>TBD, wrap-up</strong></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../course-materials/week11.html">
+ <span class="dropdown-text">week 11 (3/19) - <strong>finals week presentations</strong></span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../assignments.html"> 
+<span class="menu-text">assignments</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbx2bFyK5kpsqBlvYgWnQm64YNehPWeFAxl9BqMPoRFjE1MSOkkx_Bf0PkFa1Z6_YkRh/exec" target="_blank"> 
+<span class="menu-text">redeem tokens</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../../resources.html">
+ <span class="dropdown-text">recommended reading &amp; materials</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../clean-code-guide.html">
+ <span class="dropdown-text">guide for writing clean code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../getting-unstuck.html">
+ <span class="dropdown-text">getting unstuck</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ucsb-meds.github.io/MEDS-installation-guide/" target="_blank">
+ <span class="dropdown-text">MEDS installation guide</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/samanthacsik/EDS-240-data-viz" target="_blank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/samanthacsik/EDS-240-data-viz/issues" target="_blank">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Week 6 Discussion: Solution</h1>
+            <p class="subtitle lead">Saving plots</p>
+                  <div>
+        <div class="description">
+          Tuesday February 11<sup>th</sup>, 2025
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#wrangle-data" id="toc-wrangle-data" class="nav-link" data-scroll-target="#wrangle-data">Wrangle data</a></li>
+  <li><a href="#recreate-original-plot" id="toc-recreate-original-plot" class="nav-link" data-scroll-target="#recreate-original-plot">Recreate original plot</a></li>
+  <li><a href="#create-new-palette" id="toc-create-new-palette" class="nav-link" data-scroll-target="#create-new-palette">Create new palette</a></li>
+  <li><a href="#update-plot-colors" id="toc-update-plot-colors" class="nav-link" data-scroll-target="#update-plot-colors">Update plot colors</a></li>
+  <li><a href="#add-titles-theme" id="toc-add-titles-theme" class="nav-link" data-scroll-target="#add-titles-theme">Add titles &amp; theme</a></li>
+  <li><a href="#save-plots-using-ggsave" id="toc-save-plots-using-ggsave" class="nav-link" data-scroll-target="#save-plots-using-ggsave">Save plots using <code>ggsave()</code></a>
+  <ul class="collapse">
+  <li><a href="#x7-plot" id="toc-x7-plot" class="nav-link" data-scroll-target="#x7-plot">8”x7” plot</a></li>
+  <li><a href="#x12-plot" id="toc-x12-plot" class="nav-link" data-scroll-target="#x12-plot">14”x12” plot</a></li>
+  </ul></li>
+  <li><a href="#turn-off-showtext-rendering" id="toc-turn-off-showtext-rendering" class="nav-link" data-scroll-target="#turn-off-showtext-rendering">Turn off showtext rendering</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="do">##                                    setup                                 ----</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a></span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5"></a><span class="co">#..........................load packages.........................</span></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7"></a><span class="fu">library</span>(showtext)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8"></a></span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9"></a><span class="co">#......................import Google fonts.......................</span></span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggpplot</span></span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Josefin Sans"</span>, <span class="at">family =</span> <span class="st">"josefin"</span>)</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sen"</span>, <span class="at">family =</span> <span class="st">"sen"</span>)</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14"></a></span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
+<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Brands-Regular-400.otf"</span>))</span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Regular-400.otf"</span>)) </span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
+<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22"></a></span>
+<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23"></a><span class="co">#................enable {showtext} for rendering.................</span></span>
+<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24"></a><span class="fu">showtext_auto</span>()</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-25" class="code-annotation-target"><a href="#annotated-cell-1-25"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26"></a></span>
+<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27"></a><span class="co">#..........................import data...........................</span></span>
+<span id="annotated-cell-1-28"><a href="#annotated-cell-1-28"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="25" data-code-annotation="1">You’ll want <code>{showtext}</code>’s rendering parameters to match those of <code>ggsave()</code>. Set both to a DPI of 300 (often used as a standard for quality print images).</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="wrangle-data" class="level2">
+<h2 class="anchored" data-anchor-id="wrangle-data">Wrangle data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a> <span class="co"># add col with % men in a given occupation (% females in a given occupation was already included) ----</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>         </span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="co"># rearrange columns ----</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>          total_workers, workers_male, workers_female,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>          percent_male, percent_female,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
+<span id="cb1-15"><a href="#cb1-15"></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="co"># drop rows with missing earning data ----</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="co"># make occupation a factor (necessary for reordering groups in our plot) ----</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our plot) ----</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  ))</span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="do">##                              create subset df                            ----</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb1-36"><a href="#cb1-36"></a></span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="co">#...............get random samples from each group...............</span></span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a><span class="co"># 10 random jobs that are 75%+ female (2016) ----</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="co"># 10 random jobs that are 75%+ male (2016) ----</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb1-48"><a href="#cb1-48"></a></span>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="co"># 10 random jobs that are 45-55%+ female (2016) ----</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span></span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(group_label, </span>
+<span id="cb1-57"><a href="#cb1-57"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>,</span>
+<span id="cb1-58"><a href="#cb1-58"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
+<span id="cb1-59"><a href="#cb1-59"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recreate-original-plot" class="level2">
+<h2 class="anchored" data-anchor-id="recreate-original-plot">Recreate original plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># original plot ----</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>                   <span class="at">xend =</span> total_earnings_male,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), </span>
+<span id="cb2-6"><a href="#cb2-6"></a>                   <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9"></a>             <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
+<span id="cb2-11"><a href="#cb2-11"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>             <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NOT-USED-week6-solution_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="create-new-palette" class="level2">
+<h2 class="anchored" data-anchor-id="create-new-palette">Create new palette</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># create a named color palette ----</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>earnings_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"males"</span> <span class="ot">=</span> <span class="st">"#2D7787"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                  <span class="st">"females"</span> <span class="ot">=</span> <span class="st">"#FC6B4B"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>                  <span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>                  <span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># preview it -----</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(earnings_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NOT-USED-week6-solution_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="update-plot-colors" class="level2">
+<h2 class="anchored" data-anchor-id="update-plot-colors">Update plot colors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># apply updated colors ----</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                   <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
+<span id="cb4-8"><a href="#cb4-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
+<span id="cb4-11"><a href="#cb4-11"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NOT-USED-week6-solution_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="add-titles-theme" class="level2">
+<h2 class="anchored" data-anchor-id="add-titles-theme">Add titles &amp; theme</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1"></a><span class="co">#.........................create caption.........................</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3"></a>github_username <span class="ot">&lt;-</span> <span class="st">"yourGitHubUserName"</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4"></a></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6"></a>  <span class="st">"Data Source: TidyTuesday (March 5, 2019)&lt;br&gt;</span></span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8"></a><span class="st">  {github_username}"</span></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9"></a>)</span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10"></a></span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11"></a><span class="co">#........................create subtitle.........................</span></span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12"></a>money_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf3d1"</span></span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13"></a></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Median earnings </span></span>
+<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15"></a><span class="st">                       &lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;</span></span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16"></a><span class="st">                       of full-time</span></span>
+<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17"></a><span class="st">                       &lt;span style='color:#2D7787;'&gt;**male**&lt;/span&gt; </span></span>
+<span id="annotated-cell-6-18"><a href="#annotated-cell-6-18"></a><span class="st">                       versus </span></span>
+<span id="annotated-cell-6-19"><a href="#annotated-cell-6-19"></a><span class="st">                       &lt;span style='color:#FC6B4B;'&gt;**female**&lt;/span&gt;</span></span>
+<span id="annotated-cell-6-20"><a href="#annotated-cell-6-20"></a><span class="st">                       workers by occupation in 2016"</span>)</span>
+<span id="annotated-cell-6-21"><a href="#annotated-cell-6-21"></a></span>
+<span id="annotated-cell-6-22"><a href="#annotated-cell-6-22"></a><span class="co">#..........................modify plot...........................</span></span>
+<span id="annotated-cell-6-23"><a href="#annotated-cell-6-23"></a>updated_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
+<span id="annotated-cell-6-24"><a href="#annotated-cell-6-24"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
+<span id="annotated-cell-6-25"><a href="#annotated-cell-6-25"></a>       <span class="at">subtitle =</span> subtitle,</span>
+<span id="annotated-cell-6-26"><a href="#annotated-cell-6-26"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
+<span id="annotated-cell-6-27"><a href="#annotated-cell-6-27"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="annotated-cell-6-28"><a href="#annotated-cell-6-28"></a>  <span class="fu">theme</span>(</span>
+<span id="annotated-cell-6-29"><a href="#annotated-cell-6-29"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="annotated-cell-6-30"><a href="#annotated-cell-6-30"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="annotated-cell-6-31"><a href="#annotated-cell-6-31"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="annotated-cell-6-32"><a href="#annotated-cell-6-32"></a>                              <span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="annotated-cell-6-33"><a href="#annotated-cell-6-33"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
+<span id="annotated-cell-6-34"><a href="#annotated-cell-6-34"></a>                                            <span class="at">size =</span> <span class="fl">11.5</span>,</span>
+<span id="annotated-cell-6-35"><a href="#annotated-cell-6-35"></a>                                            <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-36" class="code-annotation-target"><a href="#annotated-cell-6-36"></a>                                            <span class="co">#fill = "lightblue", # for debugging</span></span>
+<span id="annotated-cell-6-37"><a href="#annotated-cell-6-37"></a>                                            <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
+<span id="annotated-cell-6-38"><a href="#annotated-cell-6-38"></a>                                            <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>),</span>
+<span id="annotated-cell-6-39"><a href="#annotated-cell-6-39"></a>                                            <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">5</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="annotated-cell-6-40"><a href="#annotated-cell-6-40"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
+<span id="annotated-cell-6-41"><a href="#annotated-cell-6-41"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>, <span class="co"># </span><span class="al">NOTE</span><span class="co">: this no longer applies since the typeface "sen" does not exist in an italic font style</span></span>
+<span id="annotated-cell-6-42"><a href="#annotated-cell-6-42"></a>                                           <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
+<span id="annotated-cell-6-43"><a href="#annotated-cell-6-43"></a>                                           <span class="co">#fill = "lightblue", # for debugging </span></span>
+<span id="annotated-cell-6-44"><a href="#annotated-cell-6-44"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
+<span id="annotated-cell-6-45"><a href="#annotated-cell-6-45"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
+<span id="annotated-cell-6-46"><a href="#annotated-cell-6-46"></a>                                           <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
+<span id="annotated-cell-6-47"><a href="#annotated-cell-6-47"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>),</span>
+<span id="annotated-cell-6-48"><a href="#annotated-cell-6-48"></a>                                           <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="annotated-cell-6-49"><a href="#annotated-cell-6-49"></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="annotated-cell-6-50"><a href="#annotated-cell-6-50"></a>                                <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="annotated-cell-6-51"><a href="#annotated-cell-6-51"></a>                                <span class="at">size =</span> <span class="dv">10</span>,</span>
+<span id="annotated-cell-6-52"><a href="#annotated-cell-6-52"></a>                                <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="annotated-cell-6-53"><a href="#annotated-cell-6-53"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>),</span>
+<span id="annotated-cell-6-54"><a href="#annotated-cell-6-54"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
+<span id="annotated-cell-6-55"><a href="#annotated-cell-6-55"></a>                             <span class="at">size =</span> <span class="dv">9</span>,</span>
+<span id="annotated-cell-6-56"><a href="#annotated-cell-6-56"></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
+<span id="annotated-cell-6-57"><a href="#annotated-cell-6-57"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="annotated-cell-6-58"><a href="#annotated-cell-6-58"></a>  )</span>
+<span id="annotated-cell-6-59"><a href="#annotated-cell-6-59"></a></span>
+<span id="annotated-cell-6-60"><a href="#annotated-cell-6-60"></a>updated_plot</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="36" data-code-annotation="1">Adding fill color to <code>ggtext::element_textbox()</code>s can help to identify if the size is as intended once saved using <code>ggsave()</code></span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NOT-USED-week6-solution_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reminder: build your viz for your desired output!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice that making these modifications means we get a plot that doesn’t render as nicely in our Quarto doc (e.g.&nbsp;y-axis text feels a bit more crowded, some of the panel strip text gets cut off). This is a good reminder that your final desired output format will influence how you build / modify your plot!</p>
+</div>
+</div>
+</section>
+<section id="save-plots-using-ggsave" class="level2">
+<h2 class="anchored" data-anchor-id="save-plots-using-ggsave">Save plots using <code>ggsave()</code></h2>
+<section id="x7-plot" class="level3">
+<h3 class="anchored" data-anchor-id="x7-plot">8”x7” plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1"></a><span class="co"># save 8"x7" png ---</span></span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2"></a><span class="fu">ggsave</span>(</span>
+<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week6"</span>, <span class="st">"images"</span>, <span class="st">"salary-plot-8x7.png"</span>),</span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4"></a>  <span class="at">plot =</span> updated_plot,</span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-10" class="code-annotation-target"><a href="#annotated-cell-7-10"></a>  <span class="at">create.dir =</span> <span class="cn">TRUE</span></span>
+<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="9" data-code-annotation="1">Default DPI is 300 (so you don’t <em>need</em> to explicitly include this argument)</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="10" data-code-annotation="2">Creates a new directory at specified file path</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="x12-plot" class="level3">
+<h3 class="anchored" data-anchor-id="x12-plot">14”x12” plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># save 14"x12" png ---</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">ggsave</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week6"</span>, <span class="st">"images"</span>, <span class="st">"salary-plot-14x12.png"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">plot =</span> updated_plot,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">width =</span> <span class="dv">14</span>, </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="at">height =</span> <span class="dv">12</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="at">scale =</span> <span class="fl">0.6</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="turn-off-showtext-rendering" class="level2">
+<h2 class="anchored" data-anchor-id="turn-off-showtext-rendering">Turn off showtext rendering</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># turn off showtext text rendering ----</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This course was originally developed by S. Shanny-Csik and is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website is built with <a href="https://github.com/samanthacsik/EDS-240-data-viz"><i class="fa-brands fa-github" title="the github octocat logo" aria-label="github"></i></a>, <a href="https://www.r-project.org/about.html"><i class="fa-brands fa-r-project" title="R Project" aria-label="r-project"></i></a> and <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
