@@ -1,49 +1,49 @@
 ---
-title: "Data storytelling, People as data"
+title: "Alternative chart types"
 subtitle: "Week 9"
 description: "Wednesday March 4^th^, 2026"
 ---
 
-```{r}
-#| eval: true 
-#| echo: false
-#| fig-align: "center"
-#| out-width: "85%" 
-#| fig-alt: "An extended version of the classic R4DS schematic from Grolemund & Wickham, with environmental data science, communities, and communication added."
-knitr::include_graphics(here::here("images", "horst-eco-r4ds.png"))
-```
-
-:::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
-:::
+TODO: ADD IMAGE
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
 
-*No required prep for this week's lecture!*
+### A. Install required packages
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+library(waffle) # for making waffle (square pie) charts in R
+library(ggbump) # a geom for creating bump charts
+```
+
+### B. Download .qmd templates 
+
+Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week10/` folder. No need to review any of the code ahead of class -- we'll be walking through it all together.
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
 |------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
-| [Lecture 9.1: data storytelling](lecture-slides/lecture9.1-data-stories-slides.qmd){target="_blank"}  | *NA* | *NA* |
-| [Lecture 9.2: people as data](lecture-slides/lecture9.2-people-as-data-slides.qmd){target="_blank"} | *NA* | *NA* |
+| [Lecture 9.1: misc. chart types](lecture-slides/SLIDES-misc-charts.qmd){target="_blank"}  | [9.1 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week10/TEMPLATE-misc-charts.qmd){target="_blank"} | [10.1 key](keys/KEY-misc-charts.qmd){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
-## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-discussion Prep {#pre-discussion-prep} 
-Similar to last week's discussion, we'll be discussing progress on our data visualizations and providing constructive feedback to one another.  
+## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-lab Prep {#pre-lab-prep} 
+Similar to last week's lab, we'll be discussing progress on our data visualizations and providing constructive feedback to one another.  
 
 ### A. Prepare your data viz slide 
 
-Find your assigned slide from the correct Google Slide deck (see table, under the [Discussion Materials](week9.qmd#discussion-materials) section, below) and add the following:
+Find your assigned slide from the correct Google Slide deck (see table, under the [Lab Materials](week9.qmd#lab-materials) section, below) and add the following:
 
-1. ***(the final) one*** of your three visualizations (i.e. don't choose the same viz that you brought to the last two discussion section)
+1. ***(the final) one*** of your three visualizations (i.e. don't choose the same viz that you brought to the last two labs section)
 2. the question that you're using your visualization to answer
 
-## {{< fa comments title="two speech bubbles" >}} Discussion Materials {#discussion-materials}
+## {{< fa comments title="two speech bubbles" >}} Lab Materials {#lab-materials}
 
-| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Discussion Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
+| {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lab Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
 |-------------------|-------------------|--------------|
-| [D9 slides: critiquing data viz](discussion/week9/week9-slides.qmd){target="_blank"} | *NA* | *NA* |
+| [L9 slides: critiquing data viz](lab/week9/week9-slides.qmd){target="_blank"} | *NA* | *NA* |
 | Google Slides for the [1pm Section](https://docs.google.com/presentation/d/1OSxYGx0dAsRjPEjsBseRuzkTOys-vAIA1W7wfdXIV68/edit?usp=sharing){target="_blank"} & [2pm Section](https://docs.google.com/presentation/d/1w3D_DKiVR-nMtmIseYp5SCJvnv40YHa5jb_sBJnZDME/edit?usp=sharing){target="_blank"} | *NA* | *NA* |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 

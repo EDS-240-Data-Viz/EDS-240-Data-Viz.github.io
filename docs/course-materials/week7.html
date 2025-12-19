@@ -8,7 +8,7 @@
 
 <meta name="description" content="Wednesday February 18th, 2026">
 
-<title>tbd – EDS 240</title>
+<title>Enhancing visualizations (typography &amp; annotations) – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -158,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbzzOJWbhY6xGtxcwceK7bdgk9DkUoteaFMnJwIGgUYq-7vMeduskNUt5Lwj2uDaaXVI/exec" target="_blank"> 
+    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbx2bFyK5kpsqBlvYgWnQm64YNehPWeFAxl9BqMPoRFjE1MSOkkx_Bf0PkFa1Z6_YkRh/exec" target="_blank"> 
 <span class="menu-text">redeem tokens</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -212,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">tbd</h1>
+      <h1 class="title">Enhancing visualizations (typography &amp; annotations)</h1>
             <p class="subtitle lead">Week 7</p>
                   <div>
         <div class="description">
@@ -239,14 +273,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
+  <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download Data</a></li>
+  <li><a href="#c.-download-font-awesome-fonts" id="toc-c.-download-font-awesome-fonts" class="nav-link" data-scroll-target="#c.-download-font-awesome-fonts">C. Download Font Awesome fonts</a></li>
+  <li><a href="#d.-download-.qmd-templates-review-data-wrangling-code" id="toc-d.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#d.-download-.qmd-templates-review-data-wrangling-code">D. Download .qmd templates &amp; review data wrangling code</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
+  <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
   <ul class="collapse">
   <li><a href="#a.-prepare-your-data-viz-slide" id="toc-a.-prepare-your-data-viz-slide" class="nav-link" data-scroll-target="#a.-prepare-your-data-viz-slide">A. Prepare your data viz slide</a></li>
   <li><a href="#b.-read-up-on-how-to-give-receive-feedback" id="toc-b.-read-up-on-how-to-give-receive-feedback" class="nav-link" data-scroll-target="#b.-read-up-on-how-to-give-receive-feedback">B. Read up on how to give / receive feedback</a></li>
   </ul></li>
-  <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
+  <li><a href="#lab-materials" id="toc-lab-materials" class="nav-link" data-scroll-target="#lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</a></li>
   <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
   </ul>
 </nav>
@@ -262,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/horst-happy-castle.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="A little purple fuzzy monster wearing a backpack stands just before a drawbridge, leading to a castle covered in flowers and confetti, with flags that say 'R' and 'Hi Friend!' flapping in the wind. A crow wearing a party hat is perched on a welome sign the start of the bridge and says 'SQUAAWK YOU CAN DO IT!'. A green fuzzy monster with a party hat stands on the opposite end of the bridge, in front of the castle, with it's arms outstretched."></p>
+<p><img src="../images/horst-ggplot-masterpiece.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"></p>
 </figure>
 </div>
 </div>
@@ -272,20 +312,85 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>NA</em></p>
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"monochromeR"</span>) <span class="co"># a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"showtext"</span>) <span class="co"># for using fonts more easily in R graphs</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"glue"</span>) <span class="co"># for string interpolation (aka helps us insert variables directly into text strings)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggtext"</span>) <span class="co"># improved text rendering support for ggplot2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>) <span class="co"># ggplot2 extension to repel overlapping labels</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"googlesheets4"</span>) <span class="co"># provides an R interface to Google Sheets via the Sheets API v4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-download-data" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-data">B. Download Data</h3>
+<p>In case we have trouble with the <code>{googlesheets4}</code> API, you can download and read in the following data files as normal (i.e.&nbsp;using <code>readr::read_csv()</code>):</p>
+<ul>
+<li><a href="https://drive.google.com/file/d/1NQV40ZHVkPUNA6FeFFQR0OxqYM4trM3w/view?usp=sharing" target="_blank">metabolism-foraging-data.csv</a></li>
+<li><a href="https://drive.google.com/file/d/13chLNHTLd0GRCFl-7OB921FzOKc6I-GK/view?usp=sharing" target="_blank">mono.csv</a></li>
+</ul>
+<p>If you choose (or need) to download and read in these files, be sure to save them to your class repo at <code>~/week6/data/</code>.</p>
+</section>
+<section id="c.-download-font-awesome-fonts" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-font-awesome-fonts">C. Download Font Awesome fonts</h3>
+<p>We’ll learn how to use <a href="https://fontawesome.com/" target="_blank">Font Awesome</a> icons in our ggplots. To do so, you’ll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:</p>
+<ol type="1">
+<li><strong>Download Font Awesome fonts:</strong> Go to <a href="https://fontawesome.com/download" target="_blank">https://fontawesome.com/download</a> and download the latest release available. Choose the <strong>Free For Desktop</strong> option.</li>
+<li><strong>Unzip the downloaded file:</strong> You should see a folder inside called <code>otfs/</code> – this contains three <code>.otf</code> files (aka OpenType font format files)</li>
+<li><strong>Copy the three <code>.otf</code> files to your class repo:</strong> I recommend creating a <code>fonts/</code> folder inside your root directory, and dropping all three of them in there (e.g.&nbsp;<code>EDS-240-data-viz-examples/fonts/*.otf</code>)</li>
+</ol>
+</section>
+<section id="d.-download-.qmd-templates-review-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="d.-download-.qmd-templates-review-data-wrangling-code">D. Download .qmd templates &amp; review data wrangling code</h3>
+<ol type="1">
+<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week6/</code> folder.</p></li>
+<li><p>Review setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through all code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>. Specifically:</p>
+<ul>
+<li>Template 6.1 begins where we left off in creating our salary plot (in <a href="lecture-slides/lecture4.1-amounts-slides.qmd" target="_blank">lecture 4.1</a>). Review the code under the <code>## Setup</code>, <code>## Wrangle Data</code> and <code>## Recreate original plot</code> sections to re-familiarize yourself.<br>
+</li>
+<li>Template 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the <code>### Setup</code> and <code>### Create base plot</code> sections for both these visualizations.</li>
+</ul></li>
+</ol>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<p><em>There is no lecture this week!</em></p>
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
+<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
+<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">Lecture 6.1: typography</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-typography.qmd" target="_blank">6.1 template</a></td>
+<td><a href="keys/KEY-typography.qmd" target="_blank">6.1 key</a></td>
+</tr>
+<tr class="even">
+<td><a href="../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">Lecture 6.2: annotations</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week6/TEMPLATE-annotations.qmd" target="_blank">6.2 template</a></td>
+<td><a href="../course-materials/keys/KEY-annotations.html" target="_blank">6.2 key</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="pre-discussion-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
-<p>From here on out, we’ll be using discussion sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:</p>
+<section id="pre-lab-prep" class="level2">
+<h2 class="anchored" data-anchor-id="pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</h2>
+<p>From here on out, we’ll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:</p>
 <section id="a.-prepare-your-data-viz-slide" class="level3">
 <h3 class="anchored" data-anchor-id="a.-prepare-your-data-viz-slide">A. Prepare your data viz slide</h3>
 <!-- Add *one* of your draft data vizualizations to your slide -->
-<p><a href="../course-materials/assignments/HW3.html" target="_blank">HW #3</a>, asks you to draft all three required visualizations for your chosen <a href="assignments/HW4.qmd" target="_blank">final project (HW #4)</a> option. Find your assigned slide from the correct Google Slide deck (see table, under the <a href="../course-materials/week7.html#discussion-materials">Discussion Materials</a> section, below) and add the following:</p>
-<!-- plan to bring the following to discussion: -->
+<p><a href="../course-materials/assignments/HW3.html" target="_blank">HW #3</a>, asks you to draft all three required visualizations for your chosen <a href="assignments/HW4.qmd" target="_blank">final project (HW #4)</a> option. Find your assigned slide from the correct Google Slide deck (see table, under the <a href="../course-materials/week7.html#lab-materials">Lab Materials</a> section, below) and add the following:</p>
+<!-- plan to bring the following to lab: -->
 <!-- (i.e. one of the three viz that will make up your infographic for [option 1](../assignments/HW4.qmd#option-1), *or* one of the three required viz for for [option 2](../assignments/HW4.qmd#option-1#option-2), *or*) -->
 <ol type="1">
 <li><strong><em>one</em></strong> of your three visualizations</li>
@@ -345,8 +450,8 @@ Important tips for giving / receiving / implementing feedback:
 </ul>
 </section>
 </section>
-<section id="discussion-materials" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</h2>
+<section id="lab-materials" class="level2">
+<h2 class="anchored" data-anchor-id="lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</h2>
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -355,14 +460,14 @@ Important tips for giving / receiving / implementing feedback:
 </colgroup>
 <thead>
 <tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Discussion Slides</th>
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lab Slides</th>
 <th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
 <th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/discussion/week7/week7-slides.html" target="_blank">D7 slides: critiquing data viz</a></td>
+<td><a href="../course-materials/lab/week7/week7-slides.html" target="_blank">L7 slides: critiquing data viz</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
 </tr>

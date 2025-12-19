@@ -192,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbzzOJWbhY6xGtxcwceK7bdgk9DkUoteaFMnJwIGgUYq-7vMeduskNUt5Lwj2uDaaXVI/exec" target="_blank"> 
+    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbx2bFyK5kpsqBlvYgWnQm64YNehPWeFAxl9BqMPoRFjE1MSOkkx_Bf0PkFa1Z6_YkRh/exec" target="_blank"> 
 <span class="menu-text">redeem tokens</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -280,12 +280,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">C. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
+  <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
   <ul class="collapse">
-  <li><a href="#a.-prepare-a-week2-discussion.qmd-file" id="toc-a.-prepare-a-week2-discussion.qmd-file" class="nav-link" data-scroll-target="#a.-prepare-a-week2-discussion.qmd-file">A. Prepare a <code>week2-discussion.qmd</code> file</a></li>
+  <li><a href="#a.-prepare-a-week2-lab.qmd-file" id="toc-a.-prepare-a-week2-lab.qmd-file" class="nav-link" data-scroll-target="#a.-prepare-a-week2-lab.qmd-file">A. Prepare a <code>week2-lab.qmd</code> file</a></li>
   <li><a href="#b.-optional-install-chrome-extension-for-picking-colors" id="toc-b.-optional-install-chrome-extension-for-picking-colors" class="nav-link" data-scroll-target="#b.-optional-install-chrome-extension-for-picking-colors">B. (OPTIONAL) Install Chrome extension for picking colors</a></li>
   </ul></li>
-  <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
+  <li><a href="#lab-materials" id="toc-lab-materials" class="nav-link" data-scroll-target="#lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</a></li>
   <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
   </ul>
 </nav>
@@ -317,8 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"chron"</span>) <span class="co"># for working with dates / times</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggridges"</span>) <span class="co"># {ggplot2} extension for creating ridgeline plots</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gghighlight"</span>) <span class="co"># {ggplot2} extension for highlighting geoms</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggbeeswarm"</span>) <span class="co"># {ggplot2} extension for creating categorical scatter (violin point) plots</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"see"</span>) <span class="co"># {ggplot2} extension for model visualization (we'll be using it for it's geom, geom_violindot())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggbeeswarm"</span>) <span class="co"># {ggplot2} extension for creating categorical scatter (violin point) plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-data" class="level3">
@@ -343,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>2.2</td>
 <td>SBC LTER: Ocean: Currents and Biogeochemistry: Moored CTD and ADCP data from Mohawk Outside Spar (MKO), ongoing since 2005</td>
-<td>download from the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007" target="_blank">EDI Data Portal</a> by clicking the “Download” button</td>
+<td>download from the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&amp;identifier=2007" target="_blank">EDI Data Portal</a> by clicking the “Download” button <em>(<a href="https://drive.google.com/file/d/1WV4E4XbRUQquu7H4phR-y0l1pWvBGkBr/view?usp=drive_link" target="_blank">Google Drive backup link</a>, in case EDI is down)</em></td>
 <td>Data collected by the <a href="https://sbclter.msi.ucsb.edu/" target="_blank">Santa Barbara Coastal Long Term Ecological Research</a> (SBC LTER) site</td>
 </tr>
 </tbody>
@@ -374,31 +373,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/lecture-slides/choosing-graphic-forms-slides.html" target="_blank">Lecture 2.1: choosing graphic form</a></td>
+<td><a href="lecture-slides/SLIDES-choosing-graphic-forms.qmd" target="_blank">Lecture 2.1: choosing graphic form</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
 </tr>
 <tr class="even">
-<td><a href="../course-materials/lecture-slides/distributions-slides.html" target="_blank">Lecture 2.2: visualizing distributions</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-lecture2.2-distributions.qmd" target="_blank">2.2 template</a></td>
-<td><a href="../course-materials/keys/KEY-lecture2.2-distributions.html" target="_blank">2.2 key</a></td>
+<td><a href="../course-materials/lecture-slides/SLIDES-distributions.html" target="_blank">Lecture 2.2: visualizing distributions</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week2/TEMPLATE-distributions.qmd" target="_blank">2.2 template</a></td>
+<td><a href="../course-materials/keys/KEY-distributions.html" target="_blank">2.2 key</a></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="pre-discussion-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
-<section id="a.-prepare-a-week2-discussion.qmd-file" class="level3">
-<h3 class="anchored" data-anchor-id="a.-prepare-a-week2-discussion.qmd-file">A. Prepare a <code>week2-discussion.qmd</code> file</h3>
-<p>Add a new blank file to your class repo at the following location: <code>EDS-240-class-examples/week2/week2-discussion.qmd.</code> Fill out the necessary YAML information (title, author, date + any other information you find helpful).</p>
+<section id="pre-lab-prep" class="level2">
+<h2 class="anchored" data-anchor-id="pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</h2>
+<section id="a.-prepare-a-week2-lab.qmd-file" class="level3">
+<h3 class="anchored" data-anchor-id="a.-prepare-a-week2-lab.qmd-file">A. Prepare a <code>week2-lab.qmd</code> file</h3>
+<p>Add a new blank file to your class repo at the following location: <code>EDS-240-class-examples/week2/week2-lab.qmd.</code> Fill out the necessary YAML information (title, author, date + any other information you find helpful).</p>
 </section>
 <section id="b.-optional-install-chrome-extension-for-picking-colors" class="level3">
 <h3 class="anchored" data-anchor-id="b.-optional-install-chrome-extension-for-picking-colors">B. (OPTIONAL) Install Chrome extension for picking colors</h3>
 <p>Install the <a href="https://chromewebstore.google.com/detail/colorzilla/bhlhnicpbhignbdhedgjhgdocnmhomnp" target="_blank">ColorZilla</a> Google Chrome extension (also available for <a href="https://www.colorzilla.com/firefox/" target="_blank">Firefox</a>), which makes it easy to select color values from webpages.</p>
 </section>
 </section>
-<section id="discussion-materials" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</h2>
+<section id="lab-materials" class="level2">
+<h2 class="anchored" data-anchor-id="lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</h2>
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 35%">
@@ -407,16 +406,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Discussion Slides</th>
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lab Slides</th>
 <th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
 <th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/discussion/week2/week2-slides.html" target="_blank">D2 slides: USDM</a></td>
-<td><a href="../course-materials/discussion/week2/week2-exercise.html">D2 exercise: recreate USDM viz</a></td>
-<td><a href="../course-materials/discussion/week2/week2-solution.html">D2 solution</a></td>
+<td><a href="../course-materials/lab/week2/week2-slides.html" target="_blank">L2 slides: USDM</a></td>
+<td><a href="../course-materials/lab/week2/week2-exercise.html">L2 exercise: recreate USDM viz</a></td>
+<td><a href="../course-materials/lab/week2/week2-solution.html">L2 solution</a></td>
 </tr>
 </tbody>
 </table>

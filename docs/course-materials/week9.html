@@ -8,7 +8,7 @@
 
 <meta name="description" content="Wednesday March 4th, 2026">
 
-<title>Data storytelling, People as data – EDS 240</title>
+<title>Alternative chart types – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -158,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbzzOJWbhY6xGtxcwceK7bdgk9DkUoteaFMnJwIGgUYq-7vMeduskNUt5Lwj2uDaaXVI/exec" target="_blank"> 
+    <a class="nav-link" href="https://script.google.com/a/macros/ucsb.edu/s/AKfycbx2bFyK5kpsqBlvYgWnQm64YNehPWeFAxl9BqMPoRFjE1MSOkkx_Bf0PkFa1Z6_YkRh/exec" target="_blank"> 
 <span class="menu-text">redeem tokens</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -212,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Data storytelling, People as data</h1>
+      <h1 class="title">Alternative chart types</h1>
             <p class="subtitle lead">Week 9</p>
                   <div>
         <div class="description">
@@ -239,13 +273,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
+  <ul class="collapse">
+  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
+  <li><a href="#b.-download-.qmd-templates" id="toc-b.-download-.qmd-templates" class="nav-link" data-scroll-target="#b.-download-.qmd-templates">B. Download .qmd templates</a></li>
+  </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-discussion-prep" id="toc-pre-discussion-prep" class="nav-link" data-scroll-target="#pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</a>
+  <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
   <ul class="collapse">
   <li><a href="#a.-prepare-your-data-viz-slide" id="toc-a.-prepare-your-data-viz-slide" class="nav-link" data-scroll-target="#a.-prepare-your-data-viz-slide">A. Prepare your data viz slide</a></li>
   </ul></li>
-  <li><a href="#discussion-materials" id="toc-discussion-materials" class="nav-link" data-scroll-target="#discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</a></li>
+  <li><a href="#lab-materials" id="toc-lab-materials" class="nav-link" data-scroll-target="#lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</a></li>
   <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
   </ul>
 </nav>
@@ -257,21 +295,20 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/horst-eco-r4ds.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="An extended version of the classic R4DS schematic from Grolemund &amp; Wickham, with environmental data science, communities, and communication added."></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="gray-text center-text">
-<p><em>Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
-</div>
+<p>TODO: ADD IMAGE</p>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<p><em>No required prep for this week’s lecture!</em></p>
+<section id="a.-install-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waffle) <span class="co"># for making waffle (square pie) charts in R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbump) <span class="co"># a geom for creating bump charts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-download-.qmd-templates" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-.qmd-templates">B. Download .qmd templates</h3>
+<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week10/</code> folder. No need to review any of the code ahead of class – we’ll be walking through it all together.</p>
+</section>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
@@ -290,32 +327,27 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/lecture-slides/lecture9.1-data-stories-slides.html" target="_blank">Lecture 9.1: data storytelling</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
-</tr>
-<tr class="even">
-<td><a href="../course-materials/lecture-slides/lecture9.2-people-as-data-slides.html" target="_blank">Lecture 9.2: people as data</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
+<td><a href="../course-materials/lecture-slides/SLIDES-misc-charts.html" target="_blank">Lecture 9.1: misc. chart types</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/week10/TEMPLATE-misc-charts.qmd" target="_blank">9.1 template</a></td>
+<td><a href="../course-materials/keys/KEY-misc-charts.html" target="_blank">10.1 key</a></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="pre-discussion-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-discussion-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-discussion Prep</h2>
-<p>Similar to last week’s discussion, we’ll be discussing progress on our data visualizations and providing constructive feedback to one another.</p>
+<section id="pre-lab-prep" class="level2">
+<h2 class="anchored" data-anchor-id="pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</h2>
+<p>Similar to last week’s lab, we’ll be discussing progress on our data visualizations and providing constructive feedback to one another.</p>
 <section id="a.-prepare-your-data-viz-slide" class="level3">
 <h3 class="anchored" data-anchor-id="a.-prepare-your-data-viz-slide">A. Prepare your data viz slide</h3>
-<p>Find your assigned slide from the correct Google Slide deck (see table, under the <a href="../course-materials/week9.html#discussion-materials">Discussion Materials</a> section, below) and add the following:</p>
+<p>Find your assigned slide from the correct Google Slide deck (see table, under the <a href="../course-materials/week9.html#lab-materials">Lab Materials</a> section, below) and add the following:</p>
 <ol type="1">
-<li><strong><em>(the final) one</em></strong> of your three visualizations (i.e.&nbsp;don’t choose the same viz that you brought to the last two discussion section)</li>
+<li><strong><em>(the final) one</em></strong> of your three visualizations (i.e.&nbsp;don’t choose the same viz that you brought to the last two labs section)</li>
 <li>the question that you’re using your visualization to answer</li>
 </ol>
 </section>
 </section>
-<section id="discussion-materials" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Discussion Materials</h2>
+<section id="lab-materials" class="level2">
+<h2 class="anchored" data-anchor-id="lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</h2>
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -324,14 +356,14 @@ ul.task-list li input[type="checkbox"] {
 </colgroup>
 <thead>
 <tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Discussion Slides</th>
+<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lab Slides</th>
 <th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
 <th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/discussion/week9/week9-slides.html" target="_blank">D9 slides: critiquing data viz</a></td>
+<td><a href="../course-materials/lab/week9/week9-slides.html" target="_blank">L9 slides: critiquing data viz</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
 </tr>

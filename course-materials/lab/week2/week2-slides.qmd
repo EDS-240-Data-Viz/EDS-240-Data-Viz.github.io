@@ -1,0 +1,120 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#047C91"} 
+
+[EDS 240: Lab 2]{.custom-title}
+
+[*Recreating US Drought Monitor viz*]{.custom-subtitle}
+
+[*Part 1: graphic form*]{.custom-subtitle2}
+
+<hr class="hr-dark-blue">
+
+[Week 2 | January 14^th^, 2025]{.custom-subtitle3}
+
+---
+
+## {#what-is-USDM data-menu-title="What is USDM?"}
+
+[What is the U.S. Drought Monitor?]{.slide-title}
+
+<hr>
+
+<br>
+
+[The [U.S. Drought Monitor](https://droughtmonitor.unl.edu/){target="_blank"} (USDM) is a collection of measures that allows experts to assess droughts in the United States.]{.body-text-m}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br>
+It is produced through a partnership between the [National Drought Mitigation Center at the University of Nebraska-Lincoln](https://drought.unl.edu/){target="_blank"}, the [United States Department of Agriculture](https://www.usda.gov/){target="_blank"} and the [National Oceanic and Atmospheric Administration](https://www.noaa.gov/){target="_blank"}. You can download and explore comprehensive statistics through their [data portal](https://droughtmonitor.unl.edu/DmData/DataDownload/ComprehensiveStatistics.aspx){target="_blank"}.
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "75%"
+knitr::include_graphics("images/usdm-website.png")
+```
+:::
+::::
+
+---
+
+## {#what-is-tidytuesday data-menu-title="What is tidytuesday?"}
+
+[What is the TidyTuesday?]{.slide-title}
+
+<hr>
+
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"} is a "weekly social data project" organized by the [Data Science Learning Community](https://dslc.io/){target="_blank"}. It's goal is to **"make it easier to learn to work with data, by providing real-world datasets."**
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "75%"
+knitr::include_graphics("images/tidytuesday.png")
+```
+
+Since 2018, participants of all skill levels have imported, wrangled, and visualized weekly data sets, then shared their creations + code on social media. It's a fun, low-stakes way to learn new data visualization skills and approaches from one another -- check it out!
+
+---
+
+## {#usdm-tidytuesday data-menu-title="USDM x TidyTuesday"}
+
+[USDM x TidyTuesday]{.slide-title}
+
+<hr>
+
+The TidyTuesday community wrangled and visualized USDM data back in 2021 ([2021-07-20, week 30](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md){target="_blank"}), so we'll import some <sup>*</sup>minimally-tidied data directly from the TidyTuesday GitHub repository.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "75%"
+knitr::include_graphics("images/tidytuesday-usdm.png")
+```
+
+<br>
+
+::: {.footer}
+<sup>*</sup>TidyTuesday always provides the [cleaning script](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-20/readme.md#cleaning-script){target="_blank"} that the organizers used to pre-process any of the data provided -- these USDM data comprise three separate data sets, which were converted from wide to long format, joined together, and had some columns renamed.
+:::
+
+---
+
+## {#gameplan data-menu-title="Our gameplan"}
+
+[Let's recreate this USDM viz!]{.slide-title}
+
+<hr>
+
+We'll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the [*Droughts in California* Wikipedia page](https://en.wikipedia.org/wiki/Droughts_in_California)!):
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "75%"
+knitr::include_graphics("images/usdm.png")
+```
+
+**This week, we'll focus on the data layer, geometric layer, and scales.** During week 4 lab, we'll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor's version.
