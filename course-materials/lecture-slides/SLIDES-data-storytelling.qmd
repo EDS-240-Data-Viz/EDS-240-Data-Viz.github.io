@@ -355,7 +355,7 @@ showtext_auto()
 
 # url <- "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png"
 # utils::download.file(url = url, destfile =  here::here("slides", "images", "week8", "penguin.png"))
-my_img <- png::readPNG(here::here("course-materials", "lecture-slides", "images", "week8", "penguin.png"))
+my_img <- png::readPNG(here::here("course-materials", "images", "lecture-slides", "penguin.png"))
 my_raster_img <- grid::rasterGrob(my_img)
 
 # ALTERNATIVELY: 
@@ -595,7 +595,7 @@ countdown::countdown(
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/jan6.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "jan6.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -611,7 +611,7 @@ knitr::include_graphics("images/week8/jan6.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/china-pop.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "china-pop.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -627,7 +627,7 @@ knitr::include_graphics("images/week8/china-pop.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/can-fires.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "can-fires.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -643,7 +643,7 @@ knitr::include_graphics("images/week8/can-fires.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/ca-oil.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "ca-oil.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -659,7 +659,7 @@ knitr::include_graphics("images/week8/ca-oil.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/clean-fuel.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "clean-fuel.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -675,7 +675,7 @@ knitr::include_graphics("images/week8/clean-fuel.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/cacti.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "cacti.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -691,7 +691,7 @@ knitr::include_graphics("images/week8/cacti.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/messi.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "messi.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -707,7 +707,7 @@ knitr::include_graphics("images/week8/messi.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/refugees.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "refugees.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -723,7 +723,7 @@ knitr::include_graphics("images/week8/refugees.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/week8/employed.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "employed.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -739,7 +739,7 @@ knitr::include_graphics("images/week8/employed.png")
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/mann-etal-hockey-stick.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "mann-etal-hockey-stick.png"))
 ```
 
 ::: {.center-text .body-text-s}
@@ -841,7 +841,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/chalabi-kingfisher.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "chalabi-kingfisher.png"))
 ```
 :::
 
@@ -851,7 +851,7 @@ knitr::include_graphics("images/week8/chalabi-kingfisher.png")
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/chalabi-vaquitas.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "chalabi-vaquitas.png"))
 ```
 :::
 
@@ -890,7 +890,7 @@ countdown::countdown(
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/ingeman-etal-fig3.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "ingeman-etal-fig3.png"))
 ```
 
 <br>
@@ -929,12 +929,14 @@ countdown::countdown(
 
 ::: {.column width="50%"}
 <br>
+
 ```{r}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/scherer-plants-legend.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "scherer-plants-legend.png"))
+
 ```
 :::
 
@@ -944,7 +946,7 @@ knitr::include_graphics("images/week8/scherer-plants-legend.png")
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/week8/scherer-plants.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "scherer-plants.png"))
 ```
 :::
 
@@ -990,7 +992,7 @@ countdown::countdown(
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "80%" -->
 <!-- #| fig-align: "center" -->
@@ -1022,7 +1024,7 @@ countdown::countdown(
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "80%" -->
 <!-- #| fig-align: "center" -->
@@ -1058,7 +1060,7 @@ countdown::countdown(
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "50%" -->
 <!-- #| fig-align: "center" -->
@@ -1090,7 +1092,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "70%" -->
 <!-- #| fig-align: "center" -->
@@ -1135,7 +1137,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "70%" -->
 <!-- #| fig-align: "center" -->
@@ -1180,7 +1182,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 
 <!-- ::: {.column width="50%"} -->
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "100%" -->
 <!-- #| fig-align: "center" -->
@@ -1200,7 +1202,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 <!-- <br> -->
 
 <!-- ```{r} -->
-<!-- #| eval: true -->
+<!-- #| eval: false -->
 <!-- #| echo: false -->
 <!-- #| out-width: "100%" -->
 <!-- #| fig-align: "center" -->
