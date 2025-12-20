@@ -728,8 +728,8 @@
     "text": "Communicating data (in general, but particularly) about people is complicated. How can we translate numbers into concepts that people are drawn to and relate to?"
   },
   {
-    "objectID": "course-materials/lecture-slides/SLIDES-people-as-data.html#tbd",
-    "href": "course-materials/lecture-slides/SLIDES-people-as-data.html#tbd",
+    "objectID": "course-materials/lecture-slides/SLIDES-people-as-data.html#reconnect",
+    "href": "course-materials/lecture-slides/SLIDES-people-as-data.html#reconnect",
     "title": "EDS 240",
     "section": "",
     "text": "“reconnect numbers to what they really stand for”\n\n\n\n“I started to work with data in 2010, 2011, and I saw that most of the approach to data at the time was very much based on a statistician’s background, and that’s fantastic. But I was also interested in using data myself as an anchoring point to tell stories. I thought that there’s just more that we could do to actually represent our reality if we include context, anecdotal details, if we embrace the imperfections that are inherent to how we collect data. And so, I started to just use these ideas in my practice, and I felt that I needed to just come up with an umbrella term for that. Data humanism was a good one, and data humanism is an approach to data that tries to reconnect numbers to what they really stand for by adding less factual and more anecdotal information.”\n\n\n-Giorgia Lupi in her interview with Fast Company"
@@ -2611,151 +2611,109 @@
     "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nFPM\nFinal Project Milestone #1\nWed 01/07/2026\nWed 01/21/2026, 11:59pm PT\n\n\nHW\nHomework #2\nWed 01/21/2026\nWed 01/28/2026, 11:59pm PT"
   },
   {
-    "objectID": "course-materials/lab/week3/week3-exercise.html",
-    "href": "course-materials/lab/week3/week3-exercise.html",
-    "title": "Week 3 Lab: Exercise",
-    "section": "",
-    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!)."
-  },
-  {
-    "objectID": "course-materials/lab/week3/week3-exercise.html#example-1-palmerpenguins-ggplot",
-    "href": "course-materials/lab/week3/week3-exercise.html#example-1-palmerpenguins-ggplot",
-    "title": "Week 3 Lab: Exercise",
-    "section": "Example 1: {palmerpenguins} ggplot",
-    "text": "Example 1: {palmerpenguins} ggplot\n\nCopy the following code into your week3-lab.qmd file and add code chunk options that:\n\nrender the output (i.e. plot), but not the code\nsuppress any warnings or messages\n\nAdd alt text using the fig-alt: code chunk option\n“Inspect” your plot (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram(alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Body mass (g)\",\n       y = \"Frequency\",\n       title = \"Penguin body masses\")"
-  },
-  {
-    "objectID": "course-materials/lab/week3/week3-exercise.html#example-2-from-the-new-york-times",
-    "href": "course-materials/lab/week3/week3-exercise.html#example-2-from-the-new-york-times",
-    "title": "Week 3 Lab: Exercise",
-    "section": "Example 2 (from The New York Times):",
-    "text": "Example 2 (from The New York Times):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using Markdown syntax and add alt text:\n\n\n![](file/path/to/your/image){fig-alt=\"Alt text goes here\"}\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThis graphic form is called a dot plot.\nDot plots are particularly useful for visualizing variability within a single measured numerical variable – here, that’s how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.\nIt’s easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables."
-  },
-  {
-    "objectID": "course-materials/lab/week3/week3-exercise.html#example-3-fig-1a-from-chapman-et-al.-2024",
-    "href": "course-materials/lab/week3/week3-exercise.html#example-3-fig-1a-from-chapman-et-al.-2024",
-    "title": "Week 3 Lab: Exercise",
-    "section": "Example 3 (Fig 1A from Chapman et al. 2024):",
-    "text": "Example 3 (Fig 1A from Chapman et al. 2024):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using HTML syntax and add alt text (you’ll also need to include the width attribute to make the image a bit smaller):\n\n\n&lt;img src=\"file/path/to/image\" alt=\"Alt text goes here\" width=\"700px\"&gt;\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThe associated figure caption for this figure:\n\nThe &gt;2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries."
-  },
-  {
-    "objectID": "course-materials/lab/week3/week3-exercise.html#example-4-write-alt-text-for-a-viz-of-your-choice",
-    "href": "course-materials/lab/week3/week3-exercise.html#example-4-write-alt-text-for-a-viz-of-your-choice",
-    "title": "Week 3 Lab: Exercise",
-    "section": "Example 4 (Write alt text for a viz of your choice)",
-    "text": "Example 4 (Write alt text for a viz of your choice)\n\nSave and embed a data viz of your choice using Markdown or HTML syntax\nAdd alt text\nShare and discuss your alt text with a partner / group"
-  },
-  {
-    "objectID": "course-materials/lab/week1/week1-slides.html#title-slide",
-    "href": "course-materials/lab/week1/week1-slides.html#title-slide",
+    "objectID": "course-materials/lab/week4/week4-slides.html#title-slide",
+    "href": "course-materials/lab/week4/week4-slides.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lab 1\nData Wrangling\n\nWeek 1 | January 7th, 2025"
+    "text": "EDS 240: Lab 4\nRecreating US Drought Monitor viz\nPart 2: ggplot themes\n\nWeek 4 | January 27th, 2025"
   },
   {
-    "objectID": "course-materials/lab/week1/week1-slides.html#what-is-data-wrangling",
-    "href": "course-materials/lab/week1/week1-slides.html#what-is-data-wrangling",
+    "objectID": "course-materials/lab/week4/week4-slides.html#ggplot-theme",
+    "href": "course-materials/lab/week4/week4-slides.html#ggplot-theme",
     "title": "EDS 240",
     "section": "",
-    "text": "What do we mean by “data wrangling?”\n\n\n“Data wrangling, sometimes referred to as data munging, is the process of transforming and mapping data from one ”raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics.”\n\n\n-Wikipedia\n\n\nWrangling includes (but is not limited to):\n\ndata cleaning (e.g. handling missing values, consistent naming of observations, ensuring variables are the correct data types, etc.)\nrestructuring data (e.g. tidying data (i.e. convert from wide &gt; long format))\ncombining data sets (e.g. using key values to merge two related data sets)\n\n\n\nWrangling is a critical first step in building any sort of data visualization!\n\nYou may have heard something like, “Data scientists spend 80% of their time preparing their data for analysis and / or visualization.” And while that may not be totally accurate for all data scientists or all projects, you will spend lots of time wrestling with data."
+    "text": "Themes modify non-data plot elements\n\n\n\nThemes are used to modify the non-data components of plots (e.g. titles, labels, fonts, background, gridlines, legend).\n\nIn addition to using pre-built themes (available via the {ggplot2} package and also from extension packages), you can fine-tune the appearance of your plots theme by making adjustments using the theme() function."
   },
   {
-    "objectID": "course-materials/lab/week1/week1-slides.html#tidy-format",
-    "href": "course-materials/lab/week1/week1-slides.html#tidy-format",
+    "objectID": "course-materials/lab/week4/week4-slides.html#prebuilt-themes",
+    "href": "course-materials/lab/week4/week4-slides.html#prebuilt-themes",
     "title": "EDS 240",
     "section": "",
-    "text": "{ggplot2} plays best with tidy data\n\n\n\nArtwork by Allison Horst\n\n\n\nReminder: tidy data is not a {ggplot2}-specific concept. It’s a broadly standardized way of organizing data."
+    "text": "Pre-built themes\n\n{ggplot2} comes with eight complete themes, which can be applied as-is, or further modified using theme(). There are also many additional themes which can be applied via ggplot extension packages. A small handful of packages with additional themes:\n\n{ggthemes}: a collection of popular themes, some of which also come with corresponding color scales\n{hrbrthemes}: typographic-centric themes and theme components -{ggthemr}: a collection of color palettes and plot layouts for quickly setting a ggplot theme\n{ggtech}: themes based off large tech company color palettes\n{ggdark}: dark mode for ggplot complete themes\n{firatheme}: a ggplot theme with Fira font\n{urbnthemes}: tools for creating Urban Institute-themed plots and maps in R (also check out the Urban Institute Data Visualization Style Guide for a really great example of how an organization enforces a cohesive style across all published data viz content)\n{bbplot}: tools for creating ggplots in the style used by the BBC News data team\n{ggpomological}: a ggplot2 theme based on the USDA Pomological Watercolor Collection\n{tvthemes}: a collection of ggplot themes and color / fill palettes based on everybody’s favorite TV shows"
   },
   {
-    "objectID": "course-materials/lab/week1/week1-slides.html#tidyverse",
-    "href": "course-materials/lab/week1/week1-slides.html#tidyverse",
+    "objectID": "course-materials/lab/week4/week4-slides.html#plot-specific-themes",
+    "href": "course-materials/lab/week4/week4-slides.html#plot-specific-themes",
     "title": "EDS 240",
     "section": "",
-    "text": "The {tidyverse} provides lots of helpful tools\n\n\n\n\nThe data science workflow, as described by Hadley Wickham, Mine Çetinkaya-Rundel and Garrett Grolemund in R for Data Science (2e), with added {tidyverse} packages as they fit within this workflow.\n\n\n\nNote that there are a number of other non-tidyverse packages that are also incredibly helpful too (e.g. {janitor}, {naniar})!"
+    "text": "Keep an eye out for plot-specific themes\n\nKeep your eye out for extension packages that supply both a geom(s) and a pre-build theme(s) designed specifically to work with that geom. For example, the {ggridges} package provides both a few different ridgeline plot geoms and a pre-built theme_ridges() theme to pair with them:"
   },
   {
-    "objectID": "course-materials/lab/week1/week1-slides.html#fracfocus",
-    "href": "course-materials/lab/week1/week1-slides.html#fracfocus",
+    "objectID": "course-materials/lab/week4/week4-slides.html#theme",
+    "href": "course-materials/lab/week4/week4-slides.html#theme",
     "title": "EDS 240",
     "section": "",
-    "text": "Let’s wrangle some fracking data\n\n\n\nSince launching in 2011, FracFocus has become the largest registry of hydraulic fracturing chemical disclosures in the US. The database, available to explore online and download in bulk, contains 210,000+ such disclosures from fracking operators; it details the location, timing, and water volume of each fracking job, plus the names and amounts of chemicals used. The project is managed by the Ground Water Protection Council, “a nonprofit 501(c)6 organization whose members consist of state ground water regulatory agencies”. As seen in: The latest installment of the New York Times’ Uncharted Water series.\n\n\n-Jeremy Singer-Vine on Data is Plural (2023.09.27 edition)\n\n\nInterested in reading more about fracking? Check out this communications piece from USGS."
+    "text": "Use ggplot2::theme() for fine-tune control\n\n\n\nAdapted from Reproducible Science for Busy Researchers: How to Save Time using Literate Programming, by Andrew P. Lapointe"
   },
   {
-    "objectID": "course-materials/lab/week1/week1-slides.html#messy-data",
-    "href": "course-materials/lab/week1/week1-slides.html#messy-data",
+    "objectID": "course-materials/lab/week4/week4-slides.html#recreate-plot",
+    "href": "course-materials/lab/week4/week4-slides.html#recreate-plot",
     "title": "EDS 240",
     "section": "",
-    "text": "Download fracking data from Google Drive!\n\n\n\nYou should already have downloaded these data from Google Drive\n\nWe snagged these data back in November 2023 when they were still quite messy. Since then, (it seems that) FracFocus has done a bit more pre-processing of these data – meaning the data you download from their online portal is already a whole lot cleaner. This is great(!), but also defeats the purpose of this exercise .\n\n\n\nOpen up the Week 1 Lab: Exercise for instructions / next steps."
+    "text": "Recreate this USDM plot\n\nReference the graphic on the previous slide (and of course, documentation – run ?theme or check out online documentation) to start tweaking plot elements until it matches the original USDM graphic (below). It’s common to start with a pre-built theme and modify from there.\n\n\nImage source: US Drought Monitor via Wikipedia"
   },
   {
-    "objectID": "course-materials/week7.html#pre-class-prep",
-    "href": "course-materials/week7.html#pre-class-prep",
-    "title": "Enhancing visualizations (typography & annotations)",
+    "objectID": "course-materials/lab/week2/week2-exercise.html",
+    "href": "course-materials/lab/week2/week2-exercise.html",
+    "title": "Week 2 Discussion: Exercise",
+    "section": "",
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week2-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\n\nBegin by copying the following setup and data wrangling code into your week2-lab.qmd file. Run through and review the code, and explore the resulting drought_clean data frame.\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n\nWe still need to filter for just California data and remove any observations where drought_lvl is \"None\". It makes some sense to perform these filters separate from our data wrangling code (in case we ever want to use drought_clean to make a similar plot for a different state(s)). Let’s filter drought_clean, then pipe directly into our gpplot:\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # pipe into ggplot here!\n\n\nBuild that ggplot! Here’s the original plot that we want to create (we’re only focusing on the data layer, geometric layer, and scales today):\n\n\n\n\n\n\n\n\n\n\nIt can be helpful to tackle one small(ish) thing at a time. Consider the following “stages”:\n\nCreate a stacked area chart (take a look back at lecture 2.3 slides for examples)\nFigure out how to order the drought level groups in the same way as the USDM version (i.e. level D4 on the bottom, closet to the x-axis, and level D0 at the top) – Hint: explore the position argument\nUpdate the colors so that they match the USDM version (use Colorpick Eyedropper to grab HEX codes from the original visualization) – Hint: use scale_fill_manual() to set your new colors\nAdjust your x-axis “breaks” (i.e. the tick mark values that represent years) – Hint: check out scale_x_date() and scales::breaks_pretty()\nAdjust your y-axis “breaks” (i.e. the tick mark value that represent percentage of affected area) – Hint: check out scale_y_continous() and scales::label_percent()\nRemove the “padding” (i.e. space) between your area chart and the x- and y-axes – Hint: check out the expand argument in scale_x_date() and scale_y_continuous()\nupdate the plot title"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-alt-charts.html",
+    "href": "course-materials/keys/KEY-alt-charts.html",
+    "title": "Lecture 10.1 KEY",
+    "section": "",
+    "text": "Note\n\n\n\nThis template follows lecture 10.1 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-alt-charts.html#waffle-chart",
+    "href": "course-materials/keys/KEY-alt-charts.html#waffle-chart",
+    "title": "Lecture 10.1 KEY",
+    "section": "Waffle chart",
+    "text": "Waffle chart\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(waffle)\nlibrary(showtext)\n\n#..........................import data...........................\nbigfoot &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-13/bigfoot.csv')\n\n#..........................import fonts..........................\nfont_add_google(name = \"Ultra\", family = \"ultra\")\nfont_add_google(name = \"Josefin Sans\", family = \"josefin\")\n\n#................enable {showtext} for rendering.................\nshowtext_auto()\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nca_season_counts &lt;- bigfoot |&gt; \n  filter(state == \"California\") |&gt; \n  group_by(season) |&gt; \n  count(season) |&gt; \n  ungroup() |&gt; \n  filter(season != \"Unknown\") |&gt; \n  mutate(season = fct_relevel(season, \"Spring\", \"Summer\", \"Fall\", \"Winter\")) |&gt; # set factor levels for legend\n  arrange(season, c(\"Spring\", \"Summer\", \"Fall\", \"Winter\")) # order df rows; {waffle} fills color based on the order that values appear in df\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                waffle chart                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#........................create palettes.........................\nseason_palette &lt;- c(\"Spring\" = \"#357266\", \n                    \"Summer\" = \"#FFB813\", \n                    \"Fall\" = \"#983A06\", \n                    \"Winter\" = \"#005F71\")\n\nplot_palette &lt;- c(gray = \"#757473\",\n                  beige = \"#EFEFEF\")\n\n#.......................create plot labels.......................\ntitle &lt;- \"Summer is the season of Bigfoot sightings in CA\"\nsubtitle &lt;- \"Winter, on the other hand, is a rare time to spot Sasquatch\"\ncaption &lt;- \"Source: Bigfoot Field Researchers Organization\"\n\n#......................create waffle chart.......................\nggplot(ca_season_counts, aes(fill = season, values = n)) +\n  geom_waffle(color = \"white\", size = 0.3, n_rows = 10) +\n  coord_fixed() +\n  scale_fill_manual(values = season_palette) +\n  labs(title = title,\n       subtitle = subtitle,\n       caption = caption) +\n  theme_void() +\n  theme(\n    plot.title = element_text(family = \"ultra\", \n                              size = 17, \n                              hjust = 0.5,\n                              margin = margin(t = 0, r = 0, b = 0.3, l = 0, \"cm\")),\n    plot.subtitle = element_text(family = \"josefin\",\n                                 size = 16,\n                                 hjust = 0.5,\n                                 margin = margin(t = 0, r = 0, b = 0.5, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"josefin\",\n                                size = 10,\n                                color = plot_palette[\"gray\"], \n                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, \"cm\")),\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    legend.text = element_text(family = \"josefin\",\n                               size = 12),\n    plot.background = element_rect(fill = plot_palette[\"beige\"], \n                                   color = plot_palette[\"beige\"]),\n    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, \"cm\")\n  )\n\n\n\n\n\n\n\n\n\n#................create proportional waffle chart................\nggplot(ca_season_counts, aes(fill = season, values = n)) +\n  geom_waffle(color = \"white\", size = 0.3, n_rows = 10,\n1              make_proportional = TRUE) +\n  coord_fixed() +\n  scale_fill_manual(values = season_palette) +\n  theme_void() +\n  theme(\n    plot.title = element_text(family = \"ultra\", \n                              size = 18, \n                              hjust = 0.5,\n                              margin = margin(t = 1, r = 0, b = 0.3, l = 1, \"cm\")),\n    plot.subtitle = element_text(family = \"josefin\",\n                                 size = 16,\n                                 hjust = 0.5,\n                                 margin = margin(t = 0, r = 0, b = 0.5, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"josefin\",\n                                size = 10,\n                                color = plot_palette[\"gray\"], \n                                hjust = 0,\n                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, \"cm\")),\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    legend.text = element_text(family = \"josefin\",\n                               size = 12),\n    plot.background = element_rect(fill = plot_palette[\"beige\"], \n                                   color = plot_palette[\"beige\"]),\n    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, \"cm\")\n  )\n\n\n1\n\nSet make_proportional = TRUE (FALSE by default)\n\n\n\n\n\n\n\n\n\n\n#........................turn off showtext.......................\nshowtext_auto(FALSE)"
+  },
+  {
+    "objectID": "course-materials/keys/KEY-alt-charts.html#bump-chart",
+    "href": "course-materials/keys/KEY-alt-charts.html#bump-chart",
+    "title": "Lecture 10.1 KEY",
+    "section": "Bump chart",
+    "text": "Bump chart\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(ggbump)\nlibrary(ggtext)\nlibrary(showtext)\n\n#..........................import data...........................\njobs &lt;- read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv\")\n\n#..........................import fonts..........................\nfont_add_google(name = \"Passion One\", family = \"passion\")\nfont_add_google(name = \"Oxygen\", family = \"oxygen\")\n\n#................enable {showtext} for rendering.................\nshowtext_auto()\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#...................rank occupations by salary...................\nsalary_rank_by_year &lt;- jobs |&gt; \n  select(year, occupation, total_earnings) |&gt; \n  group_by(year) |&gt; \n  mutate(\n    rank = row_number(desc(total_earnings))\n  ) |&gt; \n  ungroup() |&gt; \n  arrange(rank, year)\n\n#........get top 8 occupation names for final year (2016)........\ntop2016 &lt;- salary_rank_by_year |&gt;  \n  filter(year == 2016, rank &lt;= 8) |&gt;  \n  pull(occupation) \n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                 bump chart                               ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n# grab magma palette ----\nmagma_pal &lt;- viridisLite::magma(12)\n\n# view magma colors ----\n# monochromeR::view_palette(magma_pal)\n\n# assign magma colors to top 8 occupations ----\noccupation_colors &lt;- c(\n  \"Physicians and surgeons\" = magma_pal[3],\n  \"Nurse anesthetists\" = magma_pal[4],\n  \"Dentists\" = magma_pal[5],\n  \"Architectural and engineering managers\" = magma_pal[6],\n  \"Lawyers\" = magma_pal[7], \n  \"Podiatrists\" = magma_pal[8],\n  \"Chief executives\" = magma_pal[9],\n  \"Petroleum engineers\" = magma_pal[10]\n)\n\n# create palette for additional plot theming ----\nplot_palette &lt;- c(dark_purple = \"#2A114E\", \n                  dark_gray = \"#6D6B71\",\n                  light_pink = \"#FFF8F4\")\n\n#.......................create plot labels.......................\ntitle &lt;- \"Top eight highest paying occupations in 2016\"\nsubtitle &lt;- \"Medical professionals held onto the same top three spots across years, while &lt;span style='color:#FEA873FF;'&gt;**petroleum engineers**&lt;/span&gt; steadily climbed the ranks from 10^th^ in 2013 to 4^th^ in 2016\"\ncaption &lt;- \"Data Source: Bureau of Labor Statistics\"\n\n#........................create bump chart.......................\nsalary_rank_by_year |&gt; \n  filter(occupation %in% top2016) |&gt; \n  ggplot(aes(x = year, y = rank, color = occupation)) + \n  geom_point(shape = \"|\", size = 6) + \n  geom_bump(linewidth = 1) +\n  geom_text(\n    data = salary_rank_by_year |&gt;  filter(year == 2013, occupation %in% top2016),\n    aes(label = occupation),\n    hjust = 1,\n    nudge_x = -0.1,\n    family = \"oxygen\",\n    fontface = \"bold\"\n  ) +\n  geom_text(\n    data = salary_rank_by_year |&gt; filter(year == 2016, occupation %in% top2016),\n    aes(label = rank),\n    hjust = 0,\n    nudge_x = 0.1,\n    size = 5,\n    family = \"oxygen\",\n    fontface = \"bold\"\n  ) +\n  annotate(\n    geom = \"text\",\n    x = c(2013, 2016),\n    y = c(-0.2, -0.2),\n    label = c(\"2013\", \"2016\"),\n    hjust = c(0, 1),\n    vjust = 1,\n    size = 5,\n    family = \"oxygen\",\n    fontface = \"bold\",\n    color = plot_palette[\"dark_gray\"],\n  ) +\n  scale_y_reverse() +\n  scale_color_manual(values = occupation_colors) +\n  coord_cartesian(xlim = c(2010, 2016), \n                  ylim = c(11, 0.25), \n                  clip = \"off\") +\n  labs(title = title,\n       subtitle = subtitle,\n       caption = caption) +\n  theme_void() +\n  theme(\n    legend.position = \"none\",\n    plot.title = element_text(family = \"passion\",\n                              size = 25,\n                              color = plot_palette[\"dark_purple\"],\n                              margin = margin(t = 0, r = 0, b = 0.3, l = 0, \"cm\")),\n    plot.subtitle = element_textbox_simple(family = \"oxygen\",\n                                           size = 15,\n                                           color = plot_palette[\"dark_gray\"],\n                                           margin = margin(t = 0, r = 0, b = 1, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"oxygen\",\n                                color = plot_palette[\"dark_gray\"],\n                                margin = margin(t = 0.3, r = 0, b = 0, l = 0, \"cm\")),\n    plot.background = element_rect(fill = plot_palette[\"light_pink\"],\n                                   color = plot_palette[\"light_pink\"]),\n    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, \"cm\")\n  )\n\n\n\n\n\n\n\n#........................turn off showtext.......................\nshowtext_auto(FALSE)"
+  },
+  {
+    "objectID": "course-materials/week5.html#pre-class-prep",
+    "href": "course-materials/week5.html#pre-class-prep",
+    "title": "Enhancing visualizations (colors)",
     "section": " Pre-class Prep",
-    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"monochromeR\") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)\ninstall.packages(\"showtext\") # for using fonts more easily in R graphs\ninstall.packages(\"glue\") # for string interpolation (aka helps us insert variables directly into text strings)\ninstall.packages(\"ggtext\") # improved text rendering support for ggplot2\ninstall.packages(\"ggrepel\") # ggplot2 extension to repel overlapping labels\ninstall.packages(\"googlesheets4\") # provides an R interface to Google Sheets via the Sheets API v4\n\n\n\nB. Download Data\nIn case we have trouble with the {googlesheets4} API, you can download and read in the following data files as normal (i.e. using readr::read_csv()):\n\nmetabolism-foraging-data.csv\nmono.csv\n\nIf you choose (or need) to download and read in these files, be sure to save them to your class repo at ~/week6/data/.\n\n\nC. Download Font Awesome fonts\nWe’ll learn how to use Font Awesome icons in our ggplots. To do so, you’ll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:\n\nDownload Font Awesome fonts: Go to https://fontawesome.com/download and download the latest release available. Choose the Free For Desktop option.\nUnzip the downloaded file: You should see a folder inside called otfs/ – this contains three .otf files (aka OpenType font format files)\nCopy the three .otf files to your class repo: I recommend creating a fonts/ folder inside your root directory, and dropping all three of them in there (e.g. EDS-240-data-viz-examples/fonts/*.otf)\n\n\n\nD. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week6/ folder.\nReview setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through all code in class. However, we’ll reserve some time to answer any questions before we jump into data viz . Specifically:\n\nTemplate 6.1 begins where we left off in creating our salary plot (in lecture 4.1). Review the code under the ## Setup, ## Wrangle Data and ## Recreate original plot sections to re-familiarize yourself.\n\nTemplate 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the ### Setup and ### Create base plot sections for both these visualizations."
+    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"paletteer\") # a comprehensive collection of color palettes in R using a common interface\ninstall.packages(\"viridis\") # Colorblind-Friendly Color Maps for R\ninstall.packages(\"RColorBrewer\") # ColorBrewer Palettes\ninstall.packages(\"tigris\") # for downloading and using Census TIGER/Line shapefiles in R\ninstall.packages(\"sf\") # provides simple features access in R\n\n\n\nB. Download data\n\nDownload County-level precipitation data (Jan 2020 - Dec 2024) for the contiguous U.S, made available by NOAA National Centers for Environmental Information (NCEI) (you do not need to adjust any of the drop down selections; find the download buttons just beneath the rendered map – choose the CSV option)\n\nrename the data file as NCEI-county-jan20-dec24-precip.csv and save it to your class repo at the file path: EDS-240-class-examples/week5/data/NCEI-county-jan20-dec24-precip.csv\n\n\n \n\n\nC. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week5/ folder.\nReview the data wrangling code under the ## Setup section of template 5.3 and make note of any questions you might have (no data wrangling necessary in template 5.2). Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz .\n\n\n\nD. (OPTIONAL, but highly recommended) Install Google Chrome extensions\nI’ll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them!\n\nLet’s get color blind: simulates different color deficiencies in the browser\nMonochrome Mode: Grayscale browsing: turns websites grayscale\nColorZilla: an Eyedropper, Color Picker, Gradient Generator (also available for Firefox)"
   },
   {
-    "objectID": "course-materials/week7.html#lecture-materials",
-    "href": "course-materials/week7.html#lecture-materials",
-    "title": "Enhancing visualizations (typography & annotations)",
+    "objectID": "course-materials/week5.html#lecture-materials",
+    "href": "course-materials/week5.html#lecture-materials",
+    "title": "Enhancing visualizations (colors)",
     "section": " Lecture Materials",
-    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 7.1: typography\n7.1 template\n7.1 key\n\n\nLecture 7.2: annotations\n7.2 template\n6.2 key"
+    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 5.1: colors\n5.1 template\n5.1 key\n\n\nLecture 5.2: choropleth\n5.2 template\n5.2 key"
   },
   {
-    "objectID": "course-materials/week7.html#pre-lab-prep",
-    "href": "course-materials/week7.html#pre-lab-prep",
-    "title": "Enhancing visualizations (typography & annotations)",
+    "objectID": "course-materials/week5.html#pre-lab-prep",
+    "href": "course-materials/week5.html#pre-lab-prep",
+    "title": "Enhancing visualizations (colors)",
     "section": " Pre-lab Prep",
-    "text": "Pre-lab Prep\nFrom here on out, we’ll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:\n\nA. Prepare your data viz slide\n\nHW #3, asks you to draft all three required visualizations for your chosen final project (HW #4) option. Find your assigned slide from the correct Google Slide deck (see table, under the Lab Materials section, below) and add the following:\n\n\n\none of your three visualizations\nthe question that you’re using your visualization to answer\n\n\n\n\nThe visualization you bring should meet the HW #3 requirements (see #6 under the Description section) – this should be a well-constructed, carefully thought-through and polished plot. You should be prepared to discuss your design choices and receive constructive feedback from your peers.\n\n\nB. Read up on how to give / receive feedback\nGiving, receiving and implementing feedback is an important part of any creative process (including building data visualizations!). Review the tips in the drop down, below:\n\n\n\n\n\n\n\nImportant tips for giving / receiving / implementing feedback:\n\n\n\n\n\nThe following tips were largely adapted from this LinkedIn article.\nFor giving feedback:\n\nfocus on the strengths / weakness of the visualization itself, not the person who created it\nbalance positive and negative feedback, and start with the positives!\nstay objective when suggesting improvements (e.g. “This part might benefit from some clarity…”)\nbe specific (e.g. instead of saying, “This chart is confusing,” point out exactly what is unclear or misleading)\nsuggest actionable solutions and / or alternatives, rather than only problems or criticisms\n\nFor receiving feedback:\n\nreceiving feedback can be stressful – this is a very normal feeling!\nlisten carefully without disrupting / defending yourself\ntake notes, ask questions, and thank your feedback giver(s)\nevaluate your feedback objectively to decide what to keep / reject / modify\n\nFor applying feedback:\n\nprioritize feedback based on relevance, importance, and feasibility\ncreate a plan and a timeline to implement\ncritically evaluate / compare your before and after versions\nseek new feedback!\n\n\n\n\nPlease also read the following articles on critiquing data viz:\n\nDesign and Redesign, by Fernanda Viégas & Martin Wattenberg\nA Better Path Toward Criticizing Data Visualizations, on PolicyViz"
+    "text": "Pre-lab Prep\n\nA. (OPTIONAL) Bring a cool data viz!\nThis week’s lab section will be a time to explore, share, and discuss “non-standard” chart types, as well as those that present data using the fundamental chart types we’ve already discussed in different and exciting ways. You’ll have time to browse some data viz during section, but it would be great to bring any inspiring examples you might have come across already.\n\n\nB. (OPTIONAL) Get yourself a Bluesky account\nBluesky is quickly becoming the Twitter replacement for data science community members to connect, share, and learn together. You can stay up to date on #TidyTuesday submissions and follow many of the great data viz folks in the field. Check out the resources page for more information on how to get started."
   },
   {
-    "objectID": "course-materials/week7.html#lab-materials",
-    "href": "course-materials/week7.html#lab-materials",
-    "title": "Enhancing visualizations (typography & annotations)",
+    "objectID": "course-materials/week5.html#lab-materials",
+    "href": "course-materials/week5.html#lab-materials",
+    "title": "Enhancing visualizations (colors)",
     "section": " Lab Materials",
-    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 7 slides: critiquing data viz\nNA\nNA\n\n\nGoogle Slides for the 1pm Section & 2pm Section\nNA\nNA"
+    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 5 slides: “non-standard” chart types\nNA\nNA"
   },
   {
-    "objectID": "course-materials/week7.html#assignment-reminders",
-    "href": "course-materials/week7.html#assignment-reminders",
-    "title": "Enhancing visualizations (typography & annotations)",
+    "objectID": "course-materials/week5.html#assignment-reminders",
+    "href": "course-materials/week5.html#assignment-reminders",
+    "title": "Enhancing visualizations (colors)",
     "section": " Assignment Reminders",
-    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nFPM\nFinal Project Milestone #3\nWed 02/11/2026\nSun 02/22/2026, 11:59pm PT"
-  },
-  {
-    "objectID": "course-materials/week4.html#pre-class-prep",
-    "href": "course-materials/week4.html#pre-class-prep",
-    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
-    "section": " Pre-class Prep",
-    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"ggExtra\") # {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots\ninstall.packages(\"ggdensity\") # {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)\n\n\n\nB. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week4/ folder.\nReview the data wrangling code under the ## Setup section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz ."
-  },
-  {
-    "objectID": "course-materials/week4.html#lecture-materials",
-    "href": "course-materials/week4.html#lecture-materials",
-    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
-    "section": " Lecture Materials",
-    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 4.1: visualizing numeric relationships\n4.1 template\n4.1 key\n\n\nLecture 4.2: good data viz\nNA\nNA"
-  },
-  {
-    "objectID": "course-materials/week4.html#pre-lab-prep",
-    "href": "course-materials/week4.html#pre-lab-prep",
-    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
-    "section": " Pre-lab Prep",
-    "text": "Pre-lab Prep\n\nA. Prepare a week4-lab.qmd file\nAdd a new blank file to your class repo at the following location: EDS-240-class-examples/week4/week4-lab.qmd. Fill out the necessary YAML information (title, author, date + any other information you find helpful)."
-  },
-  {
-    "objectID": "course-materials/week4.html#lab-materials",
-    "href": "course-materials/week4.html#lab-materials",
-    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
-    "section": " Lab Materials",
-    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 4 slides: ggplot themes\nLab 4 exercise: USDM plot theme\nLab 4 solution"
-  },
-  {
-    "objectID": "course-materials/week4.html#assignment-reminders",
-    "href": "course-materials/week4.html#assignment-reminders",
-    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
-    "section": " Assignment Reminders",
-    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nHW\nHomework #2\nWed 01/21/2026\nWed 01/28/2026, 11:59pm PT\n\n\nFPM\nFinal Project Milestone #2\nWed 01/28/2026\nWed 02/04/2026, 11:59pm PT"
+    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nFPM\nFinal Project Milestone #2\nWed 01/28/2026\nWed 02/04/2026, 11:59pm PT\n\n\nSR\nMid-course reflection (SR #2)\nWed 02/04/2026\nFri 02/06/2026, 11:59pm PT\n\n\nHW\nHomework #3\nWed 02/04/2026\nWed 02/11/2026, 11:59pm PT"
   },
   {
     "objectID": "course-materials/week10.html#pre-class-prep",
@@ -3549,6 +3507,153 @@
     "text": "There’s almost always more than one correct solution!\n\n\n\nRemember, there is rarely (if ever) one single solution to solving a data science problem. If you took different approaches / use different functions / etc. but arrived at the same output, that’s great! Chat with your partner(s) about how your approaches differ from the one below, and why it still got you to the same output.\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(usdata)\n\n#......................import fracking data......................\nfracking &lt;- read_csv(here::here(\"week1\", \"data\", \"registryupload_1.csv\"))\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                           basic data exploration                         ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n# names(fracking)\n# dim(fracking)\n# str(fracking)\n# summary(fracking)\n# View(fracking)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                        clean/wrangle fracking data                       ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nfracking_clean &lt;- fracking |&gt; \n  \n  # clean column names ----\n  janitor::clean_names() |&gt; \n  \n  # clean up dates ----\n  mutate(job_start_date = str_remove(job_start_date, \" AM\")) |&gt; # remove 'AM' from string\n  mutate(datetime_start = mdy_hms(job_start_date)) |&gt; # convert from string to date (save to new col)\n  mutate(year = year(datetime_start)) |&gt; # create 'year' col from date\n\n  # select relevant cols ----\n  select(datetime_start, year, state_name, well_name, total_base_water_volume) |&gt; \n  \n  # make all words title case ----\n  mutate(state_name = str_to_title(state_name)) |&gt; \n  \n  # remove rows that have a '?' mark ----\n  filter(!str_detect(string = state_name, pattern = \"\\\\?\")) |&gt; # `?` is a special chr; escape with `\\\\` prefix\n  \n  # mutate abbreviations to full state names ----\n  mutate(state_name = ifelse(test = str_length(state_name) == 2, # if string in 'state_name' col is 2 chrs long\n                     yes = usdata::abbr2state(state_name), # replace abbreviation with full state name \n                     no = state_name)) |&gt; # if string in 'state_name' col is not 2 chrs long, keep state name as-is\n  \n  # fix misspelled state names ----\n  mutate(state_name = case_when(\n    state_name == \"Colordao\" ~ \"Colorado\",\n    state_name == \"Loiusiana\" ~ \"Louisiana\",\n    state_name == \"Louisianna\" ~ \"Louisiana\",\n    state_name == \"Lousiana\" ~ \"Louisiana\",\n    state_name == \"New Mexcio\" ~ \"New Mexico\",\n    state_name == \"Norh Dakota\" ~ \"North Dakota\",\n    state_name == \"Norht Dakota\" ~ \"North Dakota\",\n    state_name == \"North  Dakota\" ~ \"North Dakota\",\n    state_name == \"North Dakata\" ~ \"North Dakota\",\n    state_name == \"North Dakotta\" ~ \"North Dakota\",\n    state_name == \"Noth Dakota\" ~ \"North Dakota\",\n    state_name == \"Pennslvania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylavania\" ~ \"Pennsylvania\",\n    state_name == \"Pennsylvanya\" ~ \"Pennsylvania\",\n    state_name == \"Penssylvania\" ~ \"Pennsylvania\",\n    state_name == \"Texasa\" ~ \"Texas\",\n    state_name == \"Texs\" ~ \"Texas\", \n    state_name == \"West Viginia\" ~ \"West Virginia\",\n    state_name == \"Wyominng\" ~ \"Wyoming\", \n    TRUE ~ state_name # copy over rest of state names from as-is\n  )) |&gt; \n  \n  # filter out non-state names ----\n  filter(!state_name %in% c(\"Beaver\", \"Beckham\", \"Harper\", \"Hemphill\", \"Midland\", \"Red River\", \"Roosevelt\", \"Rusk\", \"State\", \"Ward\")) |&gt; \n\n  # create a column of just state abbreviations ----\n  mutate(state_abb = usdata::state2abbr(state_name)) |&gt; \n  \n  # move 'state_abb' col after state_name col ----\n  relocate(state_abb, .after = state_name) |&gt; \n  \n  # rename 'total_base_water_volume' to 'total_base_water_volume_gal' for clarity ----\n  rename(total_base_water_volume_gal = total_base_water_volume) |&gt; \n\n  # remove obs that don't have a measurement for 'total_base_water_volume_gal' (NA) ----\n  drop_na(total_base_water_volume_gal) |&gt; \n  \n  # reorder rows from earliest to most recent `datetime_start` value ----\n  arrange(datetime_start)\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##          some exploratory data viz + a few plot mods for practice        ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nfracking_clean |&gt; \n  filter(state_name %in% c(\"Texas\", \"Colorado\", \"North Dakota\")) |&gt; \n  filter(year == 2015) |&gt; \n  group_by(state_name) |&gt; # pipe directly into ggplot\n  ggplot(aes(x = state_name, y = total_base_water_volume_gal)) +\n  geom_jitter(width = 0.3, alpha = 0.5, color = \"gray15\") +\n  geom_violin(color = \"red4\", alpha = 0.3) +\n  scale_y_continuous(labels = scales::label_comma()) +\n  labs(y = \"Total base water volumn (gal)\") +\n  coord_flip() +\n  theme_minimal() +\n  theme(\n    axis.title.y = element_blank()\n    )"
   },
   {
+    "objectID": "course-materials/week4.html#pre-class-prep",
+    "href": "course-materials/week4.html#pre-class-prep",
+    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
+    "section": " Pre-class Prep",
+    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"ggExtra\") # {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots\ninstall.packages(\"ggdensity\") # {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)\n\n\n\nB. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week4/ folder.\nReview the data wrangling code under the ## Setup section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz ."
+  },
+  {
+    "objectID": "course-materials/week4.html#lecture-materials",
+    "href": "course-materials/week4.html#lecture-materials",
+    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
+    "section": " Lecture Materials",
+    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 4.1: visualizing numeric relationships\n4.1 template\n4.1 key\n\n\nLecture 4.2: good data viz\nNA\nNA"
+  },
+  {
+    "objectID": "course-materials/week4.html#pre-lab-prep",
+    "href": "course-materials/week4.html#pre-lab-prep",
+    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
+    "section": " Pre-lab Prep",
+    "text": "Pre-lab Prep\n\nA. Prepare a week4-lab.qmd file\nAdd a new blank file to your class repo at the following location: EDS-240-class-examples/week4/week4-lab.qmd. Fill out the necessary YAML information (title, author, date + any other information you find helpful)."
+  },
+  {
+    "objectID": "course-materials/week4.html#lab-materials",
+    "href": "course-materials/week4.html#lab-materials",
+    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
+    "section": " Lab Materials",
+    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 4 slides: ggplot themes\nLab 4 exercise: USDM plot theme\nLab 4 solution"
+  },
+  {
+    "objectID": "course-materials/week4.html#assignment-reminders",
+    "href": "course-materials/week4.html#assignment-reminders",
+    "title": "Fundamental Chart Types (relationships), What Makes a Good Viz",
+    "section": " Assignment Reminders",
+    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nHW\nHomework #2\nWed 01/21/2026\nWed 01/28/2026, 11:59pm PT\n\n\nFPM\nFinal Project Milestone #2\nWed 01/28/2026\nWed 02/04/2026, 11:59pm PT"
+  },
+  {
+    "objectID": "course-materials/week7.html#pre-class-prep",
+    "href": "course-materials/week7.html#pre-class-prep",
+    "title": "Enhancing visualizations (typography & annotations)",
+    "section": " Pre-class Prep",
+    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"monochromeR\") # a package for creating monochrome color palettes and easily converting rgba values to hex codes (and also some other useful functions)\ninstall.packages(\"showtext\") # for using fonts more easily in R graphs\ninstall.packages(\"glue\") # for string interpolation (aka helps us insert variables directly into text strings)\ninstall.packages(\"ggtext\") # improved text rendering support for ggplot2\ninstall.packages(\"ggrepel\") # ggplot2 extension to repel overlapping labels\ninstall.packages(\"googlesheets4\") # provides an R interface to Google Sheets via the Sheets API v4\n\n\n\nB. Download Data\nIn case we have trouble with the {googlesheets4} API, you can download and read in the following data files as normal (i.e. using readr::read_csv()):\n\nmetabolism-foraging-data.csv\nmono.csv\n\nIf you choose (or need) to download and read in these files, be sure to save them to your class repo at ~/week6/data/.\n\n\nC. Download Font Awesome fonts\nWe’ll learn how to use Font Awesome icons in our ggplots. To do so, you’ll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:\n\nDownload Font Awesome fonts: Go to https://fontawesome.com/download and download the latest release available. Choose the Free For Desktop option.\nUnzip the downloaded file: You should see a folder inside called otfs/ – this contains three .otf files (aka OpenType font format files)\nCopy the three .otf files to your class repo: I recommend creating a fonts/ folder inside your root directory, and dropping all three of them in there (e.g. EDS-240-data-viz-examples/fonts/*.otf)\n\n\n\nD. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week6/ folder.\nReview setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through all code in class. However, we’ll reserve some time to answer any questions before we jump into data viz . Specifically:\n\nTemplate 6.1 begins where we left off in creating our salary plot (in lecture 4.1). Review the code under the ## Setup, ## Wrangle Data and ## Recreate original plot sections to re-familiarize yourself.\n\nTemplate 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the ### Setup and ### Create base plot sections for both these visualizations."
+  },
+  {
+    "objectID": "course-materials/week7.html#lecture-materials",
+    "href": "course-materials/week7.html#lecture-materials",
+    "title": "Enhancing visualizations (typography & annotations)",
+    "section": " Lecture Materials",
+    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 7.1: typography\n7.1 template\n7.1 key\n\n\nLecture 7.2: annotations\n7.2 template\n6.2 key"
+  },
+  {
+    "objectID": "course-materials/week7.html#pre-lab-prep",
+    "href": "course-materials/week7.html#pre-lab-prep",
+    "title": "Enhancing visualizations (typography & annotations)",
+    "section": " Pre-lab Prep",
+    "text": "Pre-lab Prep\nFrom here on out, we’ll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:\n\nA. Prepare your data viz slide\n\nHW #3, asks you to draft all three required visualizations for your chosen final project (HW #4) option. Find your assigned slide from the correct Google Slide deck (see table, under the Lab Materials section, below) and add the following:\n\n\n\none of your three visualizations\nthe question that you’re using your visualization to answer\n\n\n\n\nThe visualization you bring should meet the HW #3 requirements (see #6 under the Description section) – this should be a well-constructed, carefully thought-through and polished plot. You should be prepared to discuss your design choices and receive constructive feedback from your peers.\n\n\nB. Read up on how to give / receive feedback\nGiving, receiving and implementing feedback is an important part of any creative process (including building data visualizations!). Review the tips in the drop down, below:\n\n\n\n\n\n\n\nImportant tips for giving / receiving / implementing feedback:\n\n\n\n\n\nThe following tips were largely adapted from this LinkedIn article.\nFor giving feedback:\n\nfocus on the strengths / weakness of the visualization itself, not the person who created it\nbalance positive and negative feedback, and start with the positives!\nstay objective when suggesting improvements (e.g. “This part might benefit from some clarity…”)\nbe specific (e.g. instead of saying, “This chart is confusing,” point out exactly what is unclear or misleading)\nsuggest actionable solutions and / or alternatives, rather than only problems or criticisms\n\nFor receiving feedback:\n\nreceiving feedback can be stressful – this is a very normal feeling!\nlisten carefully without disrupting / defending yourself\ntake notes, ask questions, and thank your feedback giver(s)\nevaluate your feedback objectively to decide what to keep / reject / modify\n\nFor applying feedback:\n\nprioritize feedback based on relevance, importance, and feasibility\ncreate a plan and a timeline to implement\ncritically evaluate / compare your before and after versions\nseek new feedback!\n\n\n\n\nPlease also read the following articles on critiquing data viz:\n\nDesign and Redesign, by Fernanda Viégas & Martin Wattenberg\nA Better Path Toward Criticizing Data Visualizations, on PolicyViz"
+  },
+  {
+    "objectID": "course-materials/week7.html#lab-materials",
+    "href": "course-materials/week7.html#lab-materials",
+    "title": "Enhancing visualizations (typography & annotations)",
+    "section": " Lab Materials",
+    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 7 slides: critiquing data viz\nNA\nNA\n\n\nGoogle Slides for the 1pm Section & 2pm Section\nNA\nNA"
+  },
+  {
+    "objectID": "course-materials/week7.html#assignment-reminders",
+    "href": "course-materials/week7.html#assignment-reminders",
+    "title": "Enhancing visualizations (typography & annotations)",
+    "section": " Assignment Reminders",
+    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nFPM\nFinal Project Milestone #3\nWed 02/11/2026\nSun 02/22/2026, 11:59pm PT"
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#title-slide",
+    "href": "course-materials/lab/week1/week1-slides.html#title-slide",
+    "title": "EDS 240",
+    "section": "",
+    "text": "EDS 240: Lab 1\nData Wrangling\n\nWeek 1 | January 7th, 2025"
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#what-is-data-wrangling",
+    "href": "course-materials/lab/week1/week1-slides.html#what-is-data-wrangling",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What do we mean by “data wrangling?”\n\n\n“Data wrangling, sometimes referred to as data munging, is the process of transforming and mapping data from one ”raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics.”\n\n\n-Wikipedia\n\n\nWrangling includes (but is not limited to):\n\ndata cleaning (e.g. handling missing values, consistent naming of observations, ensuring variables are the correct data types, etc.)\nrestructuring data (e.g. tidying data (i.e. convert from wide &gt; long format))\ncombining data sets (e.g. using key values to merge two related data sets)\n\n\n\nWrangling is a critical first step in building any sort of data visualization!\n\nYou may have heard something like, “Data scientists spend 80% of their time preparing their data for analysis and / or visualization.” And while that may not be totally accurate for all data scientists or all projects, you will spend lots of time wrestling with data."
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#tidy-format",
+    "href": "course-materials/lab/week1/week1-slides.html#tidy-format",
+    "title": "EDS 240",
+    "section": "",
+    "text": "{ggplot2} plays best with tidy data\n\n\n\nArtwork by Allison Horst\n\n\n\nReminder: tidy data is not a {ggplot2}-specific concept. It’s a broadly standardized way of organizing data."
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#tidyverse",
+    "href": "course-materials/lab/week1/week1-slides.html#tidyverse",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The {tidyverse} provides lots of helpful tools\n\n\n\n\nThe data science workflow, as described by Hadley Wickham, Mine Çetinkaya-Rundel and Garrett Grolemund in R for Data Science (2e), with added {tidyverse} packages as they fit within this workflow.\n\n\n\nNote that there are a number of other non-tidyverse packages that are also incredibly helpful too (e.g. {janitor}, {naniar})!"
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#fracfocus",
+    "href": "course-materials/lab/week1/week1-slides.html#fracfocus",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Let’s wrangle some fracking data\n\n\n\nSince launching in 2011, FracFocus has become the largest registry of hydraulic fracturing chemical disclosures in the US. The database, available to explore online and download in bulk, contains 210,000+ such disclosures from fracking operators; it details the location, timing, and water volume of each fracking job, plus the names and amounts of chemicals used. The project is managed by the Ground Water Protection Council, “a nonprofit 501(c)6 organization whose members consist of state ground water regulatory agencies”. As seen in: The latest installment of the New York Times’ Uncharted Water series.\n\n\n-Jeremy Singer-Vine on Data is Plural (2023.09.27 edition)\n\n\nInterested in reading more about fracking? Check out this communications piece from USGS."
+  },
+  {
+    "objectID": "course-materials/lab/week1/week1-slides.html#messy-data",
+    "href": "course-materials/lab/week1/week1-slides.html#messy-data",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Download fracking data from Google Drive!\n\n\n\nYou should already have downloaded these data from Google Drive\n\nWe snagged these data back in November 2023 when they were still quite messy. Since then, (it seems that) FracFocus has done a bit more pre-processing of these data – meaning the data you download from their online portal is already a whole lot cleaner. This is great(!), but also defeats the purpose of this exercise .\n\n\n\nOpen up the Week 1 Lab: Exercise for instructions / next steps."
+  },
+  {
+    "objectID": "course-materials/lab/week3/week3-exercise.html",
+    "href": "course-materials/lab/week3/week3-exercise.html",
+    "title": "Week 3 Lab: Exercise",
+    "section": "",
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!)."
+  },
+  {
+    "objectID": "course-materials/lab/week3/week3-exercise.html#example-1-palmerpenguins-ggplot",
+    "href": "course-materials/lab/week3/week3-exercise.html#example-1-palmerpenguins-ggplot",
+    "title": "Week 3 Lab: Exercise",
+    "section": "Example 1: {palmerpenguins} ggplot",
+    "text": "Example 1: {palmerpenguins} ggplot\n\nCopy the following code into your week3-lab.qmd file and add code chunk options that:\n\nrender the output (i.e. plot), but not the code\nsuppress any warnings or messages\n\nAdd alt text using the fig-alt: code chunk option\n“Inspect” your plot (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram(alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Body mass (g)\",\n       y = \"Frequency\",\n       title = \"Penguin body masses\")"
+  },
+  {
+    "objectID": "course-materials/lab/week3/week3-exercise.html#example-2-from-the-new-york-times",
+    "href": "course-materials/lab/week3/week3-exercise.html#example-2-from-the-new-york-times",
+    "title": "Week 3 Lab: Exercise",
+    "section": "Example 2 (from The New York Times):",
+    "text": "Example 2 (from The New York Times):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using Markdown syntax and add alt text:\n\n\n![](file/path/to/your/image){fig-alt=\"Alt text goes here\"}\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThis graphic form is called a dot plot.\nDot plots are particularly useful for visualizing variability within a single measured numerical variable – here, that’s how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.\nIt’s easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables."
+  },
+  {
+    "objectID": "course-materials/lab/week3/week3-exercise.html#example-3-fig-1a-from-chapman-et-al.-2024",
+    "href": "course-materials/lab/week3/week3-exercise.html#example-3-fig-1a-from-chapman-et-al.-2024",
+    "title": "Week 3 Lab: Exercise",
+    "section": "Example 3 (Fig 1A from Chapman et al. 2024):",
+    "text": "Example 3 (Fig 1A from Chapman et al. 2024):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using HTML syntax and add alt text (you’ll also need to include the width attribute to make the image a bit smaller):\n\n\n&lt;img src=\"file/path/to/image\" alt=\"Alt text goes here\" width=\"700px\"&gt;\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThe associated figure caption for this figure:\n\nThe &gt;2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries."
+  },
+  {
+    "objectID": "course-materials/lab/week3/week3-exercise.html#example-4-write-alt-text-for-a-viz-of-your-choice",
+    "href": "course-materials/lab/week3/week3-exercise.html#example-4-write-alt-text-for-a-viz-of-your-choice",
+    "title": "Week 3 Lab: Exercise",
+    "section": "Example 4 (Write alt text for a viz of your choice)",
+    "text": "Example 4 (Write alt text for a viz of your choice)\n\nSave and embed a data viz of your choice using Markdown or HTML syntax\nAdd alt text\nShare and discuss your alt text with a partner / group"
+  },
+  {
     "objectID": "course-materials/week2.html#pre-class-prep",
     "href": "course-materials/week2.html#pre-class-prep",
     "title": "Choosing a graphic form, Fundamental chart types (distributions)",
@@ -3582,111 +3687,6 @@
     "title": "Choosing a graphic form, Fundamental chart types (distributions)",
     "section": " Assignment Reminders",
     "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nHW\nHomework Assignment #1\nWed 01/07/2026\nWed 01/14/2026, 11:59pm PT\n\n\nFPM\nFinal Project Milestone #1\nWed 01/14/2026\nWed 01/21/2026, 11:59pm PT"
-  },
-  {
-    "objectID": "course-materials/week5.html#pre-class-prep",
-    "href": "course-materials/week5.html#pre-class-prep",
-    "title": "Enhancing visualizations (colors)",
-    "section": " Pre-class Prep",
-    "text": "Pre-class Prep\n\nA. Install required packages\n\ninstall.packages(\"paletteer\") # a comprehensive collection of color palettes in R using a common interface\ninstall.packages(\"viridis\") # Colorblind-Friendly Color Maps for R\ninstall.packages(\"RColorBrewer\") # ColorBrewer Palettes\ninstall.packages(\"tigris\") # for downloading and using Census TIGER/Line shapefiles in R\ninstall.packages(\"sf\") # provides simple features access in R\n\n\n\nB. Download data\n\nDownload County-level precipitation data (Jan 2020 - Dec 2024) for the contiguous U.S, made available by NOAA National Centers for Environmental Information (NCEI) (you do not need to adjust any of the drop down selections; find the download buttons just beneath the rendered map – choose the CSV option)\n\nrename the data file as NCEI-county-jan20-dec24-precip.csv and save it to your class repo at the file path: EDS-240-class-examples/week5/data/NCEI-county-jan20-dec24-precip.csv\n\n\n \n\n\nC. Download .qmd templates & review data wrangling code\n\nDownload all necessary templates (links in the table below) and save them to a EDS-240-data-viz-examples/week5/ folder.\nReview the data wrangling code under the ## Setup section of template 5.3 and make note of any questions you might have (no data wrangling necessary in template 5.2). Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz .\n\n\n\nD. (OPTIONAL, but highly recommended) Install Google Chrome extensions\nI’ll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them!\n\nLet’s get color blind: simulates different color deficiencies in the browser\nMonochrome Mode: Grayscale browsing: turns websites grayscale\nColorZilla: an Eyedropper, Color Picker, Gradient Generator (also available for Firefox)"
-  },
-  {
-    "objectID": "course-materials/week5.html#lecture-materials",
-    "href": "course-materials/week5.html#lecture-materials",
-    "title": "Enhancing visualizations (colors)",
-    "section": " Lecture Materials",
-    "text": "Lecture Materials\n\n\n\n\n\n\n\n\n Lecture slides\n Code-along template\n Code-along key\n\n\n\n\nLecture 5.1: colors\n5.1 template\n5.1 key\n\n\nLecture 5.2: choropleth\n5.2 template\n5.2 key"
-  },
-  {
-    "objectID": "course-materials/week5.html#pre-lab-prep",
-    "href": "course-materials/week5.html#pre-lab-prep",
-    "title": "Enhancing visualizations (colors)",
-    "section": " Pre-lab Prep",
-    "text": "Pre-lab Prep\n\nA. (OPTIONAL) Bring a cool data viz!\nThis week’s lab section will be a time to explore, share, and discuss “non-standard” chart types, as well as those that present data using the fundamental chart types we’ve already discussed in different and exciting ways. You’ll have time to browse some data viz during section, but it would be great to bring any inspiring examples you might have come across already.\n\n\nB. (OPTIONAL) Get yourself a Bluesky account\nBluesky is quickly becoming the Twitter replacement for data science community members to connect, share, and learn together. You can stay up to date on #TidyTuesday submissions and follow many of the great data viz folks in the field. Check out the resources page for more information on how to get started."
-  },
-  {
-    "objectID": "course-materials/week5.html#lab-materials",
-    "href": "course-materials/week5.html#lab-materials",
-    "title": "Enhancing visualizations (colors)",
-    "section": " Lab Materials",
-    "text": "Lab Materials\n\n\n\n\n\n\n\n\n Lab Slides\n Exercise instructions\n Exercise solutions\n\n\n\n\nLab 5 slides: “non-standard” chart types\nNA\nNA"
-  },
-  {
-    "objectID": "course-materials/week5.html#assignment-reminders",
-    "href": "course-materials/week5.html#assignment-reminders",
-    "title": "Enhancing visualizations (colors)",
-    "section": " Assignment Reminders",
-    "text": "Assignment Reminders\n\n\n\n\n\n\n\n\n\nAssignment Type\nAssignment Title\nDate Assigned\nDate Due\n\n\n\n\nFPM\nFinal Project Milestone #2\nWed 01/28/2026\nWed 02/04/2026, 11:59pm PT\n\n\nSR\nMid-course reflection (SR #2)\nWed 02/04/2026\nFri 02/06/2026, 11:59pm PT\n\n\nHW\nHomework #3\nWed 02/04/2026\nWed 02/11/2026, 11:59pm PT"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-alt-charts.html",
-    "href": "course-materials/keys/KEY-alt-charts.html",
-    "title": "Lecture 10.1 KEY",
-    "section": "",
-    "text": "Note\n\n\n\nThis template follows lecture 10.1 slides. Please be sure to cross-reference the slides, which contain important information and additional context!"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-alt-charts.html#waffle-chart",
-    "href": "course-materials/keys/KEY-alt-charts.html#waffle-chart",
-    "title": "Lecture 10.1 KEY",
-    "section": "Waffle chart",
-    "text": "Waffle chart\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(waffle)\nlibrary(showtext)\n\n#..........................import data...........................\nbigfoot &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-13/bigfoot.csv')\n\n#..........................import fonts..........................\nfont_add_google(name = \"Ultra\", family = \"ultra\")\nfont_add_google(name = \"Josefin Sans\", family = \"josefin\")\n\n#................enable {showtext} for rendering.................\nshowtext_auto()\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nca_season_counts &lt;- bigfoot |&gt; \n  filter(state == \"California\") |&gt; \n  group_by(season) |&gt; \n  count(season) |&gt; \n  ungroup() |&gt; \n  filter(season != \"Unknown\") |&gt; \n  mutate(season = fct_relevel(season, \"Spring\", \"Summer\", \"Fall\", \"Winter\")) |&gt; # set factor levels for legend\n  arrange(season, c(\"Spring\", \"Summer\", \"Fall\", \"Winter\")) # order df rows; {waffle} fills color based on the order that values appear in df\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                waffle chart                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#........................create palettes.........................\nseason_palette &lt;- c(\"Spring\" = \"#357266\", \n                    \"Summer\" = \"#FFB813\", \n                    \"Fall\" = \"#983A06\", \n                    \"Winter\" = \"#005F71\")\n\nplot_palette &lt;- c(gray = \"#757473\",\n                  beige = \"#EFEFEF\")\n\n#.......................create plot labels.......................\ntitle &lt;- \"Summer is the season of Bigfoot sightings in CA\"\nsubtitle &lt;- \"Winter, on the other hand, is a rare time to spot Sasquatch\"\ncaption &lt;- \"Source: Bigfoot Field Researchers Organization\"\n\n#......................create waffle chart.......................\nggplot(ca_season_counts, aes(fill = season, values = n)) +\n  geom_waffle(color = \"white\", size = 0.3, n_rows = 10) +\n  coord_fixed() +\n  scale_fill_manual(values = season_palette) +\n  labs(title = title,\n       subtitle = subtitle,\n       caption = caption) +\n  theme_void() +\n  theme(\n    plot.title = element_text(family = \"ultra\", \n                              size = 17, \n                              hjust = 0.5,\n                              margin = margin(t = 0, r = 0, b = 0.3, l = 0, \"cm\")),\n    plot.subtitle = element_text(family = \"josefin\",\n                                 size = 16,\n                                 hjust = 0.5,\n                                 margin = margin(t = 0, r = 0, b = 0.5, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"josefin\",\n                                size = 10,\n                                color = plot_palette[\"gray\"], \n                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, \"cm\")),\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    legend.text = element_text(family = \"josefin\",\n                               size = 12),\n    plot.background = element_rect(fill = plot_palette[\"beige\"], \n                                   color = plot_palette[\"beige\"]),\n    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, \"cm\")\n  )\n\n\n\n\n\n\n\n\n\n#................create proportional waffle chart................\nggplot(ca_season_counts, aes(fill = season, values = n)) +\n  geom_waffle(color = \"white\", size = 0.3, n_rows = 10,\n1              make_proportional = TRUE) +\n  coord_fixed() +\n  scale_fill_manual(values = season_palette) +\n  theme_void() +\n  theme(\n    plot.title = element_text(family = \"ultra\", \n                              size = 18, \n                              hjust = 0.5,\n                              margin = margin(t = 1, r = 0, b = 0.3, l = 1, \"cm\")),\n    plot.subtitle = element_text(family = \"josefin\",\n                                 size = 16,\n                                 hjust = 0.5,\n                                 margin = margin(t = 0, r = 0, b = 0.5, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"josefin\",\n                                size = 10,\n                                color = plot_palette[\"gray\"], \n                                hjust = 0,\n                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, \"cm\")),\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    legend.text = element_text(family = \"josefin\",\n                               size = 12),\n    plot.background = element_rect(fill = plot_palette[\"beige\"], \n                                   color = plot_palette[\"beige\"]),\n    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, \"cm\")\n  )\n\n\n1\n\nSet make_proportional = TRUE (FALSE by default)\n\n\n\n\n\n\n\n\n\n\n#........................turn off showtext.......................\nshowtext_auto(FALSE)"
-  },
-  {
-    "objectID": "course-materials/keys/KEY-alt-charts.html#bump-chart",
-    "href": "course-materials/keys/KEY-alt-charts.html#bump-chart",
-    "title": "Lecture 10.1 KEY",
-    "section": "Bump chart",
-    "text": "Bump chart\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(ggbump)\nlibrary(ggtext)\nlibrary(showtext)\n\n#..........................import data...........................\njobs &lt;- read_csv(\"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv\")\n\n#..........................import fonts..........................\nfont_add_google(name = \"Passion One\", family = \"passion\")\nfont_add_google(name = \"Oxygen\", family = \"oxygen\")\n\n#................enable {showtext} for rendering.................\nshowtext_auto()\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#...................rank occupations by salary...................\nsalary_rank_by_year &lt;- jobs |&gt; \n  select(year, occupation, total_earnings) |&gt; \n  group_by(year) |&gt; \n  mutate(\n    rank = row_number(desc(total_earnings))\n  ) |&gt; \n  ungroup() |&gt; \n  arrange(rank, year)\n\n#........get top 8 occupation names for final year (2016)........\ntop2016 &lt;- salary_rank_by_year |&gt;  \n  filter(year == 2016, rank &lt;= 8) |&gt;  \n  pull(occupation) \n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                 bump chart                               ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n# grab magma palette ----\nmagma_pal &lt;- viridisLite::magma(12)\n\n# view magma colors ----\n# monochromeR::view_palette(magma_pal)\n\n# assign magma colors to top 8 occupations ----\noccupation_colors &lt;- c(\n  \"Physicians and surgeons\" = magma_pal[3],\n  \"Nurse anesthetists\" = magma_pal[4],\n  \"Dentists\" = magma_pal[5],\n  \"Architectural and engineering managers\" = magma_pal[6],\n  \"Lawyers\" = magma_pal[7], \n  \"Podiatrists\" = magma_pal[8],\n  \"Chief executives\" = magma_pal[9],\n  \"Petroleum engineers\" = magma_pal[10]\n)\n\n# create palette for additional plot theming ----\nplot_palette &lt;- c(dark_purple = \"#2A114E\", \n                  dark_gray = \"#6D6B71\",\n                  light_pink = \"#FFF8F4\")\n\n#.......................create plot labels.......................\ntitle &lt;- \"Top eight highest paying occupations in 2016\"\nsubtitle &lt;- \"Medical professionals held onto the same top three spots across years, while &lt;span style='color:#FEA873FF;'&gt;**petroleum engineers**&lt;/span&gt; steadily climbed the ranks from 10^th^ in 2013 to 4^th^ in 2016\"\ncaption &lt;- \"Data Source: Bureau of Labor Statistics\"\n\n#........................create bump chart.......................\nsalary_rank_by_year |&gt; \n  filter(occupation %in% top2016) |&gt; \n  ggplot(aes(x = year, y = rank, color = occupation)) + \n  geom_point(shape = \"|\", size = 6) + \n  geom_bump(linewidth = 1) +\n  geom_text(\n    data = salary_rank_by_year |&gt;  filter(year == 2013, occupation %in% top2016),\n    aes(label = occupation),\n    hjust = 1,\n    nudge_x = -0.1,\n    family = \"oxygen\",\n    fontface = \"bold\"\n  ) +\n  geom_text(\n    data = salary_rank_by_year |&gt; filter(year == 2016, occupation %in% top2016),\n    aes(label = rank),\n    hjust = 0,\n    nudge_x = 0.1,\n    size = 5,\n    family = \"oxygen\",\n    fontface = \"bold\"\n  ) +\n  annotate(\n    geom = \"text\",\n    x = c(2013, 2016),\n    y = c(-0.2, -0.2),\n    label = c(\"2013\", \"2016\"),\n    hjust = c(0, 1),\n    vjust = 1,\n    size = 5,\n    family = \"oxygen\",\n    fontface = \"bold\",\n    color = plot_palette[\"dark_gray\"],\n  ) +\n  scale_y_reverse() +\n  scale_color_manual(values = occupation_colors) +\n  coord_cartesian(xlim = c(2010, 2016), \n                  ylim = c(11, 0.25), \n                  clip = \"off\") +\n  labs(title = title,\n       subtitle = subtitle,\n       caption = caption) +\n  theme_void() +\n  theme(\n    legend.position = \"none\",\n    plot.title = element_text(family = \"passion\",\n                              size = 25,\n                              color = plot_palette[\"dark_purple\"],\n                              margin = margin(t = 0, r = 0, b = 0.3, l = 0, \"cm\")),\n    plot.subtitle = element_textbox_simple(family = \"oxygen\",\n                                           size = 15,\n                                           color = plot_palette[\"dark_gray\"],\n                                           margin = margin(t = 0, r = 0, b = 1, l = 0, \"cm\")),\n    plot.caption = element_text(family = \"oxygen\",\n                                color = plot_palette[\"dark_gray\"],\n                                margin = margin(t = 0.3, r = 0, b = 0, l = 0, \"cm\")),\n    plot.background = element_rect(fill = plot_palette[\"light_pink\"],\n                                   color = plot_palette[\"light_pink\"]),\n    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, \"cm\")\n  )\n\n\n\n\n\n\n\n#........................turn off showtext.......................\nshowtext_auto(FALSE)"
-  },
-  {
-    "objectID": "course-materials/lab/week2/week2-exercise.html",
-    "href": "course-materials/lab/week2/week2-exercise.html",
-    "title": "Week 2 Discussion: Exercise",
-    "section": "",
-    "text": "Note\n\n\n\nIt’s up to you to organize your own week2-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).\n\n\n\nBegin by copying the following setup and data wrangling code into your week2-lab.qmd file. Run through and review the code, and explore the resulting drought_clean data frame.\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\n\n#..........................import data...........................\ndrought &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2021/2021-07-20/drought.csv')\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                            wrangle drought data                          ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean &lt;- drought |&gt;\n\n  # select cols of interest & update names for clarity (as needed) ----\n  select(date = valid_start, state_abb, drought_lvl, area_pct) |&gt; \n\n  # add year, month & day cols using {lubridate} fxns ----\n  # NOTE: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----\n  mutate(year = year(date),\n         month = month(date, label = TRUE, abbr = TRUE),\n         day = day(date)) |&gt;\n\n  # add drought level conditions names ----\n  mutate(drought_lvl_long = factor(drought_lvl,\n                            levels = c(\"D4\", \"D3\", \"D2\", \"D1\",\"D0\", \"None\"),\n                            labels = c(\"(D4) Exceptional\", \"(D3) Extreme\",\n                                       \"(D2) Severe\", \"(D1) Moderate\", \n                                       \"(D0) Abnormally Dry\", \n                                       \"No Drought\"))) |&gt;\n  \n  # reorder cols ----\n  relocate(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)\n\n\nWe still need to filter for just California data and remove any observations where drought_lvl is \"None\". It makes some sense to perform these filters separate from our data wrangling code (in case we ever want to use drought_clean to make a similar plot for a different state(s)). Let’s filter drought_clean, then pipe directly into our gpplot:\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##       create stacked area plot of CA drought conditions through time     ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ndrought_clean |&gt; \n  \n  # remove drought_lvl \"None\" & filter for just CA ----\n  filter(drought_lvl != \"None\",\n         state_abb == \"CA\") |&gt; \n  \n  # pipe into ggplot here!\n\n\nBuild that ggplot! Here’s the original plot that we want to create (we’re only focusing on the data layer, geometric layer, and scales today):\n\n\n\n\n\n\n\n\n\n\nIt can be helpful to tackle one small(ish) thing at a time. Consider the following “stages”:\n\nCreate a stacked area chart (take a look back at lecture 2.3 slides for examples)\nFigure out how to order the drought level groups in the same way as the USDM version (i.e. level D4 on the bottom, closet to the x-axis, and level D0 at the top) – Hint: explore the position argument\nUpdate the colors so that they match the USDM version (use Colorpick Eyedropper to grab HEX codes from the original visualization) – Hint: use scale_fill_manual() to set your new colors\nAdjust your x-axis “breaks” (i.e. the tick mark values that represent years) – Hint: check out scale_x_date() and scales::breaks_pretty()\nAdjust your y-axis “breaks” (i.e. the tick mark value that represent percentage of affected area) – Hint: check out scale_y_continous() and scales::label_percent()\nRemove the “padding” (i.e. space) between your area chart and the x- and y-axes – Hint: check out the expand argument in scale_x_date() and scale_y_continuous()\nupdate the plot title"
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#title-slide",
-    "href": "course-materials/lab/week4/week4-slides.html#title-slide",
-    "title": "EDS 240",
-    "section": "",
-    "text": "EDS 240: Lab 4\nRecreating US Drought Monitor viz\nPart 2: ggplot themes\n\nWeek 4 | January 27th, 2025"
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#ggplot-theme",
-    "href": "course-materials/lab/week4/week4-slides.html#ggplot-theme",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Themes modify non-data plot elements\n\n\n\nThemes are used to modify the non-data components of plots (e.g. titles, labels, fonts, background, gridlines, legend).\n\nIn addition to using pre-built themes (available via the {ggplot2} package and also from extension packages), you can fine-tune the appearance of your plots theme by making adjustments using the theme() function."
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#prebuilt-themes",
-    "href": "course-materials/lab/week4/week4-slides.html#prebuilt-themes",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Pre-built themes\n\n{ggplot2} comes with eight complete themes, which can be applied as-is, or further modified using theme(). There are also many additional themes which can be applied via ggplot extension packages. A small handful of packages with additional themes:\n\n{ggthemes}: a collection of popular themes, some of which also come with corresponding color scales\n{hrbrthemes}: typographic-centric themes and theme components -{ggthemr}: a collection of color palettes and plot layouts for quickly setting a ggplot theme\n{ggtech}: themes based off large tech company color palettes\n{ggdark}: dark mode for ggplot complete themes\n{firatheme}: a ggplot theme with Fira font\n{urbnthemes}: tools for creating Urban Institute-themed plots and maps in R (also check out the Urban Institute Data Visualization Style Guide for a really great example of how an organization enforces a cohesive style across all published data viz content)\n{bbplot}: tools for creating ggplots in the style used by the BBC News data team\n{ggpomological}: a ggplot2 theme based on the USDA Pomological Watercolor Collection\n{tvthemes}: a collection of ggplot themes and color / fill palettes based on everybody’s favorite TV shows"
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#plot-specific-themes",
-    "href": "course-materials/lab/week4/week4-slides.html#plot-specific-themes",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Keep an eye out for plot-specific themes\n\nKeep your eye out for extension packages that supply both a geom(s) and a pre-build theme(s) designed specifically to work with that geom. For example, the {ggridges} package provides both a few different ridgeline plot geoms and a pre-built theme_ridges() theme to pair with them:"
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#theme",
-    "href": "course-materials/lab/week4/week4-slides.html#theme",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Use ggplot2::theme() for fine-tune control\n\n\n\nAdapted from Reproducible Science for Busy Researchers: How to Save Time using Literate Programming, by Andrew P. Lapointe"
-  },
-  {
-    "objectID": "course-materials/lab/week4/week4-slides.html#recreate-plot",
-    "href": "course-materials/lab/week4/week4-slides.html#recreate-plot",
-    "title": "EDS 240",
-    "section": "",
-    "text": "Recreate this USDM plot\n\nReference the graphic on the previous slide (and of course, documentation – run ?theme or check out online documentation) to start tweaking plot elements until it matches the original USDM graphic (below). It’s common to start with a pre-built theme and modify from there.\n\n\nImage source: US Drought Monitor via Wikipedia"
   },
   {
     "objectID": "course-materials/assignments/old-assignments/HW2-lobsters.html",
@@ -6354,19 +6354,5 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
-  },
-  {
-    "objectID": "course-materials/week3.html",
-    "href": "course-materials/week3.html",
-    "title": "Fundamental chart types (evolution & amounts / rankings)",
-    "section": "",
-    "text": "U.S. Drought Monitor’s California assessment. Source: Wikipedia. We’ll talk about stacked area charts in this week’s lecture and you’ll recreate this viz during lab session."
-  },
-  {
-    "objectID": "course-materials/lecture-slides/SLIDES-people-as-data.html#reconnect",
-    "href": "course-materials/lecture-slides/SLIDES-people-as-data.html#reconnect",
-    "title": "EDS 240",
-    "section": "",
-    "text": "“reconnect numbers to what they really stand for”\n\n\n\n“I started to work with data in 2010, 2011, and I saw that most of the approach to data at the time was very much based on a statistician’s background, and that’s fantastic. But I was also interested in using data myself as an anchoring point to tell stories. I thought that there’s just more that we could do to actually represent our reality if we include context, anecdotal details, if we embrace the imperfections that are inherent to how we collect data. And so, I started to just use these ideas in my practice, and I felt that I needed to just come up with an umbrella term for that. Data humanism was a good one, and data humanism is an approach to data that tries to reconnect numbers to what they really stand for by adding less factual and more anecdotal information.”\n\n\n-Giorgia Lupi in her interview with Fast Company"
   }
 ]
