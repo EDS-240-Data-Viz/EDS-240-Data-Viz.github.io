@@ -12,13 +12,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 2.3]{.custom-title}
+[EDS 240: Lecture 3.1]{.custom-title}
 
 [*Visualizing evolution*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 2 | January 13^th^, 2024]{.custom-subtitle3}
+[Week 3 | January 21^st^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -37,7 +37,7 @@ editor_options:
 Visualizing the change in a **numeric variable** over some unit of time.
 :::
 
-```{r}
+```{r evo-example}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -127,7 +127,7 @@ In this lesson, we'll explore two primary chart types:
 ::: {.column width="33%"}
 <br>
 
-```{r}
+```{r cdc-logo}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -138,7 +138,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r tick}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -152,7 +152,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <br>
 <br>
 
-```{r}
+```{r cb-logo}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -193,7 +193,7 @@ Using `{tidycensus}` requires that you first have an API key. **Be sure to follo
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r tidycensus-hex}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -214,9 +214,9 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 See the [online documentation](https://walker-data.com/tidycensus/articles/other-datasets.html#:~:text=Population%20estimates%20are%20available%20in,%22%20%2C%20and%20%22characteristics%22%20.){target="_blank"} for more information on downloading and parsing population data using the `{tidycensus}` package.
 
-{{< include sections/2.3-lyme.qmd >}}
+{{< include sections/lyme.qmd >}}
 
-```{r}
+```{r data-wrangling}
 #| eval: false
 #| echo: true
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,7 +230,7 @@ library(gghighlight)
 library(scales)
 
 #..........................import data...........................
-lyme <- read_csv(here::here("week2", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
+lyme <- read_csv(here::here("week3", "data", "2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                          wrangle lyme disease data                       ----
@@ -248,7 +248,7 @@ lyme_clean <- lyme |>
   filter(state != "U.S. Total") |> 
   
   # wide to long (tidy) years ----
-  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
+  pivot_longer(cols = 2:17, names_to = "year", values_to = "reported_cases") |> 
   
   # reorder columns ----
   relocate(year, state, reported_cases) |> 
@@ -274,8 +274,8 @@ us_state_pop <- get_estimates(geography = "state",
 
 #........................write data to csv.......................
 # OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
-# (you can then read in your saved data file rather than run the above code)
-# write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
+# (if so, you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop_2019vintage.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            join lyme & pop dfs                           ----
@@ -308,7 +308,7 @@ lyme_pop <- left_join(lyme_clean, us_state_pop) |>
 A basic line graph using `geom_line()`
 :::
 
-```{r}
+```{r basic-line1}
 #| eval: true
 #| echo: true
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
@@ -332,7 +332,7 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
 
 [Line graphs display the **evolution of one or several *numeric* variables**. They are similar to scatter plots, but the measurement points are **ordered** (typically by their x-axis value) and joined with straight line segments. They are often used to visualize a trend in data over intervals of time. For example, changes in Lyme disease incidence (# cases / 100k people) from 2010 - 2020, by state:]{.body-text-s}
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -340,7 +340,7 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
 A basic line graph using `geom_line()`
 :::
 
-```{r}
+```{r basic-line2}
 #| eval: true
 #| echo: true
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
@@ -354,7 +354,7 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
 A line + scatter plot created by layering `geom_line()` & `geom_point()`
 :::
 
-```{r}
+```{r line-point}
 #| eval: true
 #| echo: true
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
@@ -383,7 +383,7 @@ A line plot with many lines displayed together can be hard to read / overwhelmin
 E.g. I'm interested in how Lyme disease in New Jersey compares to other states.
 :::
 
-```{r}
+```{r highlight-NJ}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "3"
@@ -400,7 +400,7 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
 E.g. I'm interested in states where Lyme disease incidence is (or at one point was) > 100 cases / 100k people.
 :::
 
-```{r}
+```{r highlight-val}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "1,3"
@@ -423,7 +423,7 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state))
 
 Line graphs encode data **by position** and **not length** (e.g. as in the height of a bar graph), therefore, you can choose to include the 0 origin only if it makes sense.
 
-:::: columns 
+:::: {.columns} 
 
 ::: {.column width="50%"}
 
@@ -432,7 +432,7 @@ Lyme disease incidence from 2013 - 2019
 (cut y-axis = default)
 :::
 
-```{r}
+```{r lyme-cut-y}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -451,7 +451,7 @@ Lyme disease incidence from 2013 - 2019
 (force y-axis origin at 0)
 :::
 
-```{r}
+```{r line-y-0}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "6"
@@ -478,10 +478,10 @@ lyme_pop |>
 
 *Do not* start the y-axis at 0 if the **range of data is small but the distance from the bottom of the range to zero is large**. For example:
 
-:::: columns 
+:::: {.columns} 
 
 ::: {.column width="50%"}
-```{r}
+```{r dow-uncut-y}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -491,7 +491,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r dow-cut-y}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -502,7 +502,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-::: footer
+::: {.footer}
 Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/){target="_blank"} course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1){target="_blank"}.
 :::
 
@@ -516,10 +516,10 @@ Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statist
 
 *Do not* start the y-axis at 0 if the **relationship to zero is insignificant**. For example:
 
-:::: columns 
+:::: {.columns} 
 
 ::: {.column width="50%"}
-```{r}
+```{r temps-uncut-y}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -529,7 +529,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r temps-cut-y}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -540,7 +540,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-::: footer
+::: {.footer}
 Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/){target="_blank"} course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1){target="_blank"}.
 :::
 
@@ -554,7 +554,7 @@ Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statist
 
 [The aspect ratio is the **height:width ratio of a graph**. The **larger the aspect ratio, the steeper changes appear**, which may cause readers to **interpret changes as more important**. The **smaller the aspect ratio, the flatter the line** which may cause readers to **interpret changes as small / insignificant**.]{.body-text-s}
 
-```{r}
+```{r aspect-ratio}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -578,7 +578,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 Consider this line graph of sunspot activity from 1700 - 2015. It was created using [Stata](https://www.stata.com/){target="_blank"}'s default aspect ratio. Can you easily identify where in time sunspot activity rises more quickly / sharply than others?
 
-```{r}
+```{r sunspot-default}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -598,7 +598,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-```{r}
+```{r sunspot-wide}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -606,10 +606,10 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sunspot-wide-ar.png"))
 ```
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r sunspot-wide-panels}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -643,7 +643,7 @@ With a wider aspect ratio, we can more clearly see the differences in rates of c
 
 Let's first look at Lyme disease incidence for Vermont from 2010 - 2020 without adjusting the aspect ratio:
 
-```{r}
+```{r type-ar-unadjusted}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -671,7 +671,7 @@ lyme_pop |>
 
 <br>
 
-```{r}
+```{r lyme-scale-breaks}
 #| eval: false
 #| echo: true
 #| code-line-numbers: "6"
@@ -701,7 +701,7 @@ lyme_pop |>
 
 <br>
 
-```{r}
+```{r lyme-fixed-ratio}
 #| eval: false
 #| echo: true
 #| code-line-numbers: "7"
@@ -724,7 +724,7 @@ lyme_pop |>
 
 [Ratios > 1 will make units on the y-axis longer than units on the x-axis (resulting in steeper slopes). Ratios < 1 will make units on the x-axis longer than units on the y-axis (resulting in shallower slopes). **If we want to make our graph wider, we'll need to update `ratio` so that it's < 1.** For example:]{.body-text-s} 
 
-```{r}
+```{r lyme-adjusted-ar}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "6"
@@ -751,7 +751,7 @@ Playing around with the `ratio` value yourself is the best way to get a sense fo
 
 [Instead of just a line or scatter plot to indicate the change in a numeric variable through time, the space between the line and the x-axis is colored or shaded in. Area plots are sometimes criticized for **violating the [data-ink ratio](https://infovis-wiki.net/wiki/Data-Ink_Ratio){target="_blank"} rule**, which argues that any non-data-ink should be omitted wherever possible. If the number of observations is low (as in this example) a connected scatter plot may more clearly show when each observation was made.]{.body-text-s}
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
 
@@ -759,7 +759,7 @@ Playing around with the `ratio` value yourself is the best way to get a sense fo
 A basic area plot (New Jersey)
 :::
 
-```{r}
+```{r area-chart}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -776,7 +776,7 @@ lyme_pop |>
 Update the fill color
 :::
 
-```{r}
+```{r area-fill}
 #| eval: true
 #| echo: true
 #| out-width: "80%"
@@ -826,7 +826,7 @@ lyme_pop |>
 
 [**Stacked area charts are useful for showing the evolution of a whole and the relative proportions of each group that make up the whole**. For example, the top of the colored area shows the total Lyme disease incidence (# cases / 100k people) across all groups (notice the difference in y-axis values), while the individual colors are the relative contributions of the top 4 states with the highest lyme disease incidence:]{.body-text-s}
 
-```{r}
+```{r stacked-area}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -846,7 +846,7 @@ lyme_pop |>
 
 Proportional stacked area charts **plot percentage contribution instead of absolute numbers on the y-axis**. The focus of this version is the proportion of contribution made by each category rather than absolute numbers.
 
-```{r}
+```{r prop-area}
 #| eval: true
 #| echo: true
 #| code-line-numbers: "4-5"
@@ -868,10 +868,10 @@ lyme_pop |>
 
 [Group order (from bottom to top) can have an influence -- oftentimes, you'll want to **put the most important group on the bottom (closest to the x-axis)**, since your audience will have an easier time reading values for that group. For example, [US Drought Monitor](https://droughtmonitor.unl.edu/){target="_blank"} likely wanted to draw attention to what percentage of land area in CA experienced the highest-severity drought level (D4, Exceptional). By plotting that group on the bottom of the graph below, we can more easily identify that ~60% of CA experienced the worst level of drought in 2014-2015.]{.body-text-s}
 
-:::: columns 
+:::: {.columns} 
 
 ::: {.column width="50%"}
-```{r}
+```{r usdm}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -903,10 +903,10 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 It is super **challenging to subtract the height of groups from one another at any / each given point in time**. For example, both of the charts below show the same data (Lyme disease incidence (# cases / 100k people) for Maine, New Hampshire, Rhode Island, and Vermont): 
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r area-challenge}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -918,7 +918,7 @@ lyme_pop |>
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r area-line-comp} 
 #| eval: true
 #| echo: true
 lyme_pop |> 
@@ -933,10 +933,26 @@ lyme_pop |>
 
 ---
 
-##  {#end data-menu-title="# End #" background="#047C90"}
+##  {#end-break data-menu-title="# End / Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">See you next week!</p>
-<p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p>
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
 </div>
+
+```{r end-countdown}
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 

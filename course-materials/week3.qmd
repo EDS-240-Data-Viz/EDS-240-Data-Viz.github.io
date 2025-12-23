@@ -38,7 +38,8 @@ Save data to your class repo at `EDS-240-class-examples/week3/data/`:
 
 |Lecture | Dataset title | Download link | Notes |
 |--------|---------------|---------------|-------|
-| 3.1 | Lyme Disease Cases by State or Locality | [download link](https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv) | Data made available by the CDC (read more on the CDC's [Lyme Disease Surveillance Data page](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"}; see other available data under the "Dashboard data files" section) |
+| 3.1 | Lyme Disease Cases by State or Locality | [download link](https://www.cdc.gov/lyme/media/files/2025/02/2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv) *([Google Drive backup link](https://drive.google.com/file/d/1Cyxx8_T-3Ih1BxrGJcD7ZxRREVUGkP6D/view?usp=sharing){target="_blank"}, in case CDC portal is unavailable)* | Data made available by the CDC (read more on the CDC's [Lyme Disease Surveillance Data page](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html){target="_blank"}; see other available data under [Dashboard data files](https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html#:~:text=jurisdictions%20are%20incomplete.-,Dashboard%20data%20files,-Note%3A%20some){target="_blank"}) |
+| 3.1 | US Census Bureau Population Estimates Program | **we'll use the `{tidycensus}` package to interface with the US Census Bureau's API and download the data programmatically (see step C, below, for setup instructions),** *however, in the event that the API is down, you can access a backup copy of the 2019 vintage on [Google Drive](https://drive.google.com/file/d/1eBmts5q1PaOz8yaGbyfZonzAfG_l5TA7/view?usp=sharing){target="_blank"}* | Read more about The Census Bureau's [Population Estimates Program (PEP)](https://www.census.gov/programs-surveys/popest.html){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[10,30,30,30]"} 
 
 ### C. Request a US Census Bureau API key & add it to your `.Renviron` file {#request-API-key}
@@ -51,7 +52,7 @@ Save data to your class repo at `EDS-240-class-examples/week3/data/`:
 2. **Add your API key to your `.Renviron` file**. For security purposes, you should *NEVER* push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our `.Renviron` file. Follow these steps:
 
     a. Run `usethis::edit_r_environ()` in your Console, which will open up your `.Renviron` file (it will create it if you don't already have one).
-    b. Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.
+    b. Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and **restart R** for your changes to take effect.
     
 ```{r filename=".Renviron"}
 #| eval: false
@@ -75,7 +76,7 @@ Oftentimes, packages that are built to interface with APIs will include their ow
 
 ### D. Download `.qmd` templates & review initial data wrangling code {#download-templates}
 
-1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week2/` folder. 
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week3/` folder. 
 
 2. Review the data wrangling code under the `## Setup` section of each template file and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through the data wrangling code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}.
 

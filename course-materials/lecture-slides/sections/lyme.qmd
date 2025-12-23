@@ -35,7 +35,7 @@ library(gghighlight)
 library(scales)
 
 #..........................import data...........................
-lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
+lyme <- read_csv(here::here("course-materials", "data", "lecture", "2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                          wrangle lyme disease data                       ----
@@ -53,7 +53,7 @@ lyme_clean <- lyme |>
   filter(state != "U.S. Total") |> 
   
   # wide to long (tidy) years ----
-  pivot_longer(cols = 2:16, names_to = "year", values_to = "reported_cases") |> 
+  pivot_longer(cols = 2:17, names_to = "year", values_to = "reported_cases") |> 
   
   # reorder columns ----
   relocate(year, state, reported_cases) |> 
@@ -73,7 +73,8 @@ us_state_pop <- get_estimates(geography = "state",
 #........................write data to csv.......................
 # OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
 # (you can then read in your saved data file rather than run the above code)
-# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop.csv"))  
+# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop_2019vintage.csv"))  
+# write_csv(us_state_pop, file = here::here("course-materials", "data", "lecture", "us_state_pop_2019_vintage.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            join lyme & pop dfs                           ----
@@ -91,7 +92,7 @@ lyme_pop <- left_join(lyme_clean, us_state_pop) |>
 ##                  save as csv file for use in lecture 5.1                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# write_csv(lyme_pop, here::here("course-materials", "lecture-slides", "data", "lyme.csv"))
+# write_csv(lyme_pop, here::here("course-materials", "data", "lecture", "lyme_pop.csv"))
 ```
 
 <!-- FROM WINTER 2024 -->
@@ -166,8 +167,8 @@ us_state_pop <- get_estimates(geography = "state",
 
 #........................write data to csv.......................
 # OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
-# (you can then read in your saved data file rather than run the above code)
-# write_csv(us_state_pop, file = here::here("week2", "data", "us_state_pop.csv"))  
+# (if so, you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop_2019vintage.csv"))  
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            join lyme & pop dfs                           ----
@@ -185,7 +186,7 @@ lyme_pop <- left_join(lyme_clean, us_state_pop) |>
 ##                  save as csv file for use in lecture 5.1                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# write_csv(lyme_pop, here::here("slides", "data", "lyme.csv"))
+# write_csv(lyme_pop, here::here("course-materials", "data", "lecture", "lyme-pop.csv"))
 ```
 
 

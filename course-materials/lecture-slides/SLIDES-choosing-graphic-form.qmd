@@ -39,7 +39,7 @@ editor_options:
 
 . . .
 
-```{r}
+```{r thaler}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -141,7 +141,7 @@ Alberto Cairo's visualization of the scores from Thaler's exam case study, from 
 <br>
 <br>
 
-```{r}
+```{r countdown-mapping-properties}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -192,11 +192,11 @@ Example adapted from Alberto Cairo's, *The Truthful Art*
 :::: columns
 
 ::: {.column width="50%"}
-{{< include sections/3.1-angle.qmd >}}
+{{< include sections/angle.qmd >}}
 :::
 
 ::: {.column width="50%"}
-{{< include sections/3.1-color.qmd >}}
+{{< include sections/color.qmd >}}
 :::
 
 ::::
@@ -238,7 +238,7 @@ William S. Cleveland & Robert McGill (1984) **Graphical Perception: Theory, Expe
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r cairo-elementary-perception}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -258,7 +258,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-```{r}
+```{r circles}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -281,7 +281,7 @@ ggplot(circles_bars, aes(x = posx, y = posy)) +
   theme(legend.position = "none")
 ```
 
-```{r}
+```{r countdown-circle}
 countdown::countdown(
   minutes = 0.5,
   # left = 0, right = 0,
@@ -305,7 +305,7 @@ countdown::countdown(
 
 <hr>
 
-```{r}
+```{r bars}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -315,7 +315,7 @@ ggplot(circles_bars, aes(x = size, y = id)) +
   theme_void()
 ```
 
-```{r}
+```{r countdown-bars}
 countdown::countdown(
   minutes = 0.5,
   # left = 0, right = 0,
@@ -342,7 +342,7 @@ countdown::countdown(
 <br>
 <br>
 
-```{r}
+```{r mag7}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -426,11 +426,11 @@ Consider how you might display the same data in the following Sankey diagram, wh
 :::: {.columns}
 
 ::: {.column width="60%"}
-{{< include sections/3.1-sankey.qmd >}}
+{{< include sections/sankey.qmd >}}
 :::
 
 ::: {.column width="40%"}
-```{r}
+```{r cairo-elementary-perception2}
 #| eval: true
 #| echo: false
 #| out-width: "60%"
@@ -461,7 +461,7 @@ It would be hard to use a method of encoding from the top of the hierarchy! In t
 
 >*"Charts are often designed to persuade, educate, and motivate. Designing for serendipitous discovery, educational impact, hedonic response, or changes in behavior is in some cases only tangentially connected with the precision of a particular visualization"*
 
-```{r}
+```{r bertini}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -519,7 +519,7 @@ Bertini E, Correll M, Franconeri S (2020) [Why Shouldn't All Charts Be Scatter P
 
 ::: {.column width="33%"}
 
-```{r}
+```{r dtv}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -536,7 +536,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.column width="33%"}
 
-```{r}
+```{r dvp}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -553,7 +553,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.column width="33%"}
 
-```{r}
+```{r vv}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -574,7 +574,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Spend a couple minutes exploring these tools.
 :::
 
-```{r}
+```{r countdown-decision-trees}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -606,7 +606,7 @@ countdown::countdown(
 [**Quantitative data**]{.teal-text}
 :::
 
-```{r}
+```{r cont-v-discrete1}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -649,7 +649,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 [**Quantitative data**]{.teal-text}
 :::
 
-```{r}
+```{r cont-v-discrete2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -672,7 +672,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 [**Qualitative data**]{.teal-text}
 :::
 
-```{r}
+```{r qualitative}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -713,7 +713,7 @@ If we want to show both big picture patterns and detailed comparisons, we may **
 <!-- {{< include sections/county-precip.qmd >}} -->
 
 
-```{r}
+```{r choropleth-wrangle}
 #| eval: true
 #| echo: false
 #| message: false
@@ -732,7 +732,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), skip = 4)
+precip_data <- read_csv(here::here("course-materials", "data", "lecture", "county-nov20-oct25-precip.csv"), skip = 3)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -772,7 +772,7 @@ precip_wrangled <- precip_data |>
 joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 ```
 
-```{r}
+```{r choropleth-map}
 #| eval: true
 #| echo: false
 #| message: false
@@ -870,7 +870,7 @@ How does the influence of **in-theater advertising** change across generations?
 :::: columns
 
 ::: {.column width="50%"}
-```{r}
+```{r in-theater-ads1}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -890,7 +890,7 @@ Images from [Alberto Cairo's *The Truthful Art*](https://www.albertocairo.com/){
 :::
 :::
 
-```{r}
+```{r countdown-in-theater-ads}
 countdown::countdown(
   minutes = 1,
   # left = 0, right = 0,
@@ -919,10 +919,10 @@ How does the influence of **in-theater advertising** change across generations?
 <br>
 <br>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r in-theater-ads2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -932,7 +932,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r in-theater-ads-rearranged}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -943,7 +943,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-::: footer
+::: {.footer}
 ::: {.center-text .gray-text}
 Images from [Alberto Cairo's *The Truthful Art*](https://www.albertocairo.com/){target="_blank"}
 :::
@@ -962,7 +962,7 @@ Images from [Alberto Cairo's *The Truthful Art*](https://www.albertocairo.com/){
 a. changes in the amount spent on Social Security relative to other major spending categories over time (2012-2015)?
 
 
-```{r}
+```{r fed-spending1}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -992,7 +992,7 @@ a. changes in the amount spent on Social Security relative to other major spendi
 
 b. the amount of money spent on Social Security over time (2012-2015)?
 
-```{r}
+```{r fed-spending2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1002,7 +1002,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-::: footer
+::: {.footer}
 ::: {.center-text .gray-text}
 Example from Derek L. Sonderegger's online textbook, [STA 141 - Exploratory Data Analysis and Visualization](https://bookdown.org/dereksonderegger/141/){target="_blank"}
 :::
@@ -1070,11 +1070,11 @@ Example from Claus Wilke's, [Fundamentals of Data Visualization](https://clauswi
 
 <hr>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
-```{r}
+```{r iraq-deaths}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1103,7 +1103,7 @@ Source: [Iraq's bloody toll](https://www.scmp.com/infographics/article/1284683/i
 
 :::
 
-```{r}
+```{r countdown-iraq-deaths}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -1129,11 +1129,11 @@ countdown::countdown(
 
 <hr>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
-```{r}
+```{r gun-deaths-original}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1162,7 +1162,7 @@ Source: [This Chart Shows An Alarming Rise In Florida Gun Deaths After 'Stand Yo
 
 :::
 
-```{r}
+```{r countdown-gun-deaths-original}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -1188,10 +1188,10 @@ countdown::countdown(
 
 <hr>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r iraq-deaths2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1204,7 +1204,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r gun-deaths-original2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1214,12 +1214,11 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 [Eyes are drawn to baseline at the *bottom*, on top of which data are sitting. Headline indicates *rise* but visually represented by *falling*. Thick black line makes white area stand out over red (data).]{.body-text-s}
 
-
 :::
 
 ::::
 
-::: footer
+::: {.footer}
 ::: {.gray-text .center-text}
 Critique by Alberto Cairo in his post [In visualization, baselines and negative space matter](http://www.thefunctionalart.com/2014/04/in-visualization-baselines-and-negative.html){target="_blank"} (NOTE 2025-01-10: link broken, haven't found replacement)
 :::
@@ -1237,10 +1236,10 @@ Business Insider [published](https://www.businessinsider.com/gun-deaths-in-flori
 
 <br>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r gun-deaths-original3}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1250,7 +1249,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r gun-deaths-revised}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1302,7 +1301,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 3) ~*</p> -->
 </div>
 
-```{r}
+```{r end-countdown}
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,

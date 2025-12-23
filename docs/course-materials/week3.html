@@ -343,8 +343,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>3.1</td>
 <td>Lyme Disease Cases by State or Locality</td>
-<td><a href="https://www.cdc.gov/lyme/datasurveillance/case-counts/Lyme_Disease_Cases_by_State_or_Locality.csv">download link</a></td>
-<td>Data made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under the “Dashboard data files” section)</td>
+<td><a href="https://www.cdc.gov/lyme/media/files/2025/02/2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv">download link</a> <em>(<a href="https://drive.google.com/file/d/1Cyxx8_T-3Ih1BxrGJcD7ZxRREVUGkP6D/view?usp=sharing" target="_blank">Google Drive backup link</a>, in case CDC portal is unavailable)</em></td>
+<td>Data made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html#:~:text=jurisdictions%20are%20incomplete.-,Dashboard%20data%20files,-Note%3A%20some" target="_blank">Dashboard data files</a>)</td>
+</tr>
+<tr class="even">
+<td>3.1</td>
+<td>US Census Bureau Population Estimates Program</td>
+<td><strong>we’ll use the <code>{tidycensus}</code> package to interface with the US Census Bureau’s API and download the data programmatically (see step C, below, for setup instructions),</strong> <em>however, in the event that the API is down, you can access a backup copy of the 2019 vintage on <a href="https://drive.google.com/file/d/1eBmts5q1PaOz8yaGbyfZonzAfG_l5TA7/view?usp=sharing" target="_blank">Google Drive</a></em></td>
+<td>Read more about The Census Bureau’s <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank">Population Estimates Program (PEP)</a></td>
 </tr>
 </tbody>
 </table>
@@ -360,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our <code>.Renviron</code> file. Follow these steps:</p>
 <ol type="a">
 <li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one).</li>
-<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and restart R for your changes to take effect.</li>
+<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and <strong>restart R</strong> for your changes to take effect.</li>
 </ol></li>
 </ol>
 <div class="cell">
@@ -397,7 +403,7 @@ What exactly is <code>.Renviron</code>?
 <section id="download-templates" class="level3">
 <h3 class="anchored" data-anchor-id="download-templates">D. Download <code>.qmd</code> templates &amp; review initial data wrangling code</h3>
 <ol type="1">
-<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week2/</code> folder.</p></li>
+<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week3/</code> folder.</p></li>
 <li><p>Review the data wrangling code under the <code>## Setup</code> section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
 </ol>
 </section>

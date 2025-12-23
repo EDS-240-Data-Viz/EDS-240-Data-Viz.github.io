@@ -30,9 +30,7 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   shift_geometry()
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-nov20-oct25-precip.csv"), skip = 3) #4
-
-# "county-jan20-dec24-precip.csv"
+precip_data <- read_csv(here::here("course-materials", "data", "lecture", "county-nov20-oct25-precip.csv"), skip = 3) 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----

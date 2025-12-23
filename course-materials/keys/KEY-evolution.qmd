@@ -1,16 +1,19 @@
 ---
-title: "Lecture 2.3 KEY"
-subtitle: "Visualizing evolution"
+title: "KEY - visualizing evolution"
 author: "Your Name"
-date: 2025-01-13
+date: 2026-01-21
 toc: true
 ---
 
 ::: {.callout-note}
-This template follows [lecture 2.3 slides](../lecture-slides/lecture2.3-evolution-slides.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [visualizing evolution slides](../lecture-slides/SLIDES-evolution.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## Setup
+
+::: {.callout-note}
+`{tidycensus}` functions (e.g. `get_estimates()`) internally call `Sys.getenv("CENSUS_API_KEY)` to retrieve your key from `.Renviron`. This means you don't need to explicitly call `Sys.getenv("CENSUS_API_KEY)` in your code -- `{tidycensus}` handles that for you!
+:::
 
 <!-- Actually execute this chunk:  -->
 
@@ -31,7 +34,7 @@ library(gghighlight)
 library(scales)
 
 #..........................import data...........................
-lyme <- read_csv(here::here("course-materials", "lecture-slides", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
+lyme <- read_csv(here::here("course-materials", "data", "lecture", "2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                          wrangle lyme disease data                       ----
@@ -105,7 +108,7 @@ library(tidyverse)
 library(gghighlight)
 
 #..........................import data...........................
-lyme <- read_csv(here::here("week2", "data", "Lyme_Disease_Cases_by_State_or_Locality.csv"))
+lyme <- read_csv(here::here("week3", "data", "2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                          wrangle lyme disease data                       ----
@@ -174,13 +177,16 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
   geom_point()
 ```
 
-### Alt 1: Avoid spaghetti plots 
+### Avoid spaghetti plots 
+
+- highlight groups or values of interest to focus attention
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
 #| message: false
+#| layout-ncol: 2
 
 # highlight one group ----
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
@@ -194,6 +200,8 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state))
 ```
 
 ### Note 1: It's okay to cut the y-axis
+
+- line graphs encode data **by position** and **not length**
 
 ```{r}
 #| eval: true
@@ -216,7 +224,11 @@ lyme_pop |>
   scale_y_continuous(limits = c(0, NA))
 ```
 
-### Note 2: Consider aspect ratio
+### Note 2: Consider aspect ratio (height:width ratio)
+
+::: {.callout-note}
+We've added tick marks for every value on the y-axis on the plot below to help visualize differences in aspect ratio -- you would not typically present a plot in this way
+:::
 
 - here, 10 units on our x-axis (years 2010 - 2020), and ~175 units (case_per100k 0 to ~175) on our y-axis
 - ggplot automatically adjusts aspect ratio so that plot is easier to read 
@@ -232,7 +244,7 @@ lyme_pop |>
   scale_y_continuous(breaks = seq(0, 190, by = 1)) 
 ```
 
-- we can fix the aspect ratio of our plot
+- we can **fix** the aspect ratio of our plot (i.e. height of one y-unit is equal to the width of one x-unit)
 - `ratio` is expressed as `y / x` and is set to `1` by default (see grid lines)
 
 ```{r}
@@ -247,8 +259,9 @@ lyme_pop |>
   coord_fixed(ratio = 1)
 ```
 
-- ratios > 1: units on the y-axis longer than units on the x-axis (resulting in steeper slopes) 
-- ratios < 1: units on the x-axis longer than units on the y-axis (resulting in shallower slopes)
+- we can adjust the aspect ratio by updating the value supplied to the `ratio` argument:
+  - ratios > 1: units on the y-axis longer than units on the x-axis (resulting in steeper slopes) 
+  - ratios < 1: units on the x-axis longer than units on the y-axis (resulting in shallower slopes)
 
 ```{r}
 #| eval: true
@@ -279,7 +292,7 @@ lyme_pop |>
   theme(legend.position = "none")
 ```
 
-## Stacked area charts 
+### Alternative: stacked area charts 
 
 - show evolution of the whole + relative proportions of each group
 
@@ -293,7 +306,7 @@ lyme_pop |>
   geom_area()
 ```
 
-### Alt 1: proportional stacked area chart
+### Alternative: proportional stacked area chart
 
 - plot percentage contributions rather than absolute numbers on y-axis
 
@@ -309,6 +322,8 @@ lyme_pop |>
 ```
 
 ### Note 1: stacked area charts aren't great for looking at evolution of individual groups
+
+- the stacked area chart and faceted line graph both show the same data
 
 ```{r}
 #| eval: true
