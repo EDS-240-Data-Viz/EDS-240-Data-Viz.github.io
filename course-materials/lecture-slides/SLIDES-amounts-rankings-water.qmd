@@ -1,0 +1,112 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#053660"} 
+
+[EDS 240: Lecture 3.2]{.custom-title}
+
+[*Visualizing amounts / rankings*]{.custom-subtitle}
+
+<hr class="hr-teal">
+
+[Week 3 | January 21^st^, 2026]{.custom-subtitle3}
+
+---
+
+## {#data-ranking data-menu-title="Data amounts / rankings"} 
+
+[Visualizing data *amounts / rankings*?]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+[Showing the relationship between a **numeric and categorical variable(s)**, i.e. comparing categorical groups based on their numeric values.]{.body-text-m}
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+library(tidyverse)
+
+data <- tribble(
+  ~group, ~value,
+  "A", 10,
+  "B", 14, 
+  "C", 12,
+  "D", 15
+)
+
+ggplot(data, aes(x = group, y = value)) +
+  geom_col() + 
+  labs(x = "Categorical variable",
+       y = "Numeric variable") +
+  theme(axis.title = element_text(size = 17)) 
+```
+
+---
+
+## {#roadmap data-menu-title="Roadmap"} 
+
+[Roadmap]{.slide-title}
+
+<hr>
+
+We'll first explore two (highly interchangeable) chart types for visualizing amounts across a categorical variable (great for highlighting rank or hierarchy):
+
+<br>
+
+[1. bar charts]{.body-text-m}  
+[2. lollipop charts]{.body-text-m} (and dot plot variant)
+
+<br>
+
+. . . 
+
+We'll also learn about a couple alternatives, which may be better suited for you data depending on the context, data structure, and narrative you want to tell:
+
+<br>
+
+[3. heat maps]{.body-text-m} (for when you have 2 categorical + 1 numeric variable and / or want to focus on patterns rather than precise amounts)
+
+[4. dumbbell charts]{.body-text-m} (for visualizing change / difference between two groups)
+
+---
+
+## {#water-use-data data-menu-title="About the data"} 
+
+[The data: ]{.slide-title}
+
+<hr>
+
+- [National Water Availability Assessments](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessments)
+- [New National Water Availability Assessment](https://www.usgs.gov/news/national-news-release/usgs-releases-a-comprehensive-look-water-resources-united-states)
+- [National Water Availability Assessment Data Companion](https://water.usgs.gov/nwaa-data/) provides regularly updated, model-based estimates of water availability and use, derived from USGS scientific models
+
+```{r}
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "hucs-explained.png"))
+```
+
+::: {.center-text .body-text-s .gray-text}
+Source: [Hydrologic Unit Codes (HUCs) Explained](https://nas.er.usgs.gov/hucs.aspx){target="_blank"}
+:::
+
+You'll download the full, [integrated dataset](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/){target="_blank"} that includes water availabilty and use for all ___, but you can also download subsets of the data using USGS' [Subset & Download Tool](https://water.usgs.gov/nwaa-data/subset-download?model=iwa-assessment-outputs-conus-2025&variable=availab)
+
+We'll be filtering for just the [California water resource region](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.) (HUC 18) and comparing water availability and use across its 10 subregions.
+
+---
+
