@@ -6354,5 +6354,47 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#title-slide",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#title-slide",
+    "title": "EDS 240",
+    "section": "",
+    "text": "EDS 240: Lecture 3.2\nVisualizing amounts / rankings\n\nWeek 3 | January 21st, 2026"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#data-ranking",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#data-ranking",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Visualizing data amounts / rankings?\n\n \nShowing the relationship between a numeric and categorical variable(s), i.e. comparing categorical groups based on their numeric values."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#roadmap",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#roadmap",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Roadmap\n\nWe’ll first explore two (highly interchangeable) chart types for visualizing amounts across a categorical variable (great for highlighting rank or hierarchy):\n\n1. bar charts\n2. lollipop charts (and dot plot variant)\n\n\nWe’ll also learn about a couple alternatives, which may be better suited for you data depending on the context, data structure, and narrative you want to tell:\n\n3. heat maps (for when you have 2 categorical + 1 numeric variable and / or want to focus on patterns rather than precise amounts)\n4. dumbbell charts (for visualizing change / difference between two groups)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#water-use-data",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#water-use-data",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The data: USGS National Water Availability Assessment\n\nIn January 2025, The U.S. Geological Survey (USGS) released its new National Water Availability Assessment (NWAA), which offers insights into water supply, demand, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online National Water Availability Assessment Data Companion (NWDC). Here, users can interactively subset and download data or download files containing the full spatial and temporal extent of the NWDC datasets.\n\n\nSurface water-supply and use index (SUI) by 12-digit hydrologic unit codes (HUCs) for water years 2010 - 2020. Source: Chapter F of the U.S. Geological Survey Integrated Water Availability Assessment—2010–20.\n\n\nThe NWDC provides regularly updated, model-based estimates of water availability and use, derived from USGS scientific models"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#HUCs",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#HUCs",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The data: USGS National Water Availability Assessment\n\nFor today’s lecture, we’ll download the full, integrated dataset and filter for just the California water resource region, which is represented by the 2-digit hydrologic unit code (HUC), 18. We’ll compare water availability and use across HUC 18’s ten subregions.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Left) Source: Hydrologic Unit Codes (HUCs) Explained | (Right) California region (HUC 18), with its ten 4-digit subregion hydrologic unit boundaries. Source: Wikipedia"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#data-wrangling",
+    "href": "course-materials/lecture-slides/SLIDES-amounts-rankings-water.html#data-wrangling",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Data wrangling\n\n\n\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                    setup                                 ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(scales)\n\n#..........................import data...........................\nwater_use &lt;- read_csv(here::here(\"week3\", \"data\", \"combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv\"))\n\n#..................create df of subregion names..................\n# data only contain HUC codes; must manually join names if we want to include those in our viz\n# subnames identified in https://water.usgs.gov/GIS/wbd_huc8.pdf\nsubregion_names &lt;- tribble(\n  ~subregion_HUC, ~subregion_name,\n  1801L, \"Klamath-Northern California Coastal\",\n  1802L, \"Sacramento\",\n  1803L, \"Tulare-Buena Vista Lakes\",\n  1804L, \"San Joaquin\",\n  1805L, \"San Francisco Bay\",\n  1806L, \"Central California Coastal\",\n  1807L, \"Southern California Coastal\",\n  1808L, \"North Lahontan\", \n  1809L, \"Northern Mojave-Mono Lake\",\n  1810L, \"Southern Mojave-Salton Sea\"\n) |&gt; \n  mutate(subregion_HUC = as.factor(subregion_HUC))\n\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n##                                wrangle data                              ----\n##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nca_region &lt;- water_use |&gt; \n\n  # make nicer column names ---\n  clean_names() |&gt; \n\n  # create columns for 2-unit (region-level) and 4-unit (subregion-level) HUCs using full 12-unit HUC ----\n  mutate(\n    region_HUC = str_sub(string = huc12_id, start = 1, end = 2),\n    subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)\n  ) |&gt; \n\n  # filter for just CA region (HUC 18)\n  filter(region_HUC == \"18\") |&gt; \n \n  # separate year and month into two columns ----\n  separate_wider_delim(cols = year_month,\n                       delim = \"-\",\n                       names = c(\"year\", \"month\")) |&gt; \n\n  # convert year and month from chr to num ---                     \n  mutate(year = as.numeric(year),\n         month = as.numeric(month)) |&gt; \n  \n  # filter out year 2009 (partial year) ----\n  filter(year != 2009) |&gt; \n  \n  # coerce subregion_HUC from chr to factor ----\n  mutate(subregion_HUC = as.factor(subregion_HUC)) |&gt; \n\n  # join subregion names from our subregion_names df (common key = subregion_huc) ----\n  left_join(subregion_names) |&gt; \n\n  # reorder columns (not necesssary, but personally easier for me to navigate) ----\n  relocate(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)"
   }
 ]

@@ -6,6 +6,7 @@
 # HUCs explained: https://nas.er.usgs.gov/hucs.aspx
 # SUI: The USGS Surface Water-Supply and Use Index (SUI) shows water limitation in a watershed (HUC12), from 0 (no limit) to 1 (total depletion), by comparing median long-term supply to current supply minus consumptive uses (irrigation, power, public) and climate variability. A higher SUI means more water is unavailable, indicating greater stress (e.g., SUI=0.2 means 80% available). You interpret it by looking at its value within a HUC12—a SUI near 1 signals severe stress, while near 0 suggests ample supply, guiding water management decisions for environmental and societal needs. 
 # CA water resource region: https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.
+# USGS glossary: https://water.usgs.gov/vizlab/water-availability/glossary
 
 ### dataset download options
 # https://doi-usgs.github.io/dataRetrieval/ (R package API)
@@ -16,7 +17,6 @@
 
 library(tidyverse)
 library(janitor)
-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                import data                               ----
@@ -51,15 +51,13 @@ ca_region <- water_use |>
     region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
     subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)
   ) |> 
-  # mutate(year_month = ym(year_month),
-  #        year = year(year_month),
-  #        month = month(year_month)) |> 
   filter(region_HUC == "18") |> 
   separate_wider_delim(cols = year_month,
                        delim = "-",
                        names = c("year", "month")) |> 
   mutate(year = as.numeric(year),
          month = as.numeric(month)) |> 
+  filter(year != 2009) |> 
   mutate(subregion_HUC = as.factor(subregion_HUC)) |> 
   left_join(subregion_names) |> 
   relocate(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)
@@ -83,7 +81,6 @@ ca_region <- water_use |>
 #....................create df of average SUI....................
 avg_sui <- ca_region |> 
   select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
-  filter(year != 2009) |> 
   group_by(subregion_name) |> 
   summarise(
     avg_sui = mean(sui_frac, na.rm = TRUE)
@@ -121,14 +118,13 @@ avg_sui |>
 # heatmap (x: year, y = subregion, fill = avg_sui)
 avg_annual_sui <- ca_region |> 
   select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
-  filter(year != 2009) |> 
   group_by(subregion_name, year) |> 
   summarise(
     avg_ann_sui = mean(sui_frac, na.rm = TRUE)
   ) |> 
   ungroup()
 
-# determine order of subregions based on highest avg SUI in 2020 ----
+# determine order of subregions based on highest avg SUI in 2015 (end-ish of drought) ----
 order_2015 <- avg_annual_sui |> 
   filter(year == 2015) |> 
   arrange(avg_ann_sui) |> 
@@ -142,32 +138,35 @@ heatmap_order <- avg_annual_sui |>
 
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = avg_ann_sui)) +
   geom_tile() +
-  labs(fill = "Average SUI") +
-  coord_fixed() + 
+  labs(fill = "Average Surface Water-Supply and\nUse Index (SUI)") + # caption = "A higher index value indicates greater water stress."
   scale_fill_viridis_c() +
   scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
   theme_minimal() +
   theme(
     legend.position = "top",
-    axis.title = element_blank()
+    axis.title = element_blank(),
+    panel.grid = element_blank()
   )
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                  create dumbbell chart of avail vs consup                ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-dumbell_data <- ca_region |> 
-  drop_na() |> 
-  filter(year == 2020) |> 
-  group_by(subregion, year) |> 
-  summarize(total_avail = sum(availab_mm_mo),
-            total_consum = sum(consum_mm_mo))
+avail_vs_consum <- ca_region |> 
+  group_by(subregion_name) |>
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = mean_avail))
 
 
-  summarize(mean_avail = mean(availab_mm_mo),
-            mean_consum = mean(consum_mm_mo))
-
-
-
-# bar & lollipop plots to visualize rankings
-
+ggplot(avail_vs_consum) +
+  # create dumbbells ----
+  geom_linerange(aes(y = subregion_name,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = subregion_name), 
+             color = "blue", 
+             size = 2.5) +
+  geom_point(aes(x = mean_consum, y = subregion_name), 
+             color = "brown", 
+             size = 2.5)

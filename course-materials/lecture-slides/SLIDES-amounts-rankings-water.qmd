@@ -36,7 +36,7 @@ editor_options:
 
 <br>
 
-```{r}
+```{r example-bar}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -88,25 +88,258 @@ We'll also learn about a couple alternatives, which may be better suited for you
 
 ## {#water-use-data data-menu-title="About the data"} 
 
-[The data: ]{.slide-title}
+[The data: USGS National Water Availability Assessment]{.slide-title3}
 
 <hr>
 
-- [National Water Availability Assessments](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessments)
-- [New National Water Availability Assessment](https://www.usgs.gov/news/national-news-release/usgs-releases-a-comprehensive-look-water-resources-united-states)
-- [National Water Availability Assessment Data Companion](https://water.usgs.gov/nwaa-data/) provides regularly updated, model-based estimates of water availability and use, derived from USGS scientific models
+[In January 2025, The [U.S. Geological Survey](https://www.usgs.gov/){target="_blank"} (USGS) released its new [National Water Availability Assessment](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/science/integrated-water-availability-0){target="_blank"} (NWAA), which offers insights into water supply, demand, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online [National Water Availability Assessment Data Companion](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessment-0){target="_blank"} (NWDC). Here, users can interactively [subset and download data](https://water.usgs.gov/nwaa-data/subset-download){target="_blank"} or download files containing the [full spatial and temporal extent](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/){target="_blank"} of the NWDC datasets.]{.body-text-s}
 
-```{r}
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "hucs-explained.png"))
+```{r nwaa-map}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "NWAA-map.png"))
 ```
 
 ::: {.center-text .body-text-s .gray-text}
-Source: [Hydrologic Unit Codes (HUCs) Explained](https://nas.er.usgs.gov/hucs.aspx){target="_blank"}
+Surface water-supply and use index (SUI) by 12-digit hydrologic unit codes (HUCs) for water years 2010 - 2020. Source: [Chapter F](https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf){target="_blank"} of the U.S. Geological Survey Integrated Water Availability Assessment—2010–20.
 :::
 
-You'll download the full, [integrated dataset](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/){target="_blank"} that includes water availabilty and use for all ___, but you can also download subsets of the data using USGS' [Subset & Download Tool](https://water.usgs.gov/nwaa-data/subset-download?model=iwa-assessment-outputs-conus-2025&variable=availab)
-
-We'll be filtering for just the [California water resource region](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.) (HUC 18) and comparing water availability and use across its 10 subregions.
+::: {.notes}
+The NWDC provides regularly updated, model-based estimates of water availability and use, derived from USGS scientific models
+:::
 
 ---
 
+## {#HUCs data-menu-title="Understanding HUCs"} 
+
+[The data: USGS National Water Availability Assessment]{.slide-title3}
+
+<hr>
+
+For today's lecture, we'll download the [full, integrated dataset](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/){target="_blank"} and filter for just the [California water resource region](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.){target="_bank"}, which is represented by the 2-digit hydrologic unit code (HUC), 18. We'll compare water availability and use across HUC 18's [ten subregions](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D){target="_blank"}.
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r hucs-explained}
+#| eval: true
+#| echo: false
+#| out-width: "80%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "hucs-explained.png"))
+```
+
+:::
+
+::: {.column width="50%"}
+```{r huc18-subregions}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "HUC18-subregions.png"))
+```
+
+:::
+
+::::
+
+<br>
+
+::: {.footer}
+**(Left)** Source: [Hydrologic Unit Codes (HUCs) Explained](https://nas.er.usgs.gov/hucs.aspx){target="_blank"} | **(Right)** California region (HUC 18), with its ten 4-digit subregion hydrologic unit boundaries. Source: [Wikipedia](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D){target="_blank"}
+:::
+
+---
+
+## {#data-wrangling data-menu-title="Data wrangling"} 
+
+[Data wrangling]{.slide-title}
+
+<hr>
+
+<!-- RUNS BUT DOES NOT PRINT -->
+
+```{r data-wrangling-eval}
+#| eval: true
+#| echo: false
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+library(scales)
+
+#..........................import data...........................
+water_use <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregion names..................
+# data only contain HUC codes; must manually join names if we want to include those in our viz
+# subnames identified in https://water.usgs.gov/GIS/wbd_huc8.pdf
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  1801L, "Klamath-Northern California Coastal",
+  1802L, "Sacramento",
+  1803L, "Tulare-Buena Vista Lakes",
+  1804L, "San Joaquin",
+  1805L, "San Francisco Bay",
+  1806L, "Central California Coastal",
+  1807L, "Southern California Coastal",
+  1808L, "North Lahontan", 
+  1809L, "Northern Mojave-Mono Lake",
+  1810L, "Southern Mojave-Salton Sea"
+) |> 
+  mutate(subregion_HUC = as.factor(subregion_HUC))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ca_region <- water_use |> 
+
+  # make nicer column names ---
+  clean_names() |> 
+
+  # create columns for 2-unit (region-level) and 4-unit (subregion-level) HUCs using full 12-unit HUC ----
+  mutate(
+    region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+    subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)
+  ) |> 
+
+  # filter for just CA region (HUC 18) ----
+  filter(region_HUC == "18") |> 
+ 
+  # separate year and month into two columns ----
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |> 
+
+  # convert year and month from chr to num ---                     
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  
+  # filter out year 2009 (partial year) ----
+  filter(year != 2009) |> 
+  
+  # coerce subregion_HUC from chr to factor ----
+  mutate(subregion_HUC = as.factor(subregion_HUC)) |> 
+
+  # join subregion names from our subregion_names df (common key = subregion_huc) ----
+  left_join(subregion_names) |> 
+
+  # reorder columns (not necesssary, but personally easier for me to navigate) ----
+  relocate(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            explore missing data                          ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+sub1805 <- ca_region |> 
+  filter(subregion_HUC == "1805") 
+
+see_NAs <- ca_region |> 
+  group_by(year) |> 
+  naniar::miss_var_summary() |>
+  filter(variable == "availab_mm_mo")
+
+avail <- sub1805 |> select(availab_mm_mo)
+missing_avail <- naniar::vis_miss(avail)
+```
+
+<!-- PRINTS BUT DOES NOT RUN -->
+
+```{r data-wrangling-echo}
+#| eval: false
+#| echo: true
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+library(scales)
+
+#..........................import data...........................
+water_use <- read_csv(here::here("week3", "data", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregion names..................
+# data only contain HUC codes; must manually join names if we want to include those in our viz
+# subnames identified in https://water.usgs.gov/GIS/wbd_huc8.pdf
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  1801L, "Klamath-Northern California Coastal",
+  1802L, "Sacramento",
+  1803L, "Tulare-Buena Vista Lakes",
+  1804L, "San Joaquin",
+  1805L, "San Francisco Bay",
+  1806L, "Central California Coastal",
+  1807L, "Southern California Coastal",
+  1808L, "North Lahontan", 
+  1809L, "Northern Mojave-Mono Lake",
+  1810L, "Southern Mojave-Salton Sea"
+) |> 
+  mutate(subregion_HUC = as.factor(subregion_HUC))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ca_region <- water_use |> 
+
+  # make nicer column names ---
+  clean_names() |> 
+
+  # create columns for 2-unit (region-level) and 4-unit (subregion-level) HUCs using full 12-unit HUC ----
+  mutate(
+    region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+    subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)
+  ) |> 
+
+  # filter for just CA region (HUC 18) ----
+  filter(region_HUC == "18") |> 
+ 
+  # separate year and month into two columns ----
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |> 
+
+  # convert year and month from chr to num ---                     
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  
+  # filter out year 2009 (partial year) ----
+  filter(year != 2009) |> 
+  
+  # coerce subregion_HUC from chr to factor ----
+  mutate(subregion_HUC = as.factor(subregion_HUC)) |> 
+
+  # join subregion names from our subregion_names df (common key = subregion_huc) ----
+  left_join(subregion_names) |> 
+
+  # reorder columns (not necesssary, but personally easier for me to navigate) ----
+  relocate(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            explore missing data                          ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+sub1805 <- ca_region |> 
+  filter(subregion_HUC == "1805") 
+
+see_NAs <- ca_region |> 
+  group_by(year) |> 
+  naniar::miss_var_summary() |>
+  filter(variable == "availab_mm_mo")
+
+avail <- sub1805 |> select(availab_mm_mo)
+missing_avail <- naniar::vis_miss(avail)
+```
