@@ -23,7 +23,8 @@ library(janitor)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # import usgs data ---
-water_use <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+water_use <- read_csv(here::here("course-materials", "data", "lecture", "nwaa_data_1_of_8.csv"),
+                      col_types = cols(huc12_id = "c", .default = col_guess()))
 
 # create df of subregion names to append to usgs data; extracted from https://water.usgs.gov/GIS/wbd_huc8.pdf ----
 # subregion_names <- tribble(
@@ -82,25 +83,25 @@ HUC_names <- tribble(
 ca_region <- water_use |> 
   clean_names() |> 
   mutate(
-    region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+    #region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
     subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)
     #subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)
   ) |> 
-  filter(region_HUC == "18") |> 
-  separate_wider_delim(cols = year_month,
-                       delim = "-",
-                       names = c("year", "month")) |> 
-  mutate(year = as.numeric(year),
-         month = as.numeric(month)) |> 
+  #filter(region_HUC == "18") |> 
+  # separate_wider_delim(cols = year_month,
+  #                      delim = "-",
+  #                      names = c("year", "month")) |> 
+  # mutate(year = as.numeric(year)) |> 
+  # filter(year != 2009) |> 
   left_join(HUC_names |> filter(type == "subregion"), by = c("subregion_HUC" = "HUC")) |> 
-  rename(subregion_name = name) |> 
-  select(-type) |> 
+  # rename(subregion_name = name) |> 
+  #select(-type) |> 
   # left_join(HUC_names |> filter(type == "subbasin"), by = c("subbasin_HUC" = "HUC")) |> 
   # rename(subbasin_name = name) |> 
   # select(-type) |> 
   #mutate(subregion_HUC = as.factor(subregion_HUC)) |> 
   #left_join(subregion_names) |> 
-  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)
+  select(year, huc12_id, subregion_HUC, subregion_name = name, availab_mm_mo, consum_mm_mo, sui_frac)
 
 #......................explore missing data......................
 # test_1805 <- ca_region_dumbell |> 
@@ -120,7 +121,7 @@ ca_region <- water_use |>
 
 #....................create df of average SUI....................
 avg_sui <- ca_region |> 
-  select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
+  select(year, subregion_HUC, subregion_name, sui_frac) |> 
   group_by(subregion_name) |> 
   summarise(
     avg_sui = mean(sui_frac, na.rm = TRUE)
@@ -208,13 +209,13 @@ subbasins_1806 <- ca_region |>
   left_join(HUC_names |> filter(type == "subbasin"), by = c("subbasin_HUC" = "HUC")) |> 
   rename(subbasin_name = name) |> 
   select(year, month, huc12_id, subbasin_HUC, subbasin_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac) |> 
+  group_by(subbasin_name, year) |> 
+  summarize(tot_avail = sum(availab_mm_mo), na.rm = TRUE,
+            tot_consum = sum(consum_mm_mo, na.rm = TRUE)) |> 
+  ungroup() |> 
   group_by(subbasin_name) |> 
-  # summarize(tot_avail = sum(availab_mm_mo), na.rm = TRUE,
-  #           tot_consum = sum(consum_mm_mo, na.rm = TRUE)) |> 
-  # ungroup() |> 
-  # group_by(subbasin_name) |> 
-  summarize(mean_avail = mean(availab_mm_mo),
-            mean_consum = mean(consum_mm_mo)) |> 
+  summarize(mean_avail = mean(tot_avail),
+            mean_consum = mean(tot_consum)) |> 
   mutate(subbasin_name = fct_reorder(.f = subbasin_name, .x = mean_avail)) 
 
 # water_use_1806 <- ca_region |> 
