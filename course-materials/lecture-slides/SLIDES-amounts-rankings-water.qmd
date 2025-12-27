@@ -343,3 +343,396 @@ see_NAs <- ca_region |>
 avail <- sub1805 |> select(availab_mm_mo)
 missing_avail <- naniar::vis_miss(avail)
 ```
+
+---
+
+##  {#bar-lollipop data-menu-title="## Bar & lollipop ##" background="#047C90"}
+
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Bar charts & lollipop charts</div></center>
+<center><div class="custom-subtitle3">*interchangeable | focus is on highest and lowest values (as well as overall rank / hierarchy) | best for visualizing amounts across a single categorical variable | encode values using LENGTH*</div></center>
+</div>
+
+---
+
+## {#bar-lolli-1group data-menu-title="Bar & Lollipop plots (1 group)"} 
+
+[Bar & lollipop plots to visualize rankings]{.slide-title}
+
+<hr>
+
+[Let's first **explore the mean surface water-supply and use index (SUI) across the ten HUC 18 subregions**. Higher SUIs indicate a greater water stress. The heights of each bar and lollipop represents the average SUI for each subregion from 2010-2020.]{.body-text-s}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r basic-bar}
+#| eval: true
+#| echo: true
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = subregion_name, y = avg_sui)) +
+  geom_col() 
+```
+:::
+
+::: {.column width="50%"}
+```{r basic-lollipop}
+#| eval: true
+#| echo: true
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = subregion_name, y = avg_sui)) +
+  geom_point() +
+  geom_linerange(aes(ymin = 0, ymax = avg_sui))
+```
+
+:::
+
+::::
+
+::: {.footer}
+From the [USGS Glossary](https://water.usgs.gov/vizlab/water-availability/glossary){target="_blank"}: *"A high index value indicates that a high proportion of the average supply is either consumed by human use or unavailable because of climatic variation, leading to high water stress."*
+:::
+
+::: {.notes}
+You might also consider using `ggalt::geom_lollipop()` for a simple lollipop chart, though you may run into limitations when creating more complex charts.
+:::
+
+---
+
+## {#coord-flip-theme data-menu-title="Flip axes / update label angle"} 
+
+[Make space for long x-axis labels]{.slide-title}
+
+<hr>
+
+We never want to leave overlapping or super squished text (espeically axis text) on our plots. Let's give those long x-axis labels some breathing room using by reversing your axes mappings! Alternatively, you can leave your mappings as-is and apply `coord_flip()`.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r flipped-bar}
+#| eval: true
+#| echo: true
+#| fig-align: "center"
+#| code-line-numbers: "4"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_col() 
+```
+:::
+
+::: {.column width="50%"}
+```{r flipped-lollipop}
+#| eval: true
+#| echo: true
+#| fig-align: "center"
+#| code-line-numbers: "4,6"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_point() +
+  geom_linerange(aes(xmin = 0, xmax = avg_sui))
+```
+
+:::
+
+::::
+
+::: {.footer}
+We also want to avoid the temptation to [rotate our axis text](https://clauswilke.com/dataviz/visualizing-amounts.html){target="_blank"} (or any text, for that matter). Rotated text forces readers to tilt their heads or strain their eyes to read labels. Flipping the axes is almost always a better, more readable alternative.
+:::
+
+---
+
+## {#arrange-bars data-menu-title="Arrange bars"} 
+
+[Reordering groups helps readers more quickly derive insight]{.slide-title3}
+
+<hr>
+
+Here, we use `forcats::fct_reorder()` to reorder the levels of our y-axis variable, `subregion_name`, based on a numeric variable, `avg_sui`.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r ordered-bars}
+#| eval: true
+#| echo: true 
+#| code-line-numbers: "4"
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_col() 
+```
+:::
+
+::: {.column width="50%"}
+```{r ordered-lollipops}
+#| eval: true
+#| echo: true
+#| code-line-numbers: "4"
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_point() +
+  geom_linerange(aes(xmin = 0, xmax = avg_sui))
+```
+:::
+
+::::
+
+::: {.footer}
+Check out [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/){target="_blank"} for more useful reordering approaches / examples.
+:::
+
+---
+
+## {#scales-pkg data-menu-title="{scales}"} 
+
+[`{scales}`: a true label-editing hero]{.slide-title}
+
+<hr>
+
+THIS NEEDS TO MOVE SOMEWHERE ELSE
+
+---
+
+## {#add-labels data-menu-title="Add labels"} 
+
+[Add direct labels if the exact values are important]{.slide-title2}
+
+<hr>
+
+[`geom_text()` allows us to map values from a column (here, `avg_sui`) directly onto the plot as text labels. This can be helpful if it's important for readers to know precise values (rather than estimating the length of a bar against its axis). Avoid adding if relative comparisons are enough or if values are already easy to estimate using the axis.]{.body-text-s}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r labeled-bar}
+#| eval: true
+#| echo: true 
+#| code-line-numbers: "7"
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_col() +
+  geom_text(aes(label = round(avg_sui, 2)), hjust = 1.2, color = "white") 
+```
+:::
+
+::: {.column width="50%"}
+```{r labeled-lollipop}
+#| eval: true
+#| echo: true
+#| code-line-numbers: "8,9"
+#| fig-align: "center"
+#| out-width: "80%"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
+  ggplot(aes(x = avg_sui, y = subregion_name)) +
+  geom_point() +
+  geom_linerange(aes(xmin = 0, xmax = avg_sui)) +
+  geom_text(aes(label = round(avg_sui, 2)), hjust = -0.3) + 
+  scale_x_continuous(limits = c(0, 0.6))
+```
+:::
+
+::::
+
+<!-- ::: {.footer}
+For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/){target="_blank"}, by Cédric Scherer 
+::: -->
+
+---
+
+## {#col-vs-bar data-menu-title="geom_col() vs. geom_bar()"} 
+
+[An aside: `geom_col()` vs. `geom_bar()`]{.slide-title}
+
+<hr>
+
+ADD SOMEWHERE ELSE?
+
+---
+
+add stacked bar plots here?
+
+---
+
+## {#truncated-axis data-menu-title="Truncated axis"} 
+
+[IMPORTANT: Do not truncate axes]{.slide-title2}
+
+<hr>
+
+::: {.center-text .body-text-m}
+Because bar (and related) charts encode values by length from zero, cutting the axis exaggerates differences and is misleading. The axis **must** start at zero.
+:::
+
+[Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e. a truncation effect). [Yang et al. (2021)](https://doi.org/10.1016/j.jarmac.2020.10.002){target="_blank"} empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.]{.body-text-s} 
+
+<br>
+
+```{r yang-etal-2021}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "yang-etal-2021.png"))
+```
+
+::: {.center-text .gray-text .body-text-s}
+Figure 2 from Yang et al. 2021. The left-most plot without a truncated y-axis was presented to the control group of viewers. The right-most plot with a truncated y-axis was presented to the test group of viewers.
+:::
+
+<br>
+
+::: {.footer}
+Yang et al. (2021) Truncating bar graphs persistently misleads viewers. *Journal of Applied Research in Memory and Cognition* 10:2, 298-311. [https://doi.org/10.1016/j.jarmac.2020.10.002](https://doi.org/10.1016/j.jarmac.2020.10.002){target="_blank"}
+:::
+
+---
+
+## {#dot-plot data-menu-title="Dot plots "} 
+
+[But you can cut the y-axis of dot plots!]{.slide-title}
+
+<hr>
+
+
+
+[When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to identify differences in the max and min values.]{.body-text-s} 
+
+<br>
+
+::: {.center-text .body-text-s}
+*Create a dot plot using `geom_point()`, then adjust `panel.grid` lines inside `theme()`.*
+:::
+
+:::: {.columns}
+ 
+::: {.column width="33%"}
+```{r nj-bar}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "nj-bar.png"))
+```
+:::
+
+::: {.column width="33%"}
+```{r nj-lollipop}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "nj-lollipop.png"))
+```
+:::
+
+::: {.column width="33%"}
+```{r nj-dot}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "nj-dot.png"))
+```
+:::
+
+::::
+
+<br>
+
+::: {.footer}
+You'll be working with these county-level [FEMA National Risk Index](https://www.fema.gov/flood-maps/products-tools/national-risk-index){target="_blank"} scores for [Homework #2](https://eds-240-data-viz.github.io/course-materials/assignments/HW2.html){target="_blank"}!
+:::
+
+---
+
+## {#cat-not-cont data-menu-title="Bar plots for categorical data"} 
+
+[Be cautious when using bar plots to summarize continuous data]{.slide-title3}
+
+<hr>
+
+[**Bar plots shine when you need to compare counts** (e.g. populations size of different countries). *However*, you should proceed with caution when using bar plots to visualize the distribution of / summarize your data. Doing so can be *misleading*, particularly when you have small sample sizes. Why?]{.body-text-s}
+
+. . .
+
+- [bar plots hide the distribution of the underlying data (many different distributions can lead to the same plot)]{.body-text-s}
+
+- [when used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course *may* be true in some cases, but certainly not always)]{.body-text-s}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r weissgerber-etal-2015}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "70%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "weissgerber-etal-2015.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r horst-barplot}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "70%"
+#| fig-alt: "Main text: 'Are your summary statistics hiding something?' On the left is a opaque gray bar plot with an error bar, looking mischievous while hiding individual data points in a net behind it. On the right is a transparent bar plot with an error bar, looking exposed, with individual data points exposed and dancing. The bottom four data points have arms that spell 'YMCA' as if dancing to the Village People."
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "horst-barplot.png"))
+```
+
+:::
+
+::::
+
+<br>
+
+::: {.footer}
+**Left:** [Figure 1](https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001){target="_blank"} from Weissgerber et al. (2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. *PLOS Biology* 13:e1002128. [https://doi.org/10.1371/journal.pbio.1002128](https://doi.org/10.1371/journal.pbio.1002128){target="_blank"} | **Right:** Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}
+:::
+
+::: {.notes}
+- It’s okay to use bar (or related) plots anytime you’re comparing counts (e.g. population size of different countries, total earnings by group) — this is really where bar plots shine!
+If you are using a bar plot to visualize the distribution/summarize of your data, you should consider if there are better alternative options (e.g. box plots) — if you are inclined to include some sort of error bar / standard deviation on your bar plot, you are likely attempting to use your bar plot to visualize a distribution. Why is this wrong?
+
+- It’s not necessarily wrong, but it can be misleading, particularly when dealing with small sample sizes because (1) it’s impossible to know the distribution of the underlying data, and many different data distributions can lead to the same bar plot (see figure on lecture 4.1 slide 15). (2) When used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course may be true in certain cases, but certainly is not always true…particularly when dealing with small sample sizes where outliers are common)
+
+Bar plots are very commonly used in both ways (comparing counts and visualizing distributions) — for example, see [this online resource](https://www.labxchange.org/library/items/lb:LabXchange:e034541a:html:1) that reviews how to interpret both forms of a bar plot. However, you should proceed with extreme caution when using bar plots to summarize your data for the reasons outlined above. If you do choose to use a bar plot, consider layering on the raw data points as well (this isn’t always feasible with larger data sets). 
+:::
+
+---
+
+##  {#heatmaps data-menu-title="## Heatmaps ##" background="#047C90"}
+
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Heatmaps</div></center>
+<center><div class="custom-subtitle3">*great option for visualizing matrices of data (e.g. 2 categorical + 1 numeric variable) | focus is on patterns rather than precise amounts | consider audience familiarity (may require more explanation than a bar plot) | encode values using COLOR*</div></center>
+</div>
+
+---

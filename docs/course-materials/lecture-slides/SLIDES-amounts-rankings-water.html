@@ -533,7 +533,7 @@
 <span id="cb1-43"><a></a>    <span class="at">subregion_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">4</span>)</span>
 <span id="cb1-44"><a></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb1-45"><a></a></span>
-<span id="cb1-46"><a></a>  <span class="co"># filter for just CA region (HUC 18)</span></span>
+<span id="cb1-46"><a></a>  <span class="co"># filter for just CA region (HUC 18) ----</span></span>
 <span id="cb1-47"><a></a>  <span class="fu">filter</span>(region_HUC <span class="sc">==</span> <span class="st">"18"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb1-48"><a></a> </span>
 <span id="cb1-49"><a></a>  <span class="co"># separate year and month into two columns ----</span></span>
@@ -555,8 +555,379 @@
 <span id="cb1-65"><a></a>  <span class="fu">left_join</span>(subregion_names) <span class="sc">|&gt;</span> </span>
 <span id="cb1-66"><a></a></span>
 <span id="cb1-67"><a></a>  <span class="co"># reorder columns (not necesssary, but personally easier for me to navigate) ----</span></span>
-<span id="cb1-68"><a></a>  <span class="fu">relocate</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-68"><a></a>  <span class="fu">relocate</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)</span>
+<span id="cb1-69"><a></a></span>
+<span id="cb1-70"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-71"><a></a><span class="do">##                            explore missing data                          ----</span></span>
+<span id="cb1-72"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-73"><a></a></span>
+<span id="cb1-74"><a></a>sub1805 <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb1-75"><a></a>  <span class="fu">filter</span>(subregion_HUC <span class="sc">==</span> <span class="st">"1805"</span>) </span>
+<span id="cb1-76"><a></a></span>
+<span id="cb1-77"><a></a>see_NAs <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb1-78"><a></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-79"><a></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-80"><a></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"availab_mm_mo"</span>)</span>
+<span id="cb1-81"><a></a></span>
+<span id="cb1-82"><a></a>avail <span class="ot">&lt;-</span> sub1805 <span class="sc">|&gt;</span> <span class="fu">select</span>(availab_mm_mo)</span>
+<span id="cb1-83"><a></a>missing_avail <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(avail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="bar-lollipop" class="slide level2" data-menu-title="## Bar &amp; lollipop ##" data-background="#047C90">
+<h2></h2>
+<div class="vertical-center">
+<center>
+<div class="custom-subtitle">
+Bar charts &amp; lollipop charts
+</div>
+</center>
+<center>
+<div class="custom-subtitle3">
+<em>interchangeable | focus is on highest and lowest values (as well as overall rank / hierarchy) | best for visualizing amounts across a single categorical variable | encode values using LENGTH</em>
+</div>
+</center>
+</div>
+</section>
+<section id="bar-lolli-1group" class="slide level2" data-menu-title="Bar &amp; Lollipop plots (1 group)">
+<h2></h2>
+<p><span class="slide-title">Bar &amp; lollipop plots to visualize rankings</span></p>
+<hr>
+<p><span class="body-text-s">Let’s first <strong>explore the mean surface water-supply and use index (SUI) across the ten HUC 18 subregions</strong>. Higher SUIs indicate a greater water stress. The heights of each bar and lollipop represents the average SUI for each subregion from 2010-2020.</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> subregion_name, <span class="at">y =</span> avg_sui)) <span class="sc">+</span></span>
+<span id="cb2-5"><a></a>  <span class="fu">geom_col</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/basic-bar-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> subregion_name, <span class="at">y =</span> avg_sui)) <span class="sc">+</span></span>
+<span id="cb3-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-6"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> avg_sui))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/basic-lollipop-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>From the <a href="https://water.usgs.gov/vizlab/water-availability/glossary" target="_blank">USGS Glossary</a>: <em>“A high index value indicates that a high proportion of the average supply is either consumed by human use or unavailable because of climatic variation, leading to high water stress.”</em></p>
+</div>
+<aside class="notes">
+<p>You might also consider using <code>ggalt::geom_lollipop()</code> for a simple lollipop chart, though you may run into limitations when creating more complex charts.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="coord-flip-theme" class="slide level2" data-menu-title="Flip axes / update label angle">
+<h2></h2>
+<p><span class="slide-title">Make space for long x-axis labels</span></p>
+<hr>
+<p>We never want to leave overlapping or super squished text (espeically axis text) on our plots. Let’s give those long x-axis labels some breathing room using by reversing your axes mappings! Alternatively, you can leave your mappings as-is and apply <code>coord_flip()</code>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb4-5"><a></a>  <span class="fu">geom_col</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/flipped-bar-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="4,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb5-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> avg_sui))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/flipped-lollipop-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>We also want to avoid the temptation to <a href="https://clauswilke.com/dataviz/visualizing-amounts.html" target="_blank">rotate our axis text</a> (or any text, for that matter). Rotated text forces readers to tilt their heads or strain their eyes to read labels. Flipping the axes is almost always a better, more readable alternative.</p>
+</div>
+</section>
+<section id="arrange-bars" class="slide level2" data-menu-title="Arrange bars">
+<h2></h2>
+<p><span class="slide-title3">Reordering groups helps readers more quickly derive insight</span></p>
+<hr>
+<p>Here, we use <code>forcats::fct_reorder()</code> to reorder the levels of our y-axis variable, <code>subregion_name</code>, based on a numeric variable, <code>avg_sui</code>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a></a>  <span class="fu">mutate</span>(<span class="at">subregion_name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> avg_sui)) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">geom_col</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/ordered-bars-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a></a>  <span class="fu">mutate</span>(<span class="at">subregion_name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> avg_sui)) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb7-6"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> avg_sui))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/ordered-lollipops-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>Check out <a href="https://blog.albertkuo.me/post/2022-01-04-reordering-geom-col-and-geom-bar-by-count-or-value/" target="_blank">this blog post</a> for more useful reordering approaches / examples.</p>
+</div>
+</section>
+<section id="scales-pkg" class="slide level2" data-menu-title="{scales}">
+<h2></h2>
+<p><span class="slide-title"><code>{scales}</code>: a true label-editing hero</span></p>
+<hr>
+<p>THIS NEEDS TO MOVE SOMEWHERE ELSE</p>
+</section>
+<section id="add-labels" class="slide level2" data-menu-title="Add labels">
+<h2></h2>
+<p><span class="slide-title2">Add direct labels if the exact values are important</span></p>
+<hr>
+<p><span class="body-text-s"><code>geom_text()</code> allows us to map values from a column (here, <code>avg_sui</code>) directly onto the plot as text labels. This can be helpful if it’s important for readers to know precise values (rather than estimating the length of a bar against its axis). Avoid adding if relative comparisons are enough or if values are already easy to estimate using the axis.</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a></a>  <span class="fu">mutate</span>(<span class="at">subregion_name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> avg_sui)) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb8-6"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb8-7"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(avg_sui, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/labeled-bar-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a></a>  <span class="fu">mutate</span>(<span class="at">subregion_name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> avg_sui)) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_sui, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
+<span id="cb9-6"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-7"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> avg_sui)) <span class="sc">+</span></span>
+<span id="cb9-8"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(avg_sui, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb9-9"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings-water_files/figure-revealjs/labeled-lollipop-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<!-- ::: {.footer}
+For some more advanced label manipulation, see [A Quick How-to on Labelling Bar Graphs in ggplot2](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/){target="_blank"}, by Cédric Scherer 
+::: -->
+</section>
+<section id="col-vs-bar" class="slide level2" data-menu-title="geom_col() vs. geom_bar()">
+<h2></h2>
+<p><span class="slide-title">An aside: <code>geom_col()</code> vs.&nbsp;<code>geom_bar()</code></span></p>
+<hr>
+<p>ADD SOMEWHERE ELSE?</p>
+</section>
+<section class="slide level2">
+
+<p>add stacked bar plots here?</p>
+</section>
+<section id="truncated-axis" class="slide level2" data-menu-title="Truncated axis">
+<h2></h2>
+<p><span class="slide-title2">IMPORTANT: Do not truncate axes</span></p>
+<hr>
+<div class="center-text body-text-m">
+<p>Because bar (and related) charts encode values by length from zero, cutting the axis exaggerates differences and is misleading. The axis <strong>must</strong> start at zero.</p>
+</div>
+<p><span class="body-text-s">Truncated axes leads viewers to perceive illustrated differences as larger or more important than they actually are (i.e.&nbsp;a truncation effect). <a href="https://doi.org/10.1016/j.jarmac.2020.10.002" target="_blank">Yang et al.&nbsp;(2021)</a> empirically tested this effect and found that this truncation effect persisted even after viewers were taught about the effects of y-axis truncation.</span></p>
+<p><br></p>
+
+<img data-src="../images/lecture-slides/yang-etal-2021.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div class="center-text gray-text body-text-s">
+<p>Figure 2 from Yang et al.&nbsp;2021. The left-most plot without a truncated y-axis was presented to the control group of viewers. The right-most plot with a truncated y-axis was presented to the test group of viewers.</p>
+</div>
+<p><br></p>
+<div class="footer">
+<p>Yang et al.&nbsp;(2021) Truncating bar graphs persistently misleads viewers. <em>Journal of Applied Research in Memory and Cognition</em> 10:2, 298-311. <a href="https://doi.org/10.1016/j.jarmac.2020.10.002" target="_blank">https://doi.org/10.1016/j.jarmac.2020.10.002</a></p>
+</div>
+</section>
+<section id="dot-plot" class="slide level2" data-menu-title="Dot plots ">
+<h2></h2>
+<p><span class="slide-title">But you can cut the y-axis of dot plots!</span></p>
+<hr>
+<p><span class="body-text-s">When bars are all long and have nearly the same length, the eye is drawn to the middle of the bars rather than to their end points. A lollipop plot is a bit less distracting (less ink), but still difficult to differentiate risk scores across counties. When we limit the axis range in a dot plot, it becomes easier to identify differences in the max and min values.</span></p>
+<p><br></p>
+<div class="center-text body-text-s">
+<p><em>Create a dot plot using <code>geom_point()</code>, then adjust <code>panel.grid</code> lines inside <code>theme()</code>.</em></p>
+</div>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/nj-bar.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/nj-lollipop.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/nj-dot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="footer">
+<p>You’ll be working with these county-level <a href="https://www.fema.gov/flood-maps/products-tools/national-risk-index" target="_blank">FEMA National Risk Index</a> scores for <a href="https://eds-240-data-viz.github.io/course-materials/assignments/HW2.html" target="_blank">Homework #2</a>!</p>
+</div>
+</section>
+<section id="cat-not-cont" class="slide level2" data-menu-title="Bar plots for categorical data">
+<h2></h2>
+<p><span class="slide-title3">Be cautious when using bar plots to summarize continuous data</span></p>
+<hr>
+<p><span class="body-text-s"><strong>Bar plots shine when you need to compare counts</strong> (e.g.&nbsp;populations size of different countries). <em>However</em>, you should proceed with caution when using bar plots to visualize the distribution of / summarize your data. Doing so can be <em>misleading</em>, particularly when you have small sample sizes. Why?</span></p>
+<div class="fragment">
+<ul>
+<li><p><span class="body-text-s">bar plots hide the distribution of the underlying data (many different distributions can lead to the same plot)</span></p></li>
+<li><p><span class="body-text-s">when used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course <em>may</em> be true in some cases, but certainly not always)</span></p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/weissgerber-etal-2015.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/horst-barplot.png" class="quarto-figure quarto-figure-center" style="width:70.0%" alt="Main text: 'Are your summary statistics hiding something?' On the left is a opaque gray bar plot with an error bar, looking mischievous while hiding individual data points in a net behind it. On the right is a transparent bar plot with an error bar, looking exposed, with individual data points exposed and dancing. The bottom four data points have arms that spell 'YMCA' as if dancing to the Village People."></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="footer">
+<p><strong>Left:</strong> <a href="https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002128#pbio-1002128-g001" target="_blank">Figure 1</a> from Weissgerber et al.&nbsp;(2015) Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm. <em>PLOS Biology</em> 13:e1002128. <a href="https://doi.org/10.1371/journal.pbio.1002128" target="_blank">https://doi.org/10.1371/journal.pbio.1002128</a> | <strong>Right:</strong> Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></p>
+</div>
+<aside class="notes">
+<ul>
+<li><p>It’s okay to use bar (or related) plots anytime you’re comparing counts (e.g.&nbsp;population size of different countries, total earnings by group) — this is really where bar plots shine! If you are using a bar plot to visualize the distribution/summarize of your data, you should consider if there are better alternative options (e.g.&nbsp;box plots) — if you are inclined to include some sort of error bar / standard deviation on your bar plot, you are likely attempting to use your bar plot to visualize a distribution. Why is this wrong?</p></li>
+<li><p>It’s not necessarily wrong, but it can be misleading, particularly when dealing with small sample sizes because (1) it’s impossible to know the distribution of the underlying data, and many different data distributions can lead to the same bar plot (see figure on lecture 4.1 slide 15). (2) When used this way, the height of the bar (typically) represents the mean of the data, which can cause readers to incorrectly infer that the data are normally distributed with no outliers (this of course may be true in certain cases, but certainly is not always true…particularly when dealing with small sample sizes where outliers are common)</p></li>
+</ul>
+<p>Bar plots are very commonly used in both ways (comparing counts and visualizing distributions) — for example, see <a href="https://www.labxchange.org/library/items/lb:LabXchange:e034541a:html:1">this online resource</a> that reviews how to interpret both forms of a bar plot. However, you should proceed with extreme caution when using bar plots to summarize your data for the reasons outlined above. If you do choose to use a bar plot, consider layering on the raw data points as well (this isn’t always feasible with larger data sets).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="heatmaps" class="slide level2" data-menu-title="## Heatmaps ##" data-background="#047C90">
+<h2></h2>
+<div class="vertical-center">
+<center>
+<div class="custom-subtitle">
+Heatmaps
+</div>
+</center>
+<center>
+<div class="custom-subtitle3">
+<em>great option for visualizing matrices of data (e.g.&nbsp;2 categorical + 1 numeric variable) | focus is on patterns rather than precise amounts | consider audience familiarity (may require more explanation than a bar plot) | encode values using COLOR</em>
+</div>
+</center>
+</div>
+</section>
+<section class="slide level2">
+
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

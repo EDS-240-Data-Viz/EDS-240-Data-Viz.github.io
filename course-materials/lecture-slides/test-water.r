@@ -94,6 +94,12 @@ avg_sui |>
   geom_text(aes(label = round(avg_sui, 2)), hjust = 1.2, color = "white") + 
   coord_flip()
 
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = subregion_name, y = avg_sui)) +
+  geom_col() 
+
 #......................create basic lollipop.....................
 avg_sui |> 
   mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
