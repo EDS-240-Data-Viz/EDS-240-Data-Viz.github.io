@@ -23,8 +23,10 @@ library(janitor)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # import usgs data ---
-water_use <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
 
+# downloaded from https://resilience.climate.gov/datasets/esri::watershed-boundary-dataset-huc-12s/about ----
+# huc12 <- read_csv(here::here("course-materials", "data", "lecture", "Watershed_Boundary_Dataset_HUC_12s_7445451579594868972.csv"))
 # create df of subregion names to append to usgs data; extracted from https://water.usgs.gov/GIS/wbd_huc8.pdf ----
 # subregion_names <- tribble(
 #   ~subregion_HUC, ~subregion_name,
@@ -75,16 +77,22 @@ HUC_names <- tribble(
 ##                    wrangle data and filter for just CA                   ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# subregions <- HUC_names |> 
-#   filter(type == "subregion") |> 
-#   select(subergion_HUC = HUC, name)
+# # get CA region HUCs ----
+# ca_HUCs <- huc12 |> 
+#   clean_names() |> 
+#   mutate(
+#     region_HUC = str_sub(string = huc12, start = 1, end = 2),
+#     subregion_HUC = str_sub(string = huc12, start = 1, end = 4),
+#     subbasin_HUC = str_sub(string = huc12, start = 1, end = 8)
+#   ) |>
+#   filter(region_HUC == 18)
 
-ca_region <- water_use |> 
+
+# filter for just CA water resource region (HUC 18) ---- 
+ca_region <- iwa_data |> 
   clean_names() |> 
   mutate(
     region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
-    subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)
-    #subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)
   ) |> 
   filter(region_HUC == "18") |> 
   separate_wider_delim(cols = year_month,
@@ -92,15 +100,29 @@ ca_region <- water_use |>
                        names = c("year", "month")) |> 
   mutate(year = as.numeric(year),
          month = as.numeric(month)) |> 
-  left_join(HUC_names |> filter(type == "subregion"), by = c("subregion_HUC" = "HUC")) |> 
-  rename(subregion_name = name) |> 
-  select(-type) |> 
+  select(year, month, huc12_id, availab_mm_mo, consum_mm_mo, sui_frac)
+  # left_join(ca_HUCs) |> 
+  # rename(subregion_name = name) |> 
+  # select(-type) |> 
   # left_join(HUC_names |> filter(type == "subbasin"), by = c("subbasin_HUC" = "HUC")) |> 
   # rename(subbasin_name = name) |> 
   # select(-type) |> 
   #mutate(subregion_HUC = as.factor(subregion_HUC)) |> 
   #left_join(subregion_names) |> 
-  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, strflow_mm_mo, sui_frac)
+  
+
+# create df of subregions ----
+ca_subregions <- ca_region |> 
+   mutate(subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  left_join(HUC_names |> filter(type == "subregion"), by = c("subregion_HUC" = "HUC"))
+
+# create df of subbasins --
+ca_subbasins <- ca_subregions |> 
+  filter(subregion_HUC == 1806) |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  left_join(HUC_names |> filter(type == "subbasin"), by = c("subbasin_HUC" = "HUC")) |> 
+  drop_na(name)
+
 
 #......................explore missing data......................
 # test_1805 <- ca_region_dumbell |> 
@@ -119,36 +141,36 @@ ca_region <- water_use |>
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #....................create df of average SUI....................
-avg_sui <- ca_region |> 
-  select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
-  group_by(subregion_name) |> 
+avg_monthly_sui <- ca_subregions |> 
+  select(year, month, subregion_HUC, name, sui_frac) |> 
+  group_by(name) |> 
   summarise(
-    avg_sui = mean(sui_frac, na.rm = TRUE)
+    avg_monthly_sui = mean(sui_frac, na.rm = TRUE)
   )
   
 #.....................create basic bar chart.....................
-avg_sui |> 
-  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
-  ggplot(aes(x = subregion_name, y = avg_sui)) +
+avg_monthly_sui |> 
+  mutate(name = fct_reorder(.f = name, .x = avg_monthly_sui)) |>
+  ggplot(aes(x = avg_monthly_sui, y = name)) +
   geom_col() + 
-  geom_text(aes(label = round(avg_sui, 2)), hjust = 1.2, color = "white") + 
-  coord_flip()
+  geom_text(aes(label = round(avg_monthly_sui, 2)), hjust = 1.2, color = "white") 
 
-ca_region |> 
-  group_by(subregion_name) |> 
-  summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
-  ggplot(aes(x = subregion_name, y = avg_sui)) +
-  geom_col() 
+
+# ca_region |> 
+#   group_by(name) |> 
+#   summarise(avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
+#   ggplot(aes(x = name, y = avg_sui)) +
+#   geom_col() 
 
 #......................create basic lollipop.....................
-avg_sui |> 
-  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = avg_sui)) |>
-  ggplot(aes(x = subregion_name, y = avg_sui)) + 
+avg_monthly_sui |> 
+  mutate(name = fct_reorder(.f = name, .x = avg_monthly_sui)) |>
+  ggplot(aes(x = avg_monthly_sui, y = name)) + 
   geom_point() +
-  geom_linerange(aes(ymin = 0, ymax = avg_sui)) +
-  geom_text(aes(label = round(avg_sui, 2)), hjust = -0.2) + 
-  scale_y_continuous(limits = c(0, 0.6)) + # expand axis to make room for values
-  coord_flip()
+  geom_linerange(aes(xmin = 0, xmax = avg_monthly_sui)) +
+  geom_text(aes(label = round(avg_monthly_sui, 2)), hjust = -0.3) + 
+  scale_x_continuous(limits = c(0, 0.6))  # expand axis to make room for values
+
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                    example of geom_bar() vs geom_col()                   ----
@@ -158,29 +180,34 @@ avg_sui |>
 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                    create heatmap of avg SUI over years                  ----
+##                    create heatmap of avg monthly SUI for each year       ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#..........df of average annual SUI by subresion & year..........
-avg_annual_sui <- ca_region |> 
-  select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
-  group_by(subregion_name, year) |> 
-  summarise(
-    avg_ann_sui = mean(sui_frac, na.rm = TRUE)
-  ) |> 
+#..........df of average monthly SUI by subregion & year..........
+df <- ca_subregions |> 
+  group_by(name, year) |> 
+  summarize(monthly_avg_sui = mean(sui_frac, na.rm = TRUE)) |> 
   ungroup()
 
+# avg_annual_sui <- ca_region |> 
+  # select(year, month, subregion_HUC, subregion_name, sui_frac) |> 
+  # group_by(subregion_name, year) |> 
+  # summarise(
+  #   avg_ann_sui = mean(sui_frac, na.rm = TRUE)
+  # ) |> 
+  # ungroup()
+
  #.determine order of subregions based on highest avg SUI in 2015.
-order_2015 <- avg_annual_sui |> 
+order_2015 <- df |> 
   filter(year == 2015) |> 
-  arrange(avg_ann_sui) |> 
+  arrange(monthly_avg_sui) |> 
   mutate(order = row_number()) |> 
-  select(avg_ann_sui, order) 
+  select(monthly_avg_sui, order) 
 
 #........join order with rest of data to set factor levels.......
-heatmap_order <- avg_annual_sui |> 
-  left_join(order_2015, by = "avg_ann_sui") |> 
-  mutate(subregion_name = fct_reorder(subregion_name, order))
+heatmap_order <- df |> 
+  left_join(order_2015, by = "monthly_avg_sui") |> 
+  mutate(name = fct_reorder(name, order))
 
 #.........................create heatmap.........................
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = avg_ann_sui)) +

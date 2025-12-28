@@ -313,12 +313,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
 <section id="install-pkgs" class="level3">
 <h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>find new place in lecture to show <code>{scales}</code> (no longer fits in lecture 3.2)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-data" class="level3">
@@ -327,9 +342,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="table-hover table-bordered caption-top table">
 <colgroup>
 <col style="width: 10%">
-<col style="width: 30%">
-<col style="width: 30%">
-<col style="width: 30%">
+<col style="width: 20%">
+<col style="width: 35%">
+<col style="width: 35%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -351,6 +366,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>US Census Bureau Population Estimates Program</td>
 <td><strong>we’ll use the <code>{tidycensus}</code> package to interface with the US Census Bureau’s API and download the data programmatically (see step C, below, for setup instructions),</strong> <em>however, in the event that the API is down, you can access a backup copy of the 2019 vintage on <a href="https://drive.google.com/file/d/1eBmts5q1PaOz8yaGbyfZonzAfG_l5TA7/view?usp=sharing" target="_blank">Google Drive</a></em></td>
 <td>Read more about The Census Bureau’s <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank">Population Estimates Program (PEP)</a></td>
+</tr>
+<tr class="odd">
+<td>3.2</td>
+<td>USGS Integrated Water Availability Assessment</td>
+<td>download the combined IWA .csv file from the <a href="combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv" target="_blank">National Water Availability Assessment Data Companion (NWDC)</a> <em>(<a href="https://drive.google.com/file/d/1dtgqfB_62M0o0l8iHUs1enUUMyuZtUQ7/view?usp=drive_link" target="_blank">Google Drive backup link</a>, in case the NWDC is unavailable)</em></td>
+<td>These data are modeled estimates of monthly water supply and use (not empirical measurements from sensors / gauges) <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025" target="_blank">Read more about the model &amp; data</a></td>
 </tr>
 </tbody>
 </table>
@@ -374,15 +395,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-with-filename-file">
 <pre><strong>.Renviron</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <ul>
 <li><strong>Note:</strong> You may also consider storing your API key in a password manager for safe keeping (e.g.&nbsp;in case your computer decides to call a quits, is lost, etc.)</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -391,7 +412,7 @@ What exactly is <code>.Renviron</code>?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> (files which are preceded by a dot, <code>.</code>) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as <code>.gitconfig</code> and <code>.gitignore</code>.</p>
 <p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Variables should be stored as key / value pairs (e.g.&nbsp;<code>KEY_NAME="VALUE"</code>. Access them using <code>Sys.getenv("KEY_NAME")</code>.</p>
