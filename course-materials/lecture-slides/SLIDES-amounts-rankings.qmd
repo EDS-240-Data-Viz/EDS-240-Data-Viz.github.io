@@ -199,35 +199,6 @@ subregion_names <- tribble(
   "1809", "Northern Mojave-Mono Lake",
   "1810", "Southern Mojave-Salton Sea",
 )
-# HUC_names <- tribble(
-#   ~HUC, ~type, ~name,
-
-#   # all ten CA subregions ----
-#   "1801", "subregion", "Klamath-Northern California Coastal",
-#   "1802", "subregion", "Sacramento",
-#   "1803", "subregion", "Tulare-Buena Vista Lakes",
-#   "1804", "subregion", "San Joaquin",
-#   "1805", "subregion", "San Francisco Bay",
-#   "1806", "subregion", "Central California Coastal",
-#   "1807", "subregion", "Southern California Coastal",
-#   "1808", "subregion", "North Lahontan", 
-#   "1809", "subregion", "Northern Mojave-Mono Lake",
-#   "1810", "subregion", "Southern Mojave-Salton Sea",
-
-#   # all twelve Central California Coastal subbasins ----
-#   "18060002", "subbasin", "Pajaro",
-#   "18060003", "subbasin", "Carrizo Plain",
-#   "18060004", "subbasin", "Estrella",
-#   "18060005", "subbasin", "Salinas",
-#   "18060006", "subbasin", "Central Coastal",
-#   "18060007", "subbasin", "Cuyama",
-#   "18060008", "subbasin", "Santa Maria",
-#   "18060009", "subbasin", "San Antonio", 
-#   "18060010", "subbasin", "Santa Ynez",
-#   "18060013", "subbasin", "Santa Barbara Coastal",
-#   "18060014", "subbasin", "Santa Barbara Channel Islands",
-#   "18060015", "subbasin", "Monterey Bay"
-# )
 
 ca_region <- iwa_data |> 
   clean_names() |> 
@@ -343,18 +314,6 @@ ca_region <- iwa_data |>
          month = as.numeric(month)) |> 
   left_join(subregion_names) |> 
   select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
-
-# #...................create df of CA subregions...................
-# ca_subregions <- ca_region |> 
-#   mutate(subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
-#   left_join(subregion_names, by = c("subregion_HUC" = "HUC"))
-
-#................create df of HUC 1806 subbasins.................
-# ccc_subbasins <- ca_subregions |> 
-#   select(-c(name, type)) |> 
-#   filter(subregion_HUC == "1806") |> 
-#   mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
-#   left_join(HUC_names |> filter(type == "subbasin"), by = c("subbasin_HUC" = "HUC"))
 ```
 
 ---
@@ -517,16 +476,6 @@ Check out [this blog post](https://blog.albertkuo.me/post/2022-01-04-reordering-
 
 ---
 
-## {#scales-pkg data-menu-title="{scales}"} 
-
-[`{scales}`: a true label-editing hero]{.slide-title}
-
-<hr>
-
-THIS NEEDS TO MOVE SOMEWHERE ELSE
-
----
-
 ## {#add-labels data-menu-title="Add labels"} 
 
 [Add direct labels if the exact values are important]{.slide-title2}
@@ -582,17 +531,48 @@ For some more advanced label manipulation, see [A Quick How-to on Labelling Bar 
 
 ## {#col-vs-bar data-menu-title="geom_col() vs. geom_bar()"} 
 
-[An aside: `geom_col()` vs. `geom_bar()`]{.slide-title}
+[An aside: `geom_col()` vs. `geom_bar()`]{.slide-title2}
 
 <hr>
 
-ADD SOMEWHERE ELSE?
+:::: {.columns} 
 
----
+::: {.column width="50%"}
+[**Use `geom_col()` when your data is already summarized** (i.e. you have a variable in your data set that maps to the length (or height) of your bars). Here, we already have a numeric variable in our data set called, `mean_sui_2010_2020`. Those values are mapped to the length of each bar in our plot.]{.body-text-s}
 
-add stacked bar plots here?
+```{r geom_col-comp}
+#| eval: true
+#| echo: true 
+#| out-width: "75%"
+#| fig-align: "center"
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = mean_sui_2010_2020, y = subregion_name)) +
+  geom_col() 
+```
+:::
 
-see page 9 https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf
+::: {.column width="50%"}
+[**Use `geom_bar()` if you want to ggplot to count up numbers of rows** and map those counts to the lengths of bars in your plot. E.g. if we want to know how many observations exist for subregion (note that we don't have a `count` column in our data frame -- `geom_bar()` groups / counts for us):]{.body-text-s}
+
+```{r geom-bar-comp}
+#| eval: true
+#| echo: true
+#| out-width: "75%"
+#| fig-align: "center"
+ggplot(ca_region, aes(x = subregion_name)) +
+  geom_bar() +
+  scale_y_continuous(label = scales::label_comma()) + # try adding these args: scale = 0.001, suffix = "k"
+  coord_flip() 
+```
+:::
+
+::::
+
+::: {.footer}
+Each of our subregions have a different number of subwatersheds (represented by HUC12 IDs), which is why we have a different number of rows (observations) for each | The [`{scales}` package](https://scales.r-lib.org/){target="_blank"} is a true label-editing hero! Keep this one in mind whenever you need to reformat axis labels.
+:::
 
 ---
 
@@ -741,6 +721,188 @@ Bar plots are very commonly used in both ways (comparing counts and visualizing 
 
 ---
 
+## {#stacked-bar data-menu-title="Stacked bar plot"} 
+
+[Stacked bar plots for showing parts of a whole]{.slide-title2}
+
+<hr>
+
+[The USGS classifies SUI into five categories: *Very low (0.0 to <0.2), Low (0.2 to <0.4), Moderate (0.4 to <0.6), High (0.6 to <0.8), and Severe (0.8 to 1)*. **Let's say we want to look at how California subwatersheds (HUC12s) are distributed across these categories by month from 2010–2020.** We can use a stacked bar plot, each bar represents a month and segments represent the number of subwatersheds in each SUI category. Let's first do a bit of wrangling:]{.body-text-s}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r stacked-bar-ex}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "stacked-bar-ex.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r wrangle-stacked}
+#| eval: true
+#| echo: true
+
+sui_severity <- ca_region |>
+  mutate(
+    sui_category = case_when(
+      sui_frac < 0.2 ~ "Very low",
+      sui_frac >= 0.2 & sui_frac < 0.4 ~ "Low",
+      sui_frac >= 0.4 & sui_frac < 0.6 ~ "Moderate",
+      sui_frac >= 0.6 & sui_frac < 0.8 ~ "High",
+      sui_frac >= 0.8 & sui_frac <= 1 ~ "Severe",
+      TRUE ~ NA
+    )) |> 
+  group_by(month, sui_category) |> 
+  summarize(tot_num_sui = n()) |> 
+  drop_na(sui_category) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = c(month.abb[10:12], month.abb[1:9]))) # order months Oct > Sep (water year)
+```
+:::
+::::
+
+```{r end-stacked-bar}
+countdown::countdown(
+  minutes = 3,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+::: {.footer}
+Image source: [Data Viz Project](https://datavizproject.com/data-type/stacked-bar-chart/){target="_blank"}. **Take a few minutes to run and understand this wrangling code with your learning partners. Note down any questions you have.**
+:::
+
+---
+
+## {#stacked-bar-improvements data-menu-title="Stacked bar plot improvements?"} 
+
+[What improvements should we make?]{.slide-title}
+
+<hr>
+
+[The code for a stacked bar plot is not so different from a standard bar plot -- just add a numeric variable as your `fill`:]{.body-text-s}
+
+```{r improvements-needed}
+#| eval: true
+#| echo: true
+#| out-width: "100%"
+#| fig-align: "center"
+ggplot(sui_severity, aes(x = month, y = tot_num_sui, fill = sui_category)) +
+  geom_col()
+```
+
+. . .
+
+[To make interpretation easier, we should **reorder** our `sui-categories` so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to **percentages**, and update our **colors** (we'll talk a lot more about colors in a future lecture, but we can adopt those used by USGS -- see [this slide](SLIDES-amounts-rankings.qmd#water-use-data){target="_blank"})]{.body-text-s}
+
+---
+
+## {#revise-wrangling-totals data-menu-title="Revise wrangling 1"} 
+
+[Let's first update our wrangling code]{.slide-title}
+
+<hr>
+
+To convert our absolute values into percentages, we'll need to calculate:
+
+$$(total\:SUI\:values\:per\:category\:/\:total\:SUI\:values\:per\:month)*100$$ 
+
+In theory, we should have the same number of SUI values per month, but it's good to check:
+
+```{r tot_sui_per_month}
+#| eval: true
+#| echo: true
+tot_sui_per_month <- ca_region |> 
+  group_by(month) |> 
+  count() |> 
+  rename(tot_sui_per_month = n)
+
+tot_sui_per_month
+```
+
+---
+
+## {#revise-wrangling-update-df data-menu-title="Revise wrangling 2"} 
+
+[Let's first update our wrangling code]{.slide-title}
+
+<hr>
+
+Then, we need to calculate our percentages and reorder our category levels: 
+
+```{r updated-wrangling}
+#| eval: true
+#| echo: true
+#| code-line-numbers: "14,17-20"
+sui_severity <- ca_region |>
+  mutate(
+    sui_category = case_when(
+      sui_frac < 0.2 ~ "Very low",
+      sui_frac >= 0.2 & sui_frac < 0.4 ~ "Low",
+      sui_frac >= 0.4 & sui_frac < 0.6 ~ "Moderate",
+      sui_frac >= 0.6 & sui_frac < 0.8 ~ "High",
+      sui_frac >= 0.8 & sui_frac <= 1 ~ "Severe",
+      TRUE ~ NA
+    )) |> 
+  group_by(month, sui_category) |> 
+  summarize(tot_sui_per_cat = n()) |> 
+  drop_na(sui_category) |> 
+  left_join(tot_sui_per_month) |> # join total number of SUI observations per month
+  mutate(month = month.abb[month],
+         month = factor(month, levels = c(month.abb[10:12], month.abb[1:9]))) |> 
+  mutate(perc = (tot_sui_per_cat/tot_sui_per_month) * 100) |> # add col with calculated %s
+  mutate(sui_category = factor(sui_category, # reorder categories
+                               levels = c("Very low", "Low",
+                                          "Moderate", "High", "Severe")))
+```
+
+---
+
+## {#percentage-stacked-bar data-menu-title="Create percentage stacked bar chart"} 
+
+[Convert to percentage stacked bar chart]{.slide-title}
+
+<hr>
+
+```{r percentage-stacked}
+#| eval: true
+#| echo: true
+#| out-width: "100%"
+#| fig-align: "center"
+#......................create color palette......................
+# pulled hex codes from USGS map using ColorZilla Chrome extension
+sui_colors <- c("Severe" = "#720C0F", 
+                "High" = "#F68939", 
+                "Moderate" = "#FBF7BF", 
+                "Low" = "#AAD9EA", 
+                "Very low" = "#217AB5")
+
+#...................create % stacked bar chart...................
+ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
+  geom_col() +
+  scale_fill_manual(values = sui_colors) +
+  scale_y_continuous(labels = scales::label_percent(scale = 1))  
+```
+
+::: {.footer}
+Inspiration for this viz came directly from the [U.S. Geological Survey Integrated Water Availability Assessment—2010–20 (Ch. F)](https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf){target="_blank"} (see page 9)
+:::
+
+---
+
 ##  {#heatmaps data-menu-title="## Heatmaps ##" background="#047C90"}
 
 <div class="vertical-center">
@@ -876,7 +1038,7 @@ ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui))
 ```{r dumbbell-example}
 #| eval: true
 #| echo: false
-#| out-width: "100%"
+#| out-width: "50%"
 #| fig-align: "center"
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -890,7 +1052,7 @@ sbc_subbasin_monthly <- ca_region |>
   summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
             mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
   mutate(month = month.abb[month],
-         month = factor(month, levels = rev(month.abb)))
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create dumbbell chart                         ----
@@ -910,8 +1072,10 @@ ggplot(sbc_subbasin_monthly) +
   theme(axis.title.y = element_blank())
 ```
 
+<br>
+
 ::: {.footer}
-There are more modifications we would need to make before calling this plot done (e.g. adding a title, legend info, theme) -- we'll come back to this in a later lecture!
+**Note:** Here, it makes sense to order the y-axis groups chronologically (Jan > Dec). If your grouping variable is not inherently chronological (e.g. if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this [archived version](ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example){target="_blank"} of the lecture for an alternative dumbbell plot example where we order differently. | **There are more modifications we would need to make before calling this plot done (e.g. adding a title, legend info, theme) -- we'll come back to this in a later lecture!**
 :::
 
 ::: {.notes}
@@ -922,7 +1086,7 @@ Example viz: <https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020
 
 ## {#dumbbell-plot-create data-menu-title="Dumbbell plot - water available vs. consumed (code)"} 
 
-[Create dumbbell plot]{.slide-title}
+[Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
 
 <hr>
 
@@ -961,10 +1125,6 @@ ggplot(sbc_subbasin_monthly) +
   theme(axis.title.y = element_blank())
 ```
 
-::: {.footer}
-**Note:** Here, it makes sense to order the y-axis groups chronologically (Jan > Dec). If your grouping variable is not inherently chronological (e.g. if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this [archived version](ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example){target="_blank"} of the lecture for an alternative dumbbell plot example where we order differently.
-:::
-
 ##  {#end-break data-menu-title="# Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
@@ -972,7 +1132,7 @@ ggplot(sbc_subbasin_monthly) +
 <!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
 
-```{r}
+```{r end-countdown}
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,
