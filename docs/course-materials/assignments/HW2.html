@@ -292,7 +292,7 @@ window.Quarto = {
 </section>
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
-<p><span class="teal-text"><strong>In class, we’ve been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’re learning while exploring natural hazards data, courtesy of the <a href="https://hazards.fema.gov/nri/" target="_blank">FEMA National Risk Index</a> (NRI)</strong></span>.</p>
+<p><span class="teal-text"><strong>In class, we’ve been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you’ll apply what we’re learning while exploring natural hazards data, courtesy of the <a href="https://hazards.fema.gov/nri/" target="_blank">FEMA Resilience Analysis and Planning Tool (RAPT)</a></strong></span>.</p>
 <!-- In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the **[FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI)** and the **[US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS)**. -->
 <section id="partI" class="level3">
 <h3 class="anchored" data-anchor-id="partI">I. Background reading</h3>
@@ -310,27 +310,25 @@ About the data
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <section id="about-femas-national-risk-index-nri-for-natural-hazards" class="level3 callout-body-container callout-body">
 <h3 class="anchored" data-anchor-id="about-femas-national-risk-index-nri-for-natural-hazards">About FEMA’s National Risk Index (NRI) for Natural Hazards</h3>
-<p><a href="https://www.fema.gov/about" target="_blank">FEMA</a> (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the <strong><a href="https://hazards.fema.gov/nri/" target="_blank">National Risk Index (NRI)</a></strong>, “a <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">dataset</a> and <a href="https://hazards.fema.gov/nri/map" target="_blank">online tool</a> to help illustrate the United States communities most at risk for <a href="https://hazards.fema.gov/nri/natural-hazards" target="_blank">18 natural hazards</a>”.</p>
-<p><strong>Risk</strong> is defined as the potential for negative impacts resulting from natural hazards. It’s calculated using the following equation (and illustrated in <a href="https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg" target="_blank">this graphic</a>; read more about <a href="https://hazards.fema.gov/nri/determining-risk" target="_blank">determining risk</a>):</p>
+<p><a href="https://www.fema.gov/about" target="_blank">FEMA</a> (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the <strong><a href="https://www.fema.gov/flood-maps/products-tools/national-risk-index" target="_blank">National Risk Index (NRI)</a></strong>, a dataset that “provides information for communities most at risk to <a href="https://www.fema.gov/sites/default/files/documents/fema_national-risk-index_methodology-hazards-overview.pdf" target="_blank">18 different natural hazards</a>. It offers a baseline risk measurement for expected annual loss, social vulnerability and community resilience at the Census tract or county level. The data helps to validate, measure and better understand your community’s natural hazard risk.” <strong>Risk</strong> is defined as the potential for negative impacts resulting from natural hazards. It’s calculated using the following equation:</p>
 <p><span class="math display">\[Risk\:Index = Expected\:Annual\:Loss \times \frac{Social\:Vulnerability}{Community\:Resilience}\]</span></p>
-<p>NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community’s <strong>risk score</strong> is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience – for example, if a given county’s Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a <strong>risk rating</strong>, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.”</p>
-<p>You can learn more about the NRI at <a href="https://hazards.fema.gov/nri/learn-more" target="_blank">hazards.fema.gov/nri</a>.</p>
+<p>NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community’s <strong>risk score</strong> is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience – for example, if a given county’s Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a <strong>risk rating</strong>, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.” You can learn more in the <a href="https://www.fema.gov/sites/default/files/documents/fema_national-risk-index_technical-documentation.pdf" target="_blank">National Risk Index Data Technical Documentation</a>.</p>
+<p>In December 2025, FEMA integrated NRI data into the <a href="https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/" target="_blank">Resilience Analysis and Planning Tool (RAPT)</a>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/NRI.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+<p><img src="images/RAPT.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="center-text gray-text body-text-s">
-<p><em>Screenshot of the <a href="https://hazards.fema.gov/nri/map">The National Risk Index’s interactive mapping and data-based interface</a></em></p>
+<p><em>Screenshot of the <a href="https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/">Resilience Analysis and Planning Tool (RAPT)</a> with the National Risk Index Counties data layer.</em></p>
 </div>
-<section id="accessing-nri-data" class="level4">
-<h4 class="anchored" data-anchor-id="accessing-nri-data">Accessing NRI Data</h4>
-<p>Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles &amp; CSVs) from NRI’s <a href="https://hazards.fema.gov/nri/data-resources" target="_blank">Data Resources page</a>.</p>
-</section>
+<!-- #### Accessing NRI Data
+
+Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles & CSVs) from NRI's [Data Resources page](https://hazards.fema.gov/nri/data-resources){target="_blank"}. -->
 </section>
 </div>
 </div>
@@ -362,8 +360,9 @@ We’ll use this same repository for both HWs #2 &amp; #3.
 <h3 class="anchored" data-anchor-id="partIII">III. Download data &amp; add it to your repo</h3>
 <p><span class="teal-text"><strong>Next, let’s download the necessary data, and add it to our <code>eds240-nri-acs-viz</code> repo:</strong></span></p>
 <ul class="task-list">
-<li><p><label><input type="checkbox"><strong>1.</strong> Download and unzip the data. You’ll use the <a href="https://hazards.fema.gov/nri/Content/StaticDocuments/DataDownload//NRI_Table_Counties/NRI_Table_Counties.zip">All Counties - County-level detail (Table)</a> (2023 Release; accessed on the <a href="https://hazards.fema.gov/nri/data-resources#csvDownload:~:text=All%20Counties%20%2D%20County%2Dlevel%20detail%20(Table)" target="_blank">NRI Data Resources page</a>). Unzip the file, then drop the whole <code>NRI_Table_Counties/</code> folder into a <code>data/</code> folder in your HW repository.</label></p></li>
-<li><p><label><input type="checkbox"><strong>2.</strong> Add your <code>data/</code> folder to <code>.gitignore</code>, so you don’t accidentally push the data to GitHub!</label></p></li>
+<li><p><label><input type="checkbox"><strong>1.</strong> Navigate to <strong><a href="https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/" target="_blank">RAPT</a></strong> &gt; click on the <strong>NRI</strong> button in the top menu &gt; find the <strong>National Risk Index Counties</strong> layer &gt; click on the three dots &gt; Export to CSV (<strong>NOTE:</strong> you may need to allow pop-ups in your browser for the data to download). <em>If you have difficulties downloading the data, you can find a copy on <a href="https://drive.google.com/file/d/1yoavLSBmJIMjVY9fQrT_rg8u6C-3v_v8/view?usp=sharing" target="_blank">Google Drive</a>.</em></label></p></li>
+<li><p><label><input type="checkbox"><strong>2.</strong> Drop your csv file into a <code>data/</code> folder in your HW repository.</label></p></li>
+<li><p><label><input type="checkbox"><strong>3.</strong> Add your <code>data/</code> folder to <code>.gitignore</code>, so you don’t accidentally push the data to GitHub!</label></p></li>
 </ul>
 </section>
 <section id="partIV" class="level3">
@@ -380,7 +379,6 @@ BEFORE you start wrangling / building your viz, be sure to…
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>explore the metadata</strong> – <code>NRI_Table_Counties/</code> contains a metadata file named, <code>NRIDataDictionary.csv</code>, which describes each of the variables found in the data file (<code>NRI_Table_Counties.csv</code>). This is a helpful place to start!</li>
 <li><strong>identify / jot down your variables of interest</strong> and consider which data types they are</li>
 <li><strong>use online tools like <a href="https://www.data-to-viz.com/" target="&quot;_blank">from Data to Viz</a></strong> to help determine appropriate graph types, given your variables</li>
 <li><strong>roughly sketch out your plots by hand</strong> (see <a href="https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403" target="_blank">why</a> this step matters!)</li>
@@ -390,10 +388,10 @@ BEFORE you start wrangling / building your viz, be sure to…
 <p>Your final visualization should:</p>
 <ul class="task-list">
 <li><label><input type="checkbox">include data for the 50 US states only (no territories)</label></li>
-<li><label><input type="checkbox">include a title (short, descriptive) &amp; subtitle (describes main takeaway) (see <a href="https://clauswilke.com/dataviz/figure-titles-captions.html" target="_blank">Fundamentals of Data Visualization, Ch 22</a> for an example), a caption (describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2023 Release)”), and alt text (following the formula described in <a href="../discussion/week3/.qmd#discussion-materials" target="_blank">week 3 discussion</a>; use the <code>fig-alt</code> code chunk option to apply your alt text)</label></li>
+<li><label><input type="checkbox">include a title (short, descriptive) &amp; subtitle (describes main takeaway) (see <a href="https://clauswilke.com/dataviz/figure-titles-captions.html" target="_blank">Fundamentals of Data Visualization, Ch 22</a> for an example), a caption (describes the data source, e.g.&nbsp;“Data: FEMA National Risk Index (2025 Release)”), and alt text (following the formula you recently practiced in <a href="../../course-materials/lab/LAB-SLIDES-alt-text.html#alt-text-formula" target="_blank">lab</a>; use the <code>fig-alt</code> code chunk option to apply your alt text)</label></li>
 <li><label><input type="checkbox">consider and implement strategies for highlighting trends / important information (e.g.&nbsp;arranging data, highlighting data, adjusting scales)</label></li>
 <li><label><input type="checkbox">use custom colors (if applicable), rather than ggplot defaults</label></li>
-<li><label><input type="checkbox">have an updated / polished theme (you’ll learn more about fine-tuning ggplot themes in <a href="../../course-materials/week4.html#discussion-materials" target="_blank">week 4 discussion</a>)</label></li>
+<li><label><input type="checkbox">have an updated / polished theme</label></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -418,7 +416,7 @@ There is not necessarily one right answer (but don’t build a map)!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There are a number of different chart types that could work for these data and question, <em>however</em> we do not intend for you to build a choropleth map (e.g.&nbsp;replicating what you see on the <a href="https://hazards.fema.gov/nri/map" target="_blank">The National Risk Index’s interactive mapping and data-based interface</a>).</p>
+<p>There are a number of different chart types that could work for these data and question, <em>however</em> we do not intend for you to build a choropleth map (e.g.&nbsp;replicating what you see on <a href="https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/?dlg=Tour&amp;views=Add-Data" target="_blank">RAPT</a> when the NRI counties layer is added).</p>
 </div>
 </div>
 </section>

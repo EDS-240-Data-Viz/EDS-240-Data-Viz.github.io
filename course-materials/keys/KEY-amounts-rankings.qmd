@@ -1,23 +1,20 @@
 ---
-title: "Lecture 4.1 KEY"
-subtitle: "Visualizing rankings"
+title: "KEY - visualizing amounts / rankings"
 author: "Your Name"
-date: 2025-01-27
+date: 2026-01-21
 toc: true
-editor_options: 
-  chunk_output_type: console
 ---
 
 ::: {.callout-note}
-This template follows [lecture 4.1 slides](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This key follows the [visualizing amounts / rankings slides](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## Setup
 
-Data are downloaded directly from the [tidytuesday GitHub repository](https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-03-05).
+<!-- PRINT THIS  -->
 
-```{r}
-#| eval: true
+```{r setup-echo}
+#| eval: false
 #| echo: true
 #| message: false
 #| warning: false
@@ -27,267 +24,335 @@ Data are downloaded directly from the [tidytuesday GitHub repository](https://gi
 
 #..........................load packages.........................
 library(tidyverse)
+library(janitor)
 library(scales)
 
 #..........................import data...........................
-jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+iwa_data <- read_csv(here::here("week3", "data", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-jobs_clean <- jobs |> 
-  
-  # add col with % men in a given occupation (% females in a given occupation is already included) ----
-  mutate(percent_male = 100 - percent_female) |>
-         
-  # rearrange columns ----
-  relocate(year, major_category, minor_category, occupation,
-          total_workers, workers_male, workers_female,
-          percent_male, percent_female,
-          total_earnings, total_earnings_male, total_earnings_female, 
-          wage_percent_of_male) |> 
-  
-  # drop rows with missing earnings data ----
-  drop_na(total_earnings_male, total_earnings_female) |> 
-  
-  # make occupation a factor (for reordering groups in our plot) ----
-  mutate(occupation = as.factor(occupation)) |> 
- 
-  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
-  mutate(group_label = case_when(
-    percent_female >= 75 ~ "Occupations that are 75%+ female",
-    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
-    percent_male >= 75 ~ "Occupations that are 75%+ male"
-  )) 
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                     
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 ```
 
-## Bar chart vs. Lolliplot chart
+<!-- RUN THIS -->
 
-- explore the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old)
-- for both examples, we'll: 
-    - flip axes to make space for labels
-    - reorder groups
-    - add scales labels
-    - add direct labels
+```{r setup-run}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Bar chart
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+library(scales)
+
+#..........................import data...........................
+iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                          
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
+```
+
+## Bar & Lollipop Plots
+
+- bar & lollipop plots are interchangeable
+- the focus is on the highest & lowest values (as well as overall rank / hierarchy)
+- best for visualizing amounts across a single categorical variable 
+- encode values by LENGTH from 0
+
+After building some basic plots, we'll practice: 
+
+- making space for overlapping labels
+- reordering groups
+- adding direct labels
+
+***Our goal:** create bar & lollipop that shows long-term mean Surface Water-Supply and Use Index (SUI) across the ten HUC 18 subregions*
 
 ```{r}
 #| eval: true
 #| echo: true
-# bar chart ----
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
+#| warning: false
+#| message: false
+#| layout-ncol: 2
+
+# bar plot ----
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = mean_sui_2010_2020)) |>
+  ggplot(aes(x = mean_sui_2010_2020, y = subregion_name)) +
   geom_col() +
-  geom_text(aes(label = scales::dollar(total_earnings)), hjust = 1.2, color = "white") + 
-  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k")) + 
-  coord_flip()
+  geom_text(aes(label = round(mean_sui_2010_2020, 2)), hjust = 1.2, color = "white") 
+
+# lollipop plot ----
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = mean_sui_2010_2020)) |>
+  ggplot(aes(x = mean_sui_2010_2020, y = subregion_name)) +
+  geom_point() +
+  geom_linerange(aes(xmin = 0, xmax = mean_sui_2010_2020)) +
+  geom_text(aes(label = round(mean_sui_2010_2020, 2)), hjust = -0.3) + 
+  scale_x_continuous(limits = c(0, 0.6))
 ```
 
-### Lollipop chart
+## Note 1: `geom_col()` vs. `geom_bar()`
+
+Use `geom_col()` when you want the heights of your bars to represent values in your data:
+
+```{r}
+#| eval: true
+#| echo: true
+# `geom_col()` example ----
+ca_region |> 
+  group_by(subregion_name) |> 
+  summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
+  ggplot(aes(x = mean_sui_2010_2020, y = subregion_name)) +
+  geom_col() 
+```
+
+Use `geom_bar()` if you want the heights of your bars to be proportional to the number of cases in each group:
+
+```{r}
+#| eval: true
+#| echo: true
+# `geom_bar()` example ----
+ggplot(ca_region, aes(x = subregion_name)) +
+  geom_bar() +
+  scale_y_continuous(label = scales::label_comma()) +
+  coord_flip() 
+```
+
+## Stacked Bar Plots
+
+- great for part-to-whole comparisons
+- use a percentage stacked bar char twhen you want the focus to be on relative proportions
+- encode values by LENGTH
+
+***Our goal:** create a stacked bar chart that shows how CA subwatersheds (HUC 12s) are distributed across SUI categories*
+
+First we need to do a bit of wrangling:
+
 ```{r}
 #| eval: true
 #| echo: true
 #| message: false
-#| warning: false
-# lollipop chart ----
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  mutate(occupation = fct_reorder(.f = occupation, .x = total_earnings)) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
-  geom_point() +
-  geom_segment(aes(y = 0, yend = total_earnings)) +
-  geom_text(aes(label = scales::dollar(total_earnings)), hjust = -0.2) + 
-  scale_y_continuous(labels = scales::label_currency(accuracy = 1, scale = 0.001, suffix = "k"),
-                     limits = c(0, 250000)) + # expand axis to make room for values
-  coord_flip()
+# find total # of SUI obs per month ----
+tot_sui_per_month <- ca_region |> 
+  group_by(month) |> 
+  count() |> 
+  rename(tot_sui_per_month = n)
+
+# create df classifying SUI values ----
+sui_severity <- ca_region |>
+  mutate(
+    sui_category = case_when(
+      sui_frac < 0.2 ~ "Very low",
+      sui_frac >= 0.2 & sui_frac < 0.4 ~ "Low",
+      sui_frac >= 0.4 & sui_frac < 0.6 ~ "Moderate",
+      sui_frac >= 0.6 & sui_frac < 0.8 ~ "High",
+      sui_frac >= 0.8 & sui_frac <= 1 ~ "Severe",
+      TRUE ~ NA
+    )) |> 
+  group_by(month, sui_category) |> 
+  summarize(tot_sui_per_cat = n()) |> 
+  drop_na(sui_category) |> 
+  left_join(tot_sui_per_month) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = c(month.abb[10:12], month.abb[1:9]))) |> 
+  mutate(perc = (tot_sui_per_cat/tot_sui_per_month) * 100) |> 
+  mutate(sui_category = factor(sui_category, 
+                               levels = c("Very low", "Low",
+                                          "Moderate", "High", "Severe")))
 ```
 
-## An aside: when to use `geom_col()` vs. `geom_bar()`
-
-- use `geom_col()` when you have data that's already summarized
+Then create a stacked bar plot:
 
 ```{r}
 #| eval: true
 #| echo: true
-# geom_col() ----
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  ggplot(aes(x = occupation, y = total_earnings)) +
+
+# create color palette ----
+# pulled hex codes from USGS map using ColorZilla Chrome extension
+sui_colors <- c("Severe" = "#720C0F", 
+                "High" = "#F68939", 
+                "Moderate" = "#FBF7BF", 
+                "Low" = "#AAD9EA", 
+                "Very low" = "#217AB5")
+
+# % stacked bar chart ----
+ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
   geom_col() +
-  coord_flip()
+  scale_fill_manual(values = sui_colors) +
+  scale_y_continuous(labels = scales::label_percent(scale = 1))  
 ```
 
-- use `geom_bar()` when you need ggplot to count up the number of rows for you
+## Heatmaps
+
+- great for visulizing matrices of data (e.g. 2 categorical + 1 numeric)
+- focus is on patterns rather than precise amounts
+- consider audience familiarity (may require more explanation than a basic bar plot)
+- encodes values using COLOR
+
+***Our goal:** create a heatmap that shows how water stress (represented by SUI) changes through time for each of the ten HUC 18 subregions*
+
+First, we need to do a bit of wrangling:
 
 ```{r}
 #| eval: true
 #| echo: true
-# geom_bar() ----
-ggplot(jobs_clean, aes(x = major_category)) +
-  geom_bar() + 
-  coord_flip()
-```
+# df of annual mean SUI by subregion & year ----
+heatmap_data <- ca_region |> 
+  group_by(subregion_name, year) |> 
+  summarize(annual_mean_sui = mean(sui_frac, na.rm = TRUE)) |> 
+  ungroup()
 
-## Bar & lollipop charts for visualizing 2+ groups
-
-- explore male and female salaries for the top ten occupations with the highest median earnings in 2016 (full-time workers > 16 years old)
-- for both examples, we'll: 
-    - transform data from long to wide format
-    - color by sex
-    - dodge by sex
-
-### Bar chart (2 groups)
-
-```{r}
-#| eval: true
-#| echo: true
-# bar chart ----
-jobs_clean |> 
-  filter(year == 2016) |> 
-  slice_max(order_by = total_earnings, n = 10) |> 
-  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |> 
-  mutate(sex = str_remove(group, pattern = "total_earnings_")) |> 
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, fill = sex)) +
-  geom_col(position = position_dodge()) +
-  coord_flip()
-```
-
-### Lollipop chart (2 groups)
-
-```{r}
-#| eval: true
-#| echo: true
-# lollipop chart ----
-jobs_clean |>
-  filter(year == 2016) |>
-  slice_max(order_by = total_earnings, n = 10) |>
-  pivot_longer(cols = c(total_earnings_female, total_earnings_male), names_to = "group", values_to = "earnings_by_group") |>
-  mutate(sex = str_remove(group, pattern = "total_earnings_")) |>
-  ggplot(aes(x = fct_reorder(occupation, earnings_by_group), y = earnings_by_group, color = sex)) +
-  geom_point(position = position_dodge(width = 0.5)) +
-  geom_linerange(aes(xmin = occupation, xmax = occupation, 
-                     ymin = 0, ymax = earnings_by_group),
-                 position = position_dodge(width = 0.5)) +
-  coord_flip()
-```
-
-## Heatmap
-
-- explore the change in total earnings through time for any “analyst” positions
-- for this example, we'll: 
-  - filter for only "analyst" occupations
-  - order occupations by the highest salary in 2016
-  
-### First, some data wrangling
-
-```{r}
-#| eval: true
-#| echo: true
-# filter for occupations that have the word "analyst" in title ----
-analysts <- jobs_clean |> 
-  filter(str_detect(string = occupation, pattern = "analyst")) |> 
-  select(year, occupation, total_earnings)
-
-# determine order of occupations based on highest total_earnings in 2016 ----
-order_2016 <- analysts |> 
-  filter(year == 2016) |> 
-  arrange(total_earnings) |> 
+# determine order of subregions based on highest avg SUI in 2015 ----
+order_2015 <- heatmap_data |> 
+  filter(year == 2015) |> 
+  arrange(annual_mean_sui) |> 
   mutate(order = row_number()) |> 
-  select(occupation, order) 
+  select(annual_mean_sui, order) 
 
 # join order with rest of data to set factor levels ----
-heatmap_order <- analysts |> 
-  left_join(order_2016, by = "occupation") |> 
-  mutate(occupation = fct_reorder(occupation, order))
+heatmap_order <- heatmap_data |> 
+  left_join(order_2015) |> 
+  mutate(name = fct_reorder(.f = subregion_name, .x = order))
 ```
 
-### Then build the heatmap
+Then, create heatmap:
+
 ```{r}
 #| eval: true
-#| echo: true
+#| echo: false
 # create heatmap ----
-ggplot(heatmap_order, aes(x = year, y = occupation, fill = total_earnings)) +
+ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
-  labs(fill = "Total earnings") +
-  coord_fixed() + 
-  scale_fill_viridis_c(labels = scales::label_currency(scale = 0.001, suffix = "K")) +
-  scale_y_discrete(labels = scales::label_wrap(30)) +
+  labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + 
+  scale_fill_viridis_c() +
+  scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
   theme_minimal() +
   theme(
     legend.position = "top",
-    axis.title = element_blank()
+    axis.title = element_blank(),
+    panel.grid = element_blank()
   )
 ```
 
-## Dumbbell plot
+::: {.callout-note}
+## Question:
+How else might you consider ordering these groups?
+:::
 
-### (More) data wrangling
+## Dumbbell Plots
 
-- explore the difference in median salaries between male and female workers, by occupation
-- there are too many occupations to reasonably plot at once, so let's take just 10 random occupations from each group (female-dominated, male-dominated, and evenly(ish) split); we'll also only use 2016 data
+- highlight magnitude and direction of change (or difference) between two values within a category
+- shows exact values, but focus is on the difference between values
+- encode values using POSITION
 
-```{r}
-#| eval: true
-#| echo: true
-#....guarantee the same random samples each time we run code.....
-set.seed(0)
+***Our goal:** create a dumbbell chart to compare mean monthly water availability and consumption in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020.*
 
-#.........get 10 random jobs that are 75%+ female (2016).........
-f75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
-  slice_sample(n = 10)
-
-#..........get 10 random jobs that are 75%+ male (2016)..........
-m75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
-  slice_sample(n = 10)
-
-#........get 10 random jobs that are 45-55%+ female (2016).......
-f50 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
-  slice_sample(n = 10)
-
-#.......combine dfs & relevel factors (for plotting order).......
-subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(group_label, 
-                                   "Occupations that are 75%+ female", 
-                                   "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male"),
-         occupation = fct_reorder(.f = occupation, .x = total_earnings)) 
-```
-
-### Build dumbbell plot
+First, we need to do a bit of wrangling:
 
 ```{r}
 #| eval: true
 #| echo: true
-#| out-width: "100%"
-# initialize plot (we'll map our aesthetics locally for each geom, below) ----
-ggplot(subset_jobs) +
-  
-  # create dumbbells ----
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", 
-             size = 2.5) +
-  
-  # facet wrap by group ----
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
-  
-  # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+# df mean water avail vs. consum in HUC 18060013 ----
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> 
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+          month = factor(month, levels = c(month.abb[10:12], month.abb[1:9])))
 ```
 
+Then, create dumbbell plot: 
+
+```{r}
+# create dumbbell plot ----
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 4) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             shape = 17,
+             size = 4) +
+  labs(x = "Water quantity (mm)") +
+  theme(axis.title.y = element_blank())
+```

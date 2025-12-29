@@ -13,7 +13,7 @@ editor_options:
 
 ## Description {#description}
 
-[**In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the [FEMA National Risk Index](https://hazards.fema.gov/nri/){target="_blank"} (NRI) and the [US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS).**]{.teal-text}
+[**In class, we've been discussing strategies and considerations for choosing the right graphic form to represent your data and convey your intended message. Here, you'll apply what we're learning to natural hazards and demographics data, courtesy of the [FEMA Resilience Analysis and Planning Tool (RAPT)](https://hazards.fema.gov/nri/){target="_blank"} and the [US Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"} (ACS).**]{.teal-text}
 
 ### I. Background reading {#partI}
 
@@ -24,44 +24,44 @@ editor_options:
 
 ### About FEMA's National Risk Index (NRI) for Natural Hazards *(repeated from HW #2)*
 
-[FEMA](https://www.fema.gov/about){target="_blank"} (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the **[National Risk Index (NRI)](https://hazards.fema.gov/nri/){target="_blank"}**, "a [dataset](https://hazards.fema.gov/nri/data-resources){target="_blank"} and [online tool](https://hazards.fema.gov/nri/map){target="_blank"} to help illustrate the United States communities most at risk for [18 natural hazards](https://hazards.fema.gov/nri/natural-hazards){target="_blank"}".
-
-**Risk** is defined as the potential for negative impacts resulting from natural hazards. It's calculated using the following equation (and illustrated in [this graphic](https://hazards.fema.gov/nri/Content/Images/StaticPageImages/Risk_Index_Calculation.svg){target="_blank"}; read more about [determining risk](https://hazards.fema.gov/nri/determining-risk){target="_blank"}):
+[FEMA](https://www.fema.gov/about){target="_blank"} (Federal Emergency Management Agency) is a government agency with a mission of helping people before, during, and after disasters. In 2021, FEMA launched the **[National Risk Index (NRI)](https://www.fema.gov/flood-maps/products-tools/national-risk-index){target="_blank"}**, a dataset that "provides information for communities most at risk to [18 different natural hazards](https://www.fema.gov/sites/default/files/documents/fema_national-risk-index_methodology-hazards-overview.pdf){target="_blank"}. It offers a baseline risk measurement for expected annual loss, social vulnerability and community resilience at the Census tract or county level. The data helps to validate, measure and better understand your community’s natural hazard risk." **Risk** is defined as the potential for negative impacts resulting from natural hazards. It's calculated using the following equation:
 
 $$Risk\:Index = Expected\:Annual\:Loss \times \frac{Social\:Vulnerability}{Community\:Resilience}$$
 
-NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community's **risk score** is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience -- for example, if a given county's Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a **risk rating**, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.”
+NRI provides hazard type-specific scores, as well as a composite score, which adds together the risk from all 18 hazard types. A community's **risk score** is represented by its percentile ranking among all other communities at the same level for Risk, Expected Annual Loss, Social Vulnerability and Community Resilience -- for example, if a given county's Risk Index percentile for a hazard type is 84.32 then its Risk Index value is greater than 84.32% of all US counties. Each community is also assigned a **risk rating**, which is a qualitative rating that describes the community in comparison to all other communities at the same level, ranging from “Very Low” to “Very High.” You can learn more in the [National Risk Index Data Technical Documentation](https://www.fema.gov/sites/default/files/documents/fema_national-risk-index_technical-documentation.pdf){target="_blank"}.
 
-You can learn more about the NRI at [hazards.fema.gov/nri](https://hazards.fema.gov/nri/learn-more){target="_blank"}.
+In December 2025, FEMA integrated NRI data into the [Resilience Analysis and Planning Tool (RAPT)](https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/){target="_blank"}:
 
 ```{r}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
 #| fig-align: "center"
-knitr::include_graphics("images/NRI.png")
+knitr::include_graphics("images/RAPT.png")
 ```
 
 ::: {.center-text .gray-text .body-text-s}
-*Screenshot of the [The National Risk Index's interactive mapping and data-based interface](https://hazards.fema.gov/nri/map)*
+*Screenshot of the [Resilience Analysis and Planning Tool (RAPT)](https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/) with the National Risk Index Counties data layer.* 
 :::
 
-#### Accessing NRI Data
+<!-- #### Accessing NRI Data -->
 
-Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles & CSVs) from NRI's [Data Resources page](https://hazards.fema.gov/nri/data-resources){target="_blank"}.
+<!-- Data at the county- and census tract-level are available for download in multiple formats (including Shapefiles & CSVs) from NRI's [Data Resources page](https://hazards.fema.gov/nri/data-resources){target="_blank"}. -->
+
+<br>
 
 ### About the US Census Bureau's American Community Survey (ACS)
 
 The **[American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs/about.html){target="_blank"}** is a nationwide, continuous survey designed to provide communities with reliable and timely social, economic, housing, and demographic data every year. Unlike the **Decennial Census** (which counts every person in the US every 10 years for the purpose of congressional appointment), the ACS collects detailed information from a small subset of the population (~3.5 million households) at 1- and 5-year intervals. Learn more about the [differences between these 1- and 5-year estimates](https://www.census.gov/programs-surveys/acs/guidance/estimates.html){target="_blank"}.
 
-#### Accessing ACS Data
+<!-- #### Accessing ACS Data
 
 The US Census Bureau provides a couple of tools for accessing their data, including: 
 
 1. **[data.census.gov](https://data.census.gov){target="_blank"}:** a browser-based portal for exploring the many available [data tables](https://data.census.gov/table){target="_blank"} (e.g. [Table B02001](https://data.census.gov/table?q=B02001){target="_blank"}: Race)
 2. **[The Census Data API](https://www.census.gov/data/developers/data-sets.html){target="_blank"}:** a data service that enables software developers to access and use Census Bureau data within their applications
 
-*However,* when working in R, the **[`{tidycensus}`](https://walker-data.com/tidycensus/){target="_blank"} package** is arguably the easiest way to query and retrieve Census data -- use the [`get_acs()` function](https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data){target="_blank"} to obtain ACS data for specified geographies (e.g. counties or census tracts), tables (e.g. B02001), variables (e.g. B02001_002, B02001_003), years (e.g. 2023), states (e.g. CA), surveys (e.g. acs1, acs5), etc.
+*However,* when working in R, the **[`{tidycensus}`](https://walker-data.com/tidycensus/){target="_blank"} package** is arguably the easiest way to query and retrieve Census data -- use the [`get_acs()` function](https://walker-data.com/tidycensus/articles/basic-usage.html#working-with-acs-data){target="_blank"} to obtain ACS data for specified geographies (e.g. counties or census tracts), tables (e.g. B02001), variables (e.g. B02001_002, B02001_003), years (e.g. 2023), states (e.g. CA), surveys (e.g. acs1, acs5), etc. -->
 :::
 
 ### II. Update your `eds240-nri-acs-viz` GitHub repo {#partII}
@@ -77,11 +77,11 @@ The US Census Bureau provides a couple of tools for accessing their data, includ
 
 The following three steps describe the code you see in the following chunk. You may copy this code into the top of your `HW3.qmd` file, where you'd normally read in your data (remember to load any necessary packages first, though, and clean up the code comments as necessary).
 
-1. Import ACS data using `tidycensus::get_acs()`: You'll need your API key to use `{tidycensus}` functions (revisit [week 2 pre-class prep instructions](../week2.qmd#download-templates){target="_blank"}, if necessary).
+1. Import ACS data using `tidycensus::get_acs()`: You'll need your API key to use `{tidycensus}` functions (revisit [week 3 pre-class prep instructions](../week3.qmd#request-API-key){target="_blank"}, if necessary).
 
 2. Write your data to `.csv`: It's always a good idea to write your data (i.e. the `race_ethnicity` data frame, from above) to file, in case the Census Bureau's API goes down. If you write your csv file to your `data/` folder, it will automatically be ignored by `.gitignore`.
 
-3. Read in your saved `ACS-race-ethnicity.csv` file. 
+3. Read in your saved `.csv` file. 
 
 ```{r}
 #| eval: false
@@ -106,13 +106,14 @@ race_ethnicity <- tidycensus::get_acs(
   dplyr::left_join(acs_vars, by = dplyr::join_by(variable == name)) 
 
 #.................Step 2: write ACS data to file.................
-readr::write_csv(race_ethnicity, here::here("data", "ACS-race-ethnicity.csv"))
+readr::write_csv(race_ethnicity, here::here("data", "ACS-1yr-2023-county-race-ethnicity.csv"))
 
 #..................Step 3: read in your CSV file.................
-race_ethnicity <- readr::read_csv(here::here("data", "ACS-race-ethnicity.csv"))
+race_ethnicity <- readr::read_csv(here::here("data", "ACS-1yr-2023-county-race-ethnicity.csv"))
 ```
 
-4. At this point, you should comment out code from steps 1 & 2 (lines 1-20, above) so that you're not pinging the API & overwriting your saved copy each time you render `HW3.qmd`. Comment these lines out, rather that delete them altogether, so that anyone checking out your work understands how you initially retrieved the data.
+4. At this point, you should comment out code from steps 1 & 2 (lines 1-20, above) so that you're not pinging the API & overwriting your saved copy each time you render `HW3.qmd`. Comment these lines out, rather that delete them altogether, so that anyone checking out your work understands how you initially retrieved the data. *If you have difficulties downloading the data via the API, you can find a copy on [Google Drive](https://drive.google.com/file/d/1gS-YlVZwm9NPSFrnGcmG6jooPeCyFjp9/view?usp=drive_link){target="_blank"}.*
+
 
 ### IV. Build your visualization {#partIV}
 
@@ -121,7 +122,6 @@ race_ethnicity <- readr::read_csv(here::here("data", "ACS-race-ethnicity.csv"))
 ::: {.callout-tip collapse="true"}
 ## REMINDER: before you start wrangling / building your viz, be sure to...
 
-- **explore the metadata** -- `NRI_Table_Counties/` contains a metadata file named, `NRIDataDictionary.csv`, which describes each of the variables found in the data file (`NRI_Table_Counties.csv`). This is a helpful place to start!
 - **identify / jot down your variables of interest** and consider which data types they are
 - **use online tools like [from Data to Viz](https://www.data-to-viz.com/){target="_blank}** to help determine appropriate graph types, given your variables 
 - **roughly sketch out your plots by hand** (see [why](https://medium.com/@tjanmichela/the-importance-of-sketching-in-data-visualization-78320c62e403){target="_blank"} this step matters!)
@@ -130,10 +130,10 @@ race_ethnicity <- readr::read_csv(here::here("data", "ACS-race-ethnicity.csv"))
 Your final visualization should:
 
 - [ ] include the following racial / ethnic groups: White, Black or African American, American Indian and Alaska Native, Asian, Native Hawaiian and Other Pacific Islander, Some Other Race, Two or More Races, Hispanic or Latino
-- [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula discussed in [week 3 discussion](../discussion/week3/week3-slides.qmd){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
+- [ ] include a title (short, descriptive) & subtitle (describes main takeaway) (see [Fundamentals of Data Visualization, Ch 22](https://clauswilke.com/dataviz/figure-titles-captions.html){target="_blank"} for an example), a caption (describes the data source, e.g. "Data: FEMA National Risk Index (2023 Release)"), and alt text (following the formula you recently practiced in [lab](../lab/LAB-SLIDES-alt-text.qmd#alt-text-formula){target="_blank"}; use the `fig-alt` code chunk option to apply your alt text)
 - [ ] consider and implement strategies for highlighting trends / important information (e.g. arranging data, highlighting data, adjusting scales)
 - [ ] use custom colors (if applicable), rather than ggplot defaults 
-- [ ] have an updated theme / polished theme (revisit [week 4 discussion materials](../week4.qmd#discussion-materials){target="_blank"} for content on fine-tuning ggplot themes)
+- [ ] have an updated theme / polished theme 
 
 ::: {.callout-tip}
 ## Is your plot looking squished in your rendered `.qmd` file? Adjust the aspect ratio!

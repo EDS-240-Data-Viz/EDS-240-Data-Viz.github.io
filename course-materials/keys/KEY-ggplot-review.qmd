@@ -70,6 +70,7 @@ Explore the relationship between penguin **bill length** and **bill depth**. Our
 
 ```{r}
 #| warning: false
+# scatterplott with custom categorical colors ----
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + 
   geom_point() +
   scale_color_manual(values = c("darkorange","purple","cyan4"))
@@ -79,6 +80,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 
 ```{r}
 #| warning: false
+# scatterplot with custom continuous colors ----
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + 
   geom_point() +
   scale_color_gradient(low = "#132B43", high = "#F7DD4C")
@@ -88,6 +90,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)
 
 ```{r}
 #| warning: false
+# plscatterplotot with all blue points ----
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
   geom_point(color = "blue")
 ```

@@ -182,8 +182,8 @@ library(scales)
 #..........................import data...........................
 iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
 
-#............create df of subregion & subbasin names.............
-# data only contain HUC codes; must manually join names if we want to include those in our viz
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
 # subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
 # there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
 subregion_names <- tribble(
@@ -199,19 +199,6 @@ subregion_names <- tribble(
   "1809", "Northern Mojave-Mono Lake",
   "1810", "Southern Mojave-Salton Sea",
 )
-
-ca_region <- iwa_data |> 
-  clean_names() |> 
-  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
-         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
-  filter(region_HUC == "18") |> 
-  separate_wider_delim(cols = year_month,
-                       delim = "-",
-                       names = c("year", "month")) |>                          
-  mutate(year = as.numeric(year),
-         month = as.numeric(month)) |> 
-  left_join(subregion_names) |> 
-  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
@@ -279,8 +266,8 @@ library(scales)
 #..........................import data...........................
 iwa_data <- read_csv(here::here("week3", "data", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
 
-#............create df of subregion & subbasin names.............
-# data only contain HUC codes; must manually join names if we want to include those in our viz
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
 # subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
 # there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
 subregion_names <- tribble(
@@ -303,16 +290,30 @@ subregion_names <- tribble(
 
 #......create df with just CA water resource region (HUC 18).....
 ca_region <- iwa_data |> 
+
+  # make nicer column names ----
   clean_names() |> 
+
+  # create columns for 2-unit (region-level) & 4-unit (subregion-level) HUC using full 12-unit HUC ----
   mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
          subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  
+  # filter for just CA region (HUC 18) ----
   filter(region_HUC == "18") |> 
+
+  # separate year and month into two columns ----
   separate_wider_delim(cols = year_month,
                        delim = "-",
-                       names = c("year", "month")) |>                          
+                       names = c("year", "month")) |> 
+
+  # convert year and month from chr to num ---                            
   mutate(year = as.numeric(year),
          month = as.numeric(month)) |> 
+  
+  # join subregion names ----
   left_join(subregion_names) |> 
+  
+  # keep necessary columns & reorder in more logical way -----
   select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 ```
 
@@ -384,7 +385,7 @@ You might also consider using `ggalt::geom_lollipop()` for a simple lollipop cha
 
 <hr>
 
-[We never want to leave overlapping or super squished text (espeically axis text) on our plots. Let's give those long x-axis labels some breathing room using by reversing your axes mappings! Alternatively, you can leave your mappings as-is and apply `coord_flip()`.]{.body-text-s}
+[We never want to leave overlapping or super squished text (especially axis text) on our plots. Let's give those long x-axis labels some breathing room using by reversing your axes mappings! Alternatively, you can leave your mappings as-is and apply `coord_flip()`.]{.body-text-s}
 
 :::: {.columns}
 
@@ -538,7 +539,7 @@ For some more advanced label manipulation, see [A Quick How-to on Labelling Bar 
 :::: {.columns} 
 
 ::: {.column width="50%"}
-[**Use `geom_col()` when your data is already summarized** (i.e. you have a variable in your data set that maps to the length (or height) of your bars). Here, we already have a numeric variable in our data set called, `mean_sui_2010_2020`. Those values are mapped to the length of each bar in our plot.]{.body-text-s}
+[**Use `geom_col()` when you want the heights of your bars to represent values in your data** (i.e. you have a variable in your data set that maps to the length (or height) of your bars). Here, we already have a numeric variable in our data set called, `mean_sui_2010_2020`, which is mapped to the length of each bar in our plot:]{.body-text-s}
 
 ```{r geom_col-comp}
 #| eval: true
@@ -554,7 +555,7 @@ ca_region |>
 :::
 
 ::: {.column width="50%"}
-[**Use `geom_bar()` if you want to ggplot to count up numbers of rows** and map those counts to the lengths of bars in your plot. E.g. if we want to know how many observations exist for subregion (note that we don't have a `count` column in our data frame -- `geom_bar()` groups / counts for us):]{.body-text-s}
+[**Use `geom_bar()` if you want the heights of your bars to be proportional to the number of cases in each group.**  E.g. if we want to know how many observations exist for each subregion (note that we don't have a `count` column in our data frame -- `geom_bar()` groups by `subregion_name` then counts the number of observations for each `subregion_name` group):]{.body-text-s}
 
 ```{r geom-bar-comp}
 #| eval: true
@@ -563,7 +564,7 @@ ca_region |>
 #| fig-align: "center"
 ggplot(ca_region, aes(x = subregion_name)) +
   geom_bar() +
-  scale_y_continuous(label = scales::label_comma()) + # try adding these args: scale = 0.001, suffix = "k"
+  scale_y_continuous(label = scales::label_comma()) + 
   coord_flip() 
 ```
 :::
@@ -571,7 +572,7 @@ ggplot(ca_region, aes(x = subregion_name)) +
 ::::
 
 ::: {.footer}
-Each of our subregions have a different number of subwatersheds (represented by HUC12 IDs), which is why we have a different number of rows (observations) for each | The [`{scales}` package](https://scales.r-lib.org/){target="_blank"} is a true label-editing hero! Keep this one in mind whenever you need to reformat axis labels.
+Each of our subregions have a different number of subwatersheds (represented by HUC12 IDs), which is why we have a different number of rows (observations) for each
 :::
 
 ---
@@ -718,6 +719,15 @@ If you are using a bar plot to visualize the distribution/summarize of your data
 
 Bar plots are very commonly used in both ways (comparing counts and visualizing distributions) — for example, see [this online resource](https://www.labxchange.org/library/items/lb:LabXchange:e034541a:html:1) that reviews how to interpret both forms of a bar plot. However, you should proceed with extreme caution when using bar plots to summarize your data for the reasons outlined above. If you do choose to use a bar plot, consider layering on the raw data points as well (this isn’t always feasible with larger data sets). 
 :::
+
+---
+
+##  {#stacked-bar data-menu-title="## Stacked Bar ##" background="#047C90"}
+
+<div class="vertical-center">
+<center><div class = "custom-subtitle">Stacked bar charts</div></center>
+<center><div class="custom-subtitle3">*great for part-to-whole comparisons | use a percentage stacked bar chart when you want the focus to be on relative proportions | encode values using LENGTH*</div></center>
+</div>
 
 ---
 
@@ -898,7 +908,7 @@ ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
 ```
 
 ::: {.footer}
-Inspiration for this viz came directly from the [U.S. Geological Survey Integrated Water Availability Assessment—2010–20 (Ch. F)](https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf){target="_blank"} (see page 9)
+Inspiration for this viz came directly from the [U.S. Geological Survey Integrated Water Availability Assessment—2010–20 (Ch. F)](https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf){target="_blank"} (see page 9) | The [`{scales}` package](https://scales.r-lib.org/){target="_blank"} is a true label-editing hero! Keep this one in mind whenever you need to reformat axis labels.
 :::
 
 ---
@@ -946,7 +956,7 @@ heatmap_order <- heatmap_data |>
 #.........................create heatmap.........................
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
-  labs(fill = "Annual Mean Surface Water-Supply and Use Index (SUI)") + # caption = "A higher index value indicates greater water stress."
+  labs(fill = "Annual Mean Surface Water-Supply and Use Index (SUI)") + 
   scale_fill_viridis_c() +
   scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
   guides(fill = guide_colorbar(barwidth = 20, barheight = 0.75, title.position = "top")) +

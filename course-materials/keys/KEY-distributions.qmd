@@ -11,7 +11,7 @@ This key follows the [visualizing distributions slides](../lecture-slides/SLIDES
 
 ## Setup
 
-- download data & explore metadata on the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007) 
+<!-- - download data & explore metadata on the [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-sbc&identifier=2007)  -->
 
 ```{r setup-echo}
 #| eval: false
@@ -196,7 +196,7 @@ ggplot(dummy_data, aes(x = value, fill = group)) +
 
 ### Avoid plotting too many groups
 
-```{r}
+```{r too-many-groups}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -218,7 +218,7 @@ mko_clean |>
 
 ### Consider faceting (small multiples)
 
-```{r too-many-groups}
+```{r faceting}
 #| eval: true
 #| echo: true
 #| warning: false
