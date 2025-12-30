@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Wednesday January 21st, 2026">
 
-<title>Fundamental chart types (evolution &amp; amounts / rankings) – EDS 240</title>
+<title>dumbbell-original – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,62 +20,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/EDS240-hex.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -118,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">EDS 240</span>
     </a>
   </div>
@@ -129,7 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../../../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
@@ -142,53 +107,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
         <li>
-    <a class="dropdown-item" href="../course-materials/week1.html">
+    <a class="dropdown-item" href="../../../../course-materials/week1.html">
  <span class="dropdown-text">week 1 (1/7) - <strong>syllabus, intro, {ggplot2} review</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week2.html">
+    <a class="dropdown-item" href="../../../../course-materials/week2.html">
  <span class="dropdown-text">week 2 (1/14) - <strong>graphic forms, distributions</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week3.html">
+    <a class="dropdown-item" href="../../../../course-materials/week3.html">
  <span class="dropdown-text">week 3 (1/21) - <strong>evolution &amp; amounts / rankings</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week4.html">
+    <a class="dropdown-item" href="../../../../course-materials/week4.html">
  <span class="dropdown-text">week 4 (1/28) - <strong>relationships, good viz</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week5.html">
+    <a class="dropdown-item" href="../../../../course-materials/week5.html">
  <span class="dropdown-text">week 5 (2/4) - <strong>colors</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week6.html">
+    <a class="dropdown-item" href="../../../../course-materials/week6.html">
  <span class="dropdown-text">week 6 (2/11) - <strong>infographic design with Affinity</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week7.html">
+    <a class="dropdown-item" href="../../../../course-materials/week7.html">
  <span class="dropdown-text">week 7 (2/18) - <strong>typography &amp; annotations</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week8.html">
+    <a class="dropdown-item" href="../../../../course-materials/week8.html">
  <span class="dropdown-text">week 8 (2/25) - <strong>data storytelling, people as data</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week9.html">
+    <a class="dropdown-item" href="../../../../course-materials/week9.html">
  <span class="dropdown-text">week 9 (3/4) - <strong>alternative chart types</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week10.html">
+    <a class="dropdown-item" href="../../../../course-materials/week10.html">
  <span class="dropdown-text">week 10 (3/11) - <strong>TBD, wrap-up</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week11.html">
+    <a class="dropdown-item" href="../../../../course-materials/week11.html">
  <span class="dropdown-text">week 11 (3/19) - <strong>finals week presentations</strong></span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../assignments.html"> 
+    <a class="nav-link" href="../../../../assignments.html"> 
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
@@ -201,15 +166,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="../resources.html">
+    <a class="dropdown-item" href="../../../../resources.html">
  <span class="dropdown-text">recommended reading &amp; materials</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../clean-code-guide.html">
+    <a class="dropdown-item" href="../../../../clean-code-guide.html">
  <span class="dropdown-text">guide for writing clean code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../getting-unstuck.html">
+    <a class="dropdown-item" href="../../../../getting-unstuck.html">
  <span class="dropdown-text">getting unstuck</span></a>
   </li>  
         <li>
@@ -243,56 +208,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Fundamental chart types (evolution &amp; amounts / rankings)</h1>
-            <p class="subtitle lead">Week 3</p>
-                  <div>
-        <div class="description">
-          Wednesday January 21<sup>st</sup>, 2026
-        </div>
-      </div>
-                </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
-  <ul class="collapse">
-  <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
-  <li><a href="#download-data" id="toc-download-data" class="nav-link" data-scroll-target="#download-data">B. Download data</a></li>
-  <li><a href="#request-API-key" id="toc-request-API-key" class="nav-link" data-scroll-target="#request-API-key">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</a></li>
-  <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">D. Download <code>.qmd</code> templates &amp; review initial data wrangling code</a></li>
-  </ul></li>
-  <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
-  <ul class="collapse">
-  <li><a href="#a.-prepare-a-week3-lab.qmd-file" id="toc-a.-prepare-a-week3-lab.qmd-file" class="nav-link" data-scroll-target="#a.-prepare-a-week3-lab.qmd-file">A. Prepare a <code>week3-lab.qmd</code> file</a></li>
-  </ul></li>
-  <li><a href="#lab-materials" id="toc-lab-materials" class="nav-link" data-scroll-target="#lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</a></li>
-  <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
-
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
@@ -301,229 +224,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/usdm.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="A stacked area chart of drought area in California from 2000 to 2025, showing percentage of land area in the state by the U.S. Drought Monitor categories, ranging from D0: Abnormaly Dry to D4: Exceptional."></p>
+<p><img src="6.1-dumbbell-original_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="gray-text center-text">
-<p><em><a href="https://droughtmonitor.unl.edu/CurrentMap.aspx" target="_blank">U.S. Drought Monitor</a>’s California assessment. Source: <a href="https://en.wikipedia.org/wiki/Droughts_in_California" target="_blank">Wikipedia</a></em>. We’ll talk about stacked area charts in this week’s lecture and you’ll recreate this viz during lab session.</p>
-</div>
-<section id="pre-class-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<section id="install-pkgs" class="level3">
-<h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="download-data" class="level3">
-<h3 class="anchored" data-anchor-id="download-data">B. Download data</h3>
-<p>Save data to your class repo at <code>EDS-240-class-examples/week3/data/</code>:</p>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 20%">
-<col style="width: 35%">
-<col style="width: 35%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Lecture</th>
-<th>Dataset title</th>
-<th>Download link</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>3.1</td>
-<td>Lyme Disease Cases by State or Locality</td>
-<td><a href="https://www.cdc.gov/lyme/media/files/2025/02/2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv">download link</a> <em>(<a href="https://drive.google.com/file/d/1Cyxx8_T-3Ih1BxrGJcD7ZxRREVUGkP6D/view?usp=sharing" target="_blank">Google Drive backup link</a>, in case CDC portal is unavailable)</em></td>
-<td>Data made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html#:~:text=jurisdictions%20are%20incomplete.-,Dashboard%20data%20files,-Note%3A%20some" target="_blank">Dashboard data files</a>)</td>
-</tr>
-<tr class="even">
-<td>3.1</td>
-<td>US Census Bureau Population Estimates Program</td>
-<td><strong>we’ll use the <code>{tidycensus}</code> package to interface with the US Census Bureau’s API and download the data programmatically (see step C, below, for setup instructions),</strong> <em>however, in the event that the API is down, you can access a backup copy of the 2019 vintage on <a href="https://drive.google.com/file/d/1eBmts5q1PaOz8yaGbyfZonzAfG_l5TA7/view?usp=sharing" target="_blank">Google Drive</a></em></td>
-<td>Read more about The Census Bureau’s <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank">Population Estimates Program (PEP)</a></td>
-</tr>
-<tr class="odd">
-<td>3.2</td>
-<td>USGS National Water Availability Assessment Outputs (CONUS 2025)</td>
-<td>download the combined IWA .csv file from the <a href="combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv" target="_blank">National Water Availability Assessment Data Companion (NWDC)</a> <em>(<a href="https://drive.google.com/file/d/1dtgqfB_62M0o0l8iHUs1enUUMyuZtUQ7/view?usp=drive_link" target="_blank">Google Drive backup link</a>, in case the NWDC is unavailable)</em></td>
-<td>These data are modeled estimates of monthly water supply and use (not empirical measurements from sensors / gauges); <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025" target="_blank">Read more about the model &amp; data</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="request-API-key" class="level3">
-<h3 class="anchored" data-anchor-id="request-API-key">C. Request a US Census Bureau API key &amp; add it to your <code>.Renviron</code> file</h3>
-<ol type="1">
-<li><p>To use the <a href="https://walker-data.com/tidycensus/" target="&quot;_blank"><code>{tidycensus}</code> package</a> to access US Census Bureau data, you’ll first need to <strong>request and activate an API key</strong>. Do so by following these steps:</p>
-<ol type="a">
-<li>Request an API key at <a href="http://api.census.gov/data/key_signup.html" target="&quot;_blank">http://api.census.gov/data/key_signup.html</a></li>
-<li>After a short period of time, you should receive an email with your key (it may be helpful to star / bookmark that email), and click the included link to activate your key (<strong>Note:</strong> if you get an error when activating your key, close your browser window and try clicking the activation link again).</li>
-</ol></li>
-<li><p><strong>Add your API key to your <code>.Renviron</code> file</strong>. For security purposes, you should <em>NEVER</em> push any API keys to GitHub. Rather than typing our API key into any of our scripts, we can instead save it to and read it from our <code>.Renviron</code> file. Follow these steps:</p>
-<ol type="a">
-<li>Run <code>usethis::edit_r_environ()</code> in your Console, which will open up your <code>.Renviron</code> file (it will create it if you don’t already have one).</li>
-<li>Store envrionment variables as key / value pairs. Add your API key as shown, below, then save and <strong>restart R</strong> for your changes to take effect.</li>
-</ol></li>
-</ol>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.Renviron</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be sure to name it exactly as written here (all caps) </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CENSUS_API_KEY<span class="ot">=</span><span class="st">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ul>
-<li><strong>Note:</strong> You may also consider storing your API key in a password manager for safe keeping (e.g.&nbsp;in case your computer decides to call a quits, is lost, etc.)</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-What exactly is <code>.Renviron</code>?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><a href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory" target="_blank">Dotfiles</a> (files which are preceded by a dot, <code>.</code>) are hidden files, which are broadly used to customize the behavior of programs. You may already be familiar with some dotfiles, such as <code>.gitconfig</code> and <code>.gitignore</code>.</p>
-<p><strong>The <code>.Renviron</code> file is an R-specific dotfile, which is commonly used for (though not limited to) storing sensitive information, such as API keys.</strong> It lives in your computer’s home directory (e.g.&nbsp;<code>/Users/yourUserName</code> on macOS, or <code>C:/Users/yourUserName/Documents</code> on Windows), and is automatically sourced when an R session starts. When sourced, all stored variables (such as your API key) are made available to your R environment for you to use. Variables should be stored as key / value pairs (e.g.&nbsp;<code>KEY_NAME="VALUE"</code>. Access them using <code>Sys.getenv("KEY_NAME")</code>.</p>
-<p>Oftentimes, packages that are built to interface with APIs will include their own helper functions for adding API keys to your <code>.Renviron</code> file (e.g.&nbsp;see <a href="https://walker-data.com/tidycensus/reference/census_api_key.html" target="_blank"><code>tidycensus::census_api_key()</code></a>). You may choose to use these helper functions in place of <code>usethis::edit_r_environ()</code>, if you prefer.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="download-templates" class="level3">
-<h3 class="anchored" data-anchor-id="download-templates">D. Download <code>.qmd</code> templates &amp; review initial data wrangling code</h3>
-<ol type="1">
-<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week3/</code> folder.</p></li>
-<li><p>Review the data wrangling code under the <code>## Setup</code> section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
-</ol>
-</section>
-</section>
-<section id="lecture-materials" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/lecture-slides/SLIDES-evolution.html" target="_blank">Lecture 3.1: visualizing evolution</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-evolution.qmd" target="_blank">3.1 template</a></td>
-<td><a href="../course-materials/keys/KEY-evolution.html" target="_blank">3.1 key</a></td>
-</tr>
-<tr class="even">
-<td><a href="../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">Lecture 3.2: visualizing amounts / rankings</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-amounts-rankings.qmd" target="_blank">3.2 template</a></td>
-<td><a href="../course-materials/keys/KEY-amounts-rankings.html" target="_blank">3.2 key</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="pre-lab-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TODO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>recreating USDM plot exercise is currently split into two parts (weeks 2 &amp; 4) – combine into one lab for this week</li>
-</ul>
-</div>
-</div>
-<section id="a.-prepare-a-week3-lab.qmd-file" class="level3">
-<h3 class="anchored" data-anchor-id="a.-prepare-a-week3-lab.qmd-file">A. Prepare a <code>week3-lab.qmd</code> file</h3>
-<p>Add a new blank file to your class repo at the following location: <code>EDS-240-class-examples/week3/week3-lab.qmd.</code> Fill out the necessary YAML information (title, author, date + any other information you find helpful).</p>
-</section>
-</section>
-<section id="lab-materials" class="level2">
-<h2 class="anchored" data-anchor-id="lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 35%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lab Slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/lab/LAB-SLIDES-alt-text.html" target="_blank">Lab 3 slides: Alt Text</a></td>
-<td><a href="../course-materials/lab/LAB-EXERCISE-alt-text.html" target="_blank">Lab 3 exercise: writing alt text</a></td>
-<td><a href="../course-materials/lab/LAB-SOLUTION-alt-text.html" target="_blank">Lab 3 solution</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="assignment-reminders" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 30%">
-<col style="width: 20%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Assignment Type</th>
-<th>Assignment Title</th>
-<th>Date Assigned</th>
-<th>Date Due</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>FPM</td>
-<td><a href="../course-materials/assignments/FPM1.html">Final Project Milestone #1</a></td>
-<td>Wed 01/07/2026</td>
-<td>Wed 01/21/2026, 11:59pm PT</td>
-</tr>
-<tr class="even">
-<td>HW</td>
-<td><a href="../course-materials/assignments/HW2.html">Homework #2</a></td>
-<td>Wed 01/21/2026</td>
-<td>Wed 01/28/2026, 11:59pm PT</td>
-</tr>
-</tbody>
-</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

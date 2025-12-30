@@ -92,7 +92,7 @@ We'll also learn about a couple alternatives, which may be better suited for you
 
 <hr>
 
-[In January 2025, The [U.S. Geological Survey](https://www.usgs.gov/){target="_blank"} (USGS) released its new [National Water Availability Assessment](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/science/integrated-water-availability-0){target="_blank"} (NWAA), which offers insights into water supply, demand, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online [National Water Availability Assessment Data Companion](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessment-0){target="_blank"} (NWDC). Here, users can interactively [subset and download data](https://water.usgs.gov/nwaa-data/subset-download){target="_blank"} or download files containing the [full spatial (conterminous US) and temporal (2010-2020) extent](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/){target="_blank"} of the NWDC datasets.]{.body-text-s}
+[In January 2025, The [U.S. Geological Survey](https://www.usgs.gov/){target="_blank"} (USGS) released its new [National Water Availability Assessment](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/science/integrated-water-availability-0){target="_blank"} (NWAA), which offers insights into water [supply](https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html){target="_blank"}, [demand](https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/consum/consum_iwa-assessment-outputs-conus-2025_README.html){target="_blank"}, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online [National Water Availability Assessment Data Companion](https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessment-0){target="_blank"} (NWDC). Here, users can interactively [subset and download data](https://water.usgs.gov/nwaa-data/subset-download){target="_blank"} or download files containing the [full spatial (conterminous US) and temporal (2010-2020) extent](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/){target="_blank"} of the NWDC datasets.]{.body-text-s}
 
 ```{r nwaa-map}
 #| eval: true
@@ -118,7 +118,7 @@ The NWDC provides regularly updated, model-based estimates of water availability
 
 <hr>
 
-For today's lecture, we'll download the [full, integrated dataset](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/){target="_blank"} and filter for just the [California water resource region](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.){target="_bank"}, which is represented by the 2-digit hydrologic unit code (HUC), 18. We'll start by comparing water availability and use across HUC 18's [ten subregions](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D){target="_blank"}.
+For today's lecture, we'll download the [full, integrated dataset](https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/){target="_blank"} and filter for just the [California water resource region](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon.){target="_bank"}, which is represented by the 2-digit hydrologic unit code (HUC), 18. We'll explore water availability and use across HUC 18's [ten subregions](https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D){target="_blank"}.
 
 <br>
 
@@ -162,7 +162,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-[This integrated dataset includes modeled monthly estimates of available water supply, water consumption, and the Surface Water-Supply and Use Index (SUI) for hydrologic units across the conterminous US from 2010-2020.]{.body-text-s}
+[This integrated dataset includes modeled monthly estimates of [available water supply](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab){target="_blank"}, [water consumption](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum){target="_blank"}, and the [Surface Water-Supply and Use Index (SUI)](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/sui){target=_blank} for hydrologic units across the conterminous US from 2010-2020.]{.body-text-s}
 
 <!-- RUNS BUT DOES NOT PRINT -->
 
@@ -316,6 +316,11 @@ ca_region <- iwa_data |>
   # keep necessary columns & reorder in more logical way -----
   select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 ```
+
+::: {footer}
+"In equation-form: Total water availability = net water delivered to next downstream HUC12 (baseflow + quickflow + upstream inputs) - total consumptive loss. In some cases, total water availability can be negative, implying that consumptive losses are greater than natural supply. This situation can occur when human water consumption is sustained through deep groundwater sources, transbasin diversion, or drawdown of local storage."
+https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html#:~:text=Technical%20Description:,or%20drawdown%20of%20local%20storage.
+:::
 
 ---
 
@@ -737,7 +742,7 @@ Bar plots are very commonly used in both ways (comparing counts and visualizing 
 
 <hr>
 
-[The USGS classifies SUI into five categories: *Very low (0.0 to <0.2), Low (0.2 to <0.4), Moderate (0.4 to <0.6), High (0.6 to <0.8), and Severe (0.8 to 1)*. **Let's say we want to look at how California subwatersheds (HUC12s) are distributed across these categories by month from 2010–2020.** We can use a stacked bar plot, each bar represents a month and segments represent the number of subwatersheds in each SUI category. Let's first do a bit of wrangling:]{.body-text-s}
+[The USGS classifies **[SUI](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/sui){target="_blank"}** into five categories: *Very low (0.0 to <0.2), Low (0.2 to <0.4), Moderate (0.4 to <0.6), High (0.6 to <0.8), and Severe (0.8 to 1)*. **Let's say we want to look at how California subwatersheds (HUC12s) are distributed across these categories by month from 2010–2020.** We can use a stacked bar plot, each bar represents a month and segments represent the number of subwatersheds in each SUI category. Let's first do a bit of wrangling:]{.body-text-s}
 
 :::: {.columns}
 
@@ -814,9 +819,25 @@ ggplot(sui_severity, aes(x = month, y = tot_num_sui, fill = sui_category)) +
   geom_col()
 ```
 
+```{r improvements-countdown}
+countdown::countdown(
+  minutes = 1,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
 . . .
 
-[To make interpretation easier, we should **reorder** our `sui-categories` so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to **percentages**, and update our **colors** (we'll talk a lot more about colors in a future lecture, but we can adopt those used by USGS -- see [this slide](SLIDES-amounts-rankings.qmd#water-use-data){target="_blank"})]{.body-text-s}
+[To make interpretation easier, we should **reorder** our `sui-categories` so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to **percentages**, and update our **colors** (we can adopt those used by USGS -- see [this slide](SLIDES-amounts-rankings.qmd#water-use-data){target="_blank"})]{.body-text-s}
 
 ---
 
@@ -928,68 +949,23 @@ Inspiration for this viz came directly from the [U.S. Geological Survey Integrat
 
 <hr>
 
-[Now let's look at **how water stress changes through time for each of the ten HUC 18 subregions**. We can use a heatmap to create a matrix that displays annual mean SUI values (numeric, continuous), calculated by averaging monthly observations within each year, by subregion (categorical) and year (categorical):]{.body-text-s}
+[Now let's look at **how water stress changes through time for each of the ten HUC 18 subregions**. We can use a heatmap to create a matrix that displays annual mean SUI values (numeric, continuous), calculated by averaging monthly observations within each year, by subregion (categorical) and year (categorical). We need to do a bit of wrangling:]{.body-text-s}
 
+:::: {.columns}
+::: {.column width="50%"}
 ```{r heatmap-example}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-#...........df of annual mean SUI by subregion & year ...........
-heatmap_data <- ca_region |> 
-  group_by(subregion_name, year) |> 
-  summarize(annual_mean_sui = mean(sui_frac, na.rm = TRUE)) |> 
-  ungroup()
-
-#.determine order of subregions based on highest avg SUI in 2015.
-order_2015 <- heatmap_data |> 
-  filter(year == 2015) |> 
-  arrange(annual_mean_sui) |> 
-  mutate(order = row_number()) |> 
-  select(annual_mean_sui, order) 
-
-#........join order with rest of data to set factor levels.......
-heatmap_order <- heatmap_data |> 
-  left_join(order_2015) |> 
-  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = order))
-
-#.........................create heatmap.........................
-ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
-  geom_tile() +
-  labs(fill = "Annual Mean Surface Water-Supply and Use Index (SUI)") + 
-  scale_fill_viridis_c() +
-  scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
-  guides(fill = guide_colorbar(barwidth = 20, barheight = 0.75, title.position = "top")) +
-  theme_minimal() +
-  theme(
-    legend.position = "top",
-    axis.title = element_blank(),
-    panel.grid = element_blank()
-  )
-```
-
-::: {.footer}
-We can make heatmaps using `geom_tile()`.
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "heatmap-example.png"))
+``` 
 :::
+::: {.column width="50%"}
 
----
-
-## {#heatmap-code data-menu-title="Heatmap (code)"} 
-
-[Heatmap for 2 categorical + 1 numeric variable]{.slide-title2}
-
-<hr>
-
-[How you order your groups can (1) make it easier for readers to extract patterns and comparisons, and (2) shape the story the visualization tells. Here, subregions are ordered based on their average annual SUI in 2015, the end of a particularly dry stretch of years. ***How else might you consider ordering these groups?***]{.body-text-s}
-
-```{r heatmap-code}
-#| eval: false
+```{r heatmap-wrangling}
+#| eval: true
 #| echo: true
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                wrangle data                              ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 #...........df of annual mean SUI by subregion & year ...........
 heatmap_data <- ca_region |> 
   group_by(subregion_name, year) |> 
@@ -997,6 +973,7 @@ heatmap_data <- ca_region |>
   ungroup()
 
 #.determine order of subregions based on highest avg SUI in 2015.
+# it's likely that you'll first try making a plot with `heatmap_data`, then return to wrangle the order once you decide how best to arrange your groups
 order_2015 <- heatmap_data |> 
   filter(year == 2015) |> 
   arrange(annual_mean_sui) |> 
@@ -1007,11 +984,52 @@ order_2015 <- heatmap_data |>
 heatmap_order <- heatmap_data |> 
   left_join(order_2015) |> 
   mutate(name = fct_reorder(.f = subregion_name, .x = order))
+```
+:::
+::::
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                               create heatmap                             ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::: {.footer}
+Image source: [Data Viz Project](https://datavizproject.com/data-type/heat-map/){target=_"blank"}. We can make heatmaps using `geom_tile()`.
+:::
 
+---
+
+## {#heatmap-plot data-menu-title="Heatmap (plot)"} 
+
+[Heatmap for 2 categorical + 1 numeric variable]{.slide-title2}
+
+<hr>
+
+[How you order your groups can (1) make it easier for readers to extract patterns and comparisons, and (2) shape the story the visualization tells. Here, subregions are ordered based on their average annual SUI in 2015, the end of a particularly dry stretch of years. ***How else might you consider ordering these groups?***]{.body-text-s}
+
+<br>
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r heatmap-plot}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
+  geom_tile() +
+  labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + # caption = "A higher index value indicates greater water stress."
+  scale_fill_viridis_c() +
+  scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
+  guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    axis.title = element_blank(),
+    panel.grid = element_blank()
+  )
+``` 
+:::
+::: {.column width="40%"}
+
+```{r heatmap-plot-code}
+#| eval: false
+#| echo: true
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
   labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + # caption = "A higher index value indicates greater water stress."
@@ -1025,6 +1043,8 @@ ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui))
     panel.grid = element_blank()
   )
 ```
+:::
+::::
 
 ---
 
@@ -1037,103 +1057,130 @@ ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui))
 
 ---
 
+## {#dumbbell-example data-menu-title="Dumbbell example"} 
+
+[Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
+
+<hr>
+
+Let’s say we want to **compare mean monthly water [availability](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab){target="_blank"} and [consumption](https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum){target="_blank"} in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020**. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs. consumed (categorical), by month (categorical).
+
+<br>
+
+```{r dumbbell-example}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "dumbbell-example.png"))
+```
+
+::: {.footer}
+Image source: [Data Viz Project](https://datavizproject.com/data-type/dumbbell-plot/){target="_blank"}
+:::
+
+---
+
+## {#dumbbell-definitions data-menu-title="Dumbbell definitions"} 
+
+[Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
+
+<hr>
+
+:::: {.columns}
+::: {.column width="50%"}
+- [[**{{< fa droplet title="water droplet" >}} Total Water Availability (`availab_mm_mo`)**]{.teal-text} = total amount of water exiting a particular 12-digit hydrologic unit (HUC12), calculated as the net of streamflow inputs minus total consumptive water use locally and upstream; can be negative, implying that consumptive losses > natural supply (in these cases, human consumption is sustained through deep groundwater sources, transbasin diversion, or drawdown of local storage)]{.body-text-s}
+
+- [[**{{< fa faucet-drip title="dripping faucet" >}} Total Water Consumption (`consum_mm_mo`)**]{.teal-text} = total amount of water consumed for public supply, thermoelectric power, and crop irrigation; refers to the permanent removal of water from the local environment]{.body-text-s}
+:::
+::: {.column width="50%"}
+```{r dumbbell-wrangling}
+#| eval: true
+#| echo: true
+#| out-width: "50%"
+#| fig-align: "center"
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> #
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
+```
+:::
+::::
+
+---
+
 ## {#dumbbell-plot-example data-menu-title="Dumbbell plot - water available vs. consumed (plot)"} 
 
 [Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
 
 <hr>
 
-[Let’s say we want to **compare mean monthly water availability and consumption in the Santa Barbara Coastal subbasin across the years 2010-2020**. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs. consumed (categorical), by month (categorical).]{.body-text-s}
+[Here, it makes sense to order the y-axis groups chronologically (Oct > Sep). If your grouping variable is not inherently chronological (e.g. if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this [archived version](ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example){target="_blank"} of the lecture for an alternative dumbbell plot example where we order differently.]{.body-text-s}
 
-```{r dumbbell-example}
+:::: {.columns}
+::: {.column width="50%"}
+```{r dumbbell-plot}
 #| eval: true
 #| echo: false
-#| out-width: "50%"
+#| out-width: "100%"
 #| fig-align: "center"
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                wrangle data                              ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-sbc_subbasin_monthly <- ca_region |> 
-  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
-  filter(subbasin_HUC == "18060013") |> # Santa Barbara Coastal subbasin (HUC8: 18060013)
-  group_by(month) |> 
-  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
-            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
-  mutate(month = month.abb[month],
-         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create dumbbell chart                         ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
              color = "#448F9C", 
-             size = 4) +
+             size = 5.5,
+             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = "#9C7344", 
-             shape = 17,
-             size = 4) +
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
   labs(x = "Water quantity (mm)") +
   theme(axis.title.y = element_blank())
 ```
+:::
+::: {.column width="50%"}
+```{r dumbbell-plot-code}
+#| eval: false
+#| echo: true
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  ggeom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Water quantity (mm)") +
+  theme(axis.title.y = element_blank())
+```
+:::
+::::
 
 <br>
 
 ::: {.footer}
-**Note:** Here, it makes sense to order the y-axis groups chronologically (Jan > Dec). If your grouping variable is not inherently chronological (e.g. if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this [archived version](ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example){target="_blank"} of the lecture for an alternative dumbbell plot example where we order differently. | **There are more modifications we would need to make before calling this plot done (e.g. adding a title, legend info, theme) -- we'll come back to this in a later lecture!**
+**There are more modifications we would need to make before calling this plot done (e.g. adding a title, legend info, theme) -- we'll come back to this in a later lecture!**
 :::
 
 ::: {.notes}
-Example viz: <https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020>
+- Example viz: <https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020>
+- Availability README: https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html
+- Consumption README: https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/consum/consum_iwa-assessment-outputs-conus-2025_README.html
 :::
 
 ---
-
-## {#dumbbell-plot-create data-menu-title="Dumbbell plot - water available vs. consumed (code)"} 
-
-[Dumbbell plot for 1 categorical + 2 within-category numeric variables]{.slide-title3}
-
-<hr>
-
-```{r dumbbell-code}
-#| eval: false
-#| echo: true
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                wrangle data                              ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-sbc_subbasin_monthly <- ca_region |> 
-  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
-  filter(subbasin_HUC == "18060013") |> # Santa Barbara Coastal subbasin (HUC8: 18060013)
-  group_by(month) |> 
-  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
-            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
-  mutate(month = month.abb[month],
-         month = factor(month, levels = rev(month.abb)))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create dumbbell chart                         ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-ggplot(sbc_subbasin_monthly) +
-  geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
-  geom_point(aes(x = mean_avail, y = month), 
-             color = "#448F9C", 
-             size = 4) +
-  geom_point(aes(x = mean_consum, y = month), 
-             color = "#9C7344", 
-             shape = 17,
-             size = 4) +
-  labs(x = "Water quantity (mm)") +
-  theme(axis.title.y = element_blank())
-```
 
 ##  {#end-break data-menu-title="# Break #" background="#047C90"}
 

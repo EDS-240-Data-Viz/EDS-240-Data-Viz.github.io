@@ -433,7 +433,7 @@
 <h2></h2>
 <p><span class="slide-title3">The data: USGS National Water Availability Assessment</span></p>
 <hr>
-<p><span class="body-text-s">In January 2025, The <a href="https://www.usgs.gov/" target="_blank">U.S. Geological Survey</a> (USGS) released its new <a href="https://www.usgs.gov/special-topics/integrated-water-availability-assessments/science/integrated-water-availability-0" target="_blank">National Water Availability Assessment</a> (NWAA), which offers insights into water supply, demand, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online <a href="https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessment-0" target="_blank">National Water Availability Assessment Data Companion</a> (NWDC). Here, users can interactively <a href="https://water.usgs.gov/nwaa-data/subset-download" target="_blank">subset and download data</a> or download files containing the <a href="https://water.usgs.gov/nwaa-data/data-file-directory?path=data/" target="_blank">full spatial (conterminous US) and temporal (2010-2020) extent</a> of the NWDC datasets.</span></p>
+<p><span class="body-text-s">In January 2025, The <a href="https://www.usgs.gov/" target="_blank">U.S. Geological Survey</a> (USGS) released its new <a href="https://www.usgs.gov/special-topics/integrated-water-availability-assessments/science/integrated-water-availability-0" target="_blank">National Water Availability Assessment</a> (NWAA), which offers insights into water <a href="https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html" target="_blank">supply</a>, <a href="https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/consum/consum_iwa-assessment-outputs-conus-2025_README.html" target="_blank">demand</a>, and quality across the U.S. The modeled water availability data that underlies the NWAA is made available through the online <a href="https://www.usgs.gov/special-topics/integrated-water-availability-assessments/national-water-availability-assessment-0" target="_blank">National Water Availability Assessment Data Companion</a> (NWDC). Here, users can interactively <a href="https://water.usgs.gov/nwaa-data/subset-download" target="_blank">subset and download data</a> or download files containing the <a href="https://water.usgs.gov/nwaa-data/data-file-directory?path=data/" target="_blank">full spatial (conterminous US) and temporal (2010-2020) extent</a> of the NWDC datasets.</span></p>
 
 <img data-src="../images/lecture-slides/NWAA-map.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text body-text-s gray-text">
 <p>Surface water-supply and use index (SUI) by 12-digit hydrologic unit codes (HUCs) for water years 2010-2020. Source: <a href="https://pubs.usgs.gov/pp/1894/f/pp1894F.pdf" target="_blank">Chapter F</a> of the U.S. Geological Survey Integrated Water Availability Assessment—2010–20.</p>
@@ -456,7 +456,7 @@
 <h2></h2>
 <p><span class="slide-title3">The data: USGS National Water Availability Assessment</span></p>
 <hr>
-<p>For today’s lecture, we’ll download the <a href="https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/" target="_blank">full, integrated dataset</a> and filter for just the <a href="https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon." target="_bank">California water resource region</a>, which is represented by the 2-digit hydrologic unit code (HUC), 18. We’ll start by comparing water availability and use across HUC 18’s <a href="https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D" target="_blank">ten subregions</a>.</p>
+<p>For today’s lecture, we’ll download the <a href="https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/" target="_blank">full, integrated dataset</a> and filter for just the <a href="https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=Article,California%2C%20Nevada%2C%20and%20Oregon." target="_bank">California water resource region</a>, which is represented by the 2-digit hydrologic unit code (HUC), 18. We’ll explore water availability and use across HUC 18’s <a href="https://en.wikipedia.org/wiki/California_water_resource_region#:~:text=%5B3%5D-,List%20of%20California%20water%20resource%20subregions,-%5Bedit%5D" target="_blank">ten subregions</a>.</p>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -489,7 +489,7 @@
 <h2></h2>
 <p><span class="slide-title">Data wrangling</span></p>
 <hr>
-<p><span class="body-text-s">This integrated dataset includes modeled monthly estimates of available water supply, water consumption, and the Surface Water-Supply and Use Index (SUI) for hydrologic units across the conterminous US from 2010-2020.</span></p>
+<p><span class="body-text-s">This integrated dataset includes modeled monthly estimates of <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab" target="_blank">available water supply</a>, <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum" target="_blank">water consumption</a>, and the <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/sui" target="_blank">Surface Water-Supply and Use Index (SUI)</a> for hydrologic units across the conterminous US from 2010-2020.</span></p>
 <!-- RUNS BUT DOES NOT PRINT -->
 <!-- PRINTS BUT DOES NOT RUN -->
 <div class="cell">
@@ -554,6 +554,9 @@
 <span id="cb1-59"><a></a>  </span>
 <span id="cb1-60"><a></a>  <span class="co"># keep necessary columns &amp; reorder in more logical way -----</span></span>
 <span id="cb1-61"><a></a>  <span class="fu">select</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="{footer}">
+<p>“In equation-form: Total water availability = net water delivered to next downstream HUC12 (baseflow + quickflow + upstream inputs) - total consumptive loss. In some cases, total water availability can be negative, implying that consumptive losses are greater than natural supply. This situation can occur when human water consumption is sustained through deep groundwater sources, transbasin diversion, or drawdown of local storage.” https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html#:~:text=Technical%20Description:,or%20drawdown%20of%20local%20storage.</p>
 </div>
 </section>
 <section id="bar-lollipop" class="slide level2" data-menu-title="## Bar &amp; lollipop ##" data-background="#047C90">
@@ -937,7 +940,7 @@ Stacked bar charts
 <h2></h2>
 <p><span class="slide-title2">Stacked bar plots for showing parts of a whole</span></p>
 <hr>
-<p><span class="body-text-s">The USGS classifies SUI into five categories: <em>Very low (0.0 to &lt;0.2), Low (0.2 to &lt;0.4), Moderate (0.4 to &lt;0.6), High (0.6 to &lt;0.8), and Severe (0.8 to 1)</em>. <strong>Let’s say we want to look at how California subwatersheds (HUC12s) are distributed across these categories by month from 2010–2020.</strong> We can use a stacked bar plot, each bar represents a month and segments represent the number of subwatersheds in each SUI category. Let’s first do a bit of wrangling:</span></p>
+<p><span class="body-text-s">The USGS classifies <strong><a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/sui" target="_blank">SUI</a></strong> into five categories: <em>Very low (0.0 to &lt;0.2), Low (0.2 to &lt;0.4), Moderate (0.4 to &lt;0.6), High (0.6 to &lt;0.8), and Severe (0.8 to 1)</em>. <strong>Let’s say we want to look at how California subwatersheds (HUC12s) are distributed across these categories by month from 2010–2020.</strong> We can use a stacked bar plot, each bar represents a month and segments represent the number of subwatersheds in each SUI category. Let’s first do a bit of wrangling:</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -970,7 +973,7 @@ Stacked bar charts
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_a5b2ba9a" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_3a789da0" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -990,8 +993,16 @@ Stacked bar charts
 <span id="cb13-2"><a></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-amounts-rankings_files/figure-revealjs/improvements-needed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="fragment">
-<p><span class="body-text-s">To make interpretation easier, we should <strong>reorder</strong> our <code>sui-categories</code> so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to <strong>percentages</strong>, and update our <strong>colors</strong> (we’ll talk a lot more about colors in a future lecture, but we can adopt those used by USGS – see <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html#water-use-data" target="_blank">this slide</a>)</span></p>
+<img data-src="SLIDES-amounts-rankings_files/figure-revealjs/improvements-needed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_c5ee44ff" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="body-text-s">To make interpretation easier, we should <strong>reorder</strong> our <code>sui-categories</code> so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to <strong>percentages</strong>, and update our <strong>colors</strong> (we can adopt those used by USGS – see <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html#water-use-data" target="_blank">this slide</a>)</span></p>
 </div>
 </section>
 <section id="revise-wrangling-totals" class="slide level2" data-menu-title="Revise wrangling 1">
@@ -1099,57 +1110,77 @@ Heatmaps
 <h2></h2>
 <p><span class="slide-title2">Heatmap for 2 categorical + 1 numeric variable</span></p>
 <hr>
-<p><span class="body-text-s">Now let’s look at <strong>how water stress changes through time for each of the ten HUC 18 subregions</strong>. We can use a heatmap to create a matrix that displays annual mean SUI values (numeric, continuous), calculated by averaging monthly observations within each year, by subregion (categorical) and year (categorical):</span></p>
-
-<img data-src="SLIDES-amounts-rankings_files/figure-revealjs/heatmap-example-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>We can make heatmaps using <code>geom_tile()</code>.</p>
+<p><span class="body-text-s">Now let’s look at <strong>how water stress changes through time for each of the ten HUC 18 subregions</strong>. We can use a heatmap to create a matrix that displays annual mean SUI values (numeric, continuous), calculated by averaging monthly observations within each year, by subregion (categorical) and year (categorical). We need to do a bit of wrangling:</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/heatmap-example.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co">#...........df of annual mean SUI by subregion &amp; year ...........</span></span>
+<span id="cb18-2"><a></a>heatmap_data <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a></a>  <span class="fu">group_by</span>(subregion_name, year) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a></a>  <span class="fu">summarize</span>(<span class="at">annual_mean_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb18-6"><a></a></span>
+<span id="cb18-7"><a></a><span class="co">#.determine order of subregions based on highest avg SUI in 2015.</span></span>
+<span id="cb18-8"><a></a><span class="co"># it's likely that you'll first try making a plot with `heatmap_data`, then return to wrangle the order once you decide how best to arrange your groups</span></span>
+<span id="cb18-9"><a></a>order_2015 <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
+<span id="cb18-10"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-11"><a></a>  <span class="fu">arrange</span>(annual_mean_sui) <span class="sc">|&gt;</span> </span>
+<span id="cb18-12"><a></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb18-13"><a></a>  <span class="fu">select</span>(annual_mean_sui, order) </span>
+<span id="cb18-14"><a></a></span>
+<span id="cb18-15"><a></a><span class="co">#........join order with rest of data to set factor levels.......</span></span>
+<span id="cb18-16"><a></a>heatmap_order <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
+<span id="cb18-17"><a></a>  <span class="fu">left_join</span>(order_2015) <span class="sc">|&gt;</span> </span>
+<span id="cb18-18"><a></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+<div class="footer">
+<p>Image source: <a href="https://datavizproject.com/data-type/heat-map/" target="_&quot;blank&quot;">Data Viz Project</a>. We can make heatmaps using <code>geom_tile()</code>.</p>
 </div>
 </section>
-<section id="heatmap-code" class="slide level2" data-menu-title="Heatmap (code)">
+<section id="heatmap-plot" class="slide level2" data-menu-title="Heatmap (plot)">
 <h2></h2>
 <p><span class="slide-title2">Heatmap for 2 categorical + 1 numeric variable</span></p>
 <hr>
 <p><span class="body-text-s">How you order your groups can (1) make it easier for readers to extract patterns and comparisons, and (2) shape the story the visualization tells. Here, subregions are ordered based on their average annual SUI in 2015, the end of a particularly dry stretch of years. <strong><em>How else might you consider ordering these groups?</em></strong></span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb18-2"><a></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb18-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb18-4"><a></a></span>
-<span id="cb18-5"><a></a><span class="co">#...........df of annual mean SUI by subregion &amp; year ...........</span></span>
-<span id="cb18-6"><a></a>heatmap_data <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
-<span id="cb18-7"><a></a>  <span class="fu">group_by</span>(subregion_name, year) <span class="sc">|&gt;</span> </span>
-<span id="cb18-8"><a></a>  <span class="fu">summarize</span>(<span class="at">annual_mean_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb18-9"><a></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb18-10"><a></a></span>
-<span id="cb18-11"><a></a><span class="co">#.determine order of subregions based on highest avg SUI in 2015.</span></span>
-<span id="cb18-12"><a></a>order_2015 <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
-<span id="cb18-13"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb18-14"><a></a>  <span class="fu">arrange</span>(annual_mean_sui) <span class="sc">|&gt;</span> </span>
-<span id="cb18-15"><a></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb18-16"><a></a>  <span class="fu">select</span>(annual_mean_sui, order) </span>
-<span id="cb18-17"><a></a></span>
-<span id="cb18-18"><a></a><span class="co">#........join order with rest of data to set factor levels.......</span></span>
-<span id="cb18-19"><a></a>heatmap_order <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
-<span id="cb18-20"><a></a>  <span class="fu">left_join</span>(order_2015) <span class="sc">|&gt;</span> </span>
-<span id="cb18-21"><a></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span>
-<span id="cb18-22"><a></a></span>
-<span id="cb18-23"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb18-24"><a></a><span class="do">##                               create heatmap                             ----</span></span>
-<span id="cb18-25"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb18-26"><a></a></span>
-<span id="cb18-27"><a></a><span class="fu">ggplot</span>(heatmap_order, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> subregion_name, <span class="at">fill =</span> annual_mean_sui)) <span class="sc">+</span></span>
-<span id="cb18-28"><a></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
-<span id="cb18-29"><a></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Annual Mean Surface Water-Supply and</span><span class="sc">\n</span><span class="st">Use Index (SUI)"</span>) <span class="sc">+</span> <span class="co"># caption = "A higher index value indicates greater water stress."</span></span>
-<span id="cb18-30"><a></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
-<span id="cb18-31"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2020</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb18-32"><a></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">barwidth =</span> <span class="dv">15</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>, <span class="at">title.position =</span> <span class="st">"top"</span>)) <span class="sc">+</span></span>
-<span id="cb18-33"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb18-34"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb18-35"><a></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb18-36"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb18-37"><a></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb18-38"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings_files/figure-revealjs/heatmap-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(heatmap_order, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> subregion_name, <span class="at">fill =</span> annual_mean_sui)) <span class="sc">+</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Annual Mean Surface Water-Supply and</span><span class="sc">\n</span><span class="st">Use Index (SUI)"</span>) <span class="sc">+</span> <span class="co"># caption = "A higher index value indicates greater water stress."</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb19-5"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2020</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">barwidth =</span> <span class="dv">15</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>, <span class="at">title.position =</span> <span class="st">"top"</span>)) <span class="sc">+</span></span>
+<span id="cb19-7"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-8"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-9"><a></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb19-10"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-11"><a></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb19-12"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
 </section>
 <section id="dumbbell-plots" class="slide level2" data-menu-title="## Dumbbell plots ##" data-background="#047C90">
 <h2></h2>
@@ -1167,18 +1198,85 @@ Dumbbell plots
 </center>
 </div>
 </section>
+<section id="dumbbell-example" class="slide level2" data-menu-title="Dumbbell example">
+<h2></h2>
+<p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
+<hr>
+<p>Let’s say we want to <strong>compare mean monthly water <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab" target="_blank">availability</a> and <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum" target="_blank">consumption</a> in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020</strong>. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs.&nbsp;consumed (categorical), by month (categorical).</p>
+<p><br></p>
+
+<img data-src="../images/lecture-slides/dumbbell-example.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>Image source: <a href="https://datavizproject.com/data-type/dumbbell-plot/" target="_blank">Data Viz Project</a></p>
+</div>
+</section>
+<section id="dumbbell-definitions" class="slide level2" data-menu-title="Dumbbell definitions">
+<h2></h2>
+<p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p><span class="body-text-s"><span class="teal-text"><strong><i class="fa-solid fa-droplet" title="water droplet" aria-label="droplet"></i> Total Water Availability (<code>availab_mm_mo</code>)</strong></span> = total amount of water exiting a particular 12-digit hydrologic unit (HUC12), calculated as the net of streamflow inputs minus total consumptive water use locally and upstream; can be negative, implying that consumptive losses &gt; natural supply (in these cases, human consumption is sustained through deep groundwater sources, transbasin diversion, or drawdown of local storage)</span></p></li>
+<li><p><span class="body-text-s"><span class="teal-text"><strong><i class="fa-solid fa-faucet-drip" title="dripping faucet" aria-label="faucet-drip"></i> Total Water Consumption (<code>consum_mm_mo</code>)</strong></span> = total amount of water consumed for public supply, thermoelectric power, and crop irrigation; refers to the permanent removal of water from the local environment</span></p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>sbc_subbasin_monthly <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a></a>  <span class="fu">mutate</span>(<span class="at">subbasin_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">8</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> <span class="co">#</span></span>
+<span id="cb20-4"><a></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_avail =</span> <span class="fu">mean</span>(availab_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb20-6"><a></a>            <span class="at">mean_consum =</span> <span class="fu">mean</span>(consum_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-7"><a></a>  <span class="fu">mutate</span>(<span class="at">month =</span> month.abb[month],</span>
+<span id="cb20-8"><a></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(month.abb[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+</section>
 <section id="dumbbell-plot-example" class="slide level2" data-menu-title="Dumbbell plot - water available vs. consumed (plot)">
 <h2></h2>
 <p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
 <hr>
-<p><span class="body-text-s">Let’s say we want to <strong>compare mean monthly water availability and consumption in the Santa Barbara Coastal subbasin across the years 2010-2020</strong>. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs.&nbsp;consumed (categorical), by month (categorical).</span></p>
-
-<img data-src="SLIDES-amounts-rankings_files/figure-revealjs/dumbbell-example-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p><br></p>
+<p><span class="body-text-s">Here, it makes sense to order the y-axis groups chronologically (Oct &gt; Sep). If your grouping variable is not inherently chronological (e.g.&nbsp;if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this <a href="ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example" target="_blank">archived version</a> of the lecture for an alternative dumbbell plot example where we order differently.</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-amounts-rankings_files/figure-revealjs/dumbbell-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb21-3"><a></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
+<span id="cb21-4"><a></a>  <span class="fu">ggeom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb21-5"><a></a>             <span class="at">color =</span> <span class="st">"#448F9C"</span>, </span>
+<span id="cb21-6"><a></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb21-7"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb21-9"><a></a>             <span class="at">color =</span> <span class="st">"#9C7344"</span>, </span>
+<span id="cb21-10"><a></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb21-11"><a></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb21-12"><a></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb21-13"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb21-14"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Water quantity (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb21-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+<p><br></p>
 <div class="footer">
-<p><strong>Note:</strong> Here, it makes sense to order the y-axis groups chronologically (Jan &gt; Dec). If your grouping variable is not inherently chronological (e.g.&nbsp;if comparing water availability and consumption across different subbasins), a common approach is to order groups by a mean or max value. See this <a href="ARCHIVE/SLIDES-amounts-rankings_jobs.qmd#dumbbell-plot-example" target="_blank">archived version</a> of the lecture for an alternative dumbbell plot example where we order differently. | <strong>There are more modifications we would need to make before calling this plot done (e.g.&nbsp;adding a title, legend info, theme) – we’ll come back to this in a later lecture!</strong></p>
+<p><strong>There are more modifications we would need to make before calling this plot done (e.g.&nbsp;adding a title, legend info, theme) – we’ll come back to this in a later lecture!</strong></p>
 </div>
 <aside class="notes">
-<p>Example viz: <a href="https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020" class="uri">https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020</a></p>
+<ul>
+<li>Example viz: <a href="https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020" class="uri">https://www.usgs.gov/media/images/water-supply-vs-demand-2010-2020</a></li>
+<li>Availability README: https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/availab/availab_iwa-assessment-outputs-conus-2025_README.html</li>
+<li>Consumption README: https://water.usgs.gov/nwaa-data/data/integrated-water-availability/iwa-assessment-outputs-conus-2025/consum/consum_iwa-assessment-outputs-conus-2025_README.html</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1191,42 +1289,6 @@ Dumbbell plots
           display:block!important;
       }</style></aside>
 </section>
-<section id="dumbbell-plot-create" class="slide level2" data-menu-title="Dumbbell plot - water available vs. consumed (code)">
-<h2></h2>
-<p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
-<hr>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb19-2"><a></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb19-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb19-4"><a></a></span>
-<span id="cb19-5"><a></a>sbc_subbasin_monthly <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
-<span id="cb19-6"><a></a>  <span class="fu">mutate</span>(<span class="at">subbasin_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">8</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb19-7"><a></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> <span class="co"># Santa Barbara Coastal subbasin (HUC8: 18060013)</span></span>
-<span id="cb19-8"><a></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
-<span id="cb19-9"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_avail =</span> <span class="fu">mean</span>(availab_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb19-10"><a></a>            <span class="at">mean_consum =</span> <span class="fu">mean</span>(consum_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb19-11"><a></a>  <span class="fu">mutate</span>(<span class="at">month =</span> month.abb[month],</span>
-<span id="cb19-12"><a></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">rev</span>(month.abb)))</span>
-<span id="cb19-13"><a></a></span>
-<span id="cb19-14"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb19-15"><a></a><span class="do">##                            create dumbbell chart                         ----</span></span>
-<span id="cb19-16"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb19-17"><a></a></span>
-<span id="cb19-18"><a></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
-<span id="cb19-19"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
-<span id="cb19-20"><a></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
-<span id="cb19-21"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
-<span id="cb19-22"><a></a>             <span class="at">color =</span> <span class="st">"#448F9C"</span>, </span>
-<span id="cb19-23"><a></a>             <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb19-24"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
-<span id="cb19-25"><a></a>             <span class="at">color =</span> <span class="st">"#9C7344"</span>, </span>
-<span id="cb19-26"><a></a>             <span class="at">shape =</span> <span class="dv">17</span>,</span>
-<span id="cb19-27"><a></a>             <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb19-28"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Water quantity (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb19-29"><a></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
 <section id="end-break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
@@ -1237,7 +1299,7 @@ Dumbbell plots
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_2e9c2cdb" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_47c65093" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
