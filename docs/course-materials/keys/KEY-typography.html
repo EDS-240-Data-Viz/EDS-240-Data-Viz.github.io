@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name">
-<meta name="dcterms.date" content="2025-02-10">
+<meta name="dcterms.date" content="2026-02-18">
 
-<title>Lecture 6.1 KEY – EDS 240</title>
+<title>KEY - typography – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -247,8 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Lecture 6.1 KEY</h1>
-            <p class="subtitle lead">Typography</p>
+      <h1 class="title">KEY - typography</h1>
                       </div>
   </div>
     
@@ -265,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 10, 2025</p>
+        <p class="date">February 18, 2026</p>
       </div>
     </div>
     
@@ -310,7 +309,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This template follows <a href="../lecture-slides/lecture6.1-typography-slides.qmd" target="_blank">lecture 6.1 slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
+<p>This template follows the <a href="../../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">typography slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
 </div>
 </div>
 <section id="system-fonts" class="level2">
@@ -351,11 +350,11 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slides.qmd" target="_blank">lecture 4.1</a>
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Our “first draft” of this plot began in week 4 during our amounts / rankings lecture. We’ll focus on improving colors and fonts today.</p>
+<p>Recall our original dumbbell plot from the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html#dumbbell-plot-example" target="_blank">amounts / rankings lecture</a>. Today, we’ll focus on adding text and updating our theme and fonts.</p>
 </div>
 </div>
 <div class="cell">
@@ -365,121 +364,99 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slid
 <span id="cb2-4"><a href="#cb2-4"></a></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(glue)</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(ggtext)</span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#......................import Google fonts.......................</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggpplot</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Josefin Sans"</span>, <span class="at">family =</span> <span class="st">"josefin"</span>)</span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sen"</span>, <span class="at">family =</span> <span class="st">"sen"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
-<span id="cb2-19"><a href="#cb2-19"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Brands-Regular-400.otf"</span>))</span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Regular-400.otf"</span>)) </span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
-<span id="cb2-23"><a href="#cb2-23"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
-<span id="cb2-24"><a href="#cb2-24"></a></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a>jobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(glue)</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>iwa_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"course-materials"</span>, <span class="st">"data"</span>, <span class="st">"lecture"</span>, <span class="st">"combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"</span>))</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#..................create df of subregions names.................</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co"># data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># subregions (&amp; others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co"># there may be a downloadable dataset containing HUCs &amp; names out there...but I couldn't find it</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>subregion_names <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="sc">~</span>subregion_HUC, <span class="sc">~</span>subregion_name,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="st">"1801"</span>, <span class="st">"Klamath-Northern California Coastal"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="st">"1802"</span>, <span class="st">"Sacramento"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="st">"1803"</span>, <span class="st">"Tulare-Buena Vista Lakes"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="st">"1804"</span>, <span class="st">"San Joaquin"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="st">"1805"</span>, <span class="st">"San Francisco Bay"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"1806"</span>, <span class="st">"Central California Coastal"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>  <span class="st">"1807"</span>, <span class="st">"Southern California Coastal"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>  <span class="st">"1808"</span>, <span class="st">"North Lahontan"</span>, </span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="st">"1809"</span>, <span class="st">"Northern Mojave-Mono Lake"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>  <span class="st">"1810"</span>, <span class="st">"Southern Mojave-Salton Sea"</span>,</span>
+<span id="cb2-31"><a href="#cb2-31"></a>)</span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#......................import Google fonts.......................</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggplot</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sarala"</span>, <span class="at">family =</span> <span class="st">"sarala"</span>)</span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Noto Sans"</span>, <span class="at">family =</span> <span class="st">"noto-sans"</span>)</span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Red Hat Mono"</span>, <span class="at">family =</span> <span class="st">"red"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Brands-Regular-400.otf"</span>))</span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
+<span id="cb2-44"><a href="#cb2-44"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Free-Regular-400.otf"</span>)) </span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
+<span id="cb2-46"><a href="#cb2-46"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Free-Solid-900.otf"</span>))</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="fu">showtext_auto</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wrangle-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-data">Wrangle data</h2>
-<p>See <a href="../lecture-slides/lecture4.1-amounts-slides.qmd" target="_blank">lecture 4.1 slides</a> (specifically, <a href="../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling" target="_blank">this slide</a> and <a href="../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset" target="_blank">this slide</a>) as a reminder of where we left off.</p>
+<p>This is the same code we saw in the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">amounts / rankings lecture</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a>jobs_clean <span class="ot">&lt;-</span> jobs <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6"></a>  </span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="co"># add col with % men in a given occupation (% females in a given occupation is already included) ----</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">mutate</span>(<span class="at">percent_male =</span> <span class="dv">100</span> <span class="sc">-</span> percent_female) <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>         </span>
-<span id="cb3-10"><a href="#cb3-10"></a>  <span class="co"># rearrange columns ----</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">relocate</span>(year, major_category, minor_category, occupation,</span>
-<span id="cb3-12"><a href="#cb3-12"></a>          total_workers, workers_male, workers_female,</span>
-<span id="cb3-13"><a href="#cb3-13"></a>          percent_male, percent_female,</span>
-<span id="cb3-14"><a href="#cb3-14"></a>          total_earnings, total_earnings_male, total_earnings_female, </span>
-<span id="cb3-15"><a href="#cb3-15"></a>          wage_percent_of_male) <span class="sc">|&gt;</span> </span>
-<span id="cb3-16"><a href="#cb3-16"></a>  </span>
-<span id="cb3-17"><a href="#cb3-17"></a>  <span class="co"># drop rows with missing earnings data ----</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">drop_na</span>(total_earnings_male, total_earnings_female) <span class="sc">|&gt;</span> </span>
-<span id="cb3-19"><a href="#cb3-19"></a>  </span>
-<span id="cb3-20"><a href="#cb3-20"></a>  <span class="co"># make occupation a factor (for reordering groups in our plot) ----</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">mutate</span>(<span class="at">occupation =</span> <span class="fu">as.factor</span>(occupation)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-22"><a href="#cb3-22"></a> </span>
-<span id="cb3-23"><a href="#cb3-23"></a>  <span class="co"># classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">case_when</span>(</span>
-<span id="cb3-25"><a href="#cb3-25"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ female"</span>,</span>
-<span id="cb3-26"><a href="#cb3-26"></a>    percent_female <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> percent_female <span class="sc">&lt;=</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"Occupations that are 45-55% female"</span>,</span>
-<span id="cb3-27"><a href="#cb3-27"></a>    percent_male <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">"Occupations that are 75%+ male"</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a>  )) </span>
-<span id="cb3-29"><a href="#cb3-29"></a></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="do">##                              create subset df                            ----</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#....guarantee the same random samples each time we run code.....</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb3-36"><a href="#cb3-36"></a></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#.........get 10 random jobs that are 75%+ female (2016).........</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a>f75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-39"><a href="#cb3-39"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-40"><a href="#cb3-40"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb3-41"><a href="#cb3-41"></a></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#..........get 10 random jobs that are 75%+ male (2016)..........</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a>m75 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-44"><a href="#cb3-44"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 75%+ male"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-45"><a href="#cb3-45"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb3-46"><a href="#cb3-46"></a></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#........get 10 random jobs that are 45-55%+ female (2016).......</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a>f50 <span class="ot">&lt;-</span> jobs_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-49"><a href="#cb3-49"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, group_label <span class="sc">==</span> <span class="st">"Occupations that are 45-55% female"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-50"><a href="#cb3-50"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb3-51"><a href="#cb3-51"></a></span>
-<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#.......combine dfs &amp; relevel factors (for plotting order).......</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a>subset_jobs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(f75, m75, f50) <span class="sc">|&gt;</span> </span>
-<span id="cb3-54"><a href="#cb3-54"></a>  <span class="fu">mutate</span>(<span class="at">group_label =</span> <span class="fu">fct_relevel</span>(<span class="at">.f =</span> group_label, </span>
-<span id="cb3-55"><a href="#cb3-55"></a>                                   <span class="st">"Occupations that are 75%+ female"</span>, </span>
-<span id="cb3-56"><a href="#cb3-56"></a>                                   <span class="st">"Occupations that are 45-55% female"</span>, </span>
-<span id="cb3-57"><a href="#cb3-57"></a>                                   <span class="st">"Occupations that are 75%+ male"</span>),</span>
-<span id="cb3-58"><a href="#cb3-58"></a>         <span class="at">occupation =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> occupation, <span class="at">.x =</span> total_earnings))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#......create df with just CA water resource region (HUC 18).....</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>ca_region <span class="ot">&lt;-</span> iwa_data <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">mutate</span>(<span class="at">region_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">2</span>),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>         <span class="at">subregion_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">4</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">filter</span>(region_HUC <span class="sc">==</span> <span class="st">"18"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols =</span> year_month,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>                       <span class="at">delim =</span> <span class="st">"-"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>)) <span class="sc">|&gt;</span>                            </span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>         <span class="at">month =</span> <span class="fu">as.numeric</span>(month)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="fu">left_join</span>(subregion_names) <span class="sc">|&gt;</span> </span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="fu">select</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#.................create df of just SBC subbasin.................</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>sbc_subbasin_monthly <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">mutate</span>(<span class="at">subbasin_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">8</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> <span class="co">#</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">summarize</span>(<span class="at">mean_avail =</span> <span class="fu">mean</span>(availab_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-21"><a href="#cb3-21"></a>            <span class="at">mean_consum =</span> <span class="fu">mean</span>(consum_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> month.abb[month],</span>
+<span id="cb3-23"><a href="#cb3-23"></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(month.abb[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="recreate-original-plot" class="level2">
 <h2 class="anchored" data-anchor-id="recreate-original-plot">Recreate original plot</h2>
-<p>See <a href="../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create" target="_blank">lecture 4.1</a> as a reminder.</p>
+<p>This is the same code we saw in the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">amounts / rankings lecture</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># recreate original plot ----</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> occupation,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>                     <span class="at">xmin =</span> total_earnings_female, <span class="at">xmax =</span> total_earnings_male)) <span class="sc">+</span> </span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation), </span>
-<span id="cb4-8"><a href="#cb4-8"></a>             <span class="at">color =</span> <span class="st">"#CD93D8"</span>, </span>
-<span id="cb4-9"><a href="#cb4-9"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation), </span>
-<span id="cb4-11"><a href="#cb4-11"></a>             <span class="at">color =</span> <span class="st">"#6A1E99"</span>, </span>
-<span id="cb4-12"><a href="#cb4-12"></a>             <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>  </span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>  </span>
-<span id="cb4-17"><a href="#cb4-17"></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_currency</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb4-19"><a href="#cb4-19"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>))</span>
-<span id="cb4-20"><a href="#cb4-20"></a></span>
-<span id="cb4-21"><a href="#cb4-21"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb4-5"><a href="#cb4-5"></a>             <span class="at">color =</span> <span class="st">"#448F9C"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb4-9"><a href="#cb4-9"></a>             <span class="at">color =</span> <span class="st">"#9C7344"</span>, </span>
+<span id="cb4-10"><a href="#cb4-10"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb4-13"><a href="#cb4-13"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -493,13 +470,13 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slid
 <h2 class="anchored" data-anchor-id="create-new-palette">Create new palette</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># create a named color palette ----</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>earnings_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"males"</span> <span class="ot">=</span> <span class="st">"#2D7787"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                  <span class="st">"females"</span> <span class="ot">=</span> <span class="st">"#FC6B4B"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                  <span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                  <span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
+<span id="cb5-2"><a href="#cb5-2"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"avail"</span> <span class="ot">=</span> <span class="st">"#448F9C"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>         <span class="st">"consum"</span> <span class="ot">=</span> <span class="st">"#9C7344"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>         <span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>         <span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
 <span id="cb5-6"><a href="#cb5-6"></a></span>
 <span id="cb5-7"><a href="#cb5-7"></a><span class="co"># preview it -----</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(earnings_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -513,24 +490,21 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slid
 <h2 class="anchored" data-anchor-id="update-plot-colors">Update plot colors</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># update plot colors using palette ----</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_jobs) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  </span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="co"># create dumbbells ----</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">xend =</span> total_earnings_male,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>                 <span class="at">y =</span> <span class="fu">fct_reorder</span>(occupation, total_earnings), <span class="at">yend =</span> occupation)) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_male, <span class="at">y =</span> occupation),</span>
-<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"males"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span> <span class="co"># update with colors from `earnings_pal`</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_earnings_female, <span class="at">y =</span> occupation),</span>
-<span id="cb6-10"><a href="#cb6-10"></a>             <span class="at">color =</span> earnings_pal[<span class="st">"females"</span>], <span class="at">size =</span> <span class="fl">3.25</span>) <span class="sc">+</span> <span class="co"># update with colors from `earnings_pal`</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a>  </span>
-<span id="cb6-12"><a href="#cb6-12"></a>  <span class="co"># facet wrap by group ----</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group_label, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> <span class="co"># "free_y" plots only the axis labels that exist in each group</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a>  </span>
-<span id="cb6-15"><a href="#cb6-15"></a>  <span class="co"># axis breaks &amp; $ labels ----</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(<span class="at">scale =</span> <span class="fl">0.001</span>, <span class="at">suffix =</span> <span class="st">"k"</span>),</span>
-<span id="cb6-17"><a href="#cb6-17"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">25000</span>, <span class="dv">50000</span>, <span class="dv">75000</span>, <span class="dv">100000</span>, <span class="dv">125000</span>))</span>
-<span id="cb6-18"><a href="#cb6-18"></a></span>
-<span id="cb6-19"><a href="#cb6-19"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb6-6"><a href="#cb6-6"></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
+<span id="cb6-7"><a href="#cb6-7"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb6-10"><a href="#cb6-10"></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
+<span id="cb6-11"><a href="#cb6-11"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb6-13"><a href="#cb6-13"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb6-14"><a href="#cb6-14"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -543,62 +517,75 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slid
 <section id="titles-theme" class="level2">
 <h2 class="anchored" data-anchor-id="titles-theme">Add titles &amp; theme</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#.........................create caption.........................</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb7-6"><a href="#cb7-6"></a>  <span class="st">"Data Source: TidyTuesday (March 5, 2019)&lt;br&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  {github_username}"</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>)</span>
-<span id="cb7-10"><a href="#cb7-10"></a></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#........................create subtitle.........................</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a>money_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf3d1"</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a></span>
-<span id="cb7-14"><a href="#cb7-14"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="st">                       Median earnings of full-time </span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="st">                       &lt;span style='color:#2D7787;'&gt;**male**&lt;/span&gt; versus </span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="st">                       &lt;span style='color:#FC6B4B;'&gt;**female**&lt;/span&gt;</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="st">                       workers by occupation in 2016"</span>)</span>
-<span id="cb7-19"><a href="#cb7-19"></a></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#..........................updated plot..........................</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a>final_plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Males earn more than females across most occupations"</span>,</span>
-<span id="cb7-23"><a href="#cb7-23"></a>       <span class="at">subtitle =</span> subtitle,</span>
-<span id="cb7-24"><a href="#cb7-24"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a>  <span class="fu">theme</span>(</span>
-<span id="cb7-27"><a href="#cb7-27"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb7-28"><a href="#cb7-28"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>, </span>
-<span id="cb7-29"><a href="#cb7-29"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb7-30"><a href="#cb7-30"></a>                              <span class="at">size =</span> <span class="dv">18</span>,</span>
-<span id="cb7-31"><a href="#cb7-31"></a>                              <span class="at">color =</span> earnings_pal[<span class="st">"dark_text"</span>]),</span>
-<span id="cb7-32"><a href="#cb7-32"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>,</span>
-<span id="cb7-33"><a href="#cb7-33"></a>                                            <span class="at">size =</span> <span class="dv">12</span>,</span>
-<span id="cb7-34"><a href="#cb7-34"></a>                                            <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
-<span id="cb7-35"><a href="#cb7-35"></a>                                            <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb7-36"><a href="#cb7-36"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sen"</span>, </span>
-<span id="cb7-37"><a href="#cb7-37"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
-<span id="cb7-38"><a href="#cb7-38"></a>                                           <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>],</span>
-<span id="cb7-39"><a href="#cb7-39"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>,</span>
-<span id="cb7-40"><a href="#cb7-40"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
-<span id="cb7-41"><a href="#cb7-41"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb7-42"><a href="#cb7-42"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
-<span id="cb7-43"><a href="#cb7-43"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb7-44"><a href="#cb7-44"></a>                              <span class="at">size =</span> <span class="dv">10</span>,</span>
-<span id="cb7-45"><a href="#cb7-45"></a>                              <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb7-46"><a href="#cb7-46"></a>    <span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">units =</span> <span class="st">"cm"</span>),</span>
-<span id="cb7-47"><a href="#cb7-47"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>,</span>
-<span id="cb7-48"><a href="#cb7-48"></a>                             <span class="at">color =</span> earnings_pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb7-49"><a href="#cb7-49"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb7-50"><a href="#cb7-50"></a>  )</span>
-<span id="cb7-51"><a href="#cb7-51"></a></span>
-<span id="cb7-52"><a href="#cb7-52"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#..........................create title..........................</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Water</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">                    &lt;span style='color:#448F9C;'&gt;supply&lt;/span&gt; </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">                    vs. </span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">                    &lt;span style='color:#9C7344;'&gt;demand&lt;/span&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">                    across the Santa Barbara Coastal&lt;br&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">                    subbasin (2010-2020)"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#.........................create caption.........................</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a></span>
+<span id="cb7-13"><a href="#cb7-13"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb7-14"><a href="#cb7-14"></a>  <span class="st">"Data Source: USGS CONUS 2025&lt;br&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="st">  {github_username}"</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#..........................updated plot..........................</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb7-22"><a href="#cb7-22"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
+<span id="cb7-23"><a href="#cb7-23"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb7-24"><a href="#cb7-24"></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
+<span id="cb7-25"><a href="#cb7-25"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb7-26"><a href="#cb7-26"></a>            <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb7-28"><a href="#cb7-28"></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
+<span id="cb7-29"><a href="#cb7-29"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb7-30"><a href="#cb7-30"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb7-31"><a href="#cb7-31"></a>             <span class="at">stroke =</span> <span class="dv">2</span>,</span>
+<span id="cb7-32"><a href="#cb7-32"></a>             <span class="at">size =</span> <span class="fl">5.5</span>) <span class="sc">+</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
+<span id="cb7-34"><a href="#cb7-34"></a>       <span class="at">subtitle =</span> <span class="st">"Winter water availability exceeds demand, but summer months experience deficits"</span>,</span>
+<span id="cb7-35"><a href="#cb7-35"></a>       <span class="at">caption =</span> caption,</span>
+<span id="cb7-36"><a href="#cb7-36"></a>       <span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-39"><a href="#cb7-39"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb7-40"><a href="#cb7-40"></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
+<span id="cb7-41"><a href="#cb7-41"></a>                                         <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb7-42"><a href="#cb7-42"></a>                                         <span class="at">size =</span> <span class="dv">22</span>,</span>
+<span id="cb7-43"><a href="#cb7-43"></a>                                         <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
+<span id="cb7-44"><a href="#cb7-44"></a>                                         <span class="at">color =</span> pal[<span class="st">"dark_text"</span>]),</span>
+<span id="cb7-45"><a href="#cb7-45"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb7-46"><a href="#cb7-46"></a>                                 <span class="at">size =</span> <span class="dv">16</span>,</span>
+<span id="cb7-47"><a href="#cb7-47"></a>                                 <span class="at">color =</span> pal[<span class="st">"light_text"</span>],</span>
+<span id="cb7-48"><a href="#cb7-48"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">8</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb7-49"><a href="#cb7-49"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
+<span id="cb7-50"><a href="#cb7-50"></a>                             <span class="at">size =</span> <span class="dv">13</span>,</span>
+<span id="cb7-51"><a href="#cb7-51"></a>                             <span class="at">color =</span> pal[<span class="st">"light_text"</span>]),</span>
+<span id="cb7-52"><a href="#cb7-52"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb7-53"><a href="#cb7-53"></a>                                <span class="at">size =</span> <span class="dv">14</span>,</span>
+<span id="cb7-54"><a href="#cb7-54"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb7-55"><a href="#cb7-55"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-56"><a href="#cb7-56"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb7-57"><a href="#cb7-57"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
+<span id="cb7-58"><a href="#cb7-58"></a>                                           <span class="at">color =</span> pal[<span class="st">"light_text"</span>],</span>
+<span id="cb7-59"><a href="#cb7-59"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
+<span id="cb7-60"><a href="#cb7-60"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
+<span id="cb7-61"><a href="#cb7-61"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb7-62"><a href="#cb7-62"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb7-63"><a href="#cb7-63"></a>  )</span>
+<span id="cb7-64"><a href="#cb7-64"></a></span>
+<span id="cb7-65"><a href="#cb7-65"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="KEY-typography_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -609,20 +596,20 @@ Recall our original plot from <a href="../lecture-slides/lecture4.1-amounts-slid
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># write plot to file (aka save as png) ----</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggsave</span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week6"</span>, <span class="st">"images"</span>, <span class="st">"salary-plot.png"</span>),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">plot =</span> final_plot, </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week7"</span>, <span class="st">"images"</span>, <span class="st">"sbc-hydro.png"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">plot =</span> <span class="fu">last_plot</span>(), <span class="co"># otherwise, save your plot as an object, and pass the `plot` argument your plot object name</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
 <span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
 <span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
 <span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span></span>
 <span id="cb8-9"><a href="#cb8-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our final plot, saved as a PNG file. We’ll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week’s discussion section!</p>
+<p>Our final plot, saved as a PNG file. We’ll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week’s lab!</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/salary-plot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<p><img src="../images/lecture-slides/sbc-hydro.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>

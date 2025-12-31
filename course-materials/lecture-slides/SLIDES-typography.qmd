@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 6.1]{.custom-title}
+[EDS 240: Lecture 7.1]{.custom-title}
 
 [*Typography*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 6 | February 10^th^, 2025]{.custom-subtitle3}
+[Week 7 | February 18^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -68,7 +68,7 @@ editor_options:
 
 **[Typeface](https://fonts.google.com/knowledge/glossary/typeface){target="_blank"} (aka font family)**: underlying visual design (e.g. Times New Roman, Helvetica, Roboto)
 
-```{r}
+```{r typeface}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -81,7 +81,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 **[Font](https://fonts.google.com/knowledge/glossary/font){target="_blank"}**: an implementation of a typeface; they can come in different weights and styles (e.g. bold, italic)
 
-```{r}
+```{r font}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -118,7 +118,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.column width="50%"}
 
-```{r}
+```{r font-psychology}
 #| eval: true
 #| echo: false
 #| out-width: "70%"
@@ -168,7 +168,7 @@ Typefaces and fonts communicate beyond more than just the written text -- they c
 
 <br>
 
-```{r}
+```{r find-you}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -188,6 +188,45 @@ Interested in font psychology? Check out this [short video](https://www.youtube.
 
 ---
 
+## {#discuss-typography data-menu-title="Discuss typogrpahy"} 
+
+[Consider the text on this visualizaton]{.slide-title}
+
+<hr>
+
+**What typography choices did the author(s) of this visualization make?** With you learning partner(s), consider all the various pieces of text on this visualization:
+
+```{r discuss-viz}
+#| eval: true
+#| echo: false
+#| out-width: "80%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "typography-discuss.jpg"))
+```
+
+```{r countdown-discuss-viz} 
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+::: {.footer}
+Example from [Which fonts to use for your charts and tables](https://blog.datawrapper.de/fonts-for-data-visualization/){target="_blank"}, by 
+Lisa Charlotte Muth
+:::
+
+---
+
 ## {#sans-serifs data-menu-title="Use sans-serif fonts"} 
 
 [When in doubt, use sans-serif fonts]{.slide-title}
@@ -201,7 +240,7 @@ Interested in font psychology? Check out this [short video](https://www.youtube.
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r sans-v-serif}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -240,7 +279,7 @@ Different typefaces display numbers differently. Serif fonts tend to have "oldst
 
 <br>
 
-```{r}
+```{r lining}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -271,7 +310,7 @@ Typefaces with **tabular figures** print **every character with equal width** --
 <br>
 <br>
 
-```{r}
+```{r tab-figs}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -281,7 +320,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r tab-google}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -311,7 +350,7 @@ Confirm that all symbols (aka **glyphs**) that you need exist *and* that they lo
 
 <br>
 
-```{r}
+```{r symbols}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -342,7 +381,7 @@ Lisa Charlotte Muth
 
 <br>
 
-```{r}
+```{r bold}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -369,7 +408,7 @@ Thin (light-weight fonts) fonts are hard to read. **Only use them in a high-cont
 
 <br>
 
-```{r}
+```{r thin}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -396,7 +435,7 @@ Lisa Charlotte Muth
 
 <br>
 
-```{r}
+```{r large-text}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -423,7 +462,7 @@ Lisa Charlotte Muth
 
 <br>
 
-```{r}
+```{r contrast}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -449,7 +488,7 @@ Lisa Charlotte Muth
 Uppercase text is more difficult to read compared to sentence case -- **limit use to headlines or labels**. Region labels on maps are commonly uppercase (e.g. see maps in these New York Times pieces, [How to Think About Ukraine, in Maps and Charts](https://www.nytimes.com/interactive/2022/02/25/opinion/russia-ukraine-invasion-maps.html){target="_blank"} and [Closing the Back
 Door to Europe](https://www.nytimes.com/interactive/2015/09/15/world/europe/migrant-borders-europe.html){target="_blank"}).
 
-```{r}
+```{r uppercase}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -476,7 +515,7 @@ Lisa Charlotte Muth
 
 <br>
 
-```{r}
+```{r hierarchy}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -530,7 +569,7 @@ There are *lots* of excellent resources out there for choosing the right typefac
 
 ## {#nicault-horror data-menu-title="C Nicault (Horror Movies)"} 
 
-```{r}
+```{r horror}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -543,7 +582,7 @@ Horror Movies, by [Cristophe Nicault](https://www.christophenicault.com/){target
 :::
 
 
-```{r}
+```{r horror-countdown}
 countdown::countdown(
   minutes = 1,
   # left = 0, right = 0,
@@ -563,7 +602,7 @@ countdown::countdown(
 
 ## {#anyene-hbcu data-menu-title="I Anyene (HBCUs)"} 
 
-```{r}
+```{r hbcu}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -576,7 +615,7 @@ HBCUs, by [Ijeamaka Anyene](https://ijeamaka-anyene.netlify.app/){target="_blank
 :::
 
 
-```{r}
+```{r hbcu-countdown}
 countdown::countdown(
   minutes = 1,
   # left = 0, right = 0,
@@ -596,7 +635,7 @@ countdown::countdown(
 
 ## {#rennie-rladies data-menu-title="N Rennie (R-Ladies Events)"} 
 
-```{r}
+```{r rladies}
 #| eval: true
 #| echo: false
 #| out-width: "80%"
@@ -609,7 +648,7 @@ R-Ladies Chapter Events, by [Nicola Rennie](https://ijeamaka-anyene.netlify.app/
 :::
 
 
-```{r}
+```{r rladies-countdown}
 countdown::countdown(
   minutes = 1,
   # left = 0, right = 0,
@@ -647,7 +686,7 @@ A **[[system font](https://fonts.google.com/knowledge/glossary/system_font_web_s
 
 [There are **only three system fonts  that are guaranteed to work everywhere**: **[sans]{.teal-text}** (the default), **[serif]{.teal-text}**, or **[mono]{.teal-text}**. Use the `family` argument to specify which font family you'd like to use for a particular text element, and use the `face` argument to specify font face (**bold**, *italic*, plain (default)):]{.body-text-s}
 
-```{r}
+```{r sys-fonts}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -718,7 +757,7 @@ Fortunately, there are a couple super handy packages that make working with font
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r showtext}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -745,15 +784,15 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ---
 
-## {#original-salary-plot data-menu-title="Recall M v F earnings plot"} 
+## {#original-dumbbell data-menu-title="Recall original dumbbell"} 
 
-[Recall our dumbbell plot from week 4]{.slide-title}
+[Recall our dumbbell plot from the amounts / rankings lecture]{.slide-title2}
 
 <hr>
 
-Let's improve this plot by updating the colors, modifying the theme, and using some new fonts!
+Let's improve this plot by adding text, modifying the theme, and using some new fonts!
 
-{{< include sections/6.1-dumbbell-original.qmd >}}
+{{< include sections/dumbbell-original.qmd >}}
 
 ---
 
@@ -765,79 +804,69 @@ Let's improve this plot by updating the colors, modifying the theme, and using s
 
 This code should look familiar (copied from the [amounts / rankings lecture](SLIDES-amounts-rankings.qmd){target="_blank"}):
 
-```{r}
+```{r dumbbell-original-wrangle}
 #| eval: true
 #| echo: true
+#| out-width: "50%"
+#| fig-align: "center"
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #..........................load packages.........................
 library(tidyverse)
-library(scales)
+library(janitor)
 
 #..........................import data...........................
-jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
+iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-jobs_clean <- jobs |> 
-  
-  # add col with % men in a given occupation (% females in a given occupation is already included) ----
-  mutate(percent_male = 100 - percent_female) |>
-         
-  # rearrange columns ----
-  relocate(year, major_category, minor_category, occupation,
-          total_workers, workers_male, workers_female,
-          percent_male, percent_female,
-          total_earnings, total_earnings_male, total_earnings_female, 
-          wage_percent_of_male) |> 
-  
-  # drop rows with missing earnings data ----
-  drop_na(total_earnings_male, total_earnings_female) |> 
-  
-  # make occupation a factor (for reordering groups in our plot) ----
-  mutate(occupation = as.factor(occupation)) |> 
- 
-  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
-  mutate(group_label = case_when(
-    percent_female >= 75 ~ "Occupations that are 75%+ female",
-    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
-    percent_male >= 75 ~ "Occupations that are 75%+ male"
-  ))
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                            
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                              create subset df                            ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#....guarantee the same random samples each time we run code.....
-set.seed(0)
-
-#.........get 10 random jobs that are 75%+ female (2016).........
-f75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
-  slice_sample(n = 10)
-
-#..........get 10 random jobs that are 75%+ male (2016)..........
-m75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
-  slice_sample(n = 10)
-
-#........get 10 random jobs that are 45-55%+ female (2016).......
-f50 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
-  slice_sample(n = 10)
-
-#.......combine dfs & relevel factors (for plotting order).......
-subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(group_label, 
-                                   "Occupations that are 75%+ female", 
-                                   "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male"),
-         occupation = fct_reorder(.f = occupation, .x = total_earnings)) 
-```
+#.................create df of just SBC subbasin.................
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> #
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
+```        
 
 ---
 
@@ -849,7 +878,7 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 This code was copied from the [amounts / rankings lecture](SLIDES-amounts-rankings.qmd){target="_blank"}. Resulting plot is rendered on the next slide!
 
-```{r}
+```{r original-plot-code}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
@@ -858,83 +887,78 @@ This code was copied from the [amounts / rankings lecture](SLIDES-amounts-rankin
 ##                                    plot                                  ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# initialize plot (we'll map our aesthetics locally for each geom, below) ----
-ggplot(subset_jobs) +
-  
-  # create dumbbells ----
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", 
-             size = 2.5) +
-  
-  # facet wrap by group ----
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
-  
-  # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 ```
 
 ---
 
 ## {#original-plot-viz data-menu-title="Original plot (viz)"} 
 
-```{r}
+```{r original-plot-viz}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-width: "100%"
-plot <- ggplot(subset_jobs) +
-  geom_segment(aes(x = total_earnings_female, 
-                   xend = total_earnings_male,
-                   y = fct_reorder(occupation, total_earnings), 
-                   yend = occupation)) +
-  geom_point(aes(x = total_earnings_male, y = occupation),
-             color = "#CD93D8", 
-             size = 3.25) +
-  geom_point(aes(x = total_earnings_female, y = occupation),
-             color = "#6A1E99", 
-             size = 3.25) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+plot <- ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 
 plot
 ```
 
 ---
 
-## {#create-palette data-menu-title="Create a better palette"} 
+## {#create-palette data-menu-title="Create a named palette"} 
 
-[Create a better (named) palette]{.slide-title}
+[Create a named palette]{.slide-title}
 
 <hr>
 
-[In the [colors lecture](SLIDES-colors.qmd){target="_blank"}, we learned **to be predictable in our color choices, but to avoid stereotypes** ([Muth 2018](https://blog.datawrapper.de/colors/){target="_blank"}). It can be helpful for readers to choose a cool color for men (e.g. blues / purples) and warmer color for women (e.g. yellows, oranges, warm greens).]{.body-text-s}
+**Let's create a named vector of colors** to call from. In addition to our point colors, we'll also include colors for our plot's text:
 
-[We'll do that here, but this time, **let's create a named vector of colors** to call from. In addition to our point colors, we'll also include colors for our plot's text:]{.body-text-s}
-
-```{r}
+```{r create-palette}
 #| eval: true
 #| echo: true
-earnings_pal <- c("males" = "#2D7787",
-                  "females" = "#FC6B4B",
-                  "dark_text" = "#0C1509",
-                  "light_text" = "#4E514D") 
+pal <- c("avail" = "#448F9C",
+         "consum" = "#9C7344",
+         "dark_text" = "#0C1509",
+         "light_text" = "#4E514D") 
 ```
 
-[The primary purpose of the [`{monochromeR}` package](https://github.com/cararthompson/monochromeR){target="_blank"} is for creating monochrome color palettes, however, it also includes a **helpful function for viewing our palette**:]{.body-text-s}
+The primary purpose of the [`{monochromeR}` package](https://github.com/cararthompson/monochromeR){target="_blank"} is for creating monochrome color palettes, however, it also includes a **helpful function for viewing our palette**:
 
-```{r}
+```{r monochromeR}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-monochromeR::view_palette(earnings_pal)
+monochromeR::view_palette(pal)
 ```
 
 ---
@@ -945,24 +969,27 @@ monochromeR::view_palette(earnings_pal)
 
 <hr>
 
-```{r}
+```{r apply-colors}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
 #| out-width: "100%"
-#| code-line-numbers: "5,8"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+#| code-line-numbers: "5,9"
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 ```
 
 ---
@@ -977,51 +1004,52 @@ Resulting plot is rendered on the next slide!
 
 <!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r add-text-echo}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
 #| out-height: "100%"
-#| code-line-numbers: "13-35"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
-       caption = "Data Source: TidyTuesday (March 5, 2019)") +
+#| code-line-numbers: "14-37"
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+            color = pal["avail"], 
+            size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 18,
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(size = 11.5,
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
 ::: {.footer}
-**Note:** We can apply our font colors in the same way we applied our point colors, calling named values from our `earnings_pal`
+**Note:** We can apply our font colors in the same way we applied our point colors, calling named values from `pal`
 :::
 
 ---
@@ -1030,46 +1058,47 @@ ggplot(subset_jobs) +
 
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r add-text-eval}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
-       caption = "Data Source: TidyTuesday (March 5, 2019)") +
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+            color = pal["avail"], 
+            size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(size = 14, #11.5
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1083,7 +1112,7 @@ ggplot(subset_jobs) +
 
 [Browse typefaces and fonts at [https://fonts.google.com/](https://fonts.google.com/){target="_blank"}. It can be helpful to type your desired text into the **Preview** field (you may need to expand the sidebar by clicking the **Filters** button on the top left of the page) to get a better sense of how your font choice will look. You can also search typefaces by name:]{.body-text-s}
 
-```{r}
+```{r google-fonts-gif}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -1095,7 +1124,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ## {#our-typefaces data-menu-title="Our typeface choices"} 
 
-[We'll use these two typefaces:]{.slide-title}
+[We'll use these three typefaces:]{.slide-title}
 
 <hr>
 
@@ -1103,40 +1132,55 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="33%"}
 
 ::: {.center-text}
-**[Josefin Sans](https://fonts.google.com/specimen/Josefin+Sans){target="_blank"}**
+**[Sarala](https://fonts.google.com/specimen/Sarala){target="_blank"}**
 :::
 
-```{r}
+```{r josefin-sans}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "josefin-sans.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sarala.png"))
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="33%"}
 
 ::: {.center-text}
-**[Sen](https://fonts.google.com/specimen/Sen?query=sen){target="_blank"}**
+**[Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans){target="_blank"}**
 :::
 
-```{r}
+```{r sen}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sen.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "noto-sans.png"))
+```
+:::
+
+::: {.column width="33%"}
+
+::: {.center-text}
+**[Red Hat Mono](https://fonts.google.com/specimen/Red+Hat+Mono?query=red+hat+mono){target="_blank"}**
+:::
+
+```{r red-hat-mono}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "red-hat-mono.png"))
 ```
 :::
 
 ::::
 
 ::: {.footer}
-**Important:** Pick typefaces that have all the *font styles* (e.g. bold, italic) that you want to use. [Sen](https://fonts.google.com/specimen/Sen?query=sen){target="_blank"} does *not* come in an italic style, meaning we won't be able to render any text in the typeface Sen and the font style italic (demonstrated in the next slides). 
+**Important:** Pick typefaces that have all the *font styles* (e.g. bold, italic) that you want to use. [Sarala](https://fonts.google.com/specimen/Sarala){target="_blank"} does *not* come in an italic style, meaning we won't be able to render any text in the typeface Sarala and the font style italic. 
 :::
 
 ---
@@ -1149,7 +1193,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 [Import `{showtext}` at the top of your script, then use `font_add_google()` to specify the font family(ies) you want to import. **Importantly**, you'll also need to "turn on" showtext using `showtext_auto()` -- this enables showtext font rendering for any newly opened graphics devices.]{.body-text-s} 
 
-```{r}
+```{r import-fonts}
 #| eval: true
 #| echo: true
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1163,8 +1207,9 @@ library(showtext)
 #......................import Google fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
 # `family` is the user-specified id that you'll use to apply a font in your ggpplot
-font_add_google(name = "Josefin Sans", family = "josefin")
-font_add_google(name = "Sen", family = "sen")
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
 
 #................enable {showtext} for rendering.................
 showtext_auto()
@@ -1176,7 +1221,7 @@ showtext_auto()
 
 ## {#apply-google-fonts-code data-menu-title="Apply Google Fonts (code)"} 
 
-[Apply Google Fonts (code)]{.slide-title}
+[Apply Google Fonts]{.slide-title}
 
 <hr>
 
@@ -1184,55 +1229,52 @@ Resulting plot is rendered on the next slide!
 
 <!-- FOR LIVE-CODING (SHOWN ON SLIDE)  -->
 
-```{r}
+```{r apply-fonts-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "19,23,27,31,36"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
-       caption = "Data Source: TidyTuesday (March 5, 2019)") +
+#| code-line-numbers: "21,26,30,33,37"
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+            color = pal["avail"], 
+            size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 18,
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(family = "sen",
-                                 size = 11.5,
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = element_text(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
-
-::: {.footer}
-**Note:** Our previously italicized caption is no longer, since Sen does not come in an italicized font style. You can choose to leave line 17 (it just won't work) or remove it altogether.
-:::
 
 ---
 
@@ -1240,51 +1282,52 @@ ggplot(subset_jobs) +
 
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r apply-fonts-eval}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-plot <- ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = "Median earnings of full-time male vs. female workers by occupation in 2016",
-       caption = "Data Source: TidyTuesday (March 5, 2019)") +
+plot <- ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+            color = pal["avail"], 
+            size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(family = "sen",
-                                 size = 14, # 11.5
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = element_text(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 
 plot
@@ -1300,10 +1343,10 @@ plot
 
 [[Font Awesome](https://fontawesome.com/){target="_blank"} is a library of icons, which can be imported and used similar to Google Fonts. You'll need to download the font files first (see today's [pre-class prep instructions](../week6.qmd#pre-class-prep){target="_blank"}). We can then use `showtext::font_add()` to make them available for use in our ggplots:]{.body-text-s}
 
-```{r}
+```{r import-fa}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "15-21"
+#| code-line-numbers: "16-22"
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1314,17 +1357,18 @@ library(showtext)
 
 #......................import Google Fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
-# `family` is the user-specified id that you'll use to apply a font in your ggpplot
-font_add_google(name = "Josefin Sans", family = "josefin")
-font_add_google(name = "Sen", family = "sen")
+# `family` is the user-specified id that you'll use to apply a font in your ggplot
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
-         regular = here::here("fonts", "Font Awesome 6 Brands-Regular-400.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
 font_add(family = "fa-regular",
-         regular = here::here("fonts", "Font Awesome 6 Free-Regular-400.otf")) 
+         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
 font_add(family = "fa-solid",
-         regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
@@ -1338,9 +1382,9 @@ showtext_auto()
 
 <hr>
 
-Let's say I want to include my GitHub username along with the GitHub icon in the caption of my plot. Start by searching the [**Free** icons on Font Awesome](https://fontawesome.com/search?o=r&m=free){target="_blank"} and click on the one you want to use (here, the [**github**](https://fontawesome.com/icons/github?f=brands&s=solid){target="_blank"} icon). Find the icon's Unicode in the top right corner of the popup box:
+Let's say I want to include my GitHub username along with the GitHub icon in the caption of my plot. Start by searching the [**Free** icons on Font Awesome](https://fontawesome.com/search?ic=free-collection){target="_blank"} and click on the one you want to use (here, the [**github**](https://fontawesome.com/icons/github?f=brands&s=solid){target="_blank"} icon). Find the icon's Unicode in the top right corner of the popup box:
 
-```{r}
+```{r unicode}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1356,11 +1400,11 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-[To use this unicode in HTML, we need to stick a `&#x` ahead of it. We can make our lives a bit easier by saving our unicode (as well as our username text) to variable names. We'll then use the [`glue::glue()` function](https://glue.tidyverse.org/) to construct our full caption. Importantly, `glue()` will evaluate expressions enclosed by braces as R code.]{.body-text-s}
+[To use this unicode in HTML, we need to stick a `&#x` ahead of it. We can make our code a bit easier to read by saving the unicode (as well as our username text) to variable names. We'll then use the [`glue::glue()` function](https://glue.tidyverse.org/) to construct our full caption. Importantly, `glue()` will evaluate expressions enclosed by braces as R code.]{.body-text-s}
 
 <br>
 
-```{r}
+```{r create-caption}
 #| eval: true
 #| echo: true
 #.........................create caption.........................
@@ -1368,7 +1412,7 @@ github_icon <- "&#xf09b"
 github_username <- "samanthacsik"
 
 caption <- glue::glue(
-  "Data Source: TidyTuesday (March 5, 2019)<br>
+  "Data Source: USGS CONUS 2025<br>
   <span style='font-family:fa-brands;'>{github_icon};</span>
   {github_username}"
 )
@@ -1376,35 +1420,13 @@ caption <- glue::glue(
 
 <br>
 
-[Note that we **(1)** wrap our object names in `{}` to use the values that are saved to them, and **(2)**, we use the HTML `<span>` tag to apply styles to text -- here, we use the `font-family` property and supply it the value, `fa-brands` (which is the id (i.e. `family`) we created when loading the `Font Awesome 6 Brands-Regular-400.otf` file at the top of our script).]{.body-text-s}
-
----
-
-## {#create-subtitle data-menu-title="FA unicode (subtitle)"}
-
-[Let's also add an icon to our subtitle]{.slide-title}
-
-<hr>
-
-We can do this the same way that we constructed our caption -- **note** that this money icon is from the [`fa-regular` family](https://fontawesome.com/icons/money-bill-1?f=classic&s=regular){target="_blank"} (though you could choose to use the [solid version](https://fontawesome.com/icons/money-bill-1?f=classic&s=solid){target="_blank"} as well):
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: true
-#........................create subtitle.........................
-money_icon <- "&#xf3d1"
-
-subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</span>
-                       Median earnings of full-time male versus female workers by occupation in 2016")
-```
+[Note that we **(1)** wrap our object names in `{}` to use the values that are saved to them, and **(2)**, we use the HTML `<span>` tag to apply styles to text -- here, we use the `font-family` property and supply it the value, `fa-brands` (which is the id (i.e. `family`) we created when loading the `Font Awesome 7 Brands-Regular-400.otf` file at the top of our script).]{.body-text-s}
 
 ---
 
 ## {#update-plot-text data-menu-title="Add new plot text"} 
 
-[Apply our new caption & subtitle]{.slide-title}
+[Apply our new caption]{.slide-title}
 
 <hr>
 
@@ -1412,49 +1434,50 @@ Resulting plot is rendered on the next slide!
 
 <!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r apply-caption-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "14,15"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+#| code-line-numbers: "16"
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 18,
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(family = "sen",
-                                 size = 11.5,
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = element_text(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1464,51 +1487,52 @@ ggplot(subset_jobs) +
 
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r apply-caption-eval}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = element_text(family = "sen",
-                                 size = 14, # 11.5
-                                 color = earnings_pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = element_text(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
-                                color = earnings_pal["light_text"],
+                                color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1536,65 +1560,66 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 
 ## {#update-theme-elements-code data-menu-title="Update theme elements (code)"} 
 
-[Update `theme()` elements to render styling]{.slide-title}
+[Update `theme()` element to render styling]{.slide-title}
 
 <hr>
 
 <!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r ggtext-caption-echo}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-#| code-line-numbers: "23,27,30-31"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+#| code-line-numbers: "36,39,40"
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 18,
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 11.5,
-                                            color = earnings_pal["light_text"],
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
-                                           color = earnings_pal["light_text"],
+                                           color = pal["light_text"],
                                            halign = 1, 
                                            lineheight = 1.5,
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
 ::: {.center-text}
-**Note:** Text rendered with `{ggtext}` doesn't appear correctly in the RStudio plots pane (or when using the Zoom window) -- see this separate, but potentially related [GitHub issue](https://github.com/wilkelab/ggtext/issues/84).
+**Note:** Text rendered with `{ggtext}` doesn't always appear correctly in the plots pane (or when using the Zoom window) -- see this separate, but potentially related [GitHub issue](https://github.com/wilkelab/ggtext/issues/84){target="_blank"}.
 :::
 
 ---
@@ -1603,53 +1628,54 @@ ggplot(subset_jobs) +
 
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
-```{r}
+```{r ggtext-caption-eval}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 14, # 11.5
-                                            color = earnings_pal["light_text"],
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
+                              size = 22,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
-                                           color = earnings_pal["light_text"],
+                                           color = pal["light_text"],
                                            halign = 1, 
                                            lineheight = 1.5,
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1661,86 +1687,97 @@ ggplot(subset_jobs) +
 
 <hr>
 
-Rather than a traditional legend, let's **color-code our subtitle text (i.e. [male]{style="color:#2D7787"} & [female]{style="color:#FC6B4B"}) to match the points in our plot**. We can again use the [`{ggtext}` package](https://wilkelab.org/ggtext/){target="_blank"} to apply simple Markdown and HTML rendering to our ggplot text.
-
-<br>
+[Rather than a traditional legend, let's **color-code our title text (i.e. [supply]{style="color:#448F9C"} & [demand]{style="color:#9C7344"}) to match the points in our plot**. We can again use the [`{ggtext}` package](https://wilkelab.org/ggtext/){target="_blank"} to apply simple Markdown and HTML rendering to our ggplot text.]{.body-text-s}
 
 . . . 
 
-We already have the correct `theme()` elements added to our plot, but we do need to **update our subtitle text with Markdown and HTML styling**. Let's bold and color the words "male" and "female":
+[We'll need to both **format our title using Markdown and some HTML**, and **update `theme()`** so that this text element is rendered using `ggtext::element_textbox()` (just as we did with our caption). Let's bold and color the words "supply" and "demand":]{.body-text-s}
 
-```{r}
+```{r create-title}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6,8"
-#........................create subtitle.........................
-money_icon <- "&#xf3d1"
-
-subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</span>
-                       Median earnings of full-time
-                       <span style='color:#2D7787;'>**male**</span> 
-                       versus 
-                       <span style='color:#FC6B4B;'>**female**</span>
-                       workers by occupation in 2016")
+#| code-line-numbers: "2,4,5"
+title <- glue::glue("Water
+                    <span style='color:#448F9C;'>supply</span> 
+                    vs. 
+                    <span style='color:#9C7344;'>demand</span>
+                    across the Santa Barbara Coastal<br>
+                    subbasin (2010-2020)")
 ```
 
+. . . 
+
+[Then update to `element_textbox()` and increase the `lineheight` to give the two lines a bit of breathing room:]{.body-text-s}
+
+```{r lineheight}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1,4"
+theme(plot.title = ggtext::element_textbox(family = "sarala",
+                                           face = "bold",
+                                           size = 22,
+                                           lineheight = 1.2,
+                                           color = pal["dark_text"]))
+```
+
+
 ::: {.footer}
-**Note:** We combine both Markdown syntax (e.g. `**` to **bold text**) and HTML syntax to apply in-line CSS styling (e.g. `<span style=...>`)):
+**Note:** We combine both Markdown syntax (e.g. `**` to **bold text**) and HTML syntax to apply in-line CSS styling (e.g. `<span style=...>`):
 :::
 
 ---
 
-## {#updated-text data-menu-title="Voilà!"} 
+## {#update-title-element data-menu-title="Update title element"} 
 
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
-```{r}
-#| eval: true
-#| echo: false
+```{r update-title-echo}
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+            color = pal["avail"], 
+            size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = title,
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
-                              face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 14, # 11.5
-                                            color = earnings_pal["light_text"],
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
-                                           face = "italic",
-                                           color = earnings_pal["light_text"],
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 22,
+                                         lineheight = 1.2,
+                                         color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                face = "italic",
+                                color = pal["light_text"],
+                                halign = 1, 
+                                lineheight = 1.5,
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1757,77 +1794,82 @@ ggplot(subset_jobs) +
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r before}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.9
 #| out-height: "100%"
 # initialize plot (we'll map our aesthetics locally for each geom, below) ----
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 ```
 
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r after}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.9
 #| out-height: "100%"
-ggplot(subset_jobs) +
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = earnings_pal["males"], 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = earnings_pal["females"], 
-             size = 2.5) +
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") +
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = title,
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = ggtext::element_textbox(family = "sarala",
                               face = "bold",
-                              size = 19, # 18
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 14, # 11.5
-                                            color = earnings_pal["light_text"],
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
-                                           face = "italic",
-                                           color = earnings_pal["light_text"],
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+                              size = 22,
+                              lineheight = 1.2,
+                              color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                face = "italic",
+                                color = pal["light_text"],
+                                halign = 1, 
+                                lineheight = 1.5,
+                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 :::
@@ -1844,12 +1886,12 @@ ggplot(subset_jobs) +
 
 `ggsave()` creates a new graphical device to write the output file -- here we specify a PNG device:
 
-```{r}
+```{r ggsave}
 #| eval: false
 #| echo: true
 # write plot to file (aka save as png) ----
 ggsave(
-  filename = here::here("week6", "images", "salary_plot.png"),
+  filename = here::here("week7", "images", "sbc-hydro.png"),
   plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
   device = "png",
   width = 8, 
@@ -1862,7 +1904,7 @@ ggsave(
 
 We can also turn off showtext rendering for future devices: 
 
-```{r}
+```{r showtext-false}
 #| eval: false
 #| echo: true
 # turn off showtext text rendering ----
@@ -1878,22 +1920,16 @@ showtext_auto(FALSE)
 <hr>
 
 ::: {.center-text}
-Text elements can cause some annoyances when writing plots to file....
+Text elements can cause some annoyances when writing plots to file....You'll learn strategies for fixing this in a future lab!
 :::
 
-```{r}
+```{r text-small}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "salary_plot_8x7.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"))
 ```
-
-. . . 
-
-::: {.center-text}
-You'll learn strategies for fixing this in discussion section!
-:::
 
 ---
 
@@ -1901,10 +1937,10 @@ You'll learn strategies for fixing this in discussion section!
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
 
-```{r}
+```{r countdown-end} 
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,
