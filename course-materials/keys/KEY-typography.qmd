@@ -1,15 +1,14 @@
 ---
-title: "Lecture 6.1 KEY"
-subtitle: "Typography"
+title: "KEY - typography"
 author: "Your Name"
-date: 2025-02-10
+date: 2026-02-18
 toc: true
 editor_options: 
   chunk_output_type: inline
 ---
 
 ::: {.callout-note}
-This template follows [lecture 6.1 slides](../lecture-slides/lecture6.1-typography-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [typography slides](../lecture-slides/SLIDES-typography.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## System fonts
@@ -42,8 +41,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 ## Setup 
 
 ::: {.callout-note}
-## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}
-Our "first draft" of this plot began in week 4 during our amounts / rankings lecture. We'll focus on improving colors and fonts today.
+Recall our original dumbbell plot from the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd#dumbbell-plot-example){target="_blank"}. Today, we'll focus on adding text and updating our theme and fonts.
 :::
 
 ```{r}
@@ -57,130 +55,107 @@ Our "first draft" of this plot began in week 4 during our amounts / rankings lec
 
 #..........................load packages.........................
 library(tidyverse)
+library(janitor)
 library(showtext)
 library(glue)
 library(ggtext)
 
+#..........................import data...........................
+iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
+
 #......................import Google fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
-# `family` is the user-specified id that you'll use to apply a font in your ggpplot
-font_add_google(name = "Josefin Sans", family = "josefin")
-font_add_google(name = "Sen", family = "sen")
+# `family` is the user-specified id that you'll use to apply a font in your ggplot
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
-         regular = here::here("fonts", "Font Awesome 6 Brands-Regular-400.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
 font_add(family = "fa-regular",
-         regular = here::here("fonts", "Font Awesome 6 Free-Regular-400.otf")) 
+         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
 font_add(family = "fa-solid",
-         regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
-
-#..........................import data...........................
-# find import code at: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05#grab-the-clean-data-here
-jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 ```
 
 ## Wrangle data
 
-See [lecture 4.1 slides](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"} (specifically, [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling){target="_blank"} and [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset){target="_blank"}) as a reminder of where we left off.
+This is the same code we saw in the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}.
 
 ```{r}
 #| eval: true
 #| echo: true
-#| warning: false
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                wrangle data                              ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#| message: false
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                            
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 
-jobs_clean <- jobs |> 
-  
-  # add col with % men in a given occupation (% females in a given occupation is already included) ----
-  mutate(percent_male = 100 - percent_female) |>
-         
-  # rearrange columns ----
-  relocate(year, major_category, minor_category, occupation,
-          total_workers, workers_male, workers_female,
-          percent_male, percent_female,
-          total_earnings, total_earnings_male, total_earnings_female, 
-          wage_percent_of_male) |> 
-  
-  # drop rows with missing earnings data ----
-  drop_na(total_earnings_male, total_earnings_female) |> 
-  
-  # make occupation a factor (for reordering groups in our plot) ----
-  mutate(occupation = as.factor(occupation)) |> 
- 
-  # classify jobs by percentage male or female (these will become facet labels in our dumbbell plot) ----
-  mutate(group_label = case_when(
-    percent_female >= 75 ~ "Occupations that are 75%+ female",
-    percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female",
-    percent_male >= 75 ~ "Occupations that are 75%+ male"
-  )) 
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                              create subset df                            ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#....guarantee the same random samples each time we run code.....
-set.seed(0)
-
-#.........get 10 random jobs that are 75%+ female (2016).........
-f75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ female") |> 
-  slice_sample(n = 10)
-
-#..........get 10 random jobs that are 75%+ male (2016)..........
-m75 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 75%+ male") |> 
-  slice_sample(n = 10)
-
-#........get 10 random jobs that are 45-55%+ female (2016).......
-f50 <- jobs_clean |> 
-  filter(year == 2016, group_label == "Occupations that are 45-55% female") |> 
-  slice_sample(n = 10)
-
-#.......combine dfs & relevel factors (for plotting order).......
-subset_jobs <- rbind(f75, m75, f50) |> 
-  mutate(group_label = fct_relevel(.f = group_label, 
-                                   "Occupations that are 75%+ female", 
-                                   "Occupations that are 45-55% female", 
-                                   "Occupations that are 75%+ male"),
-         occupation = fct_reorder(.f = occupation, .x = total_earnings))
+#.................create df of just SBC subbasin.................
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> #
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
 ```
 
 ## Recreate original plot 
 
-See [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
+This is the same code we saw in the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}.
 
 ```{r}
 #| eval: true
 #| echo: true
-#| warning: false
 #| out-width: "100%"
-# recreate original plot ----
-plot <- ggplot(subset_jobs) +
-  
-  # create dumbbells ----
-  geom_linerange(aes(y = occupation,
-                     xmin = total_earnings_female, xmax = total_earnings_male)) + 
-  geom_point(aes(x = total_earnings_male, y = occupation), 
-             color = "#CD93D8", 
-             size = 2.5) +
-  geom_point(aes(x = total_earnings_female, y = occupation), 
-             color = "#6A1E99", 
-             size = 2.5) +
-  
-  # facet wrap by group ----
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
-  
-  # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000))
-
-plot
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = "#448F9C", 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = "#9C7344", 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 ```
 
 ## Create new palette
@@ -190,13 +165,13 @@ plot
 #| echo: true
 #| warning: false
 # create a named color palette ----
-earnings_pal <- c("males" = "#2D7787",
-                  "females" = "#FC6B4B",
-                  "dark_text" = "#0C1509",
-                  "light_text" = "#4E514D") 
+pal <- c("avail" = "#448F9C",
+         "consum" = "#9C7344",
+         "dark_text" = "#0C1509",
+         "light_text" = "#4E514D") 
 
 # preview it -----
-monochromeR::view_palette(earnings_pal)
+monochromeR::view_palette(pal)
 ```
 
 ## Update plot colors
@@ -207,24 +182,21 @@ monochromeR::view_palette(earnings_pal)
 #| warning: false
 #| out-width: "100%"
 # update plot colors using palette ----
-plot <- ggplot(subset_jobs) +
-  
-  # create dumbbells ----
-  geom_segment(aes(x = total_earnings_female, xend = total_earnings_male,
-                 y = fct_reorder(occupation, total_earnings), yend = occupation)) +
-  geom_point(aes(x = total_earnings_male, y = occupation),
-             color = earnings_pal["males"], size = 3.25) + # update with colors from `earnings_pal`
-  geom_point(aes(x = total_earnings_female, y = occupation),
-             color = earnings_pal["females"], size = 3.25) + # update with colors from `earnings_pal`
-  
-  # facet wrap by group ----
-  facet_wrap(~group_label, nrow = 3, scales = "free_y") + # "free_y" plots only the axis labels that exist in each group
-  
-  # axis breaks & $ labels ----
-  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"),
-                     breaks = c(25000, 50000, 75000, 100000, 125000))
-
-plot
+ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5.5,
+             stroke = 2) +
+  labs(x = "Mean monthly water supply & demand (mm)") +
+  theme(axis.title.y = element_blank())
 ```
 
 ## Add titles & theme {#titles-theme}
@@ -233,57 +205,70 @@ plot
 #| eval: true
 #| echo: true
 #| warning: false
-#| out-width: "100%"
+#| out-width: "80%"
 #| fig-asp: 1
+#..........................create title..........................
+title <- glue::glue("Water
+                    <span style='color:#448F9C;'>supply</span> 
+                    vs. 
+                    <span style='color:#9C7344;'>demand</span>
+                    across the Santa Barbara Coastal<br>
+                    subbasin (2010-2020)")
+
 #.........................create caption.........................
 github_icon <- "&#xf09b"
 github_username <- "samanthacsik"
 
 caption <- glue::glue(
-  "Data Source: TidyTuesday (March 5, 2019)<br>
+  "Data Source: USGS CONUS 2025<br>
   <span style='font-family:fa-brands;'>{github_icon};</span>
   {github_username}"
 )
 
-#........................create subtitle.........................
-money_icon <- "&#xf3d1"
-
-subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</span>
-                       Median earnings of full-time 
-                       <span style='color:#2D7787;'>**male**</span> versus 
-                       <span style='color:#FC6B4B;'>**female**</span>
-                       workers by occupation in 2016")
-
 #..........................updated plot..........................
-final_plot <- plot +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
+final_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = title,
+       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin", 
-                              face = "bold",
-                              size = 18,
-                              color = earnings_pal["dark_text"]),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 12,
-                                            color = earnings_pal["light_text"],
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen", 
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 22,
+                                         lineheight = 1.2,
+                                         color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
-                                           color = earnings_pal["light_text"],
-                                           halign = 1,
+                                           color = pal["light_text"],
+                                           halign = 1, 
                                            lineheight = 1.5,
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(family = "josefin",
-                              face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, units = "cm"),
-    axis.text = element_text(size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 
 final_plot
@@ -296,8 +281,8 @@ final_plot
 #| echo: true
 # write plot to file (aka save as png) ----
 ggsave(
-  filename = here::here("week6", "images", "salary-plot.png"),
-  plot = final_plot, 
+  filename = here::here("week7", "images", "sbc-hydro.png"),
+  plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
   device = "png",
   width = 8, 
   height = 7,
@@ -305,14 +290,14 @@ ggsave(
 )
 ```
 
-Our final plot, saved as a PNG file. We'll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week's discussion section!
+Our final plot, saved as a PNG file. We'll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week's lab!
 
 ```{r}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics("images/salary-plot.png")
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro.png"))
 ```
 
 ## Turn off `{showtext}` text rendering 

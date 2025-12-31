@@ -817,7 +817,6 @@ This code should look familiar (copied from the [amounts / rankings lecture](SLI
 #..........................load packages.........................
 library(tidyverse)
 library(janitor)
-library(scales)
 
 #..........................import data...........................
 iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
@@ -901,7 +900,7 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              size = 5.5,
              stroke = 2) +
-  labs(x = "Mean water quantity (mm)") +
+  labs(x = "Mean monthly water supply & demand (mm)") +
   theme(axis.title.y = element_blank())
 ```
 
@@ -928,7 +927,7 @@ plot <- ggplot(sbc_subbasin_monthly) +
              shape = 21,
              size = 5.5,
              stroke = 2) +
-  labs(x = "Mean water quantity (mm)") +
+  labs(x = "Mean monthly water supply & demand (mm)") +
   theme(axis.title.y = element_blank())
 
 plot
@@ -989,7 +988,7 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              size = 5.5,
              stroke = 2) +
-  labs(x = "Mean water quantity (mm)") +
+  labs(x = "Mean monthly water supply & demand (mm)") +
   theme(axis.title.y = element_blank())
 ```
 
@@ -1015,8 +1014,8 @@ ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5.5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
@@ -1024,29 +1023,28 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = "Data Source: USGS CONUS 2025",
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 18,
+                              size = 22,
                               color = pal["dark_text"]),
-    plot.subtitle = element_text(size = 11.5,
+    plot.subtitle = element_text(size = 16,
                                  color = pal["light_text"],
-                                 margin = margin(t = 2, r = 0, b = 6, l = 0)),
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
                                 color = pal["light_text"],
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text = element_text(face = "bold",
-                              size = 10,
-                              hjust = 0),
-    panel.spacing.y = unit(x = 0.5, "cm"),
-    axis.text = element_text(size = 9,
-                             color = pal["light_text"]),
-    axis.title.y = element_blank()
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
@@ -1070,8 +1068,8 @@ ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5.5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
@@ -1079,10 +1077,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = "Data Source: USGS CONUS 2025",
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1134,10 +1132,10 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="33%"}
 
 ::: {.center-text}
-**[Josefin Sans](https://fonts.google.com/specimen/Josefin+Sans){target="_blank"}**
+**[Sarala](https://fonts.google.com/specimen/Sarala){target="_blank"}**
 :::
 
 ```{r josefin-sans}
@@ -1145,14 +1143,14 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "josefin-sans.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sarala.png"))
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="33%"}
 
 ::: {.center-text}
-**[Sen](https://fonts.google.com/specimen/Sen?query=sen){target="_blank"}**
+**[Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans){target="_blank"}**
 :::
 
 ```{r sen}
@@ -1160,14 +1158,29 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sen.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "noto-sans.png"))
+```
+:::
+
+::: {.column width="33%"}
+
+::: {.center-text}
+**[Red Hat Mono](https://fonts.google.com/specimen/Red+Hat+Mono?query=red+hat+mono){target="_blank"}**
+:::
+
+```{r red-hat-mono}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "red-hat-mono.png"))
 ```
 :::
 
 ::::
 
 ::: {.footer}
-**Important:** Pick typefaces that have all the *font styles* (e.g. bold, italic) that you want to use. [Sen](https://fonts.google.com/specimen/Sen?query=sen){target="_blank"} does *not* come in an italic style, meaning we won't be able to render any text in the typeface Sen and the font style italic (demonstrated in the next slides). 
+**Important:** Pick typefaces that have all the *font styles* (e.g. bold, italic) that you want to use. [Sarala](https://fonts.google.com/specimen/Sarala){target="_blank"} does *not* come in an italic style, meaning we won't be able to render any text in the typeface Sarala and the font style italic. 
 :::
 
 ---
@@ -1208,7 +1221,7 @@ showtext_auto()
 
 ## {#apply-google-fonts-code data-menu-title="Apply Google Fonts (code)"} 
 
-[Apply Google Fonts (code)]{.slide-title}
+[Apply Google Fonts]{.slide-title}
 
 <hr>
 
@@ -1219,13 +1232,13 @@ Resulting plot is rendered on the next slide!
 ```{r apply-fonts-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "19,23,27,31,36"
+#| code-line-numbers: "21,26,30,33,37"
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5.5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
@@ -1233,10 +1246,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
-       caption = "Data Source: USGS National Water Availability Assessment Outputs (CONUS 2025)",
-       x = "Water quantity (mm)") +
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1263,10 +1276,6 @@ ggplot(sbc_subbasin_monthly) +
   )
 ```
 
-::: {.footer}
-**Note:** Our previously italicized caption is no longer, since Sen does not come in an italicized font style. You can choose to leave line 17 (it just won't work) or remove it altogether.
-:::
-
 ---
 
 ## {#apply-google-fonts-viz data-menu-title="Apply Google Fonts (viz)"} 
@@ -1283,8 +1292,8 @@ plot <- ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5.5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
@@ -1292,10 +1301,10 @@ plot <- ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
-       caption = "Data Source: USGS National Water Availability Assessment Outputs (CONUS 2025)",
-       x = "Water quantity (mm)") +
+       caption = "Data Source: USGS CONUS 2025",
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1337,7 +1346,7 @@ plot
 ```{r import-fa}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "15-21"
+#| code-line-numbers: "16-22"
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1348,9 +1357,10 @@ library(showtext)
 
 #......................import Google Fonts.......................
 # `name` is the name of the font as it appears in Google Fonts
-# `family` is the user-specified id that you'll use to apply a font in your ggpplot
-font_add_google(name = "Josefin Sans", family = "josefin")
-font_add_google(name = "Sen", family = "sen")
+# `family` is the user-specified id that you'll use to apply a font in your ggplot
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
@@ -1390,7 +1400,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-[To use this unicode in HTML, we need to stick a `&#x` ahead of it. We can make our lives a bit easier by saving our unicode (as well as our username text) to variable names. We'll then use the [`glue::glue()` function](https://glue.tidyverse.org/) to construct our full caption. Importantly, `glue()` will evaluate expressions enclosed by braces as R code.]{.body-text-s}
+[To use this unicode in HTML, we need to stick a `&#x` ahead of it. We can make our code a bit easier to read by saving the unicode (as well as our username text) to variable names. We'll then use the [`glue::glue()` function](https://glue.tidyverse.org/) to construct our full caption. Importantly, `glue()` will evaluate expressions enclosed by braces as R code.]{.body-text-s}
 
 <br>
 
@@ -1410,7 +1420,7 @@ caption <- glue::glue(
 
 <br>
 
-[Note that we **(1)** wrap our object names in `{}` to use the values that are saved to them, and **(2)**, we use the HTML `<span>` tag to apply styles to text -- here, we use the `font-family` property and supply it the value, `fa-brands` (which is the id (i.e. `family`) we created when loading the `Font Awesome 6 Brands-Regular-400.otf` file at the top of our script).]{.body-text-s}
+[Note that we **(1)** wrap our object names in `{}` to use the values that are saved to them, and **(2)**, we use the HTML `<span>` tag to apply styles to text -- here, we use the `font-family` property and supply it the value, `fa-brands` (which is the id (i.e. `family`) we created when loading the `Font Awesome 7 Brands-Regular-400.otf` file at the top of our script).]{.body-text-s}
 
 ---
 
@@ -1441,10 +1451,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1496,10 +1506,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1550,7 +1560,7 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 
 ## {#update-theme-elements-code data-menu-title="Update theme elements (code)"} 
 
-[Update `theme()` elements to render styling]{.slide-title}
+[Update `theme()` element to render styling]{.slide-title}
 
 <hr>
 
@@ -1562,7 +1572,7 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-#| code-line-numbers: "23,27,30-31"
+#| code-line-numbers: "36,39,40"
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
@@ -1576,10 +1586,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1601,13 +1611,15 @@ ggplot(sbc_subbasin_monthly) +
     plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
                                            color = pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
     plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 ```
 
 ::: {.center-text}
-**Note:** Text rendered with `{ggtext}` doesn't appear correctly in the RStudio plots pane (or when using the Zoom window) -- see this separate, but potentially related [GitHub issue](https://github.com/wilkelab/ggtext/issues/84).
+**Note:** Text rendered with `{ggtext}` doesn't always appear correctly in the plots pane (or when using the Zoom window) -- see this separate, but potentially related [GitHub issue](https://github.com/wilkelab/ggtext/issues/84){target="_blank"}.
 :::
 
 ---
@@ -1635,10 +1647,10 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              stroke = 2,
              size = 5.5) +
-  labs(title = "Water supply vs. demand across the Santa Barbara Coastal subbasin (2010-2020)",
+  labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -1660,6 +1672,8 @@ ggplot(sbc_subbasin_monthly) +
     plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
                                            color = pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
                                            margin = margin(t = 15, r = 0, b = 0, l = 0)),
     plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
@@ -1673,28 +1687,42 @@ ggplot(sbc_subbasin_monthly) +
 
 <hr>
 
-Rather than a traditional legend, let's **color-code our subtitle text (i.e. [supply]{style="color:#448F9C"} & [demand]{style="color:#9C7344"}) to match the points in our plot**. We can again use the [`{ggtext}` package](https://wilkelab.org/ggtext/){target="_blank"} to apply simple Markdown and HTML rendering to our ggplot text.
-
-<br>
+[Rather than a traditional legend, let's **color-code our title text (i.e. [supply]{style="color:#448F9C"} & [demand]{style="color:#9C7344"}) to match the points in our plot**. We can again use the [`{ggtext}` package](https://wilkelab.org/ggtext/){target="_blank"} to apply simple Markdown and HTML rendering to our ggplot text.]{.body-text-s}
 
 . . . 
 
-We'll need to both **format our title using Markdown and some HTML**, and update `theme()` so that this text element is rendered using `ggtext::element_textbox()` (just as we did with our caption). Let's bold and color the words "supply" and "demand":
+[We'll need to both **format our title using Markdown and some HTML**, and **update `theme()`** so that this text element is rendered using `ggtext::element_textbox()` (just as we did with our caption). Let's bold and color the words "supply" and "demand":]{.body-text-s}
 
 ```{r create-title}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6,8"
- #..........................create title..........................
+#| code-line-numbers: "2,4,5"
 title <- glue::glue("Water
-                    <span style='color:#448F9C;'>**supply**</span> 
+                    <span style='color:#448F9C;'>supply</span> 
                     vs. 
-                    <span style='color:#9C7344;'>**demand**</span>
-                    across the Santa Barbara Coastal subbasin (2010-2020)")
+                    <span style='color:#9C7344;'>demand</span>
+                    across the Santa Barbara Coastal<br>
+                    subbasin (2010-2020)")
 ```
 
+. . . 
+
+[Then update to `element_textbox()` and increase the `lineheight` to give the two lines a bit of breathing room:]{.body-text-s}
+
+```{r lineheight}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1,4"
+theme(plot.title = ggtext::element_textbox(family = "sarala",
+                                           face = "bold",
+                                           size = 22,
+                                           lineheight = 1.2,
+                                           color = pal["dark_text"]))
+```
+
+
 ::: {.footer}
-**Note:** We combine both Markdown syntax (e.g. `**` to **bold text**) and HTML syntax to apply in-line CSS styling (e.g. `<span style=...>`)):
+**Note:** We combine both Markdown syntax (e.g. `**` to **bold text**) and HTML syntax to apply in-line CSS styling (e.g. `<span style=...>`):
 :::
 
 ---
@@ -1704,63 +1732,6 @@ title <- glue::glue("Water
 <!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
 
 ```{r update-title-echo}
-#| eval: true
-#| echo: false
-#| code-line-numbers: "21"
-ggplot(sbc_subbasin_monthly) +
-  geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
-  geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
-            stroke = 2) +
-  geom_point(aes(x = mean_consum, y = month), 
-             color = pal["consum"], 
-             fill = "white",
-             shape = 21,
-             stroke = 2,
-             size = 5.5) +
-  labs(title = title,
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
-       caption = caption,
-       x = "Mean water quantity (mm)") +
-  theme_minimal() +
-  theme(
-    plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                              face = "bold",
-                              size = 21,
-                              color = pal["dark_text"]),
-    plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
-                                 color = pal["light_text"],
-                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
-    axis.text = element_text(family = "red",
-                             size = 13,
-                             color = pal["light_text"]),
-    axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
-    axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                face = "italic",
-                                color = pal["light_text"],
-                                halign = 1, 
-                                           lineheight = 1.5,
-                                margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
-  )
-```
-
----
-
-## {#update-title-element-plot data-menu-title="Voilà!"} 
-
-<!-- FOR DISPLAYING PLOT ONLY (NO CODE SHOWN ON SLIDE)  -->
-
-```{r update-title-eval}
-#| eval: true
-#| echo: false
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
@@ -1768,8 +1739,8 @@ ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5.5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
@@ -1780,14 +1751,15 @@ ggplot(sbc_subbasin_monthly) +
   labs(title = title,
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Mean water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = ggtext::element_textbox(family = "sarala",
-                              face = "bold",
-                              size = 21,
-                              color = pal["dark_text"]),
+                                         face = "bold",
+                                         size = 22,
+                                         lineheight = 1.2,
+                                         color = pal["dark_text"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
                                  color = pal["light_text"],
@@ -1803,7 +1775,7 @@ ggplot(sbc_subbasin_monthly) +
                                 face = "italic",
                                 color = pal["light_text"],
                                 halign = 1, 
-                                           lineheight = 1.5,
+                                lineheight = 1.5,
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
@@ -1842,7 +1814,7 @@ ggplot(sbc_subbasin_monthly) +
              shape = 21,
              size = 5.5,
              stroke = 2) +
-  labs(x = "Mean water quantity (mm)") +
+  labs(x = "Mean monthly water supply & demand (mm)") +
   theme(axis.title.y = element_blank())
 ```
 
@@ -1871,13 +1843,14 @@ ggplot(sbc_subbasin_monthly) +
   labs(title = title,
        subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
        caption = caption,
-       x = "Mean water quantity (mm)") +
+       x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = ggtext::element_textbox(family = "sarala",
                               face = "bold",
-                              size = 21,
+                              size = 22,
+                              lineheight = 1.2,
                               color = pal["dark_text"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
@@ -1894,7 +1867,7 @@ ggplot(sbc_subbasin_monthly) +
                                 face = "italic",
                                 color = pal["light_text"],
                                 halign = 1, 
-                                           lineheight = 1.5,
+                                lineheight = 1.5,
                                 margin = margin(t = 15, r = 0, b = 0, l = 0)),
     plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
@@ -1918,7 +1891,7 @@ ggplot(sbc_subbasin_monthly) +
 #| echo: true
 # write plot to file (aka save as png) ----
 ggsave(
-  filename = here::here("week6", "images", "sbc-hydro.png"),
+  filename = here::here("week7", "images", "sbc-hydro.png"),
   plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
   device = "png",
   width = 8, 
@@ -1947,7 +1920,7 @@ showtext_auto(FALSE)
 <hr>
 
 ::: {.center-text}
-Text elements can cause some annoyances when writing plots to file....
+Text elements can cause some annoyances when writing plots to file....You'll learn strategies for fixing this in a future lab!
 :::
 
 ```{r text-small}
@@ -1955,14 +1928,8 @@ Text elements can cause some annoyances when writing plots to file....
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "salary_plot_8x7.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"))
 ```
-
-. . . 
-
-::: {.center-text}
-You'll learn strategies for fixing this in discussion section!
-:::
 
 ---
 
