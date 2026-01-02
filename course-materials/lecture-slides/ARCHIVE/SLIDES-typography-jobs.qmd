@@ -523,7 +523,7 @@ Source: [The UX Designer’s Guide to Typography](https://www.interaction-design
 . . . 
 
 ::: {.footer}
-There are *lots* of excellent resources out there for choosing the right typeface / font -- check out the [resources page](../../resources.qmd#typography){target="_blank"} on the course website for some recommendations.
+There are *lots* of excellent resources out there for choosing the right typeface / font -- check out the [resources page](../../../resources.qmd#typography){target="_blank"} on the course website for some recommendations.
 :::
 
 ---
@@ -763,7 +763,7 @@ Let's improve this plot by updating the colors, modifying the theme, and using s
 
 <hr>
 
-This code should look familiar (copied from the [amounts / rankings lecture](SLIDES-amounts-rankings.qmd){target="_blank"}):
+This code should look familiar (copied from the [amounts / rankings lecture](SLIDES-amounts-rankings-jobs.qmd){target="_blank"}):
 
 ```{r}
 #| eval: true
@@ -847,7 +847,7 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 <hr>
 
-This code was copied from the [amounts / rankings lecture](SLIDES-amounts-rankings.qmd){target="_blank"}. Resulting plot is rendered on the next slide!
+This code was copied from the [amounts / rankings lecture](SLIDES-amounts-rankings-jobs.qmd){target="_blank"}. Resulting plot is rendered on the next slide!
 
 ```{r}
 #| eval: false
@@ -915,7 +915,7 @@ plot
 
 <hr>
 
-[In the [colors lecture](SLIDES-colors.qmd){target="_blank"}, we learned **to be predictable in our color choices, but to avoid stereotypes** ([Muth 2018](https://blog.datawrapper.de/colors/){target="_blank"}). It can be helpful for readers to choose a cool color for men (e.g. blues / purples) and warmer color for women (e.g. yellows, oranges, warm greens).]{.body-text-s}
+[In the [colors lecture](../SLIDES-colors.qmd){target="_blank"}, we learned **to be predictable in our color choices, but to avoid stereotypes** ([Muth 2018](https://blog.datawrapper.de/colors/){target="_blank"}). It can be helpful for readers to choose a cool color for men (e.g. blues / purples) and warmer color for women (e.g. yellows, oranges, warm greens).]{.body-text-s}
 
 [We'll do that here, but this time, **let's create a named vector of colors** to call from. In addition to our point colors, we'll also include colors for our plot's text:]{.body-text-s}
 
@@ -1298,7 +1298,7 @@ plot
 
 <hr>
 
-[[Font Awesome](https://fontawesome.com/){target="_blank"} is a library of icons, which can be imported and used similar to Google Fonts. You'll need to download the font files first (see today's [pre-class prep instructions](../week6.qmd#pre-class-prep){target="_blank"}). We can then use `showtext::font_add()` to make them available for use in our ggplots:]{.body-text-s}
+[[Font Awesome](https://fontawesome.com/){target="_blank"} is a library of icons, which can be imported and used similar to Google Fonts. You'll need to download the font files first (see today's [pre-class prep instructions](../../week6.qmd#pre-class-prep){target="_blank"}). We can then use `showtext::font_add()` to make them available for use in our ggplots:]{.body-text-s}
 
 ```{r}
 #| eval: true
@@ -1320,11 +1320,11 @@ font_add_google(name = "Sen", family = "sen")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Brands-Regular-400.otf"))
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Brands-Regular-400.otf"))
 font_add(family = "fa-regular",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Free-Regular-400.otf")) 
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Regular-400.otf")) 
 font_add(family = "fa-solid",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Free-Solid-900.otf"))
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()

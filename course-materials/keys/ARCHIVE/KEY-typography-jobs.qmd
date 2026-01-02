@@ -9,7 +9,7 @@ editor_options:
 ---
 
 ::: {.callout-note}
-This template follows [lecture 6.1 slides](../lecture-slides/lecture6.1-typography-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [typography lecture](../../lecture-slides/SLIDES-typography.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## System fonts
@@ -42,7 +42,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 ## Setup 
 
 ::: {.callout-note}
-## Recall our original plot from [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}
+## Recall our original plot from the [amounts / rankings lecture](../../lecture-slides/ARCHIVE/SLIDES-amounts-rankings-jobs.qmd){target="_blank"}
 Our "first draft" of this plot began in week 4 during our amounts / rankings lecture. We'll focus on improving colors and fonts today.
 :::
 
@@ -69,11 +69,11 @@ font_add_google(name = "Sen", family = "sen")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Brands-Regular-400.otf"))
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Brands-Regular-400.otf"))
 font_add(family = "fa-regular",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Free-Regular-400.otf")) 
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Regular-400.otf")) 
 font_add(family = "fa-solid",
-         regular = here::here("fonts-ARCHIVE", "Font Awesome 6 Free-Solid-900.otf"))
+         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
@@ -85,7 +85,7 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 
 ## Wrangle data
 
-See [lecture 4.1 slides](../lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"} (specifically, [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#data-wrangling){target="_blank"} and [this slide](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-subset){target="_blank"}) as a reminder of where we left off.
+See [amounts / rankings lecture](../../lecture-slides/ARCHIVE/SLIDES-amounts-rankings-jobs.qmd){target="_blank"} as a reminder of where we left off.
 
 ```{r}
 #| eval: true
@@ -153,7 +153,7 @@ subset_jobs <- rbind(f75, m75, f50) |>
 
 ## Recreate original plot 
 
-See [lecture 4.1](../lecture-slides/lecture4.1-amounts-slides.qmd#dumbbell-plot-create){target="_blank"} as a reminder.
+See [amounts / rankings lecture](../../lecture-slides/ARCHIVE/SLIDES-amounts-rankings-jobs.qmd){target="_blank"} as a reminder.
 
 ```{r}
 #| eval: true
