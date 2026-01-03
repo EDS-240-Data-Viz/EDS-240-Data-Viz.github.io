@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 6.2]{.custom-title}
+[EDS 240: Lecture 7.2]{.custom-title}
 
 [*Annotations*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 6 | February 10^th^, 2025]{.custom-subtitle3}
+[Week 7 | February 18^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -49,7 +49,7 @@ editor_options:
 
 <br>
 
-```{r}
+```{r arctic-ice}
 #| evaL: true
 #| echo: false
 #| out-width: "50%"
@@ -66,7 +66,7 @@ Also check out this great commentary on the above visualization, [Respect your r
 Enjoy the y-axis units on this data viz? Be sure to check out [The Measure of Things](https://www.themeasureofthings.com/default.php){target="_blank"}, a search engine for comparative measurements.
 :::
 
-```{r}
+```{r arctic-ice-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -87,7 +87,7 @@ countdown::countdown(
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r daily-records}
 #| evaL: true
 #| echo: false
 #| out-width: "80%"
@@ -97,7 +97,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r ridgeline-hot2023}
 #| evaL: true
 #| echo: false
 #| out-width: "65%"
@@ -112,7 +112,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Source: [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954){target="_blank"} (BBC)
 :::
 
-```{r}
+```{r heat-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -136,7 +136,7 @@ countdown::countdown(
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r global-temp}
 #| evaL: true
 #| echo: false
 #| out-width: "100%"
@@ -146,7 +146,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r global-ocean-temps}
 #| evaL: true
 #| echo: false
 #| out-width: "100%"
@@ -161,7 +161,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Source: [2023 confirmed as world's hottest year on record](https://www.bbc.com/news/science-environment-67861954){target="_blank"} (BBC)
 :::
 
-```{r}
+```{r temps-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -179,7 +179,7 @@ countdown::countdown(
 
 ---
 
-```{r}
+```{r co2-levels}
 #| evaL: true
 #| echo: false
 #| out-width: "50%"
@@ -191,7 +191,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Source: [What is climate change? A really simple guide](https://www.bbc.com/news/science-environment-24021772){target="_blank"} (BBC)
 :::
 
-```{r}
+```{r co2-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -245,274 +245,171 @@ Read these two *great* posts: [What to consider when using text in data visualiz
 
 ## {#plots-to-annotate data-menu-title="Annotate these plots"} 
 
-[We'll be annotating these plots]{.slide-title}
+[We'll practice annotating our dumbbell plot]{.slide-title2}
 
 <hr>
 
-<br>
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-::: {.center-text .body-text-s}
-**Metabolism effects on foraging across temperatures**
-:::
-
-```{r}
+```{r original-code}
 #| eval: true
 #| echo: false
+#| out-width: "100%"
 #| fig-align: "center"
 #| fig-asp: 0.7
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#.........................load libraries.........................
+#..........................load packages.........................
 library(tidyverse)
+library(janitor)
+library(showtext)
+library(glue)
+library(ggtext)
 
-#..........................read in data..........................
+#..........................import data...........................
+iwa_data <- read_csv(here::here("course-materials", "data", "lecture", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
 
-# read in Google Sheet ----
-lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
-  mutate(temp = as.factor(temp))
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
 
-# alternatively, read in downloaded files ----
-# lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |> 
-  # mutate(temp = as.factor(temp))
+#......................import Google fonts.......................
+# `name` is the name of the font as it appears in Google Fonts
+# `family` is the user-specified id that you'll use to apply a font in your ggplot
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create lobster plot                           ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#....................import Font Awesome fonts...................
+font_add(family = "fa-brands",
+         regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
+font_add(family = "fa-regular",
+         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
+font_add(family = "fa-solid",
+         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
-#..........................create scales.........................
-lob_palette <- c("11" = "#7B8698",
-                 "16" = "#BAD7E5",
-                 "21" = "#DC7E7C",
-                 "26" = "#7D3E40")
-
-lob_shapes <-  c("11" = 15,
-                 "16" = 16,
-                 "21" = 17,
-                 "26" = 18)
-
-lob_sizes <- c("11" = 6,
-               "16" = 6,
-               "21" = 6,
-               "26" = 7)
-
-#........................create plot text........................
-x_axis_lab <- glue::glue("Resting Metabolic Rate<br>
-                         (mg O<sub>2</sub> kg<sup>-1</sup> min<sup>-1</sup>)")
-
-y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
-                         (prey consumed predator<sup>-1</sup> 24hr<sup>-1</sup>)")
-
-#............................plot data...........................
-lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
-                             color = temp, shape = temp, size = temp)) +
-  geom_point() +
-  scale_color_manual(values = lob_palette) +
-  scale_shape_manual(values = lob_shapes) +
-  scale_size_manual(values = lob_sizes) +
-  scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
-  scale_y_continuous(breaks = seq(0, 35, by = 5)) +
-  labs(x = x_axis_lab,
-       y = y_axis_lab,
-       color = "Temp (ºC)",
-       shape = "Temp (ºC)",
-       size = "Temp (ºC)") +
-  theme_light() +
-    theme(
-      axis.title.x = ggtext::element_markdown(size = 17,
-                                              margin = margin(t = 15, r = 0, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.title.y = ggtext::element_markdown(size = 17,
-                                              margin = margin(t = 0, r = 15, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.text = element_text(color = "black", size = 16),
-      panel.border = element_rect(colour = "black", linewidth = 0.7),
-      panel.grid = element_blank(),
-      legend.position = "top",
-      legend.title = element_text(size = 16),
-      legend.text = element_text(size = 14)
-    )
-
-lob_plot
-```
-
-::: {.center-text .body-text-s .gray-text}
-Adapted from [Csik et al. 2023](https://doi.org/10.3389/fmars.2023.1072807){target="_blank"}, [Figure 5](https://www.frontiersin.org/files/Articles/1072807/fmars-10-1072807-HTML/image_m/fmars-10-1072807-g005.jpg){target="_blank"}
-:::
-
-:::
-
-::: {.column width="50%"}
-
-::: {.center-text .body-text-s}
-**Mono Lake levels**
-:::
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| fig-asp: 0.7
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#.........................load libraries.........................
-library(tidyverse)
-
-#..........................read in data..........................
-
-# read in Google Sheet
-mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
-
-# alternatively, read in downloaded files ----
-# lobs <- read_csv(here::here("week6", "data", "mono.csv")) 
-# mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv")) 
+#......enable {showtext} rendering for all newly opened GDs......
+showtext_auto()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create Mono Lake plot                         ----
+##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ggplot(data = mono, aes(x = year, y = lake_level)) +
-  # geom_rect(aes(xmin = 1941,
-  #               xmax = 1983,
-  #               ymin = 6350,
-  #               ymax = 6440),
-  #           fill = "gray90") +
-  geom_line() +
-  labs(x = "\nYear",
-       y = "Lake surface level\n(feet above sea level)\n",
-       title = "Mono Lake levels (1850 - 2017)\n",
-       caption = "Data: Mono Basin Clearinghouse") +
-  scale_x_continuous(limits = c(1850, 2020),
-                     expand = c(0,0),
-                     breaks = seq(1850, 2010, by = 20)) +
-  scale_y_continuous(limits = c(6350, 6440),
-                     breaks = c(6370, 6400, 6430),
-                     expand = c(0,0),
-                     labels = scales::label_comma()) +
-  theme_light() +
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                            
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
+
+#.................create df of just SBC subbasin.................
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> #
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                 build plot                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#......................create color palette......................
+pal <- c("avail" = "#448F9C",
+         "consum" = "#9C7344",
+         "dark_text" = "#0C1509",
+         "light_text" = "#4E514D") 
+
+#..........................create title..........................
+title <- glue::glue("Water
+                    <span style='color:#448F9C;'>supply</span> 
+                    vs. 
+                    <span style='color:#9C7344;'>demand</span>
+                    across the Santa Barbara Coastal<br>
+                    subbasin (2010-2020)")
+
+#.........................create caption.........................
+github_icon <- "&#xf09b"
+github_username <- "samanthacsik"
+
+caption <- glue::glue(
+  "Data Source: USGS CONUS 2025<br>
+  <span style='font-family:fa-brands;'>{github_icon};</span>
+  {github_username}"
+)
+
+#..........................updated plot..........................
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail)) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5.5,
+            stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             stroke = 2,
+             size = 5.5) +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water supply & demand (mm)") +
+  theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(size = 18),
-    axis.title = element_text(size = 15),
-    axis.text = element_text(size = 13),
-    plot.caption = element_text(face = "italic", size = 11)
-    ) 
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 22,
+                                         lineheight = 1.2,
+                                         color = pal["dark_text"]),
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16,
+                                 color = pal["light_text"],
+                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+    axis.text = element_text(family = "red",
+                             size = 13,
+                             color = pal["light_text"]),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14,
+                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_text"],
+                                           halign = 1, 
+                                           lineheight = 1.5,
+                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
+    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
+  )
+
+water_plot
 ```
 
-::: {.center-text .body-text-s .gray-text}
-Borrowed from Allison Horst's [Customized Data Visualization in `{ggplot2}`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html){target="_blank"} materials.
-:::
-
-:::
-
-::::
-
----
-
-##  {#custom-annotations data-menu-title="# Custom Annotations #" background="#047C90"}
-
-<div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">These two plots (and likely many others that you'll create moving forward) will benefit from some custom annotations.</p>
-</div>
-
----
-
-## {#lob-plot data-menu-title="Lobster plot"} 
-
-[Lobster plot starter code]{.slide-title}
-
-<hr>
-
-::: {.body-text-s}
-Note that this starter code incorporates some of the strategies we've discussed in past lectures: creating a named color palette, building (axis) labels outside of the ggplot code, and using `{ggtext}` to apply markdown to plot text:
-:::
-
-```{r}
-#| eval: false
-#| echo: true
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#.........................load libraries.........................
-library(tidyverse)
-
-#..........................read in data..........................
-
-# read in Google Sheet ----
-lobs <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1DkDVcl_9rlaqznHfa_v1V1jtZqcuL75Q6wvAHpnCHuk/edit#gid=2143433533") |>
-  mutate(temp = as.factor(temp))
-
-# alternatively, read in downloaded files ----
-# lobs <- read_csv(here::here("week6", "data", "metabolism-foraging-data.csv")) |> 
-  # mutate(temp = as.factor(temp))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create lobster plot                           ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................create scales.........................
-lob_palette <- c("11" = "#7B8698",
-                 "16" = "#BAD7E5",
-                 "21" = "#DC7E7C",
-                 "26" = "#7D3E40")
-
-lob_shapes <-  c("11" = 15,
-                 "16" = 16,
-                 "21" = 17,
-                 "26" = 18)
-
-lob_sizes <- c("11" = 6,
-               "16" = 6,
-               "21" = 6,
-               "26" = 7)
-
-#........................create plot text........................
-x_axis_lab <- glue::glue("Resting Metabolic Rate<br>
-                         (mg O<sub>2</sub> kg<sup>-1</sup> min<sup>-1</sup>)")
-
-y_axis_lab <- glue::glue("Maximum Consumption Rate<br>
-                         (prey consumed predator<sup>-1</sup> 24hr<sup>-1</sup>)")
-
-#............................plot data...........................
-lob_plot <- ggplot(lobs, aes(x = SMR, y = avg_eaten,
-                             color = temp, shape = temp, size = temp)) +
-  geom_point(alpha = 0.8) +
-  scale_color_manual(values = lob_palette) +
-  scale_shape_manual(values = lob_shapes) +
-  scale_size_manual(values = lob_sizes) +
-  scale_x_continuous(breaks = seq(0, 1.5, by = 0.2)) +
-  scale_y_continuous(breaks = seq(0, 35, by = 5)) +
-  labs(x = x_axis_lab,
-       y = y_axis_lab,
-       color = "Temp (ºC)",
-       shape = "Temp (ºC)",
-       size = "Temp (ºC)") +
-  theme_light() +
-    theme(
-      axis.title.x = ggtext::element_markdown(size = 17,
-                                              margin = margin(t = 15, r = 0, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.title.y = ggtext::element_markdown(size = 17,
-                                              margin = margin(t = 0, r = 15, b = 0, l = 0),
-                                              lineheight = 1.5),
-      axis.text = element_text(color = "black", size = 16),
-      panel.border = element_rect(colour = "black", linewidth = 0.7),
-      panel.grid = element_blank(),
-      legend.position = "top",
-      legend.title = element_text(size = 16),
-      legend.text = element_text(size = 14)
-    )
-
-lob_plot
-```
 
 ---
 
@@ -544,7 +441,7 @@ lob_plot
 <br>
  
 ::: {.center-text}
-[**Our goal:**]{.teal-text} add a rectangle that bounds / highlights a subset of points, add text nearby that reads **Important lobsters**, and draw an arrow from the text pointing to the box.
+[**Our goal:**]{.teal-text} add a rectangle that bounds / highlights just the summer months, add text nearby that reads **summer water deficit**, and draw an arrow from the text pointing to the box.
 :::
 
 ::: {.footer}
@@ -561,28 +458,27 @@ I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annot
 
 Here, we use `geom_text()` + `geom_rect()` to add text and a rectangle to our plot. We need to **supply coordinates** to place each on our plot.
 
-```{r}
+```{r practice-geom-text-rect}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| output-location: column
-lob_plot +
-  geom_text(
-    x = 0.1,
-    y = 25,
-    label = "Important lobsters",
-    size = 4,
-    color = "black",
-    hjust = "inward",
-  ) +
-  geom_rect(
-    xmin = 0.25, xmax = 0.85,
-    ymin = 8.5, ymax = 18,
-    alpha = 0.5,
-    fill = "gray40", color = "black",
-    show.legend = FALSE
-  )
+water_plot + 
+    geom_text(
+        x = 10,
+        y = 3,
+        label = "summer & early fall months experience\nthe largest water deficits",
+        size = 5,
+        color = "black",
+        hjust = "center",
+    ) +
+    geom_rect(
+        xmin = -1, xmax = 2.5,
+        ymin = 0.5, ymax = 4.5,
+        fill = "gray40", color = "black",
+        show.legend = FALSE
+    )
 ```
 
 [Notice that our text looks oddly blurry and bold, and our rectangle is opaque (despite adjusting `alpha`) and has a weird, thick border.]{.body-text-s}
@@ -601,23 +497,23 @@ lob_plot +
 
 . . . 
 
-[Here, `geom_text()` is plotting our label (**Important lobsters**) and box 22 times each (once for each of the 22 observations in our data frame).]{.body-text-s}
+[Here, `geom_text()` is plotting our label (**water deficit**) and box 12 times each (once for each of the 12 observations in our data frame).]{.body-text-s}
 
 ```{r}
 #| eval: true
 #| echo: true
-str(lobs)
+str(sbc_subbasin_monthly)
 ```
 
-. . . 
+<!-- . . . 
 
-[It's also inheriting the `size` aesthetic for our box border.]{.body-text-s}
+[It's also inheriting the `size` aesthetic for our box border.]{.body-text-s} -->
 
 ```{r}
 #| eval: false
-#| echo: true
+#| echo: false
 # from our `lob_plot` code
-scale_size_manual(values = lob_sizes) 
+# scale_size_manual(values = lob_sizes) 
 ```
 
 ---
@@ -636,23 +532,23 @@ scale_size_manual(values = lob_sizes)
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| output-location: column
-lob_plot +
-  annotate(
-    geom = "text",
-    x = 0.1,
-    y = 25,
-    label = "Important lobsters",
-    size = 4,
-    color = "black",
-    hjust = "inward"
-  ) +
-  annotate(
-    geom = "rect",
-    xmin = 0.25, xmax = 0.85,
-    ymin = 8.5, ymax = 18,
-    alpha = 0.5,
-    fill = "gray70", color = "black"
-  )
+water_plot + 
+    annotate(
+        geom = "text",
+        x = 10,
+        y = 3,
+        label = "summer & early fall months experience\nthe largest water deficits",
+        size = 5,
+        color = "black",
+        hjust = "center",
+        family = "noto-sans"
+    ) +
+    annotate(
+        geom = "rect",
+        xmin = -1, xmax = 2.5,
+        ymin = 0.5, ymax = 4.5,
+        fill = "gray70", color = "gray70", alpha = 0.5
+    )
 ```
 
 [**Note:** Determining coordinates for any annotation requires a lot of trial and error. Pick values that you think are close and then tweak from there.]{.body-text-s}
@@ -672,32 +568,32 @@ lob_plot +
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-#| code-line-numbers: "18-24"
+#| code-line-numbers: "17-23"
 #| output-location: column
-lob_plot +
-  annotate(
-    geom = "text",
-    x = 0.1,
-    y = 25,
-    label = "Important lobsters",
-    size = 4,
-    color = "black",
-    hjust = "inward"
-  ) +
-  annotate(
-    geom = "rect",
-    xmin = 0.25, xmax = 0.85,
-    ymin = 8.5, ymax = 18,
-    alpha = 0.5,
-    fill = "gray70", color = "black"
-  ) +
-  annotate(
-    geom = "curve",
-    x = 0.3, xend = 0.5,
-    y = 23.8, yend = 19,
-    curvature = -0.15,
-    arrow = arrow(length = unit(0.3, "cm"))
-  )
+water_plot + 
+    annotate(
+        geom = "text",
+        x = 10,
+        y = 3,
+        label = "Santa Barbara maintains a diverse water supply portfolio (e.g groudwater, recycled water, and desalination) to draw from when consumption outpaces natural supply", 
+        size = 5,
+        color = "black",
+        hjust = "center",
+        family = "noto-sans"
+    ) +
+    annotate(
+        geom = "rect",
+        xmin = -1, xmax = 2.5,
+        ymin = 0.5, ymax = 4.5,
+        fill = "gray70", color = "gray70", alpha = 0.5
+    ) +
+    annotate(
+        geom = "curve",
+        x = 7, xend = 2.6,
+        y = 2.7, yend = 2,
+        curvature = -0.25,
+        arrow = arrow(length = unit(0.3, "cm"))
+    )
 ```
 
 ---
@@ -720,8 +616,8 @@ lob_plot +
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-lob_plot +
-  geom_text(aes(label = lobster_id),
+water_plot +
+  geom_text(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
             size = 6,
             show.legend = FALSE)
 ```
@@ -737,8 +633,8 @@ lob_plot +
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-lob_plot +
-  geom_label(aes(label = lobster_id),
+water_plot +
+  geom_label(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
              size = 6,
              show.legend = FALSE)
 ```
@@ -769,11 +665,11 @@ Annotations sit on top of data points, which may be undesirable...
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-lob_plot +
-  ggrepel::geom_text_repel(aes(label = lobster_id),
-                           size = 4,
+water_plot +
+  ggrepel::geom_text_repel(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
+                           size = 7,
                            color = "gray10",
-                           nudge_x = 0.1, nudge_y = 0.3,
+                           nudge_x = 0.2, nudge_y = 0.4,
                            arrow = arrow(length = unit(0.25, "cm")))
 ```
 :::
@@ -788,8 +684,8 @@ lob_plot +
 #| echo: true
 #| fig-align: "center"
 #| fig-asp: 0.7
-lob_plot +
-  ggrepel::geom_label_repel(aes(label = lobster_id),
+water_plot +
+  ggrepel::geom_label_repel(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
                            size = 4,
                            color = "gray10",
                            nudge_x = 0.1, nudge_y = 0.3,
@@ -806,7 +702,7 @@ lob_plot +
 
 <hr>
 
-If we have just a few lobsters that we want to call attention to, we can use `annotate()` to label them. Let's start with lobster IV10:
+If we have just a few months that we want to call attention to, we can use `annotate()` to label them. Let's start with Feb:
 
 ```{r}
 #| eval: true
@@ -814,132 +710,22 @@ If we have just a few lobsters that we want to call attention to, we can use `an
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| output-location: column
-lob_plot +
+water_plot +
   annotate(
     geom = "text",
-    x = 0.3, y = 20.1,
-    label = "IV10",
-    hjust = "left",
-    size = 5
+    x = 17, y = 9.5,
+    label = "February has the highest\naverage water supply",
+    hjust = "center",
+    size = 4.5
     ) +
   annotate(
     geom = "curve",
-    x = 0.29, xend = 0.184,
-    y = 20, yend = 9.43,
+    x = 19.6, xend = 20.4,
+    y = 9.4, yend = 8.6,
+    curvature = -0.25,
     arrow = arrow(length = unit(0.3, "cm")),
     linewidth = 0.6
     ) 
-```
-
----
-
-## {#manually-label-iv19 data-menu-title="Manually label points (IV19)"} 
-
-[Manually label just a few important points]{.slide-title}
-
-<hr>
-
-**Your turn!** Create another text label and arrow pointing to lobster IV19 (the farthest dark red diamond to the right). You don't need to choose this exact location for your text and arrow:
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| fig-asp: 0.7
-lob_plot +
-  annotate(
-    geom = "text",
-    x = 0.3, y = 20.1,
-    label = "IV10",
-    hjust = "left",
-    size = 5
-    ) +
-  annotate(
-    geom = "curve",
-    x = 0.29, xend = 0.184,
-    y = 20, yend = 9.43,
-    arrow = arrow(length = unit(0.3, "cm")),
-    linewidth = 0.6
-    ) +
-  annotate(
-    geom = "text",
-    x = 1.19,
-    y = 5.25,
-    label = "IV19",
-    hjust = "right",
-    size = 5
-    ) +
-  annotate(
-    geom = "curve",
-    x = 1.2, xend = 1.31,
-    y = 5, yend = 14,
-    arrow = arrow(length = unit(0.3, "cm")),
-    linewidth = 0.6
-    )
-```
-
-```{r}
-countdown::countdown(
-  minutes = 5,
-  # left = 0, right = 0,
-  # Fanfare when it's over
-  play_sound = TRUE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "2em",
-  )
-```
-
----
-
-## {#manually-label-iv19-solution data-menu-title="Manually label points (IV19, solution)"} 
-
-[Manually label just a few important points]{.slide-title}
-
-<hr>
-
-A solution (you may have chosen a different placement for your text and arrow):
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| output-location: column
-lob_plot +
-  annotate(
-    geom = "text",
-    x = 0.3, y = 20.1,
-    label = "IV10",
-    hjust = "left",
-    size = 5
-    ) +
-  annotate(
-    geom = "curve",
-    x = 0.29, xend = 0.184,
-    y = 20, yend = 9.43,
-    arrow = arrow(length = unit(0.3, "cm")),
-    linewidth = 0.6
-    ) +
-  annotate(
-    geom = "text",
-    x = 1.19,
-    y = 5.25,
-    label = "IV19",
-    hjust = "right",
-    size = 5
-    ) +
-  annotate(
-    geom = "curve",
-    x = 1.2, xend = 1.31,
-    y = 5, yend = 14,
-    arrow = arrow(length = unit(0.3, "cm")),
-    linewidth = 0.6
-    )
 ```
 
 ---
@@ -950,11 +736,8 @@ lob_plot +
 
 <hr>
 
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-```{r}
-#| eval: false
+```{r mono-starter-code}
+#| eval: true
 #| echo: true
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
@@ -967,9 +750,6 @@ library(tidyverse)
 
 # read in Google Sheet ----
 mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
-
-# alternatively, read in csv ----
-# mono <- read_csv(here::here("week6", "data", "mono.csv"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                            create Mono Lake plot                         ----
@@ -997,58 +777,6 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     plot.caption = element_text(face = "italic")
     )
 ```
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-```{r}
-#| eval: false
-#| echo: false
-#| fig-align: "center"
-#| fig-asp: 0.7
-# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ##                                    setup                                 ----
-# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# #.........................load libraries.........................
-# library(tidyverse)
-# 
-# #..........................read in data..........................
-# 
-# # read in Google Sheet ----
-# # mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
-# 
-# # alternatively, read in csv ----
-# mono <- read_csv(here::here("course-materials", "lecture-slides", "data", "mono.csv"))
-# 
-# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ##                            create Mono Lake plot                         ----
-# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# ggplot(data = mono, aes(x = year, y = lake_level)) +
-#   geom_line() +
-#   labs(x = "\nYear",
-#        y = "Lake surface level\n(feet above sea level)\n",
-#        title = "Mono Lake levels (1850 - 2017)\n",
-#        caption = "Data: Mono Basin Clearinghouse") +
-#   scale_x_continuous(limits = c(1850, 2020),
-#                      expand = c(0,0),
-#                      breaks = seq(1850, 2010, by = 20)) +
-#   scale_y_continuous(limits = c(6350, 6440),
-#                      breaks = c(6370, 6400, 6430),
-#                      expand = c(0,0),
-#                      labels = scales::label_comma()) +
-#   theme_light() +
-#   theme(
-#     plot.title.position = "plot",
-#     plot.title = element_text(size = 16),
-#     axis.title = element_text(size = 12),
-#     axis.text = element_text(size = 10),
-#     plot.caption = element_text(face = "italic")
-#     )
-```
-<!-- ::: -->
-
-<!-- :::: -->
 
 ---
 
@@ -1177,552 +905,6 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
     )
 ```
 
-<!-- --- -->
-
-<!-- ##  {#facet-annotations data-menu-title="# Bonus: annotating facets #" background="#047C90"} -->
-
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr">Bonus: Annotating facets requires some patience and mapping. We'll demonstrate on our [occupations plot](https://samanthacsik.github.io/EDS-240-data-viz/slides/week6.1-typography-slides.html#/updated-text) from the last lesson.</p> -->
-<!-- </div> -->
-
-<!-- --- -->
-
-<!-- ## {#occupation-plot data-menu-title="Annotate occupation plot"}  -->
-
-<!-- [Add annotations to separate facet panels]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- [Here, we create a separate data frame with all necessary information (e.g. labels, label positions, arrow positions, etc.) for building our annotations. Then, we use in `geom_label()` to map this information onto the appropriate facet. This requires a lot of manual adjustment! It helps to focus on one small piece (e.g. one label or one arrow) at a time.]{.body-text-s} -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-asp: 0.7 -->
-<!-- #| code-line-numbers: "117-131,147-158" -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(showtext) -->
-
-<!-- #..........................import data........................... -->
-<!-- jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv") -->
-
-<!-- #..........................import fonts.......................... -->
-<!-- font_add_google(name = "Josefin Sans", family = "josefin") -->
-<!-- font_add_google(name = "Sen", family = "sen") -->
-
-<!-- #....................import Font Awesome fonts................... -->
-<!-- font_add(family = "fa-brands", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Brands-Regular-400.otf")) -->
-<!-- font_add(family = "fa-regular", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Free-Regular-400.otf"))  -->
-<!-- font_add(family = "fa-solid", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf")) -->
-
-<!-- #................enable {showtext} for rendering................. -->
-<!-- showtext_auto() -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                wrangle data                              ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- jobs_clean <- jobs |> -->
-
-<!--   # add cols (needed for dumbbell plot) ---- -->
-<!--   mutate(percent_male = 100 - percent_female, # % of females within each industry was already included -->
-<!--        difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F -->
-
-<!--   # rearrange columns ---- -->
-<!--   relocate(year, major_category, minor_category, occupation, -->
-<!--            total_workers, workers_male, workers_female, -->
-<!--            percent_male, percent_female, -->
-<!--            total_earnings, total_earnings_male, total_earnings_female, difference_earnings, -->
-<!--            wage_percent_of_male) |> -->
-
-<!--   # drop rows with missing earning data ---- -->
-<!--   drop_na(total_earnings_male, total_earnings_female) |> -->
-
-<!--   # make occupation a factor ---- -->
-<!--   mutate(occupation = as.factor(occupation)) |> -->
-
-<!-- # ---- this next step is for creating our dumbbell plots ---- -->
-
-<!-- # classify jobs by percentage male or female ---- -->
-<!--   mutate(group_label = case_when( -->
-<!--     percent_female >= 75 ~ "Occupations that are 75%+ female", -->
-<!--     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female", -->
-<!--     percent_male >= 75 ~ "Occupations that are 75%+ male" -->
-<!--   )) -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                              create subset df                            ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #....guarantee the same random samples each time we run code..... -->
-<!-- set.seed(0) -->
-
-<!-- #.........get 10 random jobs that are 75%+ female (2016)......... -->
-<!-- f75 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 75%+ female") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #..........get 10 random jobs that are 75%+ male (2016).......... -->
-<!-- m75 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 75%+ male") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #........get 10 random jobs that are 45-55%+ female (2016)....... -->
-<!-- f50 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 45-55% female") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #.......combine dfs & relevel factors (for plotting order)....... -->
-<!-- subset_jobs <- rbind(f75, m75, f50) |> -->
-<!--   mutate(group_label = fct_relevel(group_label,  -->
-<!--                                    "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female",  -->
-<!--                                    "Occupations that are 75%+ male")) -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                create plot                               ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #..........................build palette......................... -->
-<!-- earnings_pal <- c("males" = "#2D7787", -->
-<!--                   "females" = "#FC6B4B", -->
-<!--                   dark_text = "#0C1509", -->
-<!--                   light_text = "#4E514D")  -->
-
-<!-- #.........................create caption......................... -->
-<!-- github_icon <- "&#xf09b" -->
-<!-- github_username <- "samanthacsik" -->
-
-<!-- caption <- glue::glue( -->
-<!--   "Data Source: TidyTuesday (March 5, 2019) | -->
-<!--   <span style='font-family:fa-brands;'>{github_icon};</span> -->
-<!--   {github_username}" -->
-<!-- ) -->
-
-<!-- #........................create subtitle......................... -->
-<!-- money_icon <- "&#xf3d1" -->
-
-<!-- subtitle <- glue::glue("Median earnings <span style='font-family:fa-regular;'>{money_icon};</span> -->
-<!--                        of full-time -->
-<!--                        <span style='color:#2D7787;font-size:20pt;'>**male**</span> -->
-<!--                        versus <span style='color:#FC6B4B;font-size:20pt;'>**female**</span> -->
-<!--                        workers by occupation in 2016") -->
-
-<!-- #.................create df with annotation info................. -->
-<!-- facet_labs <- data.frame(my_text = c("Males make $23,644 than\nfemales in this female-\ndominated occupation", -->
-<!--                                      "Male & female probation officers &\ncorrectional treatment specialists\nmake about the same", -->
-<!--                                      "Here's another annotation\nwith a horizontal arrow"), -->
-<!--                          group_label = c("Occupations that are 75%+ female", "Occupations that are 45-55% female", "Occupations that are 75%+ male"), -->
-<!--                          text_x = c(70000, 45000, 60000), -->
-<!--                          text_y = c(5, 3, 5), -->
-<!--                          arrow_x = c(80000, 48500, 60000), -->
-<!--                          arrow_xend = c(80000, 48500, 37500), -->
-<!--                          arrow_y = c(6, 4, 5), -->
-<!--                          arrow_yend = c(10, 6.5, 5)) |> -->
-
-<!--   # need to reset factor levels so that facets are ordered as before ---- -->
-<!--   mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female", "Occupations that are 75%+ male")) -->
-
-<!-- #..........................create plot........................... -->
-<!-- ggplot(subset_jobs) + -->
-<!--   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, -->
-<!--                    y = fct_reorder(occupation, total_earnings), yend = occupation)) + -->
-<!--   geom_point(aes(x = total_earnings_male, y = occupation), -->
-<!--              color = earnings_pal["males"], size = 3.25) + -->
-<!--   geom_point(aes(x = total_earnings_female, y = occupation), -->
-<!--              color = earnings_pal["females"], size = 3.25) + -->
-<!--   facet_wrap(~group_label, nrow = 3, scales = "free_y") + -->
-<!--   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"), -->
-<!--                      breaks = c(25000, 50000, 75000, 100000, 125000)) + -->
-<!--   labs(title = "Males earn more than females across most occupations", -->
-<!--        subtitle = subtitle, -->
-<!--        caption = caption) + -->
-<!--   geom_segment( -->
-<!--     data = facet_labs, -->
-<!--     mapping = aes(x = arrow_x, xend = arrow_xend, -->
-<!--                   y = arrow_y, yend = arrow_yend), -->
-<!--     linewidth = 1, arrow = arrow(length = unit(0.3, "cm")) -->
-<!--     ) + -->
-<!--   geom_label( -->
-<!--     data = facet_labs, -->
-<!--     mapping = aes(x = text_x, y = text_y, label = my_text), -->
-<!--     size = 3, -->
-<!--     hjust = "left" -->
-<!--     ) + -->
-<!--   theme_minimal() + -->
-<!--   theme( -->
-<!--     plot.title.position = "plot", -->
-<!--     plot.title = element_text(family = "josefin", -->
-<!--                               face = "bold", -->
-<!--                               size = 25, -->
-<!--                               color = earnings_pal["dark_text"]), -->
-<!--     plot.subtitle = ggtext::element_textbox_simple(family = "sen", -->
-<!--                                                    size = 17, -->
-<!--                                                    color = earnings_pal["light_text"], -->
-<!--                                                    margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")), -->
-<!--     plot.caption = ggtext::element_textbox(family = "sen", -->
-<!--                                            face = "italic", -->
-<!--                                            color = earnings_pal["light_text"], -->
-<!--                                            margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")), -->
-<!--     strip.text.x = element_text(family = "josefin", -->
-<!--                                 face = "bold", -->
-<!--                                 size = 12, -->
-<!--                                 hjust = 0), -->
-<!--     panel.spacing.y = unit(x = 1, "lines"), -->
-<!--     axis.text = element_text(family = "sen", -->
-<!--                              color = earnings_pal["light_text"]), -->
-<!--     axis.text.x = element_text(size = 10), -->
-<!--     axis.title = element_blank() -->
-<!--   ) -->
-<!-- ``` -->
-
-<!-- --- -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-asp: 0.7 -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(showtext) -->
-
-<!-- #..........................import data........................... -->
-<!-- jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv") -->
-
-<!-- #..........................import fonts.......................... -->
-<!-- font_add_google(name = "Josefin Sans", family = "josefin") -->
-<!-- font_add_google(name = "Sen", family = "sen") -->
-
-<!-- #....................import Font Awesome fonts................... -->
-<!-- font_add(family = "fa-brands", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Brands-Regular-400.otf")) -->
-<!-- font_add(family = "fa-regular", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Free-Regular-400.otf"))  -->
-<!-- font_add(family = "fa-solid", -->
-<!--          regular = here::here("fonts", "Font Awesome 6 Free-Solid-900.otf")) -->
-
-<!-- #................enable {showtext} for rendering................. -->
-<!-- showtext_auto() -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                wrangle data                              ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- jobs_clean <- jobs |> -->
-
-<!--   # add cols (needed for dumbbell plot) ---- -->
-<!--   mutate(percent_male = 100 - percent_female, # % of females within each industry was already included -->
-<!--        difference_earnings = total_earnings_male - total_earnings_female) |>  # diff in earnings between M & F -->
-
-<!--   # rearrange columns ---- -->
-<!--   relocate(year, major_category, minor_category, occupation, -->
-<!--            total_workers, workers_male, workers_female, -->
-<!--            percent_male, percent_female, -->
-<!--            total_earnings, total_earnings_male, total_earnings_female, difference_earnings, -->
-<!--            wage_percent_of_male) |> -->
-
-<!--   # drop rows with missing earning data ---- -->
-<!--   drop_na(total_earnings_male, total_earnings_female) |> -->
-
-<!--   # make occupation a factor ---- -->
-<!--   mutate(occupation = as.factor(occupation)) |> -->
-
-<!-- # ---- this next step is for creating our dumbbell plots ---- -->
-
-<!-- # classify jobs by percentage male or female ---- -->
-<!--   mutate(group_label = case_when( -->
-<!--     percent_female >= 75 ~ "Occupations that are 75%+ female", -->
-<!--     percent_female >= 45 & percent_female <= 55 ~ "Occupations that are 45-55% female", -->
-<!--     percent_male >= 75 ~ "Occupations that are 75%+ male" -->
-<!--   )) -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                              create subset df                            ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #....guarantee the same random samples each time we run code..... -->
-<!-- set.seed(0) -->
-
-<!-- #.........get 10 random jobs that are 75%+ female (2016)......... -->
-<!-- f75 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 75%+ female") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #..........get 10 random jobs that are 75%+ male (2016).......... -->
-<!-- m75 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 75%+ male") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #........get 10 random jobs that are 45-55%+ female (2016)....... -->
-<!-- f50 <- jobs_clean |> -->
-<!--   filter(year == 2016, group_label == "Occupations that are 45-55% female") |> -->
-<!--   slice_sample(n = 10) -->
-
-<!-- #.......combine dfs & relevel factors (for plotting order)....... -->
-<!-- subset_jobs <- rbind(f75, m75, f50) |> -->
-<!--   mutate(group_label = fct_relevel(group_label,  -->
-<!--                                    "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female",  -->
-<!--                                    "Occupations that are 75%+ male")) -->
-
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                create plot                               ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-<!-- #..........................build palette......................... -->
-<!-- earnings_pal <- c("males" = "#2D7787", -->
-<!--                   "females" = "#FC6B4B", -->
-<!--                   dark_text = "#0C1509", -->
-<!--                   light_text = "#4E514D")  -->
-
-<!-- #.........................create caption......................... -->
-<!-- github_icon <- "&#xf09b" -->
-<!-- github_username <- "samanthacsik" -->
-
-<!-- caption <- glue::glue( -->
-<!--   "Data Source: TidyTuesday (March 5, 2019) | -->
-<!--   <span style='font-family:fa-brands;'>{github_icon};</span> -->
-<!--   {github_username}" -->
-<!-- ) -->
-
-<!-- #........................create subtitle......................... -->
-<!-- money_icon <- "&#xf3d1" -->
-
-<!-- subtitle <- glue::glue("Median earnings <span style='font-family:fa-regular;'>{money_icon};</span> -->
-<!--                        of full-time -->
-<!--                        <span style='color:#2D7787;font-size:20pt;'>**male**</span> -->
-<!--                        versus <span style='color:#FC6B4B;font-size:20pt;'>**female**</span> -->
-<!--                        workers by occupation in 2016") -->
-
-<!-- #.................create df with annotation info................. -->
-<!-- facet_labs <- data.frame(my_text = c("Males make $23,644 more than\nfemales in this female-\ndominated occupation", -->
-<!--                                      "Male & female probation officers &\ncorrectional treatment specialists\nmake about the same", -->
-<!--                                      "Here's another annotation\nwith a horizontal arrow"),  -->
-<!--                          group_label = c("Occupations that are 75%+ female", "Occupations that are 45-55% female", "Occupations that are 75%+ male"), -->
-<!--                          text_x = c(70000, 45000, 60000), -->
-<!--                          text_y = c(5, 3, 5), -->
-<!--                          arrow_x = c(80000, 48500, 60000), -->
-<!--                          arrow_xend = c(80000, 48500, 37500), -->
-<!--                          arrow_y = c(6, 4, 5), -->
-<!--                          arrow_yend = c(10, 6.5, 5)) |> -->
-<!--   mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female", "Occupations that are 75%+ male")) -->
-
-<!-- #..........................create plot........................... -->
-<!-- ggplot(subset_jobs) + -->
-<!--   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, -->
-<!--                    y = fct_reorder(occupation, total_earnings), yend = occupation)) + -->
-<!--   geom_point(aes(x = total_earnings_male, y = occupation), -->
-<!--              color = earnings_pal["males"], size = 3.25) + -->
-<!--   geom_point(aes(x = total_earnings_female, y = occupation), -->
-<!--              color = earnings_pal["females"], size = 3.25) + -->
-<!--   facet_wrap(~group_label, nrow = 3, scales = "free_y") + -->
-<!--   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"), -->
-<!--                      breaks = c(25000, 50000, 75000, 100000, 125000)) + -->
-<!--   labs(title = "Males earn more than females across most occupations", -->
-<!--        subtitle = subtitle, -->
-<!--        caption = caption) + -->
-<!--   geom_segment(data = facet_labs, -->
-<!--                mapping = aes(x = arrow_x, xend = arrow_xend, -->
-<!--                              y = arrow_y, yend = arrow_yend), -->
-<!--                linewidth = 1, arrow = arrow(length = unit(0.3, "cm"))) + -->
-<!--   geom_label(data = facet_labs, -->
-<!--              mapping = aes(x = text_x, y = text_y, label = my_text), -->
-<!--              size = 3, -->
-<!--              hjust = "left") + -->
-<!--   theme_minimal() + -->
-<!--   theme( -->
-<!--     plot.title.position = "plot", -->
-<!--     plot.title = element_text(family = "josefin", -->
-<!--                               face = "bold", -->
-<!--                               size = 25, -->
-<!--                               color = earnings_pal["dark_text"]), -->
-<!--     plot.subtitle = ggtext::element_textbox_simple(family = "sen", -->
-<!--                                                    size = 17, -->
-<!--                                                    color = earnings_pal["light_text"], -->
-<!--                                                    margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")), -->
-<!--     plot.caption = ggtext::element_textbox(family = "sen", -->
-<!--                                            face = "italic", -->
-<!--                                            color = earnings_pal["light_text"], -->
-<!--                                            margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")), -->
-<!--     strip.text.x = element_text(family = "josefin", -->
-<!--                                 face = "bold", -->
-<!--                                 size = 12, -->
-<!--                                 hjust = 0), -->
-<!--     panel.spacing.y = unit(x = 1, "lines"), -->
-<!--     axis.text = element_text(family = "sen", -->
-<!--                              color = earnings_pal["light_text"]), -->
-<!--     axis.text.x = element_text(size = 10), -->
-<!--     axis.title = element_blank() -->
-<!--   ) -->
-<!-- ``` -->
-
-<!-- --- -->
-
-
-<!-- ## {#geom-textbox data-menu-title="ggtext::geom_textbox()"}  -->
-
-<!-- [Use `geom_textbox()` to apply Markdown to annotations]{.slide-title3} -->
-
-<!-- <hr> -->
-
-<!-- [The `{ggtext}` package provides `geom_textbox()`, which allows for Markdown styling and font family specification. Note that we had to adjust the box coordinates slightly:]{.body-text-s} -->
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: true -->
-<!-- #| code-line-numbers: "2,6,33-36" -->
-<!-- #.................create df with annotation info................. -->
-<!-- facet_labs <- data.frame(my_text = c("<span style='color:#2D7787;'>**Males**</span> **make $23,644 more than** <span style='color:#FC6B4B;'>**females**</span> in this female-dominated occupation", -->
-<!--                                      "Male & female probation officers & correctional treatment specialists make about the same", -->
-<!--                                      "Here's another annotation with a horizontal arrow"),  -->
-<!--                          group_label = c("Occupations that are 75%+ female", "Occupations that are 45-55% female", "Occupations that are 75%+ male"), -->
-<!--                          x = c(70000, 55000, 65000), -->
-<!--                          y = c(5, 3, 5), -->
-<!--                          arrow_x = c(80000, 48500, 60000), -->
-<!--                          arrow_xend = c(80000, 48500, 37500), -->
-<!--                          arrow_y = c(6, 4, 5), -->
-<!--                          arrow_yend = c(10, 6.5, 5)) |> -->
-<!--   mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female", "Occupations that are 75%+ male")) -->
-
-<!-- #..........................create plot........................... -->
-<!-- ggplot(subset_jobs) + -->
-<!--   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, -->
-<!--                    y = fct_reorder(occupation, total_earnings), yend = occupation)) + -->
-<!--   geom_point(aes(x = total_earnings_male, y = occupation), -->
-<!--              color = earnings_pal["males"], size = 3.25) + -->
-<!--   geom_point(aes(x = total_earnings_female, y = occupation), -->
-<!--              color = earnings_pal["females"], size = 3.25) + -->
-<!--   facet_wrap(~group_label, nrow = 3, scales = "free_y") + -->
-<!--   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"), -->
-<!--                      breaks = c(25000, 50000, 75000, 100000, 125000)) + -->
-<!--   labs(title = "Males earn more than females across most occupations", -->
-<!--        subtitle = subtitle, -->
-<!--        caption = caption) + -->
-<!--   geom_segment(data = facet_labs, -->
-<!--                mapping = aes(x = arrow_x, xend = arrow_xend, -->
-<!--                              y = arrow_y, yend = arrow_yend), -->
-<!--                linewidth = 1, arrow = arrow(length = unit(0.3, "cm"))) + -->
-<!--   ggtext::geom_textbox(data = facet_labs, -->
-<!--                        mapping = aes(x = x, y = y, label = my_text), -->
-<!--                        size = 3, -->
-<!--                        family = "sen") + -->
-<!--   theme_minimal() + -->
-<!--   theme( -->
-<!--     plot.title.position = "plot", -->
-<!--     plot.title = element_text(family = "josefin", -->
-<!--                               face = "bold", -->
-<!--                               size = 25, -->
-<!--                               color = earnings_pal["dark_text"]), -->
-<!--     plot.subtitle = ggtext::element_textbox_simple(family = "sen", -->
-<!--                                                    size = 17, -->
-<!--                                                    color = earnings_pal["light_text"], -->
-<!--                                                    margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")), -->
-<!--     plot.caption = ggtext::element_textbox(family = "sen", -->
-<!--                                            face = "italic", -->
-<!--                                            color = earnings_pal["light_text"], -->
-<!--                                            margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")), -->
-<!--     strip.text.x = element_text(family = "josefin", -->
-<!--                                 face = "bold", -->
-<!--                                 size = 12, -->
-<!--                                 hjust = 0), -->
-<!--     panel.spacing.y = unit(x = 1, "lines"), -->
-<!--     axis.text = element_text(family = "sen", -->
-<!--                              color = earnings_pal["light_text"]), -->
-<!--     axis.text.x = element_text(size = 10), -->
-<!--     axis.title = element_blank() -->
-<!--   ) -->
-<!-- ``` -->
-
-<!-- --- -->
-
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: false -->
-<!-- #| out-width: "100%" -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-asp: 0.7 -->
-<!-- #.................create df with annotation info................. -->
-<!-- facet_labs <- data.frame(my_text = c("<span style='color:#2D7787;'>**Males**</span> **make $23,644 more than** <span style='color:#FC6B4B;'>**females**</span> in this female-dominated occupation", -->
-<!--                                      "Male & female probation officers & correctional treatment specialists make about the same", -->
-<!--                                      "Here's another annotation with a horizontal arrow"),  -->
-<!--                          group_label = c("Occupations that are 75%+ female", "Occupations that are 45-55% female", "Occupations that are 75%+ male"), -->
-<!--                          x = c(70000, 55000, 65000), -->
-<!--                          y = c(5, 3, 5), -->
-<!--                          arrow_x = c(80000, 48500, 60000), -->
-<!--                          arrow_xend = c(80000, 48500, 37500), -->
-<!--                          arrow_y = c(6, 4, 5), -->
-<!--                          arrow_yend = c(10, 6.5, 5)) |> -->
-<!--   mutate(group_label = fct_relevel(group_label, "Occupations that are 75%+ female", -->
-<!--                                    "Occupations that are 45-55% female", "Occupations that are 75%+ male")) -->
-
-<!-- #..........................create plot........................... -->
-<!-- ggplot(subset_jobs) + -->
-<!--   geom_segment(aes(x = total_earnings_female, xend = total_earnings_male, -->
-<!--                    y = fct_reorder(occupation, total_earnings), yend = occupation)) + -->
-<!--   geom_point(aes(x = total_earnings_male, y = occupation), -->
-<!--              color = earnings_pal["males"], size = 3.25) + -->
-<!--   geom_point(aes(x = total_earnings_female, y = occupation), -->
-<!--              color = earnings_pal["females"], size = 3.25) + -->
-<!--   facet_wrap(~group_label, nrow = 3, scales = "free_y") + -->
-<!--   scale_x_continuous(labels = scales::label_dollar(scale = 0.001, suffix = "k"), -->
-<!--                      breaks = c(25000, 50000, 75000, 100000, 125000)) + -->
-<!--   labs(title = "Males earn more than females across most occupations", -->
-<!--        subtitle = subtitle, -->
-<!--        caption = caption) + -->
-<!--   geom_segment(data = facet_labs, -->
-<!--                mapping = aes(x = arrow_x, xend = arrow_xend, -->
-<!--                              y = arrow_y, yend = arrow_yend), -->
-<!--                linewidth = 1, arrow = arrow(length = unit(0.3, "cm"))) + -->
-<!--   ggtext::geom_textbox(data = facet_labs, -->
-<!--                        mapping = aes(x = x, y = y, label = my_text), -->
-<!--                        size = 3, -->
-<!--                        family = "sen") + -->
-<!--   theme_minimal() + -->
-<!--   theme( -->
-<!--     plot.title.position = "plot", -->
-<!--     plot.title = element_text(family = "josefin", -->
-<!--                               face = "bold", -->
-<!--                               size = 25, -->
-<!--                               color = earnings_pal["dark_text"]), -->
-<!--     plot.subtitle = ggtext::element_textbox_simple(family = "sen", -->
-<!--                                                    size = 17, -->
-<!--                                                    color = earnings_pal["light_text"], -->
-<!--                                                    margin = margin(t = 0.5, r = 0, b = 1, l = 0, unit = "lines")), -->
-<!--     plot.caption = ggtext::element_textbox(family = "sen", -->
-<!--                                            face = "italic", -->
-<!--                                            color = earnings_pal["light_text"], -->
-<!--                                            margin = margin(t = 3, r = 0, b = 0, l = 0, unit = "lines")), -->
-<!--     strip.text.x = element_text(family = "josefin", -->
-<!--                                 face = "bold", -->
-<!--                                 size = 12, -->
-<!--                                 hjust = 0), -->
-<!--     panel.spacing.y = unit(x = 1, "lines"), -->
-<!--     axis.text = element_text(family = "sen", -->
-<!--                              color = earnings_pal["light_text"]), -->
-<!--     axis.text.x = element_text(size = 10), -->
-<!--     axis.title = element_blank() -->
-<!--   ) -->
-<!-- ``` -->
-
 ---
 
 ## {#additional-tools data-menu-title="More tools"} 
@@ -1751,9 +933,25 @@ ggplot(data = mono, aes(x = year, y = lake_level)) +
 
 ---
 
-##  {#end-break data-menu-title="# END #" background="#047C90"}
+##  {#break data-menu-title="# Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">See you next week!</p>
-<p class="caption-text">*~ This is the end of Lesson 2 (of 2) ~*</p>
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
+
+```{r countdown-end} 
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```

@@ -1024,21 +1024,21 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 22,
+                              size = 17,
                               color = pal["dark_text"]),
     plot.subtitle = element_text(size = 16,
                                  color = pal["light_text"],
                                  margin = margin(t = 3, r = 0, b = 8, l = 0)),
-    axis.text = element_text(size = 13,
+    axis.text = element_text(size = 12,
                              color = pal["light_text"]),
-    axis.title.x = element_text(size = 14,
+    axis.title.x = element_text(size = 13,
                                 margin = margin(t = 20, r = 0, b = 0, l = 0)),
     axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
@@ -1078,7 +1078,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1196,12 +1196,14 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ```{r import-fonts}
 #| eval: true
 #| echo: true
+#| code-line-numbers: "8,10-18"
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #..........................load packages.........................
 library(tidyverse)
+library(janitor)
 library(showtext)
 
 #......................import Google fonts.......................
@@ -1232,7 +1234,7 @@ Resulting plot is rendered on the next slide!
 ```{r apply-fonts-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "21,26,30,33,37"
+#| code-line-numbers: "21,25,29,32,36"
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
@@ -1247,7 +1249,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1255,17 +1257,17 @@ ggplot(sbc_subbasin_monthly) +
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = 17,
                               color = pal["dark_text"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
                                  color = pal["light_text"],
                                  margin = margin(t = 3, r = 0, b = 8, l = 0)),
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = 12,
                              color = pal["light_text"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
+                                size = 13,
                                 margin = margin(t = 20, r = 0, b = 0, l = 0)),
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
@@ -1302,7 +1304,7 @@ plot <- ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1452,7 +1454,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1460,17 +1462,17 @@ ggplot(sbc_subbasin_monthly) +
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = 17,
                               color = pal["dark_text"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
                                  color = pal["light_text"],
                                  margin = margin(t = 3, r = 0, b = 8, l = 0)),
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = 12,
                              color = pal["light_text"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
+                                size = 13,
                                 margin = margin(t = 20, r = 0, b = 0, l = 0)),
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
@@ -1507,7 +1509,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus", # Winter water availability exceeds demand, but summer months experience deficits
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1550,12 +1552,12 @@ ggplot(sbc_subbasin_monthly) +
 
 <br>
 
-There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be sure to check out the documentation as you're deciding which to use:
+There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be sure to check out the documentation as you're deciding which to use. We'll use `element_textbox()`.
 
-  - [`element_markdown()`]{.body-text-s}
+  <!-- - [`element_markdown()`]{.body-text-s}
   - [`element_textbox()`]{.body-text-s}
   - [`element_textbox_simple()`]{.body-text-s}
-  
+   -->
 ---
 
 ## {#update-theme-elements-code data-menu-title="Update theme elements (code)"} 
@@ -1587,7 +1589,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1595,17 +1597,17 @@ ggplot(sbc_subbasin_monthly) +
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = 17,
                               color = pal["dark_text"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
                                  color = pal["light_text"],
                                  margin = margin(t = 3, r = 0, b = 8, l = 0)),
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = 12,
                              color = pal["light_text"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
+                                size = 13,
                                 margin = margin(t = 20, r = 0, b = 0, l = 0)),
     axis.title.y = element_blank(),
     plot.caption = ggtext::element_textbox(family = "noto-sans",
@@ -1648,7 +1650,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = "Water supply vs. demand across the Santa Barbara Coastal\nsubbasin (2010-2020)",
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1749,7 +1751,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = title,
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +
@@ -1841,7 +1843,7 @@ ggplot(sbc_subbasin_monthly) +
              stroke = 2,
              size = 5.5) +
   labs(title = title,
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water supply & demand (mm)") +
   theme_minimal() +

@@ -1,5 +1,5 @@
 ---
-title: "KEY - typography"
+title: "KEY - typography & annotations"
 author: "Your Name"
 date: 2026-02-18
 toc: true
@@ -8,12 +8,12 @@ editor_options:
 ---
 
 ::: {.callout-note}
-This template follows the [typography slides](../lecture-slides/SLIDES-typography.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} slides. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## System fonts
 
-```{r}
+```{r sys-fonts}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -44,14 +44,11 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 Recall our original dumbbell plot from the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd#dumbbell-plot-example){target="_blank"}. Today, we'll focus on adding text and updating our theme and fonts.
 :::
 
-```{r}
+```{r setup}
 #| eval: true
 #| echo: true
 #| warning: false
 #| message: false
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #..........................load packages.........................
 library(tidyverse)
@@ -90,21 +87,22 @@ font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
 font_add(family = "fa-brands",
-         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Brands-Regular-400.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
 font_add(family = "fa-regular",
-         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Regular-400.otf")) 
+         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
 font_add(family = "fa-solid",
-         regular = here::here("fonts", "ARCHIVE", "Font Awesome 6 Free-Solid-900.otf"))
+         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
+showtext_opts(dpi = 300)
 ```
 
 ## Wrangle data
 
 This is the same code we saw in the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}.
 
-```{r}
+```{r wrangle-data}
 #| eval: true
 #| echo: true
 #| message: false
@@ -125,7 +123,7 @@ ca_region <- iwa_data |>
 #.................create df of just SBC subbasin.................
 sbc_subbasin_monthly <- ca_region |> 
   mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
-  filter(subbasin_HUC == "18060013") |> #
+  filter(subbasin_HUC == "18060013") |> 
   group_by(month) |> 
   summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
             mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
@@ -133,87 +131,30 @@ sbc_subbasin_monthly <- ca_region |>
          month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
 ```
 
-## Recreate original plot 
+## Create plot 
 
-This is the same code we saw in the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}.
-
-```{r}
-#| eval: true
-#| echo: true
-#| out-width: "100%"
-ggplot(sbc_subbasin_monthly) +
-  geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
-  geom_point(aes(x = mean_avail, y = month), 
-             color = "#448F9C", 
-             size = 5.5,
-             stroke = 2) +
-  geom_point(aes(x = mean_consum, y = month), 
-             color = "#9C7344", 
-             fill = "white",
-             shape = 21,
-             size = 5.5,
-             stroke = 2) +
-  labs(x = "Mean monthly water supply & demand (mm)") +
-  theme(axis.title.y = element_blank())
-```
-
-## Create new palette
-
-```{r}
-#| eval: true
-#| echo: true
-#| warning: false
-# create a named color palette ----
-pal <- c("avail" = "#448F9C",
-         "consum" = "#9C7344",
-         "dark_text" = "#0C1509",
-         "light_text" = "#4E514D") 
-
-# preview it -----
-monochromeR::view_palette(pal)
-```
-
-## Update plot colors
-
-```{r}
-#| eval: true
-#| echo: true
-#| warning: false
-#| out-width: "100%"
-# update plot colors using palette ----
-ggplot(sbc_subbasin_monthly) +
-  geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
-  geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
-             stroke = 2) +
-  geom_point(aes(x = mean_consum, y = month), 
-             color = pal["consum"], 
-             fill = "white",
-             shape = 21,
-             size = 5.5,
-             stroke = 2) +
-  labs(x = "Mean monthly water supply & demand (mm)") +
-  theme(axis.title.y = element_blank())
-```
-
-## Add titles & theme {#titles-theme}
-
-```{r}
+```{r build-plot}
 #| eval: true
 #| echo: true
 #| warning: false
 #| out-width: "80%"
 #| fig-asp: 1
+#......................create color palette......................
+pal <- c("avail" = "#448F9C",
+         "consum" = "#9C7344",
+         "dark_gray" = "#0C1509",
+         "light_gray" = "#4E514D") 
+
+#........................preview palette.........................
+# monochromeR::view_palette(pal)
+
 #..........................create title..........................
 title <- glue::glue("Water
-                    <span style='color:#448F9C;'>supply</span> 
+                    <span style='color:#448F9C;'>availability</span> 
                     vs. 
-                    <span style='color:#9C7344;'>demand</span>
-                    across the Santa Barbara Coastal<br>
-                    subbasin (2010-2020)")
+                    <span style='color:#9C7344;'>consumption</span>
+                    across the Santa Barbara<br>
+                    Coastal subbasin (2010-2020)")
 
 #.........................create caption.........................
 github_icon <- "&#xf09b"
@@ -225,87 +166,145 @@ caption <- glue::glue(
   {github_username}"
 )
 
+#........................create annotation.......................
+annotation <- glue::glue(
+  "Santa Barbara meets deficits through diverse water sources, 
+  including recycling & desalination. Negative availability 
+  indicates reliance on groundwater, imported water, 
+  or stored reserves."
+)
+ 
 #..........................updated plot..........................
-final_plot <- ggplot(sbc_subbasin_monthly) +
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
   geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
+                     xmin = mean_consum, xmax = mean_avail),
+                 color = pal["dark_gray"], 
+                 alpha = 0.6) + 
   geom_point(aes(x = mean_avail, y = month), 
              color = pal["avail"], 
-             size = 5.5,
-            stroke = 2) +
+             size = 5,
+             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
              fill = "white",
              shape = 21,
              stroke = 2,
-             size = 5.5) +
+             size = 5) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           color = pal["light_gray"],
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           color = pal["light_gray"],
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           color = pal["light_gray"],
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 12,
+           y = 2.5,
+           label = annotation,
+           size = 3.5,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
   labs(title = title,
-       subtitle = "Winter water availability exceeds demand, but summer months experience deficits",
+       subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
-       x = "Mean monthly water supply & demand (mm)") +
-  theme_minimal() +
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light(base_size = 17) +
   theme(
     plot.title.position = "plot",
     plot.title = ggtext::element_textbox(family = "sarala",
                                          face = "bold",
-                                         size = 22,
+                                         size = rel(0.98), 
                                          lineheight = 1.2,
-                                         color = pal["dark_text"]),
+                                         color = pal["dark_gray"],
+                                         width = unit(25, "cm"),
+                                         padding = margin(t = 9, b = 3)), 
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
-                                 color = pal["light_text"],
-                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+                                 size = rel(0.9), 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
     axis.text = element_text(family = "red",
-                             size = 13,
-                             color = pal["light_text"]),
+                             size = rel(0.7), 
+                             color = pal["light_gray"],),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+                                size = rel(0.75), 
+                                margin = margin(t = 20)),
     axis.title.y = element_blank(),
     plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
-                                           color = pal["light_text"],
+                                           color = pal["light_gray"],
+                                           size = rel(0.5),
                                            halign = 1, 
                                            lineheight = 1.5,
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
+                                           width = unit(25, "cm"),
+                                           margin = margin(t = 15),
+                                           padding = margin(t = 7, r = 5, b = 4)), 
+    panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
   )
 
-final_plot
+water_plot
 ```
 
 ## Save plot as a PNG file
 
-```{r}
+```{r save-plot}
 #| eval: false
 #| echo: true
-# write plot to file (aka save as png) ----
+#..............write plot to file (aka save as png)..............
 ggsave(
   filename = here::here("week7", "images", "sbc-hydro.png"),
-  plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
+  plot = water_plot,
   device = "png",
   width = 8, 
   height = 7,
-  unit = "in"
+  unit = "in",
+  dpi = 300
 )
 ```
 
-Our final plot, saved as a PNG file. We'll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week's lab!
+```{r save-eval}
+#| eval: true
+#| echo: false
+ggsave(
+  filename = here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"),
+  plot = water_plot,
+  device = "png",
+  width = 8, 
+  height = 7,
+  unit = "in",
+  dpi = 300
+)
+```
 
-```{r}
+Below is our final plot, saved as a PNG. You'll want to fine-tune absolute sizes and positions, which don't automatically scale with a changing plot size. Here, we'd want to increase the annotation text size and shift it slightly left.
+
+```{r saved-plot} 
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"))
 ```
 
 ## Turn off `{showtext}` text rendering 
 
-```{r}
+```{r showtext-off}
 #| eval: true
 #| echo: true
-# turn off {showtext} text rendering ----
+#...............turn off {showtext} text rendering...............
 showtext_auto(FALSE)
 ```
 

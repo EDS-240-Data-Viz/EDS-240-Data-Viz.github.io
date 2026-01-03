@@ -9,7 +9,7 @@
 <meta name="author" content="Your Name">
 <meta name="dcterms.date" content="2026-02-18">
 
-<title>KEY - typography – EDS 240</title>
+<title>KEY - typography &amp; annotations – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -247,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">KEY - typography</h1>
+      <h1 class="title">KEY - typography &amp; annotations</h1>
                       </div>
   </div>
     
@@ -283,10 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#system-fonts" id="toc-system-fonts" class="nav-link active" data-scroll-target="#system-fonts">System fonts</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#wrangle-data" id="toc-wrangle-data" class="nav-link" data-scroll-target="#wrangle-data">Wrangle data</a></li>
-  <li><a href="#recreate-original-plot" id="toc-recreate-original-plot" class="nav-link" data-scroll-target="#recreate-original-plot">Recreate original plot</a></li>
-  <li><a href="#create-new-palette" id="toc-create-new-palette" class="nav-link" data-scroll-target="#create-new-palette">Create new palette</a></li>
-  <li><a href="#update-plot-colors" id="toc-update-plot-colors" class="nav-link" data-scroll-target="#update-plot-colors">Update plot colors</a></li>
-  <li><a href="#titles-theme" id="toc-titles-theme" class="nav-link" data-scroll-target="#titles-theme">Add titles &amp; theme</a></li>
+  <li><a href="#create-plot" id="toc-create-plot" class="nav-link" data-scroll-target="#create-plot">Create plot</a></li>
   <li><a href="#save-plot-as-a-png-file" id="toc-save-plot-as-a-png-file" class="nav-link" data-scroll-target="#save-plot-as-a-png-file">Save plot as a PNG file</a></li>
   <li><a href="#turn-off-showtext-text-rendering" id="toc-turn-off-showtext-text-rendering" class="nav-link" data-scroll-target="#turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</a></li>
   </ul>
@@ -336,7 +333,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-typography_files/figure-html/sys-fonts-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -358,55 +355,52 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="do">##                                    setup                                 ----</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#..........................load packages.........................</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(glue)</span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">library</span>(ggtext)</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>iwa_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"course-materials"</span>, <span class="st">"data"</span>, <span class="st">"lecture"</span>, <span class="st">"combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"</span>))</span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#..................create df of subregions names.................</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co"># data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># subregions (&amp; others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co"># there may be a downloadable dataset containing HUCs &amp; names out there...but I couldn't find it</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a>subregion_names <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb2-20"><a href="#cb2-20"></a>  <span class="sc">~</span>subregion_HUC, <span class="sc">~</span>subregion_name,</span>
-<span id="cb2-21"><a href="#cb2-21"></a>  <span class="st">"1801"</span>, <span class="st">"Klamath-Northern California Coastal"</span>,</span>
-<span id="cb2-22"><a href="#cb2-22"></a>  <span class="st">"1802"</span>, <span class="st">"Sacramento"</span>,</span>
-<span id="cb2-23"><a href="#cb2-23"></a>  <span class="st">"1803"</span>, <span class="st">"Tulare-Buena Vista Lakes"</span>,</span>
-<span id="cb2-24"><a href="#cb2-24"></a>  <span class="st">"1804"</span>, <span class="st">"San Joaquin"</span>,</span>
-<span id="cb2-25"><a href="#cb2-25"></a>  <span class="st">"1805"</span>, <span class="st">"San Francisco Bay"</span>,</span>
-<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"1806"</span>, <span class="st">"Central California Coastal"</span>,</span>
-<span id="cb2-27"><a href="#cb2-27"></a>  <span class="st">"1807"</span>, <span class="st">"Southern California Coastal"</span>,</span>
-<span id="cb2-28"><a href="#cb2-28"></a>  <span class="st">"1808"</span>, <span class="st">"North Lahontan"</span>, </span>
-<span id="cb2-29"><a href="#cb2-29"></a>  <span class="st">"1809"</span>, <span class="st">"Northern Mojave-Mono Lake"</span>,</span>
-<span id="cb2-30"><a href="#cb2-30"></a>  <span class="st">"1810"</span>, <span class="st">"Southern Mojave-Salton Sea"</span>,</span>
-<span id="cb2-31"><a href="#cb2-31"></a>)</span>
-<span id="cb2-32"><a href="#cb2-32"></a></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#......................import Google fonts.......................</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggplot</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sarala"</span>, <span class="at">family =</span> <span class="st">"sarala"</span>)</span>
-<span id="cb2-37"><a href="#cb2-37"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Noto Sans"</span>, <span class="at">family =</span> <span class="st">"noto-sans"</span>)</span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Red Hat Mono"</span>, <span class="at">family =</span> <span class="st">"red"</span>)</span>
-<span id="cb2-39"><a href="#cb2-39"></a></span>
-<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
-<span id="cb2-41"><a href="#cb2-41"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
-<span id="cb2-42"><a href="#cb2-42"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"ARCHIVE"</span>, <span class="st">"Font Awesome 6 Brands-Regular-400.otf"</span>))</span>
-<span id="cb2-43"><a href="#cb2-43"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
-<span id="cb2-44"><a href="#cb2-44"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"ARCHIVE"</span>, <span class="st">"Font Awesome 6 Free-Regular-400.otf"</span>)) </span>
-<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
-<span id="cb2-46"><a href="#cb2-46"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"ARCHIVE"</span>, <span class="st">"Font Awesome 6 Free-Solid-900.otf"</span>))</span>
-<span id="cb2-47"><a href="#cb2-47"></a></span>
-<span id="cb2-48"><a href="#cb2-48"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a><span class="fu">showtext_auto</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#..........................load packages.........................</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(glue)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>iwa_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"course-materials"</span>, <span class="st">"data"</span>, <span class="st">"lecture"</span>, <span class="st">"combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"</span>))</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#..................create df of subregions names.................</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># subregions (&amp; others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># there may be a downloadable dataset containing HUCs &amp; names out there...but I couldn't find it</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>subregion_names <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="sc">~</span>subregion_HUC, <span class="sc">~</span>subregion_name,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="st">"1801"</span>, <span class="st">"Klamath-Northern California Coastal"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="st">"1802"</span>, <span class="st">"Sacramento"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="st">"1803"</span>, <span class="st">"Tulare-Buena Vista Lakes"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="st">"1804"</span>, <span class="st">"San Joaquin"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="st">"1805"</span>, <span class="st">"San Francisco Bay"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="st">"1806"</span>, <span class="st">"Central California Coastal"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="st">"1807"</span>, <span class="st">"Southern California Coastal"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="st">"1808"</span>, <span class="st">"North Lahontan"</span>, </span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="st">"1809"</span>, <span class="st">"Northern Mojave-Mono Lake"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="st">"1810"</span>, <span class="st">"Southern Mojave-Salton Sea"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>)</span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#......................import Google fonts.......................</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="co"># `name` is the name of the font as it appears in Google Fonts</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co"># `family` is the user-specified id that you'll use to apply a font in your ggplot</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Sarala"</span>, <span class="at">family =</span> <span class="st">"sarala"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Noto Sans"</span>, <span class="at">family =</span> <span class="st">"noto-sans"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Red Hat Mono"</span>, <span class="at">family =</span> <span class="st">"red"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
+<span id="cb2-38"><a href="#cb2-38"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Brands-Regular-400.otf"</span>))</span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-regular"</span>,</span>
+<span id="cb2-40"><a href="#cb2-40"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Free-Regular-400.otf"</span>)) </span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-solid"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Free-Solid-900.otf"</span>))</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wrangle-data" class="level2">
@@ -430,7 +424,7 @@ Note
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">#.................create df of just SBC subbasin.................</span></span>
 <span id="cb3-16"><a href="#cb3-16"></a>sbc_subbasin_monthly <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">mutate</span>(<span class="at">subbasin_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">8</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> <span class="co">#</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-19"><a href="#cb3-19"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
 <span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">summarize</span>(<span class="at">mean_avail =</span> <span class="fu">mean</span>(availab_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb3-21"><a href="#cb3-21"></a>            <span class="at">mean_consum =</span> <span class="fu">mean</span>(consum_mm_mo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
@@ -438,154 +432,130 @@ Note
 <span id="cb3-23"><a href="#cb3-23"></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(month.abb[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="recreate-original-plot" class="level2">
-<h2 class="anchored" data-anchor-id="recreate-original-plot">Recreate original plot</h2>
-<p>This is the same code we saw in the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">amounts / rankings lecture</a>.</p>
+<section id="create-plot" class="level2">
+<h2 class="anchored" data-anchor-id="create-plot">Create plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
-<span id="cb4-3"><a href="#cb4-3"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
-<span id="cb4-5"><a href="#cb4-5"></a>             <span class="at">color =</span> <span class="st">"#448F9C"</span>, </span>
-<span id="cb4-6"><a href="#cb4-6"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
-<span id="cb4-9"><a href="#cb4-9"></a>             <span class="at">color =</span> <span class="st">"#9C7344"</span>, </span>
-<span id="cb4-10"><a href="#cb4-10"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
-<span id="cb4-11"><a href="#cb4-11"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb4-12"><a href="#cb4-12"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#......................create color palette......................</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"avail"</span> <span class="ot">=</span> <span class="st">"#448F9C"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>         <span class="st">"consum"</span> <span class="ot">=</span> <span class="st">"#9C7344"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>         <span class="st">"dark_gray"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>         <span class="st">"light_gray"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#........................preview palette.........................</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># monochromeR::view_palette(pal)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#..........................create title..........................</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Water</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">                    &lt;span style='color:#448F9C;'&gt;availability&lt;/span&gt; </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">                    vs. </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">                    &lt;span style='color:#9C7344;'&gt;consumption&lt;/span&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="st">                    across the Santa Barbara&lt;br&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">                    Coastal subbasin (2010-2020)"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#.........................create caption.........................</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="st">"Data Source: USGS CONUS 2025&lt;br&gt;</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="st">  {github_username}"</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>)</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#........................create annotation.......................</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>annotation <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb4-30"><a href="#cb4-30"></a>  <span class="st">"Santa Barbara meets deficits through diverse water sources, </span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="st">  including recycling &amp; desalination. Negative availability </span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="st">  indicates reliance on groundwater, imported water, </span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="st">  or stored reserves."</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>)</span>
+<span id="cb4-35"><a href="#cb4-35"></a> </span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#..........................updated plot..........................</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>water_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, </span>
+<span id="cb4-39"><a href="#cb4-39"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb4-40"><a href="#cb4-40"></a>             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>], </span>
+<span id="cb4-41"><a href="#cb4-41"></a>             <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb4-43"><a href="#cb4-43"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail),</span>
+<span id="cb4-44"><a href="#cb4-44"></a>                 <span class="at">color =</span> pal[<span class="st">"dark_gray"</span>], </span>
+<span id="cb4-45"><a href="#cb4-45"></a>                 <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb4-46"><a href="#cb4-46"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb4-47"><a href="#cb4-47"></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
+<span id="cb4-48"><a href="#cb4-48"></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb4-49"><a href="#cb4-49"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb4-51"><a href="#cb4-51"></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
+<span id="cb4-52"><a href="#cb4-52"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb4-53"><a href="#cb4-53"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb4-54"><a href="#cb4-54"></a>             <span class="at">stroke =</span> <span class="dv">2</span>,</span>
+<span id="cb4-55"><a href="#cb4-55"></a>             <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, </span>
+<span id="cb4-57"><a href="#cb4-57"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="fl">3.5</span>,</span>
+<span id="cb4-58"><a href="#cb4-58"></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">1</span>, <span class="co"># or y = "Jun", yend = "Sep"</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-60"><a href="#cb4-60"></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb4-62"><a href="#cb4-62"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
+<span id="cb4-63"><a href="#cb4-63"></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">4</span>, </span>
+<span id="cb4-64"><a href="#cb4-64"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-65"><a href="#cb4-65"></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb4-67"><a href="#cb4-67"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
+<span id="cb4-68"><a href="#cb4-68"></a>           <span class="at">y =</span> <span class="dv">1</span>, <span class="at">yend =</span> <span class="dv">1</span>, </span>
+<span id="cb4-69"><a href="#cb4-69"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-70"><a href="#cb4-70"></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>,</span>
+<span id="cb4-72"><a href="#cb4-72"></a>           <span class="at">x =</span> <span class="dv">12</span>,</span>
+<span id="cb4-73"><a href="#cb4-73"></a>           <span class="at">y =</span> <span class="fl">2.5</span>,</span>
+<span id="cb4-74"><a href="#cb4-74"></a>           <span class="at">label =</span> annotation,</span>
+<span id="cb4-75"><a href="#cb4-75"></a>           <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb4-76"><a href="#cb4-76"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-77"><a href="#cb4-77"></a>           <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
+<span id="cb4-78"><a href="#cb4-78"></a>           <span class="at">family =</span> <span class="st">"noto-sans"</span>) <span class="sc">+</span></span>
+<span id="cb4-79"><a href="#cb4-79"></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
+<span id="cb4-80"><a href="#cb4-80"></a>       <span class="at">subtitle =</span> <span class="st">"Summer deficits exist, despite winter water surplus"</span>,</span>
+<span id="cb4-81"><a href="#cb4-81"></a>       <span class="at">caption =</span> caption,</span>
+<span id="cb4-82"><a href="#cb4-82"></a>       <span class="at">x =</span> <span class="st">"Mean monthly water availability &amp; consumption (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a>  <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-85"><a href="#cb4-85"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb4-86"><a href="#cb4-86"></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
+<span id="cb4-87"><a href="#cb4-87"></a>                                         <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb4-88"><a href="#cb4-88"></a>                                         <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.98</span>), </span>
+<span id="cb4-89"><a href="#cb4-89"></a>                                         <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
+<span id="cb4-90"><a href="#cb4-90"></a>                                         <span class="at">color =</span> pal[<span class="st">"dark_gray"</span>],</span>
+<span id="cb4-91"><a href="#cb4-91"></a>                                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
+<span id="cb4-92"><a href="#cb4-92"></a>                                         <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">9</span>, <span class="at">b =</span> <span class="dv">3</span>)), </span>
+<span id="cb4-93"><a href="#cb4-93"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb4-94"><a href="#cb4-94"></a>                                 <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>), </span>
+<span id="cb4-95"><a href="#cb4-95"></a>                                 <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-96"><a href="#cb4-96"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">8</span>)),</span>
+<span id="cb4-97"><a href="#cb4-97"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
+<span id="cb4-98"><a href="#cb4-98"></a>                             <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.7</span>), </span>
+<span id="cb4-99"><a href="#cb4-99"></a>                             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],),</span>
+<span id="cb4-100"><a href="#cb4-100"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb4-101"><a href="#cb4-101"></a>                                <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>), </span>
+<span id="cb4-102"><a href="#cb4-102"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>)),</span>
+<span id="cb4-103"><a href="#cb4-103"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-104"><a href="#cb4-104"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb4-105"><a href="#cb4-105"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
+<span id="cb4-106"><a href="#cb4-106"></a>                                           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb4-107"><a href="#cb4-107"></a>                                           <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.5</span>),</span>
+<span id="cb4-108"><a href="#cb4-108"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
+<span id="cb4-109"><a href="#cb4-109"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
+<span id="cb4-110"><a href="#cb4-110"></a>                                           <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
+<span id="cb4-111"><a href="#cb4-111"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>),</span>
+<span id="cb4-112"><a href="#cb4-112"></a>                                           <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">7</span>, <span class="at">r =</span> <span class="dv">5</span>, <span class="at">b =</span> <span class="dv">4</span>)), </span>
+<span id="cb4-113"><a href="#cb4-113"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-114"><a href="#cb4-114"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb4-115"><a href="#cb4-115"></a>  )</span>
+<span id="cb4-116"><a href="#cb4-116"></a></span>
+<span id="cb4-117"><a href="#cb4-117"></a>water_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="create-new-palette" class="level2">
-<h2 class="anchored" data-anchor-id="create-new-palette">Create new palette</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># create a named color palette ----</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"avail"</span> <span class="ot">=</span> <span class="st">"#448F9C"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>         <span class="st">"consum"</span> <span class="ot">=</span> <span class="st">"#9C7344"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>         <span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>         <span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># preview it -----</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="update-plot-colors" class="level2">
-<h2 class="anchored" data-anchor-id="update-plot-colors">Update plot colors</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># update plot colors using palette ----</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
-<span id="cb6-6"><a href="#cb6-6"></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
-<span id="cb6-7"><a href="#cb6-7"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
-<span id="cb6-10"><a href="#cb6-10"></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
-<span id="cb6-11"><a href="#cb6-11"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb6-13"><a href="#cb6-13"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
-<span id="cb6-14"><a href="#cb6-14"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="titles-theme" class="level2">
-<h2 class="anchored" data-anchor-id="titles-theme">Add titles &amp; theme</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#..........................create title..........................</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Water</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">                    &lt;span style='color:#448F9C;'&gt;supply&lt;/span&gt; </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">                    vs. </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">                    &lt;span style='color:#9C7344;'&gt;demand&lt;/span&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">                    across the Santa Barbara Coastal&lt;br&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="st">                    subbasin (2010-2020)"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8"></a></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#.........................create caption.........................</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a></span>
-<span id="cb7-13"><a href="#cb7-13"></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb7-14"><a href="#cb7-14"></a>  <span class="st">"Data Source: USGS CONUS 2025&lt;br&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="st">  {github_username}"</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a>)</span>
-<span id="cb7-18"><a href="#cb7-18"></a></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#..........................updated plot..........................</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
-<span id="cb7-22"><a href="#cb7-22"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
-<span id="cb7-23"><a href="#cb7-23"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
-<span id="cb7-24"><a href="#cb7-24"></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
-<span id="cb7-25"><a href="#cb7-25"></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
-<span id="cb7-26"><a href="#cb7-26"></a>            <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
-<span id="cb7-28"><a href="#cb7-28"></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
-<span id="cb7-29"><a href="#cb7-29"></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
-<span id="cb7-30"><a href="#cb7-30"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb7-31"><a href="#cb7-31"></a>             <span class="at">stroke =</span> <span class="dv">2</span>,</span>
-<span id="cb7-32"><a href="#cb7-32"></a>             <span class="at">size =</span> <span class="fl">5.5</span>) <span class="sc">+</span></span>
-<span id="cb7-33"><a href="#cb7-33"></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
-<span id="cb7-34"><a href="#cb7-34"></a>       <span class="at">subtitle =</span> <span class="st">"Winter water availability exceeds demand, but summer months experience deficits"</span>,</span>
-<span id="cb7-35"><a href="#cb7-35"></a>       <span class="at">caption =</span> caption,</span>
-<span id="cb7-36"><a href="#cb7-36"></a>       <span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb7-37"><a href="#cb7-37"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-38"><a href="#cb7-38"></a>  <span class="fu">theme</span>(</span>
-<span id="cb7-39"><a href="#cb7-39"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb7-40"><a href="#cb7-40"></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
-<span id="cb7-41"><a href="#cb7-41"></a>                                         <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb7-42"><a href="#cb7-42"></a>                                         <span class="at">size =</span> <span class="dv">22</span>,</span>
-<span id="cb7-43"><a href="#cb7-43"></a>                                         <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
-<span id="cb7-44"><a href="#cb7-44"></a>                                         <span class="at">color =</span> pal[<span class="st">"dark_text"</span>]),</span>
-<span id="cb7-45"><a href="#cb7-45"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb7-46"><a href="#cb7-46"></a>                                 <span class="at">size =</span> <span class="dv">16</span>,</span>
-<span id="cb7-47"><a href="#cb7-47"></a>                                 <span class="at">color =</span> pal[<span class="st">"light_text"</span>],</span>
-<span id="cb7-48"><a href="#cb7-48"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">8</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb7-49"><a href="#cb7-49"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
-<span id="cb7-50"><a href="#cb7-50"></a>                             <span class="at">size =</span> <span class="dv">13</span>,</span>
-<span id="cb7-51"><a href="#cb7-51"></a>                             <span class="at">color =</span> pal[<span class="st">"light_text"</span>]),</span>
-<span id="cb7-52"><a href="#cb7-52"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb7-53"><a href="#cb7-53"></a>                                <span class="at">size =</span> <span class="dv">14</span>,</span>
-<span id="cb7-54"><a href="#cb7-54"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb7-55"><a href="#cb7-55"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-56"><a href="#cb7-56"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb7-57"><a href="#cb7-57"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
-<span id="cb7-58"><a href="#cb7-58"></a>                                           <span class="at">color =</span> pal[<span class="st">"light_text"</span>],</span>
-<span id="cb7-59"><a href="#cb7-59"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
-<span id="cb7-60"><a href="#cb7-60"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
-<span id="cb7-61"><a href="#cb7-61"></a>                                           <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb7-62"><a href="#cb7-62"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb7-63"><a href="#cb7-63"></a>  )</span>
-<span id="cb7-64"><a href="#cb7-64"></a></span>
-<span id="cb7-65"><a href="#cb7-65"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-typography_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="KEY-typography_files/figure-html/build-plot-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -594,22 +564,23 @@ Note
 <section id="save-plot-as-a-png-file" class="level2">
 <h2 class="anchored" data-anchor-id="save-plot-as-a-png-file">Save plot as a PNG file</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># write plot to file (aka save as png) ----</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggsave</span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week7"</span>, <span class="st">"images"</span>, <span class="st">"sbc-hydro.png"</span>),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">plot =</span> <span class="fu">last_plot</span>(), <span class="co"># otherwise, save your plot as an object, and pass the `plot` argument your plot object name</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#..............write plot to file (aka save as png)..............</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">ggsave</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week7"</span>, <span class="st">"images"</span>, <span class="st">"sbc-hydro.png"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">plot =</span> water_plot,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our final plot, saved as a PNG file. We’ll learn about why this odd text rendering happens when we write plots to file, as well as strategies for fixing it in this week’s lab!</p>
+<p>Below is our final plot, saved as a PNG. You’ll want to fine-tune absolute sizes and positions, which don’t automatically scale with a changing plot size. Here, we’d want to increase the annotation text size and shift it slightly left.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/lecture-slides/sbc-hydro.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<p><img src="../images/lecture-slides/sbc-hydro-8x7.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -618,8 +589,8 @@ Note
 <section id="turn-off-showtext-text-rendering" class="level2">
 <h2 class="anchored" data-anchor-id="turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># turn off {showtext} text rendering ----</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#...............turn off {showtext} text rendering...............</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
