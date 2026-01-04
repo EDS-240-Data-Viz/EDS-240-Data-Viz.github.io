@@ -973,7 +973,7 @@ Stacked bar charts
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_5f6ba704" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_b052168c" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -995,7 +995,7 @@ Stacked bar charts
 </div>
 <img data-src="SLIDES-amounts-rankings_files/figure-revealjs/improvements-needed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_da5aa3d1" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_10fae89e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1117,10 +1117,13 @@ Heatmaps
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../images/lecture-slides/heatmap-example.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="../images/lecture-slides/heatmap-example.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
+</div>
+<div class="body-text-s gray-text center-text">
+<p>Image source: <a href="https://datavizproject.com/data-type/heat-map/" target="_&quot;blank&quot;">Data Viz Project</a>.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
@@ -1144,9 +1147,6 @@ Heatmaps
 <span id="cb18-18"><a></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
-<div class="footer">
-<p>Image source: <a href="https://datavizproject.com/data-type/heat-map/" target="_&quot;blank&quot;">Data Viz Project</a>. We can make heatmaps using <code>geom_tile()</code>.</p>
-</div>
 </section>
 <section id="heatmap-plot" class="slide level2" data-menu-title="Heatmap (plot)">
 <h2></h2>
@@ -1185,7 +1185,6 @@ Heatmaps
 <section id="dumbbell-plots" class="slide level2" data-menu-title="## Dumbbell plots ##" data-background="#047C90">
 <h2></h2>
 <div class="vertical-center">
-&lt;
 <center>
 <div class="custom-subtitle">
 Dumbbell plots
@@ -1202,12 +1201,35 @@ Dumbbell plots
 <h2></h2>
 <p><span class="slide-title3">Dumbbell plot for 1 categorical + 2 within-category numeric variables</span></p>
 <hr>
-<p>Let’s say we want to <strong>compare mean monthly water <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab" target="_blank">availability</a> and <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum" target="_blank">consumption</a> in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020</strong>. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs.&nbsp;consumed (categorical), by month (categorical).</p>
-<p><br></p>
-
-<img data-src="../images/lecture-slides/dumbbell-example.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p><span class="body-text-s">Let’s say we want to <strong>compare mean monthly water <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/availab" target="_blank">availability</a> and <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025/variable/consum" target="_blank">consumption</a> in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020</strong>. We can use a dumbbell (aka Cleveland) plot to display the average amount of water (mm; numeric) available vs.&nbsp;consumed (categorical), by month (categorical).</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/dumbbell-example.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-s gray-text">
 <p>Image source: <a href="https://datavizproject.com/data-type/dumbbell-plot/" target="_blank">Data Viz Project</a></p>
 </div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/sbc-subbasin.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="center-text body-text-s gray-text">
+<p>Image source: <a href="https://www.countyofsb.org/2555/South-Coast-Groundwater-Basins" target="_blank">County of Santa Barbara Public Works</a></p>
+</div>
+</div></div>
 </section>
 <section id="dumbbell-definitions" class="slide level2" data-menu-title="Dumbbell definitions">
 <h2></h2>
@@ -1255,15 +1277,15 @@ Dumbbell plots
 <span id="cb21-3"><a></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>
 <span id="cb21-4"><a></a>  <span class="fu">ggeom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
 <span id="cb21-5"><a></a>             <span class="at">color =</span> <span class="st">"#448F9C"</span>, </span>
-<span id="cb21-6"><a></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb21-6"><a></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
 <span id="cb21-7"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb21-8"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
 <span id="cb21-9"><a></a>             <span class="at">color =</span> <span class="st">"#9C7344"</span>, </span>
 <span id="cb21-10"><a></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
 <span id="cb21-11"><a></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb21-12"><a></a>             <span class="at">size =</span> <span class="fl">5.5</span>,</span>
+<span id="cb21-12"><a></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
 <span id="cb21-13"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb21-14"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water supply &amp; demand (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb21-14"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean monthly water availability &amp; consumption (mm)"</span>) <span class="sc">+</span></span>
 <span id="cb21-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
@@ -1299,7 +1321,7 @@ Dumbbell plots
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_428f04d5" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_cd3ddd6f" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

@@ -112,9 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <div id="quarto-announcement" data-announcement-id="2b93c32b8af55417febb6ffaf7e045fb" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p>Course materials are currently undergoing revision! EDS 240 will begin again in January 2026. In the meantime, things here might get a little messy <i class="fa-solid fa-face-grin-beam-sweat" aria-label="face-grin-beam-sweat"></i></p>
-</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -276,9 +273,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
   <ul class="collapse">
   <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-download-data" id="toc-b.-download-data" class="nav-link" data-scroll-target="#b.-download-data">B. Download Data</a></li>
-  <li><a href="#c.-download-font-awesome-fonts" id="toc-c.-download-font-awesome-fonts" class="nav-link" data-scroll-target="#c.-download-font-awesome-fonts">C. Download Font Awesome fonts</a></li>
-  <li><a href="#d.-download-.qmd-templates-review-data-wrangling-code" id="toc-d.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#d.-download-.qmd-templates-review-data-wrangling-code">D. Download .qmd templates &amp; review data wrangling code</a></li>
+  <li><a href="#b.-download-font-awesome-fonts" id="toc-b.-download-font-awesome-fonts" class="nav-link" data-scroll-target="#b.-download-font-awesome-fonts">B. Download Font Awesome fonts</a></li>
+  <li><a href="#c.-download-.qmd-templates-review-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-data-wrangling-code">C. Download .qmd templates &amp; review data wrangling code</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
@@ -302,13 +298,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/horst-ggplot-masterpiece.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"></p>
+<p><img src="../images/find-you.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="The words, 'I will find you' in two different typefaces. It's easy to perceive on as intimidating and the other as endearing."></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="gray-text center-text">
-<p><em>Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
+<p><em>Image soure: <a href="https://www.suvoray.com/notes/typography-for-a-better-user-experience" target="_blank">Typography for a better user experience</a></em></p>
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
@@ -320,20 +316,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"glue"</span>) <span class="co"># for string interpolation (aka helps us insert variables directly into text strings)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggtext"</span>) <span class="co"># improved text rendering support for ggplot2</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>) <span class="co"># ggplot2 extension to repel overlapping labels</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"googlesheets4"</span>) <span class="co"># provides an R interface to Google Sheets via the Sheets API v4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<!-- ### B. Download Data
+
+In case we have trouble with the `{googlesheets4}` API, you can download and read in the following data files as normal (i.e. using `readr::read_csv()`):
+
+- [metabolism-foraging-data.csv](https://drive.google.com/file/d/1NQV40ZHVkPUNA6FeFFQR0OxqYM4trM3w/view?usp=sharing){target="_blank"}
+- [mono.csv](https://drive.google.com/file/d/13chLNHTLd0GRCFl-7OB921FzOKc6I-GK/view?usp=sharing){target="_blank"}
+
+If you choose (or need) to download and read in these files, be sure to save them to your class repo at `~/week6/data/`. -->
 </section>
-<section id="b.-download-data" class="level3">
-<h3 class="anchored" data-anchor-id="b.-download-data">B. Download Data</h3>
-<p>In case we have trouble with the <code>{googlesheets4}</code> API, you can download and read in the following data files as normal (i.e.&nbsp;using <code>readr::read_csv()</code>):</p>
-<ul>
-<li><a href="https://drive.google.com/file/d/1NQV40ZHVkPUNA6FeFFQR0OxqYM4trM3w/view?usp=sharing" target="_blank">metabolism-foraging-data.csv</a></li>
-<li><a href="https://drive.google.com/file/d/13chLNHTLd0GRCFl-7OB921FzOKc6I-GK/view?usp=sharing" target="_blank">mono.csv</a></li>
-</ul>
-<p>If you choose (or need) to download and read in these files, be sure to save them to your class repo at <code>~/week6/data/</code>.</p>
-</section>
-<section id="c.-download-font-awesome-fonts" class="level3">
-<h3 class="anchored" data-anchor-id="c.-download-font-awesome-fonts">C. Download Font Awesome fonts</h3>
+<section id="b.-download-font-awesome-fonts" class="level3">
+<h3 class="anchored" data-anchor-id="b.-download-font-awesome-fonts">B. Download Font Awesome fonts</h3>
 <p>We’ll learn how to use <a href="https://fontawesome.com/" target="_blank">Font Awesome</a> icons in our ggplots. To do so, you’ll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:</p>
 <ol type="1">
 <li><strong>Download Font Awesome fonts:</strong> Go to <a href="https://fontawesome.com/download" target="_blank">https://fontawesome.com/download</a> and download the latest release available. Choose the <strong>Free For Desktop</strong> option.</li>
@@ -341,15 +336,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Copy the three <code>.otf</code> files to your class repo:</strong> I recommend creating a <code>fonts/</code> folder inside your root directory, and dropping all three of them in there (e.g.&nbsp;<code>EDS-240-data-viz-examples/fonts/*.otf</code>)</li>
 </ol>
 </section>
-<section id="d.-download-.qmd-templates-review-data-wrangling-code" class="level3">
-<h3 class="anchored" data-anchor-id="d.-download-.qmd-templates-review-data-wrangling-code">D. Download .qmd templates &amp; review data wrangling code</h3>
+<section id="c.-download-.qmd-templates-review-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-data-wrangling-code">C. Download .qmd templates &amp; review data wrangling code</h3>
 <ol type="1">
-<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week6/</code> folder.</p></li>
+<li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week7/</code> folder.</p></li>
 <li><p>Review setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through all code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>. Specifically:</p>
 <ul>
-<li>Template 6.1 begins where we left off in creating our salary plot (in <a href="lecture-slides/lecture4.1-amounts-slides.qmd" target="_blank">lecture 4.1</a>). Review the code under the <code>## Setup</code>, <code>## Wrangle Data</code> and <code>## Recreate original plot</code> sections to re-familiarize yourself.<br>
-</li>
-<li>Template 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the <code>### Setup</code> and <code>### Create base plot</code> sections for both these visualizations.</li>
+<li>Template 7 begins where we left off in creating our dumbbell plot (in the <a href="../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">amounts / rankings lecture</a>). Review the code under the <code>## Setup</code>, <code>## Wrangle Data</code> and <code>## Create plot</code> sections to re-familiarize yourself. <em>We’ll use this single template for both lectures and lab this week.</em></li>
 </ul></li>
 </ol>
 </section>
@@ -372,13 +365,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">Lecture 7.1: typography</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-typography.qmd" target="_blank">7.1 template</a></td>
-<td><a href="../course-materials/keys/KEY-typography.html" target="_blank">7.1 key</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-typography.qmd" target="_blank">7.1 &amp; 7.2 + lab template</a></td>
+<td><a href="../course-materials/keys/KEY-typography-annotations.html" target="_blank">7.1 &amp; 7.2 + lab key</a></td>
 </tr>
 <tr class="even">
 <td><a href="../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">Lecture 7.2: annotations</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-annotations.qmd" target="_blank">7.2 template</a></td>
-<td><a href="../course-materials/keys/KEY-annotations.html" target="_blank">6.2 key</a></td>
+<td>we’ll use the same template, above</td>
+<td>we’ll use the same key, above</td>
 </tr>
 </tbody>
 </table>
@@ -476,6 +469,11 @@ Important tips for giving / receiving / implementing feedback:
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="../course-materials/lab/LAB-SLIDES-saving-ggplots.html" target="_blank">Lab 7 slides: saving ggplots</a></td>
+<td><em>NA</em></td>
+<td><a href="../course-materials/keys/KEY-typography-annotations.html" target="_blank">7.1 &amp; 7.2 + lab key</a> (same as lecture key)</td>
+</tr>
+<tr class="even">
 <td><a href="../course-materials/lab/LAB-SLIDES-peer-feedback1.html" target="_blank">Lab 7 slides: peer feedback</a></td>
 <td><a href="https://docs.google.com/presentation/d/1mMcss-mUqTkqT_iefZ2QfDr_3NoVwkYEGK4q-8WhjOw/edit?slide=id.g3b24bce2e19_0_0#slide=id.g3b24bce2e19_0_0" target="_blank">Google Slides</a></td>
 <td><em>NA</em></td>

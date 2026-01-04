@@ -19,7 +19,7 @@ editor_options:
 
 <hr class="hr-dark-blue">
 
-[Week 7 | February 18^th^, 2026]{.custom-subtitle3}
+[Week 7 | February 19^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -36,7 +36,7 @@ We iterated on our Santa Barbara Coastal subbasin dumbbell plot by updating text
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "ARCHIVE", "set-chunk-options.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "set-chunk-options.png"))
 ```
 
 ---
@@ -49,14 +49,9 @@ knitr::include_graphics(here::here("course-materials", "images", "lab-materials"
 
 However, when we tried saving our plot as a PNG file using `ggsave()`, we got something that looked quite different:
 
-:::: {.columns}
-
-::: {.column width="50%"}
-<br>
-
 ```{r}
 #| eval: false 
-#| echo: true
+#| echo: false
 ggsave(
   filename = here::here("week7", "images", "sbc-hydro.png"),
   plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
@@ -66,19 +61,14 @@ ggsave(
   unit = "in"
 )
 ```
-:::
 
-::: {.column width="50%"}
 ```{r}
 #| eval: true 
 #| echo: false
-#| out-width: "80%"
+#| out-width: "100%"
 #| fig-align: "center"
 knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "0-needs-improvement-8x7.png"))
 ```
-:::
-
-::::
 
 <!-- ::: {.center-text} -->
 <!-- To understand why this happens and how to fix this, we first need to understand a bit about image size and resolution. -->
@@ -226,7 +216,7 @@ An image is generally considered "high-resolution" if it has 300+ PPI. The [conv
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "ARCHIVE", "1-DPI300.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "1-DPI300.png"))
 ```
 
 ::: {.center-text .body-text-m}
@@ -238,7 +228,7 @@ That largely took care of our font sizing issue! But our `{ggtext}` elements loo
 ##  {#absolute-relative-sizes data-menu-title="# Absolute vs. relative sizes #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">Issue #2: absolute vs relative sizes of elements</p>
+<p class="custom-subtitle bottombr">Issue #2: absolute vs. relative sizes of elements</p>
 </div>
 
 ---
@@ -249,46 +239,85 @@ That largely took care of our font sizing issue! But our `{ggtext}` elements loo
 
 <hr>
 
-`{ggtext}` deals in absolute units (e.g. in, cm), which means elements (e.g. `element_textbox()`) don't scale dynamically with plot size. Let's temporarily `fill` our `element_textbox()`es with color to help visualize this:
+[`{ggtext}` deals in absolute units (e.g. in, cm), which means elements (e.g. `element_textbox()`) don't scale dynamically with plot size. Let's temporarily `fill` our `element_textbox()`es with color to help visualize this:]{.body-text-s}
 
 ```{r}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "14,19"
-updated_plot <- plot +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
-  theme_minimal() +
+#| code-line-numbers: "51,68"
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail),
+                 alpha = 0.6) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5,
+             stroke = 2) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 12,
+           y = 2.5,
+           label = annotation,
+           size = 3.5,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
-                              face = "bold",
-                              size = 18),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 12,
-                                            color = earnings_pal["light_text"],
-                                            fill = "lightblue", # for debugging 
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
-                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                           color = earnings_pal["light_text"],
-                                           fill = "lightblue", # for debugging
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 17, 
+                                         lineheight = 1.2,
+                                         color = pal["dark_gray"],
+                                         fill = "lightblue"), # for debugging
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16, 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
+    axis.text = element_text(family = "red",
+                             size = 12, 
+                             color = pal["light_gray"],),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 13, 
+                                margin = margin(t = 20)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_gray"],
                                            halign = 1, 
                                            lineheight = 1.5,
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text.x = element_text(family = "josefin",
-                                face = "bold",
-                                size = 10,
-                                hjust = 0),
-    panel.spacing.y = unit(0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+                                           fill = "lightblue"), # for debugging
+    panel.grid.major.y = element_blank(),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
-updated_plot
+water_plot
 ```
 
 <!-- --- -->
@@ -313,7 +342,7 @@ updated_plot
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "ARCHIVE", "2-fill.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "2-fill.png"))
 ```
 
 ::: {.center-text .body-text-m}
@@ -331,43 +360,82 @@ Our text wraps onto itself because these `element_textbox()`es don't scale to th
 ```{r}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "15,23"
-updated_plot <- plot +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
-  theme_minimal() +
+#| code-line-numbers: "51,69"
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail),
+                 alpha = 0.6) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5,
+             stroke = 2) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 12,
+           y = 2.5,
+           label = annotation,
+           size = 3.5,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
-                              face = "bold",
-                              size = 18),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 12,
-                                            color = earnings_pal["light_text"],
-                                            fill = "lightblue", # for debugging 
-                                            width = unit(25, "cm"),
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
-                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                           color = earnings_pal["light_text"],
-                                           fill = "lightblue", # for debugging
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 17, 
+                                         lineheight = 1.2,
+                                         color = pal["dark_gray"],
+                                         width = unit(25, "cm"),
+                                         fill = "lightblue"), # for debugging
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16, 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
+    axis.text = element_text(family = "red",
+                             size = 12, 
+                             color = pal["light_gray"],),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 13, 
+                                margin = margin(t = 20)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_gray"],
                                            halign = 1, 
                                            lineheight = 1.5,
                                            width = unit(25, "cm"),
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    strip.text.x = element_text(family = "josefin",
-                                face = "bold",
-                                size = 10,
-                                hjust = 0),
-    panel.spacing.y = unit(0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+                                           fill = "lightblue"), # for debugging 
+    panel.grid.major.y = element_blank(),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
-updated_plot
+water_plot
 ```
 
 ---
@@ -377,7 +445,7 @@ updated_plot
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "ARCHIVE", "3-fill-wide.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "3-fill-wide.png"))
 ```
 
 ::: {.center-text .body-text-m}
@@ -397,55 +465,96 @@ While `margin` sets the space *around* a textbox, `padding` sets the space aroun
 ```{r}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "17,26"
-updated_plot <- plot +
-  labs(title = "Males earn more than females across most occupations",
-       subtitle = subtitle,
-       caption = caption) +
-  theme_minimal() +
+#| code-line-numbers: "52,71"
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail),
+                 alpha = 0.6) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5,
+             stroke = 2) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 12,
+           y = 2.5,
+           label = annotation,
+           size = 3.5,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
-                              face = "bold",
-                              size = 18),
-    plot.subtitle = ggtext::element_textbox(family = "sen",
-                                            size = 12,
-                                            color = earnings_pal["light_text"],
-                                            fill = "lightblue", # for debugging 
-                                            width = unit(25, "cm"),
-                                            margin = margin(t = 2, r = 0, b = 6, l = 0),
-                                            padding = margin(t = 5, r = 0, b = 5, l = 0)),
-    plot.caption = ggtext::element_textbox(family = "sen",
-                                           face = "italic", # NOTE: this no longer applies since the typeface "sen" does not exist in an italic font style
-                                           color = earnings_pal["light_text"],
-                                           fill = "lightblue", # for debugging
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 17, 
+                                         lineheight = 1.2,
+                                         color = pal["dark_gray"],
+                                         width = unit(25, "cm"),
+                                         #padding = margin(t = 7, r = 5, b = 4)
+                                         fill = "lightblue"), # for debugging
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16, 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
+    axis.text = element_text(family = "red",
+                             size = 12, 
+                             color = pal["light_gray"],),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 13, 
+                                margin = margin(t = 20)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_gray"],
                                            halign = 1, 
                                            lineheight = 1.5,
                                            width = unit(25, "cm"),
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0),
-                                           padding = margin(t = 10, r = 0, b = 10, l = 0)),
-    strip.text.x = element_text(family = "josefin",
-                                face = "bold",
-                                size = 10,
-                                hjust = 0),
-    panel.spacing.y = unit(0.5, "cm"),
-    axis.text = element_text(family = "sen",
-                             size = 9,
-                             color = earnings_pal["light_text"]),
-    axis.title = element_blank()
+                                           #padding = margin(t = 7, r = 5, b = 4),
+                                           fill = "lightblue"), # for debugging 
+    panel.grid.major.y = element_blank(),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
-updated_plot
+water_plot
 ```
 
 ---
+
+[UPDATE -- NOT CORRECT]
 
 ```{r}
 #| eval: true 
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "ARCHIVE", "4-padding.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "4-padding.png"))
 ```
 
 ::: {.center-text .body-text-m}
@@ -453,6 +562,8 @@ Yay! Looking good. We can now comment out (or remove) `fill = "lightblue"` from 
 :::
 
 ---
+
+[UPDATE]
 
 ```{r}
 #| eval: true 
@@ -473,6 +584,8 @@ Our final saved PNG (8 x 7", 300 DPI)!
 [Now let's try saving a 14x12" plot]{.slide-title}
 
 <hr>
+
+[UPDATE]
 
 ```{r}
 #| eval: false
@@ -501,6 +614,8 @@ What happens?
 
 ---
 
+[UPDATE]
+
 ```{r}
 #| eval: true 
 #| echo: false
@@ -520,6 +635,8 @@ Our text shrunk again {{< fa face-frown title="a frowning face" >}}
 [We've set absolute text sizes]{.slide-title}
 
 <hr>
+
+[UPDATE]
 
 We've built our plot using absolute text sizes (where unit = "pt" = 0.33mm), which means our text sizes remain constant regardless of plot resizing (this is the case with any element defined in absolute units).
 
@@ -575,6 +692,8 @@ updated_plot
 
 <hr>
 
+[UPDATE]
+
 By setting `size = rel(value)`, our text size will scale relative to the `base_size`, which by default is 11. We can also update the default `base_size` inside `theme_minimal()` (or whichever complete theme you're using). 
 
 ```{r}
@@ -627,6 +746,8 @@ updated_plot
 
 ---
 
+[UPDATE]
+
 ```{r}
 #| eval: true 
 #| echo: false
@@ -646,6 +767,8 @@ Our final saved PNG (14 x 12", 300 DPI)!
 [One final exercise -- save as 5x5" PNG]{.slide-title}
 
 <hr>
+
+[UPDATE]
 
 ```{r}
 #| eval: false
@@ -674,6 +797,8 @@ What happens?
 
 ---
 
+[UPDATE]
+
 ```{r}
 #| eval: true 
 #| echo: false
@@ -693,6 +818,8 @@ Noooo not again {{< fa face-sad-cry title="a crying face" >}}
 [Just adjust `base_size`!]{.slide-title}
 
 <hr>
+
+[UPDATE]
 
 This can take a little trial and error, but adjusting your text `basesize` (in this case, you'll want to make it smaller) should do the trick -- all relative text sizes will scale accordingly.
 
@@ -741,6 +868,8 @@ updated_plot
 ```
 
 ---
+
+[UPDATE]
 
 ```{r}
 #| eval: true 
