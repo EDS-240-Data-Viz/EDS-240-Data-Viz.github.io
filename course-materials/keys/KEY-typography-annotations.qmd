@@ -1,5 +1,5 @@
 ---
-title: "KEY - typography & annotations"
+title: "KEY - typography, annotations & saving ggplots"
 author: "Your Name"
 date: 2026-02-18
 toc: true
@@ -8,35 +8,8 @@ editor_options:
 ---
 
 ::: {.callout-note}
-This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} slides. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} slides, as well as the [saving ggplots lab](../lab/LAB-SLIDES-saving-ggplots.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
-
-## System fonts
-
-```{r sys-fonts}
-#| eval: true
-#| echo: true
-#| warning: false
-#| message: false
-# import packages ---- 
-library(palmerpenguins)
-library(tidyverse)
-
-# create ggplot to demonstrate use of system fonts ----
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point() + 
-  labs(title = "This title is serif font",
-       subtitle = "This subtitle is mono font",
-       x = "This axis label is sans font\n(default)",
-       y = "This axis is also sans font\n(default)") +
-  theme(
-    plot.title = element_text(family = "serif", size = 30),
-    plot.subtitle = element_text(family = "mono", size = 25),
-    axis.title = element_text(family = "sans", size = 22),
-    axis.text.x = element_text(family = "serif", face = "bold", size = 18),
-    axis.text.y = element_text(family = "mono", face = "italic", size = 18)
-    )
-```
 
 ## Setup 
 
@@ -44,9 +17,64 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 Recall our original dumbbell plot from the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd#dumbbell-plot-example){target="_blank"}. Today, we'll focus on adding text and updating our theme and fonts.
 :::
 
-```{r setup}
-#| eval: true
+<!-- CODE RENDERS BUT DOES NOT RUN -->
+
+```{r setup-echo}
+#| eval: false
 #| echo: true
+#| warning: false
+#| message: false
+
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+library(showtext)
+library(glue)
+library(ggtext)
+
+#..........................import data...........................
+iwa_data <- read_csv(here::here("week7", "data", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
+
+#......................import Google fonts.......................
+# `name` is the name of the font as it appears in Google Fonts
+# `family` is the user-specified id that you'll use to apply a font in your ggplot
+font_add_google(name = "Sarala", family = "sarala")
+font_add_google(name = "Noto Sans", family = "noto-sans")
+font_add_google(name = "Red Hat Mono", family = "red")
+
+#....................import Font Awesome fonts...................
+# we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
+font_add(family = "fa-brands",
+         regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
+
+#......enable {showtext} rendering for all newly opened GDs......
+showtext_auto()
+showtext_opts(dpi = 300)
+```
+
+<!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
+
+```{r setup-eval}
+#| eval: true
+#| echo: false
 #| warning: false
 #| message: false
 
@@ -86,12 +114,9 @@ font_add_google(name = "Noto Sans", family = "noto-sans")
 font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
+# we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
-font_add(family = "fa-regular",
-         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
-font_add(family = "fa-solid",
-         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
@@ -132,6 +157,8 @@ sbc_subbasin_monthly <- ca_region |>
 ```
 
 ## Create plot 
+
+We'll build out this plot across both the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} lectures, as well as make modifications during the [saving ggplots lab](../lab/LAB-SLIDES-saving-ggplots.qmd).
 
 ```{r build-plot}
 #| eval: true
@@ -182,7 +209,6 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
              alpha = 0.4) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
-                 color = pal["dark_gray"], 
                  alpha = 0.6) + 
   geom_point(aes(x = mean_avail, y = month), 
              color = pal["avail"], 
@@ -192,8 +218,8 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
              color = pal["consum"], 
              fill = "white",
              shape = 21,
-             stroke = 2,
-             size = 5) +
+             size = 5,
+             stroke = 2) +
   annotate("segment", 
            x = 3.5, xend = 3.5,
            y = 4, yend = 1, # or y = "Jun", yend = "Sep"
@@ -220,7 +246,7 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
   labs(title = title,
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
-       x = "Mean monthly water availability & consumption (mm)") +
+       x = "Mean monthly water availability & consumption (mm)") +  
   theme_light(base_size = 17) +
   theme(
     plot.title.position = "plot",
@@ -249,10 +275,9 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
                                            halign = 1, 
                                            lineheight = 1.5,
                                            width = unit(25, "cm"),
-                                           margin = margin(t = 15),
                                            padding = margin(t = 7, r = 5, b = 4)), 
     panel.grid.major.y = element_blank(),
-    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
 water_plot
@@ -275,11 +300,13 @@ ggsave(
 )
 ```
 
+<!-- NOT RENDERED ON SLIDE -->
+
 ```{r save-eval}
 #| eval: true
 #| echo: false
 ggsave(
-  filename = here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"),
+  filename = here::here("course-materials", "images", "keys", "sbc-hydro-8x7-new.png"),
   plot = water_plot,
   device = "png",
   width = 8, 
@@ -289,14 +316,16 @@ ggsave(
 )
 ```
 
+::: {.callout-note}
 Below is our final plot, saved as a PNG. You'll want to fine-tune absolute sizes and positions, which don't automatically scale with a changing plot size. Here, we'd want to increase the annotation text size and shift it slightly left.
+:::
 
 ```{r saved-plot} 
 #| eval: true
 #| echo: false
 #| out-width: "100%"
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sbc-hydro-8x7.png"))
+knitr::include_graphics(here::here("course-materials", "images", "keys", "sbc-hydro-8x7.png"))
 ```
 
 ## Turn off `{showtext}` text rendering 
@@ -308,3 +337,6 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 showtext_auto(FALSE)
 ```
 
+## More examples
+
+To see more typography and annotation examples (including how to use `geom_text()` & `geom_label()` + the `{ggrepel}` package to label individual points, how to draw arrows & boxes, etc.), you can check out the archived versions of the [typography](../lecture-slides/ARCHIVE/SLIDES-typography-jobs.qmd){target="_blank"} & [annotations](../lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.qmd){target="_blank"} lectures. 

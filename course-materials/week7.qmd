@@ -9,12 +9,12 @@ description: "Wednesday February 18^th^, 2026"
 #| echo: false
 #| fig-align: "center"
 #| out-width: "65%" 
-#| fig-alt: "A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"
-knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
+#| fig-alt: "The words, 'I will find you' in two different typefaces. It's easy to perceive on as intimidating and the other as endearing."
+knitr::include_graphics(here::here("images", "find-you.png"))
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
+*Image soure: [Typography for a better user experience](https://www.suvoray.com/notes/typography-for-a-better-user-experience){target="_blank"}*
 :::
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
@@ -30,19 +30,19 @@ install.packages("showtext") # for using fonts more easily in R graphs
 install.packages("glue") # for string interpolation (aka helps us insert variables directly into text strings)
 install.packages("ggtext") # improved text rendering support for ggplot2
 install.packages("ggrepel") # ggplot2 extension to repel overlapping labels
-install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4
+#install.packages("googlesheets4") # provides an R interface to Google Sheets via the Sheets API v4
 ```
 
-### B. Download Data
+<!-- ### B. Download Data
 
 In case we have trouble with the `{googlesheets4}` API, you can download and read in the following data files as normal (i.e. using `readr::read_csv()`):
 
 - [metabolism-foraging-data.csv](https://drive.google.com/file/d/1NQV40ZHVkPUNA6FeFFQR0OxqYM4trM3w/view?usp=sharing){target="_blank"}
 - [mono.csv](https://drive.google.com/file/d/13chLNHTLd0GRCFl-7OB921FzOKc6I-GK/view?usp=sharing){target="_blank"}
 
-If you choose (or need) to download and read in these files, be sure to save them to your class repo at `~/week6/data/`.
+If you choose (or need) to download and read in these files, be sure to save them to your class repo at `~/week6/data/`. -->
 
-### C. Download Font Awesome fonts
+### B. Download Font Awesome fonts
 
 We'll learn how to use [Font Awesome](https://fontawesome.com/){target="_blank"} icons in our ggplots. To do so, you'll need to download the Font Awesome font files and save them to your class repo. Do so by following these steps:
 
@@ -50,19 +50,18 @@ We'll learn how to use [Font Awesome](https://fontawesome.com/){target="_blank"}
 2. **Unzip the downloaded file:** You should see a folder inside called `otfs/` -- this contains three `.otf` files (aka OpenType font format files)
 3. **Copy the three `.otf` files to your class repo:** I recommend creating a `fonts/` folder inside your root directory, and dropping all three of them in there (e.g. `EDS-240-data-viz-examples/fonts/*.otf`)
 
-### D. Download .qmd templates & review data wrangling code
+### C. Download .qmd templates & review data wrangling code
 
-1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week6/` folder.
+1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week7/` folder.
 
 2. Review setup / wrangling / base plot code and make note of any questions you might have. Due to time constraints, we won't be live-coding our way through all code in class. However, we'll reserve some time to answer any questions before we jump into data viz {{< fa face-smile title="a smiling face" >}}. Specifically:
-    - Template 6.1 begins where we left off in creating our salary plot (in [lecture 4.1](lecture-slides/lecture4.1-amounts-slides.qmd){target="_blank"}). Review the code under the `## Setup`, `## Wrangle Data` and `## Recreate original plot` sections to re-familiarize yourself.  
-    - Template 6.2 includes setup and base plot code for two different visualizations (one using lobster data, another using Mono Lake data). Review the `### Setup` and `### Create base plot` sections for both these visualizations.
+    - Template 7 begins where we left off in creating our dumbbell plot (in the [amounts / rankings lecture](lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}). Review the code under the `## Setup`, `## Wrangle Data` and `## Create plot` sections to re-familiarize yourself. *We'll use this single template for both lectures and lab this week.*
 
 ## {{< fa person-chalkboard title="a person pointing at a chalkboard" >}} Lecture Materials {#lecture-materials}
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lecture slides   | {{< fa file-code title="A code file" >}} Code-along template | {{< fa key title="A key" >}} Code-along key |
 |------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------|
-| [Lecture 7.1: typography](lecture-slides/SLIDES-typography.qmd){target="_blank"}  | [7.1 & 7.2 template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-typography.qmd){target="_blank"} | [7.1 & 7.2 key](keys/KEY-typography-annotations.qmd){target="_blank"} |
+| [Lecture 7.1: typography](lecture-slides/SLIDES-typography.qmd){target="_blank"}  | [7.1 & 7.2 + lab template](https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-typography.qmd){target="_blank"} | [7.1 & 7.2 + lab key](keys/KEY-typography-annotations.qmd){target="_blank"} |
 | [Lecture 7.2: annotations](lecture-slides/SLIDES-annotations.qmd){target="_blank"} | we'll use the same template, above | we'll use the same key, above |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 
@@ -126,6 +125,7 @@ The following tips were largely adapted from this [LinkedIn article](https://www
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lab Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
 |-------------------|-------------------|--------------|
+| [Lab 7 slides: saving ggplots](lab/LAB-SLIDES-saving-ggplots.qmd){target="_blank"} | *NA* | [7.1 & 7.2 + lab key](keys/KEY-typography-annotations.qmd){target="_blank"} (same as lecture key) |
 | [Lab 7 slides: peer feedback](lab/LAB-SLIDES-peer-feedback1.qmd){target="_blank"} | [Google Slides](https://docs.google.com/presentation/d/1mMcss-mUqTkqT_iefZ2QfDr_3NoVwkYEGK4q-8WhjOw/edit?slide=id.g3b24bce2e19_0_0#slide=id.g3b24bce2e19_0_0){target="_blank"} | *NA* |
 : {.hover .bordered tbl-colwidths="[50,25,25]"} 
 

@@ -436,7 +436,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8ef62ca4" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_39faac1d" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -472,7 +472,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_e87e8192" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_5586eb84" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -509,7 +509,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8f9eceb6" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_2f5d21ed" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -524,7 +524,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8fcc1cf8" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_49e45c72" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -581,12 +581,13 @@
 <div class="fragment">
 <p><br></p>
 <p><span class="body-text-m">Let’s try to add an annotation to our plot using both approaches to better understand the difference.</span></p>
-</div>
-<div class="fragment">
-<p><br></p>
-<div class="center-text">
-<p><span class="teal-text"><strong>Our goal:</strong></span> add a rectangle that bounds / highlights just the summer months, add text nearby that reads <strong>summer water deficit</strong>, and draw an arrow from the text pointing to the box.</p>
-</div>
+<!-- . . . 
+
+<br>
+ 
+::: {.center-text}
+[**Our goal:**]{.teal-text} add a rectangle that bounds / highlights just the summer months, add text nearby that reads **summer water deficit**, and draw an arrow from the text pointing to the box.
+::: -->
 <div class="footer">
 <p>I’ve found the <a href="https://ggplot2.tidyverse.org/articles/faq-annotation.html" target="_blank">Annotation FAQ</a> super helpful!</p>
 </div>
@@ -594,45 +595,45 @@
 </section>
 <section id="geom-text-issues" class="slide level2" data-menu-title="geom_text() doesn't work">
 <h2></h2>
-<p><span class="slide-title2"><code>geom_text()</code> + <code>geom_rect()</code> doesn’t look right . . .</span></p>
+<p><span class="slide-title"><code>geom_text()</code> doesn’t look right . . .</span></p>
 <hr>
-<p>Here, we use <code>geom_text()</code> + <code>geom_rect()</code> to add text and a rectangle to our plot. We need to <strong>supply coordinates</strong> to place each on our plot.</p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>water_plot <span class="sc">+</span> </span>
+<p>Here, we use <code>geom_text()</code> to add text to our plot. We need to <strong>supply coordinates</strong> to place it on our plot:</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>water_plot <span class="sc">+</span> <span class="co"># `water_plot` represents all our plot code from the typography lecture</span></span>
 <span id="cb1-2"><a></a>    <span class="fu">geom_text</span>(</span>
 <span id="cb1-3"><a></a>        <span class="at">x =</span> <span class="dv">10</span>,</span>
-<span id="cb1-4"><a></a>        <span class="at">y =</span> <span class="dv">3</span>,</span>
-<span id="cb1-5"><a></a>        <span class="at">label =</span> <span class="st">"summer &amp; early fall months experience</span><span class="sc">\n</span><span class="st">the largest water deficits"</span>,</span>
+<span id="cb1-4"><a></a>        <span class="at">y =</span> <span class="dv">3</span>, <span class="co"># or y = "Jul"</span></span>
+<span id="cb1-5"><a></a>        <span class="at">label =</span> <span class="st">"some annotation text"</span>,</span>
 <span id="cb1-6"><a></a>        <span class="at">size =</span> <span class="dv">5</span>,</span>
-<span id="cb1-7"><a></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-7"><a></a>        <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
 <span id="cb1-8"><a></a>        <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
-<span id="cb1-9"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb1-10"><a></a>    <span class="fu">geom_rect</span>(</span>
-<span id="cb1-11"><a></a>        <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xmax =</span> <span class="fl">2.5</span>,</span>
-<span id="cb1-12"><a></a>        <span class="at">ymin =</span> <span class="fl">0.5</span>, <span class="at">ymax =</span> <span class="fl">4.5</span>,</span>
-<span id="cb1-13"><a></a>        <span class="at">fill =</span> <span class="st">"gray40"</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb1-14"><a></a>        <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-15"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
+<span id="cb1-9"><a></a>        <span class="at">family =</span> <span class="st">"noto-sans"</span></span>
+<span id="cb1-10"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/practice-geom-text-rect-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-annotations_files/figure-revealjs/practice-geom-text-eval-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
+</div>
 </div></div>
-<p><span class="body-text-s">Notice that our text looks oddly blurry and bold, and our rectangle is opaque (despite adjusting <code>alpha</code>) and has a weird, thick border.</span></p>
+<div class="center-text">
+<p>Notice that our text looks oddly blurry and bold…</p>
+</div>
 </section>
 <section id="geom-text-aes" class="slide level2" data-menu-title="geom_text() inherits aesthetics">
 <h2></h2>
-<p><span class="slide-title3"><code>geom_text()</code> inherits aesthetic mappings from <code>ggplot()</code></span></p>
+<p><span class="slide-title"><code>geom_text()</code> is a data-driven layer</span></p>
 <hr>
-<p><span class="body-text-s">Like all other <code>geom_*()</code> functions we’ve worked with, <strong><code>geom_text()</code> (and related geoms) take aesthetic mappings</strong>. You can either define <code>aes()</code> within the geom, <em>or</em> it’ll inherit global mappings from <code>ggplot()</code> (as in our case).</span></p>
+<p>All <code>geom_*()</code>s are data-driven by default. Just like <code>geom_point()</code> will plot a single point for each row in our data frame, <code>geom_text()</code> plots a single label (<strong>some annotation text</strong>) for each row in our data frame – there are 12 rows in <code>sbc_subbasin_monthly</code>, so our label is plotted 12 times (one on top of the other on our defined <code>x</code> and <code>y</code> coordinates):</p>
 <p><br></p>
-<div class="fragment">
-<p><span class="body-text-s">Here, <code>geom_text()</code> is plotting our label (<strong>water deficit</strong>) and box 12 times each (once for each of the 12 observations in our data frame).</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">str</span>(sbc_subbasin_monthly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -642,402 +643,183 @@
  $ mean_consum: num [1:12] 0.304 0.549 0.533 0.977 1.579 ...</code></pre>
 </div>
 </div>
-<!-- . . . 
-
-[It's also inheriting the `size` aesthetic for our box border.]{.body-text-s} -->
+<div class="fragment">
+<p><br></p>
+<div class="center-text">
+<p>We should instead use <code>annotate()</code> to plot a single text element, independent of our data.</p>
+</div>
+<div class="footer">
+<p>Check out this <a href="../../course-materials/lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.html#use-geoms" data-taret="_blank">archived version</a> to see examples of when you might consider using <code>geom_text()</code> (or <code>geom_label()</code>).</p>
+</div>
 </div>
 </section>
 <section id="use-annotate" class="slide level2" data-menu-title="Use annotate()">
 <h2></h2>
-<p><span class="slide-title3">This is exactly the situation <code>annotate()</code> was made for</span></p>
+<p><span class="slide-title2">Use <code>annotate()</code> to add a single text element</span></p>
 <hr>
-<p><span class="body-text-s">Alternatively, <code>annotate()</code> requires that we define a <code>geom</code> type (e.g.&nbsp;<code>"text"</code>, <code>"rect"</code>). We’ll also omit the <code>show.lengend</code> argument, since <code>annotate()</code> doesn’t produce a legend.</span></p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>water_plot <span class="sc">+</span> </span>
+<p><code>annotate()</code> requires that we define a <code>geom</code> type (e.g.&nbsp;<code>"text"</code>, <code>"rect"</code>, <code>"curve"</code>, <code>"segment"</code>).</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>water_plot <span class="sc">+</span> </span>
 <span id="cb4-2"><a></a>    <span class="fu">annotate</span>(</span>
 <span id="cb4-3"><a></a>        <span class="at">geom =</span> <span class="st">"text"</span>,</span>
 <span id="cb4-4"><a></a>        <span class="at">x =</span> <span class="dv">10</span>,</span>
 <span id="cb4-5"><a></a>        <span class="at">y =</span> <span class="dv">3</span>,</span>
-<span id="cb4-6"><a></a>        <span class="at">label =</span> <span class="st">"summer &amp; early fall months experience</span><span class="sc">\n</span><span class="st">the largest water deficits"</span>,</span>
+<span id="cb4-6"><a></a>        <span class="at">label =</span> <span class="st">"some annotation text"</span>,</span>
 <span id="cb4-7"><a></a>        <span class="at">size =</span> <span class="dv">5</span>,</span>
-<span id="cb4-8"><a></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb4-8"><a></a>        <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
 <span id="cb4-9"><a></a>        <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
 <span id="cb4-10"><a></a>        <span class="at">family =</span> <span class="st">"noto-sans"</span></span>
-<span id="cb4-11"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb4-12"><a></a>    <span class="fu">annotate</span>(</span>
-<span id="cb4-13"><a></a>        <span class="at">geom =</span> <span class="st">"rect"</span>,</span>
-<span id="cb4-14"><a></a>        <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xmax =</span> <span class="fl">2.5</span>,</span>
-<span id="cb4-15"><a></a>        <span class="at">ymin =</span> <span class="fl">0.5</span>, <span class="at">ymax =</span> <span class="fl">4.5</span>,</span>
-<span id="cb4-16"><a></a>        <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">color =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
-<span id="cb4-17"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div></div>
-<p><span class="body-text-s"><strong>Note:</strong> Determining coordinates for any annotation requires a lot of trial and error. Pick values that you think are close and then tweak from there.</span></p>
-</section>
-<section id="draw-arrow" class="slide level2" data-menu-title="Draw arrow">
-<h2></h2>
-<p><span class="slide-title2">Draw an arrow between our label and rectangle</span></p>
-<hr>
-<p><span class="body-text-s">We can specify the <code>"curve"</code> geom type to draw a curved line. Use the <code>arrow</code> argument + <code>arrow()</code> function to add an arrow tip on the end:</span></p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="17-23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>water_plot <span class="sc">+</span> </span>
-<span id="cb5-2"><a></a>    <span class="fu">annotate</span>(</span>
-<span id="cb5-3"><a></a>        <span class="at">geom =</span> <span class="st">"text"</span>,</span>
-<span id="cb5-4"><a></a>        <span class="at">x =</span> <span class="dv">10</span>,</span>
-<span id="cb5-5"><a></a>        <span class="at">y =</span> <span class="dv">3</span>,</span>
-<span id="cb5-6"><a></a>        <span class="at">label =</span> <span class="st">"Santa Barbara maintains a diverse water supply portfolio (e.g groudwater, recycled water, and desalination) to draw from when consumption outpaces natural supply"</span>, </span>
-<span id="cb5-7"><a></a>        <span class="at">size =</span> <span class="dv">5</span>,</span>
-<span id="cb5-8"><a></a>        <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb5-9"><a></a>        <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
-<span id="cb5-10"><a></a>        <span class="at">family =</span> <span class="st">"noto-sans"</span></span>
-<span id="cb5-11"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb5-12"><a></a>    <span class="fu">annotate</span>(</span>
-<span id="cb5-13"><a></a>        <span class="at">geom =</span> <span class="st">"rect"</span>,</span>
-<span id="cb5-14"><a></a>        <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xmax =</span> <span class="fl">2.5</span>,</span>
-<span id="cb5-15"><a></a>        <span class="at">ymin =</span> <span class="fl">0.5</span>, <span class="at">ymax =</span> <span class="fl">4.5</span>,</span>
-<span id="cb5-16"><a></a>        <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">color =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
-<span id="cb5-17"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb5-18"><a></a>    <span class="fu">annotate</span>(</span>
-<span id="cb5-19"><a></a>        <span class="at">geom =</span> <span class="st">"curve"</span>,</span>
-<span id="cb5-20"><a></a>        <span class="at">x =</span> <span class="dv">7</span>, <span class="at">xend =</span> <span class="fl">2.6</span>,</span>
-<span id="cb5-21"><a></a>        <span class="at">y =</span> <span class="fl">2.7</span>, <span class="at">yend =</span> <span class="dv">2</span>,</span>
-<span id="cb5-22"><a></a>        <span class="at">curvature =</span> <span class="sc">-</span><span class="fl">0.25</span>,</span>
-<span id="cb5-23"><a></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>))</span>
-<span id="cb5-24"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div></div>
-</section>
-<section id="use-geoms" class="slide level2" data-menu-title="Using geom_text() &amp; geom_label()">
-<h2></h2>
-<p><span class="slide-title2">Use <code>geom_text/label()</code> to annotate each point</span></p>
-<hr>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><code>geom_text()</code> adds plain text</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>water_plot <span class="sc">+</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month, <span class="at">label =</span> <span class="fu">round</span>(mean_avail, <span class="dv">2</span>)),</span>
-<span id="cb6-3"><a></a>            <span class="at">size =</span> <span class="dv">6</span>,</span>
-<span id="cb6-4"><a></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
+<span id="cb4-11"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><code>geom_label()</code> adds a rectangle behind text</p>
-</div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>water_plot <span class="sc">+</span></span>
-<span id="cb7-2"><a></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month, <span class="at">label =</span> <span class="fu">round</span>(mean_avail, <span class="dv">2</span>)),</span>
-<span id="cb7-3"><a></a>             <span class="at">size =</span> <span class="dv">6</span>,</span>
-<span id="cb7-4"><a></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-annotations_files/figure-revealjs/practice-annotate-eval-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
-<div class="center-text">
-<p>Annotations sit on top of data points, which may be undesirable…</p>
+<div class="footer">
+<p><strong>Note:</strong> Determining coordinates for any annotation can require a lot of trial and error. Pick values that you think are close and then tweak from there.</p>
 </div>
 </section>
-<section id="use-ggrepel" class="slide level2" data-menu-title="{ggrepel}">
+<section id="add-real-annotation" class="slide level2" data-menu-title="Add real annotation">
 <h2></h2>
-<p><span class="slide-title">Use <code>{ggrepel}</code> to repel annotations</span></p>
+<p><span class="slide-title2">Add a more informative annotation</span></p>
 <hr>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><code>geom_text()</code> adds plain text</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>water_plot <span class="sc">+</span></span>
-<span id="cb8-2"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month, <span class="at">label =</span> <span class="fu">round</span>(mean_avail, <span class="dv">2</span>)),</span>
-<span id="cb8-3"><a></a>                           <span class="at">size =</span> <span class="dv">7</span>,</span>
-<span id="cb8-4"><a></a>                           <span class="at">color =</span> <span class="st">"gray10"</span>,</span>
-<span id="cb8-5"><a></a>                           <span class="at">nudge_x =</span> <span class="fl">0.2</span>, <span class="at">nudge_y =</span> <span class="fl">0.4</span>,</span>
-<span id="cb8-6"><a></a>                           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>, <span class="st">"cm"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><code>geom_label()</code> adds a rectangle behind text</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>water_plot <span class="sc">+</span></span>
-<span id="cb9-2"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month, <span class="at">label =</span> <span class="fu">round</span>(mean_avail, <span class="dv">2</span>)),</span>
-<span id="cb9-3"><a></a>                           <span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb9-4"><a></a>                           <span class="at">color =</span> <span class="st">"gray10"</span>,</span>
-<span id="cb9-5"><a></a>                           <span class="at">nudge_x =</span> <span class="fl">0.1</span>, <span class="at">nudge_y =</span> <span class="fl">0.3</span>,</span>
-<span id="cb9-6"><a></a>                           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>, <span class="st">"cm"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="manually-label-iv10" class="slide level2" data-menu-title="Manually label points (IV10)">
-<h2></h2>
-<p><span class="slide-title">Manually label just a few important points</span></p>
-<hr>
-<p>If we have just a few months that we want to call attention to, we can use <code>annotate()</code> to label them. Let’s start with Feb:</p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>water_plot <span class="sc">+</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb10-3"><a></a>    <span class="at">geom =</span> <span class="st">"text"</span>,</span>
-<span id="cb10-4"><a></a>    <span class="at">x =</span> <span class="dv">17</span>, <span class="at">y =</span> <span class="fl">9.5</span>,</span>
-<span id="cb10-5"><a></a>    <span class="at">label =</span> <span class="st">"February has the highest</span><span class="sc">\n</span><span class="st">average water supply"</span>,</span>
-<span id="cb10-6"><a></a>    <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
-<span id="cb10-7"><a></a>    <span class="at">size =</span> <span class="fl">4.5</span></span>
-<span id="cb10-8"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb10-9"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb10-10"><a></a>    <span class="at">geom =</span> <span class="st">"curve"</span>,</span>
-<span id="cb10-11"><a></a>    <span class="at">x =</span> <span class="fl">19.6</span>, <span class="at">xend =</span> <span class="fl">20.4</span>,</span>
-<span id="cb10-12"><a></a>    <span class="at">y =</span> <span class="fl">9.4</span>, <span class="at">yend =</span> <span class="fl">8.6</span>,</span>
-<span id="cb10-13"><a></a>    <span class="at">curvature =</span> <span class="sc">-</span><span class="fl">0.25</span>,</span>
-<span id="cb10-14"><a></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb10-15"><a></a>    <span class="at">linewidth =</span> <span class="fl">0.6</span></span>
-<span id="cb10-16"><a></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div></div>
-</section>
-<section id="mono-plot" class="slide level2" data-menu-title="Mono Lake plot">
-<h2></h2>
-<p><span class="slide-title">Mono Lake plot starter code</span></p>
-<hr>
+<p><span class="body-text-s">Now that we know the right approach for adding single text elements to our plot, let’s add something a bit more helpful and aesthetic. We’ll construct a bracket to bound the data for Jun &gt; Sep, then add text that describes how Santa Barbara handles water deficits, as well as how to interpret negative availability values. Full plot text is included:</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb11-2"><a></a><span class="do">##                                    setup                                 ----</span></span>
-<span id="cb11-3"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb11-4"><a></a></span>
-<span id="cb11-5"><a></a><span class="co">#.........................load libraries.........................</span></span>
-<span id="cb11-6"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb11-7"><a></a></span>
-<span id="cb11-8"><a></a><span class="co">#..........................read in data..........................</span></span>
-<span id="cb11-9"><a></a></span>
-<span id="cb11-10"><a></a><span class="co"># read in Google Sheet ----</span></span>
-<span id="cb11-11"><a></a>mono <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885"</span>)</span>
-<span id="cb11-12"><a></a></span>
-<span id="cb11-13"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb11-14"><a></a><span class="do">##                            create Mono Lake plot                         ----</span></span>
-<span id="cb11-15"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb11-16"><a></a></span>
-<span id="cb11-17"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mono, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lake_level)) <span class="sc">+</span></span>
-<span id="cb11-18"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-19"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">Year"</span>,</span>
-<span id="cb11-20"><a></a>       <span class="at">y =</span> <span class="st">"Lake surface level</span><span class="sc">\n</span><span class="st">(feet above sea level)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb11-21"><a></a>       <span class="at">title =</span> <span class="st">"Mono Lake levels (1850 - 2017)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb11-22"><a></a>       <span class="at">caption =</span> <span class="st">"Data: Mono Basin Clearinghouse"</span>) <span class="sc">+</span></span>
-<span id="cb11-23"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1850</span>, <span class="dv">2020</span>),</span>
-<span id="cb11-24"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb11-25"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1850</span>, <span class="dv">2010</span>, <span class="at">by =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb11-26"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">6350</span>, <span class="dv">6440</span>),</span>
-<span id="cb11-27"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">6370</span>, <span class="dv">6400</span>, <span class="dv">6430</span>),</span>
-<span id="cb11-28"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb11-29"><a></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
-<span id="cb11-30"><a></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb11-31"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb11-32"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb11-33"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb11-34"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb11-35"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb11-36"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)</span>
-<span id="cb11-37"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="28-34,38-41,55-74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co">#......................create color palette......................</span></span>
+<span id="cb5-2"><a></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"avail"</span> <span class="ot">=</span> <span class="st">"#448F9C"</span>,</span>
+<span id="cb5-3"><a></a>         <span class="st">"consum"</span> <span class="ot">=</span> <span class="st">"#9C7344"</span>,</span>
+<span id="cb5-4"><a></a>         <span class="st">"dark_gray"</span> <span class="ot">=</span> <span class="st">"#0C1509"</span>,</span>
+<span id="cb5-5"><a></a>         <span class="st">"light_gray"</span> <span class="ot">=</span> <span class="st">"#4E514D"</span>) </span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a><span class="co">#........................preview palette.........................</span></span>
+<span id="cb5-8"><a></a><span class="co"># monochromeR::view_palette(pal)</span></span>
+<span id="cb5-9"><a></a></span>
+<span id="cb5-10"><a></a><span class="co">#..........................create title..........................</span></span>
+<span id="cb5-11"><a></a>title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Water</span></span>
+<span id="cb5-12"><a></a><span class="st">                    &lt;span style='color:#448F9C;'&gt;availability&lt;/span&gt; </span></span>
+<span id="cb5-13"><a></a><span class="st">                    vs. </span></span>
+<span id="cb5-14"><a></a><span class="st">                    &lt;span style='color:#9C7344;'&gt;consumption&lt;/span&gt;</span></span>
+<span id="cb5-15"><a></a><span class="st">                    across the Santa Barbara&lt;br&gt;</span></span>
+<span id="cb5-16"><a></a><span class="st">                    Coastal subbasin (2010-2020)"</span>)</span>
+<span id="cb5-17"><a></a></span>
+<span id="cb5-18"><a></a><span class="co">#.........................create caption.........................</span></span>
+<span id="cb5-19"><a></a>github_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf09b"</span></span>
+<span id="cb5-20"><a></a>github_username <span class="ot">&lt;-</span> <span class="st">"samanthacsik"</span></span>
+<span id="cb5-21"><a></a></span>
+<span id="cb5-22"><a></a>caption <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb5-23"><a></a>  <span class="st">"Data Source: USGS CONUS 2025&lt;br&gt;</span></span>
+<span id="cb5-24"><a></a><span class="st">  &lt;span style='font-family:fa-brands;'&gt;{github_icon};&lt;/span&gt;</span></span>
+<span id="cb5-25"><a></a><span class="st">  {github_username}"</span></span>
+<span id="cb5-26"><a></a>)</span>
+<span id="cb5-27"><a></a></span>
+<span id="cb5-28"><a></a><span class="co">#........................create annotation.......................</span></span>
+<span id="cb5-29"><a></a>annotation <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb5-30"><a></a>  <span class="st">"Santa Barbara meets deficits through diverse water sources, </span></span>
+<span id="cb5-31"><a></a><span class="st">  including recycling &amp; desalination. Negative availability </span></span>
+<span id="cb5-32"><a></a><span class="st">  indicates reliance on groundwater, imported water, </span></span>
+<span id="cb5-33"><a></a><span class="st">  or stored reserves."</span></span>
+<span id="cb5-34"><a></a>)</span>
+<span id="cb5-35"><a></a> </span>
+<span id="cb5-36"><a></a><span class="co">#..........................updated plot..........................</span></span>
+<span id="cb5-37"><a></a>water_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
+<span id="cb5-38"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, </span>
+<span id="cb5-39"><a></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb5-40"><a></a>             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>], </span>
+<span id="cb5-41"><a></a>             <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb5-42"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb5-43"><a></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail),</span>
+<span id="cb5-44"><a></a>                 <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb5-45"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_avail, <span class="at">y =</span> month), </span>
+<span id="cb5-46"><a></a>             <span class="at">color =</span> pal[<span class="st">"avail"</span>], </span>
+<span id="cb5-47"><a></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb5-48"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-49"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_consum, <span class="at">y =</span> month), </span>
+<span id="cb5-50"><a></a>             <span class="at">color =</span> pal[<span class="st">"consum"</span>], </span>
+<span id="cb5-51"><a></a>             <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb5-52"><a></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb5-53"><a></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb5-54"><a></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-55"><a></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, </span>
+<span id="cb5-56"><a></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="fl">3.5</span>,</span>
+<span id="cb5-57"><a></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">1</span>, <span class="co"># or y = "Jun", yend = "Sep"</span></span>
+<span id="cb5-58"><a></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-59"><a></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb5-60"><a></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
+<span id="cb5-61"><a></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">4</span>, </span>
+<span id="cb5-62"><a></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-63"><a></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb5-64"><a></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
+<span id="cb5-65"><a></a>           <span class="at">y =</span> <span class="dv">1</span>, <span class="at">yend =</span> <span class="dv">1</span>, </span>
+<span id="cb5-66"><a></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-67"><a></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>,</span>
+<span id="cb5-68"><a></a>           <span class="at">x =</span> <span class="dv">12</span>,</span>
+<span id="cb5-69"><a></a>           <span class="at">y =</span> <span class="fl">2.5</span>,</span>
+<span id="cb5-70"><a></a>           <span class="at">label =</span> annotation,</span>
+<span id="cb5-71"><a></a>           <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb5-72"><a></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb5-73"><a></a>           <span class="at">hjust =</span> <span class="st">"center"</span>,</span>
+<span id="cb5-74"><a></a>           <span class="at">family =</span> <span class="st">"noto-sans"</span>) <span class="sc">+</span></span>
+<span id="cb5-75"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
+<span id="cb5-76"><a></a>       <span class="at">subtitle =</span> <span class="st">"Summer deficits exist, despite winter water surplus"</span>,</span>
+<span id="cb5-77"><a></a>       <span class="at">caption =</span> caption,</span>
+<span id="cb5-78"><a></a>       <span class="at">x =</span> <span class="st">"Mean monthly water availability &amp; consumption (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb5-79"><a></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb5-80"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-81"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb5-82"><a></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
+<span id="cb5-83"><a></a>                                         <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb5-84"><a></a>                                         <span class="at">size =</span> <span class="dv">17</span>, </span>
+<span id="cb5-85"><a></a>                                         <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
+<span id="cb5-86"><a></a>                                         <span class="at">color =</span> pal[<span class="st">"dark_gray"</span>]), </span>
+<span id="cb5-87"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb5-88"><a></a>                                 <span class="at">size =</span> <span class="dv">16</span>, </span>
+<span id="cb5-89"><a></a>                                 <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb5-90"><a></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">8</span>)),</span>
+<span id="cb5-91"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
+<span id="cb5-92"><a></a>                             <span class="at">size =</span> <span class="dv">12</span>, </span>
+<span id="cb5-93"><a></a>                             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],),</span>
+<span id="cb5-94"><a></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb5-95"><a></a>                                <span class="at">size =</span> <span class="dv">13</span>, </span>
+<span id="cb5-96"><a></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>)),</span>
+<span id="cb5-97"><a></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-98"><a></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb5-99"><a></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
+<span id="cb5-100"><a></a>                                           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb5-101"><a></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
+<span id="cb5-102"><a></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>), </span>
+<span id="cb5-103"><a></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-104"><a></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb5-105"><a></a>  )</span>
+<span id="cb5-106"><a></a></span>
+<span id="cb5-107"><a></a>water_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>Learn more about <a href="https://santabarbaraca.gov/government/departments/public-works/water-resources/drought-information" target="_blank">Santa Barbara’s diverse water portfolio</a>.</p>
+</div>
+</section>
+<section class="slide level2">
 
-</div>
-<img data-src="SLIDES-annotations_files/figure-revealjs/mono-starter-code-1.png" width="960" class="r-stretch"></section>
-<section id="highlight-years" class="slide level2" data-menu-title="Highlight years">
+
+<img data-src="SLIDES-annotations_files/figure-revealjs/update-annotate-eval-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="more-examples" class="slide level2" data-menu-title="More examples">
 <h2></h2>
-<p><span class="slide-title">Highlight years of interest</span></p>
+<p><span class="slide-title">Looking for more annotation examples?</span></p>
 <hr>
-<p><span class="body-text-s">Let’s say we want to call particular attention to the <strong>sharp decline in lake surface level between 1941 - 1983</strong> as a result of <a href="https://www.monolake.org/learn/aboutmonolake/savingmonolake/#:~:text=In%201941%2C%20the%20Los%20Angeles,volume%2C%20and%20doubled%20in%20salinity." target="_blank">unrestricted water diversions</a>. Let’s do so using <code>annotate()</code> (<strong>note</strong> the order of our annotation layers matters!).</span></p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="2-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mono, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lake_level)) <span class="sc">+</span></span>
-<span id="cb12-2"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb12-3"><a></a>    <span class="at">geom =</span> <span class="st">"rect"</span>,</span>
-<span id="cb12-4"><a></a>    <span class="at">xmin =</span> <span class="dv">1941</span>, <span class="at">xmax =</span> <span class="dv">1983</span>,</span>
-<span id="cb12-5"><a></a>    <span class="at">ymin =</span> <span class="dv">6350</span>, <span class="at">ymax =</span> <span class="dv">6440</span>,</span>
-<span id="cb12-6"><a></a>    <span class="at">fill =</span> <span class="st">"gray90"</span></span>
-<span id="cb12-7"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb12-8"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb12-9"><a></a>    <span class="at">geom =</span> <span class="st">"text"</span>, </span>
-<span id="cb12-10"><a></a>    <span class="at">x =</span> <span class="dv">1962</span>, <span class="at">y =</span> <span class="dv">6425</span>,</span>
-<span id="cb12-11"><a></a>    <span class="at">label =</span> <span class="st">"unrestricted diversions</span><span class="sc">\n</span><span class="st">(1941 - 1983)"</span>,</span>
-<span id="cb12-12"><a></a>    <span class="at">size =</span> <span class="dv">3</span></span>
-<span id="cb12-13"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb12-14"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb12-15"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">Year"</span>,</span>
-<span id="cb12-16"><a></a>       <span class="at">y =</span> <span class="st">"Lake surface level</span><span class="sc">\n</span><span class="st">(feet above sea level)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb12-17"><a></a>       <span class="at">title =</span> <span class="st">"Mono Lake levels (1850 - 2017)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb12-18"><a></a>       <span class="at">caption =</span> <span class="st">"Data: Mono Basin Clearinghouse"</span>) <span class="sc">+</span></span>
-<span id="cb12-19"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1850</span>, <span class="dv">2020</span>),</span>
-<span id="cb12-20"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb12-21"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1850</span>, <span class="dv">2010</span>, <span class="at">by =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb12-22"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">6350</span>, <span class="dv">6440</span>),</span>
-<span id="cb12-23"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">6370</span>, <span class="dv">6400</span>, <span class="dv">6430</span>),</span>
-<span id="cb12-24"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb12-25"><a></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
-<span id="cb12-26"><a></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb12-27"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb12-28"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb12-29"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb12-30"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb12-31"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb12-32"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)</span>
-<span id="cb12-33"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
+<p><br> <br> <br> <br> <br></p>
+<div class="center-text body-text-m">
+<p>To see more annotation examples (including how to use <code>geom_text()</code> &amp; <code>geom_label()</code> + the <code>{ggrepel}</code> package to label individual points, how to draw arrows &amp; boxes, etc.), you can check out the archived version of the <a href="../../course-materials/lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.html" target="_blank">annotations lecture</a>.</p>
 </div>
-</div>
-</div></div>
-<!-- [Note the importance of *order* here! Plotting our `geom_line()` layer *after* creating our gray rectangle ensures that it isn't blocked.]{.body-text-s} -->
-<aside class="notes">
-<ul>
-<li>Mono Lake is an ancient saline lake that sits at the edge of the Great Basin and Sierra Nevada mountains and covers &gt;70 square miles.</li>
-<li>Supports a highly productive ecosystem</li>
-<li>No fish, but trillions of brine shrimp and alkali flies, which sustain millions of migratory birds a year</li>
-<li>In 1941, the LA Department of Water &amp; Power began diverting water from the streams that feed Mono Lake to meet growing demand in LA</li>
-<li>Over 40 years, Mono Lake dropped 45 vertical feet, lost half it’s volume of water, and doubled in salinity</li>
-<li>Nesting sites were compromised, and air quality degraded from the exposed lake bed dust</li>
-<li>Grassroots efforts to save Mono Lake began in 1976, led by UC Davis &amp; Stanford students (eventually becoming the Mono Lake Committee)</li>
-<li>In 1983, the CA Supreme Court sided with Mono Lake Committee and ruled that the state had an obligation to protect places like Mono Lake “as far as feasible”</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="add-context" class="slide level2" data-menu-title="Add context">
-<h2></h2>
-<p><span class="slide-title">Add other important context</span></p>
-<hr>
-<p><span class="body-text-s"><a href="https://www.monolake.org/learn/aboutmonolake/naturalhistory/brineshrimp/#:~:text=Within%20Mono%20Lake's%20briny%20waters,during%20the%20warmer%20summer%20months." target="_blank">Mono Lake’s brine shrimp</a> provide food for millions of migratory birds. Abundances are expected to decline if water levels drop below 6,360 feet above sea level. We can provide context by adding a benchmark line and text.</span></p>
-<div class="cell columns column-output-location" data-layout-align="center">
-<div class="column">
-<div class="sourceCode cell-code" id="cb13" data-code-line-numbers="26-33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mono, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lake_level)) <span class="sc">+</span></span>
-<span id="cb13-2"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb13-3"><a></a>    <span class="at">geom =</span> <span class="st">"rect"</span>,</span>
-<span id="cb13-4"><a></a>    <span class="at">xmin =</span> <span class="dv">1941</span>, <span class="at">xmax =</span> <span class="dv">1983</span>,</span>
-<span id="cb13-5"><a></a>    <span class="at">ymin =</span> <span class="dv">6350</span>, <span class="at">ymax =</span> <span class="dv">6440</span>,</span>
-<span id="cb13-6"><a></a>    <span class="at">fill =</span> <span class="st">"gray90"</span></span>
-<span id="cb13-7"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb13-8"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb13-9"><a></a>    <span class="at">geom =</span> <span class="st">"text"</span>, </span>
-<span id="cb13-10"><a></a>    <span class="at">x =</span> <span class="dv">1962</span>, <span class="at">y =</span> <span class="dv">6425</span>,</span>
-<span id="cb13-11"><a></a>    <span class="at">label =</span> <span class="st">"unrestricted diversions</span><span class="sc">\n</span><span class="st">(1941 - 1983)"</span>,</span>
-<span id="cb13-12"><a></a>    <span class="at">size =</span> <span class="dv">3</span></span>
-<span id="cb13-13"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb13-14"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb13-15"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">Year"</span>,</span>
-<span id="cb13-16"><a></a>       <span class="at">y =</span> <span class="st">"Lake surface level</span><span class="sc">\n</span><span class="st">(feet above sea level)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb13-17"><a></a>       <span class="at">title =</span> <span class="st">"Mono Lake levels (1850 - 2017)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb13-18"><a></a>       <span class="at">caption =</span> <span class="st">"Data: Mono Basin Clearinghouse"</span>) <span class="sc">+</span></span>
-<span id="cb13-19"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1850</span>, <span class="dv">2020</span>),</span>
-<span id="cb13-20"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb13-21"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1850</span>, <span class="dv">2010</span>, <span class="at">by =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb13-22"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">6350</span>, <span class="dv">6440</span>),</span>
-<span id="cb13-23"><a></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">6370</span>, <span class="dv">6400</span>, <span class="dv">6430</span>),</span>
-<span id="cb13-24"><a></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb13-25"><a></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
-<span id="cb13-26"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">6360</span>, </span>
-<span id="cb13-27"><a></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb13-28"><a></a>  <span class="fu">annotate</span>(</span>
-<span id="cb13-29"><a></a>    <span class="at">geom =</span> <span class="st">"text"</span>,</span>
-<span id="cb13-30"><a></a>    <span class="at">x =</span> <span class="dv">1900</span>, <span class="at">y =</span> <span class="dv">6366</span>,</span>
-<span id="cb13-31"><a></a>    <span class="at">label =</span> <span class="st">"Decreased brine shrimp abundance expected</span><span class="sc">\n</span><span class="st">(6,360 feet above sea level)"</span>,</span>
-<span id="cb13-32"><a></a>    <span class="at">size =</span> <span class="dv">3</span></span>
-<span id="cb13-33"><a></a>    ) <span class="sc">+</span></span>
-<span id="cb13-34"><a></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb13-35"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb13-36"><a></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb13-37"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb13-38"><a></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb13-39"><a></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb13-40"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)</span>
-<span id="cb13-41"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-annotations_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div></div>
-</section>
-<section id="additional-tools" class="slide level2" data-menu-title="More tools">
-<h2></h2>
-<p><span class="slide-title2">Keep these additional tips, tools &amp; tutorials in mind!</span></p>
-<hr>
-<p><span class="body-text-m"><strong>Tools &amp; packages:</strong></span></p>
-<ul>
-<li><p><span class="body-text-s">use <code>clip = "off"</code> inside a <code>coord_*()</code> function to allow drawing outside the plot panel (see <a href="https://twitter.com/ClausWilke/status/991542952802619392" target="_blank">this tweet</a> for one example)</span></p></li>
-<li><p><span class="body-text-s">the <a href="https://wilkox.org/ggfittext/" target="_blank"><code>{ggfittext}</code> package</a> is a ggplot2 extension for fitting text into boxes</span></p></li>
-<li><p><span class="body-text-s">the <a href="https://wilkelab.org/ggtext/index.html" target="_blank"><code>{ggtext}</code> package</a> includes two geoms for annotating plots, <code>geom_richtext()</code> &amp; <code>geom_textbox()</code> – both permit Markdown styling</span></p></li>
-<li><p><span class="body-text-s">the <a href="https://ggforce.data-imaginist.com/" target="_blank"><code>{ggforce}</code> package</a> has <em>so</em> many awesome functions, including a series of <a href="https://ggforce.data-imaginist.com/reference/index.html#annotation" target="_blank">annotation functions</a> (e.g.&nbsp;check out <a href="https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html" target="_blank"><code>geom_mark_ellipse()</code></a>, demoed in the <a href="../../course-materials/lecture-slides/SLIDES-good-viz.html#ggforce" target="_blank">what makes a good viz? slides</a>), and <a href="https://ggforce.data-imaginist.com/reference/facet_zoom.html" target="_blank"><code>facet_zoom()</code></a>, for zooming into a subset of data; <a href="https://tuowang.rbind.io/" target="_blank">Tuo Wang</a> also has some great examples in <a href="https://tuowang.rbind.io/blog/ggplot2-extensions/02-ggplot2-extensions/#3-span-stylecolor-coralggforcespan-package" target="_blank">this blog post</a></span></p></li>
-</ul>
-<p><span class="body-text-m"><strong>Tutorials:</strong></span></p>
-<ul>
-<li><p><span class="body-text-s"><a href="https://www.cararthompson.com/talks/user2022/" target="_blank">Level Up Your Labels: Tips and Tricks for Annotating Plots</a>, by <a href="https://www.cararthompson.com/" target="_blank">Cara Thompson</a></span></p></li>
-<li><p><span class="body-text-s"><a href="https://albert-rapp.de/posts/ggplot2-tips/10_recreating_swd_look/10_recreating_swd_look.html#add-text-labels" target="_blank">Recreating the Storytelling with Data look with ggplot</a>, by <a href="https://albert-rapp.de/" target="_blank">Albert Rapp</a></span></p></li>
-<li><p><span class="body-text-s"><a href="https://albert-rapp.de/posts/ggplot2-tips/07_four_ways_colors_more_efficiently/07_four_ways_colors_more_efficiently#label-directly" target="_blank">4 Ways to use colors in ggplot more efficiently</a>, by <a href="https://albert-rapp.de/" target="_blank">Albert Rapp</a> (includes some great annotation examples)</span></p></li>
-</ul>
+<!-- To see more typography and annotation examples (including how to use `geom_text()` & `geom_label()` + the `{ggrepel}` package to label individual points, how to draw arrows & boxes, etc.), you can check out the archived versions of the [typography](../lecture-slides/ARCHIVE/SLIDES-typography-jobs.qmd){target="_blank"} & [annotations](../lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.qmd){target="_blank"} lectures. -->
 </section>
 <section id="break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
 <h2></h2>
@@ -1049,7 +831,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_bb42ba29" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_2c74c8c6" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

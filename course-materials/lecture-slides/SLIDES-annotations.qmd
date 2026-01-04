@@ -295,12 +295,9 @@ font_add_google(name = "Noto Sans", family = "noto-sans")
 font_add_google(name = "Red Hat Mono", family = "red")
 
 #....................import Font Awesome fonts...................
+# we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
-font_add(family = "fa-regular",
-         regular = here::here("fonts", "Font Awesome 7 Free-Regular-400.otf")) 
-font_add(family = "fa-solid",
-         regular = here::here("fonts", "Font Awesome 7 Free-Solid-900.otf"))
 
 #......enable {showtext} rendering for all newly opened GDs......
 showtext_auto()
@@ -340,16 +337,16 @@ sbc_subbasin_monthly <- ca_region |>
 #......................create color palette......................
 pal <- c("avail" = "#448F9C",
          "consum" = "#9C7344",
-         "dark_text" = "#0C1509",
-         "light_text" = "#4E514D") 
+         "dark_gray" = "#0C1509",
+         "light_gray" = "#4E514D") 
 
 #..........................create title..........................
 title <- glue::glue("Water
-                    <span style='color:#448F9C;'>supply</span> 
+                    <span style='color:#448F9C;'>availability</span> 
                     vs. 
-                    <span style='color:#9C7344;'>demand</span>
-                    across the Santa Barbara Coastal<br>
-                    subbasin (2010-2020)")
+                    <span style='color:#9C7344;'>consumption</span>
+                    across the Santa Barbara<br>
+                    Coastal subbasin (2010-2020)")
 
 #.........................create caption.........................
 github_icon <- "&#xf09b"
@@ -364,47 +361,49 @@ caption <- glue::glue(
 #..........................updated plot..........................
 water_plot <- ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
-                     xmin = mean_consum, xmax = mean_avail)) + 
+                     xmin = mean_consum, xmax = mean_avail),
+                     alpha = 0.6) + 
   geom_point(aes(x = mean_avail, y = month), 
-             color = pal["avail"], 
-             size = 5.5,
+            color = pal["avail"], 
+            size = 5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
              fill = "white",
              shape = 21,
-             stroke = 2,
-             size = 5.5) +
+             size = 5,
+             stroke = 2) +
   labs(title = title,
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
-       x = "Mean monthly water supply & demand (mm)") +
-  theme_minimal() +
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light() +
   theme(
     plot.title.position = "plot",
     plot.title = ggtext::element_textbox(family = "sarala",
                                          face = "bold",
                                          size = 22,
                                          lineheight = 1.2,
-                                         color = pal["dark_text"]),
+                                         color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
                                  size = 16,
-                                 color = pal["light_text"],
-                                 margin = margin(t = 3, r = 0, b = 8, l = 0)),
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
     axis.text = element_text(family = "red",
                              size = 13,
-                             color = pal["light_text"]),
+                             color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
                                 size = 14,
-                                margin = margin(t = 20, r = 0, b = 0, l = 0)),
+                                margin = margin(t = 20)),
     axis.title.y = element_blank(),
     plot.caption = ggtext::element_textbox(family = "noto-sans",
                                            face = "italic",
-                                           color = pal["light_text"],
+                                           color = pal["light_gray"],
                                            halign = 1, 
                                            lineheight = 1.5,
-                                           margin = margin(t = 15, r = 0, b = 0, l = 0)),
-    plot.margin = margin(t = 1, r = 1, b = 0.5, l = 1, "cm")
+                                           margin = margin(t = 15)),
+    panel.grid.major.y = element_blank(),                                       
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
 water_plot
@@ -436,13 +435,13 @@ water_plot
 
 [Let's try to add an annotation to our plot using both approaches to better understand the difference.]{.body-text-m}
 
-. . . 
+<!-- . . . 
 
 <br>
  
 ::: {.center-text}
 [**Our goal:**]{.teal-text} add a rectangle that bounds / highlights just the summer months, add text nearby that reads **summer water deficit**, and draw an arrow from the text pointing to the box.
-:::
+::: -->
 
 ::: {.footer}
 I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annotation.html){target="_blank"} super helpful!
@@ -452,484 +451,383 @@ I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annot
 
 ## {#geom-text-issues data-menu-title="geom_text() doesn't work"} 
 
-[`geom_text()` + `geom_rect()` doesn't look right .  . .]{.slide-title2}
+[`geom_text()` doesn't look right .  . .]{.slide-title}
 
 <hr>
 
-Here, we use `geom_text()` + `geom_rect()` to add text and a rectangle to our plot. We need to **supply coordinates** to place each on our plot.
-
-```{r practice-geom-text-rect}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| output-location: column
-water_plot + 
-    geom_text(
-        x = 10,
-        y = 3,
-        label = "summer & early fall months experience\nthe largest water deficits",
-        size = 5,
-        color = "black",
-        hjust = "center",
-    ) +
-    geom_rect(
-        xmin = -1, xmax = 2.5,
-        ymin = 0.5, ymax = 4.5,
-        fill = "gray40", color = "black",
-        show.legend = FALSE
-    )
-```
-
-[Notice that our text looks oddly blurry and bold, and our rectangle is opaque (despite adjusting `alpha`) and has a weird, thick border.]{.body-text-s}
-
----
-
-## {#geom-text-aes data-menu-title="geom_text() inherits aesthetics"} 
-
-[`geom_text()` inherits aesthetic mappings from `ggplot()`]{.slide-title3}
-
-<hr>
-
-[Like all other `geom_*()` functions we've worked with, **`geom_text()` (and related geoms) take aesthetic mappings**. You can either define `aes()` within the geom, *or* it'll inherit global mappings from `ggplot()` (as in our case).]{.body-text-s}
+Here, we use `geom_text()` to add text to our plot. We need to **supply coordinates** to place it on our plot:
 
 <br>
 
-. . . 
-
-[Here, `geom_text()` is plotting our label (**water deficit**) and box 12 times each (once for each of the 12 observations in our data frame).]{.body-text-s}
-
-```{r}
-#| eval: true
-#| echo: true
-str(sbc_subbasin_monthly)
-```
-
-<!-- . . . 
-
-[It's also inheriting the `size` aesthetic for our box border.]{.body-text-s} -->
-
-```{r}
-#| eval: false
-#| echo: false
-# from our `lob_plot` code
-# scale_size_manual(values = lob_sizes) 
-```
-
----
-
-## {#use-annotate data-menu-title="Use annotate()"} 
-
-[This is exactly the situation `annotate()` was made for]{.slide-title3}
-
-<hr>
-
-[Alternatively, `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`). We'll also omit the `show.lengend` argument, since `annotate()` doesn't produce a legend.]{.body-text-s}
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| output-location: column
-water_plot + 
-    annotate(
-        geom = "text",
-        x = 10,
-        y = 3,
-        label = "summer & early fall months experience\nthe largest water deficits",
-        size = 5,
-        color = "black",
-        hjust = "center",
-        family = "noto-sans"
-    ) +
-    annotate(
-        geom = "rect",
-        xmin = -1, xmax = 2.5,
-        ymin = 0.5, ymax = 4.5,
-        fill = "gray70", color = "gray70", alpha = 0.5
-    )
-```
-
-[**Note:** Determining coordinates for any annotation requires a lot of trial and error. Pick values that you think are close and then tweak from there.]{.body-text-s}
-
----
-
-## {#draw-arrow data-menu-title="Draw arrow"} 
-
-[Draw an arrow between our label and rectangle]{.slide-title2}
-
-<hr>
-
-[We can specify the `"curve"` geom type to draw a curved line. Use the `arrow` argument + `arrow()` function to add an arrow tip on the end:]{.body-text-s}
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| code-line-numbers: "17-23"
-#| output-location: column
-water_plot + 
-    annotate(
-        geom = "text",
-        x = 10,
-        y = 3,
-        label = "Santa Barbara maintains a diverse water supply portfolio (e.g groudwater, recycled water, and desalination) to draw from when consumption outpaces natural supply", 
-        size = 5,
-        color = "black",
-        hjust = "center",
-        family = "noto-sans"
-    ) +
-    annotate(
-        geom = "rect",
-        xmin = -1, xmax = 2.5,
-        ymin = 0.5, ymax = 4.5,
-        fill = "gray70", color = "gray70", alpha = 0.5
-    ) +
-    annotate(
-        geom = "curve",
-        x = 7, xend = 2.6,
-        y = 2.7, yend = 2,
-        curvature = -0.25,
-        arrow = arrow(length = unit(0.3, "cm"))
-    )
-```
-
----
-
-## {#use-geoms data-menu-title="Using geom_text() & geom_label()"} 
-
-[Use `geom_text/label()` to annotate each point]{.slide-title2}
-
-<hr>
-
 :::: {.columns}
-
 ::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-`geom_text()` adds plain text
-:::
-
-```{r}
-#| eval: true
+```{r practice-geom-text-echo}
+#| eval: false
 #| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-water_plot +
-  geom_text(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
-            size = 6,
-            show.legend = FALSE)
+#| out-width: "100%"
+water_plot + # `water_plot` represents all our plot code from the typography lecture
+    geom_text(
+        x = 10,
+        y = 3, # or y = "Jul"
+        label = "some annotation text",
+        size = 5,
+        color = pal["light_gray"],
+        hjust = "center",
+        family = "noto-sans"
+    )
 ```
 :::
 
 ::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-`geom_label()` adds a rectangle behind text
-:::
-
-```{r}
+```{r practice-geom-text-eval}
 #| eval: true
-#| echo: true
+#| echo: false
+#| out-width: "100%"
 #| fig-align: "center"
 #| fig-asp: 0.7
-water_plot +
-  geom_label(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
-             size = 6,
-             show.legend = FALSE)
+water_plot + # `water_plot` represents all our plot code from the typography lecture
+    geom_text(
+        x = 10,
+        y = 3, # or y = "Jul"
+        label = "some annotation text",
+        size = 5,
+        color = pal["light_gray"],
+        hjust = "center",
+        family = "noto-sans"
+    )
 ```
 :::
 ::::
 
 ::: {.center-text}
-Annotations sit on top of data points, which may be undesirable...
+Notice that our text looks oddly blurry and bold...
 :::
 
 ---
 
-## {#use-ggrepel data-menu-title="{ggrepel}"} 
+## {#geom-text-aes data-menu-title="geom_text() inherits aesthetics"} 
 
-[Use `{ggrepel}` to repel annotations]{.slide-title}
+[`geom_text()` is a data-driven layer]{.slide-title}
 
 <hr>
 
-:::: {.columns}
+All `geom_*()`s are data-driven by default. Just like `geom_point()` will plot a single point for each row in our data frame, `geom_text()` plots a single label (**some annotation text**) for each row in our data frame -- there are 12 rows in `sbc_subbasin_monthly`, so our label is plotted 12 times (one on top of the other on our defined `x` and `y` coordinates):
 
-::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-`geom_text()` adds plain text
-:::
+<br>
 
-```{r}
+```{r df-str}
 #| eval: true
 #| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-water_plot +
-  ggrepel::geom_text_repel(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
-                           size = 7,
-                           color = "gray10",
-                           nudge_x = 0.2, nudge_y = 0.4,
-                           arrow = arrow(length = unit(0.25, "cm")))
+str(sbc_subbasin_monthly)
+```
+
+. . .
+
+<br>
+
+::: {.center-text}
+We should instead use `annotate()` to plot a single text element, independent of our data.
+:::
+
+::: {.footer}
+Check out this [archived version](ARCHIVE/SLIDES-annotations-lobs-mono.qmd#use-geoms){taret="_blank"} to see examples of when you might consider using `geom_text()` (or `geom_label()`).
+:::
+
+---
+
+## {#use-annotate data-menu-title="Use annotate()"} 
+
+[Use `annotate()` to add a single text element]{.slide-title2}
+
+<hr>
+
+`annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`, `"curve"`, `"segment"`). 
+
+<br> 
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r practice-annotate-echo}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "2-3"
+water_plot + 
+    annotate(
+        geom = "text",
+        x = 10,
+        y = 3,
+        label = "some annotation text",
+        size = 5,
+        color = pal["light_gray"],
+        hjust = "center",
+        family = "noto-sans"
+    )
 ```
 :::
 
 ::: {.column width="50%"}
-::: {.center-text .body-text-s .gray-text}
-`geom_label()` adds a rectangle behind text
-:::
-
-```{r}
+```{r practice-annotate-eval}
 #| eval: true
-#| echo: true
+#| echo: false
+#| out-width: "100%"
 #| fig-align: "center"
 #| fig-asp: 0.7
-water_plot +
-  ggrepel::geom_label_repel(aes(x = mean_avail, y = month, label = round(mean_avail, 2)),
-                           size = 4,
-                           color = "gray10",
-                           nudge_x = 0.1, nudge_y = 0.3,
-                           arrow = arrow(length = unit(0.25, "cm")))
+water_plot + 
+    annotate(
+        geom = "text",
+        x = 10,
+        y = 3,
+        label = "some annotation text",
+        size = 5,
+        color = pal["light_gray"],
+        hjust = "center",
+        family = "noto-sans"
+    )
 ```
 :::
 ::::
 
----
-
-## {#manually-label-iv10 data-menu-title="Manually label points (IV10)"} 
-
-[Manually label just a few important points]{.slide-title}
-
-<hr>
-
-If we have just a few months that we want to call attention to, we can use `annotate()` to label them. Let's start with Feb:
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| output-location: column
-water_plot +
-  annotate(
-    geom = "text",
-    x = 17, y = 9.5,
-    label = "February has the highest\naverage water supply",
-    hjust = "center",
-    size = 4.5
-    ) +
-  annotate(
-    geom = "curve",
-    x = 19.6, xend = 20.4,
-    y = 9.4, yend = 8.6,
-    curvature = -0.25,
-    arrow = arrow(length = unit(0.3, "cm")),
-    linewidth = 0.6
-    ) 
-```
-
----
-
-## {#mono-plot data-menu-title="Mono Lake plot"} 
-
-[Mono Lake plot starter code]{.slide-title}
-
-<hr>
-
-```{r mono-starter-code}
-#| eval: true
-#| echo: true
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#.........................load libraries.........................
-library(tidyverse)
-
-#..........................read in data..........................
-
-# read in Google Sheet ----
-mono <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1o0-89RFp2rI2y8hMQWy-kquf_VIzidmhmVDXQ02JjCA/edit#gid=164128885")
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                            create Mono Lake plot                         ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-ggplot(data = mono, aes(x = year, y = lake_level)) +
-  geom_line() +
-  labs(x = "\nYear",
-       y = "Lake surface level\n(feet above sea level)\n",
-       title = "Mono Lake levels (1850 - 2017)\n",
-       caption = "Data: Mono Basin Clearinghouse") +
-  scale_x_continuous(limits = c(1850, 2020),
-                     expand = c(0,0),
-                     breaks = seq(1850, 2010, by = 20)) +
-  scale_y_continuous(limits = c(6350, 6440),
-                     breaks = c(6370, 6400, 6430),
-                     expand = c(0,0),
-                     labels = scales::label_comma()) +
-  theme_light() +
-  theme(
-    plot.title.position = "plot",
-    plot.title = element_text(size = 16),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    plot.caption = element_text(face = "italic")
-    )
-```
-
----
-
-## {#highlight-years data-menu-title="Highlight years"} 
-
-[Highlight years of interest]{.slide-title}
-
-<hr>
-
-[Let's say we want to call particular attention to the **sharp decline in lake surface level between 1941 - 1983** as a result of [unrestricted water diversions](https://www.monolake.org/learn/aboutmonolake/savingmonolake/#:~:text=In%201941%2C%20the%20Los%20Angeles,volume%2C%20and%20doubled%20in%20salinity.){target="_blank"}. Let's do so using `annotate()` (**note** the order of our annotation layers matters!).]{.body-text-s}
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| code-line-numbers: "2-13"
-#| output-location: column
-ggplot(data = mono, aes(x = year, y = lake_level)) +
-  annotate(
-    geom = "rect",
-    xmin = 1941, xmax = 1983,
-    ymin = 6350, ymax = 6440,
-    fill = "gray90"
-  ) +
-  annotate(
-    geom = "text", 
-    x = 1962, y = 6425,
-    label = "unrestricted diversions\n(1941 - 1983)",
-    size = 3
-  ) +
-  geom_line() +
-  labs(x = "\nYear",
-       y = "Lake surface level\n(feet above sea level)\n",
-       title = "Mono Lake levels (1850 - 2017)\n",
-       caption = "Data: Mono Basin Clearinghouse") +
-  scale_x_continuous(limits = c(1850, 2020),
-                     expand = c(0,0),
-                     breaks = seq(1850, 2010, by = 20)) +
-  scale_y_continuous(limits = c(6350, 6440),
-                     breaks = c(6370, 6400, 6430),
-                     expand = c(0,0),
-                     labels = scales::label_comma()) +
-  theme_light() +
-  theme(
-    plot.title.position = "plot",
-    plot.title = element_text(size = 16),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    plot.caption = element_text(face = "italic")
-    )
-```
-
-<!-- [Note the importance of *order* here! Plotting our `geom_line()` layer *after* creating our gray rectangle ensures that it isn't blocked.]{.body-text-s} -->
-
-::: {.notes}
-- Mono Lake is an ancient saline lake that sits at the edge of the Great Basin and Sierra Nevada mountains and covers >70 square miles.
-- Supports a highly productive ecosystem
-- No fish, but trillions of brine shrimp and alkali flies, which sustain millions of migratory birds a year
-- In 1941, the LA Department of Water & Power began diverting water from the streams that feed Mono Lake to meet growing demand in LA
-- Over 40 years, Mono Lake dropped 45 vertical feet, lost half it's volume of water, and doubled in salinity
-- Nesting sites were compromised, and air quality degraded from the exposed lake bed dust
-- Grassroots efforts to save Mono Lake began in 1976, led by UC Davis & Stanford students (eventually becoming the Mono Lake Committee)
-- In 1983, the CA Supreme Court sided with Mono Lake Committee and ruled that the state had an obligation to protect places like Mono Lake "as far as feasible"
-
-
+::: {.footer}
+**Note:** Determining coordinates for any annotation can require a lot of trial and error. Pick values that you think are close and then tweak from there.
 :::
 
 ---
 
-## {#add-context data-menu-title="Add context"} 
+## {#add-real-annotation data-menu-title="Add real annotation"} 
 
-[Add other important context]{.slide-title}
+[Add a more informative annotation]{.slide-title2}
 
 <hr>
 
-[[Mono Lake's brine shrimp](https://www.monolake.org/learn/aboutmonolake/naturalhistory/brineshrimp/#:~:text=Within%20Mono%20Lake's%20briny%20waters,during%20the%20warmer%20summer%20months.){target="_blank"} provide food for millions of migratory birds. Abundances are expected to decline if water levels drop below 6,360 feet above sea level. We can provide context by adding a benchmark line and text.]{.body-text-s}
+[Now that we know the right approach for adding single text elements to our plot, let's add something a bit more helpful and aesthetic. We'll construct a bracket to bound the data for Jun > Sep, then add text that describes how Santa Barbara handles water deficits, as well as how to interpret negative availability values. Full plot text is included:]{.body-text-s}
 
-```{r}
-#| eval: true
+```{r update-annotation-echo}
+#| eval: false
 #| echo: true
-#| fig-align: "center"
-#| fig-asp: 0.7
-#| code-line-numbers: "26-33"
-#| output-location: column
-ggplot(data = mono, aes(x = year, y = lake_level)) +
-  annotate(
-    geom = "rect",
-    xmin = 1941, xmax = 1983,
-    ymin = 6350, ymax = 6440,
-    fill = "gray90"
-  ) +
-  annotate(
-    geom = "text", 
-    x = 1962, y = 6425,
-    label = "unrestricted diversions\n(1941 - 1983)",
-    size = 3
-  ) +
-  geom_line() +
-  labs(x = "\nYear",
-       y = "Lake surface level\n(feet above sea level)\n",
-       title = "Mono Lake levels (1850 - 2017)\n",
-       caption = "Data: Mono Basin Clearinghouse") +
-  scale_x_continuous(limits = c(1850, 2020),
-                     expand = c(0,0),
-                     breaks = seq(1850, 2010, by = 20)) +
-  scale_y_continuous(limits = c(6350, 6440),
-                     breaks = c(6370, 6400, 6430),
-                     expand = c(0,0),
-                     labels = scales::label_comma()) +
-  geom_hline(yintercept = 6360, 
-             linetype = "dashed") +
-  annotate(
-    geom = "text",
-    x = 1900, y = 6366,
-    label = "Decreased brine shrimp abundance expected\n(6,360 feet above sea level)",
-    size = 3
-    ) +
+#| code-line-numbers: "28-34,38-41,55-74"
+#......................create color palette......................
+pal <- c("avail" = "#448F9C",
+         "consum" = "#9C7344",
+         "dark_gray" = "#0C1509",
+         "light_gray" = "#4E514D") 
+
+#........................preview palette.........................
+# monochromeR::view_palette(pal)
+
+#..........................create title..........................
+title <- glue::glue("Water
+                    <span style='color:#448F9C;'>availability</span> 
+                    vs. 
+                    <span style='color:#9C7344;'>consumption</span>
+                    across the Santa Barbara<br>
+                    Coastal subbasin (2010-2020)")
+
+#.........................create caption.........................
+github_icon <- "&#xf09b"
+github_username <- "samanthacsik"
+
+caption <- glue::glue(
+  "Data Source: USGS CONUS 2025<br>
+  <span style='font-family:fa-brands;'>{github_icon};</span>
+  {github_username}"
+)
+
+#........................create annotation.......................
+annotation <- glue::glue(
+  "Santa Barbara meets deficits through diverse water sources, 
+  including recycling & desalination. Negative availability 
+  indicates reliance on groundwater, imported water, 
+  or stored reserves."
+)
+ 
+#..........................updated plot..........................
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail),
+                 alpha = 0.6) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5,
+             stroke = 2) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 12,
+           y = 2.5,
+           label = annotation,
+           size = 3.5,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water availability & consumption (mm)") +
   theme_light() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(size = 16),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    plot.caption = element_text(face = "italic")
-    )
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 17, 
+                                         lineheight = 1.2,
+                                         color = pal["dark_gray"]), 
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16, 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
+    axis.text = element_text(family = "red",
+                             size = 12, 
+                             color = pal["light_gray"],),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 13, 
+                                margin = margin(t = 20)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_gray"],
+                                           halign = 1, 
+                                           lineheight = 1.5), 
+    panel.grid.major.y = element_blank(),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
+  )
+
+water_plot
+```
+
+::: {.footer}
+Learn more about [Santa Barbara's diverse water portfolio](https://santabarbaraca.gov/government/departments/public-works/water-resources/drought-information){target="_blank"}.
+:::
+
+---
+
+```{r update-annotate-eval}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-asp: 0.7
+#........................create annotation.......................
+annotation <- glue::glue(
+  "Santa Barbara meets deficits through diverse water sources, 
+  including recycling & desalination. Negative availability 
+  indicates reliance on groundwater, imported water, 
+  or stored reserves."
+)
+ 
+#..........................updated plot..........................
+water_plot <- ggplot(sbc_subbasin_monthly) +
+  geom_vline(xintercept = 0, 
+             linetype = "dashed", 
+             color = pal["light_gray"], 
+             alpha = 0.4) +
+  geom_linerange(aes(y = month,
+                     xmin = mean_consum, xmax = mean_avail),
+                 alpha = 0.6) + 
+  geom_point(aes(x = mean_avail, y = month), 
+             color = pal["avail"], 
+             size = 5,
+             stroke = 2) +
+  geom_point(aes(x = mean_consum, y = month), 
+             color = pal["consum"], 
+             fill = "white",
+             shape = 21,
+             size = 5,
+             stroke = 2) +
+  annotate("segment", 
+           x = 3.5, xend = 3.5,
+           y = 4, yend = 1, # or y = "Jun", yend = "Sep"
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 4, yend = 4, 
+           linewidth = 0.8) +
+  annotate("segment",
+           x = 3.5, xend = 3,
+           y = 1, yend = 1, 
+           linewidth = 0.8) +
+  annotate(geom = "text",
+           x = 9.8,
+           y = 2.5,
+           label = annotation,
+           size = 3.75,
+           color = pal["light_gray"],
+           hjust = "center",
+           family = "noto-sans") +
+  labs(title = title,
+       subtitle = "Summer deficits exist, despite winter water surplus",
+       caption = caption,
+       x = "Mean monthly water availability & consumption (mm)") +
+  theme_light() +
+  theme(
+    plot.title.position = "plot",
+    plot.title = ggtext::element_textbox(family = "sarala",
+                                         face = "bold",
+                                         size = 22, 
+                                         lineheight = 1.2,
+                                         color = pal["dark_gray"],
+                                         width = unit(25, "cm")), 
+    plot.subtitle = element_text(family = "noto-sans",
+                                 size = 16, 
+                                 color = pal["light_gray"],
+                                 margin = margin(b = 8)),
+    axis.text = element_text(family = "red",
+                             size = 13, 
+                             color = pal["light_gray"],),
+    axis.title.x = element_text(family = "noto-sans",
+                                size = 14, 
+                                margin = margin(t = 20)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_textbox(family = "noto-sans",
+                                           face = "italic",
+                                           color = pal["light_gray"],
+                                           halign = 1, 
+                                           lineheight = 1.5), 
+    panel.grid.major.y = element_blank(),
+    plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
+  )
+
+water_plot
 ```
 
 ---
 
-## {#additional-tools data-menu-title="More tools"} 
+## {#more-examples data-menu-title="More examples"} 
 
-[Keep these additional tips, tools & tutorials in mind!]{.slide-title2}
+[Looking for more annotation examples?]{.slide-title}
 
 <hr>
 
-[**Tools & packages:**]{.body-text-m}
+<br>
+<br>
+<br>
+<br>
+<br>
 
-- [use `clip = "off"` inside a `coord_*()` function to allow drawing outside the plot panel (see [this tweet](https://twitter.com/ClausWilke/status/991542952802619392){target="_blank"} for one example)]{.body-text-s}
+::: {.center-text .body-text-m}
+To see more annotation examples (including how to use `geom_text()` & `geom_label()` + the `{ggrepel}` package to label individual points, how to draw arrows & boxes, etc.), you can check out the archived version of the [annotations lecture](../lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.qmd){target="_blank"}.
+:::
 
-- [the [`{ggfittext}` package](https://wilkox.org/ggfittext/){target="_blank"} is a ggplot2 extension for fitting text into boxes]{.body-text-s}
-
-- [the [`{ggtext}` package](https://wilkelab.org/ggtext/index.html){target="_blank"} includes two geoms for annotating plots, `geom_richtext()` & `geom_textbox()` -- both permit Markdown styling]{.body-text-s}
-
-- [the [`{ggforce}` package](https://ggforce.data-imaginist.com/){target="_blank"} has *so* many awesome functions, including a series of [annotation functions](https://ggforce.data-imaginist.com/reference/index.html#annotation){target="_blank"} (e.g. check out [`geom_mark_ellipse()`](https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html){target="_blank"}, demoed in the [what makes a good viz? slides](SLIDES-good-viz.qmd#ggforce){target="_blank"}), and [`facet_zoom()`](https://ggforce.data-imaginist.com/reference/facet_zoom.html){target="_blank"}, for zooming into a subset of data; [Tuo Wang](https://tuowang.rbind.io/){target="_blank"} also has some great examples in [this blog post](https://tuowang.rbind.io/blog/ggplot2-extensions/02-ggplot2-extensions/#3-span-stylecolor-coralggforcespan-package){target="_blank"}]{.body-text-s}
-
-[**Tutorials:**]{.body-text-m}
-
-- [[Level Up Your Labels: Tips and Tricks for Annotating Plots](https://www.cararthompson.com/talks/user2022/){target="_blank"}, by [Cara Thompson](https://www.cararthompson.com/){target="_blank"}]{.body-text-s}
-
-- [[Recreating the Storytelling with Data look with ggplot](https://albert-rapp.de/posts/ggplot2-tips/10_recreating_swd_look/10_recreating_swd_look.html#add-text-labels){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/){target="_blank"}]{.body-text-s}
-
-- [[4 Ways to use colors in ggplot more efficiently](https://albert-rapp.de/posts/ggplot2-tips/07_four_ways_colors_more_efficiently/07_four_ways_colors_more_efficiently#label-directly){target="_blank"}, by [Albert Rapp](https://albert-rapp.de/){target="_blank"} (includes some great annotation examples)]{.body-text-s}
+<!-- To see more typography and annotation examples (including how to use `geom_text()` & `geom_label()` + the `{ggrepel}` package to label individual points, how to draw arrows & boxes, etc.), you can check out the archived versions of the [typography](../lecture-slides/ARCHIVE/SLIDES-typography-jobs.qmd){target="_blank"} & [annotations](../lecture-slides/ARCHIVE/SLIDES-annotations-lobs-mono.qmd){target="_blank"} lectures. -->
 
 ---
 
