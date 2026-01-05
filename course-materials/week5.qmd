@@ -9,12 +9,12 @@ description: "Wednesday February 4^th^, 2026"
 #| echo: false
 #| fig-align: "center"
 #| out-width: "65%" 
-#| fig-alt: "A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"
-knitr::include_graphics(here::here("images", "horst-ggplot-masterpiece.png"))
+#| fig-alt: "Six common climate science color palettes."
+knitr::include_graphics(here::here("images", "kaye-etal-2012-colors.png"))
 ```
 
 :::{.gray-text .center-text}
-*Artwork by [Allison Horst](https://allisonhorst.com/){target="_blank"}*
+***Fig 4** Appropriate diverging and sequential colour schemes for the following climate data (a), absolute temperature (b), absolute precipitation (c), temperature anomaly (d), precipitation or runoff anomaly (e and f) other climate variables with no symbolic association . Schemes in this figure are 7 class ones designed by Cynthia Brewer, ([Brewer et al. 2003](https://tizmogollon.weebly.com/uploads/1/5/4/7/15475746/brewer_etal_2003_colorbrewer_in_print.pdf){target="_blank"})* - from [Kaye, Hartley & Hemming (2012)](https://www.researchgate.net/publication/307824079_Mapping_the_climate_guidance_on_appropriate_techniques_to_map_climate_variables_and_their_uncertainty){target="_blank"}
 :::
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-class Prep {#pre-class-prep}
@@ -33,12 +33,13 @@ install.packages("sf") # provides simple features access in R
 ```
 
 ### B. Download data
-  
-1. Download [County-level precipitation data (Jan 2020 - Dec 2024) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202412/60/value){target="_blank"}, made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/){target="_blank"} (you do not need to adjust any of the drop down selections; find the download buttons just beneath the rendered map -- **choose the CSV option**)
-    - rename the data file as `NCEI-county-jan20-dec24-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/NCEI-county-jan20-dec24-precip.csv`
-  
-  <!-- - [County-level precipitation data (Feb 2019 - Jan 2024) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202401/60/value){target="_blank"}, made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/){target="_blank"} (the download buttons are located just beneath the rendered map -- **choose the CSV option**) -->
-  <!-- - rename the data file as `county-feb19-jan24-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/county-feb19-jan24-precip.csv` -->
+
+Save data to your class repo at `EDS-240-class-examples/week4/`:
+
+|Lecture | Dataset title | Download link | Notes |
+|--------|---------------|---------------|-------|
+|5.2 | County-level precipitation data (Nov 2020 - Oct 2025) for the contiguous U.S | Download the data from the [NCEI County Mapping tool](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202510/60/value){target="_blank"} by clicking the CSV download button, located beneath the map. The previous link should take you to the correct subset of data, but triple check that it says **November 2020 - October 2025 Contiguous U.S. Coutny Precipitation** above the provided table. *In the event that the NCEI County Mapping tool is down, you can access a backup copy on [Google Drive](https://drive.google.com/file/d/1HImhoPdvvCaayPX8fzSz0xZbB5bU11Ef/view?usp=drive_link){target="_blank"}*  | NOAA's [National Centers for Environmental Information](https://www.ncei.noaa.gov/){target="_blank"} (NCEI) archives and provides access to terabytes of climate, coastal, oceanographic, and geophyscial data in a variety of formats |
+: {.hover .bordered tbl-colwidths="[10,20,35,35]"}
 
 ### C. Download .qmd templates & review data wrangling code
 
@@ -69,7 +70,6 @@ I'll be using both of these (really wonderful and easy-to-use) tools during lect
 - make this lab more interactive
 :::
 
-
 ### A. (OPTIONAL) Bring a cool data viz!
 
 This week's lab section will be a time to explore, share, and discuss "non-standard" chart types, as well as those that present data using the fundamental chart types we've already discussed in different and exciting ways. You'll have time to browse some data viz during section, but it would be great to bring any inspiring examples you might have come across already.
@@ -90,6 +90,6 @@ This week's lab section will be a time to explore, share, and discuss "non-stand
 | Assignment Type | Assignment Title                                                | Date Assigned  | Date Due                   |
 |-----------------|-----------------------------------------------------------------|----------------|----------------------------|
 | FPM             | [Final Project Milestone #2](assignments/HW2.qmd)               | Wed 01/28/2026 | Wed 02/04/2026, 11:59pm PT |
-| SR              | [Mid-course reflection (SR #2)](assignments/SR2-midcourse.qmd)  | Wed 02/04/2026 | Fri 02/06/2026, 11:59pm PT |
+| SR              | [Mid-course reflection (SR #2)](assignments/SR.qmd)  | Wed 02/04/2026 | Fri 02/06/2026, 11:59pm PT |
 | HW              | [Homework #3](assignments/HW3.qmd)                              | Wed 02/04/2026 | Wed 02/11/2026, 11:59pm PT |
 : {.hover .bordered tbl-colwidths="[20,30,20,30]"}
