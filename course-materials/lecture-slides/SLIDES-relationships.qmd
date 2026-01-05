@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 4.2]{.custom-title}
+[EDS 240: Lecture 4.1]{.custom-title}
 
 [*Visualizing numerical relationships*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 4 | January 27^th^, 2025]{.custom-subtitle3}
+[Week 4 | January 28^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -35,7 +35,7 @@ editor_options:
 For visualizing the relationship between (typically) two **numeric variables**.
 :::
 
-```{r}
+```{r example-scatter}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -54,7 +54,7 @@ penguins |>
 <br>
 
 ::: {.footer}
-Line graphs (from week 2) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.
+Line graphs (e.g. from our [visualizing evolution lecture](SLIDES-evolution.qmd){target="_blank"}) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.
 :::
 
 ---
@@ -131,7 +131,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these long term data on DataOne](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"}.]{.body-text-s}
+[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these data on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"}.]{.body-text-s}
 
 [These long-term data have contributed to important research, including the **discovery of acid rain** in North America.]{.body-text-s}
 
@@ -139,10 +139,6 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::::
-
-<!-- ::: {.footer} -->
-<!-- *I admittedly don't know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They'll be linked as referenced.* -->
-<!-- ::: -->
 
 ---
 
@@ -152,11 +148,12 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-[Our data don't require much wrangling, though we will practice using the [`{metajam}` package](https://github.com/NCEAS/metajam){target="_blank"} for downloading and reading in data from repositories in the  [DataOne](https://www.dataone.org/){target="_blank"} network.]{.body-text-s}
+[Our data don't require much wrangling, though we will practice using the [`{metajam}` package](https://github.com/NCEAS/metajam){target="_blank"} for downloading and reading in data from repositories in the [DataONE](https://www.dataone.org/){target="_blank"} network.]{.body-text-s}
 
-{{< include sections/4.2-stream.qmd >}}
+<!-- for downloading data for the course website repo -->
+{{< include sections/stream.qmd >}}
 
-```{r}
+```{r metajam-echo}
 #| eval: false
 #| echo: true
 #..........................load packages.........................
@@ -165,9 +162,9 @@ library(tidyverse)
 library(ggExtra)
 library(ggdensity)
 
-#...................download data from DataOne...................
+#...................download data from DataONE...................
 # you only need to do this once (then I recommend commenting it out)!
-metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
+metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F14%2F024b6acc5cb2e03a14fff5558bbffc0c",
                  path = here::here("week4")) 
 
 #  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
@@ -176,8 +173,7 @@ metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpa
 stream_chem_all <- metajam::read_d1_files(here::here("week4", "data"))
 
 #........................get the data file.......................
-# stream_chem_data <- stream_chem_all$data
-stream_chem_data <- stream_chem_all$HubbardBrook_weekly_stream_chemistry.csv
+stream_chem_data <- stream_chem_all$`HubbardBrook_weekly_stream_chemistry_1963-2025.csv`
 ```
 
 ::: {.footer}
@@ -196,7 +192,7 @@ See [`{metajam}`'s README](https://github.com/NCEAS/metajam?tab=readme-ov-file#h
 
 The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g. see [Erlandsson et al. 2010](https://doi.org/10.1029/2009JG001082){target="_blank"} & [Zhou et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019){target="_blank"}.). To start, let's look at the **effects of DOC on pH** for just the most recent water year (2021): 
 
-```{r}
+```{r basic-scatter}
 #| eval: true
 #| echo: true
 #| out-width: "60%"
@@ -217,7 +213,7 @@ stream_chem_data |>
 
 Rug plots add distribution marks (one narrow line for each data point) along the x and y axes of your plot:
 
-```{r}
+```{r rug}
 #| eval: true
 #| echo: true
 #| out-width: "60%"
@@ -243,7 +239,7 @@ The [`{ggExtra}` package](https://cran.r-project.org/web/packages/ggExtra/vignet
 :::: {.columns}
 
 ::: {.column width="33%"}
-```{r}
+```{r ggmarginal-hist}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -259,7 +255,7 @@ ggExtra::ggMarginal(p1, type = "histogram")
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r ggmarginal-density}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -275,7 +271,7 @@ ggExtra::ggMarginal(p1, type = "density")
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r ggmarginal-boxplot}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -304,7 +300,7 @@ ggExtra::ggMarginal(p1, type = "boxplot")
 
 Here, we color points by `site`. It can be helpful to move the legend above or below the plot so that the marginal plot sit cleanly against the right-hand side of graph:
 
-```{r}
+```{r grouped-marginal}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -336,7 +332,7 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 :::: {.columns}
 ::: {.column width="50%"}
 <br>
-```{r}
+```{r loess-code}
 #| eval: false
 #| echo: true
 stream_chem_data |> 
@@ -349,7 +345,7 @@ stream_chem_data |>
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r loess-plot}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -383,7 +379,7 @@ stream_chem_data |>
 :::: {.columns}
 ::: {.column width="50%"}
 <br>
-```{r}
+```{r line-best-fit-code}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
@@ -397,7 +393,7 @@ stream_chem_data |>
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r line-best-fit-plot}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -428,7 +424,7 @@ stream_chem_data |>
 
 [We can use a bubble chart to represent this third numeric variable (Al) through the size of our scatter plot points. Here, we also update our x-axis and legend titles:]{.body-text-s}
 
-```{r}
+```{r bubble}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -470,7 +466,7 @@ stream_chem_data |>
 
 Use `scale_size()` to adjust the **area** range of the bubbles:
 
-```{r}
+```{r scale-size}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -507,7 +503,7 @@ By default, ggplot scales bubble *area* by value, rather than radius or diameter
 Scaling size by area using `scale_size()`
 :::
 
-```{r}
+```{r by-area}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -528,7 +524,7 @@ stream_chem_data |>
 Scaling size by radius using `scale_radius()`
 :::
 
-```{r}
+```{r by-radius}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -556,7 +552,7 @@ stream_chem_data |>
 
 Rather than coloring points by `site`, we can map color to them based on our third continuous numeric variable, `Al_ICP`. We'll also apply the viridis color map:
 
-```{r}
+```{r var3-by-color}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -591,7 +587,7 @@ Rather than mapping a third numeric variable to point size or color, consider if
 Visualizing the effect of `DOC` on `pH`
 :::
 
-```{r}
+```{r two-plots1}
 stream_chem_data |> 
   filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
@@ -604,7 +600,7 @@ stream_chem_data |>
 Visualizing the effect of `Al_ICP` on `pH`
 :::
 
-```{r}
+```{r two-plots2}
 stream_chem_data |> 
   filter(waterYr == 2021) |> 
   ggplot(aes(x = Al_ICP, y = pH, color = site)) + 
@@ -613,16 +609,6 @@ stream_chem_data |>
 :::
 
 ::::
-
-<!-- --- -->
-
-<!-- ## {#highlighting data-menu-title="Highlighting"}  -->
-
-<!-- [Highlighting]{.slide-title2} -->
-
-<!-- <hr> -->
-
-<!-- <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> -->
 
 ----
 
@@ -635,7 +621,7 @@ stream_chem_data |>
 Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot *all* data (not just the 2021 water year subset)? Here, we plot **sulfate concentration (`SO4`)
 against pH**:
 
-```{r}
+```{r overplotting}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -663,7 +649,7 @@ Depending on how many points you have and the message you want to convey, you ma
 Smaller points and / or transparency
 :::
 
-```{r}
+```{r smaller-points}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -678,7 +664,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 Add a rug plot
 :::
 
-```{r}
+```{r add-rug}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -694,7 +680,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 Color by group
 :::
 
-```{r}
+```{r color-by-group}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -729,7 +715,7 @@ You might imagine that you're looking down on a histogram, where lighter areas i
 heatmap of 2d bin counts
 :::
 
-```{r}
+```{r heatmap}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -745,7 +731,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 hexagonal heatmap of 2d bin counts
 :::
 
-```{r}
+```{r hexagonal-heatmap}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -770,7 +756,7 @@ Similar to a histogram, you can update the number of `bins` or `binwidth`.
 
 Check out the `guides()` function for tweaking the appearance of your legend (e.g. increasing the height can help readers more easily read the continuous color scale):
 
-```{r}
+```{r guides}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -800,7 +786,7 @@ These are the 2d equivalents to creating a density plot using `geom_density()` (
 contours of a 2d density estimate
 :::
 
-```{r}
+```{r 2d-density}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -815,7 +801,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 filled in contours
 :::
 
-```{r}
+```{r 2d-filled}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -843,7 +829,7 @@ These can be a bit confusing to read / interpret
 
 The legend provides us with an estimate of the proportion of data points that fall within a colored region. The density of the distribution of points sums to 1. 
 
-```{r}
+```{r confusing-legend}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -873,7 +859,7 @@ In this example, 0-2% of of points fall within a 1x1 square in the darkest blue 
 contour lines using `geom_hdr_lines()`
 :::
 
-```{r}
+```{r hdr-lines}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -888,7 +874,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 filled contours using `geom_hdr()`
 :::
 
-```{r}
+```{r hdr-filled}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -910,7 +896,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 [These geoms similarly perform 2D density estimation, then compute and plot the resulting **highest density regions (HDRs)**. These HDRs are computed to be the smallest such regions that bound that level of probability. By default, regions show the 50%, 80%, 95%, and 99% HDRs of the estimated density (though this can be updated using the `probs` argument).]{.body-text-s}
 
-```{r}
+```{r interpret-hdr}
 #| eval: true
 #| echo: true
 #| out-width: "100%"
@@ -921,33 +907,25 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 
 ---
 
-##  {#end-break data-menu-title="# END #" background="#047C90"}
+##  {#break data-menu-title="# Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">See you next week!</p>
-<p class="caption-text">*~ This is the end of Lesson 2 (of 2) ~*</p>
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
 
-
-<!-- ##  {#end-break data-menu-title="# Break #" background="#047C90"} -->
-
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p> -->
-<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
-<!-- </div> -->
-
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
+```{r countdown-end} 
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```

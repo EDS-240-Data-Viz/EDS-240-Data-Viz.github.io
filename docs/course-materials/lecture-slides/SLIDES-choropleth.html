@@ -774,8 +774,8 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <span id="cb1-17"><a></a>  sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="st">"ESRI:102003"</span>)</span>
 <span id="cb1-18"><a></a></span>
 <span id="cb1-19"><a></a><span class="co">#....................import precipitation data...................</span></span>
-<span id="cb1-20"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"NCEI-county-jan20-dec24-precip.csv"</span>), </span>
-<span id="cb1-21"><a></a>                        <span class="at">skip =</span> <span class="dv">4</span>)</span>
+<span id="cb1-20"><a></a>precip_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week5"</span>, <span class="st">"data"</span>, <span class="st">"county-nov20-oct25-precip.csv"</span>), </span>
+<span id="cb1-21"><a></a>                        <span class="at">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb1-22"><a></a></span>
 <span id="cb1-23"><a></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-24"><a></a><span class="do">##                               data wrangling                             ----</span></span>
@@ -848,7 +848,7 @@ Let’s explore county-level precipitation data using a choropleth map. Importan
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>base_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(joined_precip_geom) <span class="sc">+</span></span>
 <span id="cb2-2"><a></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> perc_change), <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb2-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"5-year precipitation compared with the 20th century average"</span>,</span>
-<span id="cb2-4"><a></a>       <span class="at">subtitle =</span> <span class="st">"January 2020 - December 2024"</span>,</span>
+<span id="cb2-4"><a></a>       <span class="at">subtitle =</span> <span class="st">"November 2020 - October 2025"</span>,</span>
 <span id="cb2-5"><a></a>       <span class="at">caption =</span> <span class="st">"Source: National Centers for Environmental Information"</span>) <span class="sc">+</span></span>
 <span id="cb2-6"><a></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb2-7"><a></a>  <span class="fu">theme</span>(</span>

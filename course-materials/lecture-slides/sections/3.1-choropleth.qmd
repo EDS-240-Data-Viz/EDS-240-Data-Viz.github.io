@@ -32,8 +32,8 @@ county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
   sf::st_transform("ESRI:102003")
 
 #....................import precipitation data...................
-precip_data <- read_csv(here::here("course-materials", "lecture-slides", "data", "county-jan20-dec24-precip.csv"), 
-                        skip = 4) 
+precip_data <- read_csv(here::here("course-materials", "data", "lecture","county-nov20-oct25-precip.csv"), 
+                        skip = 3) 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                               data wrangling                             ----
@@ -88,7 +88,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared to the 20th century average",
-       subtitle = "January 2020 - December 2024",
+       subtitle = "November 2020 - October 2025",
        caption = "Source: National Centers for Environmental Information") +
   theme_void() +
   theme(

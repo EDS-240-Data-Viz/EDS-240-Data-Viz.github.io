@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r}
+```{r download-metajam-eval}
 #| eval: true
 #| echo: false
 #| message: false
@@ -18,17 +18,18 @@ library(metajam)
 library(tidyverse)
 
 #...................download data from DataOne...................
-# download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7",
-#                  path = here::here("course-materials", "lecture-slides", "data"))
+# download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F14%2F024b6acc5cb2e03a14fff5558bbffc0c",
+#                  path = here::here("course-materials", "data", "lecture"))  
 
 #  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
 
 #....................read in downloaded files....................
-stream_chem_all <- read_d1_files(here::here("course-materials", "lecture-slides", "data", "https_pasta.lternet.edu_package_metadata_eml_knb-lter-hbr_208_11__HubbardBrook_weekly_stream_chemistry__csv"))
+stream_chem_all <- read_d1_files(here::here("course-materials", "data", "lecture", "https_pasta_lternet_edu_package_metadata_eml_knb-lter-hbr_208_14__HubbardBrook_weekly_stream_chemistry_1963-2025__csv"))
 
 #........................get the data file.......................
-# stream_chem_data <- stream_chem_all$data
-stream_chem_data <- stream_chem_all$HubbardBrook_weekly_stream_chemistry.csv
+stream_chem_data <- stream_chem_all$`HubbardBrook_weekly_stream_chemistry_1963-2025.csv`
 ```
 
 <!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
+
+<!-- link used in winter 2025: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->

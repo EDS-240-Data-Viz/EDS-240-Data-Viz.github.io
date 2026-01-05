@@ -389,6 +389,8 @@
       margin-right: 0; 
     }
   </style>
+  <link href="../../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
+  <script src="../../site_libs/countdown-0.4.0/countdown.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -397,10 +399,10 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Lecture 4.2</span></p>
+<p><span class="custom-title">EDS 240: Lecture 4.1</span></p>
 <p><span class="custom-subtitle"><em>Visualizing numerical relationships</em></span></p>
 <hr class="hr-teal">
-<p><span class="custom-subtitle3">Week 4 | January 27<sup>th</sup>, 2025</span></p>
+<p><span class="custom-subtitle3">Week 4 | January 28<sup>th</sup>, 2026</span></p>
 </section>
 <section id="numerical-relationships" class="slide level2" data-menu-title="Visualizing numerical relationships">
 <h2></h2>
@@ -411,9 +413,9 @@
 <p>For visualizing the relationship between (typically) two <strong>numeric variables</strong>.</p>
 </div>
 
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p><br></p>
+<img data-src="SLIDES-relationships_files/figure-revealjs/example-scatter-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p><br></p>
 <div class="footer">
-<p>Line graphs (from week 2) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.</p>
+<p>Line graphs (e.g.&nbsp;from our <a href="../../course-materials/lecture-slides/SLIDES-evolution.html" target="_blank">visualizing evolution lecture</a>) are similar to scatter plots, except the x-axis variable is ordered chronologically and points are connected by lines to emphasize trends.</p>
 </div>
 </section>
 <section id="roadmap1" class="slide level2" data-menu-title="Roadmap">
@@ -466,20 +468,19 @@
 </div>
 </div><div class="column" style="width:50%;">
 <p><br></p>
-<p><span class="body-text-s">Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest’s watersheds. <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11" target="_blank">Read about these long term data on DataOne</a>.</span></p>
+<p><span class="body-text-s">Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest’s watersheds. <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11" target="_blank">Read about these data on DataONE</a>.</span></p>
 <p><span class="body-text-s">These long-term data have contributed to important research, including the <strong>discovery of acid rain</strong> in North America.</span></p>
 <p><span class="body-text-s">In this lesson, we’ll explore the <strong>effects of various compounds on stream water pH</strong> (a lower pH = more acidic).</span></p>
 </div></div>
-<!-- ::: {.footer} -->
-<!-- *I admittedly don't know much about water chemistry, but have skimmed a number of helpful resources throughout the creation of this lesson. They'll be linked as referenced.* -->
-<!-- ::: -->
 </section>
 <section id="data-wrangling" class="slide level2" data-menu-title="Data wrangling">
 <h2></h2>
 <p><span class="slide-title">Data wrangling</span></p>
 <hr>
-<p><span class="body-text-s">Our data don’t require much wrangling, though we will practice using the <a href="https://github.com/NCEAS/metajam" target="_blank"><code>{metajam}</code> package</a> for downloading and reading in data from repositories in the <a href="https://www.dataone.org/" target="_blank">DataOne</a> network.</span></p>
+<p><span class="body-text-s">Our data don’t require much wrangling, though we will practice using the <a href="https://github.com/NCEAS/metajam" target="_blank"><code>{metajam}</code> package</a> for downloading and reading in data from repositories in the <a href="https://www.dataone.org/" target="_blank">DataONE</a> network.</span></p>
+<!-- for downloading data for the course website repo -->
 <!-- link used in winter 2024: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F9%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
+<!-- link used in winter 2025: https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7 -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(metajam) </span>
@@ -487,9 +488,9 @@
 <span id="cb1-4"><a></a><span class="fu">library</span>(ggExtra)</span>
 <span id="cb1-5"><a></a><span class="fu">library</span>(ggdensity)</span>
 <span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a><span class="co">#...................download data from DataOne...................</span></span>
+<span id="cb1-7"><a></a><span class="co">#...................download data from DataONE...................</span></span>
 <span id="cb1-8"><a></a><span class="co"># you only need to do this once (then I recommend commenting it out)!</span></span>
-<span id="cb1-9"><a></a>metajam<span class="sc">::</span><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F11%2F3b3cf7ea447cb875d7c7d68ebdfd24c7"</span>,</span>
+<span id="cb1-9"><a></a>metajam<span class="sc">::</span><span class="fu">download_d1_data</span>(<span class="st">"https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F14%2F024b6acc5cb2e03a14fff5558bbffc0c"</span>,</span>
 <span id="cb1-10"><a></a>                 <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>)) </span>
 <span id="cb1-11"><a></a></span>
 <span id="cb1-12"><a></a><span class="co">#  ~ </span><span class="al">NOTE</span><span class="co">: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~</span></span>
@@ -498,8 +499,7 @@
 <span id="cb1-15"><a></a>stream_chem_all <span class="ot">&lt;-</span> metajam<span class="sc">::</span><span class="fu">read_d1_files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week4"</span>, <span class="st">"data"</span>))</span>
 <span id="cb1-16"><a></a></span>
 <span id="cb1-17"><a></a><span class="co">#........................get the data file.......................</span></span>
-<span id="cb1-18"><a></a><span class="co"># stream_chem_data &lt;- stream_chem_all$data</span></span>
-<span id="cb1-19"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span>HubbardBrook_weekly_stream_chemistry.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-18"><a></a>stream_chem_data <span class="ot">&lt;-</span> stream_chem_all<span class="sc">$</span><span class="st">`</span><span class="at">HubbardBrook_weekly_stream_chemistry_1963-2025.csv</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>See <a href="https://github.com/NCEAS/metajam?tab=readme-ov-file#how-to-get-the-url-to-your-dataset-of-interest-" target="_blank"><code>{metajam}</code>’s README</a> explains how to get a URL to use for downloading data using <code>download_d1_data()</code>.</p>
@@ -518,7 +518,7 @@
 <span id="cb2-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/basic-scatter-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
 <section id="rug-plot" class="slide level2" data-menu-title="Add a rug plot">
 <h2></h2>
 <p><span class="slide-title2">Rug plots help to visualize the distribution of data</span></p>
@@ -532,7 +532,7 @@
 <span id="cb3-5"><a></a>  <span class="fu">geom_rug</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/rug-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
 <section id="ggMarginal" class="slide level2" data-menu-title="Marginal plots">
 <h2></h2>
 <p><span class="slide-title3">Try marginal plots as an alternative to <code>geom_rug()</code></span></p>
@@ -550,7 +550,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/ggmarginal-hist-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -566,7 +566,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/ggmarginal-density-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -582,7 +582,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/ggmarginal-boxplot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -605,7 +605,7 @@
 <span id="cb7-7"><a></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(p2, <span class="at">type =</span> <span class="st">"density"</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/grouped-marginal-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="trend-lines1" class="slide level2" data-menu-title="Trend lines (defaults)">
 <h2></h2>
 <p><span class="slide-title">Adding trend lines – default behavior</span></p>
@@ -629,7 +629,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/loess-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -661,7 +661,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/line-best-fit-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -683,7 +683,7 @@
 <span id="cb10-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/bubble-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="third-var-difficult" class="slide level2" data-menu-title="Use size cautiously">
 <h2></h2>
 <p><span class="slide-title3">Use size to represent a third numeric variable <em>cautiously</em></span></p>
@@ -713,7 +713,7 @@
 <span id="cb11-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<img data-src="SLIDES-relationships_files/figure-revealjs/scale-size-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
 <p>If you have values of 0 in your data set, you may consider using <code>scale_size_area()</code>. This ensures that those 0s are mapped to a size of 0 (i.e.&nbsp;a tiny dot with no visible area).</p>
 </div>
@@ -738,7 +738,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/by-area-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -757,7 +757,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/by-radius-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -778,7 +778,7 @@
 <span id="cb14-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Al (mg/L)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/var3-by-color-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="2-scatter-plots" class="slide level2" data-menu-title="2 scatter plots">
 <h2></h2>
 <p><span class="slide-title2">Alternatively, just use 2 separate scatter plots</span></p>
@@ -795,7 +795,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/two-plots1-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -808,17 +808,12 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/two-plots2-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
-<!-- --- -->
-<!-- ## {#highlighting data-menu-title="Highlighting"}  -->
-<!-- [Highlighting]{.slide-title2} -->
-<!-- <hr> -->
-<!-- <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> -->
 </section>
 <section id="overplotting" class="slide level2" data-menu-title="Overplotting">
 <h2></h2>
@@ -830,7 +825,7 @@
 <span id="cb15-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/overplotting-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="initial-strategies" class="slide level2" data-menu-title="Initial strategies for overplotting">
 <h2></h2>
 <p><span class="slide-title">Some initial strategies</span></p>
@@ -848,7 +843,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/smaller-points-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -864,7 +859,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/add-rug-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -879,7 +874,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/color-by-group-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -908,7 +903,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/heatmap-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -924,7 +919,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/hexagonal-heatmap-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -945,7 +940,7 @@
 <span id="cb21-5"><a></a>                                <span class="at">barwidth =</span> <span class="dv">1</span>, <span class="at">barheight =</span> <span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="SLIDES-relationships_files/figure-revealjs/guides-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="2d-density" class="slide level2" data-menu-title="2d density plot">
 <h2></h2>
 <p><span class="slide-title">Another option: 2d density / contour plots</span></p>
@@ -962,7 +957,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/2d-density-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -977,7 +972,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/2d-filled-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -995,7 +990,7 @@
 <hr>
 <p>The legend provides us with an estimate of the proportion of data points that fall within a colored region. The density of the distribution of points sums to 1.</p>
 
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>In this example, 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region.</p>
+<img data-src="SLIDES-relationships_files/figure-revealjs/confusing-legend-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>In this example, 0-2% of of points fall within a 1x1 square in the darkest blue region, while 26-28% fall within a 1x1 square in the brightest yellow region.</p>
 </section>
 <section id="ggdensity" class="slide level2" data-menu-title="{ggdensity}">
 <h2></h2>
@@ -1014,7 +1009,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-32-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/hdr-lines-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1029,7 +1024,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-relationships_files/figure-revealjs/hdr-filled-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1046,37 +1041,23 @@
 <span id="cb26-2"><a></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr</span>() <span class="co"># update prob level e.g. `probs = c(0.99, 0.75, 0.5, 0.25)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-relationships_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="end-break" class="slide level2" data-menu-title="# END #" data-background="#047C90">
+<img data-src="SLIDES-relationships_files/figure-revealjs/interpret-hdr-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">
-See you next week!
+<i class="fa-solid fa-mug-hot" title="a mug with steam rising out the top" aria-label="mug-hot"></i> Take a Break
 </p>
-<p class="caption-text">
-<em>~ This is the end of Lesson 2 (of 2) ~</em>
-</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
-<!-- ##  {#end-break data-menu-title="# Break #" background="#047C90"} -->
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr"> Take a Break</p> -->
-<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
-<!-- </div> -->
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_69909179" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

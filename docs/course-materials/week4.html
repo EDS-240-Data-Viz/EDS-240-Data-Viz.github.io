@@ -273,7 +273,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
   <ul class="collapse">
   <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-download-.qmd-templates-review-data-wrangling-code" id="toc-b.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#b.-download-.qmd-templates-review-data-wrangling-code">B. Download <code>.qmd</code> templates &amp; review data wrangling code</a></li>
+  <li><a href="#download-data" id="toc-download-data" class="nav-link" data-scroll-target="#download-data">B. Download data</a></li>
+  <li><a href="#c.-download-.qmd-templates-review-data-wrangling-code" id="toc-c.-download-.qmd-templates-review-data-wrangling-code" class="nav-link" data-scroll-target="#c.-download-.qmd-templates-review-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review data wrangling code</a></li>
   </ul></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
@@ -309,12 +310,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a.-install-required-packages" class="level3">
 <h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggExtra"</span>) <span class="co"># {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggdensity"</span>) <span class="co"># {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"metajam"</span>) <span class="co"># for downloading and reading data and metadata from repositories in the DataONE network</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggExtra"</span>) <span class="co"># {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggdensity"</span>) <span class="co"># {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="b.-download-.qmd-templates-review-data-wrangling-code" class="level3">
-<h3 class="anchored" data-anchor-id="b.-download-.qmd-templates-review-data-wrangling-code">B. Download <code>.qmd</code> templates &amp; review data wrangling code</h3>
+<section id="download-data" class="level3">
+<h3 class="anchored" data-anchor-id="download-data">B. Download data</h3>
+<p>Save data to your class repo at <code>EDS-240-class-examples/week4/</code>:</p>
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lecture</th>
+<th>Dataset title</th>
+<th>Download link</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4.1</td>
+<td>Continuous precipitation and stream chemistry data, Hubbard Brook Ecosystem Study, 1963 – ongoing</td>
+<td><strong>we’ll use the <code>{metajam}</code> package to download the data programmatically from DataONE (see step C, below, for setup instructions),</strong> <em>however, in the event that the API is down, you can access a backup copy on <a href="https://drive.google.com/drive/folders/1mjpsGI4B9IbmCTpZvPQFDJxVsNp5ikHa?usp=drive_link" target="_blank">Google Drive</a></em></td>
+<td>Find the <a href="https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F14" target="_blank">full data package</a> on DataONE; DataONE is a community driven project providing access to data across multiple member repositories, supporting enhanced search and discovery of Earth and environmental data.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="c.-download-.qmd-templates-review-data-wrangling-code" class="level3">
+<h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-data-wrangling-code">C. Download <code>.qmd</code> templates &amp; review data wrangling code</h3>
 <ol type="1">
 <li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week4/</code> folder.</p></li>
 <li><p>Review the data wrangling code under the <code>## Setup</code> section of each template file and make note of any questions you might have. Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>

@@ -24,11 +24,21 @@ knitr::include_graphics(here::here("images", "horst-ggplot-explore-dataviz.png")
 #| eval: false
 #| echo: true
 #| code-line-numbers: false
+install.packages("metajam") # for downloading and reading data and metadata from repositories in the DataONE network
 install.packages("ggExtra") # {ggplot2} extension which can be used to add marginal histograms/boxplots/density plots to ggplot2 scatterplots
 install.packages("ggdensity") # {ggplot2} extension providing more interpretable visualizations of density estimates based on highest density regions (HDRs)
 ```
 
-### B. Download `.qmd` templates & review data wrangling code
+### B. Download data {#download-data}
+
+Save data to your class repo at `EDS-240-class-examples/week4/`:
+
+|Lecture | Dataset title | Download link | Notes |
+|--------|---------------|---------------|-------|
+|4.1 | Continuous precipitation and stream chemistry data, Hubbard Brook Ecosystem Study, 1963 – ongoing | **we'll use the `{metajam}` package to download the data programmatically from DataONE (see step C, below, for setup instructions),** *however, in the event that the API is down, you can access a backup copy on [Google Drive](https://drive.google.com/drive/folders/1mjpsGI4B9IbmCTpZvPQFDJxVsNp5ikHa?usp=drive_link){target="_blank"}*  | Find the [full data package](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F14){target="_blank"} on DataONE; DataONE is a community driven project providing access to data across multiple member repositories, supporting enhanced search and discovery of Earth and environmental data. |
+: {.hover .bordered tbl-colwidths="[10,20,35,35]"}
+
+### C. Download `.qmd` templates & review data wrangling code
 
 1. Download all necessary templates (links in the table below) and save them to a `EDS-240-data-viz-examples/week4/` folder.
 

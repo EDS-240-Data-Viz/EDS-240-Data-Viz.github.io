@@ -468,8 +468,8 @@ marginal density plots using `{ggExtra}`
 #| out-width: "70%"
 #| fig-align: "center"
 library(metajam) 
-stream_chem_all <- read_d1_files(here::here("course-materials", "lecture-slides", "data", "https_pasta.lternet.edu_package_metadata_eml_knb-lter-hbr_208_11__HubbardBrook_weekly_stream_chemistry__csv"))
-stream_chem_data <- stream_chem_all$HubbardBrook_weekly_stream_chemistry.csv
+stream_chem_all <- read_d1_files(here::here("course-materials", "data", "lecture", "https_pasta_lternet_edu_package_metadata_eml_knb-lter-hbr_208_14__HubbardBrook_weekly_stream_chemistry_1963-2025__csv"))
+stream_chem_data <- stream_chem_all$`HubbardBrook_weekly_stream_chemistry_1963-2025.csv`
 p1 <- stream_chem_data |> 
   filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH)) + 
