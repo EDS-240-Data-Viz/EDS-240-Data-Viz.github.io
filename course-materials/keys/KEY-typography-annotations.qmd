@@ -1,5 +1,5 @@
 ---
-title: "KEY - typography, annotations & saving ggplots"
+title: "KEY - typography & annotations"
 author: "Your Name"
 date: 2026-02-18
 toc: true
@@ -8,7 +8,7 @@ editor_options:
 ---
 
 ::: {.callout-note}
-This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} slides, as well as the [saving ggplots lab](../lab/LAB-SLIDES-saving-ggplots.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} slides. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## Setup 
@@ -117,10 +117,6 @@ font_add_google(name = "Red Hat Mono", family = "red")
 # we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
-
-#......enable {showtext} rendering for all newly opened GDs......
-showtext_auto()
-showtext_opts(dpi = 300)
 ```
 
 ## Wrangle data
@@ -158,7 +154,7 @@ sbc_subbasin_monthly <- ca_region |>
 
 ## Create plot 
 
-We'll build out this plot across both the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} lectures, as well as make modifications during the [saving ggplots lab](../lab/LAB-SLIDES-saving-ggplots.qmd).
+We'll build out this plot across both the [typography](../lecture-slides/SLIDES-typography.qmd){target="_blank"} & [annotations](../lecture-slides/SLIDES-annotations.qmd){target="_blank"} lectures.
 
 ```{r build-plot}
 #| eval: true
@@ -180,7 +176,7 @@ title <- glue::glue("Water
                     <span style='color:#448F9C;'>availability</span> 
                     vs. 
                     <span style='color:#9C7344;'>consumption</span>
-                    across the Santa Barbara<br>
+                    across the Santa Barbara<br> 
                     Coastal subbasin (2010-2020)")
 
 #.........................create caption.........................
@@ -250,13 +246,11 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
   theme_light(base_size = 17) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                                         face = "bold",
-                                         size = rel(0.98), 
-                                         lineheight = 1.2,
-                                         color = pal["dark_gray"],
-                                         width = unit(25, "cm"),
-                                         padding = margin(t = 9, b = 3)), 
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98),
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]),                                  
     plot.subtitle = element_text(family = "noto-sans",
                                  size = rel(0.9), 
                                  color = pal["light_gray"],
@@ -266,21 +260,22 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
                              color = pal["light_gray"],),
     axis.title.x = element_text(family = "noto-sans",
                                 size = rel(0.75), 
-                                margin = margin(t = 20)),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           size = rel(0.5),
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           width = unit(25, "cm"),
-                                           padding = margin(t = 7, r = 5, b = 4)), 
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            color = pal["light_gray"],
+                                            size = rel(0.5),
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
+showtext_auto(enable = TRUE)
 water_plot
+showtext_auto(enable = FALSE)
 ```
 
 ## Save plot as a PNG file
@@ -288,6 +283,13 @@ water_plot
 ```{r save-plot}
 #| eval: false
 #| echo: true
+
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...................set resolution to match GD...................
+showtext_opts(dpi = 300)
+
 #..............write plot to file (aka save as png)..............
 ggsave(
   filename = here::here("week7", "images", "sbc-hydro.png"),
@@ -298,6 +300,9 @@ ggsave(
   unit = "in",
   dpi = 300
 )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 <!-- NOT RENDERED ON SLIDE -->
@@ -305,8 +310,15 @@ ggsave(
 ```{r save-eval}
 #| eval: true
 #| echo: false
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...................set resolution to match GD...................
+showtext_opts(dpi = 300)
+
+#..............write plot to file (aka save as png)..............
 ggsave(
-  filename = here::here("course-materials", "images", "keys", "sbc-hydro-8x7-new.png"),
+  filename = here::here("course-materials", "test8x7.png"),
   plot = water_plot,
   device = "png",
   width = 8, 
@@ -314,10 +326,13 @@ ggsave(
   unit = "in",
   dpi = 300
 )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ::: {.callout-note}
-Below is our final plot, saved as a PNG. You'll want to fine-tune absolute sizes and positions, which don't automatically scale with a changing plot size. Here, we'd want to increase the annotation text size and shift it slightly left.
+Below is our final plot, saved as a PNG. You'll want to fine-tune absolute sizes and positions, which don't automatically scale with a changing plot size. Here, we may want to increase the annotation text size and shift it slightly left.
 :::
 
 ```{r saved-plot} 
@@ -326,15 +341,6 @@ Below is our final plot, saved as a PNG. You'll want to fine-tune absolute sizes
 #| out-width: "100%"
 #| fig-align: "center"
 knitr::include_graphics(here::here("course-materials", "images", "keys", "sbc-hydro-8x7.png"))
-```
-
-## Turn off `{showtext}` text rendering 
-
-```{r showtext-off}
-#| eval: true
-#| echo: true
-#...............turn off {showtext} text rendering...............
-showtext_auto(FALSE)
 ```
 
 ## More examples

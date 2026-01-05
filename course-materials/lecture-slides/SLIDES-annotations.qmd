@@ -15,7 +15,7 @@ editor_options:
 
 [EDS 240: Lecture 7.2]{.custom-title}
 
-[*Annotations*]{.custom-subtitle}
+[*Annotations*]{.custom-subtitle} 
 
 <hr class="hr-teal">
 
@@ -299,9 +299,6 @@ font_add_google(name = "Red Hat Mono", family = "red")
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
 
-#......enable {showtext} rendering for all newly opened GDs......
-showtext_auto()
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -358,7 +355,10 @@ caption <- glue::glue(
   {github_username}"
 )
 
-#..........................updated plot..........................
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot <- ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -377,36 +377,40 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                                         face = "bold",
-                                         size = 22,
-                                         lineheight = 1.2,
-                                         color = pal["dark_gray"]),
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98),
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)),
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           margin = margin(t = 15)),
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),                                       
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
 water_plot
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 
@@ -435,14 +439,6 @@ water_plot
 
 [Let's try to add an annotation to our plot using both approaches to better understand the difference.]{.body-text-m}
 
-<!-- . . . 
-
-<br>
- 
-::: {.center-text}
-[**Our goal:**]{.teal-text} add a rectangle that bounds / highlights just the summer months, add text nearby that reads **summer water deficit**, and draw an arrow from the text pointing to the box.
-::: -->
-
 ::: {.footer}
 I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annotation.html){target="_blank"} super helpful!
 :::
@@ -455,7 +451,7 @@ I've found the [Annotation FAQ](https://ggplot2.tidyverse.org/articles/faq-annot
 
 <hr>
 
-Here, we use `geom_text()` to add text to our plot. We need to **supply coordinates** to place it on our plot:
+Here, we use `geom_text()` to add text to our plot. We need to **supply coordinates** to place it on our plot. **Notice that our text looks oddly blurry and bold...**
 
 <br>
 
@@ -465,6 +461,11 @@ Here, we use `geom_text()` to add text to our plot. We need to **supply coordina
 #| eval: false
 #| echo: true
 #| out-width: "100%"
+#| code-line-numbers: "4-14"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot + # `water_plot` represents all our plot code from the typography lecture
     geom_text(
         x = 10,
@@ -475,6 +476,9 @@ water_plot + # `water_plot` represents all our plot code from the typography lec
         hjust = "center",
         family = "noto-sans"
     )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 :::
 
@@ -485,6 +489,10 @@ water_plot + # `water_plot` represents all our plot code from the typography lec
 #| out-width: "100%"
 #| fig-align: "center"
 #| fig-asp: 0.7
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot + # `water_plot` represents all our plot code from the typography lecture
     geom_text(
         x = 10,
@@ -495,13 +503,13 @@ water_plot + # `water_plot` represents all our plot code from the typography lec
         hjust = "center",
         family = "noto-sans"
     )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 :::
 ::::
 
-::: {.center-text}
-Notice that our text looks oddly blurry and bold...
-:::
 
 ---
 
@@ -543,14 +551,17 @@ Check out this [archived version](ARCHIVE/SLIDES-annotations-lobs-mono.qmd#use-g
 
 `annotate()` requires that we define a `geom` type (e.g. `"text"`, `"rect"`, `"curve"`, `"segment"`). 
 
-<br> 
-
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r practice-annotate-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "2-3"
+#| code-line-numbers: "6-7"
+
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot + 
     annotate(
         geom = "text",
@@ -562,6 +573,9 @@ water_plot +
         hjust = "center",
         family = "noto-sans"
     )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 :::
 
@@ -572,6 +586,11 @@ water_plot +
 #| out-width: "100%"
 #| fig-align: "center"
 #| fig-asp: 0.7
+
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot + 
     annotate(
         geom = "text",
@@ -583,6 +602,9 @@ water_plot +
         hjust = "center",
         family = "noto-sans"
     )
+  
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 :::
 ::::
@@ -604,7 +626,7 @@ water_plot +
 ```{r update-annotation-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "28-34,38-41,55-74"
+#| code-line-numbers: "28-34,41-44,58-77"
 #......................create color palette......................
 pal <- c("avail" = "#448F9C",
          "consum" = "#9C7344",
@@ -640,7 +662,10 @@ annotation <- glue::glue(
   or stored reserves."
 )
  
-#..........................updated plot..........................
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot <- ggplot(sbc_subbasin_monthly) +
   geom_vline(xintercept = 0, 
              linetype = "dashed", 
@@ -683,35 +708,39 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 17) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                                         face = "bold",
-                                         size = 17, 
-                                         lineheight = 1.2,
-                                         color = pal["dark_gray"]), 
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98), 
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]), 
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16, 
+                                 size = rel(0.9), 
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)),
     axis.text = element_text(family = "red",
-                             size = 12, 
+                             size = rel(0.7), 
                              color = pal["light_gray"],),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 13, 
-                                margin = margin(t = 20)),
+                                size = rel(0.75), 
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           halign = 1, 
-                                           lineheight = 1.5), 
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5), 
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
 water_plot
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ::: {.footer}
@@ -734,7 +763,10 @@ annotation <- glue::glue(
   or stored reserves."
 )
  
-#..........................updated plot..........................
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 water_plot <- ggplot(sbc_subbasin_monthly) +
   geom_vline(xintercept = 0, 
              linetype = "dashed", 
@@ -777,37 +809,113 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                                         face = "bold",
-                                         size = 22, 
-                                         lineheight = 1.2,
-                                         color = pal["dark_gray"],
-                                         width = unit(25, "cm")), 
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98), 
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]), 
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16, 
+                                 size = rel(0.9), 
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)),
     axis.text = element_text(family = "red",
-                             size = 13, 
+                             size = rel(0.7), 
                              color = pal["light_gray"],),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14, 
-                                margin = margin(t = 20)),
+                                size = rel(0.75), 
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           halign = 1, 
-                                           lineheight = 1.5), 
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5), 
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
 water_plot
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
+
+---
+
+## {#ggsave data-menu-title="ggsave()"} 
+
+[We can use `ggsave()` to save our plot as a PNG file]{.slide-title3}
+
+<hr>
+
+[`ggsave()` creates a new graphical device (here, we specify a PNG device) to write the output file. By default, `{showtext}` uses a resolution of 96 DPI (dots per inch) when rendering our plot on screen, while `ggsave()` uses a default resolution of 300 DPI to write our plot to file. Ensure these match to avoid inconsistent font renderings across devices.]{.body-text-s}
+
+```{r ggsave-echo}
+#| eval: false
+#| echo: true
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...................set resolution to match GD...................
+showtext_opts(dpi = 300)
+
+#..............write plot to file (aka save as png)..............
+ggsave(
+  filename = here::here("week7", "images", "sbc-hydro.png"),
+  plot = water_plot,
+  device = "png",
+  width = 8, 
+  height = 7,
+  unit = "in",
+  dpi = 300
+)
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
+```
+
+---
+
+## {#ggsave-png data-menu-title="ggsave() png"} 
+
+[You may need to make adjustments, depending on size]{.slide-title3}
+
+<hr>
+
+Depending on your saved image dimensions, you may need to update your base font size, elements with absolute sizes (e.g. point sizes), or shift elements (e.g. adjust your caption location).
+
+:::: {.columns}
+::: {.column width="50"}
+```{r plot8x7}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "water-plot-8x7.png"))
+```
+
+:::
+
+::: {.column width="50"}
+<br>
+```{r plot14x9}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "water-plot-14x9.png"))
+```
+
+:::
+::::
+
+::: {.footer}
+**Left:** 8x7", 300dpi PNG file | **Right:** 14x9", 300dpi PNG file
+:::
 
 ---
 

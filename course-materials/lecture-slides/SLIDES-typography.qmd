@@ -998,7 +998,7 @@ ggplot(sbc_subbasin_monthly) +
 
 <hr>
 
-Resulting plot is rendered on the next slide.
+[Use relative font sizes within your theme! If you need to make your plot larger for a presentation, for example, you'll just need to increase your `base_size` and all text scales proportionally. Resulting plot is rendered on next slide.]{.body-text-s}
 
 <!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 
@@ -1026,21 +1026,22 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 17) + # set relative text sizes based on your defined `base_size`
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 17,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
-    plot.subtitle = element_text(size = 16,
+    plot.subtitle = element_text(size = rel(0.9),
                                  color = pal["light_gray"],
-                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
-    axis.text = element_text(size = 12,
+                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0)`)
+    axis.text = element_text(size = rel(0.7),
                              color = pal["light_gray"]),
-    axis.title.x = element_text(size = 13,
-                                margin = margin(t = 20)),
+    axis.title.x = element_text(size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
+                                size = rel(0.5),
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
@@ -1070,33 +1071,34 @@ ggplot(sbc_subbasin_monthly) +
                      alpha = 0.6) + 
   geom_point(aes(x = mean_avail, y = month), 
             color = pal["avail"], 
-            size = 5.5,
+            size = 5,
             stroke = 2) +
   geom_point(aes(x = mean_consum, y = month), 
              color = pal["consum"], 
              fill = "white",
              shape = 21,
-             stroke = 2,
-             size = 5.5) +
+             size = 5,
+             stroke = 2) +
   labs(title = "Water availability vs. consumption across the Santa Barbara\nCoastal subbasin (2010-2020)",
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face = "bold",
-                              size = 22,
+                              size = rel(0.98),#22,
                               color = pal["dark_gray"]),
-    plot.subtitle = element_text(size = 16,
+    plot.subtitle = element_text(size = rel(0.9),#16,
                                  color = pal["light_gray"],
                                  margin = margin(t = 3, b = 8)),
-    axis.text = element_text(size = 13,
+    axis.text = element_text(size = rel(0.7),#13,
                              color = pal["light_gray"]),
-    axis.title.x = element_text(size = 14,
-                                margin = margin(t = 20)),
+    axis.title.x = element_text(size = rel(0.75),#14,
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
     plot.caption = element_text(face = "italic",
+                                size = rel(0.5), #none
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
@@ -1212,7 +1214,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-[Import `{showtext}` at the top of your script, then use `font_add_google()` to specify the font family(ies) you want to import. **Importantly**, you'll also need to "turn on" showtext using `showtext_auto()` -- this enables showtext font rendering for any newly opened graphics devices.]{.body-text-s} 
+Import `{showtext}` at the top of your script, then use `font_add_google()` to specify the font family(ies) you want to import.
 
 ```{r import-fonts}
 #| eval: true
@@ -1234,9 +1236,6 @@ font_add_google(name = "Sarala", family = "sarala")
 font_add_google(name = "Noto Sans", family = "noto-sans")
 font_add_google(name = "Red Hat Mono", family = "red")
 
-#................enable {showtext} for rendering.................
-showtext_auto()
-
 # ~ additional setup code omitted for brevity ~
 ```
 
@@ -1244,18 +1243,22 @@ showtext_auto()
 
 ## {#apply-google-fonts-code data-menu-title="Apply Google Fonts (code)"} 
 
-[Apply Google Fonts]{.slide-title}
+[Enable `{showtext}` & apply Google Fonts]{.slide-title}
 
 <hr>
 
-Resulting plot is rendered on the next slide.
+You'll need to "turn on" `{showtext}` rendering ahead of running your plot code. I like to turn it off immediately after as well.
 
 <!-- FOR LIVE-CODING (SHOWN ON SLIDE)  -->
 
 ```{r apply-fonts-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "22,26,30,33,37"
+#| code-line-numbers: "1-2,26,30,34,37,41,50-51"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1274,31 +1277,35 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 17) + # set relative text sizes based on your defined `base_size`
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 17,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
-                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
+                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0)`)
     axis.text = element_text(family = "red",
-                             size = 12,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 13,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
+                                size = rel(0.5)
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1313,6 +1320,10 @@ ggplot(sbc_subbasin_monthly) +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1331,31 +1342,35 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = "Data Source: USGS CONUS 2025",
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
-                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
+                                 margin = margin(b = 8)), 
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
+                                size = rel(0.5),
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1391,9 +1406,6 @@ font_add_google(name = "Red Hat Mono", family = "red")
 # we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf")) 
-
-#......enable {showtext} rendering for all newly opened GDs......
-showtext_auto()
 
 # ~ additional setup code omitted for brevity ~
 ```
@@ -1452,14 +1464,18 @@ caption <- glue::glue(
 
 <hr>
 
-Resulting plot is rendered on the next slide!
+Resulting plot is rendered on the next slide.
 
 <!-- FOR LIVE-CODING (CODE SHOWN ON SLIDE)  -->
 
 ```{r apply-caption-echo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "17"
+#| code-line-numbers: "21"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1478,31 +1494,35 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 17) + # set relative text sizes based on your defined `base_size`
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 17,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
     axis.text = element_text(family = "red",
-                             size = 12,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 13,
-                                margin = margin(t = 20)), 
+                                size = rel(0.75),
+                                margin = margin(t = 15)), 
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
+                                size = rel(0.5),
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1517,6 +1537,10 @@ ggplot(sbc_subbasin_monthly) +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1535,31 +1559,35 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus", 
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
-                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
+                                 margin = margin(b = 8)), 
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
     plot.caption = element_text(family = "noto-sans",
                                 face = "italic",
+                                size = rel(0.5),
                                 color = pal["light_gray"],
                                 margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1589,7 +1617,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be sure to check out the documentation as you're deciding which to use. We'll use `element_textbox()`.
+There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be sure to check out the documentation as you're deciding which to use. We'll use `element_markdown()`.
 ::: 
 ::::
 
@@ -1609,7 +1637,11 @@ There are a few options, all which replace `{ggplot2}`'s  `element_text()` -- be
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
-#| code-line-numbers: "37,40,41"
+#| code-line-numbers: "41,45-46"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1628,33 +1660,37 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 17) + # set relative text sizes based on your defined `base_size`
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 17,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
     axis.text = element_text(family = "red",
-                             size = 12,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 13,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           margin = margin(t = 15)),
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ::: {.center-text .body-text-s}
@@ -1673,6 +1709,10 @@ ggplot(sbc_subbasin_monthly) +
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1691,33 +1731,37 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(family = "sarala",
                               face = "bold",
-                              size = 22,
+                              size = rel(0.98),
                               color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
+                                size = rel(0.75),
+                                margin = margin(t = 15)),
     axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                           face = "italic",
-                                           color = pal["light_gray"],
-                                           halign = 1, 
-                                           lineheight = 1.5,
-                                           margin = margin(t = 15)),
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1732,7 +1776,7 @@ ggplot(sbc_subbasin_monthly) +
 
 . . . 
 
-[We'll need to both **format our title using some HTML**, *and* **update `theme()`** so that this text element is rendered using `ggtext::element_textbox()` (like our caption). Let's construct our title using `glue::glue()`:]{.body-text-s}
+[We'll need to both **format our title using some HTML**, *and* **update `theme()`** so that this text element is rendered using `ggtext::element_markdown()` (like our caption). Let's construct our title using `glue::glue()`:]{.body-text-s}
 
 ```{r create-title}
 #| eval: true
@@ -1747,17 +1791,17 @@ title <- glue::glue("Water
 
 . . . 
 
-[Then update to `element_textbox()` and increase the `lineheight` to give the two lines a bit of breathing room:]{.body-text-s}
+[Then update to `element_markdown()` and increase the `lineheight` to give the two lines a bit of breathing room:]{.body-text-s}
 
 ```{r lineheight}
 #| eval: false
 #| echo: true
 #| code-line-numbers: "1,4"
-theme(plot.title = ggtext::element_textbox(family = "sarala",
-                                           face = "bold",
-                                           size = 16,
-                                           lineheight = 1.2,
-                                           color = pal["dark_gray"]))
+theme(plot.title = ggtext::element_markdown(family = "sarala",
+                                            face = "bold",
+                                            size = rel(0.98),
+                                            lineheight = 1.2,
+                                            color = pal["dark_gray"]))
 ```
 
 
@@ -1775,6 +1819,10 @@ theme(plot.title = ggtext::element_textbox(family = "sarala",
 #| fig-align: "center"
 #| fig-asp: 0.7
 #| out-height: "100%"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail),
@@ -1793,34 +1841,38 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                                         face = "bold",
-                                         size = 22,
-                                         lineheight = 1.2,
-                                         color = pal["dark_gray"]),
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98),
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
                                  margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
-    axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                face = "italic",
-                                color = pal["light_gray"],
-                                halign = 1, 
-                                lineheight = 1.5,
+                                size = rel(0.75),
                                 margin = margin(t = 15)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 
 ---
@@ -1869,6 +1921,10 @@ ggplot(sbc_subbasin_monthly) +
 #| fig-align: "center"
 #| fig-asp: 0.9
 #| out-height: "100%"
+#..............enable {showtext} for newly opened GD.............
+showtext_auto(enable = TRUE)
+
+#...........................build plot...........................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 
@@ -1886,93 +1942,42 @@ ggplot(sbc_subbasin_monthly) +
        subtitle = "Summer deficits exist, despite winter water surplus",
        caption = caption,
        x = "Mean monthly water availability & consumption (mm)") +
-  theme_light() +
+  theme_light(base_size = 21) +
   theme(
     plot.title.position = "plot",
-    plot.title = ggtext::element_textbox(family = "sarala",
-                              face = "bold",
-                              size = 22,
-                              lineheight = 1.2,
-                              color = pal["dark_gray"]),
+    plot.title = ggtext::element_markdown(family = "sarala",
+                                          face = "bold",
+                                          size = rel(0.98),
+                                          lineheight = 1.2,
+                                          color = pal["dark_gray"]),
     plot.subtitle = element_text(family = "noto-sans",
-                                 size = 16,
+                                 size = rel(0.9),
                                  color = pal["light_gray"],
-                                 margin = margin(b = 8)), # you don't need to include arg names, so long as you list margin sizes in order (counterclockwise from top, e.g. `margin(0, 0, 8, 0))
+                                 margin = margin(b = 8)), 
     axis.text = element_text(family = "red",
-                             size = 13,
+                             size = rel(0.7),
                              color = pal["light_gray"]),
     axis.title.x = element_text(family = "noto-sans",
-                                size = 14,
-                                margin = margin(t = 20)),
-    axis.title.y = element_blank(),
-    plot.caption = ggtext::element_textbox(family = "noto-sans",
-                                face = "italic",
-                                color = pal["light_gray"],
-                                halign = 1, 
-                                lineheight = 1.5,
+                                size = rel(0.75),
                                 margin = margin(t = 15)),
+    axis.title.y = element_blank(),
+    plot.caption = ggtext::element_markdown(family = "noto-sans",
+                                            face = "italic",
+                                            size = rel(0.5),
+                                            color = pal["light_gray"],
+                                            halign = 1, 
+                                            lineheight = 1.5,
+                                            margin = margin(t = 15)),
     panel.grid.major.y = element_blank(),
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
 ```
 :::
 
 ::::
-
----
-
-## {#ggsave data-menu-title="ggsave()"} 
-
-[We can use `ggsave()` to save our plot as a PNG file]{.slide-title}
-
-<hr>
-
-`ggsave()` creates a new graphical device to write the output file -- here we specify a PNG device:
-
-```{r ggsave}
-#| eval: false
-#| echo: true
-# write plot to file (aka save as png) ----
-ggsave(
-  filename = here::here("week7", "images", "sbc-hydro.png"),
-  plot = last_plot(), # otherwise, save your plot as an object, and pass the `plot` argument your plot object name
-  device = "png",
-  width = 8, 
-  height = 7,
-  unit = "in"
-)
-```
-
-<br>
-
-We can also turn off showtext rendering for future devices: 
-
-```{r showtext-false}
-#| eval: false
-#| echo: true
-# turn off showtext text rendering ----
-showtext_auto(FALSE)
-```
-
----
-
-## {#ggsave-woes data-menu-title="ggsave() woes"} 
-
-[Uh oh . . . ?]{.slide-title}
-
-<hr>
-
-::: {.center-text}
-Text elements can cause some annoyances when writing plots to file....You'll learn strategies for fixing this in a future lab!
-:::
-
-```{r text-small}
-#| eval: true
-#| echo: false
-#| out-width: "100%"
-#| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "0-needs-improvement-8x7.png"))
-```
 
 ---
 

@@ -9,7 +9,7 @@
 <meta name="author" content="Your Name">
 <meta name="dcterms.date" content="2026-02-18">
 
-<title>KEY - typography, annotations &amp; saving ggplots – EDS 240</title>
+<title>KEY - typography &amp; annotations – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">KEY - typography, annotations &amp; saving ggplots</h1>
+      <h1 class="title">KEY - typography &amp; annotations</h1>
                       </div>
   </div>
     
@@ -281,7 +281,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#wrangle-data" id="toc-wrangle-data" class="nav-link" data-scroll-target="#wrangle-data">Wrangle data</a></li>
   <li><a href="#create-plot" id="toc-create-plot" class="nav-link" data-scroll-target="#create-plot">Create plot</a></li>
   <li><a href="#save-plot-as-a-png-file" id="toc-save-plot-as-a-png-file" class="nav-link" data-scroll-target="#save-plot-as-a-png-file">Save plot as a PNG file</a></li>
-  <li><a href="#turn-off-showtext-text-rendering" id="toc-turn-off-showtext-text-rendering" class="nav-link" data-scroll-target="#turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</a></li>
   <li><a href="#more-examples" id="toc-more-examples" class="nav-link" data-scroll-target="#more-examples">More examples</a></li>
   </ul>
 </nav>
@@ -303,7 +302,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This template follows the <a href="../../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">typography</a> &amp; <a href="../../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">annotations</a> slides, as well as the <a href="../../course-materials/lab/LAB-SLIDES-saving-ggplots.html" target="_blank">saving ggplots lab</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
+<p>This template follows the <a href="../../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">typography</a> &amp; <a href="../../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">annotations</a> slides. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
 </div>
 </div>
 <section id="setup" class="level2">
@@ -400,7 +399,7 @@ Note
 </section>
 <section id="create-plot" class="level2">
 <h2 class="anchored" data-anchor-id="create-plot">Create plot</h2>
-<p>We’ll build out this plot across both the <a href="../../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">typography</a> &amp; <a href="../../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">annotations</a> lectures, as well as make modifications during the <a href="../../course-materials/lab/LAB-SLIDES-saving-ggplots.html">saving ggplots lab</a>.</p>
+<p>We’ll build out this plot across both the <a href="../../course-materials/lecture-slides/SLIDES-typography.html" target="_blank">typography</a> &amp; <a href="../../course-materials/lecture-slides/SLIDES-annotations.html" target="_blank">annotations</a> lectures.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#......................create color palette......................</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"avail"</span> <span class="ot">=</span> <span class="st">"#448F9C"</span>,</span>
@@ -416,7 +415,7 @@ Note
 <span id="cb3-12"><a href="#cb3-12"></a><span class="st">                    &lt;span style='color:#448F9C;'&gt;availability&lt;/span&gt; </span></span>
 <span id="cb3-13"><a href="#cb3-13"></a><span class="st">                    vs. </span></span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="st">                    &lt;span style='color:#9C7344;'&gt;consumption&lt;/span&gt;</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="st">                    across the Santa Barbara&lt;br&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="st">                    across the Santa Barbara&lt;br&gt; </span></span>
 <span id="cb3-16"><a href="#cb3-16"></a><span class="st">                    Coastal subbasin (2010-2020)"</span>)</span>
 <span id="cb3-17"><a href="#cb3-17"></a></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="co">#.........................create caption.........................</span></span>
@@ -486,37 +485,35 @@ Note
 <span id="cb3-82"><a href="#cb3-82"></a>  <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
 <span id="cb3-83"><a href="#cb3-83"></a>  <span class="fu">theme</span>(</span>
 <span id="cb3-84"><a href="#cb3-84"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb3-85"><a href="#cb3-85"></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
-<span id="cb3-86"><a href="#cb3-86"></a>                                         <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb3-87"><a href="#cb3-87"></a>                                         <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.98</span>), </span>
-<span id="cb3-88"><a href="#cb3-88"></a>                                         <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
-<span id="cb3-89"><a href="#cb3-89"></a>                                         <span class="at">color =</span> pal[<span class="st">"dark_gray"</span>],</span>
-<span id="cb3-90"><a href="#cb3-90"></a>                                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
-<span id="cb3-91"><a href="#cb3-91"></a>                                         <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">9</span>, <span class="at">b =</span> <span class="dv">3</span>)), </span>
-<span id="cb3-92"><a href="#cb3-92"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb3-93"><a href="#cb3-93"></a>                                 <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>), </span>
-<span id="cb3-94"><a href="#cb3-94"></a>                                 <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
-<span id="cb3-95"><a href="#cb3-95"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">8</span>)),</span>
-<span id="cb3-96"><a href="#cb3-96"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
-<span id="cb3-97"><a href="#cb3-97"></a>                             <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.7</span>), </span>
-<span id="cb3-98"><a href="#cb3-98"></a>                             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],),</span>
-<span id="cb3-99"><a href="#cb3-99"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb3-100"><a href="#cb3-100"></a>                                <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>), </span>
-<span id="cb3-101"><a href="#cb3-101"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>)),</span>
-<span id="cb3-102"><a href="#cb3-102"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-103"><a href="#cb3-103"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_textbox</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
-<span id="cb3-104"><a href="#cb3-104"></a>                                           <span class="at">face =</span> <span class="st">"italic"</span>,</span>
-<span id="cb3-105"><a href="#cb3-105"></a>                                           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
-<span id="cb3-106"><a href="#cb3-106"></a>                                           <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.5</span>),</span>
-<span id="cb3-107"><a href="#cb3-107"></a>                                           <span class="at">halign =</span> <span class="dv">1</span>, </span>
-<span id="cb3-108"><a href="#cb3-108"></a>                                           <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
-<span id="cb3-109"><a href="#cb3-109"></a>                                           <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">25</span>, <span class="st">"cm"</span>),</span>
-<span id="cb3-110"><a href="#cb3-110"></a>                                           <span class="at">padding =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">7</span>, <span class="at">r =</span> <span class="dv">5</span>, <span class="at">b =</span> <span class="dv">4</span>)), </span>
-<span id="cb3-111"><a href="#cb3-111"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-112"><a href="#cb3-112"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb3-113"><a href="#cb3-113"></a>  )</span>
-<span id="cb3-114"><a href="#cb3-114"></a></span>
-<span id="cb3-115"><a href="#cb3-115"></a>water_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-85"><a href="#cb3-85"></a>    <span class="at">plot.title =</span> ggtext<span class="sc">::</span><span class="fu">element_markdown</span>(<span class="at">family =</span> <span class="st">"sarala"</span>,</span>
+<span id="cb3-86"><a href="#cb3-86"></a>                                          <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb3-87"><a href="#cb3-87"></a>                                          <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.98</span>),</span>
+<span id="cb3-88"><a href="#cb3-88"></a>                                          <span class="at">lineheight =</span> <span class="fl">1.2</span>,</span>
+<span id="cb3-89"><a href="#cb3-89"></a>                                          <span class="at">color =</span> pal[<span class="st">"dark_gray"</span>]),                                  </span>
+<span id="cb3-90"><a href="#cb3-90"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb3-91"><a href="#cb3-91"></a>                                 <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>), </span>
+<span id="cb3-92"><a href="#cb3-92"></a>                                 <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb3-93"><a href="#cb3-93"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">8</span>)),</span>
+<span id="cb3-94"><a href="#cb3-94"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"red"</span>,</span>
+<span id="cb3-95"><a href="#cb3-95"></a>                             <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.7</span>), </span>
+<span id="cb3-96"><a href="#cb3-96"></a>                             <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],),</span>
+<span id="cb3-97"><a href="#cb3-97"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb3-98"><a href="#cb3-98"></a>                                <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>), </span>
+<span id="cb3-99"><a href="#cb3-99"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
+<span id="cb3-100"><a href="#cb3-100"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-101"><a href="#cb3-101"></a>    <span class="at">plot.caption =</span> ggtext<span class="sc">::</span><span class="fu">element_markdown</span>(<span class="at">family =</span> <span class="st">"noto-sans"</span>,</span>
+<span id="cb3-102"><a href="#cb3-102"></a>                                            <span class="at">face =</span> <span class="st">"italic"</span>,</span>
+<span id="cb3-103"><a href="#cb3-103"></a>                                            <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
+<span id="cb3-104"><a href="#cb3-104"></a>                                            <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.5</span>),</span>
+<span id="cb3-105"><a href="#cb3-105"></a>                                            <span class="at">halign =</span> <span class="dv">1</span>, </span>
+<span id="cb3-106"><a href="#cb3-106"></a>                                            <span class="at">lineheight =</span> <span class="fl">1.5</span>,</span>
+<span id="cb3-107"><a href="#cb3-107"></a>                                            <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">15</span>)),</span>
+<span id="cb3-108"><a href="#cb3-108"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-109"><a href="#cb3-109"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb3-110"><a href="#cb3-110"></a>  )</span>
+<span id="cb3-111"><a href="#cb3-111"></a></span>
+<span id="cb3-112"><a href="#cb3-112"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-113"><a href="#cb3-113"></a>water_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -524,21 +521,31 @@ Note
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="save-plot-as-a-png-file" class="level2">
 <h2 class="anchored" data-anchor-id="save-plot-as-a-png-file">Save plot as a PNG file</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#..............write plot to file (aka save as png)..............</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">ggsave</span>(</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week7"</span>, <span class="st">"images"</span>, <span class="st">"sbc-hydro.png"</span>),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">plot =</span> water_plot,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="at">unit =</span> <span class="st">"in"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#..............enable {showtext} for newly opened GD.............</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#...................set resolution to match GD...................</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#..............write plot to file (aka save as png)..............</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">ggsave</span>(</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="at">filename =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week7"</span>, <span class="st">"images"</span>, <span class="st">"sbc-hydro.png"</span>),</span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="at">plot =</span> water_plot,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="at">width =</span> <span class="dv">8</span>, </span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="at">height =</span> <span class="dv">7</span>,</span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="at">unit =</span> <span class="st">"in"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#...............turn off {showtext} text rendering...............</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- NOT RENDERED ON SLIDE -->
 <div class="callout callout-style-default callout-note callout-titled">
@@ -551,7 +558,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Below is our final plot, saved as a PNG. You’ll want to fine-tune absolute sizes and positions, which don’t automatically scale with a changing plot size. Here, we’d want to increase the annotation text size and shift it slightly left.</p>
+<p>Below is our final plot, saved as a PNG. You’ll want to fine-tune absolute sizes and positions, which don’t automatically scale with a changing plot size. Here, we may want to increase the annotation text size and shift it slightly left.</p>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
@@ -562,13 +569,6 @@ Note
 </figure>
 </div>
 </div>
-</div>
-</section>
-<section id="turn-off-showtext-text-rendering" class="level2">
-<h2 class="anchored" data-anchor-id="turn-off-showtext-text-rendering">Turn off <code>{showtext}</code> text rendering</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#...............turn off {showtext} text rendering...............</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">showtext_auto</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="more-examples" class="level2">
