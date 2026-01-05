@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 5.2]{.custom-title}
+[EDS 240: Lecture 5.1]{.custom-title}
 
 [*Colors*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 5 | February 3^rd^, 2025]{.custom-subtitle3}
+[Week 5 | February 4^rd^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -47,6 +47,41 @@ editor_options:
 
 ---
 
+## {#design-game data-menu-title="Design game"} 
+
+[To celebrate our first day of chatting data viz design...]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.center-text .body-text-m}
+Let's play a quick game! Work through these 17 questions to see if you have an eye for good data viz design. Many (but not all) are related to color choices:
+
+<br>
+
+**[Sharpen your design eye](https://www.matplotlib-journey.com/bonus/design-principles){target="_blank"}, by [Yan Holtz](https://www.linkedin.com/in/yan-holtz-2477534a/){target="_blank"} and [Diana MacDonald](https://www.linkedin.com/in/diana-macdonald-didoesdigital/){target="_blank"}**
+:::
+
+```{r game-countdown}
+countdown::countdown(
+  minutes = 3,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+
+---
+
 ##  {#why-color data-menu-title="# Why use color? #" background="#047C90"}
 
 <div class="page-center vertical-center">
@@ -56,7 +91,7 @@ editor_options:
 <p class="dark-blue-text">**Find an example(s) of a data viz that uses color to convey information to share in #eds-240-data viz. Note some of your own observations about the color choices (i.e. why these colors? palette arrangement?).**</p>
 </div>
 
-```{r}
+```{r why-color-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -78,23 +113,11 @@ countdown::countdown(
 - branding
 :::
 
-<!-- --- -->
-
-<!-- ~start by showing examples of data viz & colors to get reactions~ -->
-
-<!-- - green ocean vs blue ocean map -->
-<!-- - warm city cold city (temperature scales): https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/ -->
-<!-- - precipitation -->
-<!-- - urban areas -->
-<!-- - forests -->
-<!-- - bright colors on elevation maps = high areas; dark = low areas -->
-<!-- - happy vs. sad -->
-
 ---
 
 ## {#colors-difficult data-menu-title="It's hard to choose colors!"} 
 
-[Choosing colors is difficult and they should be purposefully chosen]{.slide-title3}
+[Choosing colors is difficult and it should be done so purposefully]{.slide-title3}
 
 <hr>
 
@@ -136,7 +159,7 @@ There are a number of **different [*color spaces*](https://en.wikipedia.org/wiki
 ::: {.center-text .body-text-s .gray-text}
 HSV 
 :::
-```{r}
+```{r hsv}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -151,7 +174,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 HCL
 :::
 
-```{r}
+```{r hcl}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -181,13 +204,38 @@ Image sources: [medium.com](https://medium.com/awkbit/choosing-a-color-scheme-fo
 Source: <https://ggplot2-book.org/scales-colour>
 :::
 
-<!-- --- -->
+---
 
-<!-- ##  {#data-types data-menu-title="# Data types #" background="#047C90"} -->
+## {#color-scales-discussion data-menu-title="Color scales"} 
 
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr">Different data types require different palette types</p> -->
-<!-- </div> -->
+```{r diff-pal-types}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "65%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "different-palette-types.png"))
+```
+
+```{r pal-types-countdown}
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+
+::: {.footer}
+Consider the data types and use of color in each choropleth map. What do you notice about the different approaches to using color? How does each approach affect what patterns or stories emerge from the data?
+:::
 
 ---
 
@@ -200,7 +248,7 @@ Source: <https://ggplot2-book.org/scales-colour>
 <br>
 <br>
 
-```{r}
+```{r color-scales}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -229,7 +277,7 @@ This is the first article of a 4 part series ([Part 2](https://blog.datawrapper.
   <!-- - groups [**don't have an intrinsic order**]{.teal-text} -->
   - limit to [**no more than 7 hues**]{.teal-text}
 
-```{r}
+```{r cat-scale}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -253,7 +301,7 @@ Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.ht
   - [**lower values**]{.teal-text} typically associated with [**lighter colors**]{.teal-text} & [**higher values**]{.teal-text} associated with [**darker colors**]{.teal-text} (though not a hard and fast rule; make choices clear with legend)
   - can use a [**single hue *or* two hues**]{.teal-text}
 
-```{r}
+```{r seq-scales}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -277,7 +325,7 @@ Map source: [Analyzing US Census Data](https://walker-data.com/census-r/index.ht
   - [**central value**]{.teal-text} is assigned a [**light color**]{.teal-text} (light gray is best)
   - use a [**distinctive hue**]{.teal-text} for each of the [**component palettes**]{.teal-text}
 
-```{r}
+```{r div-scales}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -299,7 +347,7 @@ Map source: [2020 U.S. Election Mapped: TrumpLand vs Biden Archipelago](https://
 
 [We'll be testing out different palettes throughout this lesson. Instead of having to retype the code for our plots each time, let's create and save two versions of a penguin scatter plot. We can then call either of these plot objects to modify with different color scales:]{.body-text-s}
 
-```{r}
+```{r load-pkgs}
 #| eval: true
 #| echo: true
 library(palmerpenguins)
@@ -313,7 +361,7 @@ library(tidyverse)
 Requires a categorical color scale
 :::
 
-```{r}
+```{r cat_color_plot}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -330,7 +378,7 @@ cat_color_plot
 Requires a continuous color scale
 :::
 
-```{r}
+```{r con_color_plot}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -362,7 +410,7 @@ con_color_plot
 
 Color vision deficiency aka colorblindness is the decreased ability to see color or differences in color. It's estimated that about 1 in 12 men (8%) and 1 in 200 women (0.5%) are affected ([Wikipedia](https://en.wikipedia.org/wiki/Color_blindness){target="_blank"}).
 
-```{r}
+```{r colorblind-test-plates}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -382,7 +430,7 @@ Color plate tests are used to help identify different forms of color blindness. 
 
 <hr>
 
-```{r}
+```{r moreland-rainbow}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -393,7 +441,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r noaa-weathermap}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -438,7 +486,7 @@ Try one of these improved versions (right), instead:
 Problematic, perceptually nonuniform and unordered rainbow colormaps
 :::
 
-```{r}
+```{r bad-rainbow}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -453,7 +501,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Improved, perceptual uniform and diverging rainbow colormaps
 :::
 
-```{r}
+```{r better-rainbow}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -490,7 +538,7 @@ Also check out [Stoelzle & Stein (2021)](https://doi.org/10.5194/hess-25-4549-20
 Continuous viridis scales
 :::
 
-```{r}
+```{r viridis-con}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -505,7 +553,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Binned viridis scales
 :::
 
-```{r}
+```{r viridis-bin}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -538,7 +586,7 @@ Try out the palette options below, then check out the [documentation](https://gg
 Discrete viridis scales
 :::
 
-```{r}
+```{r viridis_d}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -554,7 +602,7 @@ cat_color_plot +
 Continuous viridis scales
 :::
 
-```{r}
+```{r viridis_c}
 #| eval: true
 #| echo: true
 #| #| fig-align: "center"
@@ -565,22 +613,6 @@ con_color_plot +
 :::
 
 ::::
-
-```{r}
-# countdown::countdown(
-#   minutes = 2,
-#   # left = 0, right = 0,
-#   # Fanfare when it's over
-#   play_sound = TRUE,
-#   color_border              = "#FFFFFF",
-#   color_text                = "#7aa81e",
-#   color_running_background  = "#7aa81e",
-#   color_running_text        = "#FFFFFF",
-#   color_finished_background = "#ffa07a",
-#   color_finished_text       = "#FFFFFF",
-#   font_size = "2em",
-#   )
-```
 
 ---
 
@@ -594,7 +626,7 @@ con_color_plot +
 
 <br>
 
-```{r}
+```{r colorblinefriendly}
 #| eval: false
 #| echo: true
 #| fig-align: "center"
@@ -610,7 +642,7 @@ RColorBrewer::display.brewer.all(colorblindFriendly = TRUE)
 Colorblind-friendly palettes, viewed using `display.brewer.all()`
 :::
 
-```{r}
+```{r colorblind-brewer-pals}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -625,7 +657,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ColorBrewer's web-based interface for exploring palettes
 :::
 
-```{r}
+```{r brewer-web}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -657,7 +689,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Preview a palette with your number of desired colors:
 :::
 
-```{r}
+```{r dark2-view}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -672,7 +704,7 @@ RColorBrewer::display.brewer.pal(n = 4, name = "Dark2")
 Print the HEX codes of your palette:
 :::
 
-```{r}
+```{r dark2-hex}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -685,7 +717,7 @@ RColorBrewer::brewer.pal(n = 4, name = "Dark2")
 ::::
 
 ::: {.notes}
-```{r}
+```{r create-pal-brew}
 #| eval: false
 #| echo: true
 # preview palette with your number of desired colors ----
@@ -720,7 +752,7 @@ Use the right function (all part of `{ggplot2}`) for the type of data / palette:
 Use `scale_color_brewer()` to apply **qualitative palettes** 
 :::
 
-```{r}
+```{r brew-plot}
 #| eval: true
 #| echo: true
 #| #| fig-align: "center"
@@ -736,7 +768,7 @@ cat_color_plot +
 Use `scale_color_distiller()` for **unclassed continuous color scales**
 :::
 
-```{r}
+```{r distill-plot}
 #| eval: true
 #| echo: true
 #| #| fig-align: "center"
@@ -752,7 +784,7 @@ con_color_plot +
 Use `scale_color_fermenter()` for **classed continuous color scales**
 :::
 
-```{r}
+```{r ferment-plot}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -765,72 +797,6 @@ con_color_plot +
 ::::
 
 Check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_brewer.html){target="_blank"} and play around with some alternative options.
-
-```{r}
-# countdown::countdown(
-#   minutes = 2,
-#   # left = 0, right = 0,
-#   # Fanfare when it's over
-#   play_sound = TRUE,
-#   color_border              = "#FFFFFF",
-#   color_text                = "#7aa81e",
-#   color_running_background  = "#7aa81e",
-#   color_running_text        = "#FFFFFF",
-#   color_finished_background = "#ffa07a",
-#   color_finished_text       = "#FFFFFF",
-#   font_size = "2em",
-#   )
-```
-
----
-
-## {#outline-points data-menu-title="Tip: outline points"} 
-
-[Accessibility tip: outline points to make light colors more visible]{.slide-title2}
-
-<hr>
-
-Rather than `color` points by `body_mass_g`, we can `fill` points by `body_mass_g`. Then, we need to change the [`shape` of our points to `21`](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec){target="_blank"}, which is the code for an outlined, fill-able point: 
-
-```{r}
-#| eval: true
-#| echo: true
-#| fig-align: "center"
-#| out-width: "100%"
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, fill = body_mass_g)) +
-  geom_point(shape = 21, size = 4, alpha = 0.8) +
-  scale_fill_distiller(palette = "BuPu")
-```
-
-::: {.footer}
-Trick comes courtesy of [Albert Rapp](https://albert-rapp.de/){target="_blank"} and his [How to Use Better Colors in ggplot (3 Easy Ways)](https://www.youtube.com/watch?v=ZVSbY4z7tMY){target="_blank"} video tutorial. Check out his [YouTube channel](https://www.youtube.com/@rappa753){target="_blank"} for *tons* of great R content.
-:::
-
----
-
-## {#redundant-mapping data-menu-title="Redundant mapping"} 
-
-[Accessibility tip: use redundant mapping whenever possible]{.slide-title}
-
-<hr>
-
-Recall that colors are [low on the hierarchy of elementary perceptual tasks](lecture2.1-choosing-graphic-forms-slides.html#/hierarchy){target="_blank"}. **When possible, avoid conveying important information purely through color** -- consider how you might additionally use shapes, symbols, typography, or annotations.
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "apigo2022.png"))
-```
-
-<br>
-
-::: {.footer}
-Figure 2 from Apigo A and Oono R (2022) Plant abundance, but not plant evolutionary history, shapes patterns of host specificity in foliar fungal endophytes. Ecosphere. 13(1):e03879. [https://doi.org/10.1002/ecs2.3879](https://doi.org/10.1002/ecs2.3879){target="_blank"}
-:::
 
 ---
 
@@ -855,7 +821,7 @@ The [`{paletteer}` package](https://emilhvitfeldt.github.io/paletteer/){target="
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r paletteer-hex}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -867,15 +833,19 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ::: {.column width="50%"}
 
 <br>
-<br>
+[There are a number of ways to browse the list of supported palette packages, including in the [**`{paletteer}` documentation**](https://emilhvitfeldt.github.io/paletteer/#included-packages){target="_blank"}, on the [**r-color-palettes**](https://github.com/EmilHvitfeldt/r-color-palettes){target="_blank"} GitHub repo, on the [**R Color Palettes**](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"} website, and the [**R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"}.]{.body-text-s}
 
-- two groups of palettes: **discrete** and **continuous**
-- discrete palettes can be **fixed** (have a set # of colors) or **dynamic** (adjustable # of colors based on your specifications)
+- [two groups of palettes: **discrete** and **continuous**]{.body-text-s}
+- [discrete palettes can be **fixed** (have a set # of colors) or **dynamic** (adjustable # of colors based on your specifications)]{.body-text-s}
 :::
 
 ::::
 
----
+::: {.footer}
+`{paletteer}` comes with a set of color scaling functions for applying palettes directly to your plots, but I prefer using it to generate a vector of HEX codes, then applying them using a `ggplot2::scale_*()` function, demoed next.
+:::
+
+<!-- ---
 
 ## {#explore-paletteer data-menu-title="Explore paletteer"} 
 
@@ -883,38 +853,38 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <hr>
 
-There are a number of ways to browse the extensive list of supported palette packages, including in the [**`{paletter}` documentation**](https://emilhvitfeldt.github.io/paletteer/#included-packages){target="_blank"}, on the [**r-color-palettes**](https://github.com/EmilHvitfeldt/r-color-palettes){target="_blank"} GitHub repo, on the [**R Color Palettes**](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"} website, the [**R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"} (built on `{paletteer}`; see below).
+There are a number of ways to browse the extensive list of supported palette packages, including in the [**`{paletter}` documentation**](https://emilhvitfeldt.github.io/paletteer/#included-packages){target="_blank"}, on the [**r-color-palettes**](https://github.com/EmilHvitfeldt/r-color-palettes){target="_blank"} GitHub repo, on the [**R Color Palettes**](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"} website, the [**R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"} (built on `{paletteer}`; see below). -->
 
 <!-- ::: {.center-text .body-text-s .gray-text} -->
 <!-- The **[R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"} provides an easy interface for exploring supported `{paletteer}` palettes. You can also simulate vision deficiencies and find code for building the example visualizations.  -->
 <!-- ::: -->
 
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: false
 #| fig-align: "center"
 #| out-width: "60%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "r-graph-gallery-paletteer.gif"))
+# knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "r-graph-gallery-paletteer.gif"))
 ```
 
 
 ```{r}
-countdown::countdown(
-  minutes = 2,
-  # left = 0, right = 0,
-  # Fanfare when it's over
-  play_sound = TRUE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "2em",
-  )
+# countdown::countdown(
+#   minutes = 2,
+#   # left = 0, right = 0,
+#   # Fanfare when it's over
+#   play_sound = TRUE,
+#   color_border              = "#FFFFFF",
+#   color_text                = "#7aa81e",
+#   color_running_background  = "#7aa81e",
+#   color_running_text        = "#FFFFFF",
+#   color_finished_background = "#ffa07a",
+#   color_finished_text       = "#FFFFFF",
+#   font_size = "2em",
+#   )
 ```
 
-. . .
+<!-- . . .
 
 ::: {.center-text}
 **`{paletteer}` is useful in a number of ways -- let's consider [two options]{.teal-text} next**
@@ -922,9 +892,9 @@ countdown::countdown(
 
 ::: {.footer}
 TIP: Check out the `palettes_c_names` & `palettes_d_names` data frames, which contain information about supported palettes and packages.
-:::
+::: -->
 
----
+<!-- ---
 
 ## {#1-scale-paletteer data-menu-title="1. scale_*_paletteer()"} 
 
@@ -979,13 +949,13 @@ con_color_plot +
 
 ::: {.footer}
 Also try using `scale_color_paletteer_binned()` to apply the **batlow** palette, above.
-:::
+::: -->
 
 ---
 
-## {#2a-generate-hex-codes data-menu-title="2a. Generate HEX codes"} 
+## {#1-generate-hex-codes data-menu-title="1. Generate HEX codes"} 
 
-[2a. Create vector of HEX codes using `paletteer_*()`]{.slide-title3}
+[1. Create vector of HEX codes using `paletteer_*()`]{.slide-title3}
 
 <hr>
 
@@ -1001,7 +971,7 @@ Also try using `scale_color_paletteer_binned()` to apply the **batlow** palette,
 (discrete, with 3 colors)
 :::
 
-```{r}
+```{r grandbudapest1}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1013,16 +983,16 @@ pal_d
 ::: {.column width="50%"}
 
 ::: {.center-text .body-text-s .gray-text}
-**grayC** palette from `{scico}` 
+**batlow** palette from `{scico}` 
 
 (continuous, with 5 colors)
 :::
 
-```{r}
+```{r batlow}
 #| eval: true
 #| echo: true
 #| warning: false
-pal_c <- paletteer::paletteer_c("scico::grayC", n = 5)
+pal_c <- paletteer::paletteer_c("scico::batlow", n = 5)
 pal_c
 ```
 :::
@@ -1049,19 +1019,19 @@ See the next slide for some commonly used options.
 
 <hr>
 
-**For qualitative (categorical) data <img src="images/week5/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :**
+**For qualitative (categorical) data <img src="../images/lecture-slides/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :**
 
 - [`scale_*_manual()`]{.body-text-s}
 
 **For quantitative (numeric) data:**
 
-Unclassed palettes <img src="images/week5/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
+Unclassed palettes <img src="../images/lecture-slides/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
 
 - [`scale_*_gradient()`: creates a two color gradient (low-high)]{.body-text-s}
 - [`scale_*_gradient2()`: creates a diverging color gradient (low-mid-high)]{.body-text-s}
 - [`scale_*_gradientn()`: creates a n-color gradient]{.body-text-s}
 
-Classed palettes <img src="images/week5/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
+Classed palettes <img src="../images/lecture-slides/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> :
 
 - [`scale_*steps()`: creates a two color binned gradient (low-high)]{.body-text-s}
 - [`scale_*_steps2()`: creates a diverging binned color gradient (low-mid-high)]{.body-text-s}
@@ -1073,15 +1043,15 @@ Classed palettes <img src="images/week5/classed-seq.png" alt="A classed sequenti
 
 ---
 
-## {#2b-apply-palettes_d data-menu-title="2b. Apply palettes using scale_*()"} 
+## {#2-apply-palettes_d data-menu-title="2. Apply palettes using scale_*()"} 
 
-[2b. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
+[2. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
 
 <hr>
 
 **Examples using our discrete color palette:**
 
-```{r}
+```{r create-grandbudapest1-pal}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1096,7 +1066,7 @@ pal_d <- paletteer::paletteer_d("wesanderson::GrandBudapest1", n = 3)
 ::: {.center-text .body-text-s .gray-text}
 apply to scatter plot using the `color` variant
 :::
-```{r}
+```{r color-grandbudapest1}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1109,7 +1079,7 @@ cat_color_plot +
 ::: {.center-text .body-text-s .gray-text}
 apply to histogram using the `fill` variant
 :::
-```{r}
+```{r fill-grandbudapest1}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1123,19 +1093,19 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 
 ---
 
-## {#2b-apply-palettes_c data-menu-title="2b. Apply palettes using scale_*()"} 
+## {#2-apply-palettes_c data-menu-title="2. Apply palettes using scale_*()"} 
 
-[2b. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
+[2. Apply palette using `ggplot2::scale_*()`]{.slide-title2}
 
 <hr>
 
 **Examples using our continuous color palette:**
 
-```{r}
+```{r create-batlow-pal}
 #| eval: true
 #| echo: true
 #| warning: false
-pal_c <- paletteer::paletteer_c("scico::grayC", n = 5, direction = -1)
+pal_c <- paletteer::paletteer_c("scico::batlow", n = 5, direction = -1)
 ```
 
 <br>
@@ -1146,7 +1116,7 @@ pal_c <- paletteer::paletteer_c("scico::grayC", n = 5, direction = -1)
 ::: {.center-text .body-text-s .gray-text}
 apply to scatter plot as an unclassed palette (use `gradientn` variant)
 :::
-```{r}
+```{r unclassed-batlow}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1159,7 +1129,7 @@ con_color_plot +
 ::: {.center-text .body-text-s .gray-text}
 apply to scatter plot as a classed (binned) palette (use `stepsn` variant)
 :::
-```{r}
+```{r classed-batlow}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -1188,7 +1158,7 @@ con_color_plot +
 
 <br>
 
-```{r}
+```{r kaye-pals}
 #| eval: true
 #| echo: false
 #| out-width: "40%"
@@ -1214,7 +1184,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-```{r}
+```{r abs-temp}
 #| eval: true
 #| echo: false
 #| out-width: "30%"
@@ -1222,7 +1192,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "abs-temp.png"))
 ```
 
-```{r}
+```{r abs-temp-pal}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -1240,7 +1210,7 @@ Source: Zittis, G., Lazoglou, G., Hadjinicolaou, P. et al. Emerging extreme heat
 
 <br>
 
-```{r}
+```{r anomaly-temp-precip}
 #| eval: true
 #| echo: false
 #| out-width: "40%"
@@ -1251,7 +1221,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r temp-anomaly-pal}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -1261,7 +1231,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r precip-anomaly-pal}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -1284,13 +1254,13 @@ Source: [C3S seasonal lookback: summer 2024](https://climate.copernicus.eu/c3s-s
 <p class="custom-subtitle bottombr">Want to design your own palette? Here are some helpful guidelines and considerations...</p>
 </div>
 
----
+<!-- ---
 
 ## {#select-hue data-menu-title="Selecting hues"} 
 
 [Select hues using color wheels / pickers]{.slide-title}
 
-<hr>
+<hr> -->
 
 <!-- - **Primary colors** are the main colors in a given color system (e.g. light (RGB) = [red]{style="background-color:#FF0000; color=#FFFFFF;" .white-text}, [green]{style="background-color:#00FF00"} [blue]{style="background-color:#0000FF" .white-text}). *Primary colors cannot be produced by mixing other colors in that system together.* -->
 
@@ -1300,7 +1270,7 @@ Source: [C3S seasonal lookback: summer 2024](https://climate.copernicus.eu/c3s-s
 
 <!-- Hues (pure colors) are found around the **outer edge of color wheels**, or by adjusting the HEX code (sliding scale), then ensuring that selector is set to the **far right edge of a color picker box**: -->
 
-:::: {.columns}
+<!-- :::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -1308,17 +1278,17 @@ Source: [C3S seasonal lookback: summer 2024](https://climate.copernicus.eu/c3s-s
 There are lots of different variations of color wheels, but look for hues along the **outer edge**:
 :::
 
-<br>
+<br> -->
 
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "color-wheels.png"))
+# knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "color-wheels.png"))
 ```
 
-<br>
+<!-- <br>
 <br>
 
 ::: {.center-text .body-text-s .gray-text}
@@ -1330,16 +1300,16 @@ Common color models: RYB (used by painters), RGB (used in electonic displays), C
 
 ::: {.center-text .body-text-s}
 When using a color picker, **adjust the HEX code sliding scale** to pick a hue and ensure that the selector is set to the **top right edge** of the box:
-:::
+::: -->
 
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "google-color-picker.png"))
+# knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "google-color-picker.png"))
 ```
-::: {.center-text .body-text-s .gray-text}
+<!-- ::: {.center-text .body-text-s .gray-text}
 There are lots of great color pickers out there, though [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"} is a quick one to navigate to. [HTML color codes](https://htmlcolorcodes.com/){target="_blank"} is my personal favorite.
 :::
 :::
@@ -1352,7 +1322,7 @@ There are lots of great color pickers out there, though [Google color picker](ht
 - RGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)
 - RYB: known as painting color system (used by artists in painting)
 - CMYK: used on modern printing
-:::
+::: -->
 
 ---
 
@@ -1362,7 +1332,7 @@ There are lots of great color pickers out there, though [Google color picker](ht
 
 <hr>
 
-```{r}
+```{r color-harmonies}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1394,7 +1364,7 @@ Find descriptions of [blue-green](https://htmlcolorcodes.com/colors/blue-green/)
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r default-ggplot-colors}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1413,7 +1383,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 
 ## {#hue-meaning data-menu-title="Hue meaning"} 
 
-[Hues have associated meaning]{.slide-title}
+[Select hues based on associated meaning]{.slide-title}
 
 <hr>
 
@@ -1421,7 +1391,7 @@ ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
 We associate meaning with different hues (e.g. [cold / sad = blue]{style="background-color:#0015fa" .white-text}, [hot / angry = red]{style="background-color:#fa0202" .white-text}), and *importantly,* these [**associations can differ among cultures**]{.teal-text}.
 :::
 
-```{r}
+```{r colors-cultures}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1447,7 +1417,7 @@ Source: [Information is Beautiful](https://informationisbeautiful.net/visualizat
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r culture-highlights}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1465,7 +1435,7 @@ Source: [Information is Beautiful](https://informationisbeautiful.net/visualizat
 
 <br>
 
-```{r}
+```{r warming-stripes}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1494,7 +1464,7 @@ Source: Ed Hawkins [(showyourstripes.info)](https://showyourstripes.info/){targe
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r gbb}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1510,7 +1480,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ::: {.column width="50%"}
 <br>
 
-```{r}
+```{r legos}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1536,7 +1506,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-```{r}
+```{r covid-red}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1571,7 +1541,7 @@ published March 3, 2020
 
 ---
 
-```{r}
+```{r one-million-deaths}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1595,7 +1565,7 @@ Learn more about this award-winning visualization in an interview with Carrie Mi
 
 Though it may be temping to use bright / bold colors to grab attention, it can lead to eye strain and make it more challenging for your readers to focus on your chart.
 
-```{r}
+```{r pure-hues}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1617,7 +1587,7 @@ Image source: [5 pitfalls to avoid when working with color in data visualization
 
 Though it may be temping to use bright / bold colors to grab attention, it can lead to eye strain and make it more challenging for your readers to focus on your chart.
 
-```{r}
+```{r pure-hues-subdued}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1629,7 +1599,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Image source: [5 pitfalls to avoid when working with color in data visualization](https://flourish.studio/blog/color-in-data-visualization/){target="_blank"}
 :::
 
----
+<!-- ---
 
 ## {#adjust-sat1 data-menu-title="Adjust saturation 1"} 
 
@@ -1904,7 +1874,7 @@ ggplot(data, aes(x = group, y = value)) +
 ```
 :::
 
-::::
+:::: -->
 
 ---
 
@@ -1931,11 +1901,12 @@ And also consider some other important sources of inspiration:
 
 - [your company or organization's **brand / logo**]{.body-text-s}
 - [**steal colors** from your favorite / relevant images using tools like [Color Thief](https://lokeshdhakar.com/projects/color-thief/){target="_blank"}]{.body-text-s}
-- [use a randomized **palette generator**, like [coolers.co](https://coolors.co/?home){target="_blank"} {{< fa arrow-right title="an arrow pointing to the right" >}}]{.body-text-s}
+- [use a randomized **palette generator**, like [coolors.co](https://coolors.co/?home){target="_blank"} {{< fa arrow-right title="an arrow pointing to the right" >}}]{.body-text-s}
+- [find a **color picker** for generating HEX codes -- my favorite it [HTML Color Codes](https://htmlcolorcodes.com/){target="_blank"}]{.body-text-s}
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r coolors}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -1955,7 +1926,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 I recommend saving your palette to a named vector *outside* of your ggplot -- this prevents lengthy palettes from creating cluttered ggplot code *and* allows you to reuse your palette across multiple plots:
 
-```{r}
+```{r save-pal-outside}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -1981,7 +1952,7 @@ Refer back to the [common `{ggplot2}` scaling functions](lecture5.2-colors-slide
 
 [We should always be consistent with our colors. **E.g. if Gentoo penguins are blue in one plot, they should be blue in all plots.** Notice that our colors don't "stick" with the species they represent, but rather they're applied in the order that they appear in our palette:]{.body-text-s}
 
-```{r}
+```{r unnamed-pal}
 #| eval: true
 #| echo: true
 my_palette <- c("#32DE8A", "#E36414", "#0F4C5C")
@@ -1994,7 +1965,7 @@ my_palette <- c("#32DE8A", "#E36414", "#0F4C5C")
 Adelie, Chinstrap & Gentoo penguins
 :::
 
-```{r}
+```{r all-pens-unnamed}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -2009,7 +1980,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 Just Adelie & Gentoo penguins
 :::
 
-```{r}
+```{r no-chin-unnamed}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -2034,7 +2005,7 @@ penguins |>
 
 [Setting the names of our vector elements (colors) ensures that they stick with those factor levels across all of our visualizations:]{.body-text-s}
 
-```{r}
+```{r named-pal}
 #| eval: true
 #| echo: true
 my_palette_named <- c("Adelie" = "#32DE8A","Chinstrap" = "#E36414", "Gentoo" = "#0F4C5C")
@@ -2047,7 +2018,7 @@ my_palette_named <- c("Adelie" = "#32DE8A","Chinstrap" = "#E36414", "Gentoo" = "
 Adelie, Chinstrap & Gentoo penguins
 :::
 
-```{r}
+```{r all-pens-named}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -2062,7 +2033,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 Just Adelie & Gentoo penguins
 :::
 
-```{r}
+```{r no-chin-named}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -2091,7 +2062,7 @@ penguins |>
 
 ::: {.column width="50%"}
 
-```{r}
+```{r color-brackets}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -2112,7 +2083,7 @@ penguins |>
 
 ::: {.column width="50%"}
 
-```{r}
+```{r color-vals}
 #| eval: true
 #| echo: true
 #| out-width: "80%"
@@ -2199,13 +2170,226 @@ This isn't the only way to do this! Try creating a `highlight` variable in your 
 <!--   ) -->
 <!-- ``` -->
 
----
+<!-- ---
 
 ##  {#general-rules data-menu-title="# General rules #" background="#047C90"}
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">There are also some additional rules / guidelines that you should pretty much always abide by when selecting colors</p>
+</div> -->
+
+---
+
+##  {#general-rules data-menu-title="# General rules #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">See if you can figure out some additional color "rules" by identifying how to improve the following data viz examples.</p>
 </div>
+
+---
+
+## {#color-bars-bad data-menu-title="Color bars 1"} 
+
+[What can we improve?]{.slide-title}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r multi-color-bars}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-bars.png"))
+```
+:::
+
+::: {.column width="50%"}
+
+:::
+
+::::
+
+::: {.footer}
+Image source: [Add Two Digital](https://www.addtwodigital.com/add-two-blog/2021/7/12/rule-18-dont-use-multi-coloured-bars){target="_blank"}
+:::
+
+---
+
+## {#color-bars-better data-menu-title="Color bars 2"} 
+
+[Don't use color unnecessarily]{.slide-title}
+
+<hr>
+
+The x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, only when it communicates something meaningful!
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r multi-color-bars2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-bars.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r same-color-bars}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "same-color-bars.png"))
+```
+:::
+
+::::
+
+::: {.footer}
+Image source: [Add Two Digital](https://www.addtwodigital.com/add-two-blog/2021/7/12/rule-18-dont-use-multi-coloured-bars){target="_blank"}
+:::
+
+---
+
+## {#fish-colors1 data-menu-title="Fish colors 1"} 
+
+[What can we improve?]{.slide-title}
+
+<hr>
+
+<br>
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r fish-scatter1}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: "center"
+#| out-width: "100%"
+library(lterdatasampler)
+and_vertebrates |> 
+filter(species != "Cascade torrent salamander") |> 
+ggplot(aes(x = length_1_mm, y = weight_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text= element_text(size = 16),
+    legend.position = "top"
+  )
+```
+:::
+
+::: {.column width="50%"}
+```{r fish-line1}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: "center"
+#| out-width: "100%"
+library(lterdatasampler)
+and_vertebrates |>
+  filter(species != "Cascade torrent salamander") |>
+  drop_na(year, species, section) |>
+  count(year, species) |> 
+  ggplot(aes(x = year, y = n, group = species)) +
+  geom_line(aes(color = species)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_manual(values = c("#5B1A18", "#FD6467")) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text= element_text(size = 16),
+    legend.position = "top"
+  )
+```
+:::
+
+::::
+
+::: {.footer}
+Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the [`{lterdatasampler}` package](https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html){target="_blank"}
+:::
+
+---
+
+## {#fish-colors2 data-menu-title="Fish colors 2"} 
+
+[Use color consistently across visualizations]{.slide-title}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r fish-scatter2}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: "center"
+#| out-width: "100%"
+library(lterdatasampler)
+and_vertebrates |> 
+filter(species != "Cascade torrent salamander") |> 
+ggplot(aes(x = length_1_mm, y = weight_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text= element_text(size = 16),
+    legend.position = "top"
+  )
+```
+:::
+
+::: {.column width="50%"}
+```{r fish-line2}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: "center"
+#| out-width: "100%"
+library(lterdatasampler)
+and_vertebrates |>
+  filter(species != "Cascade torrent salamander") |>
+  drop_na(year, species, section) |>
+  count(year, species) |> 
+  ggplot(aes(x = year, y = n, group = species)) +
+  geom_line(aes(color = species)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text= element_text(size = 16),
+    legend.position = "top"
+  )
+```
+:::
+
+::::
+
+::: {.footer}
+Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the [`{lterdatasampler}` package](https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html){target="_blank"}
+:::
 
 ---
 
@@ -2563,10 +2747,10 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
 </div>
 
-```{r}
+```{r end-countdown}
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,

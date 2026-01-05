@@ -1,8 +1,8 @@
 ---
-title: "Lecture 5.2 KEY"
+title: "KEY - colors"
 subtitle: "Colors"
 author: "Your Name"
-date: 2025-02-03
+date: 2026-02-04
 toc: true
 ---
 
@@ -12,7 +12,7 @@ This template follows the [colors lecture](../lecture-slides/SLIDES-colors.qmd){
 
 ## Setup
 
-```{r}
+```{r setup}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -52,7 +52,7 @@ con_color_plot
 
 - Check out the [documentation](https://ggplot2.tidyverse.org/reference/scale_viridis.html) for additional viridis palette options. 
 
-```{r}
+```{r viridis-scales}
 #| eval: true
 #| echo: true
 #| warning: false
@@ -96,12 +96,13 @@ my_brewer_pal <- RColorBrewer::brewer.pal(n = 3, name = "Dark2")
 
 - Using RColorBrewer palettes
 
-```{r}
+```{r craft-brewer-pal}
 #| eval: true
 #| echo: true
 #| warning: false
 
 # for qualitative palettes ----
+# Accessibility tip: use redundant mappign whenever possible
 cat_color_plot +
   scale_color_brewer(palette = "Dark2") 
 
@@ -110,8 +111,10 @@ con_color_plot +
   scale_color_distiller(palette = "BuPu")
 
 # for classed continuous color scales ----
-con_color_plot +
-  scale_color_fermenter(palette = "YlGnBu")
+# Accessibility tip: outline points to make light colors more visible
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, fill = body_mass_g)) + # notice switch from `color` > `fill`
+  geom_point(shape = 21, size = 4, alpha = 0.8) + # notice point `shape`
+  scale_fill_distiller(palette = "YlGnBu")
 ```
 
 ### Accessibility tips
