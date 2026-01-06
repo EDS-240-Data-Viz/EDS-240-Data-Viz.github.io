@@ -375,7 +375,7 @@ Note
 <li>adding direct labels</li>
 </ul>
 <p><em><strong>Our goal:</strong> create bar &amp; lollipop that shows long-term mean Surface Water-Supply and Use Index (SUI) across the ten HUC 18 subregions</em></p>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># bar plot ----</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#............................bar plot............................</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_sui_2010_2020 =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
@@ -383,7 +383,7 @@ Note
 <span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_sui_2010_2020, <span class="at">y =</span> subregion_name)) <span class="sc">+</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(mean_sui_2010_2020, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"white"</span>) </span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># lollipop plot ----</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#..........................lollipop plot.........................</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a>ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
 <span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">summarise</span>(<span class="at">mean_sui_2010_2020 =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
@@ -408,7 +408,7 @@ Note
 <h2 class="anchored" data-anchor-id="note-1-geom_col-vs.-geom_bar">Note 1: <code>geom_col()</code> vs.&nbsp;<code>geom_bar()</code></h2>
 <p>Use <code>geom_col()</code> when you want the heights of your bars to represent values in your data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># `geom_col()` example ----</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#......................`geom_col()` example......................</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">group_by</span>(subregion_name) <span class="sc">|&gt;</span> </span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_sui_2010_2020 =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
@@ -424,7 +424,7 @@ Note
 </div>
 <p>Use <code>geom_bar()</code> if you want the heights of your bars to be proportional to the number of cases in each group:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># `geom_bar()` example ----</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#......................`geom_bar()` example......................</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="fu">ggplot</span>(ca_region, <span class="fu">aes</span>(<span class="at">x =</span> subregion_name)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
@@ -448,13 +448,13 @@ Note
 <p><em><strong>Our goal:</strong> create a stacked bar chart that shows how CA subwatersheds (HUC 12s) are distributed across SUI categories</em></p>
 <p>First we need to do a bit of wrangling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># find total # of SUI obs per month ----</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#.................find total # SUI obs per month.................</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>tot_sui_per_month <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">rename</span>(<span class="at">tot_sui_per_month =</span> n)</span>
 <span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># create df classifying SUI values ----</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#................create df classifying SUI values................</span></span>
 <span id="cb5-8"><a href="#cb5-8"></a>sui_severity <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span></span>
 <span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb5-10"><a href="#cb5-10"></a>    <span class="at">sui_category =</span> <span class="fu">case_when</span>(</span>
@@ -478,7 +478,7 @@ Note
 </div>
 <p>Then create a stacked bar plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># create color palette ----</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#......................create color palettes.....................</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># pulled hex codes from USGS map using ColorZilla Chrome extension</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>sui_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Severe"</span> <span class="ot">=</span> <span class="st">"#720C0F"</span>, </span>
 <span id="cb6-4"><a href="#cb6-4"></a>                <span class="st">"High"</span> <span class="ot">=</span> <span class="st">"#F68939"</span>, </span>
@@ -486,7 +486,7 @@ Note
 <span id="cb6-6"><a href="#cb6-6"></a>                <span class="st">"Low"</span> <span class="ot">=</span> <span class="st">"#AAD9EA"</span>, </span>
 <span id="cb6-7"><a href="#cb6-7"></a>                <span class="st">"Very low"</span> <span class="ot">=</span> <span class="st">"#217AB5"</span>)</span>
 <span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># % stacked bar chart ----</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#......................% stacked bar chart.......................</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="fu">ggplot</span>(sui_severity, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> perc, <span class="at">fill =</span> sui_category)) <span class="sc">+</span></span>
 <span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> sui_colors) <span class="sc">+</span></span>
@@ -511,7 +511,7 @@ Note
 <p><em><strong>Our goal:</strong> create a heatmap that shows how water stress (represented by SUI) changes through time for each of the ten HUC 18 subregions</em></p>
 <p>First, we need to do a bit of wrangling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># df of annual mean SUI by subregion &amp; year ----</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#............df of annual mean SUI by subregion &amp; year...........</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>heatmap_data <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">group_by</span>(subregion_name, year) <span class="sc">|&gt;</span> </span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">summarize</span>(<span class="at">annual_mean_sui =</span> <span class="fu">mean</span>(sui_frac, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
@@ -520,14 +520,14 @@ Note
 <pre><code>`summarise()` has grouped output by 'subregion_name'. You can override using
 the `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># determine order of subregions based on highest avg SUI in 2015 ----</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#.determine order of subregions based on highest avg SUI in 2015.</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>order_2015 <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">arrange</span>(annual_mean_sui) <span class="sc">|&gt;</span> </span>
 <span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
 <span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">select</span>(annual_mean_sui, order) </span>
 <span id="cb9-7"><a href="#cb9-7"></a></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co"># join order with rest of data to set factor levels ----</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#........join order with rest of data to set factor levels.......</span></span>
 <span id="cb9-9"><a href="#cb9-9"></a>heatmap_order <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
 <span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">left_join</span>(order_2015) <span class="sc">|&gt;</span> </span>
 <span id="cb9-11"><a href="#cb9-11"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -577,7 +577,7 @@ Question:
 <p><em><strong>Our goal:</strong> create a dumbbell chart to compare mean monthly water availability and consumption in the Santa Barbara Coastal subbasin (HUC8: 18060013) across the years 2010-2020.</em></p>
 <p>First, we need to do a bit of wrangling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># df mean water avail vs. consum in HUC 18060013 ----</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#.........df mean water avail vs. consum in HUC 18060013.........</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>sbc_subbasin_monthly <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">mutate</span>(<span class="at">subbasin_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">8</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">filter</span>(subbasin_HUC <span class="sc">==</span> <span class="st">"18060013"</span>) <span class="sc">|&gt;</span> </span>
@@ -589,7 +589,7 @@ Question:
 </div>
 <p>Then, create dumbbell plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># create dumbbell plot ----</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#......................create dumbbell plot......................</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
 <span id="cb13-4"><a href="#cb13-4"></a>                     <span class="at">xmin =</span> mean_consum, <span class="at">xmax =</span> mean_avail)) <span class="sc">+</span> </span>

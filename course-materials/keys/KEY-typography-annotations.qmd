@@ -273,8 +273,13 @@ water_plot <- ggplot(sbc_subbasin_monthly) +
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
+#..............enable {showtext} for newly opened GD.............
 showtext_auto(enable = TRUE)
+
+#...........................print plot...........................
 water_plot
+
+#...............turn off {showtext} text rendering...............
 showtext_auto(enable = FALSE)
 ```
 

@@ -1,12 +1,9 @@
 ---
-title: "Lecture 4.2 KEY"
-subtitle: "Visualizing relationships"
+title: "KEY- visualizing relationships"
 author: "Your Name"
 date: 2025-01-27
 toc: true
 ---
-
-[UPDATE: `stream_chem_data <- stream_chem_all$data` no longer works]
 
 ::: {.callout-note}
 This template follows the [relationships lecture](../lecture-slides/SLIDES-relationships.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
@@ -78,7 +75,7 @@ stream_chem_data <- stream_chem_all$`HubbardBrook_weekly_stream_chemistry_1963-2
 #| eval: true
 #| echo: true
 #| warning: false
-# basic scatter plot ----
+#.......................basic scatter plot.......................
 p1 <- stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH)) + 
@@ -93,7 +90,7 @@ p1
 #| eval: true
 #| echo: true
 #| warning: false
-# scatter + rug plot ----
+#.......................scatter + rug plot.......................
 p1 +
   geom_rug()
 ```
@@ -104,7 +101,7 @@ p1 +
 #| eval: true
 #| echo: true
 #| warning: false
-# add marginal plots with {ggExtra} ----
+#................add marginal plots with {ggExtra}...............
 # also try "density", "boxplot"
 ggExtra::ggMarginal(p1, type = "histogram")
 ```
@@ -115,14 +112,14 @@ ggExtra::ggMarginal(p1, type = "histogram")
 #| eval: true
 #| echo: true
 #| warning: false
-# scatter plot with points colored by site ----
+#............scatter plot with points colored by site............
 p2 <- stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5) +
   theme(legend.position = "bottom")
 
-# add marginal density plot ----
+#..................sadd mariginal density plot...................
 ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 ```
 
@@ -137,7 +134,7 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 #| echo: true
 #| warning: false
 #| message: false
-# add a smoothed line ----
+#......................add a smoothed line.......................
 stream_chem_data |> 
   dplyr::filter(waterYr %in% c(2011:2021)) |> 
   dplyr::filter(site == "W5") |> 
@@ -153,7 +150,7 @@ stream_chem_data |>
 #| echo: true
 #| warning: false
 #| message: false
-# add a trend line ----
+#........................add a trend line........................
 stream_chem_data |> 
   dplyr::filter(waterYr %in% c(2011:2021)) |> 
   dplyr::filter(site == "W5") |>  
@@ -177,7 +174,7 @@ stream_chem_data |>
 #| eval: true
 #| echo: true
 #| warning: false
-# bubble chart ----
+#..........................bubble chart..........................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
@@ -190,8 +187,8 @@ stream_chem_data |>
 ```{r}
 #| eval: true
 #| echo: true
-#| warning: false
-# scale size by area ----
+#| warning: false     
+#.......................scale size by area.......................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
@@ -206,7 +203,7 @@ stream_chem_data |>
 #| eval: true
 #| echo: true
 #| warning: false
-# don't scale size by radius ----
+#...................don't scale size by radius...................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
@@ -221,6 +218,7 @@ stream_chem_data |>
 #| eval: true
 #| echo: true
 #| warning: false
+#...................color for a third variable...................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + 
@@ -236,13 +234,13 @@ stream_chem_data |>
 #| echo: true
 #| warning: false
 #| layout-ncol: 2
-# effect of DOC on pH ----
+#......................effect of DOC on pH.......................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5)
 
-# effect of DOC on Al_ICP ----
+#....................effect of DOC on Al_ICP.....................
 stream_chem_data |> 
   dplyr::filter(waterYr == 2021) |> 
   ggplot(aes(x = Al_ICP, y = pH, color = site)) + 
@@ -257,7 +255,7 @@ stream_chem_data |>
 #| eval: true
 #| echo: true
 #| warning: false
-# wayyyy too many points ----
+#.....................wayyyy too many points.....................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
   geom_point()
 ```
@@ -270,7 +268,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# smaller + more transparent points ----
+#................smaller more transparent points.................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
   geom_point(size = 0.5, alpha = 0.3) 
 ```
@@ -281,7 +279,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# added rug plot ----
+#..........................add rug plot..........................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) + 
   geom_point(size = 0.5, alpha = 0.3) +
   geom_rug()
@@ -293,7 +291,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# added rug plot ----
+#.........................color by group.........................
 ggplot(stream_chem_data, aes(x = SO4, y = pH, color = site)) + 
   geom_point(size = 0.5, alpha = 0.3) 
 ```
@@ -306,7 +304,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH, color = site)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# heatmap of 2d bin counts ----
+#....................heatmap of 2d bin counts....................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_bin2d() +
   scale_fill_viridis_c()
@@ -319,7 +317,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# heatmap of 2d bin counts ----
+#..................heatmap with hexagonal bins...................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_hex() +
   scale_fill_viridis_c() +
@@ -337,7 +335,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-# contour plot ----
+#..........................contour plot..........................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_density_2d_filled()
 ```
@@ -352,7 +350,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
 #| eval: true
 #| echo: true
 #| warning: false
-#  ----
+#................2d density plot with {ggdensity}................
 ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   ggdensity::geom_hdr() # update prob level e.g. `probs = c(0.99, 0.75, 0.5, 0.25)`
 ```

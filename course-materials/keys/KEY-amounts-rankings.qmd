@@ -145,7 +145,7 @@ After building some basic plots, we'll practice:
 #| message: false
 #| layout-ncol: 2
 
-# bar plot ----
+#............................bar plot............................
 ca_region |> 
   group_by(subregion_name) |> 
   summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
@@ -154,7 +154,7 @@ ca_region |>
   geom_col() +
   geom_text(aes(label = round(mean_sui_2010_2020, 2)), hjust = 1.2, color = "white") 
 
-# lollipop plot ----
+#..........................lollipop plot.........................
 ca_region |> 
   group_by(subregion_name) |> 
   summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
@@ -173,7 +173,7 @@ Use `geom_col()` when you want the heights of your bars to represent values in y
 ```{r}
 #| eval: true
 #| echo: true
-# `geom_col()` example ----
+#......................`geom_col()` example......................
 ca_region |> 
   group_by(subregion_name) |> 
   summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
@@ -186,7 +186,7 @@ Use `geom_bar()` if you want the heights of your bars to be proportional to the 
 ```{r}
 #| eval: true
 #| echo: true
-# `geom_bar()` example ----
+#......................`geom_bar()` example......................
 ggplot(ca_region, aes(x = subregion_name)) +
   geom_bar() +
   scale_y_continuous(label = scales::label_comma()) +
@@ -207,13 +207,13 @@ First we need to do a bit of wrangling:
 #| eval: true
 #| echo: true
 #| message: false
-# find total # of SUI obs per month ----
+#.................find total # SUI obs per month.................
 tot_sui_per_month <- ca_region |> 
   group_by(month) |> 
   count() |> 
   rename(tot_sui_per_month = n)
 
-# create df classifying SUI values ----
+#................create df classifying SUI values................
 sui_severity <- ca_region |>
   mutate(
     sui_category = case_when(
@@ -242,7 +242,7 @@ Then create a stacked bar plot:
 #| eval: true
 #| echo: true
 
-# create color palette ----
+#......................create color palettes.....................
 # pulled hex codes from USGS map using ColorZilla Chrome extension
 sui_colors <- c("Severe" = "#720C0F", 
                 "High" = "#F68939", 
@@ -250,7 +250,7 @@ sui_colors <- c("Severe" = "#720C0F",
                 "Low" = "#AAD9EA", 
                 "Very low" = "#217AB5")
 
-# % stacked bar chart ----
+#......................% stacked bar chart.......................
 ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
   geom_col() +
   scale_fill_manual(values = sui_colors) +
@@ -271,20 +271,20 @@ First, we need to do a bit of wrangling:
 ```{r}
 #| eval: true
 #| echo: true
-# df of annual mean SUI by subregion & year ----
+#............df of annual mean SUI by subregion & year...........
 heatmap_data <- ca_region |> 
   group_by(subregion_name, year) |> 
   summarize(annual_mean_sui = mean(sui_frac, na.rm = TRUE)) |> 
   ungroup()
 
-# determine order of subregions based on highest avg SUI in 2015 ----
+#.determine order of subregions based on highest avg SUI in 2015.
 order_2015 <- heatmap_data |> 
   filter(year == 2015) |> 
   arrange(annual_mean_sui) |> 
   mutate(order = row_number()) |> 
   select(annual_mean_sui, order) 
 
-# join order with rest of data to set factor levels ----
+#........join order with rest of data to set factor levels.......
 heatmap_order <- heatmap_data |> 
   left_join(order_2015) |> 
   mutate(name = fct_reorder(.f = subregion_name, .x = order))
@@ -295,7 +295,7 @@ Then, create heatmap:
 ```{r}
 #| eval: true
 #| echo: false
-# create heatmap ----
+#.........................create heatmap.........................
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
   labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + 
@@ -328,7 +328,7 @@ First, we need to do a bit of wrangling:
 ```{r}
 #| eval: true
 #| echo: true
-# df mean water avail vs. consum in HUC 18060013 ----
+#.........df mean water avail vs. consum in HUC 18060013.........
 sbc_subbasin_monthly <- ca_region |> 
   mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
   filter(subbasin_HUC == "18060013") |> 
@@ -342,7 +342,7 @@ sbc_subbasin_monthly <- ca_region |>
 Then, create dumbbell plot: 
 
 ```{r}
-# create dumbbell plot ----
+#......................create dumbbell plot......................
 ggplot(sbc_subbasin_monthly) +
   geom_linerange(aes(y = month,
                      xmin = mean_consum, xmax = mean_avail)) + 

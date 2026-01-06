@@ -403,17 +403,17 @@ Note
 <li><strong>Histograms</strong> show the counts (frequency) of values in each range (bin), represented by the height of the bars.</li>
 <li><strong>Density plots</strong> show the relative proportion of values across the range of a variable. The total area under the curve equals 1, and peaks indicate values are more concentrated. Density plots do not show the absolute number of observations.</li>
 </ul>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># create some dummy data ----</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#.....................create some dummy data.....................</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>dummy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>),</span>
 <span id="cb2-3"><a href="#cb2-3"></a>                                   <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">10</span>)),</span>
 <span id="cb2-4"><a href="#cb2-4"></a>                         <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>),</span>
 <span id="cb2-5"><a href="#cb2-5"></a>                                     <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>)))</span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># histogram ----</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#............................histogram...........................</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="fu">ggplot</span>(dummy_data, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">color =</span> group), <span class="at">alpha =</span> <span class="fl">0.75</span>)</span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># density plot ----</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#..........................density plot..........................</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="fu">ggplot</span>(dummy_data, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">color =</span> group), <span class="at">alpha =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -430,12 +430,12 @@ Note
 </section>
 <section id="avoid-plotting-too-many-groups" class="level3">
 <h3 class="anchored" data-anchor-id="avoid-plotting-too-many-groups">Avoid plotting too many groups</h3>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># histogram with all 12 months ----</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#..................histogram with all 12 months..................</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># density plot with all 12 months ----</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#................density plot with all 12 months.................</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(<span class="at">x =</span> month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
@@ -453,13 +453,13 @@ Note
 </section>
 <section id="consider-faceting-small-multiples" class="level3">
 <h3 class="anchored" data-anchor-id="consider-faceting-small-multiples">Consider faceting (small multiples)</h3>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># histogram faceted by month ----</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#...................histogram faceted by month...................</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot)) <span class="sc">+</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>month_name)</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># density plot faceted by month ----</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#..................density plot faceted by month.................</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot)) <span class="sc">+</span></span>
@@ -481,14 +481,14 @@ Note
 <ul>
 <li>histograms &amp; density plots are best suited for visualizing the distribution of one to a small number of groups</li>
 </ul>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># histogram with fewer months ----</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#..................histogram with fewer months...................</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span> </span>
 <span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># density plot with fewer months ----</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#.................density plot with fewer months.................</span></span>
 <span id="cb5-9"><a href="#cb5-9"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
@@ -523,14 +523,14 @@ Question:
 <ul>
 <li>consider your scale of interest e.g.&nbsp;does a bin width of 1 (°C) make sense for our histogram? Does your density plot’s bandwidth show the true underlying data distribution shape while reducing noise?</li>
 </ul>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># histogram with fewer months ----</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#...............histogram with modified bin widths...............</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
 <span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co"># density plot with fewer months ----</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#..............density plot with modified bin widths.............</span></span>
 <span id="cb6-9"><a href="#cb6-9"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
@@ -563,7 +563,7 @@ Question:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># overlay histogram &amp; density ----</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#..................overlay histogram &amp; density...................</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -582,12 +582,12 @@ Question:
 <ul>
 <li>great for comparing distribution shapes of a numeric variable across many ordered groups</li>
 </ul>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># basic ridgeline plot ----</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#......................basic ridgeline plot......................</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> <span class="co"># alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name)) <span class="sc">+</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>)  <span class="co"># `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># fill with color gradient ----</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#....................fill with color gradient....................</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> </span>
 <span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span> <span class="co"># `fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.</span></span>
@@ -610,7 +610,7 @@ Question:
 <li>great for <em>summarizing</em> the distribution of a numeric variable for multiple to many groups</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># boxplot with all 12 months ----</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#...................boxplot with all 12 months...................</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span> <span class="co"># an alt way to reorder groups within ggplot, rather than during data wrangling</span></span>
@@ -639,7 +639,7 @@ Question:
 <section id="highlight-groups-of-interest-to-focus-attention" class="level3">
 <h3 class="anchored" data-anchor-id="highlight-groups-of-interest-to-focus-attention">Highlight group(s) of interest to focus attention</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># highlight a particular group ----</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#..................highlight a particular group..................</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
@@ -658,7 +658,7 @@ Question:
 <section id="overlay-jittered-data-if-appropriate" class="level3">
 <h3 class="anchored" data-anchor-id="overlay-jittered-data-if-appropriate">Overlay jittered data, if appropriate</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># does not work if you have too many observations ----</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#........does not work if you have too many observations.........</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
@@ -671,7 +671,7 @@ Question:
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># but great when you have fewer observations ----</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#...........but great when you have fewer observations...........</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -687,7 +687,7 @@ Question:
 <section id="beeswarm-plots-as-an-alternative" class="level3">
 <h3 class="anchored" data-anchor-id="beeswarm-plots-as-an-alternative">Beeswarm plots as an alternative</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># boxplot + beeswarm ----</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#.......................boxplot + beeswarm.......................</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -703,7 +703,7 @@ Question:
 <section id="dodge-when-you-have-an-additional-grouping-variable" class="level3">
 <h3 class="anchored" data-anchor-id="dodge-when-you-have-an-additional-grouping-variable">Dodge when you have an additional grouping variable</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># dodge groups by year ----</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#......................dodge groups by year......................</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
 <span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
@@ -725,7 +725,7 @@ Question:
 <li>consider overlaying another chart type for added context</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># violin + box plot ----</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#........................violin + box plot.......................</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
 <span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"gray30"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
