@@ -403,6 +403,7 @@
 <p><span class="custom-subtitle"><em>Typography</em></span></p>
 <hr class="hr-teal">
 <p><span class="custom-subtitle3">Week 6 | February 10<sup>th</sup>, 2025</span></p>
+<p><span class="custom-subtitle3"><em>Archive (job data) | see <a href="../../../course-materials/lecture-slides/SLIDES-typography.html">latest version</a> of this lesson</em></span></p>
 </section>
 <section id="good-design" class="slide level2" data-menu-title="Good data viz considerations">
 <h2></h2>
@@ -721,7 +722,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_914b28cd" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_74b68ab3" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -736,7 +737,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_98c73d77" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_ec5c1d5b" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -751,7 +752,7 @@ Type and font choice influences audience perception and readability
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_ec95e075" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_4d3965be" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1443,17 +1444,12 @@ Let’s learn how to use different fonts in our ggplots!
 <p>Rather than a traditional legend, let’s <strong>color-code our subtitle text (i.e.&nbsp;<span style="color:#2D7787">male</span> &amp; <span style="color:#FC6B4B">female</span>) to match the points in our plot</strong>. We can again use the <a href="https://wilkelab.org/ggtext/" target="_blank"><code>{ggtext}</code> package</a> to apply simple Markdown and HTML rendering to our ggplot text.</p>
 <p><br></p>
 <div class="fragment">
-<p>We already have the correct <code>theme()</code> elements added to our plot, but we do need to <strong>update our subtitle text with Markdown and HTML styling</strong>. Let’s bold and color the words “male” and “female”:</p>
+<p>We already have the correct <code>theme()</code> elements added to our plot, but we do need to <strong>update our title text with Markdown and HTML styling</strong>. Let’s color the words “male” and “female”:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15" data-code-line-numbers="6,8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co">#........................create subtitle.........................</span></span>
 <span id="cb15-2"><a></a>money_icon <span class="ot">&lt;-</span> <span class="st">"&amp;#xf3d1"</span></span>
 <span id="cb15-3"><a></a></span>
-<span id="cb15-4"><a></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;</span></span>
-<span id="cb15-5"><a></a><span class="st">                       Median earnings of full-time</span></span>
-<span id="cb15-6"><a></a><span class="st">                       &lt;span style='color:#2D7787;'&gt;**male**&lt;/span&gt; </span></span>
-<span id="cb15-7"><a></a><span class="st">                       versus </span></span>
-<span id="cb15-8"><a></a><span class="st">                       &lt;span style='color:#FC6B4B;'&gt;**female**&lt;/span&gt;</span></span>
-<span id="cb15-9"><a></a><span class="st">                       workers by occupation in 2016"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a></a>title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style='color:#2D7787;'&gt;Males&lt;/span&gt; earn more than &lt;span style='color:#FC6B4B;'&gt;females&lt;/span&gt; across most occupations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p><strong>Note:</strong> We combine both Markdown syntax (e.g.&nbsp;<code>**</code> to <strong>bold text</strong>) and HTML syntax to apply in-line CSS styling (e.g.&nbsp;<code>&lt;span style=...&gt;</code>)):</p>
@@ -1550,7 +1546,7 @@ Let’s learn how to use different fonts in our ggplots!
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_e54b1e3a" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_91216ead" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

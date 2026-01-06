@@ -32,7 +32,7 @@
     "href": "course-materials/lecture-slides/SLIDES-colors.html#color-properties",
     "title": "EDS 240",
     "section": "",
-    "text": "What is color?\n\nThere are a number of different color spaces that are used to represent and define color. HSV and HSL are used commonly in color pickers (e.g. Google color picker). HCL underlies some default {ggplot2} parameters.\n\n\n\nHSV\n\n\n\n\n\n\n\n\n\n\n\n\nHCL\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou don’t need to worry much about the underlying theory of color spaces, but know that changing any of the parameters (e.g. hue, saturation, etc.) can influence how we perceive information in a data visualization.\n\n\nImage sources: medium.com (left), Stauffer et al. (2015) https://doi.org/10.1175/BAMS-D-13-00155.1 (right)\n\n\n\nHue ranges from 0 to 360 (an angle) and gives the “colour” of the colour (blue, red, orange, etc).\nChroma is the “purity” of a colour, ranging from 0 (grey) to a maximum that varies with luminance.\nLuminance is the lightness of the colour, ranging from 0 (black) to 1 (white).\n\nSource: https://ggplot2-book.org/scales-colour"
+    "text": "Different color spaces represent & define color\n\n\nHSV and HSL are used commonly in color pickers (e.g. Google color picker). HCL underlies some default {ggplot2} parameters.\n\n\n\nHSV\n\n\n\n\n\n\n\n\n\n\n\n\nHCL\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou don’t need to worry much about the underlying theory of color spaces, but know that changing any of the parameters (e.g. hue, saturation, etc.) can influence how we perceive information in a data visualization.\n\n\nImage sources: medium.com (left), Stauffer et al. (2015) https://doi.org/10.1175/BAMS-D-13-00155.1 (right)\n\n\n\nHue ranges from 0 to 360 (an angle) and gives the “colour” of the colour (blue, red, orange, etc).\nChroma is the “purity” of a colour, ranging from 0 (grey) to a maximum that varies with luminance.\nLuminance is the lightness of the colour, ranging from 0 (black) to 1 (white).\n\nSource: https://ggplot2-book.org/scales-colour"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-colors.html#color-scales",
@@ -809,7 +809,7 @@
     "href": "course-materials/lecture-slides/ARCHIVE/SLIDES-typography-jobs.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lecture 6.1\nTypography\n\nWeek 6 | February 10th, 2025"
+    "text": "EDS 240: Lecture 6.1\nTypography\n\nWeek 6 | February 10th, 2025\nArchive (job data) | see latest version of this lesson"
   },
   {
     "objectID": "course-materials/lecture-slides/ARCHIVE/SLIDES-typography-jobs.html#good-design",
@@ -1096,7 +1096,7 @@
     "href": "course-materials/lecture-slides/ARCHIVE/SLIDES-typography-jobs.html#text-legend",
     "title": "EDS 240",
     "section": "",
-    "text": "We also need to tell readers what our colors mean!\n\nRather than a traditional legend, let’s color-code our subtitle text (i.e. male & female) to match the points in our plot. We can again use the {ggtext} package to apply simple Markdown and HTML rendering to our ggplot text.\n\n\nWe already have the correct theme() elements added to our plot, but we do need to update our subtitle text with Markdown and HTML styling. Let’s bold and color the words “male” and “female”:\n\n#........................create subtitle.........................\nmoney_icon &lt;- \"&#xf3d1\"\n\nsubtitle &lt;- glue::glue(\"&lt;span style='font-family:fa-regular;'&gt;{money_icon};&lt;/span&gt;\n                       Median earnings of full-time\n                       &lt;span style='color:#2D7787;'&gt;**male**&lt;/span&gt; \n                       versus \n                       &lt;span style='color:#FC6B4B;'&gt;**female**&lt;/span&gt;\n                       workers by occupation in 2016\")\n\n\nNote: We combine both Markdown syntax (e.g. ** to bold text) and HTML syntax to apply in-line CSS styling (e.g. &lt;span style=...&gt;)):"
+    "text": "We also need to tell readers what our colors mean!\n\nRather than a traditional legend, let’s color-code our subtitle text (i.e. male & female) to match the points in our plot. We can again use the {ggtext} package to apply simple Markdown and HTML rendering to our ggplot text.\n\n\nWe already have the correct theme() elements added to our plot, but we do need to update our title text with Markdown and HTML styling. Let’s color the words “male” and “female”:\n\n#........................create subtitle.........................\nmoney_icon &lt;- \"&#xf3d1\"\n\ntitle &lt;- glue::glue(\"&lt;span style='color:#2D7787;'&gt;Males&lt;/span&gt; earn more than &lt;span style='color:#FC6B4B;'&gt;females&lt;/span&gt; across most occupations\")\n\n\nNote: We combine both Markdown syntax (e.g. ** to bold text) and HTML syntax to apply in-line CSS styling (e.g. &lt;span style=...&gt;)):"
   },
   {
     "objectID": "course-materials/lecture-slides/ARCHIVE/SLIDES-typography-jobs.html#before-after",
@@ -7179,7 +7179,7 @@
     "href": "course-materials/lecture-slides/SLIDES-colors.html#color-bars-better",
     "title": "EDS 240",
     "section": "",
-    "text": "Don’t use color unnecessarily\n\nThe x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, only when it communicates something meaningful!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: Add Two Digital"
+    "text": "Don’t use color unnecessarily\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, and only when it communicates something meaningful!\n\n\nImage source: Add Two Digital"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-colors.html#tbd",
@@ -7200,6 +7200,90 @@
     "href": "course-materials/lecture-slides/SLIDES-colors.html#fish-colors2",
     "title": "EDS 240",
     "section": "",
-    "text": "Use color consistently across visualizations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the {lterdatasampler} package"
+    "text": "Use color consistently across visualizations\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEnsure consistent use of colors across multiple visualizations that display the same groups.\n\n\nData: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the {lterdatasampler} package"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Don’t use too many (7+) colors in a single viz\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nColors should make it easy to distinguish between groups. It becomes increasingly difficult the more colors you use. Consider an entirely different chart type, or use color to highlight the only the group(s) of interest.\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors1",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve (for each of these charts)?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors2",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#too-many-colors2",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Don’t use too many (7+) colors in a single viz\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe more colors you use, the more difficult to becomes to distinguish between groups. Consider an entirely different chart type, or use color to highlight the only the group(s) of interest. | “Consider the color grey as the most important color in Data Vis.” -Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#colors-encode2",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#colors-encode2",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Always explain what your colors encode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlways include a color key, in the form of a traditional legend or otherwise."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#colors-encode1",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#colors-encode1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve?"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve?"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes1",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve?\n\n\n\nImage sources: SAS blogs, Visualizing Data, Datawrapper"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes2",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#stereotypes2",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Avoid stereotypes\n\n\n\nMany newsrooms avoid pink/blue altogether, but choices are not consistent | Avoid steretypical skin colors, don’t use gray for “other” or “multiracial” categories, use less saturated colors (saturated colors have strong associations, e.g. green as positive or right, red as dangerous or important), and keep shuffling your colors!\n\n\nImages sources: | Further reading: What to consider when choosing colors for race, ethnicity, and world regions & An alternative to pink & blue: Colors for gender data"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#light-dark1",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#light-dark1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#light-dark2",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#light-dark2",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Bright = Low, Dark = High\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn most cases, readers will associate bright colors with lower values and darker colors with higher values. Build gradients accordingly.\n\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#gradients1",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#gradients1",
+    "title": "EDS 240",
+    "section": "",
+    "text": "What can we improve?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-colors.html#gradients2",
+    "href": "course-materials/lecture-slides/SLIDES-colors.html#gradients2",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Use lightness (and ~2 hues) to build gradients\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nColor gradients should transition from a bright color (e.g. white) to a dark color (e.g. dark blue) in a consistent way, and they should work in black and white. Readers are also generally better able to distinguish colors on a gradient better if they are encoded through both lightness and two (sometimes three) carefully-selected hues.\n\n\nImage source: What to consider when choosing colors for data visualization, by Lisa Charlotte Muth"
   }
 ]

@@ -147,11 +147,13 @@ You'll probably iterate on them as you sit with your visualization and of course
 
 ## {#color-properties data-menu-title="Color properties"} 
 
-[What is color?]{.slide-title}
+[Different color spaces represent & define color]{.slide-title2}
 
 <hr>
 
-There are a number of **different [*color spaces*](https://en.wikipedia.org/wiki/Color_space){target="_blank"} that are used to represent and define color**. [HSV and HSL](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} are used commonly in color pickers (e.g. [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"}). [HCL](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"} underlies some default `{ggplot2}` parameters.
+<!-- There are a number of **different [*color spaces*](https://en.wikipedia.org/wiki/Color_space){target="_blank"} that are used to represent and define color**.  -->
+
+[HSV and HSL](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} are used commonly in color pickers (e.g. [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"}). [HCL](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"} underlies some default `{ggplot2}` parameters.
 
 :::: {.columns}
 
@@ -2048,7 +2050,7 @@ penguins |>
 
 ::::
 
----
+<!-- ---
 
 ## {#modify-df data-menu-title="Modify df"} 
 
@@ -2108,75 +2110,7 @@ penguins |>
 
 ::: {.notes}
 This isn't the only way to do this! Try creating a `highlight` variable in your data frame. See <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> and
-:::
-
-<!-- --- -->
-
-<!-- ## {#create-palette data-menu-title="Create your own palette"}  -->
-
-<!-- [Create your own palettes!]{.slide-title} -->
-
-<!-- <hr> -->
-
-<!-- Create your own palettes and use them to scale colors in the plots below:  -->
-
-<!-- <br> -->
-
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "90%" -->
-<!-- library(palmerpenguins) -->
-<!-- library(tidyverse) -->
-
-<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + -->
-<!--   geom_point(size = 4, alpha = 0.8)  -->
-<!-- ``` -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "590%" -->
-<!-- library(palmerpenguins) -->
-<!-- library(tidyverse) -->
-
-<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + -->
-<!--   geom_point(size = 4, alpha = 0.8)  -->
-<!-- ``` -->
-<!-- ::: -->
-
-<!-- :::: -->
-
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
-
-<!-- ---
-
-##  {#general-rules data-menu-title="# General rules #" background="#047C90"}
-
-<div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">There are also some additional rules / guidelines that you should pretty much always abide by when selecting colors</p>
-</div> -->
+::: -->
 
 ---
 
@@ -2201,7 +2135,7 @@ This isn't the only way to do this! Try creating a `highlight` variable in your 
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "100%"
+#| out-width: "80%"
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-bars.png"))
 ```
 :::
@@ -2218,13 +2152,11 @@ Image source: [Add Two Digital](https://www.addtwodigital.com/add-two-blog/2021/
 
 ---
 
-## {#color-bars-better data-menu-title="Color bars 2"} 
+## {#color-bars-better data-menu-title="Color bars 2" visibility="uncounted"} 
 
 [Don't use color unnecessarily]{.slide-title}
 
 <hr>
-
-The x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, only when it communicates something meaningful!
 
 :::: {.columns}
 
@@ -2233,7 +2165,7 @@ The x-axis already identifies each bar, so adding color provides no additional i
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "100%"
+#| out-width: "80%"
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-bars.png"))
 ```
 :::
@@ -2243,12 +2175,16 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "100%"
+#| out-width: "80%"
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "same-color-bars.png"))
 ```
 :::
 
 ::::
+
+::: {.center-text}
+The x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, and only when it communicates something meaningful!
+:::
 
 ::: {.footer}
 Image source: [Add Two Digital](https://www.addtwodigital.com/add-two-blog/2021/7/12/rule-18-dont-use-multi-coloured-bars){target="_blank"}
@@ -2279,13 +2215,13 @@ and_vertebrates |>
 filter(species != "Cascade torrent salamander") |> 
 ggplot(aes(x = length_1_mm, y = weight_g)) +
   geom_point(aes(color = species), size = 3) +
-  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  scale_color_manual(values = c("#DA6003", "#7570B4")) +
   theme_minimal() +
   theme(
-    axis.text = element_text(size = 16),
-    axis.title = element_text(size = 18),
-    legend.title = element_text(size = 18),
-    legend.text= element_text(size = 16),
+    axis.text = element_text(size = 17),
+    axis.title = element_text(size = 19),
+    legend.title = element_text(size = 19),
+    legend.text= element_text(size = 17),
     legend.position = "top"
   )
 ```
@@ -2306,13 +2242,13 @@ and_vertebrates |>
   ggplot(aes(x = year, y = n, group = species)) +
   geom_line(aes(color = species)) +
   geom_point(aes(color = species), size = 3) +
-  scale_color_manual(values = c("#5B1A18", "#FD6467")) +
+  scale_color_manual(values = c("#7570B4", "#DA6003")) +
   theme_minimal() +
   theme(
-    axis.text = element_text(size = 16),
-    axis.title = element_text(size = 18),
-    legend.title = element_text(size = 18),
-    legend.text= element_text(size = 16),
+    axis.text = element_text(size = 17),
+    axis.title = element_text(size = 19),
+    legend.title = element_text(size = 19),
+    legend.text= element_text(size = 17),
     legend.position = "top"
   )
 ```
@@ -2326,11 +2262,14 @@ Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from 
 
 ---
 
-## {#fish-colors2 data-menu-title="Fish colors 2"} 
+## {#fish-colors2 data-menu-title="Fish colors 2" visibility="uncounted"} 
 
 [Use color consistently across visualizations]{.slide-title}
 
 <hr>
+
+<br>
+<br>
 
 :::: {.columns}
 
@@ -2346,13 +2285,13 @@ and_vertebrates |>
 filter(species != "Cascade torrent salamander") |> 
 ggplot(aes(x = length_1_mm, y = weight_g)) +
   geom_point(aes(color = species), size = 3) +
-  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  scale_color_manual(values = c("#DA6003", "#7570B4")) +
   theme_minimal() +
   theme(
-    axis.text = element_text(size = 16),
-    axis.title = element_text(size = 18),
-    legend.title = element_text(size = 18),
-    legend.text= element_text(size = 16),
+    axis.text = element_text(size = 17),
+    axis.title = element_text(size = 19),
+    legend.title = element_text(size = 19),
+    legend.text= element_text(size = 17),
     legend.position = "top"
   )
 ```
@@ -2373,13 +2312,13 @@ and_vertebrates |>
   ggplot(aes(x = year, y = n, group = species)) +
   geom_line(aes(color = species)) +
   geom_point(aes(color = species), size = 3) +
-  scale_color_manual(values = c("#FD6467", "#5B1A18")) +
+  scale_color_manual(values = c("#DA6003", "#7570B4")) +
   theme_minimal() +
   theme(
-    axis.text = element_text(size = 16),
-    axis.title = element_text(size = 18),
-    legend.title = element_text(size = 18),
-    legend.text= element_text(size = 16),
+    axis.text = element_text(size = 17),
+    axis.title = element_text(size = 19),
+    legend.title = element_text(size = 19),
+    legend.text= element_text(size = 17),
     legend.position = "top"
   )
 ```
@@ -2387,11 +2326,443 @@ and_vertebrates |>
 
 ::::
 
+<br>
+
+::: {.center-text}
+Ensure consistent use of colors across multiple visualizations that display the same groups.
+:::
+
 ::: {.footer}
 Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the [`{lterdatasampler}` package](https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html){target="_blank"}
 :::
 
 ---
+
+## {#too-many-colors1 data-menu-title="Many colors "} 
+
+[What can we improve (for each of these charts)?]{.slide-title2}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r more7colors1}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "7+colors.png"))
+```
+:::
+
+::: {.column width="50%"}
+
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r spaghetti-colors1}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "spaghetti-colors.png"))
+```
+:::
+
+::: {.column width="50%"}
+
+:::
+
+::::
+
+::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+:::
+
+---
+
+## {#too-many-colors2 data-menu-title="Many colors 2" visibility="uncounted"} 
+
+[Don't use too many (7+) colors in a single viz]{.slide-title2}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r more7colors2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "7+colors.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r diff-chart-type2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "diff-chart-type.png"))
+```
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r spaghetti-colors2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "spaghetti-colors.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r blue-line2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "blue-line.png"))
+```
+:::
+
+::::
+
+::: {.center-text .body-text-s}
+The more colors you use, the more difficult to becomes to distinguish between groups. Consider an entirely different chart type, or use color to highlight the only the group(s) of interest. | *"Consider the color grey as the most important color in Data Vis." **-[Lisa Charlotte Muth](https://blog.datawrapper.de/colors/){target="_blank"}***
+:::
+
+<!-- ::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+::: -->
+
+---
+
+## {#colors-encode1 data-menu-title="Colors encode 1"} 
+
+[What can we improve?]{.slide-title}
+
+<hr>
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r no-legend1}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "jobs-no-legend.png"))
+```
+:::
+
+::: {.column width="50%"}
+
+:::
+
+:::
+
+---
+
+## {#colors-encode2 data-menu-title="Colors encode 2" visibility="uncounted"} 
+
+[Always explain what your colors encode]{.slide-title}
+
+<hr>
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r no-legend2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "jobs-no-legend.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r with-legend2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "jobs-with-legend.png"))
+```
+:::
+
+:::
+
+<br>
+
+::: {.center-text}
+Always include a color key, in the form of a traditional legend or otherwise.
+:::
+
+---
+
+## {#stereotypes1 data-menu-title="Stereotypes 1"} 
+
+[What can we improve?]{.slide-title}
+
+<hr>
+
+```{r stereotypes}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "stereotypes.png"))
+```
+
+::: {.footer}
+Image sources: [SAS blogs](https://blogs.sas.com/content/graphicallyspeaking/2019/02/14/analyzing-age-and-gender-distribution-with-a-pyramid-chart/){target="_blank"}, [Visualizing Data](https://visualisingdata.com/2015/02/lets-think-blue-pink/){target="_blank"}, [Datawrapper](https://www.datawrapper.de/blog/colors-for-race-ethnicity-world-regions){target="_blank"}
+:::
+
+---
+
+## {#stereotypes2 data-menu-title="Stereotypes 2" visibility="uncounted"} 
+
+[Avoid stereotypes]{.slide-title}
+
+<hr>
+
+```{r non-stereotypes}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "non-stereotypical-colors.png"))
+```
+
+::: {.center-text}
+Many newsrooms avoid pink/blue altogether, but choices are not consistent | Avoid steretypical skin colors, don't use gray for “other” or “multiracial” categories, use less saturated colors (saturated colors have strong associations, e.g. green as positive or right, red as dangerous or important), and keep shuffling your colors!
+:::
+
+::: {.footer}
+Images sources: | Further reading: [What to consider when choosing colors for race, ethnicity, and world regions](https://www.datawrapper.de/blog/colors-for-race-ethnicity-world-regions){target="_blank"} & [An alternative to pink & blue: Colors for gender data](https://www.datawrapper.de/blog/gendercolor){target="_blank"}
+:::
+
+---
+
+## {#light-dark1 data-menu-title="Light Dark 1"} 
+
+[What can we improve?]{.slide-title}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r dark-light1}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "dark-light.png"))
+```
+:::
+
+::: {.column width="50%"}
+
+:::
+
+:::
+
+::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+:::
+
+
+---
+
+## {#light-dark2 data-menu-title="Light Dark 2" visibility="uncounted"} 
+
+[Bright = Low, Dark = High]{.slide-title}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r dark-light2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "dark-light.png"))
+```
+:::
+
+::: {.column width="50%"}
+```{r light-dark}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "light-dark.png"))
+```
+:::
+
+:::
+
+::: {.center-text}
+In most cases, readers will associate bright colors with lower values and darker colors with higher values. Build gradients accordingly.
+:::
+
+::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+:::
+
+---
+
+## {#gradient-high-low data-menu-title="Bright = high, dark = low"} 
+
+[Except in some cases. . .]{.slide-title}
+
+<hr>
+
+>"humans perceive bright colors on elevation maps to represent a high altitude, with darker colors representing naturally low-lying and shady areas like valley" (Cédric Scherer, [Colors and Emotions in Data Visualization](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/#:~:text=Dark%20and%20saturated%20colors%20are,perceived%20differently%20in%20different%20cultures.){target="_blank"}) 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r shasta}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "shasta.png"))
+```
+
+::: {.center-text .body-text-s .gray-test}
+Filled contour plot of Mt. Shasta. Image source: [EarthLab](https://www.earthdatascience.org/tutorials/visualize-digital-elevation-model-contours-matplotlib/){target="_blank"}
+:::
+:::
+
+::: {.column width="50%"}
+```{r pohnpei}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "70%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "pohnpei.png"))
+```
+
+::: {.center-text .body-text-s .gray-test}
+USGS Digital Elevation Model of Pohnpei (Micronesia). Image source: [PacIOOS](https://www.pacioos.hawaii.edu/voyager-news/digital-elevation-models/){target="_blank"}
+:::
+:::
+
+::::
+
+---
+
+## {#gradients1 data-menu-title="Gradients 1"}  
+
+[What can we improve?]{.slide-title2}
+
+<hr>
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="33%"}
+```{r multicolor-grad1}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-gradient.png"))
+```
+:::
+
+::: {.column width="33%"}
+
+:::
+
+::: {.column width="33%"}
+
+:::
+
+::::
+
+::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+:::
+
+---
+
+## {#gradients2 data-menu-title="Gradients 2" visibility="uncounted"}  
+
+[Use lightness (and ~2 hues) to build gradients]{.slide-title2}
+
+<hr>
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="33%"}
+```{r multicolor-grad2}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "multi-color-gradient.png"))
+```
+:::
+
+::: {.column width="33%"}
+```{r 1color-grad}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "1color-gradient.png"))
+```
+:::
+
+::: {.column width="33%"}
+```{r 2color-grad}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "2color-gradient.png"))
+```
+:::
+
+::::
+
+::: {.center-text}
+Color gradients should transition from a bright color (e.g. white) to a dark color (e.g. dark blue) in a consistent way, and they should work in black and white. Readers are also generally better able to distinguish colors on a gradient better if they are encoded through both lightness and two (sometimes three) carefully-selected hues.
+:::
+
+::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+:::
+
+
+<!-- ---
 
 ## {#saturation data-menu-title="Saturation"} 
 
@@ -2437,122 +2808,9 @@ Image source: [`{ggdensity}` pkgdown site](https://jamesotto852.github.io/ggdens
 :::
 :::
 
-::::
+:::: -->
 
----
-
-## {#no-more-than-7 data-menu-title="No more than 7"} 
-
-[No more than 7 colors]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-If you need more than seven colors, consider alternative chart types.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "7colors.png"))
-```
-
-<br>
-
-::: {.footer}
-Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
-
----
-
-## {#consistency data-menu-title="Be consistent"} 
-
-[Use colors consistently]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-Ensure consistent use of colors across multiple visualizations that display the same groups.
-:::
-
-<br>
-
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "consistent-colors.png"))
-```
-
-<br>
-
-::: {.footer}
-Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
-
----
-
-## {#legend data-menu-title="Include legend"} 
-
-[Explain what your colors encode]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-Always include a color key, in the form of a traditional legend or otherwise.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "legend.png"))
-```
-
-<br>
-
-::: {.footer}
-Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
-
----
-
-## {#highlight data-menu-title="Highlight"} 
-
-[Highlight important values]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-Use gray for less important groups / values, annotations, contextual information, etc.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "use-gray.png"))
-```
-
-<br>
-
-::: {.footer}
-Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
-
----
+<!-- ---
 
 ## {#intuitive-colors data-menu-title="Intuitive colors"} 
 
@@ -2585,79 +2843,9 @@ Try a cold color for men (e.g. blue or purple) and a warmer color for women (e.g
 
 ::: {.footer}
 Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
+::: -->
 
----
-
-## {#gradient-low-high data-menu-title="Bright = low, dark = high"} 
-
-[Bright = low, dark = high]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-In most cases, readers will associate bright colors with lower values and darker colors with higher values. Build gradients accordingly.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "low-high-choropleth.png"))
-```
-
-<br>
-
-::: {.footer}
-Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
-:::
-
----
-
-## {#gradient-high-low data-menu-title="Bright = high, dark = low"} 
-
-[Except in some cases. . .]{.slide-title}
-
-<hr>
-
->"humans perceive bright colors on elevation maps to represent a high altitude, with darker colors representing naturally low-lying and shady areas like valley" (Cédric Scherer, [Colors and Emotions in Data Visualization](https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/#:~:text=Dark%20and%20saturated%20colors%20are,perceived%20differently%20in%20different%20cultures.){target="_blank"}) 
-
-:::: {.columns}
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "shasta.png"))
-```
-
-::: {.center-text .body-text-s .gray-test}
-Filled contour plot of Mt. Shasta. Image source: [EarthLab](https://www.earthdatascience.org/tutorials/visualize-digital-elevation-model-contours-matplotlib/){target="_blank"}
-:::
-:::
-
-::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "70%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "pohnpei.png"))
-```
-
-::: {.center-text .body-text-s .gray-test}
-USGS Digital Elevation Model of Pohnpei (Micronesia). Image source: [PacIOOS](https://www.pacioos.hawaii.edu/voyager-news/digital-elevation-models/){target="_blank"}
-:::
-:::
-
-::::
-
----
+<!-- ---
 
 ## {#gradients-continuous data-menu-title="Gradients for continuous data"} 
 
@@ -2683,63 +2871,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.footer}
 *Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
-:::
-
----
-
-## {#lightness-gradient data-menu-title="Lightness + hue"} 
-
-[Use lightness, not just hue, to build gradients]{.slide-title2}
-
-<hr>
-
-::: {.center-text .body-text-m}
-Gradients should also work in black and white.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "lightness-gradient.png"))
-```
-
-<br>
-
-::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
-:::
-
----
-
-## {#two-hues data-menu-title="Two hues"} 
-
-[Two hues are sometimes better than one]{.slide-title}
-
-<hr>
-
-::: {.center-text .body-text-m}
-Readers are generally better able to distinguish colors on a gradient better if they are encoded through both lightness and two (sometimes three) carefully-selected hues.
-:::
-
-<br>
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "1-or-2-hues.png"))
-```
-
-<br>
-
-::: {.footer}
-*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
-:::
+::: -->
 
 ---
 
