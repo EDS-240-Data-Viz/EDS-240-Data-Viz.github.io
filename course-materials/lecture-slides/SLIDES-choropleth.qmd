@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 5.3]{.custom-title}
+[EDS 240: Lecture 5.2]{.custom-title}
 
 [*Colors & Choropleths*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 5 | February 7^th^, 2025]{.custom-subtitle3}
+[Week 5 | February 4^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -46,7 +46,7 @@ Choropleths are maps that display the **spatial distribution of a variable** acr
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r geopandas-map}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -61,7 +61,7 @@ Choropleth by [Ramiro Gómez](https://ramiro.org/){target="_blank"} using [GeoPa
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r va-map}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -98,7 +98,7 @@ Choosing the right color palette *and* scale type are critically important. Ofte
 ::: {.column width="50%"}
 <br>
 
-```{r}
+```{r ncei-logo1}
 #| eval: true
 #| echo: false
 #| out-width: "60%"
@@ -108,7 +108,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r ncei-logo2}
 #| eval: true
 #| echo: false
 #| out-width: "60%"
@@ -119,13 +119,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-[Find public access to a massive inventory of climate data on their [Climate Monitoring](https://www.ncei.noaa.gov/access/monitoring/products/){target="_blank"} page. Today's lesson will use the [Climate at a Glance](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/){target="_blank"} collection. Specifically, **we'll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.** To do so, we'll work with county-level precipitation data, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value){target="_blank"} portal.]{.body-text-s}
-
-<!-- **we'll be exploring county-level precipitation data from October 2023, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value) portal -- UPDATE THIS** -->
-
-<!-- https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202310/1/value -->
-
-<!-- 5-year precip: https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202312/60/value -->
+[Find public access to a massive inventory of climate data on their [Climate Monitoring](https://www.ncei.noaa.gov/access/monitoring/products/){target="_blank"} page. Today's lesson will use the [Climate at a Glance](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/){target="_blank"} collection. Specifically, **we'll be exploring how precipitation across the continental US over the past 5 years compares to the 20th century average.** To do so, we'll work with county-level precipitation data, accessed via the [County Mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202510/60/value){target="_blank"} portal.]{.body-text-s}
 
 ---
 
@@ -143,7 +137,7 @@ We can use the [`{tigris}` package](https://github.com/walkerke/tigris){target="
 
 ::: {.column width="50%"}
 
-```{r}
+```{r tigris}
 #| eval: true
 #| echo: false
 #| out-width: "70%"
@@ -213,9 +207,9 @@ When we download our shapefile using `{tigris}`, **it'll be loaded as a simple f
 
 [Here, we'll use the `{tigris}` package to import geometries for our US counties, then join it with our precipitation data:]{.body-text-s}
 
-{{< include sections/5.3-choropleth.qmd >}}
+<!-- CODE RENDERS ON SLIDE -->
 
-```{r}
+```{r setup-echo}
 #| eval: false
 #| echo: true
 #| message: false
@@ -300,6 +294,85 @@ precip_wrangled <- precip_data |>
 joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
 ```
 
+<!-- CODE EVALUATES FOR USE AND DOES NOT RENDER ON SLIDE -->
+
+```{r setup-eval}
+#| eval: true
+#| echo: false
+#| message: false
+#| include: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(tigris)
+library(sf)
+
+#.........................get shape data.........................
+county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
+  sf::st_transform("ESRI:102003")
+
+#...................import precipitation data...................
+precip_data <- read_csv(here::here("course-materials", "data", "lecture", "county-nov20-oct25-precip.csv"), 
+                        skip = 3) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                               data wrangling                             ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##  ~ figure out which states to filter out  ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 
+# #........................get state names.........................
+# state_names <- data.frame(state = state.name) # convert the built-in state.names vector to a df
+# county_geo_states <- county_geo |> rename(state = STATE_NAME) |>  distinct(state) # get unique states from county geo data
+# precip_data_states <- precip_data |> janitor::clean_names() |> distinct(state) # get unique states from precip data
+# 
+# #........determine which states are missing / unnecessary........
+# states_missing_from_precip <- anti_join(state_names, precip_data_states) # see which of the 50 states are missing from precip data
+# extra_states_in_precip <- anti_join(precip_data_states, state_names) # see if there are any extra state names in precip data 
+# states_missing_from_geo <- anti_join(state_names, county_geo_states) # see which of the 50 states are missing from county geo data
+# extra_states_in_geo <- anti_join(county_geo_states, state_names) # see if there are any extra  state names in county geo data
+# 
+# #...............join all states and save as vector...............
+# states_to_get_rid_of <- rbind(states_missing_from_precip, extra_states_in_precip, states_missing_from_geo, extra_states_in_geo) |>
+#   pull()
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle geometries  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+county_geo_wrangled <- county_geo |>
+  janitor::clean_names() |>
+  rename(county = namelsad, state = state_name) |>
+  filter(state %in% state.name) |> 
+  filter(!state %in% c("Alaska", "Hawaii")) |> 
+  mutate(county = str_replace(string = county, pattern = " city", replacement = " City"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle precipitation data  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+precip_wrangled <- precip_data |>
+  janitor::clean_names() |>
+  rename(county = name) |>
+  filter(!county %in% c("Washington, D.C.")) |>
+  mutate(county = str_replace(string = county, pattern = "Dona Ana County", replacement = "Doña Ana County")) |>
+  mutate(value = as.numeric(value),
+         x1901_2000_mean = as.numeric(x1901_2000_mean)) |>
+  mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |>
+  select(id, state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period)
+
+##~~~~~~~~~~~~~~~~~~
+##  ~ join dfs  ----
+##~~~~~~~~~~~~~~~~~~
+
+joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
+```
+
 ::: {.footer}
 Read more about cartographic boundary shapefiles (and the `cb` argument) in [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html?q=cartographic%20boundaries#tigerline-and-cartographic-boundary-shapefiles){target="_blank"}, by [Kyle Walker](https://github.com/walkerke){target="_blank"}.
 :::
@@ -312,7 +385,7 @@ Read more about cartographic boundary shapefiles (and the `cb` argument) in [Ana
 
 <hr>
 
-```{r}
+```{r create-basemap}
 #| eval: true
 #| echo: true
 #| output-location: column
@@ -385,7 +458,7 @@ For another great read on building color scales for choropleth maps, check out t
   
 <br>
   
->“The unclassed choropleth is the most exact representation of the data model possible,” 
+>*“The unclassed choropleth is the most exact representation of the data model possible,”* 
 
 ::: {.right-align-text}
 -Judith A. Tyner, in [Priciples of Map Design](https://www.amazon.com/Principles-Map-Design-Judith-Tyner/dp/1462517129){target="_blank"}
@@ -395,7 +468,7 @@ For another great read on building color scales for choropleth maps, check out t
 
 . . . 
 
-> "No matter if you decide for a classed map at the end, you should **start your process by looking at an unclassed map**. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them."
+> *"No matter if you decide for a classed map at the end, you should **start your process by looking at an unclassed map**. This will help you see subtle differences between regions and make a conscious decision if and how you should simplify them."*
 
 ::: {.right-align-text}
 -Lisa Charlotte Muth, in [When to use classed and when to use unclassed color scales](https://blog.datawrapper.de/classed-vs-unclassed-color-scales/){target="_blank"}
@@ -431,7 +504,7 @@ Lucky for us, **RColorBrewer** has this exact palette. **Let's use [all 11 hues]
 Preview the palette using `display.brewer.pal()` with our desired number of hues:
 :::
 
-```{r}
+```{r display-pal}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -446,7 +519,7 @@ RColorBrewer::display.brewer.pal(n = 11, name = "BrBG")
 Save the HEX codes to a named object using `brewer.pal()` (we'll call this in our plot later):
 :::
 
-```{r}
+```{r save-hex}
 #| eval: true
 #| echo: true
 my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = "BrBG")
@@ -466,7 +539,7 @@ my_brew_palette11
 
 [Here, we leverage the awesome `{scales}` package to add **%s** to the colorbar labels and set our breaks. We also use `guides()` + `guide_colorbar()` to update label positioning and colorbar size:]{.body-text-s}
 
-```{r}
+```{r apply-pal}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -485,7 +558,7 @@ base_map +
 
 <hr>
 
-```{r}
+```{r inspect-pal}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -505,7 +578,7 @@ base_map +
 
 <hr>
 
-```{r}
+```{r misleading}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -533,7 +606,7 @@ As a result, **our map is misleading** -- it would appear as if more counties re
 
 <hr>
 
-```{r}
+```{r rescale-pal}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -555,18 +628,18 @@ See [this StackExchange post](https://stackoverflow.com/questions/74224130/r-sca
 - This ensures that 0 is always mapped to the middle of the color scale.
 - The minimum value of `perc_change` maps to 0, the maximum to 1, and 0 remains the center point.
 
-```{r}
+```{r old-rescale-code}
 #| eval: false
 # OLD CODE ----
-base_map + 
-  scale_fill_gradientn(colors = my_brew_palette11,
-                       labels = scales::label_percent(scale = 1),
-                       breaks = scales::breaks_width(width = 10),
-                       values = scales::rescale(x = c(
-                         min(na.omit(joined_precip_geom)$perc_change),
-                         0,
-                         max(na.omit(joined_precip_geom)$perc_change)))) +
-  guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
+# base_map + 
+#   scale_fill_gradientn(colors = my_brew_palette11,
+#                        labels = scales::label_percent(scale = 1),
+#                        breaks = scales::breaks_width(width = 10),
+#                        values = scales::rescale(x = c(
+#                          min(na.omit(joined_precip_geom)$perc_change),
+#                          0,
+#                          max(na.omit(joined_precip_geom)$perc_change)))) +
+#   guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
 
 :::
@@ -579,7 +652,7 @@ base_map +
 
 <hr>
 
-```{r}
+```{r final-unclassed}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -609,7 +682,7 @@ We'll be using the same color palette for our classed map, but this time, **let'
 Preview the palette using `display.brewer.pal()` with our desired number of hues:
 :::
 
-```{r}
+```{r preview-new-pal}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -624,7 +697,7 @@ RColorBrewer::display.brewer.pal(n = 10, name = "BrBG")
 Save the HEX codes to a named object using `brewer.pal()` (we'll call this in our plot later):
 :::
 
-```{r}
+```{r create-new-hex}
 #| eval: true
 #| echo: true
 my_brew_palette10 <- RColorBrewer::brewer.pal(n = 10, name = "BrBG")
@@ -646,7 +719,7 @@ my_brew_palette10
 
 We only get 5 bins by default, which means we lose a lot of detail in our map:
 
-```{r}
+```{r low-res}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -673,7 +746,7 @@ base_map +
 Breaks set to a width of **10** *(note: 0 not at center)*
 :::
 
-```{r}
+```{r breaks10}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -692,7 +765,7 @@ base_map +
 Breaks set to a width of **5** & rescaled with 0 at center *(note: `{ggplot2}` interpolates colors to create our scale)*
 :::
 
-```{r}
+```{r breaks5}
 #| eval: true
 #| echo: true
 #| fig-align: "center"
@@ -732,7 +805,7 @@ What stories to each of these maps tell? When might you choose one over the othe
 Unclassed map:
 :::
 
-```{r}
+```{r unclassed-story}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -753,7 +826,7 @@ base_map +
 Classed map:
 :::
 
-```{r}
+```{r classed-story}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -779,7 +852,7 @@ base_map +
 
 Several maps side-by-side can help you better spot important patterns and tell a more complete story.
 
-```{r}
+```{r powerful-multiples}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -793,11 +866,25 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ---
 
-##  {#end-break data-menu-title="# END #" background="#047C90"}
+##  {#break data-menu-title="# Break #" background="#047C90"}
 
 <div class="page-center vertical-center">
-<p class="custom-subtitle bottombr">See you next week!</p>
-<p class="caption-text">*~ This is the end of Lesson 3 (of 3) ~*</p>
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
 </div>
 
-
+```{r end-countdown}
+countdown::countdown(
+  minutes = 5,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```

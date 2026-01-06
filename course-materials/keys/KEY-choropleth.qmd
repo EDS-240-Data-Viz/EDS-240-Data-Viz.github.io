@@ -1,18 +1,17 @@
 ---
-title: "Lecture 5.3 KEY"
-subtitle: "Choropleth"
+title: "KEY - colors & choropleths "
 author: "Your Name"
-date: 2025-02-03
+date: 2026-02-04
 toc: true
 ---
 
 ::: {.callout-note}
-This template follows [lecture 5.3 slides](../lecture-slides/lecture5.3-choropleth-slides.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
+This template follows the [colors & choropleth slides](../lecture-slides/SLIDES-choropleth.qmd){target="_blank"}. Please be sure to cross-reference the slides, which contain important information and additional context!
 :::
 
 ## Setup
 
-{{< include ../lecture-slides/sections/5.3-choropleth.qmd >}}
+<!-- CODE RENDERS WITH STUDENTS' FILE PATH -->
 
 ```{r}
 #| eval: false
@@ -100,6 +99,85 @@ precip_wrangled <- precip_data |>
 joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
 ```
 
+<!-- CODE EVALUATES FOR USE AND DOES NOT RENDER ON SLIDE -->
+
+```{r setup-eval}
+#| eval: true
+#| echo: false
+#| message: false
+#| include: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(tigris)
+library(sf)
+
+#.........................get shape data.........................
+county_geo <- tigris::counties(class = "sf", cb = TRUE) |>
+  sf::st_transform("ESRI:102003")
+
+#...................import precipitation data...................
+precip_data <- read_csv(here::here("course-materials", "data", "lecture", "county-nov20-oct25-precip.csv"), 
+                        skip = 3) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                               data wrangling                             ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ##  ~ figure out which states to filter out  ----
+# ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 
+# #........................get state names.........................
+# state_names <- data.frame(state = state.name) # convert the built-in state.names vector to a df
+# county_geo_states <- county_geo |> rename(state = STATE_NAME) |>  distinct(state) # get unique states from county geo data
+# precip_data_states <- precip_data |> janitor::clean_names() |> distinct(state) # get unique states from precip data
+# 
+# #........determine which states are missing / unnecessary........
+# states_missing_from_precip <- anti_join(state_names, precip_data_states) # see which of the 50 states are missing from precip data
+# extra_states_in_precip <- anti_join(precip_data_states, state_names) # see if there are any extra state names in precip data 
+# states_missing_from_geo <- anti_join(state_names, county_geo_states) # see which of the 50 states are missing from county geo data
+# extra_states_in_geo <- anti_join(county_geo_states, state_names) # see if there are any extra  state names in county geo data
+# 
+# #...............join all states and save as vector...............
+# states_to_get_rid_of <- rbind(states_missing_from_precip, extra_states_in_precip, states_missing_from_geo, extra_states_in_geo) |>
+#   pull()
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle geometries  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+county_geo_wrangled <- county_geo |>
+  janitor::clean_names() |>
+  rename(county = namelsad, state = state_name) |>
+  filter(state %in% state.name) |> 
+  filter(!state %in% c("Alaska", "Hawaii")) |> 
+  mutate(county = str_replace(string = county, pattern = " city", replacement = " City"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##  ~ wrangle precipitation data  ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+precip_wrangled <- precip_data |>
+  janitor::clean_names() |>
+  rename(county = name) |>
+  filter(!county %in% c("Washington, D.C.")) |>
+  mutate(county = str_replace(string = county, pattern = "Dona Ana County", replacement = "Doña Ana County")) |>
+  mutate(value = as.numeric(value),
+         x1901_2000_mean = as.numeric(x1901_2000_mean)) |>
+  mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |>
+  select(id, state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period)
+
+##~~~~~~~~~~~~~~~~~~
+##  ~ join dfs  ----
+##~~~~~~~~~~~~~~~~~~
+
+joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled) 
+```
+
 ## Create map
 
 ### Create base map
@@ -107,7 +185,7 @@ joined_precip_geom <- full_join(county_geo_wrangled, precip_wrangled)
 ```{r}
 #| eval: true
 #| echo: true
-# create base map ----
+#........................create base map.........................
 base_map <- ggplot(joined_precip_geom) +
   geom_sf(aes(fill = perc_change), linewidth = 0.1) +
   labs(title = "5-year precipitation compared with the 20th century average",
@@ -126,24 +204,16 @@ base_map
 
 ### Create an unclassed map
 
-- create color palette
-
 ```{r}
 #| eval: true
 #| echo: true
-# preview palette ----
+#........................preview palette.........................
 RColorBrewer::display.brewer.pal(n = 11, name = "BrBG")
 
-# save HEX codes as vector ----
+#....................save HEX codes as vector....................
 my_brew_palette11 <- RColorBrewer::brewer.pal(n = 11, name = "BrBG")
-```
 
-- build map
-
-```{r}
-#| eval: true
-#| echo: true
-# create unclassed map ----
+#......................create unclassed map......................
 base_map + 
   scale_fill_gradientn(colors = my_brew_palette11,
                        labels = scales::label_percent(scale = 1),
@@ -151,32 +221,25 @@ base_map +
                        values = scales::rescale(x = c(-40, 0, 20))) +
   guides(fill = guide_colorbar(barwidth = 25, barheight = 0.75))
 ```
+
 ### Create a classed map
 
-- create color palette
-
 ```{r}
 #| eval: true
 #| echo: true
-# preview palette ----
+#........................preview palette.........................
 RColorBrewer::display.brewer.pal(n = 10, name = "BrBG")
 
-# save HEX codes as vector ----
+#....................save HEX codes as vector....................
 my_brew_palette10 <- RColorBrewer::brewer.pal(n = 10, name = "BrBG")
-```
 
-- build map
-
-```{r}
-#| eval: true
-#| echo: true
-# classed map with default bins ----
+#..............create classed map with default bins..............
 base_map + 
   scale_fill_stepsn(colors = my_brew_palette10,
                     labels = scales::label_percent(scale = 1)) +
   guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))
 
-# bins have width of 10 ----
+#....................bins with a width of 10.....................
 base_map + 
   scale_fill_stepsn(colors = my_brew_palette10,
                     labels = scales::label_percent(scale = 1),
@@ -184,7 +247,7 @@ base_map +
                     values = scales::rescale(x = c(-40, 0, 20))) +
   guides(fill = guide_colorsteps(barwidth = 25, barheight = 0.75))
 
-# bins have width of 5 ---
+#.....................bins with a width of 5.....................
 base_map + 
   scale_fill_stepsn(colors = my_brew_palette10,
                     labels = scales::label_percent(scale = 1),

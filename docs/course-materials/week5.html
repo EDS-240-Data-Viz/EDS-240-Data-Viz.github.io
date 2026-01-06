@@ -299,13 +299,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/horst-ggplot-masterpiece.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads 'ggplot2: build a data masterpiece.'"></p>
+<p><img src="../images/kaye-etal-2012-colors.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="Six common climate science color palettes."></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="gray-text center-text">
-<p><em>Artwork by <a href="https://allisonhorst.com/" target="_blank">Allison Horst</a></em></p>
+<p><em><strong>Fig 4</strong> Appropriate diverging and sequential colour schemes for the following climate data (a), absolute temperature (b), absolute precipitation (c), temperature anomaly (d), precipitation or runoff anomaly (e and f) other climate variables with no symbolic association . Schemes in this figure are 7 class ones designed by Cynthia Brewer, (<a href="https://tizmogollon.weebly.com/uploads/1/5/4/7/15475746/brewer_etal_2003_colorbrewer_in_print.pdf" target="_blank">Brewer et al.&nbsp;2003</a>)</em> - from <a href="https://www.researchgate.net/publication/307824079_Mapping_the_climate_guidance_on_appropriate_techniques_to_map_climate_variables_and_their_uncertainty" target="_blank">Kaye, Hartley &amp; Hemming (2012)</a></p>
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
@@ -321,24 +321,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="b.-download-data" class="level3">
 <h3 class="anchored" data-anchor-id="b.-download-data">B. Download data</h3>
-<ol type="1">
-<li>Download <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202412/60/value" target="_blank">County-level precipitation data (Jan 2020 - Dec 2024) for the contiguous U.S</a>, made available by <a href="https://www.ncei.noaa.gov/" target="_blank">NOAA National Centers for Environmental Information (NCEI)</a> (you do not need to adjust any of the drop down selections; find the download buttons just beneath the rendered map – <strong>choose the CSV option</strong>)
-<ul>
-<li>rename the data file as <code>NCEI-county-jan20-dec24-precip.csv</code> and save it to your class repo at the file path: <code>EDS-240-class-examples/week5/data/NCEI-county-jan20-dec24-precip.csv</code></li>
-</ul></li>
-</ol>
-<p><!-- - [County-level precipitation data (Feb 2019 - Jan 2024) for the contiguous U.S](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202401/60/value){target="_blank"}, made available by [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/){target="_blank"} (the download buttons are located just beneath the rendered map -- **choose the CSV option**) --> <!-- - rename the data file as `county-feb19-jan24-precip.csv` and save it to your class repo at the file path: `EDS-240-class-examples/week5/data/county-feb19-jan24-precip.csv` --></p>
+<p>Save data to your class repo at <code>EDS-240-class-examples/week5/data/</code>:</p>
+<table class="table-hover table-bordered caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lecture</th>
+<th>Dataset title</th>
+<th>Download link</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.2</td>
+<td>County-level precipitation data (Nov 2020 - Oct 2025) for the contiguous U.S</td>
+<td>Download the data from the <a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/202510/60/value" target="_blank">NCEI County Mapping tool</a> by clicking the CSV download button, located beneath the map. The previous link should take you to the correct subset of data, but triple check that the drop down boxes specify <strong>Contiguous U.S./Precipitation/2025/October/60-Month</strong> and that it says <strong>November 2020 - October 2025 Contiguous U.S. Coutny Precipitation</strong> above the provided table. <em>In the event that the NCEI County Mapping tool is down, you can access a backup copy on <a href="https://drive.google.com/file/d/1HImhoPdvvCaayPX8fzSz0xZbB5bU11Ef/view?usp=drive_link" target="_blank">Google Drive</a></em></td>
+<td>NOAA’s <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a> (NCEI) archives and provides access to terabytes of climate, coastal, oceanographic, and geophyscial data in a variety of formats</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="c.-download-.qmd-templates-review-data-wrangling-code" class="level3">
 <h3 class="anchored" data-anchor-id="c.-download-.qmd-templates-review-data-wrangling-code">C. Download .qmd templates &amp; review data wrangling code</h3>
 <ol type="1">
 <li><p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week5/</code> folder.</p></li>
-<li><p>Review the data wrangling code under the <code>## Setup</code> section of <strong>template 5.3</strong> and make note of any questions you might have (no data wrangling necessary in template 5.2). Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
+<li><p>Review the data wrangling code under the <code>## Setup</code> section of <strong>template 5.2</strong> and make note of any questions you might have (no data wrangling necessary in template 5.1). Due to time constraints, we won’t be live-coding our way through the data wrangling code in class. However, we’ll reserve some time to answer any questions before we jump into data viz <i class="fa-solid fa-face-smile" title="a smiling face" aria-label="face-smile"></i>.</p></li>
 </ol>
 </section>
 <section id="d.-optional-but-highly-recommended-install-google-chrome-extensions" class="level3">
 <h3 class="anchored" data-anchor-id="d.-optional-but-highly-recommended-install-google-chrome-extensions">D. (OPTIONAL, but highly recommended) Install Google Chrome extensions</h3>
-<p>I’ll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them!</p>
+<p>I’ll be using both of these (really wonderful and easy-to-use) tools during lecture and encourage you to install them:</p>
 <ol type="1">
 <li><strong><a href="https://chromewebstore.google.com/detail/lets-get-color-blind/bkdgdianpkfahpkmphgehigalpighjck" target="_blank">Let’s get color blind</a></strong>: simulates different color deficiencies in the browser</li>
 <li><strong><a href="https://chromewebstore.google.com/detail/monochrome-mode-grayscale/fmiaojphifnoicpdhhcniiekcpfbkidj?hl=en" target="_blank">Monochrome Mode: Grayscale browsing</a></strong>: turns websites grayscale</li>
@@ -451,7 +469,7 @@ TODO
 </tr>
 <tr class="even">
 <td>SR</td>
-<td><a href="assignments/SR2-midcourse.qmd">Mid-course reflection (SR #2)</a></td>
+<td><a href="assignments/SR.qmd">Mid-course reflection (SR #2)</a></td>
 <td>Wed 02/04/2026</td>
 <td>Fri 02/06/2026, 11:59pm PT</td>
 </tr>

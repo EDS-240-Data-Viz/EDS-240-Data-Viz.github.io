@@ -399,10 +399,10 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Lecture 5.2</span></p>
+<p><span class="custom-title">EDS 240: Lecture 5.1</span></p>
 <p><span class="custom-subtitle"><em>Colors</em></span></p>
 <hr class="hr-teal">
-<p><span class="custom-subtitle3">Week 5 | February 3<sup>rd</sup>, 2025</span></p>
+<p><span class="custom-subtitle3">Week 5 | February 4<sup>th</sup>, 2026</span></p>
 </section>
 <section id="good-design" class="slide level2" data-menu-title="Good data viz considerations">
 <h2></h2>
@@ -425,6 +425,25 @@
 <p><strong>This lesson will focus on the use of colors in a good data visualization.</strong></p>
 </div>
 </section>
+<section id="design-game" class="slide level2" data-menu-title="Design game">
+<h2></h2>
+<p><span class="slide-title">To celebrate our first day of chatting data viz design…</span></p>
+<hr>
+<p><br></p>
+<div class="center-text body-text-m">
+<p>Let’s play a quick game! Work through these 17 questions to see if you have an eye for good data viz design. Many (but not all) are related to color choices:</p>
+<p><br></p>
+<p><strong><a href="https://www.matplotlib-journey.com/bonus/design-principles" target="_blank">Sharpen your design eye</a>, by <a href="https://www.linkedin.com/in/yan-holtz-2477534a/" target="_blank">Yan Holtz</a> and <a href="https://www.linkedin.com/in/diana-macdonald-didoesdigital/" target="_blank">Diana MacDonald</a></strong></p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_b6e4d920" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+</section>
 <section id="why-color" class="slide level2" data-menu-title="# Why use color? #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
@@ -443,7 +462,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_a2171f02" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_51adc73e" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -466,19 +485,10 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<!-- --- -->
-<!-- ~start by showing examples of data viz & colors to get reactions~ -->
-<!-- - green ocean vs blue ocean map -->
-<!-- - warm city cold city (temperature scales): https://www.cedricscherer.com/2021/06/08/colors-and-emotions-in-data-visualization/ -->
-<!-- - precipitation -->
-<!-- - urban areas -->
-<!-- - forests -->
-<!-- - bright colors on elevation maps = high areas; dark = low areas -->
-<!-- - happy vs. sad -->
 </section>
 <section id="colors-difficult" class="slide level2" data-menu-title="It's hard to choose colors!">
 <h2></h2>
-<p><span class="slide-title3">Choosing colors is difficult and they should be purposefully chosen</span></p>
+<p><span class="slide-title3">Choosing colors is difficult and it should be done so purposefully</span></p>
 <hr>
 <p><br></p>
 <div class="center-text body-text-m">
@@ -503,9 +513,10 @@
 </section>
 <section id="color-properties" class="slide level2" data-menu-title="Color properties">
 <h2></h2>
-<p><span class="slide-title">What is color?</span></p>
+<p><span class="slide-title2">Different color spaces represent &amp; define color</span></p>
 <hr>
-<p>There are a number of <strong>different <a href="https://en.wikipedia.org/wiki/Color_space" target="_blank"><em>color spaces</em></a> that are used to represent and define color</strong>. <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity." target="_blank">HSV and HSL</a> are used commonly in color pickers (e.g.&nbsp;<a href="https://g.co/kgs/9SQkdgv" target="_blank">Google color picker</a>). <a href="https://en.wikipedia.org/wiki/HCL_color_space" target="_blank">HCL</a> underlies some default <code>{ggplot2}</code> parameters.</p>
+<!-- There are a number of **different [*color spaces*](https://en.wikipedia.org/wiki/Color_space){target="_blank"} that are used to represent and define color**.  -->
+<p><a href="https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity." target="_blank">HSV and HSL</a> are used commonly in color pickers (e.g.&nbsp;<a href="https://g.co/kgs/9SQkdgv" target="_blank">Google color picker</a>). <a href="https://en.wikipedia.org/wiki/HCL_color_space" target="_blank">HCL</a> underlies some default <code>{ggplot2}</code> parameters.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="center-text body-text-s gray-text">
@@ -559,11 +570,21 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<!-- --- -->
-<!-- ##  {#data-types data-menu-title="# Data types #" background="#047C90"} -->
-<!-- <div class="page-center vertical-center"> -->
-<!-- <p class="custom-subtitle bottombr">Different data types require different palette types</p> -->
-<!-- </div> -->
+</div>
+</section>
+<section id="color-scales-discussion" class="slide level2" data-menu-title="Color scales">
+<h2></h2>
+
+<img data-src="../images/lecture-slides/different-palette-types.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_70ec508d" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Consider the data types and use of color in each choropleth map. What do you notice about the different approaches to using color? How does each approach affect what patterns or stories emerge from the data?</p>
 </div>
 </section>
 <section id="color-scales" class="slide level2" data-menu-title="Color scales">
@@ -642,7 +663,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/cat_color_plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -659,7 +680,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/con_color_plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -812,7 +833,7 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/viridis_d-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -827,7 +848,7 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/viridis_c-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -889,7 +910,7 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/dark2-view-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -946,7 +967,7 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-27-1.png" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/brew-plot-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -961,7 +982,7 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-28-1.png" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/distill-plot-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -976,40 +997,13 @@ Ensuring inclusive and accessible design through your color choices
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/ferment-plot-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 <p>Check out the <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" target="_blank">documentation</a> and play around with some alternative options.</p>
-</section>
-<section id="outline-points" class="slide level2" data-menu-title="Tip: outline points">
-<h2></h2>
-<p><span class="slide-title2">Accessibility tip: outline points to make light colors more visible</span></p>
-<hr>
-<p>Rather than <code>color</code> points by <code>body_mass_g</code>, we can <code>fill</code> points by <code>body_mass_g</code>. Then, we need to change the <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec" target="_blank"><code>shape</code> of our points to <code>21</code></a>, which is the code for an outlined, fill-able point:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb14-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb14-3"><a></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"BuPu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
-<p>Trick comes courtesy of <a href="https://albert-rapp.de/" target="_blank">Albert Rapp</a> and his <a href="https://www.youtube.com/watch?v=ZVSbY4z7tMY" target="_blank">How to Use Better Colors in ggplot (3 Easy Ways)</a> video tutorial. Check out his <a href="https://www.youtube.com/@rappa753" target="_blank">YouTube channel</a> for <em>tons</em> of great R content.</p>
-</div>
-</section>
-<section id="redundant-mapping" class="slide level2" data-menu-title="Redundant mapping">
-<h2></h2>
-<p><span class="slide-title">Accessibility tip: use redundant mapping whenever possible</span></p>
-<hr>
-<p>Recall that colors are <a href="lecture2.1-choosing-graphic-forms-slides.html#/hierarchy" target="_blank">low on the hierarchy of elementary perceptual tasks</a>. <strong>When possible, avoid conveying important information purely through color</strong> – consider how you might additionally use shapes, symbols, typography, or annotations.</p>
-<p><br></p>
-
-<img data-src="../images/lecture-slides/apigo2022.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Figure 2 from Apigo A and Oono R (2022) Plant abundance, but not plant evolutionary history, shapes patterns of host specificity in foliar fungal endophytes. Ecosphere. 13(1):e03879. <a href="https://doi.org/10.1002/ecs2.3879" target="_blank">https://doi.org/10.1002/ecs2.3879</a></p>
-</div>
 </section>
 <section id="premade-palettes" class="slide level2" data-menu-title="# Additional palette packages#" data-background="#047C90">
 <h2></h2>
@@ -1037,90 +1031,123 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p><br> <br></p>
+<p><br> <span class="body-text-s">There are a number of ways to browse the list of supported palette packages, including in the <a href="https://emilhvitfeldt.github.io/paletteer/#included-packages" target="_blank"><strong><code>{paletteer}</code> documentation</strong></a>, on the <a href="https://github.com/EmilHvitfeldt/r-color-palettes" target="_blank"><strong>r-color-palettes</strong></a> GitHub repo, on the <a href="https://emilhvitfeldt.github.io/r-color-palettes/" target="_blank"><strong>R Color Palettes</strong></a> website, and the <a href="https://r-graph-gallery.com/color-palette-finder" target="_blank"><strong>R-Graph Gallery’s Color Palette Finder</strong></a>.</span></p>
 <ul>
-<li>two groups of palettes: <strong>discrete</strong> and <strong>continuous</strong></li>
-<li>discrete palettes can be <strong>fixed</strong> (have a set # of colors) or <strong>dynamic</strong> (adjustable # of colors based on your specifications)</li>
+<li><span class="body-text-s">two groups of palettes: <strong>discrete</strong> and <strong>continuous</strong></span></li>
+<li><span class="body-text-s">discrete palettes can be <strong>fixed</strong> (have a set # of colors) or <strong>dynamic</strong> (adjustable # of colors based on your specifications)</span></li>
 </ul>
 </div></div>
-</section>
-<section id="explore-paletteer" class="slide level2" data-menu-title="Explore paletteer">
-<h2></h2>
-<p><span class="slide-title">Take a couple minutes to explore palettes</span></p>
+<div class="footer">
+<p><code>{paletteer}</code> comes with a set of color scaling functions for applying palettes directly to your plots, but I prefer using it to generate a vector of HEX codes, then applying them using a <code>ggplot2::scale_*()</code> function, demoed next.</p>
+</div>
+<!-- ---
+
+## {#explore-paletteer data-menu-title="Explore paletteer"} 
+
+[Take a couple minutes to explore palettes]{.slide-title}
+
 <hr>
-<p>There are a number of ways to browse the extensive list of supported palette packages, including in the <a href="https://emilhvitfeldt.github.io/paletteer/#included-packages" target="_blank"><strong><code>{paletter}</code> documentation</strong></a>, on the <a href="https://github.com/EmilHvitfeldt/r-color-palettes" target="_blank"><strong>r-color-palettes</strong></a> GitHub repo, on the <a href="https://emilhvitfeldt.github.io/r-color-palettes/" target="_blank"><strong>R Color Palettes</strong></a> website, the <a href="https://r-graph-gallery.com/color-palette-finder" target="_blank"><strong>R-Graph Gallery’s Color Palette Finder</strong></a> (built on <code>{paletteer}</code>; see below).</p>
+
+There are a number of ways to browse the extensive list of supported palette packages, including in the [**`{paletter}` documentation**](https://emilhvitfeldt.github.io/paletteer/#included-packages){target="_blank"}, on the [**r-color-palettes**](https://github.com/EmilHvitfeldt/r-color-palettes){target="_blank"} GitHub repo, on the [**R Color Palettes**](https://emilhvitfeldt.github.io/r-color-palettes/){target="_blank"} website, the [**R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"} (built on `{paletteer}`; see below). -->
 <!-- ::: {.center-text .body-text-s .gray-text} -->
 <!-- The **[R-Graph Gallery's Color Palette Finder**](https://r-graph-gallery.com/color-palette-finder){target="_blank"} provides an easy interface for exploring supported `{paletteer}` palettes. You can also simulate vision deficiencies and find code for building the example visualizations.  -->
 <!-- ::: -->
+<!-- . . .
 
-<img data-src="../images/lecture-slides/r-graph-gallery-paletteer.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div class="cell">
-<div class="cell-output-display">
-<div class="countdown" id="timer_daf3dee8" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
-<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="center-text">
-<p><strong><code>{paletteer}</code> is useful in a number of ways – let’s consider <span class="teal-text">two options</span> next</strong></p>
-</div>
-<div class="footer">
-<p>TIP: Check out the <code>palettes_c_names</code> &amp; <code>palettes_d_names</code> data frames, which contain information about supported palettes and packages.</p>
-</div>
-</div>
-</section>
-<section id="1-scale-paletteer" class="slide level2" data-menu-title="1. scale_*_paletteer()">
-<h2></h2>
-<p><span class="slide-title2">1. Apply a palette using <code>scale_*_paletteer_*()</code></span></p>
+::: {.center-text}
+**`{paletteer}` is useful in a number of ways -- let's consider [two options]{.teal-text} next**
+:::
+
+::: {.footer}
+TIP: Check out the `palettes_c_names` & `palettes_d_names` data frames, which contain information about supported palettes and packages.
+::: -->
+<!-- ---
+
+## {#1-scale-paletteer data-menu-title="1. scale_*_paletteer()"} 
+
+[1. Apply a palette using `scale_*_paletteer_*()`]{.slide-title2}
+
 <hr>
-<p><span class="body-text-s">where <code>scale_*</code> can be <code>scale_color</code> or <code>scale_fill</code> &amp; and <code>paletteer_*</code> can be <code>paletteer_d</code> (discrete), <code>paletteer_c</code> (continuous), or <code>paletteer_binned</code></span></p>
-<div class="body-text-s gray-text">
-<p><strong>Find eligible palettes in the following built-in data frames:</strong></p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">View</span>(palettes_d_names)</span>
-<span id="cb15-2"><a></a><span class="fu">View</span>(palettes_c_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><strong>superbloom3</strong> palette from <code>{calecopal}</code></p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb16-2"><a></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_d</span>(<span class="st">"calecopal::superbloom3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-37-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s gray-text">
-<p><strong>batlow</strong> palette from <code>{scico}</code></p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>con_color_plot <span class="sc">+</span></span>
-<span id="cb17-2"><a></a>  paletteer<span class="sc">::</span><span class="fu">scale_color_paletteer_c</span>(<span class="st">"scico::batlow"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-38-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p>Also try using <code>scale_color_paletteer_binned()</code> to apply the <strong>batlow</strong> palette, above.</p>
-</div>
+
+[where `scale_*` can be `scale_color` or `scale_fill` & and `paletteer_*` can be `paletteer_d` (discrete), `paletteer_c` (continuous), or `paletteer_binned`]{.body-text-s}
+
+::: {.body-text-s .gray-text}
+**Find eligible palettes in the following built-in data frames:**
+:::
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+View(palettes_d_names)
+View(palettes_c_names)
+```
+:::
+
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+**superbloom3** palette from `{calecopal}`
+:::
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+cat_color_plot +
+  paletteer::scale_color_paletteer_d("calecopal::superbloom3")
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-4-1.png){width=960}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+::: {.center-text .body-text-s .gray-text}
+**batlow** palette from `{scico}`
+:::
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+con_color_plot +
+  paletteer::scale_color_paletteer_c("scico::batlow", direction = -1)
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-5-1.png){width=960}
+:::
+:::
+
+
+
+:::
+
+::::
+
+::: {.footer}
+Also try using `scale_color_paletteer_binned()` to apply the **batlow** palette, above.
+::: -->
 </section>
-<section id="2a-generate-hex-codes" class="slide level2" data-menu-title="2a. Generate HEX codes">
+<section id="1-generate-hex-codes" class="slide level2" data-menu-title="1. Generate HEX codes">
 <h2></h2>
-<p><span class="slide-title3">2a. Create vector of HEX codes using <code>paletteer_*()</code></span></p>
+<p><span class="slide-title3">1. Create vector of HEX codes using <code>paletteer_*()</code></span></p>
 <hr>
 <ul>
 <li>be sure to specify the number of desired colors (<code>n</code>), and optionally, the <code>direction</code></li>
@@ -1132,8 +1159,8 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p>(discrete, with 3 colors)</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb18-2"><a></a>pal_d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb14-2"><a></a>pal_d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;colors&gt;
 #F1BB7BFF #FD6467FF #5B1A18FF </code></pre>
@@ -1141,15 +1168,15 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 </div>
 </div><div class="column" style="width:50%;">
 <div class="center-text body-text-s gray-text">
-<p><strong>grayC</strong> palette from <code>{scico}</code></p>
+<p><strong>batlow</strong> palette from <code>{scico}</code></p>
 <p>(continuous, with 5 colors)</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"scico::grayC"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb20-2"><a></a>pal_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"scico::batlow"</span>, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) </span>
+<span id="cb16-2"><a></a>pal_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;colors&gt;
-#000000FF #434343FF #777777FF #AFAFAFFF #FFFFFFFF </code></pre>
+#F9CCF9FF #F19D6BFF #818231FF #215F61FF #001959FF </code></pre>
 </div>
 </div>
 </div></div>
@@ -1166,18 +1193,18 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <h2></h2>
 <p><span class="slide-title2">Some common functions for scaling colors</span></p>
 <hr>
-<p><strong>For qualitative (categorical) data <img src="images/week5/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</strong></p>
+<p><strong>For qualitative (categorical) data <img src="../images/lecture-slides/qualitative.png" alt="A qualitative color scale with 5 distinct colors: dark blue, medium blue, yellow, orange, red." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</strong></p>
 <ul>
 <li><span class="body-text-s"><code>scale_*_manual()</code></span></li>
 </ul>
 <p><strong>For quantitative (numeric) data:</strong></p>
-<p>Unclassed palettes <img src="images/week5/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</p>
+<p>Unclassed palettes <img src="../images/lecture-slides/unclassed-seq.png" alt="An unclassed sequential color scale which transitions from light to dark blue moving left to right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</p>
 <ul>
 <li><span class="body-text-s"><code>scale_*_gradient()</code>: creates a two color gradient (low-high)</span></li>
 <li><span class="body-text-s"><code>scale_*_gradient2()</code>: creates a diverging color gradient (low-mid-high)</span></li>
 <li><span class="body-text-s"><code>scale_*_gradientn()</code>: creates a n-color gradient</span></li>
 </ul>
-<p>Classed palettes <img src="images/week5/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</p>
+<p>Classed palettes <img src="../images/lecture-slides/classed-seq.png" alt="A classed sequential color scale with 5 binned colors ranging from light blue on the left to dark blue on the right." style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"> :</p>
 <ul>
 <li><span class="body-text-s"><code>scale_*steps()</code>: creates a two color binned gradient (low-high)</span></li>
 <li><span class="body-text-s"><code>scale_*_steps2()</code>: creates a diverging binned color gradient (low-mid-high)</span></li>
@@ -1187,13 +1214,13 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p><strong>Use the <code>fill</code> variant of the above functions for areas, bars, etc. and the <code>color</code> variant for points, lines, etc.</strong></p>
 </div>
 </section>
-<section id="2b-apply-palettes_d" class="slide level2" data-menu-title="2b. Apply palettes using scale_*()">
+<section id="2-apply-palettes_d" class="slide level2" data-menu-title="2. Apply palettes using scale_*()">
 <h2></h2>
-<p><span class="slide-title2">2b. Apply palette using <code>ggplot2::scale_*()</code></span></p>
+<p><span class="slide-title2">2. Apply palette using <code>ggplot2::scale_*()</code></span></p>
 <hr>
 <p><strong>Examples using our discrete color palette:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>pal_d <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"wesanderson::GrandBudapest1"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="columns">
@@ -1202,12 +1229,12 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p>apply to scatter plot using the <code>color</code> variant</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>cat_color_plot <span class="sc">+</span> </span>
-<span id="cb23-2"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>cat_color_plot <span class="sc">+</span> </span>
+<span id="cb19-2"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-42-1.png" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/color-grandbudapest1-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1217,26 +1244,26 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p>apply to histogram using the <code>fill</code> variant</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb24-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-43-1.png" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/fill-grandbudapest1-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="2b-apply-palettes_c" class="slide level2" data-menu-title="2b. Apply palettes using scale_*()">
+<section id="2-apply-palettes_c" class="slide level2" data-menu-title="2. Apply palettes using scale_*()">
 <h2></h2>
-<p><span class="slide-title2">2b. Apply palette using <code>ggplot2::scale_*()</code></span></p>
+<p><span class="slide-title2">2. Apply palette using <code>ggplot2::scale_*()</code></span></p>
 <hr>
 <p><strong>Examples using our continuous color palette:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"scico::grayC"</span>, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>pal_c <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_c</span>(<span class="st">"scico::batlow"</span>, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="columns">
@@ -1245,12 +1272,12 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p>apply to scatter plot as an unclassed palette (use <code>gradientn</code> variant)</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>con_color_plot <span class="sc">+</span> </span>
-<span id="cb26-2"><a></a>  <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>con_color_plot <span class="sc">+</span> </span>
+<span id="cb22-2"><a></a>  <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-45-1.png" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/unclassed-batlow-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1260,12 +1287,12 @@ There are <em>so many</em> other great pre-made color palettes to explore, many 
 <p>apply to scatter plot as a classed (binned) palette (use <code>stepsn</code> variant)</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>con_color_plot <span class="sc">+</span> </span>
-<span id="cb27-2"><a></a>  <span class="fu">scale_color_stepsn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>con_color_plot <span class="sc">+</span> </span>
+<span id="cb23-2"><a></a>  <span class="fu">scale_color_stepsn</span>(<span class="at">colors =</span> pal_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-46-1.png" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/classed-batlow-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1365,69 +1392,53 @@ Climate and environmental science visualizations can (should) draw from communit
 Want to design your own palette? Here are some helpful guidelines and considerations…
 </p>
 </div>
-</section>
-<section id="select-hue" class="slide level2" data-menu-title="Selecting hues">
-<h2></h2>
-<p><span class="slide-title">Select hues using color wheels / pickers</span></p>
-<hr>
+<!-- ---
+
+## {#select-hue data-menu-title="Selecting hues"} 
+
+[Select hues using color wheels / pickers]{.slide-title}
+
+<hr> -->
 <!-- - **Primary colors** are the main colors in a given color system (e.g. light (RGB) = [red]{style="background-color:#FF0000; color=#FFFFFF;" .white-text}, [green]{style="background-color:#00FF00"} [blue]{style="background-color:#0000FF" .white-text}). *Primary colors cannot be produced by mixing other colors in that system together.* -->
 <!-- - **Secondary colors** are made by *mixing two primary colors* in a given color system -->
 <!-- - **Tertiary colors** are made by *mixing a primary and secondary color* in a given color system -->
 <!-- Hues (pure colors) are found around the **outer edge of color wheels**, or by adjusting the HEX code (sliding scale), then ensuring that selector is set to the **far right edge of a color picker box**: -->
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>There are lots of different variations of color wheels, but look for hues along the <strong>outer edge</strong>:</p>
-</div>
-<p><br></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/color-wheels.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><br> <br></p>
-<div class="center-text body-text-s gray-text">
-<p>Common color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: <a href="https://broworks.medium.com/color-guide-terms-definitions-and-useful-websites-6fa4f13bcb85" target="_blank">medium.com</a></p>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>When using a color picker, <strong>adjust the HEX code sliding scale</strong> to pick a hue and ensure that the selector is set to the <strong>top right edge</strong> of the box:</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/google-color-picker.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="center-text body-text-s gray-text">
-<p>There are lots of great color pickers out there, though <a href="https://g.co/kgs/9SQkdgv" target="_blank">Google color picker</a> is a quick one to navigate to. <a href="https://htmlcolorcodes.com/" target="_blank">HTML color codes</a> is my personal favorite.</p>
-</div>
-</div></div>
-<p><br></p>
-<aside class="notes">
-<ul>
-<li>RGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)</li>
-<li>RYB: known as painting color system (used by artists in painting)</li>
-<li>CMYK: used on modern printing</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<!-- :::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+There are lots of different variations of color wheels, but look for hues along the **outer edge**:
+:::
+
+<br> -->
+<!-- <br>
+<br>
+
+::: {.center-text .body-text-s .gray-text}
+Common color models: RYB (used by painters), RGB (used in electonic displays), CMYK (used in modern printing). Image source: [medium.com](https://broworks.medium.com/color-guide-terms-definitions-and-useful-websites-6fa4f13bcb85){target="_blank"}
+:::
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+When using a color picker, **adjust the HEX code sliding scale** to pick a hue and ensure that the selector is set to the **top right edge** of the box:
+::: -->
+<!-- ::: {.center-text .body-text-s .gray-text}
+There are lots of great color pickers out there, though [Google color picker](https://g.co/kgs/9SQkdgv){target="_blank"} is a quick one to navigate to. [HTML color codes](https://htmlcolorcodes.com/){target="_blank"} is my personal favorite.
+:::
+:::
+
+::::
+
+<br>
+
+::: {.notes}
+- RGB: basis for all colors on the screen (with these primary colors, we can make all other colors digitally)
+- RYB: known as painting color system (used by artists in painting)
+- CMYK: used on modern printing
+::: -->
 </section>
 <section id="colors-harmonies1" class="slide level2" data-menu-title="Color harmonies">
 <h2></h2>
@@ -1461,7 +1472,7 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-56-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/default-ggplot-colors-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1471,7 +1482,7 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 </section>
 <section id="hue-meaning" class="slide level2" data-menu-title="Hue meaning">
 <h2></h2>
-<p><span class="slide-title">Hues have associated meaning</span></p>
+<p><span class="slide-title">Select hues based on associated meaning</span></p>
 <hr>
 <div class="center-text">
 <p>We associate meaning with different hues (e.g.&nbsp;<span class="white-text" style="background-color:#0015fa">cold / sad = blue</span>, <span class="white-text" style="background-color:#fa0202">hot / angry = red</span>), and <em>importantly,</em> these <span class="teal-text"><strong>associations can differ among cultures</strong></span>.</p>
@@ -1608,208 +1619,339 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <img data-src="../images/lecture-slides/pure-hue2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text gray-text body-text-s">
 <p>Image source: <a href="https://flourish.studio/blog/color-in-data-visualization/" target="_blank">5 pitfalls to avoid when working with color in data visualization</a></p>
 </div>
-</section>
-<section id="adjust-sat1" class="slide level2" data-menu-title="Adjust saturation 1">
-<h2></h2>
-<p><span class="slide-title">A few approaches for subduing a pure hue</span></p>
+<!-- ---
+
+## {#adjust-sat1 data-menu-title="Adjust saturation 1"} 
+
+[A few approaches for subduing a pure hue]{.slide-title}
+
 <hr>
-<p><span class="body-text-m">1. <strong>adjust the saturation / chroma</strong> (i.e.&nbsp;the level of intensity of a color)</span></p>
-<p><span class="gray-text body-text-m">2. <strong>adjust luminance</strong>: tint (+ white), tone (+ gray), or shade (+ black)</span></p>
-<p><span class="gray-text body-text-m">3. <strong>increase transparency</strong> (e.g.&nbsp;using the <code>alpha</code> argument)</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) at 100% saturation</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/green-100sat.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) at 20% saturation (HSL)</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/green-20sat.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p>Saturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity." target="_blank">HSL vs HSV color models</a> if you want a deeper dive.</p>
-</div>
-</section>
-<section id="adjust-sat2" class="slide level2" data-menu-title="Adjust saturation 2">
-<h2></h2>
-<p><span class="slide-title">A few approaches for subduing a pure hue</span></p>
+
+[1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.body-text-m}
+
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+
+[3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) at 100% saturation
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/green-100sat.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) at 20% saturation (HSL)
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/green-20sat.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::::
+
+::: {.footer}
+Saturation adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} if you want a deeper dive.
+:::
+
+---
+
+## {#adjust-sat2 data-menu-title="Adjust saturation 2"} 
+
+[A few approaches for subduing a pure hue]{.slide-title}
+
 <hr>
-<p><span class="body-text-m">1. <strong>adjust the saturation / chroma</strong> (i.e.&nbsp;the level of intensity of a color)</span></p>
-<p><span class="gray-text body-text-m">2. <strong>adjust luminance</strong>: tint (+ white), tone (+ gray), or shade (+ black)</span></p>
-<p><span class="gray-text body-text-m">3. <strong>increase transparency</strong> (e.g.&nbsp;using the <code>alpha</code> argument)</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>The default chroma for ggplots is set to 100%</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb28-2"><a></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-68-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Use <code>scale_*_hue()</code> to adjust chroma (saturation)</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb29-2"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb29-3"><a></a>  <span class="fu">scale_fill_hue</span>(<span class="at">c =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-69-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p><code>scale_*_hue()</code> uses colors based on the <a href="https://en.wikipedia.org/wiki/HCL_color_space" target="_blank">HCL color model</a>.</p>
-</div>
-</section>
-<section id="adjust-lightness1" class="slide level2" data-menu-title="Adjust lightness 1">
-<h2></h2>
-<p><span class="slide-title">A few approaches for subduing a pure hue</span></p>
+
+[1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.body-text-m}
+
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+
+[3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+The default chroma for ggplots is set to 100%
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
+  geom_bar()
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-10-1.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Use `scale_*_hue()` to adjust chroma (saturation)
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+ggplot(na.omit(penguins), aes(x = species, fill = sex)) +
+  geom_bar() +
+  scale_fill_hue(c = 70)
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-11-1.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+
+:::
+
+::::
+
+::: {.footer}
+`scale_*_hue()` uses colors based on the [HCL color model](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}.
+:::
+
+---
+
+## {#adjust-lightness1 data-menu-title="Adjust lightness 1"} 
+
+[A few approaches for subduing a pure hue]{.slide-title}
+
 <hr>
-<p><span class="gray-text body-text-m">1. <strong>adjust the saturation / chroma</strong> (i.e.&nbsp;the level of intensity of a color)</span></p>
-<p><span class="body-text-m">2. <strong>adjust luminance</strong>: tint (+ white), tone (+ gray), or shade (+ black)</span></p>
-<p><span class="gray-text body-text-m">3. <strong>increase transparency</strong> (e.g.&nbsp;using the <code>alpha</code> argument)</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) with luminance adjusted to 90% (more white)</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/green-tint.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) with luminance adjusted to 10% (more black)</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../images/lecture-slides/green-shade.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p>Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity." target="_blank">HSL vs HSV color models</a> if you want a deeper dive.</p>
-</div>
-</section>
-<section id="adjust-lightness2" class="slide level2" data-menu-title="Adjust lightness 2">
-<h2></h2>
-<p><span class="slide-title">A few approaches for subduing a pure hue</span></p>
+
+[1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
+
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
+
+[3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) with luminance adjusted to 90% (more white) 
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/green-tint.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) with luminance adjusted to 10% (more black)
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/green-shade.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::::
+
+::: {.footer}
+Lightness adjusted using the HSL (Hue, Saturation, Lightness) color model. Read about [HSL vs HSV color models](https://en.wikipedia.org/wiki/HSL_and_HSV#:~:text=HSL%20stands%20for%20hue%2C%20saturation,hue%2C%20saturation%2C%20and%20intensity.){target="_blank"} if you want a deeper dive.
+:::
+
+---
+
+## {#adjust-lightness2 data-menu-title="Adjust lightness 2"} 
+
+[A few approaches for subduing a pure hue]{.slide-title}
+
 <hr>
-<p><span class="gray-text body-text-m">1. <strong>adjust the saturation / chroma</strong> (i.e.&nbsp;the level of intensity of a color)</span></p>
-<p><span class="body-text-m">2. <strong>adjust luminance</strong>: tint (+ white), tone (+ gray), or shade (+ black)</span></p>
-<p><span class="gray-text body-text-m">3. <strong>increase transparency</strong> (e.g.&nbsp;using the <code>alpha</code> argument)</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>The default luminance for ggplots is set to 65%</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb30-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-72-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Use <code>scale_*_hue()</code> to adjust luminance</p>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">ggplot</span>(<span class="fu">na.omit</span>(penguins), <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb31-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-3"><a></a>  <span class="fu">scale_color_hue</span>(<span class="at">l =</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-73-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p><code>scale_*_hue()</code> uses colors based on the <a href="https://en.wikipedia.org/wiki/HCL_color_space" target="_blank">HCL color space</a>. The default luminance value of 65(%) is good for filled areas but may be a bit light for points and lines.</p>
-</div>
-</section>
-<section id="adjust-opacity" class="slide level2" data-menu-title="Adjust opacity">
-<h2></h2>
-<p><span class="slide-title">A few approaches for subduing a pure hue</span></p>
+
+[1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
+
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.body-text-m}
+
+[3. **increase transparency** (e.g. using the `alpha` argument)]{.gray-text .body-text-m}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+The default luminance for ggplots is set to 65%
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +
+  geom_point()
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-14-1.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Use `scale_*_hue()` to adjust luminance
+:::
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+ggplot(na.omit(penguins), aes(x = bill_length_mm, y = bill_depth_mm, color = sex)) +
+  geom_point() +
+  scale_color_hue(l = 45)
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-15-1.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+
+:::
+
+::::
+
+::: {.footer}
+`scale_*_hue()` uses colors based on the [HCL color space](https://en.wikipedia.org/wiki/HCL_color_space){target="_blank"}. The default luminance value of 65(%) is good for filled areas but may be a bit light for points and lines.
+:::
+
+---
+
+## {#adjust-opacity data-menu-title="Adjust opacity"} 
+
+[A few approaches for subduing a pure hue]{.slide-title}
+
 <hr>
-<p><span class="gray-text body-text-m">1. <strong>adjust the saturation / chroma</strong> (i.e.&nbsp;the level of intensity of a color)</span></p>
-<p><span class="gray-text body-text-m">2. <strong>adjust luminance</strong>: tint (+ white), tone (+ gray), or shade (+ black)</span></p>
-<p><span class="body-text-m">3. <strong>increase transparency</strong> (e.g.&nbsp;using the <code>alpha</code> argument)</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) with default opacity (100%)</p>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-75-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="center-text body-text-s">
-<p>Green (132° on the color wheel) with opacity reduced to 50%</p>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-76-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
+
+[1. **adjust the saturation / chroma** (i.e. the level of intensity of a color)]{.gray-text .body-text-m}
+
+[2. **adjust luminance**: tint (+ white), tone (+ gray), or shade (+ black)]{.gray-text .body-text-m}
+
+[3. **increase transparency** (e.g. using the `alpha` argument)]{.body-text-m}
+
+
+
+
+::: {.cell layout-align="center"}
+
+:::
+
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) with default opacity (100%)
+:::
+
+
+
+
+::: {.cell}
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-17-1.png){width=960}
+:::
+:::
+
+
+
+:::
+
+::: {.column width="50%"}
+
+::: {.center-text .body-text-s}
+Green (132° on the color wheel) with opacity reduced to 50%
+:::
+
+
+
+
+::: {.cell}
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/unnamed-chunk-18-1.png){width=960}
+:::
+:::
+
+
+
+:::
+
+:::: -->
 </section>
 <section id="build-palettes" class="slide level2" data-menu-title="Building your own palette">
 <h2></h2>
@@ -1829,7 +1971,8 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <ul>
 <li><span class="body-text-s">your company or organization’s <strong>brand / logo</strong></span></li>
 <li><span class="body-text-s"><strong>steal colors</strong> from your favorite / relevant images using tools like <a href="https://lokeshdhakar.com/projects/color-thief/" target="_blank">Color Thief</a></span></li>
-<li><span class="body-text-s">use a randomized <strong>palette generator</strong>, like <a href="https://coolors.co/?home" target="_blank">coolers.co</a> <i class="fa-solid fa-arrow-right" title="an arrow pointing to the right" aria-label="arrow-right"></i></span></li>
+<li><span class="body-text-s">use a randomized <strong>palette generator</strong>, like <a href="https://coolors.co/?home" target="_blank">coolors.co</a> <i class="fa-solid fa-arrow-right" title="an arrow pointing to the right" aria-label="arrow-right"></i></span></li>
+<li><span class="body-text-s">find a <strong>color picker</strong> for generating HEX codes – my favorite it <a href="https://htmlcolorcodes.com/" target="_blank">HTML Color Codes</a></span></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -1850,15 +1993,15 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <hr>
 <p>I recommend saving your palette to a named vector <em>outside</em> of your ggplot – this prevents lengthy palettes from creating cluttered ggplot code <em>and</em> allows you to reuse your palette across multiple plots:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># create palette ----</span></span>
-<span id="cb32-2"><a></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span>
-<span id="cb32-3"><a></a></span>
-<span id="cb32-4"><a></a><span class="co"># apply to plot ----</span></span>
-<span id="cb32-5"><a></a>cat_color_plot <span class="sc">+</span></span>
-<span id="cb32-6"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette) <span class="co"># alternatively, `scale_color_manual(values = c("#32DE8A", "#E36414", "#0F4C5C"))`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># create palette ----</span></span>
+<span id="cb24-2"><a></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span>
+<span id="cb24-3"><a></a></span>
+<span id="cb24-4"><a></a><span class="co"># apply to plot ----</span></span>
+<span id="cb24-5"><a></a>cat_color_plot <span class="sc">+</span></span>
+<span id="cb24-6"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette) <span class="co"># alternatively, `scale_color_manual(values = c("#32DE8A", "#E36414", "#0F4C5C"))`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-78-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
+<img data-src="SLIDES-colors_files/figure-revealjs/save-pal-outside-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
 <p>Refer back to the <a href="lecture5.2-colors-slides.qmd#common-scaling-fxns" target="_blank">common <code>{ggplot2}</code> scaling functions</a>, to determine which is appropriate for your data / plot.</p>
 </div>
 </section>
@@ -1868,7 +2011,7 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <hr>
 <p><span class="body-text-s">We should always be consistent with our colors. <strong>E.g. if Gentoo penguins are blue in one plot, they should be blue in all plots.</strong> Notice that our colors don’t “stick” with the species they represent, but rather they’re applied in the order that they appear in our palette:</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>my_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#32DE8A"</span>, <span class="st">"#E36414"</span>, <span class="st">"#0F4C5C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1876,13 +2019,13 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <p>Adelie, Chinstrap &amp; Gentoo penguins</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb34-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb34-3"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb26-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb26-3"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-80-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/all-pens-unnamed-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1892,15 +2035,15 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <p>Just Adelie &amp; Gentoo penguins</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb35-2"><a></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb35-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb35-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb35-5"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb27-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-81-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/no-chin-unnamed-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1913,7 +2056,7 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <hr>
 <p><span class="body-text-s">Setting the names of our vector elements (colors) ensures that they stick with those factor levels across all of our visualizations:</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>my_palette_named <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#32DE8A"</span>,<span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#E36414"</span>, <span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0F4C5C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>my_palette_named <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#32DE8A"</span>,<span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#E36414"</span>, <span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0F4C5C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1921,13 +2064,13 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <p>Adelie, Chinstrap &amp; Gentoo penguins</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb37-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb37-3"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb29-3"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-83-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/all-pens-named-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1937,264 +2080,447 @@ Want to design your own palette? Here are some helpful guidelines and considerat
 <p>Just Adelie &amp; Gentoo penguins</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb38-2"><a></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb38-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb30-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette_named)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-84-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/no-chin-named-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
-</section>
-<section id="modify-df" class="slide level2" data-menu-title="Modify df">
-<h2></h2>
-<p><span class="slide-title2">Tip: modify df to apply colors to observations</span></p>
+<!-- ---
+
+## {#modify-df data-menu-title="Modify df"} 
+
+[Tip: modify df to apply colors to observations]{.slide-title2}
+
 <hr>
-<p><span class="body-text-s">The <a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" target="_blank"><code>scale_*_identity()</code> functions</a> allows you to map aesthetic values from your data frame to individual points. They will not produce a legend unless specified using <code>guide = "legend"</code>.</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb39-3"><a></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
-<span id="cb39-4"><a></a>      bill_length_mm <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
-<span id="cb39-5"><a></a>      <span class="fu">between</span>(<span class="at">x =</span> bill_length_mm, <span class="at">left =</span> <span class="dv">40</span>, <span class="at">right =</span> <span class="dv">50</span>) <span class="sc">~</span> <span class="st">"#E4BB97"</span>,</span>
-<span id="cb39-6"><a></a>      bill_length_mm <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"#386150"</span></span>
-<span id="cb39-7"><a></a>    )</span>
-<span id="cb39-8"><a></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb39-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
-<span id="cb39-10"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb39-11"><a></a>  <span class="fu">scale_color_identity</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-85-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb40-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb40-3"><a></a>    <span class="at">my_color =</span> <span class="fu">case_when</span>(</span>
-<span id="cb40-4"><a></a>      body_mass_g <span class="sc">&gt;</span> <span class="dv">6000</span> <span class="sc">~</span> <span class="st">"#D7263D"</span>,</span>
-<span id="cb40-5"><a></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"gray50"</span></span>
-<span id="cb40-6"><a></a>    )</span>
-<span id="cb40-7"><a></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb40-8"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> my_color)) <span class="sc">+</span></span>
-<span id="cb40-9"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb40-10"><a></a>  <span class="fu">scale_color_identity</span>(<span class="at">guide =</span> <span class="st">"legend"</span>, </span>
-<span id="cb40-11"><a></a>                       <span class="at">name =</span> <span class="st">"Body mass (g)"</span>, </span>
-<span id="cb40-12"><a></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&gt;6000"</span>, <span class="st">"&lt;= 6000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="SLIDES-colors_files/figure-revealjs/unnamed-chunk-86-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<aside class="notes">
-<p>This isn’t the only way to do this! Try creating a <code>highlight</code> variable in your data frame. See <a href="https://andrewirwin.github.io/data-visualization/colour.html#highlighting" class="uri">https://andrewirwin.github.io/data-visualization/colour.html#highlighting</a> and</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<!-- --- -->
-<!-- ## {#create-palette data-menu-title="Create your own palette"}  -->
-<!-- [Create your own palettes!]{.slide-title} -->
-<!-- <hr> -->
-<!-- Create your own palettes and use them to scale colors in the plots below:  -->
-<!-- <br> -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "90%" -->
-<!-- library(palmerpenguins) -->
-<!-- library(tidyverse) -->
-<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + -->
-<!--   geom_point(size = 4, alpha = 0.8)  -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- #| eval: true -->
-<!-- #| echo: true -->
-<!-- #| fig-align: "center" -->
-<!-- #| out-width: "590%" -->
-<!-- library(palmerpenguins) -->
-<!-- library(tidyverse) -->
-<!-- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + -->
-<!--   geom_point(size = 4, alpha = 0.8)  -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
-<!-- ```{r} -->
-<!-- countdown::countdown( -->
-<!--   minutes = 5, -->
-<!--   # left = 0, right = 0, -->
-<!--   # Fanfare when it's over -->
-<!--   play_sound = TRUE, -->
-<!--   color_border              = "#FFFFFF", -->
-<!--   color_text                = "#7aa81e", -->
-<!--   color_running_background  = "#7aa81e", -->
-<!--   color_running_text        = "#FFFFFF", -->
-<!--   color_finished_background = "#ffa07a", -->
-<!--   color_finished_text       = "#FFFFFF", -->
-<!--   font_size = "2em", -->
-<!--   ) -->
-<!-- ``` -->
+
+[The [`scale_*_identity()` functions](https://ggplot2.tidyverse.org/reference/scale_identity.html){target="_blank"} allows you to map aesthetic values from your data frame to individual points. They will not produce a legend unless specified using `guide = "legend"`.]{.body-text-s}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+penguins |> 
+  mutate(
+    my_color = case_when(
+      bill_length_mm < 40 ~ "#D7263D",
+      between(x = bill_length_mm, left = 40, right = 50) ~ "#E4BB97",
+      bill_length_mm > 50 ~ "#386150"
+    )
+  ) |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = my_color)) +
+  geom_point(size = 4, alpha = 0.8) +
+  scale_color_identity()
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/color-brackets-1.png){fig-align='center' width=960}
+:::
+:::
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+
+::: {.cell layout-align="center"}
+
+```{.r .cell-code}
+penguins |> 
+  mutate(
+    my_color = case_when(
+      body_mass_g > 6000 ~ "#D7263D",
+      TRUE ~ "gray50"
+    )
+  ) |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = my_color)) +
+  geom_point(size = 4, alpha = 0.8) +
+  scale_color_identity(guide = "legend", 
+                       name = "Body mass (g)", 
+                       labels = c(">6000", "<= 6000"))
+```
+
+::: {.cell-output-display}
+![](SLIDES-colors_files/figure-revealjs/color-vals-1.png){fig-align='center' width=80%}
+:::
+:::
+
+
+
+
+:::
+
+::::
+
+::: {.notes}
+This isn't the only way to do this! Try creating a `highlight` variable in your data frame. See <https://andrewirwin.github.io/data-visualization/colour.html#highlighting> and
+::: -->
 </section>
 <section id="general-rules" class="slide level2" data-menu-title="# General rules #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">
-There are also some additional rules / guidelines that you should pretty much always abide by when selecting colors
+See if you can figure out some additional color “rules” by identifying how to improve the following data viz examples.
 </p>
 </div>
 </section>
-<section id="saturation" class="slide level2" data-menu-title="Saturation">
+<section id="color-bars-bad" class="slide level2" data-menu-title="Color bars 1">
 <h2></h2>
-<p><span class="slide-title2">High saturation = greater / more important values</span></p>
+<p><span class="slide-title">What can we improve?</span></p>
 <hr>
-<p><br></p>
-<div class="body-text-m center-text">
-<p>It’s okay to use saturated / brighter colors in moderation.</p>
-<p><em>We tend to associate <strong>more saturated</strong> colors with <strong>greater values</strong>.</em></p>
-</div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../images/lecture-slides/2020-election.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="../images/lecture-slides/multi-color-bars.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text body-text-s gray-text">
-<p>Image source: <a href="https://www.nytimes.com/interactive/2021/upshot/2020-election-map.html" target="_blank">New York Times</a></p>
+</div><div class="column" style="width:50%;">
+
+</div></div>
+<div class="footer">
+<p>Image source: <a href="https://www.addtwodigital.com/add-two-blog/2021/7/12/rule-18-dont-use-multi-coloured-bars" target="_blank">Add Two Digital</a></p>
+</div>
+</section>
+<section id="color-bars-better" class="slide level2" data-menu-title="Color bars 2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="slide-title">Don’t use color unnecessarily</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/multi-color-bars.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../images/lecture-slides/ggdensity-saturation.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="../images/lecture-slides/same-color-bars.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="center-text body-text-s gray-text">
-<p>Image source: <a href="https://jamesotto852.github.io/ggdensity/index.html" target="_blank"><code>{ggdensity}</code> pkgdown site</a>.</p>
+</div></div>
+<div class="center-text">
+<p>The x-axis already identifies each bar, so adding color provides no additional information. Use color intentionally, and only when it communicates something meaningful!</p>
+</div>
+<div class="footer">
+<p>Image source: <a href="https://www.addtwodigital.com/add-two-blog/2021/7/12/rule-18-dont-use-multi-coloured-bars" target="_blank">Add Two Digital</a></p>
+</div>
+</section>
+<section id="fish-colors1" class="slide level2" data-menu-title="Fish colors 1">
+<h2></h2>
+<p><span class="slide-title">What can we improve?</span></p>
+<hr>
+<p><br> <br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/fish-scatter1-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/fish-line1-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </div></div>
-</section>
-<section id="no-more-than-7" class="slide level2" data-menu-title="No more than 7">
-<h2></h2>
-<p><span class="slide-title">No more than 7 colors</span></p>
-<hr>
-<div class="center-text body-text-m">
-<p>If you need more than seven colors, consider alternative chart types.</p>
-</div>
-<p><br></p>
-
-<img data-src="../images/lecture-slides/7colors.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+<p>Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the <a href="https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html" target="_blank"><code>{lterdatasampler}</code> package</a></p>
 </div>
 </section>
-<section id="consistency" class="slide level2" data-menu-title="Be consistent">
+<section id="fish-colors2" class="slide level2" data-menu-title="Fish colors 2" data-visibility="uncounted">
 <h2></h2>
-<p><span class="slide-title">Use colors consistently</span></p>
+<p><span class="slide-title">Use color consistently across visualizations</span></p>
 <hr>
-<div class="center-text body-text-m">
+<p><br> <br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/fish-scatter2-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="SLIDES-colors_files/figure-revealjs/fish-line2-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="center-text">
 <p>Ensure consistent use of colors across multiple visualizations that display the same groups.</p>
 </div>
-<p><br></p>
-
-<img data-src="../images/lecture-slides/consistent-colors.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+<p>Data: Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND) from the <a href="https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html" target="_blank"><code>{lterdatasampler}</code> package</a></p>
 </div>
 </section>
-<section id="legend" class="slide level2" data-menu-title="Include legend">
+<section id="too-many-colors1" class="slide level2" data-menu-title="Many colors ">
 <h2></h2>
-<p><span class="slide-title">Explain what your colors encode</span></p>
+<p><span class="slide-title2">What can we improve (for each of these charts)?</span></p>
 <hr>
-<div class="center-text body-text-m">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/7+colors.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/spaghetti-colors.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+
+</div></div>
+<div class="footer">
+<p>Image source: <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+</div>
+</section>
+<section id="too-many-colors2" class="slide level2" data-menu-title="Many colors 2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="slide-title2">Don’t use too many (7+) colors in a single viz</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/7+colors.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/diff-chart-type.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/spaghetti-colors.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/blue-line.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="center-text body-text-s">
+<p>The more colors you use, the more difficult to becomes to distinguish between groups. Consider an entirely different chart type, or use color to highlight the only the group(s) of interest. | <em>“Consider the color grey as the most important color in Data Vis.” <strong>-<a href="https://blog.datawrapper.de/colors/" target="_blank">Lisa Charlotte Muth</a></strong></em></p>
+</div>
+<!-- ::: {.footer}
+Image source: [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+::: -->
+</section>
+<section id="colors-encode1" class="slide level2" data-menu-title="Colors encode 1">
+<h2></h2>
+<p><span class="slide-title">What can we improve?</span></p>
+<hr>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/jobs-no-legend.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+
+</div></div>
+</section>
+<section id="colors-encode2" class="slide level2" data-menu-title="Colors encode 2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="slide-title">Always explain what your colors encode</span></p>
+<hr>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/jobs-no-legend.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/jobs-with-legend.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="center-text">
 <p>Always include a color key, in the form of a traditional legend or otherwise.</p>
 </div>
-<p><br></p>
+</section>
+<section id="stereotypes1" class="slide level2" data-menu-title="Stereotypes 1">
+<h2></h2>
+<p><span class="slide-title">What can we improve?</span></p>
+<hr>
 
-<img data-src="../images/lecture-slides/legend.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+<img data-src="../images/lecture-slides/stereotypes.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="footer">
+<p>Image sources: <a href="https://blogs.sas.com/content/graphicallyspeaking/2019/02/14/analyzing-age-and-gender-distribution-with-a-pyramid-chart/" target="_blank">SAS blogs</a>, <a href="https://visualisingdata.com/2015/02/lets-think-blue-pink/" target="_blank">Visualizing Data</a>, <a href="https://www.datawrapper.de/blog/colors-for-race-ethnicity-world-regions" target="_blank">Datawrapper</a></p>
 </div>
 </section>
-<section id="highlight" class="slide level2" data-menu-title="Highlight">
+<section id="stereotypes2" class="slide level2" data-menu-title="Stereotypes 2" data-visibility="uncounted">
 <h2></h2>
-<p><span class="slide-title">Highlight important values</span></p>
+<p><span class="slide-title">Avoid stereotypes</span></p>
 <hr>
-<div class="center-text body-text-m">
-<p>Use gray for less important groups / values, annotations, contextual information, etc.</p>
-</div>
-<p><br></p>
 
-<img data-src="../images/lecture-slides/use-gray.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+<img data-src="../images/lecture-slides/non-stereotypical-colors.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="center-text">
+<p>Many newsrooms avoid pink/blue altogether, but choices are not consistent | Avoid steretypical skin colors, don’t use gray for “other” or “multiracial” categories, use less saturated colors (saturated colors have strong associations, e.g.&nbsp;green as positive or right, red as dangerous or important), and keep shuffling your colors!</p>
+</div>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+<p>Images sources: | Further reading: <a href="https://www.datawrapper.de/blog/colors-for-race-ethnicity-world-regions" target="_blank">What to consider when choosing colors for race, ethnicity, and world regions</a> &amp; <a href="https://www.datawrapper.de/blog/gendercolor" target="_blank">An alternative to pink &amp; blue: Colors for gender data</a></p>
 </div>
 </section>
-<section id="intuitive-colors" class="slide level2" data-menu-title="Intuitive colors">
+<section id="light-dark1" class="slide level2" data-menu-title="Light Dark 1">
 <h2></h2>
-<p><span class="slide-title">Be predictable in your color choices</span></p>
+<p><span class="slide-title">What can we improve?</span></p>
 <hr>
-<div class="center-text body-text-m">
-<p>Use intuitive colors (e.g.&nbsp;green for forest, blue for water) but avoid stereotypes (e.g.&nbsp;pink for women, blue for men).</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/dark-light.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
-<p><br></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
 
-<img data-src="../images/lecture-slides/intuitive-colors.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+</div></div>
+<div class="footer">
+<p>Image source: <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+</div>
+</section>
+<section id="light-dark2" class="slide level2" data-menu-title="Light Dark 2" data-visibility="uncounted">
+<h2></h2>
+<p><span class="slide-title">Bright = Low, Dark = High</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/dark-light.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/light-dark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 <div class="center-text">
-<p>Try a cold color for men (e.g.&nbsp;blue or purple) and a warmer color for women (e.g.&nbsp;yellow, orange or a warm green; see <a href="https://blog.datawrapper.de/gendercolor/" target="_blank">this great blog post</a> for more information).</p>
-</div>
-<p><br></p>
-<div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
-</div>
-</section>
-<section id="gradient-low-high" class="slide level2" data-menu-title="Bright = low, dark = high">
-<h2></h2>
-<p><span class="slide-title">Bright = low, dark = high</span></p>
-<hr>
-<div class="center-text body-text-m">
 <p>In most cases, readers will associate bright colors with lower values and darker colors with higher values. Build gradients accordingly.</p>
 </div>
-<p><br></p>
-
-<img data-src="../images/lecture-slides/low-high-choropleth.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
 <div class="footer">
-<p>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+<p>Image source: <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
 <section id="gradient-high-low" class="slide level2" data-menu-title="Bright = high, dark = low">
@@ -2233,47 +2559,198 @@ There are also some additional rules / guidelines that you should pretty much al
 </div>
 </div></div>
 </section>
-<section id="gradients-continuous" class="slide level2" data-menu-title="Gradients for continuous data">
+<section id="gradients1" class="slide level2" data-menu-title="Gradients 1">
 <h2></h2>
-<p><span class="slide-title">Gradient palettes for continuous data only</span></p>
+<p><span class="slide-title2">What can we improve?</span></p>
 <hr>
-<div class="center-text body-text-m">
-<p>Most readers will associate dark colors with “high / important” and bright or light colors with “low / less”. Using a gradient palette with categorical data may imply a ranking of categories where there shouldn’t be.</p>
-</div>
 <p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/multi-color-gradient.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
 
-<img data-src="../images/lecture-slides/no-gradient-for-discrete.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
+</div><div class="column" style="width:33%;">
+
+</div></div>
 <div class="footer">
-<p><em>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</em></p>
+<p>Image source: <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
 </div>
 </section>
-<section id="lightness-gradient" class="slide level2" data-menu-title="Lightness + hue">
+<section id="gradients2" class="slide level2" data-menu-title="Gradients 2" data-visibility="uncounted">
 <h2></h2>
-<p><span class="slide-title2">Use lightness, not just hue, to build gradients</span></p>
+<p><span class="slide-title2">Use lightness (and ~2 hues) to build gradients</span></p>
 <hr>
-<div class="center-text body-text-m">
-<p>Gradients should also work in black and white.</p>
-</div>
 <p><br></p>
-
-<img data-src="../images/lecture-slides/lightness-gradient.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p><em>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</em></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/multi-color-gradient.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
-</section>
-<section id="two-hues" class="slide level2" data-menu-title="Two hues">
-<h2></h2>
-<p><span class="slide-title">Two hues are sometimes better than one</span></p>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/1color-gradient.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../images/lecture-slides/2color-gradient.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="center-text">
+<p>Color gradients should transition from a bright color (e.g.&nbsp;white) to a dark color (e.g.&nbsp;dark blue) in a consistent way, and they should work in black and white. Readers are also generally better able to distinguish colors on a gradient better if they are encoded through both lightness and two (sometimes three) carefully-selected hues.</p>
+</div>
+<div class="footer">
+<p>Image source: <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</p>
+</div>
+<!-- ---
+
+## {#saturation data-menu-title="Saturation"} 
+
+[High saturation = greater / more important values]{.slide-title2}
+
 <hr>
-<div class="center-text body-text-m">
-<p>Readers are generally better able to distinguish colors on a gradient better if they are encoded through both lightness and two (sometimes three) carefully-selected hues.</p>
-</div>
-<p><br></p>
 
-<img data-src="../images/lecture-slides/1-or-2-hues.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p><br></p>
-<div class="footer">
-<p><em>Example from <a href="https://blog.datawrapper.de/colors/" target="_blank">What to consider when choosing colors for data visualization</a>, by Lisa Charlotte Muth</em></p>
-</div>
+<br>
+
+::: {.body-text-m .center-text}
+It's okay to use saturated / brighter colors in moderation. 
+
+*We tend to associate **more saturated** colors with **greater values**.*
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/2020-election.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+
+::: {.center-text .body-text-s .gray-text}
+Image source: [New York Times](https://www.nytimes.com/interactive/2021/upshot/2020-election-map.html){target="_blank"}
+:::
+:::
+
+::: {.column width="50%"}
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/ggdensity-saturation.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+
+::: {.center-text .body-text-s .gray-text}
+Image source: [`{ggdensity}` pkgdown site](https://jamesotto852.github.io/ggdensity/index.html){target="_blank"}. 
+:::
+:::
+
+:::: -->
+<!-- ---
+
+## {#intuitive-colors data-menu-title="Intuitive colors"} 
+
+[Be predictable in your color choices]{.slide-title}
+
+<hr>
+
+::: {.center-text .body-text-m}
+Use intuitive colors (e.g. green for forest, blue for water) but avoid stereotypes (e.g. pink for women, blue for men).
+:::
+
+<br>
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/intuitive-colors.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+
+
+<br>
+
+::: {.center-text}
+Try a cold color for men (e.g. blue or purple) and a warmer color for women (e.g. yellow, orange or a warm green; see  [this great blog post](https://blog.datawrapper.de/gendercolor/){target="_blank"} for more information). 
+:::
+
+<br>
+
+::: {.footer}
+Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth
+::: -->
+<!-- ---
+
+## {#gradients-continuous data-menu-title="Gradients for continuous data"} 
+
+[Gradient palettes for continuous data only]{.slide-title}
+
+<hr>
+
+::: {.center-text .body-text-m}
+Most readers will associate dark colors with "high / important" and bright or light colors with "low / less". Using a gradient palette with categorical data may imply a ranking of categories where there shouldn't be.
+:::
+
+<br>
+
+
+
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](../images/lecture-slides/no-gradient-for-discrete.png){fig-align='center' width=100%}
+:::
+:::
+
+
+
+
+<br>
+
+::: {.footer}
+*Example from [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/){target="_blank"}, by Lisa Charlotte Muth*
+::: -->
 </section>
 <section id="break" class="slide level2" data-menu-title="# Break #" data-background="#047C90">
 <h2></h2>
@@ -2281,13 +2758,11 @@ There are also some additional rules / guidelines that you should pretty much al
 <p class="custom-subtitle bottombr">
 <i class="fa-solid fa-mug-hot" title="a mug with steam rising out the top" aria-label="mug-hot"></i> Take a Break
 </p>
-<p class="caption-text">
-<em>~ This is the end of Lesson 2 (of 3) ~</em>
-</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_5952cfb9" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_737ae126" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

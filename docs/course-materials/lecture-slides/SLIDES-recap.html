@@ -937,219 +937,331 @@
 <p><span class="slide-title2">We applied what we learned about colors as we built our first choropleth maps</span></p>
 <hr>
 <p><br></p>
-<!-- --- -->
-<!-- DATA WRANGLING ALTERNATIVE: USING THE {maps} PACKAGE -->
-<!-- Here, we'll wrangle our precipitation data, then join it with our US county data (courtesy of the [`{maps}` package](https://cran.r-project.org/web/packages/maps/index.html)): -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(maps) -->
-<!-- #.........................get shape data......................... -->
-<!-- states <- map_data("state") -->
-<!-- counties <- map_data("county") -->
-<!-- #....................import precipitation data................... -->
-<!-- precip_counties <- read_csv(here::here("slides", "data", "county-jan19-dec23-precip.csv"), skip = 4) |> -->
-<!--   janitor::clean_names() -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                               data wrangling                             ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..............update names of counties df variables............. -->
-<!-- us_counties <- counties |> -->
-<!--   # select / rename cols of interest ---- -->
-<!--   select(state = region, county = subregion, long, lat, group, order) |> -->
-<!--   # make all county & state names Title Case ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "De Kalb" ~ "DeKalb", -->
-<!--     county == "De Soto" ~ "DeSoto", # works for FL & MI -->
-<!--     county == "Du Page" ~ "DuPage", -->
-<!--     county == "La Porte" ~ "LaPorte", -->
-<!--     county == "Obrien" ~ "O'Brien", -->
-<!--     county == "Prince Georges" ~ "Prince George's", -->
-<!--     county == "Queen Annes" ~ "Queen Anne's", -->
-<!--     county == "Ste Genevieve" ~ "Ste. Genevieve", -->
-<!--     county == "La Moure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "De Witt" ~ "DeWitt", -->
-<!--     # county == "St. Marys" ~ "St. Mary's", # isn't working?? -->
-<!--     TRUE ~ county -->
-<!--     )) |> -->
-<!--   mutate(county = str_replace(string = county, pattern = "St ", replacement = "St. ")) |> -->
-<!--   # remove DC & Yellowstone National Park ---- -->
-<!--   filter(!state %in% c("District Of Columbia")) |> -->
-<!--   filter(!county %in% c("Yellowstone National")) -->
-<!-- #..........clean precip data & make sure var names match......... -->
-<!-- precip_counties_wrangled <- precip_counties |> -->
-<!--   # more intuitive col name ---- -->
-<!--   rename(county = name) |> -->
-<!--   # make all county & state names lower case ---- -->
-<!--   mutate(county = str_to_lower(county), -->
-<!--          state = str_to_lower(state)) |> -->
-<!--   # remove recurring patterns ---- -->
-<!--   mutate(county = str_remove(county, pattern = " county")) |> # across all county names -->
-<!--   mutate(county = str_remove(county, pattern = " parish")) |> # LA -->
-<!--   # make state & county names Title Case again ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "Dekalb" ~ "DeKalb", -->
-<!--     county == "Desoto" ~ "DeSoto", # works for FL & MI -->
-<!--     state == "Louisiana" & county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Dupage" ~ "DuPage", -->
-<!--     county == "Lasalle" ~ "La Salle", -->
-<!--     county == "Laporte" ~ "LaPorte", -->
-<!--     county == "O'brien" ~ "O'Brien", -->
-<!--     county == "Lamoure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "Dewitt" ~ "DeWitt", -->
-<!--     county == "St. Mary's" ~ "St. Marys", -->
-<!--     county == "Suffolk City" ~ "Suffolk", -->
-<!--     county == "Hampton City" ~ "Hampton", -->
-<!--     county == "Virginia Beach City" ~ "Virginia Beach", -->
-<!--     county == "Newport News City" ~ "Newport News", -->
-<!--     county == "Norfolk City" ~ "Norfolk", -->
-<!--     TRUE ~ county -->
-<!--   )) |> -->
-<!--   # remove DC & other non-counties -->
-<!--   filter(!county %in% c("Washington, D.c.", "Alexandria City", "Bristol City")) |> -->
-<!--   # coerce precip & 20th centruy avg from chr to numeric ---- -->
-<!--   mutate(value = as.numeric(value), -->
-<!--          x1901_2000_mean = as.numeric(x1901_2000_mean)) |> -->
-<!--   # calculate % change ---- -->
-<!--   mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |> -->
-<!--   # select & rename cols ---- -->
-<!--   select(state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ used to identify which county names don't match across dfs  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- # unique_us_counties <- us_counties |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # unique_precip_counties <- precip_counties_wrangled |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # missing_from_us_counties <- anti_join(unique_precip_counties, unique_us_counties) |> -->
-<!-- #   rename(county_in_us = county) -->
-<!-- # -->
-<!-- # missing_from_precip_counties <- anti_join(unique_us_counties, unique_precip_counties) |> -->
-<!-- #   rename(county_in_precip = county) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ ----------------------------------------------------------  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #............................join dfs............................ -->
-<!-- joined_precip_us_counties <- full_join(precip_counties_wrangled, us_counties) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(maps) -->
-<!-- #.........................get shape data......................... -->
-<!-- states <- map_data("state") -->
-<!-- counties <- map_data("county") -->
-<!-- #....................import precipitation data................... -->
-<!-- precip_counties <- read_csv(here::here("week5", "data", "county-jan19-dec23-precip.csv"), skip = 4) |> -->
-<!--   janitor::clean_names() -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                               data wrangling                             ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..............update names of counties df variables............. -->
-<!-- us_counties <- counties |> -->
-<!--   # select / rename cols of interest ---- -->
-<!--   select(state = region, county = subregion, long, lat, group, order) |> -->
-<!--   # make all county & state names Title Case ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "De Kalb" ~ "DeKalb", -->
-<!--     county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Du Page" ~ "DuPage", -->
-<!--     county == "La Porte" ~ "LaPorte", -->
-<!--     county == "Obrien" ~ "O'Brien", -->
-<!--     county == "Prince Georges" ~ "Prince George's", -->
-<!--     county == "Queen Annes" ~ "Queen Anne's", -->
-<!--     county == "Ste Genevieve" ~ "Ste. Genevieve", -->
-<!--     county == "La Moure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "De Witt" ~ "DeWitt", -->
-<!--     TRUE ~ county -->
-<!--     )) |> -->
-<!--   mutate(county = str_replace(string = county, pattern = "St ", replacement = "St. ")) |> -->
-<!--   # remove DC & Yellowstone National Park ---- -->
-<!--   filter(!state %in% c("District Of Columbia")) |> -->
-<!--   filter(!county %in% c("Yellowstone National")) -->
-<!-- #..........clean precip data & make sure var names match......... -->
-<!-- precip_counties_wrangled <- precip_counties |> -->
-<!--   # more intuitive col name ---- -->
-<!--   rename(county = name) |> -->
-<!--   # make all county & state names lower case ---- -->
-<!--   mutate(county = str_to_lower(county), -->
-<!--          state = str_to_lower(state)) |> -->
-<!--   # remove recurring patterns ---- -->
-<!--   mutate(county = str_remove(county, pattern = " county")) |> -->
-<!--   mutate(county = str_remove(county, pattern = " parish")) |> -->
-<!--   # make state & county names Title Case again ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "Dekalb" ~ "DeKalb", -->
-<!--     county == "Desoto" ~ "DeSoto", -->
-<!--     state == "Louisiana" & county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Dupage" ~ "DuPage", -->
-<!--     county == "Lasalle" ~ "La Salle", -->
-<!--     county == "Laporte" ~ "LaPorte", -->
-<!--     county == "O'brien" ~ "O'Brien", -->
-<!--     county == "Lamoure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "Dewitt" ~ "DeWitt", -->
-<!--     county == "St. Mary's" ~ "St. Marys", -->
-<!--     county == "Suffolk City" ~ "Suffolk", -->
-<!--     county == "Hampton City" ~ "Hampton", -->
-<!--     county == "Virginia Beach City" ~ "Virginia Beach", -->
-<!--     county == "Newport News City" ~ "Newport News", -->
-<!--     county == "Norfolk City" ~ "Norfolk", -->
-<!--     TRUE ~ county -->
-<!--   )) |> -->
-<!--   # remove DC & other non-counties -->
-<!--   filter(!county %in% c("Washington, D.c.", "Alexandria City", "Bristol City")) |> -->
-<!--   # coerce precip & 20th centruy avg from chr to numeric ---- -->
-<!--   mutate(value = as.numeric(value), -->
-<!--          x1901_2000_mean = as.numeric(x1901_2000_mean)) |> -->
-<!--   # calculate % change ---- -->
-<!--   mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |> -->
-<!--   # select & rename cols ---- -->
-<!--   select(state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ used to identify which county names don't match across dfs  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- # unique_us_counties <- us_counties |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # unique_precip_counties <- precip_counties_wrangled |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # missing_from_us_counties <- anti_join(unique_precip_counties, unique_us_counties) |> -->
-<!-- #   rename(county_in_us = county) -->
-<!-- # -->
-<!-- # missing_from_precip_counties <- anti_join(unique_us_counties, unique_precip_counties) |> -->
-<!-- #   rename(county_in_precip = county) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ ----------------------------------------------------------  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #............................join dfs............................ -->
-<!-- joined_precip_us_counties <- full_join(precip_counties_wrangled, us_counties) -->
-<!-- ``` -->
-<!-- --- -->
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |                                                                      |   1%
+  |                                                                            
+  |=                                                                     |   1%
+  |                                                                            
+  |=                                                                     |   2%
+  |                                                                            
+  |==                                                                    |   2%
+  |                                                                            
+  |==                                                                    |   3%
+  |                                                                            
+  |==                                                                    |   4%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |===                                                                   |   5%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |====                                                                  |   6%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |=====                                                                 |   8%
+  |                                                                            
+  |======                                                                |   8%
+  |                                                                            
+  |======                                                                |   9%
+  |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |========                                                              |  12%
+  |                                                                            
+  |=========                                                             |  12%
+  |                                                                            
+  |=========                                                             |  13%
+  |                                                                            
+  |==========                                                            |  14%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |===========                                                           |  15%
+  |                                                                            
+  |===========                                                           |  16%
+  |                                                                            
+  |============                                                          |  17%
+  |                                                                            
+  |============                                                          |  18%
+  |                                                                            
+  |=============                                                         |  18%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
+  |==============                                                        |  19%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |==============                                                        |  21%
+  |                                                                            
+  |===============                                                       |  21%
+  |                                                                            
+  |===============                                                       |  22%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |================                                                      |  23%
+  |                                                                            
+  |================                                                      |  24%
+  |                                                                            
+  |=================                                                     |  24%
+  |                                                                            
+  |=================                                                     |  25%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |===================                                                   |  26%
+  |                                                                            
+  |===================                                                   |  27%
+  |                                                                            
+  |===================                                                   |  28%
+  |                                                                            
+  |====================                                                  |  28%
+  |                                                                            
+  |====================                                                  |  29%
+  |                                                                            
+  |=====================                                                 |  29%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |=====================                                                 |  31%
+  |                                                                            
+  |======================                                                |  31%
+  |                                                                            
+  |======================                                                |  32%
+  |                                                                            
+  |=======================                                               |  32%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |========================                                              |  34%
+  |                                                                            
+  |========================                                              |  35%
+  |                                                                            
+  |=========================                                             |  35%
+  |                                                                            
+  |=========================                                             |  36%
+  |                                                                            
+  |==========================                                            |  36%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |==========================                                            |  38%
+  |                                                                            
+  |===========================                                           |  38%
+  |                                                                            
+  |===========================                                           |  39%
+  |                                                                            
+  |============================                                          |  39%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |============================                                          |  41%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |=============================                                         |  42%
+  |                                                                            
+  |==============================                                        |  42%
+  |                                                                            
+  |==============================                                        |  43%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |===============================                                       |  45%
+  |                                                                            
+  |================================                                      |  45%
+  |                                                                            
+  |================================                                      |  46%
+  |                                                                            
+  |=================================                                     |  47%
+  |                                                                            
+  |=================================                                     |  48%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |==================================                                    |  49%
+  |                                                                            
+  |===================================                                   |  49%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |===================================                                   |  51%
+  |                                                                            
+  |====================================                                  |  51%
+  |                                                                            
+  |====================================                                  |  52%
+  |                                                                            
+  |=====================================                                 |  52%
+  |                                                                            
+  |=====================================                                 |  53%
+  |                                                                            
+  |=====================================                                 |  54%
+  |                                                                            
+  |======================================                                |  54%
+  |                                                                            
+  |======================================                                |  55%
+  |                                                                            
+  |=======================================                               |  55%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |========================================                              |  56%
+  |                                                                            
+  |========================================                              |  57%
+  |                                                                            
+  |========================================                              |  58%
+  |                                                                            
+  |=========================================                             |  58%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |==========================================                            |  59%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |==========================================                            |  61%
+  |                                                                            
+  |===========================================                           |  61%
+  |                                                                            
+  |===========================================                           |  62%
+  |                                                                            
+  |============================================                          |  62%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |============================================                          |  64%
+  |                                                                            
+  |=============================================                         |  64%
+  |                                                                            
+  |=============================================                         |  65%
+  |                                                                            
+  |==============================================                        |  65%
+  |                                                                            
+  |==============================================                        |  66%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |===============================================                       |  68%
+  |                                                                            
+  |================================================                      |  68%
+  |                                                                            
+  |================================================                      |  69%
+  |                                                                            
+  |=================================================                     |  69%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |=================================================                     |  71%
+  |                                                                            
+  |==================================================                    |  71%
+  |                                                                            
+  |==================================================                    |  72%
+  |                                                                            
+  |===================================================                   |  72%
+  |                                                                            
+  |===================================================                   |  73%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |=====================================================                 |  75%
+  |                                                                            
+  |=====================================================                 |  76%
+  |                                                                            
+  |======================================================                |  77%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |=======================================================               |  78%
+  |                                                                            
+  |=======================================================               |  79%
+  |                                                                            
+  |========================================================              |  79%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |========================================================              |  81%
+  |                                                                            
+  |=========================================================             |  81%
+  |                                                                            
+  |=========================================================             |  82%
+  |                                                                            
+  |==========================================================            |  82%
+  |                                                                            
+  |==========================================================            |  83%
+  |                                                                            
+  |==========================================================            |  84%
+  |                                                                            
+  |===========================================================           |  84%
+  |                                                                            
+  |===========================================================           |  85%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |============================================================          |  86%
+  |                                                                            
+  |=============================================================         |  87%
+  |                                                                            
+  |=============================================================         |  88%
+  |                                                                            
+  |==============================================================        |  88%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |===============================================================       |  89%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |===============================================================       |  91%
+  |                                                                            
+  |================================================================      |  91%
+  |                                                                            
+  |================================================================      |  92%
+  |                                                                            
+  |=================================================================     |  92%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |=================================================================     |  94%
+  |                                                                            
+  |==================================================================    |  94%
+  |                                                                            
+  |==================================================================    |  95%
+  |                                                                            
+  |===================================================================   |  95%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |====================================================================  |  97%
+  |                                                                            
+  |====================================================================  |  98%
+  |                                                                            
+  |===================================================================== |  98%
+  |                                                                            
+  |===================================================================== |  99%
+  |                                                                            
+  |======================================================================|  99%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+</div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="center-text gray-text">
@@ -1159,7 +1271,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1172,7 +1284,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1346,7 +1458,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-46-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+<p><img data-src="SLIDES-recap_files/figure-revealjs/unnamed-chunk-45-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
 </div>

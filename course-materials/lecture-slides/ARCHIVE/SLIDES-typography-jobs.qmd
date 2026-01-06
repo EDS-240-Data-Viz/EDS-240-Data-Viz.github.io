@@ -21,6 +21,8 @@ editor_options:
 
 [Week 6 | February 10^th^, 2025]{.custom-subtitle3}
 
+[*Archive (job data) | see [latest version](../SLIDES-typography.qmd) of this lesson*]{.custom-subtitle3}
+
 ---
 
 ## {#good-design data-menu-title="Good data viz considerations"} 
@@ -1667,7 +1669,7 @@ Rather than a traditional legend, let's **color-code our subtitle text (i.e. [ma
 
 . . . 
 
-We already have the correct `theme()` elements added to our plot, but we do need to **update our subtitle text with Markdown and HTML styling**. Let's bold and color the words "male" and "female":
+We already have the correct `theme()` elements added to our plot, but we do need to **update our title text with Markdown and HTML styling**. Let's color the words "male" and "female":
 
 ```{r}
 #| eval: true
@@ -1676,12 +1678,7 @@ We already have the correct `theme()` elements added to our plot, but we do need
 #........................create subtitle.........................
 money_icon <- "&#xf3d1"
 
-subtitle <- glue::glue("<span style='font-family:fa-regular;'>{money_icon};</span>
-                       Median earnings of full-time
-                       <span style='color:#2D7787;'>**male**</span> 
-                       versus 
-                       <span style='color:#FC6B4B;'>**female**</span>
-                       workers by occupation in 2016")
+title <- glue::glue("<span style='color:#2D7787;'>Males</span> earn more than <span style='color:#FC6B4B;'>females</span> across most occupations")
 ```
 
 ::: {.footer}
@@ -1712,13 +1709,13 @@ ggplot(subset_jobs) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
   scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
+  labs(title = title,#"Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = ggtext::element_textbox(family = "josefin",
                               face = "bold",
                               size = 19, # 18
                               color = earnings_pal["dark_text"]),
@@ -1799,13 +1796,13 @@ ggplot(subset_jobs) +
   facet_wrap(~group_label, nrow = 3, scales = "free_y") +
   scale_x_continuous(labels = scales::label_currency(scale = 0.001, suffix = "k"),
                      breaks = c(25000, 50000, 75000, 100000, 125000)) +
-  labs(title = "Males earn more than females across most occupations",
+  labs(title = title,#"Males earn more than females across most occupations",
        subtitle = subtitle,
        caption = caption) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(family = "josefin",
+    plot.title = ggtext::element_textbox(family = "josefin",
                               face = "bold",
                               size = 19, # 18
                               color = earnings_pal["dark_text"]),
