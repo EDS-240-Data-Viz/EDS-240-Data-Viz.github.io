@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name">
-<meta name="dcterms.date" content="2025-02-03">
+<meta name="dcterms.date" content="2026-02-04">
 
-<title>Lecture 5.3 KEY – EDS 240</title>
+<title>KEY - colors &amp; choropleths – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -244,8 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Lecture 5.3 KEY</h1>
-            <p class="subtitle lead">Choropleth</p>
+      <h1 class="title">KEY - colors &amp; choropleths</h1>
                       </div>
   </div>
     
@@ -262,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 3, 2025</p>
+        <p class="date">February 4, 2026</p>
       </div>
     </div>
     
@@ -305,224 +304,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This template follows <a href="../lecture-slides/lecture5.3-choropleth-slides.qmd" target="_blank">lecture 5.3 slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
+<p>This template follows the <a href="../../course-materials/lecture-slides/SLIDES-choropleth.html" target="_blank">colors &amp; choropleth slides</a>. Please be sure to cross-reference the slides, which contain important information and additional context!</p>
 </div>
 </div>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<!-- --- -->
-<!-- DATA WRANGLING ALTERNATIVE: USING THE {maps} PACKAGE -->
-<!-- Here, we'll wrangle our precipitation data, then join it with our US county data (courtesy of the [`{maps}` package](https://cran.r-project.org/web/packages/maps/index.html)): -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(maps) -->
-<!-- #.........................get shape data......................... -->
-<!-- states <- map_data("state") -->
-<!-- counties <- map_data("county") -->
-<!-- #....................import precipitation data................... -->
-<!-- precip_counties <- read_csv(here::here("slides", "data", "county-jan19-dec23-precip.csv"), skip = 4) |> -->
-<!--   janitor::clean_names() -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                               data wrangling                             ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..............update names of counties df variables............. -->
-<!-- us_counties <- counties |> -->
-<!--   # select / rename cols of interest ---- -->
-<!--   select(state = region, county = subregion, long, lat, group, order) |> -->
-<!--   # make all county & state names Title Case ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "De Kalb" ~ "DeKalb", -->
-<!--     county == "De Soto" ~ "DeSoto", # works for FL & MI -->
-<!--     county == "Du Page" ~ "DuPage", -->
-<!--     county == "La Porte" ~ "LaPorte", -->
-<!--     county == "Obrien" ~ "O'Brien", -->
-<!--     county == "Prince Georges" ~ "Prince George's", -->
-<!--     county == "Queen Annes" ~ "Queen Anne's", -->
-<!--     county == "Ste Genevieve" ~ "Ste. Genevieve", -->
-<!--     county == "La Moure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "De Witt" ~ "DeWitt", -->
-<!--     # county == "St. Marys" ~ "St. Mary's", # isn't working?? -->
-<!--     TRUE ~ county -->
-<!--     )) |> -->
-<!--   mutate(county = str_replace(string = county, pattern = "St ", replacement = "St. ")) |> -->
-<!--   # remove DC & Yellowstone National Park ---- -->
-<!--   filter(!state %in% c("District Of Columbia")) |> -->
-<!--   filter(!county %in% c("Yellowstone National")) -->
-<!-- #..........clean precip data & make sure var names match......... -->
-<!-- precip_counties_wrangled <- precip_counties |> -->
-<!--   # more intuitive col name ---- -->
-<!--   rename(county = name) |> -->
-<!--   # make all county & state names lower case ---- -->
-<!--   mutate(county = str_to_lower(county), -->
-<!--          state = str_to_lower(state)) |> -->
-<!--   # remove recurring patterns ---- -->
-<!--   mutate(county = str_remove(county, pattern = " county")) |> # across all county names -->
-<!--   mutate(county = str_remove(county, pattern = " parish")) |> # LA -->
-<!--   # make state & county names Title Case again ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "Dekalb" ~ "DeKalb", -->
-<!--     county == "Desoto" ~ "DeSoto", # works for FL & MI -->
-<!--     state == "Louisiana" & county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Dupage" ~ "DuPage", -->
-<!--     county == "Lasalle" ~ "La Salle", -->
-<!--     county == "Laporte" ~ "LaPorte", -->
-<!--     county == "O'brien" ~ "O'Brien", -->
-<!--     county == "Lamoure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "Dewitt" ~ "DeWitt", -->
-<!--     county == "St. Mary's" ~ "St. Marys", -->
-<!--     county == "Suffolk City" ~ "Suffolk", -->
-<!--     county == "Hampton City" ~ "Hampton", -->
-<!--     county == "Virginia Beach City" ~ "Virginia Beach", -->
-<!--     county == "Newport News City" ~ "Newport News", -->
-<!--     county == "Norfolk City" ~ "Norfolk", -->
-<!--     TRUE ~ county -->
-<!--   )) |> -->
-<!--   # remove DC & other non-counties -->
-<!--   filter(!county %in% c("Washington, D.c.", "Alexandria City", "Bristol City")) |> -->
-<!--   # coerce precip & 20th centruy avg from chr to numeric ---- -->
-<!--   mutate(value = as.numeric(value), -->
-<!--          x1901_2000_mean = as.numeric(x1901_2000_mean)) |> -->
-<!--   # calculate % change ---- -->
-<!--   mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |> -->
-<!--   # select & rename cols ---- -->
-<!--   select(state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ used to identify which county names don't match across dfs  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- # unique_us_counties <- us_counties |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # unique_precip_counties <- precip_counties_wrangled |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # missing_from_us_counties <- anti_join(unique_precip_counties, unique_us_counties) |> -->
-<!-- #   rename(county_in_us = county) -->
-<!-- # -->
-<!-- # missing_from_precip_counties <- anti_join(unique_us_counties, unique_precip_counties) |> -->
-<!-- #   rename(county_in_precip = county) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ ----------------------------------------------------------  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #............................join dfs............................ -->
-<!-- joined_precip_us_counties <- full_join(precip_counties_wrangled, us_counties) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- #| echo: false -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                                    setup                                 ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..........................load packages......................... -->
-<!-- library(tidyverse) -->
-<!-- library(maps) -->
-<!-- #.........................get shape data......................... -->
-<!-- states <- map_data("state") -->
-<!-- counties <- map_data("county") -->
-<!-- #....................import precipitation data................... -->
-<!-- precip_counties <- read_csv(here::here("week5", "data", "county-jan19-dec23-precip.csv"), skip = 4) |> -->
-<!--   janitor::clean_names() -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##                               data wrangling                             ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #..............update names of counties df variables............. -->
-<!-- us_counties <- counties |> -->
-<!--   # select / rename cols of interest ---- -->
-<!--   select(state = region, county = subregion, long, lat, group, order) |> -->
-<!--   # make all county & state names Title Case ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "De Kalb" ~ "DeKalb", -->
-<!--     county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Du Page" ~ "DuPage", -->
-<!--     county == "La Porte" ~ "LaPorte", -->
-<!--     county == "Obrien" ~ "O'Brien", -->
-<!--     county == "Prince Georges" ~ "Prince George's", -->
-<!--     county == "Queen Annes" ~ "Queen Anne's", -->
-<!--     county == "Ste Genevieve" ~ "Ste. Genevieve", -->
-<!--     county == "La Moure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "De Witt" ~ "DeWitt", -->
-<!--     TRUE ~ county -->
-<!--     )) |> -->
-<!--   mutate(county = str_replace(string = county, pattern = "St ", replacement = "St. ")) |> -->
-<!--   # remove DC & Yellowstone National Park ---- -->
-<!--   filter(!state %in% c("District Of Columbia")) |> -->
-<!--   filter(!county %in% c("Yellowstone National")) -->
-<!-- #..........clean precip data & make sure var names match......... -->
-<!-- precip_counties_wrangled <- precip_counties |> -->
-<!--   # more intuitive col name ---- -->
-<!--   rename(county = name) |> -->
-<!--   # make all county & state names lower case ---- -->
-<!--   mutate(county = str_to_lower(county), -->
-<!--          state = str_to_lower(state)) |> -->
-<!--   # remove recurring patterns ---- -->
-<!--   mutate(county = str_remove(county, pattern = " county")) |> -->
-<!--   mutate(county = str_remove(county, pattern = " parish")) |> -->
-<!--   # make state & county names Title Case again ---- -->
-<!--   mutate(county = str_to_title(county), -->
-<!--          state = str_to_title(state)) |> -->
-<!--   # fix different spellings so that they match county names in precip data ---- -->
-<!--   mutate(county = case_when( -->
-<!--     county == "Dekalb" ~ "DeKalb", -->
-<!--     county == "Desoto" ~ "DeSoto", -->
-<!--     state == "Louisiana" & county == "De Soto" ~ "DeSoto", -->
-<!--     county == "Dupage" ~ "DuPage", -->
-<!--     county == "Lasalle" ~ "La Salle", -->
-<!--     county == "Laporte" ~ "LaPorte", -->
-<!--     county == "O'brien" ~ "O'Brien", -->
-<!--     county == "Lamoure" ~ "LaMoure", -->
-<!--     state == "Texas" & county == "Dewitt" ~ "DeWitt", -->
-<!--     county == "St. Mary's" ~ "St. Marys", -->
-<!--     county == "Suffolk City" ~ "Suffolk", -->
-<!--     county == "Hampton City" ~ "Hampton", -->
-<!--     county == "Virginia Beach City" ~ "Virginia Beach", -->
-<!--     county == "Newport News City" ~ "Newport News", -->
-<!--     county == "Norfolk City" ~ "Norfolk", -->
-<!--     TRUE ~ county -->
-<!--   )) |> -->
-<!--   # remove DC & other non-counties -->
-<!--   filter(!county %in% c("Washington, D.c.", "Alexandria City", "Bristol City")) |> -->
-<!--   # coerce precip & 20th centruy avg from chr to numeric ---- -->
-<!--   mutate(value = as.numeric(value), -->
-<!--          x1901_2000_mean = as.numeric(x1901_2000_mean)) |> -->
-<!--   # calculate % change ---- -->
-<!--   mutate(perc_change = ((value - x1901_2000_mean)/x1901_2000_mean)*100) |> -->
-<!--   # select & rename cols ---- -->
-<!--   select(state, county, mean_1901_2000 = x1901_2000_mean, precip = value, perc_change, anomaly_1901_2000_base_period) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ used to identify which county names don't match across dfs  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- # unique_us_counties <- us_counties |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # unique_precip_counties <- precip_counties_wrangled |> -->
-<!-- #   distinct(state, county) -->
-<!-- # -->
-<!-- # missing_from_us_counties <- anti_join(unique_precip_counties, unique_us_counties) |> -->
-<!-- #   rename(county_in_us = county) -->
-<!-- # -->
-<!-- # missing_from_precip_counties <- anti_join(unique_us_counties, unique_precip_counties) |> -->
-<!-- #   rename(county_in_precip = county) -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ##  ~ ----------------------------------------------------------  ---- -->
-<!-- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- #............................join dfs............................ -->
-<!-- joined_precip_us_counties <- full_join(precip_counties_wrangled, us_counties) -->
-<!-- ``` -->
-<!-- --- -->
+<!-- CODE RENDERS WITH STUDENTS' FILE PATH -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                    setup                                 ----</span></span>
@@ -604,13 +391,14 @@ Note
 <span id="cb1-78"><a href="#cb1-78"></a><span class="co"># join dfs (be sure to join precip TO sf object, not the other way around; see https://github.com/tidyverse/ggplot2/issues/3936 &amp; https://map-rfun.library.duke.edu/032_thematic_mapping_geom_sf.html)) -------</span></span>
 <span id="cb1-79"><a href="#cb1-79"></a>joined_precip_geom <span class="ot">&lt;-</span> <span class="fu">full_join</span>(county_geo_wrangled, precip_wrangled) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<!-- CODE EVALUATES FOR USE AND DOES NOT RENDER ON SLIDE -->
 </section>
 <section id="create-map" class="level2">
 <h2 class="anchored" data-anchor-id="create-map">Create map</h2>
 <section id="create-base-map" class="level3">
 <h3 class="anchored" data-anchor-id="create-base-map">Create base map</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># create base map ----</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#........................create base map.........................</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>base_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(joined_precip_geom) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> perc_change), <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"5-year precipitation compared with the 20th century average"</span>,</span>
@@ -628,7 +416,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -636,37 +424,30 @@ Note
 </section>
 <section id="create-an-unclassed-map" class="level3">
 <h3 class="anchored" data-anchor-id="create-an-unclassed-map">Create an unclassed map</h3>
-<ul>
-<li>create color palette</li>
-</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># preview palette ----</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#........................preview palette.........................</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># save HEX codes as vector ----</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>my_brew_palette11 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>build map</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># create unclassed map ----</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>base_map <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> my_brew_palette11,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                       <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">10</span>),</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                       <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#....................save HEX codes as vector....................</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>my_brew_palette11 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#......................create unclassed map......................</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>base_map <span class="sc">+</span> </span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> my_brew_palette11,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb4-8"><a href="#cb4-8"></a>                       <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">10</span>),</span>
+<span id="cb4-9"><a href="#cb4-9"></a>                       <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -674,63 +455,56 @@ Note
 </section>
 <section id="create-a-classed-map" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-classed-map">Create a classed map</h3>
-<ul>
-<li>create color palette</li>
-</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># preview palette ----</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#........................preview palette.........................</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># save HEX codes as vector ----</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>my_brew_palette10 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#....................save HEX codes as vector....................</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>my_brew_palette10 <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">name =</span> <span class="st">"BrBG"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#..............create classed map with default bins..............</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>base_map <span class="sc">+</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">scale_fill_stepsn</span>(<span class="at">colors =</span> my_brew_palette10,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<ul>
-<li>build map</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># classed map with default bins ----</span></span>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#....................bins with a width of 10.....................</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>base_map <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">scale_fill_stepsn</span>(<span class="at">colors =</span> my_brew_palette10,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">10</span>),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                    <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#.....................bins with a width of 5.....................</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>base_map <span class="sc">+</span> </span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">scale_fill_stepsn</span>(<span class="at">colors =</span> my_brew_palette10,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb8-5"><a href="#cb8-5"></a>                    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">5</span>),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>                    <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span> </span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># bins have width of 10 ----</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>base_map <span class="sc">+</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">scale_fill_stepsn</span>(<span class="at">colors =</span> my_brew_palette10,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb9-5"><a href="#cb9-5"></a>                    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">10</span>),</span>
-<span id="cb9-6"><a href="#cb9-6"></a>                    <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># bins have width of 5 ---</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>base_map <span class="sc">+</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">scale_fill_stepsn</span>(<span class="at">colors =</span> my_brew_palette10,</span>
-<span id="cb10-4"><a href="#cb10-4"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb10-5"><a href="#cb10-5"></a>                    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="at">width =</span> <span class="dv">5</span>),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>                    <span class="at">values =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">20</span>))) <span class="sc">+</span> </span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barwidth =</span> <span class="dv">25</span>, <span class="at">barheight =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="KEY-choropleth_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
