@@ -303,6 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#example-1-all-in-one-go" id="toc-example-1-all-in-one-go" class="nav-link" data-scroll-target="#example-1-all-in-one-go">Example 1 (all in one go!)</a></li>
   </ul></li>
+  <li><a href="#plot-4" id="toc-plot-4" class="nav-link" data-scroll-target="#plot-4">Plot #4</a></li>
   </ul>
 </nav>
     </div>
@@ -331,7 +332,8 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidy-data-review" class="level2">
@@ -421,7 +423,7 @@ Note
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#...........scatterplott with custom continuous colors...........</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> body_mass_g)) <span class="sc">+</span> </span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#132B43"</span>, <span class="at">high =</span> <span class="st">"#F7DD4C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#F7DD4C"</span>, <span class="at">high =</span> <span class="st">"#132B43"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -764,9 +766,68 @@ Note
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="plot-4" class="level2">
+<h2 class="anchored" data-anchor-id="plot-4">Plot #4</h2>
+<p>Combine individual plots into a single graphic using <code>{patchwork}</code>:</p>
+<ol type="1">
+<li>Save plots to object names</li>
+</ol>
+<div class="cell" data-layout-col="3">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">#.................save scatter plot to obj `p1`..................</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#F7DD4C"</span>, <span class="at">high =</span> <span class="st">"#132B43"</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">theme</span>(</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span> <span class="co"># note: this is newly added from earlier!</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>  )</span>
+<span id="cb24-8"><a href="#cb24-8"></a></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#....................save bar plot to obj `p2`...................</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb24-13"><a href="#cb24-13"></a></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co">#...................save histogram to obj `p3`...................</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span> </span>
+<span id="cb24-16"><a href="#cb24-16"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Assemble single graphic</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">#..........................stacked plots.........................</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>p1 <span class="sc">/</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-ggplot-review_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#.......................side-by-side plots.......................</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-ggplot-review_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#..........side-by-side &amp; stacked plots + graphic title..........</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>(p1 <span class="sc">+</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"All the info you'd ever want about penguins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="KEY-ggplot-review_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

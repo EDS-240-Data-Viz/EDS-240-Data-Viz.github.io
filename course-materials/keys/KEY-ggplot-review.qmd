@@ -18,6 +18,7 @@ This key follows the [`{ggplot2}` review slides](../lecture-slides/SLIDES-ggplot
 #| warning: false
 #..........................load packages.........................
 library(tidyverse)
+library(patchwork)
 library(palmerpenguins)
 ```
 
@@ -83,7 +84,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
 #...........scatterplott with custom continuous colors...........
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) + 
   geom_point() +
-  scale_color_gradient(low = "#132B43", high = "#F7DD4C")
+  scale_color_gradient(low = "#F7DD4C", high = "#132B43")
 ```
 
 ### Example 3 (updating color for all points)
@@ -318,9 +319,52 @@ ggplot(penguins, aes(x = flipper_length_mm, fill = species)) +
   facet_wrap(~species, ncol = 1)
 ```
 
+## Plot #4
 
+Combine individual plots into a single graphic using `{patchwork}`:
 
+1. Save plots to object names
 
+```{r}
+#| eval: true
+#| echo: true
+#| layout-col: 3
+#| warning: false
+#| message: false
+#.................save scatter plot to obj `p1`..................
+p1 <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +
+  geom_point() +
+  scale_color_gradient(low = "#F7DD4C", high = "#132B43") +
+  theme(
+    legend.position = "top" # note: this is newly added from earlier!
+  )
+
+#....................save bar plot to obj `p2`...................
+p2 <- ggplot(penguins, aes(x = species)) +
+  geom_bar() +
+  theme_light()
+
+#...................save histogram to obj `p3`...................
+p3 <- ggplot(penguins, aes(x = flipper_length_mm, fill = species)) + 
+  geom_histogram(position = "identity", alpha = 0.5) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4"))
+```
+
+2. Assemble single graphic
+
+```{r}
+#| warning: false
+#| message: false
+#..........................stacked plots.........................
+p1 / p2
+
+#.......................side-by-side plots.......................
+p1 + p2
+
+#..........side-by-side & stacked plots + graphic title..........
+(p1 + (p2 / p3)) +
+  plot_annotation(title = "All the info you'd ever want about penguins")
+```
 
 
 

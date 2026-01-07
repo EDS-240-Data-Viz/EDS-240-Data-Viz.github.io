@@ -62,7 +62,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <br>
 
 ::: {.body-text-s .gray-text .center-text}
-adapted from [Cédric Scherer's](https://www.cedricscherer.com/){target="_blank"} rstudio::conf(2022) workshop, [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/) {target="_blank"}
+adapted from [Cédric Scherer's](https://www.cedricscherer.com/){target="_blank"} rstudio::conf(2022) workshop, [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/){target="_blank"}
 :::
 
 ::: {.notes}
@@ -582,7 +582,7 @@ In the previous example, we mapped color to a **categorical** variable (`species
 #| fig-align: "center"
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +
   geom_point() +
-  scale_color_gradient(low = "#132B43", high = "#F7DD4C")
+  scale_color_gradient(low = "#F7DD4C", high = "#132B43")
 ```
 
 ::: {.footer}
@@ -1412,6 +1412,151 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ::: {.center-text .gray-text .body-text-s}
 *Visualization by [Cédric Scherer](https://www.cedricscherer.com/top/about/){target="_blank"}, from his blog post, [The Evolution of a ggplot (Ep.1)](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/){target="_blank"} -- create your own ggplot evolution gif using the [`{camcorder}` package](https://github.com/thebioengineer/camcorder){target="_blank"}*
 :::
+
+---
+
+## {#plot4 data-menu-title="Plot 4"} 
+
+[Plot #4]{.slide-title}
+
+<hr>
+
+::: {.center-text}
+Let's combine a few of our previous separate plots into a single graphic to round out our quick `{ggplot2}` review. We'll do so using the **[`{patchwork}` package](https://patchwork.data-imaginist.com/){target="_blank"}**
+:::
+
+
+[**{{< fa chart-line title="a line chart" >}} Graphic layers:**]{.teal-text}  
+
+[1. data -- in [tidy](https://doi.org/10.18637/jss.v059.i10){target="_blank"} format + define aesthetics (how variables map onto a plot e.g. axes, shape, color, size)]{.body-text-s}  
+[2. geometric objects (aka geoms) -- define the type of plot(s)]{.body-text-s}     
+[3. statistical transformations -- algorithm used to calculate new values for a graph]{.body-text-s}     
+[4. position adjustments -- control the fine details of position when geoms might otherwise overlap]{.body-text-s}     
+[5. coordinate system -- change what `x` and `y` axes mean (e.g. Cartesian (default), polar, flipped)]{.body-text-s}       
+[6. facet -- create subplots that each display one subset of the data]{.body-text-s}       
+
+[**{{< fa palette title="a painter's palette" >}} "Enhancing communication" layers:**]{.teal-text}   
+
+[1. labels -- add / update titles, axis / legend labels]{.body-text-s}     
+[2. annotations -- add textual labels (e.g. to highlight specific data points or trend lines, etc.)]{.body-text-s}      
+[3. scales -- update how the aesthetic mappings manifest visually (e.g. colors scales, axis ticks, legends)]{.body-text-s}     
+[4. themes-- customize the non-data elements of your plot]{.body-text-s}      
+[5. **layout** -- combine multiple plots into the same graphic]{.body-text-s}      
+
+---
+
+## {#save-plot-objs data-menu-title="Save plots to object names"} 
+
+[First, save your plots to object names]{.slide-title}
+
+<hr>
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="33%"}
+```{r create-p1}
+#| eval: true
+#| echo: true
+p1 <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +
+  geom_point() +
+  scale_color_gradient(low = "#F7DD4C", high = "#132B43") +
+  theme(legend.position = "top") # note: this is newly added from earlier!
+
+p1
+```
+:::
+
+::: {.column width="33%"}
+```{r create-p2}
+#| eval: true
+#| echo: true
+p2 <- ggplot(penguins, aes(x = species)) +
+  geom_bar() +
+  theme_light()
+
+p2
+```
+:::
+
+::: {.column width="33%"}
+```{r create-p3}
+#| eval: true
+#| echo: true
+p3 <- ggplot(penguins, aes(x = flipper_length_mm, fill = species)) + 
+  geom_histogram(position = "identity", alpha = 0.5) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4"))
+
+p3
+```
+:::
+
+::::
+
+---
+
+## {#patchwork data-menu-title="Combine with patchwork"} 
+
+[Then, combine with `{patchwork}`]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| fig-align: "center"
+#| out-width: "80"
+#..................load the {patchwork} package..................
+library(patchwork)
+
+#..........................stacked plots.........................
+p1 / p2 
+```
+
+---
+
+## {#stacked data-menu-title="Patchwork stacked"} 
+
+[Then, combine with `{patchwork}`]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r side-by-side}
+#| eval: true
+#| echo: true
+#| message: false
+#| fig-align: "center"
+#| out-width: "80"
+#.......................side-by-side plots.......................
+p1 + p2 
+```
+
+---
+
+## {#side-stacked data-menu-title="Patchwork 3 plots"} 
+
+[Then, combine with `{patchwork}`]{.slide-title}
+
+<hr>
+
+<br>
+
+```{r combine3}
+#| eval: true
+#| echo: true
+#| message: false
+#| fig-align: "center"
+#| out-width: "80"
+#..........side-by-side & stacked plots + graphic title..........
+(p1 + (p2 / p3)) +
+  plot_annotation(title = "All the info you'd ever want about penguins")
+```
 
 ---
 

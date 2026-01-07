@@ -433,7 +433,7 @@
 </div></div>
 <p><br> <br></p>
 <div class="body-text-s gray-text center-text">
-<p>adapted from <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer’s</a> rstudio::conf(2022) workshop, <a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/">Graphic Design with ggplot2</a> {target=“_blank”}</p>
+<p>adapted from <a href="https://www.cedricscherer.com/" target="_blank">Cédric Scherer’s</a> rstudio::conf(2022) workshop, <a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/" target="_blank">Graphic Design with ggplot2</a></p>
 </div>
 <aside class="notes">
 <p>Grammar of graphics: provides a structure to combine graphical elements into figures that display data in a meaningful way.</p>
@@ -556,7 +556,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_ebbae4eb" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_047b8080" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -794,7 +794,7 @@
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11" data-code-line-numbers="1,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> body_mass_g)) <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#132B43"</span>, <span class="at">high =</span> <span class="st">"#F7DD4C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#F7DD4C"</span>, <span class="at">high =</span> <span class="st">"#132B43"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="SLIDES-ggplot-review_files/figure-revealjs/cont-color-viz1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
@@ -1388,6 +1388,118 @@
 <p><em>Visualization by <a href="https://www.cedricscherer.com/top/about/" target="_blank">Cédric Scherer</a>, from his blog post, <a href="https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/" target="_blank">The Evolution of a ggplot (Ep.1)</a> – create your own ggplot evolution gif using the <a href="https://github.com/thebioengineer/camcorder" target="_blank"><code>{camcorder}</code> package</a></em></p>
 </div>
 </section>
+<section id="plot4" class="slide level2" data-menu-title="Plot 4">
+<h2></h2>
+<p><span class="slide-title">Plot #4</span></p>
+<hr>
+<div class="center-text">
+<p>Let’s combine a few of our previous separate plots into a single graphic to round out our quick <code>{ggplot2}</code> review. We’ll do so using the <strong><a href="https://patchwork.data-imaginist.com/" target="_blank"><code>{patchwork}</code> package</a></strong></p>
+</div>
+<p><span class="teal-text"><strong><i class="fa-solid fa-chart-line" title="a line chart" aria-label="chart-line"></i> Graphic layers:</strong></span></p>
+<p><span class="body-text-s">1. data – in <a href="https://doi.org/10.18637/jss.v059.i10" target="_blank">tidy</a> format + define aesthetics (how variables map onto a plot e.g.&nbsp;axes, shape, color, size)</span><br>
+<span class="body-text-s">2. geometric objects (aka geoms) – define the type of plot(s)</span><br>
+<span class="body-text-s">3. statistical transformations – algorithm used to calculate new values for a graph</span><br>
+<span class="body-text-s">4. position adjustments – control the fine details of position when geoms might otherwise overlap</span><br>
+<span class="body-text-s">5. coordinate system – change what <code>x</code> and <code>y</code> axes mean (e.g.&nbsp;Cartesian (default), polar, flipped)</span><br>
+<span class="body-text-s">6. facet – create subplots that each display one subset of the data</span></p>
+<p><span class="teal-text"><strong><i class="fa-solid fa-palette" title="a painter's palette" aria-label="palette"></i> “Enhancing communication” layers:</strong></span></p>
+<p><span class="body-text-s">1. labels – add / update titles, axis / legend labels</span><br>
+<span class="body-text-s">2. annotations – add textual labels (e.g.&nbsp;to highlight specific data points or trend lines, etc.)</span><br>
+<span class="body-text-s">3. scales – update how the aesthetic mappings manifest visually (e.g.&nbsp;colors scales, axis ticks, legends)</span><br>
+<span class="body-text-s">4. themes– customize the non-data elements of your plot</span><br>
+<span class="body-text-s">5. <strong>layout</strong> – combine multiple plots into the same graphic</span></p>
+</section>
+<section id="save-plot-objs" class="slide level2" data-menu-title="Save plots to object names">
+<h2></h2>
+<p><span class="slide-title">First, save your plots to object names</span></p>
+<hr>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-3"><a></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"#F7DD4C"</span>, <span class="at">high =</span> <span class="st">"#132B43"</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="co"># note: this is newly added from earlier!</span></span>
+<span id="cb41-5"><a></a></span>
+<span id="cb41-6"><a></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SLIDES-ggplot-review_files/figure-revealjs/create-p1-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb42-2"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb42-3"><a></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb42-4"><a></a></span>
+<span id="cb42-5"><a></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SLIDES-ggplot-review_files/figure-revealjs/create-p2-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span> </span>
+<span id="cb43-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb43-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>))</span>
+<span id="cb43-4"><a></a></span>
+<span id="cb43-5"><a></a>p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SLIDES-ggplot-review_files/figure-revealjs/create-p3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="patchwork" class="slide level2" data-menu-title="Combine with patchwork">
+<h2></h2>
+<p><span class="slide-title">Then, combine with <code>{patchwork}</code></span></p>
+<hr>
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="co">#..................load the {patchwork} package..................</span></span>
+<span id="cb44-2"><a></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb44-3"><a></a></span>
+<span id="cb44-4"><a></a><span class="co">#..........................stacked plots.........................</span></span>
+<span id="cb44-5"><a></a>p1 <span class="sc">/</span> p2 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="SLIDES-ggplot-review_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" width="80"></section>
+<section id="stacked" class="slide level2" data-menu-title="Patchwork stacked">
+<h2></h2>
+<p><span class="slide-title">Then, combine with <code>{patchwork}</code></span></p>
+<hr>
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co">#.......................side-by-side plots.......................</span></span>
+<span id="cb45-2"><a></a>p1 <span class="sc">+</span> p2 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="SLIDES-ggplot-review_files/figure-revealjs/side-by-side-1.png" class="quarto-figure quarto-figure-center r-stretch" width="80"></section>
+<section id="side-stacked" class="slide level2" data-menu-title="Patchwork 3 plots">
+<h2></h2>
+<p><span class="slide-title">Then, combine with <code>{patchwork}</code></span></p>
+<hr>
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="co">#..........side-by-side &amp; stacked plots + graphic title..........</span></span>
+<span id="cb46-2"><a></a>(p1 <span class="sc">+</span> (p2 <span class="sc">/</span> p3)) <span class="sc">+</span></span>
+<span id="cb46-3"><a></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"All the info you'd ever want about penguins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="SLIDES-ggplot-review_files/figure-revealjs/combine3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="80"></section>
 <section id="end-break" class="slide level2" data-menu-title="# End / Break #" data-background="#047C90">
 <h2></h2>
 <div class="page-center vertical-center">
@@ -1398,7 +1510,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_091a1f1d" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_8182a604" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
