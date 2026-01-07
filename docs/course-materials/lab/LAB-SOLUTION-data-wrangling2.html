@@ -8,7 +8,7 @@
 
 <meta name="description" content="Thursday January 8th, 2026">
 
-<title>Week 1 Discussion: Exercise – EDS 240</title>
+<title>Week 1 Lab: Solution – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -213,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">Week 1 Discussion: Exercise</h1>
+      <h1 class="title">Week 1 Lab: Solution</h1>
             <p class="subtitle lead">Data wrangling with the <code>{tidyverse}</code></p>
                   <div>
         <div class="description">
@@ -251,51 +286,100 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>There’s almost always more than one correct solution!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It’s up to you to organize your own <code>week1-lab.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
+<p>Remember, there is <em>rarely</em> (if ever) one single solution to solving a data science problem. If you took different approaches / use different functions / etc. but arrived at the same output, that’s great! Chat with your partner(s) about how your approaches differ from the one below, and why it still got you to the same output.</p>
 </div>
 </div>
-<p><span class="teal-text"><strong>Your goal is to transform the bee stressor data into a tidy format to answer the following question: What is the average percent of bee colonies that are affected by a particular stressor in each quarter for a specific state?</strong></span></p>
-<p><br></p>
-<p>1.Download the <code>stressor.csv</code> <a href="https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link">here</a>. <span class="teal-text"><strong>Load the <code>{tidyverse}</code> and <code>{janitor}</code> packages, and read in <code>stressor.csv</code>. Perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://esmis.nal.usda.gov/sites/default/release-files/rn301137d/8g84nk42x/00000x890/hcny0821.pdf" target="_blank">metadata</a>. This data came from <a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11">tidytuesday</a>. In an effort to provide a data wrangling activity, the data was messified using the <code>messy</code> package in R.</p>
-<ol start="2" type="1">
-<li><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</li>
-</ol>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                    setup                                 ----</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#..........................load packages.........................</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#......................import colony and stressor data......................</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>stressor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week1"</span>, <span class="st">"data"</span>, <span class="st">"stressor.csv"</span>))</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="do">##                           basic data exploration                         ----</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># names(stressor)</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># dim(stressor)</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># str(stressor)</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># summary(stressor)</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co"># View(stressor)</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="do">##                        clean/wrangle bee data                       ----</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>stressor_clean <span class="ot">&lt;-</span> stressor <span class="sc">|&gt;</span> </span>
+<span id="cb1-28"><a href="#cb1-28"></a>  </span>
+<span id="cb1-29"><a href="#cb1-29"></a>  <span class="co"># Clean character strings </span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">str_replace_all</span>(state, <span class="st">"[^A-Za-z ]"</span>, <span class="st">""</span>),</span>
+<span id="cb1-31"><a href="#cb1-31"></a>         <span class="at">stressor =</span> <span class="fu">str_replace_all</span>(stressor, <span class="st">"[^A-Za-z ]"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a>  </span>
+<span id="cb1-33"><a href="#cb1-33"></a>  janitor<span class="sc">::</span> <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  </span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="co"># Convert year variable from string to numeric--</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a>  </span>
+<span id="cb1-38"><a href="#cb1-38"></a>  <span class="co"># Pivot table to make tidy--</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"january_march"</span>, <span class="st">"april_june"</span>, <span class="st">"july_september"</span>, <span class="st">"october_december"</span>),</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="at">names_to =</span> <span class="st">"months"</span>,</span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="at">values_to =</span> <span class="st">"stress_pct"</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a></span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="co"># Convert months to quarter number-- </span></span>
+<span id="cb1-46"><a href="#cb1-46"></a>  <span class="fu">mutate</span>(<span class="at">quarter =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-47"><a href="#cb1-47"></a>    months <span class="sc">==</span> <span class="st">"january_march"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb1-48"><a href="#cb1-48"></a>    months <span class="sc">==</span> <span class="st">"april_june"</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb1-49"><a href="#cb1-49"></a>    months <span class="sc">==</span> <span class="st">"july_september"</span> <span class="sc">~</span> <span class="dv">3</span>, </span>
+<span id="cb1-50"><a href="#cb1-50"></a>    months <span class="sc">==</span> <span class="st">"october_december"</span> <span class="sc">~</span> <span class="dv">4</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a>  </span>
+<span id="cb1-53"><a href="#cb1-53"></a>  <span class="co"># Remove "United States" and "Other States" observations</span></span>
+<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">filter</span>(state <span class="sc">!=</span> <span class="st">"United States"</span>, state <span class="sc">!=</span> <span class="st">"Other States"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>  </span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="co"># Select a specific stressor</span></span>
+<span id="cb1-57"><a href="#cb1-57"></a>  <span class="fu">filter</span>(stressor <span class="sc">==</span> <span class="st">"Pesticides"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>  </span>
+<span id="cb1-59"><a href="#cb1-59"></a>  <span class="co"># Select a specific state </span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"California"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>  </span>
+<span id="cb1-62"><a href="#cb1-62"></a>  <span class="co"># Calculate quarterly average for each year --</span></span>
+<span id="cb1-63"><a href="#cb1-63"></a>  <span class="fu">group_by</span>(year, quarter) <span class="sc">|&gt;</span></span>
+<span id="cb1-64"><a href="#cb1-64"></a>  <span class="fu">summarise</span>(<span class="at">avg_stress_pct =</span> <span class="fu">mean</span>(stress_pct, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-65"><a href="#cb1-65"></a></span>
+<span id="cb1-66"><a href="#cb1-66"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-67"><a href="#cb1-67"></a><span class="do">##          some exploratory data viz + a few plot mods for practice        ----</span></span>
+<span id="cb1-68"><a href="#cb1-68"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-69"><a href="#cb1-69"></a></span>
+<span id="cb1-70"><a href="#cb1-70"></a>stressor_clean <span class="sc">|&gt;</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> quarter, <span class="at">y =</span> avg_stress_pct, <span class="at">color =</span> <span class="fu">factor</span>(year), <span class="at">group =</span> year)) <span class="sc">+</span></span>
+<span id="cb1-72"><a href="#cb1-72"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Accent"</span>)<span class="sc">+</span></span>
+<span id="cb1-75"><a href="#cb1-75"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>)) <span class="sc">+</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">"%"</span>)) <span class="sc">+</span></span>
+<span id="cb1-77"><a href="#cb1-77"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-78"><a href="#cb1-78"></a>    <span class="at">title =</span> <span class="st">"Pesticide Stress on California Bee Colonies"</span>,</span>
+<span id="cb1-79"><a href="#cb1-79"></a>    <span class="at">subtitle =</span> <span class="st">"Quarterly averages across years"</span>,</span>
+<span id="cb1-80"><a href="#cb1-80"></a>    <span class="at">x =</span> <span class="st">"Quarter"</span>,</span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="at">y =</span> <span class="st">"Average Stress"</span>,</span>
+<span id="cb1-82"><a href="#cb1-82"></a>    <span class="at">color =</span> <span class="st">"Year"</span></span>
+<span id="cb1-83"><a href="#cb1-83"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-84"><a href="#cb1-84"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Pause for class discussion
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Take a moment to share some of your findings with the rest of the class.</p>
-</div>
-</div>
-<ol start="3" type="1">
-<li><span class="teal-text"><strong>Clean / wrangle the data!</strong></span> Using the packages loaded in step 1, perform the following operations (<em><strong>NOTE:</strong> Each step below corresponds to a single line of code</em>):
-<ol type="a">
-<li>Remove all special characters in the <code>state</code> and <code>stressor</code> column observations</li>
-<li>Convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names" target="_blank">Tidyverse style guide</a> recommendation)</li>
-<li>Check the class of the <code>year</code> variable. Update the data type if necessary.</li>
-<li>Pivot your dataframe to make it tidy data. Remember, in tidy data:
-<ul>
-<li>Each variables forms a column</li>
-<li>Each observation forms a row</li>
-<li>Each cell is a single measurement</li>
-</ul></li>
-<li>Create a new column named <code>quarter</code> that contains the quarter number that the observation took place in</li>
-<li>Remove any rows where the state is “United States” or “Other States”</li>
-<li>Filter to select a single stressor and single state that interests you!</li>
-<li>Group by year and quarter to calculate the average stress level</li>
-<li>Create a data viz of your choice!</li>
-</ol></li>
-</ol>
+<!-- Code that executes for website rendering:  -->
 
 
 
