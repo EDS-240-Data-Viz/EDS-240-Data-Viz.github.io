@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Wednesday January 7th, 2026">
+<meta name="description" content="Tuesday January 8th, 2026">
 
-<title>Course logistics, Intro, {ggplot2} review – EDS 240</title>
+<title>Week 1 Discussion: Exercise – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,27 +59,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/EDS240-hex.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cd4e4562af9062d9f200841793bf5c06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6cc4bdad0b9e89b2630bb6c80e6a8d1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/EDS240-hex.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-cd4e4562af9062d9f200841793bf5c06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-6cc4bdad0b9e89b2630bb6c80e6a8d1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,6 +107,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="../../../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="../../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../../../site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<script src="../../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../../../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../../../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../../../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="../../../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
 
 
 </head>
@@ -118,9 +128,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">EDS 240</span>
     </a>
   </div>
@@ -131,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,53 +154,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
         <li>
-    <a class="dropdown-item" href="../course-materials/week1.html">
+    <a class="dropdown-item" href="../../../course-materials/week1.html">
  <span class="dropdown-text">week 1 (1/7) - <strong>syllabus, intro, {ggplot2} review</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week2.html">
+    <a class="dropdown-item" href="../../../course-materials/week2.html">
  <span class="dropdown-text">week 2 (1/14) - <strong>graphic forms, distributions</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week3.html">
+    <a class="dropdown-item" href="../../../course-materials/week3.html">
  <span class="dropdown-text">week 3 (1/21) - <strong>evolution &amp; amounts / rankings</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week4.html">
+    <a class="dropdown-item" href="../../../course-materials/week4.html">
  <span class="dropdown-text">week 4 (1/28) - <strong>relationships, good viz</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week5.html">
+    <a class="dropdown-item" href="../../../course-materials/week5.html">
  <span class="dropdown-text">week 5 (2/4) - <strong>colors</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week6.html">
+    <a class="dropdown-item" href="../../../course-materials/week6.html">
  <span class="dropdown-text">week 6 (2/11) - <strong>infographic design with Affinity</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week7.html">
+    <a class="dropdown-item" href="../../../course-materials/week7.html">
  <span class="dropdown-text">week 7 (2/18) - <strong>typography &amp; annotations</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week8.html">
+    <a class="dropdown-item" href="../../../course-materials/week8.html">
  <span class="dropdown-text">week 8 (2/25) - <strong>data storytelling, people as data</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week9.html">
+    <a class="dropdown-item" href="../../../course-materials/week9.html">
  <span class="dropdown-text">week 9 (3/4) - <strong>alternative chart types</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week10.html">
+    <a class="dropdown-item" href="../../../course-materials/week10.html">
  <span class="dropdown-text">week 10 (3/11) - <strong>TBD, wrap-up</strong></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../course-materials/week11.html">
+    <a class="dropdown-item" href="../../../course-materials/week11.html">
  <span class="dropdown-text">week 11 (3/19) - <strong>finals week presentations</strong></span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../assignments.html"> 
+    <a class="nav-link" href="../../../assignments.html"> 
 <span class="menu-text">assignments</span></a>
   </li>  
   <li class="nav-item">
@@ -203,15 +213,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="../resources.html">
+    <a class="dropdown-item" href="../../../resources.html">
  <span class="dropdown-text">recommended reading &amp; materials</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../clean-code-guide.html">
+    <a class="dropdown-item" href="../../../clean-code-guide.html">
  <span class="dropdown-text">guide for writing clean code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../getting-unstuck.html">
+    <a class="dropdown-item" href="../../../getting-unstuck.html">
  <span class="dropdown-text">getting unstuck</span></a>
   </li>  
         <li>
@@ -247,19 +257,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Course logistics, Intro, <code>{ggplot2}</code> review</h1>
-            <p class="subtitle lead">Week 1</p>
+    <div class="quarto-title column-page">
+      <h1 class="title">Week 1 Discussion: Exercise</h1>
+            <p class="subtitle lead">Data wrangling with the <code>{tidyverse}</code></p>
                   <div>
         <div class="description">
-          Wednesday January 7<sup>th</sup>, 2026
+          Tuesday January 8<sup>th</sup>, 2026
         </div>
       </div>
                 </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta column-page">
 
       
     
@@ -270,282 +280,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</a>
-  <ul class="collapse">
-  <li><a href="#install-pkgs" id="toc-install-pkgs" class="nav-link" data-scroll-target="#install-pkgs">A. Install required packages</a></li>
-  <li><a href="#create-class-repo" id="toc-create-class-repo" class="nav-link" data-scroll-target="#create-class-repo">B. Create &amp; organize your <code>EDS-240-class-examples</code> repository</a></li>
-  <li><a href="#download-templates" id="toc-download-templates" class="nav-link" data-scroll-target="#download-templates">C. Download the <code>.qmd</code> template</a></li>
-  </ul></li>
-  <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
-  <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
-  <ul class="collapse">
-  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#download-data" id="toc-download-data" class="nav-link" data-scroll-target="#download-data">B.Download the data</a></li>
-  <li><a href="#c.-add-data-to-.gitignore" id="toc-c.-add-data-to-.gitignore" class="nav-link" data-scroll-target="#c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></a></li>
-  <li><a href="#d.-prepare-a-week1-lab.qmd-file" id="toc-d.-prepare-a-week1-lab.qmd-file" class="nav-link" data-scroll-target="#d.-prepare-a-week1-lab.qmd-file">D. Prepare a <code>week1-lab.qmd</code> file</a></li>
-  </ul></li>
-  <li><a href="#lab-materials" id="toc-lab-materials" class="nav-link" data-scroll-target="#lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</a></li>
-  <li><a href="#assignment-reminders" id="toc-assignment-reminders" class="nav-link" data-scroll-target="#assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
 
 
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/ggplot2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%" alt="The {ggplot2} hex sticker which features a connected scatterplot with data points in varying shades of blue atop a gray gridded background. The word 'ggplot2' sits beneath the data."></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="pre-class-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lecture Prep</h2>
-<section id="install-pkgs" class="level3">
-<h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>) <span class="co"># a package containing the `penguins` data set, which we'll use for plotting practice</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>) <span class="co"># makes it super easy to combine individual plots into a single graphic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="create-class-repo" class="level3">
-<h3 class="anchored" data-anchor-id="create-class-repo">B. Create &amp; organize your <code>EDS-240-class-examples</code> repository</h3>
-<p>We’ll be coding together quite a bit throughout this course. To stay organized, we’ll complete all of our in-class examples in one repository (repo). Setup your repository following these steps:</p>
-<ol type="1">
-<li><strong>Create and clone a GitHub repository named <code>EDS-240-class-examples</code></strong> (or something that makes sense for you). Step-by-step instructions are provided, below, if needed:</li>
-</ol>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Step-by-step instructions for creating and cloning a GitHub repo:
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Create a remote (GitHub) repo:</strong></p>
-<ol type="1">
-<li>Navigate to your GitHub profile and click on <strong>Repositories</strong> (top menu bar)</li>
-<li>Click on the green <strong>New</strong> button in the upper right-hand corner</li>
-<li>Give it the name <code>EDS-240-class-examples</code>, and optionally, a short description. Select the radio button for <strong>Public</strong> repository (it should be selected by default). <strong>Initialize this repository with a README</strong>, then click <strong>Create repository</strong>.</li>
-<li>From your repo’s main page, click the green <strong>Code</strong> button and copy the URL to your clipboard</li>
-</ol>
-<p><strong>Clone your repo:</strong></p>
-<p><em>You may choose the IDE of your choice, though the instructions below describe a workflow for RStudio users.</em></p>
-<ol start="5" type="1">
-<li>Open up RStudio</li>
-<li>Click on the drop down menu next to the R project icon (top right corner)</li>
-<li>Click <strong>New Project…</strong> &gt; <strong>Version Control</strong> &gt; <strong>Git</strong> &gt; paste your repo’s URL in the <strong>Repository URL:</strong> box and press <strong>Tab</strong> to auto fill the <strong>Project directory name</strong> field (it should automatically be named the same as your GitHub repo). <strong>Browse</strong> to select where on your computer you’d like your repo to be saved.</li>
-<li>Click <strong>Create Project</strong></li>
-</ol>
-</div>
-</div>
-</div>
-<ol start="2" type="1">
-<li><p><strong>Create a folder for each week (e.g.&nbsp;<code>week1/</code>, <code>week2/</code>, <code>week3/</code>, etc.)</strong> inside your repository’s root directory to help keep all the various files that we’ll download / create organized. This consistent naming scheme will also make it easy to add large files (e.g.&nbsp;data files) to your <code>.gitignore</code> file, which is automatically created when you clone your repo.</p></li>
-<li><p><strong>Update your <code>.gitignore</code> file</strong> to prevent yourself from accidentally committing data files (<a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github" target="_blank">GitHub limits the size of files</a> allowed in repos). Open your <code>.gitignore</code> file and add the following:</p></li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># ignore any folder named `data/` within folders named `week*` (* acts as a wildcard)</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="sc">/</span>week<span class="sc">*</span><span class="er">/</span>data<span class="sc">/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ol start="4" type="1">
-<li><strong>Fill out your repo’s README,</strong> referencing the <a href="https://ucsb-meds.github.io/README-guidelines/" target="_blank">MEDS README Guidelines</a>.</li>
-</ol>
-</section>
-<section id="download-templates" class="level3">
-<h3 class="anchored" data-anchor-id="download-templates">C. Download the <code>.qmd</code> template</h3>
-<p>Template <code>.qmd</code> files will be provided alongside (most) lecture slides to help keep us organized and on track throughout class. They are available for download directly <a href="https://github.com/EDS-240-Data-Viz/code-along-templates/tree/main" target="_blank">from GitHub</a> at the link(s) provided in the <strong>Lecture Materials</strong> table (below). Look for the download button at the top right corner of the file (it looks similar to this, <i class="fa-solid fa-download" title="a downward pointing arrow atop a hard drive" aria-label="download"></i>). Please download all necessary templates and save them to the appropriate <code>EDS-240-data-viz-examples/weekX</code> folder before each class.</p>
-</section>
-</section>
-<section id="lecture-materials" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lecture slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Code-along template</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Code-along key</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/lecture-slides/SLIDES-syllabus.html" target="_blank">Lecture 1.1: course logistics &amp; syllabus</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
-</tr>
-<tr class="even">
-<td><a href="../course-materials/lecture-slides/SLIDES-dataviz-intro.html" target="_blank">Lecture 1.2: data viz intro</a></td>
-<td><em>NA</em></td>
-<td><em>NA</em></td>
-</tr>
-<tr class="odd">
-<td><a href="../course-materials/lecture-slides/SLIDES-ggplot-review.html" target="_blank">Lecture 1.3: <code>{ggplot2}</code> review</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-ggplot-review.qmd" target="_blank">1.3 template</a></td>
-<td><a href="../course-materials/keys/KEY-ggplot-review.html" target="_blank">1.3 key</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="pre-lab-prep" class="level2">
-<h2 class="anchored" data-anchor-id="pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</h2>
-<section id="a.-install-required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"here"</span>) <span class="co"># for reproducible, relative file paths</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>) <span class="co"># tools for cleaning dirty data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="download-data" class="level3">
-<h3 class="anchored" data-anchor-id="download-data">B.Download the data</h3>
-<p>Save data to your class repo at <code>EDS-240-class-examples/week1/data/</code>:</p>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 30%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Dataset title</th>
-<th>Download link</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>HoneyBee Colonies</td>
-<td>Download from <a href="https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link" target="_blank">this google drive</a></td>
-<td>While the original bee stressor data come from the <a href="https://esmis.nal.usda.gov/publication/honey-bee-colonies">USDA</a>, we will be using a compiled version of this data that come from the TidyTuesday organization, found <a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11">here</a>. In order to achieve the goal of data wrangling in this week’s lab, the data from TidyTuesday was ‘messified’ using the<code>{messy}</code> and <code>{tidyverse}</code> package in R.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="c.-add-data-to-.gitignore" class="level3">
-<h3 class="anchored" data-anchor-id="c.-add-data-to-.gitignore">C. Add data to <code>.gitignore</code></h3>
-<p>We don’t want to push any data in our repo to GitHub (GitHub enforces file size limits, and you’ll run into some serious headaches when you try to push a file that’s too big). To avoid doing this, we can add our data files to our <code>.gitignore</code> file, which, as the name implies, is a collection of files that we want Git to ignore. <strong>Open up your <code>.gitignore</code> file and add the following line (anywhere is fine, but it makes sense to add it beneath the last line):</strong></p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.gitignore</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ignore any folder named `data/` within folders named `week__` (* acts as a wildcard)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/week*/data/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<p>Notice that when you <strong>Save</strong> your modified <code>.gitignore</code> file, untracked data files at the specified file path disappear from your Git tab in RStudio, and a modified <code>.gitignore</code> file appears in it’s place (this is what we want!). Stage / add, commit, and push <code>.gitignore</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>A gif of this whole process (in case it’s helpful!)
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s up to you to organize your own <code>week1-lab.qmd</code> file (i.e.&nbsp;there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!).</p>
+</div>
+</div>
+<p><span class="teal-text"><strong>Your goal is to transform the raw fracking data into a wrangled data frame that looks like this (only the first 6 rows are shown here):</strong></span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4bc11500888554bb2c75" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4bc11500888554bb2c75">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2004-11-14T12:00:00Z","2004-11-14T12:00:00Z","2008-11-19T12:00:00Z","2009-06-29T12:00:00Z","2009-07-07T12:00:00Z","2009-07-13T12:00:00Z"],[2004,2004,2008,2009,2009,2009],["Kansas","Texas","Pennsylvania","Pennsylvania","Pennsylvania","Pennsylvania"],["KS","TX","PA","PA","PA","PA"],["LeAnn 21-34-9 1H","M Cusack B 5H","Fisk Hollow PV PAD A #2146","Reed Run Keating PAD A #2145","Pine Hill #1941A","Henderson King #2MH"],[1425522,4633612,4117827,3839848,4032381,2899932]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>datetime_start<\/th>\n      <th>year<\/th>\n      <th>state_name<\/th>\n      <th>state_abb<\/th>\n      <th>well_name<\/th>\n      <th>total_base_water_volume_gal<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"datetime_start","targets":1},{"name":"year","targets":2},{"name":"state_name","targets":3},{"name":"state_abb","targets":4},{"name":"well_name","targets":5},{"name":"total_base_water_volume_gal","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br></p>
+<ol type="1">
+<li><p><span class="teal-text"><strong>Load the <code>{tidyverse}</code>, <code>{janitor}</code>, and <code>{usdata}</code> packages, read in <code>registryupload_1.csv</code>, and perform some basic data exploration.</strong></span> Use the <code>{here}</code> package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the <a href="https://drive.google.com/file/d/1n-eiTKPzMo8di4cjG1A94vhkMLMqFY62/view?usp=sharing" target="_blank">metadata</a>, which accompanied our <code>registryupload_1.csv</code> file when downloaded from FracFocus.</p></li>
+<li><p><span class="teal-text"><strong>Consider what data <em>cleaning</em> you might need to perform.</strong></span> Discuss any curious data formatting (e.g.&nbsp;data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?</p></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Pause for class discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Take a moment to share some of your findings with the rest of the class.</p>
+</div>
+</div>
+<ol start="3" type="1">
+<li><span class="teal-text"><strong>Clean / wrangle the data!</strong></span> Using the packages loaded in step 1, perform the following operations (<em><strong>NOTE:</strong> Each step below corresponds to a single line of code</em>):
+<ol type="a">
+<li>convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the <a href="https://style.tidyverse.org/syntax.html#object-names" target="_blank">Tidyverse style guide</a> recommendation)</li>
+<li>remove <code>"AM"</code> from the <code>job_start_date</code> column observations</li>
+<li>convert observations in the <code>job_start_date</code> column from character strings to datetime objects and save them to a new column named <code>datetime_start</code></li>
+<li>add a column named <code>year</code> that contains only the year from <code>datetime_start</code></li>
+<li>keep only the necessary columns (<code>datetime_start</code>, <code>year</code>, <code>state_name</code>, <code>well_name</code>, <code>total_base_water_volume</code>)</li>
+<li>convert all observations in the <code>state_name</code> column to Title Case</li>
+<li>remove any rows where the state name ends in <code>?</code></li>
+<li>convert any state abbreviations to full names in the <code>state_name</code> column (<strong>Hint:</strong> use a combination of the <code>mutate()</code>, <code>ifelse()</code> &amp; <code>usdata::abbr2state()</code> functions)</li>
+<li>correct any misspelled state names in the <code>state_name</code> column (<strong>Note:</strong> figure out how to update the names of a few misspelled states, the feel free to copy the complete code for this step from the expandable section, below)</li>
+<li>remove any rows that do not have a true US state name in the <code>state_name</code> column</li>
+<li>add a column named <code>state_abb</code> with just US state abbreviations</li>
+<li>move the <code>state_abb</code> column so that it sits immediately after the <code>state_name</code> column</li>
+<li>rename <code>total_base_water_volume</code> as <code>total_base_water_volume_gal</code> for clarity</li>
+<li>remove any observations that don’t have a measurement for <code>total_base_water_volume_gal</code> (i.e.&nbsp;NA)</li>
+<li>reorder rows from earliest to most recent <code>datetime_start</code> values</li>
+</ol></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Expand for code to fix misspelled state names
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/gitignore.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
-</figure>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">mutate</span>(<span class="at">state_name =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    state_name <span class="sc">==</span> <span class="st">"Colordao"</span> <span class="sc">~</span> <span class="st">"Colorado"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    state_name <span class="sc">==</span> <span class="st">"Loiusiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    state_name <span class="sc">==</span> <span class="st">"Louisianna"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    state_name <span class="sc">==</span> <span class="st">"Lousiana"</span> <span class="sc">~</span> <span class="st">"Louisiana"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    state_name <span class="sc">==</span> <span class="st">"New Mexcio"</span> <span class="sc">~</span> <span class="st">"New Mexico"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    state_name <span class="sc">==</span> <span class="st">"Norh Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    state_name <span class="sc">==</span> <span class="st">"Norht Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    state_name <span class="sc">==</span> <span class="st">"North  Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakata"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    state_name <span class="sc">==</span> <span class="st">"North Dakotta"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    state_name <span class="sc">==</span> <span class="st">"Noth Dakota"</span> <span class="sc">~</span> <span class="st">"North Dakota"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    state_name <span class="sc">==</span> <span class="st">"Pennslvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylavania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    state_name <span class="sc">==</span> <span class="st">"Pennsylvanya"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    state_name <span class="sc">==</span> <span class="st">"Penssylvania"</span> <span class="sc">~</span> <span class="st">"Pennsylvania"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    state_name <span class="sc">==</span> <span class="st">"Texasa"</span> <span class="sc">~</span> <span class="st">"Texas"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    state_name <span class="sc">==</span> <span class="st">"Texs"</span> <span class="sc">~</span> <span class="st">"Texas"</span>, </span>
+<span id="cb1-19"><a href="#cb1-19"></a>    state_name <span class="sc">==</span> <span class="st">"West Viginia"</span> <span class="sc">~</span> <span class="st">"West Virginia"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    state_name <span class="sc">==</span> <span class="st">"Wyominng"</span> <span class="sc">~</span> <span class="st">"Wyoming"</span>, </span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> state_name <span class="co"># copy over rest of state names from as-is</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-<div class="center-text gray-text">
-<p>An example repo with three folders: <code>week1/</code>, <code>week2/</code>, and <code>other-stuff/</code>. Each of those folders has a subfolder named <code>data/</code>, and each <code>data/</code> folder contains a <code>.csv</code> file. Adding the line, <code>/week*/data/</code> to the <code>.gitignore</code> tells Git to ignore folders (and their contents) named <code>data/</code> that are within a parent folder named <code>week__</code> (the <code>*</code> acts as a wildcard). If we wanted to ignore all three <code>data/</code> folders (including <code>other-stuff/data/</code>), we can instead include <code>/*/data/</code> to our <code>.gitignore</code>.</p>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section id="d.-prepare-a-week1-lab.qmd-file" class="level3">
-<h3 class="anchored" data-anchor-id="d.-prepare-a-week1-lab.qmd-file">D. Prepare a <code>week1-lab.qmd</code> file</h3>
-<p>Add a new blank file to your class repo – you’ll complete your lab exercises here. For organization’s sake, it should live in the following location: <code>EDS-240-class-examples/week1/week1-lab.qmd</code>. Fill out the necessary YAML information (<code>title</code>, <code>author</code>, <code>date</code> + any other information you find helpful).</p>
-</section>
-</section>
-<section id="lab-materials" class="level2">
-<h2 class="anchored" data-anchor-id="lab-materials"><i class="fa-solid fa-comments" title="two speech bubbles" aria-label="comments"></i> Lab Materials</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 35%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><i class="fa-solid fa-person-chalkboard" title="A person motioning at a chalkboard" aria-label="person-chalkboard"></i> Lab Slides</th>
-<th><i class="fa-solid fa-file-code" title="A code file" aria-label="file-code"></i> Exercise instructions</th>
-<th><i class="fa-solid fa-key" title="A key" aria-label="key"></i> Exercise solutions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../course-materials/lab/LAB-SLIDES-data-wrangling-stressors.html" target="_blank">Lab 1 slides: data wrangling</a></td>
-<td><a href="../course-materials/lab/LAB-EXERCISE-data-wrangling-stressors.html" target="_blank">Lab 1 exercise: wrangle bee colony stressor data</a></td>
-<td><a href="../course-materials/lab/LAB-SOLUTION-data-wrangling-stressors.html" target="_blank">Lab 1 solution</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="assignment-reminders" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-reminders"><i class="fa-solid fa-pencil" title="pencil" aria-label="pencil"></i> Assignment Reminders</h2>
-<table class="table-hover table-bordered caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 30%">
-<col style="width: 20%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Assignment Type</th>
-<th>Assignment Title</th>
-<th>Date Assigned</th>
-<th>Date Due</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>SR</td>
-<td><a href="../course-materials/assignments/SR1.html">Pre-course reflection (SR #1)</a></td>
-<td>Wed 01/07/2026</td>
-<td>Fri 01/09/2026, 11:59pm PT</td>
-</tr>
-<tr class="even">
-<td>HW</td>
-<td><a href="../course-materials/assignments/HW1.html">Homework Assignment #1</a></td>
-<td>Wed 01/07/2026</td>
-<td>Wed 01/14/2026, 11:59pm PT</td>
-</tr>
-</tbody>
-</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
