@@ -37,10 +37,10 @@ format:
 
 . . .
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
-```{r}
+```{r ggplot-example}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -50,7 +50,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r gganimate}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -63,7 +63,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-```{r}
+```{r shiny-example}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -74,7 +74,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
 ::: {.center-text}
@@ -144,7 +144,7 @@ The Lascaux Cave Paintings are thought to be some of the first charted stars and
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r}
+```{r lascaux1}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -154,7 +154,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r lascaux2}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -188,7 +188,7 @@ Sources: [BBC](http://news.bbc.co.uk/2/hi/science/nature/871930.stm){target="_bl
 Oldest known geologic map, the Turin Papyrus Map, depicts a dry riverbed (Wadi Hammamat) and major mining region in Egypt's Eastern Desert. 
 :::
 
-```{r}
+```{r turin}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -222,7 +222,7 @@ It was prepared by Amennakhte, Scribe-of-the-Tomb, for Ramses IV's quarrying exp
 Quipus (kee-poos) were recording devices used by the Inca Empire for data collection, census records, calendaring, etc.
 :::
 
-```{r}
+```{r quipu}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -254,7 +254,7 @@ Michael Florent van Langren, Flemish astronomer, created the first (known) stati
 
 <br>
 
-```{r}
+```{r toledo-rome}
 #| eval: true
 #| echo: false
 #| out-width: "90%"
@@ -291,7 +291,7 @@ William Playfair, Scottish engineer and political economist, is credited as the 
 
 <br>
 
-```{r}
+```{r playfair}
 #| eval: true
 #| echo: false
 #| out-width: "90%"
@@ -323,7 +323,7 @@ Emma Hart Willard, America's first professional female cartographer, created the
 
 <br>
 
-```{r}
+```{r temple-time}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -362,7 +362,7 @@ Florence Nightingale was an English wartime nurse who campaigned to improve sani
 
 <br>
 
-```{r}
+```{r nightingale}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -399,7 +399,7 @@ Charles Minard, a French civil engineer, produced what is referred to as, "the g
 
 <br>
 
-```{r}
+```{r minard}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -431,7 +431,7 @@ W.E.B. DuBois, was an African American writer, scholar and activist. He used pho
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r}
+```{r dubois-anyene}
 #| eval: true
 #| echo: false
 #| out-width: "50%"
@@ -445,7 +445,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r dubois-freites}
 #| eval: true
 #| echo: false
 #| out-width: "50%"
@@ -489,7 +489,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 The emergence of programming languages and tools in recent years has made data visualization design easier than every before.
 :::
 
-```{r}
+```{r modern-tools}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -510,7 +510,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <p class="caption-text">*Spend the next few minutes discussing with your Learning Partners, and if possible, pull up some example visualizations that demonstrate your thoughts / discussion points*</p>
 </div>
 
-```{r}
+```{r why-visualize-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -534,10 +534,10 @@ countdown::countdown(
 
 <hr>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r ripple}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -579,11 +579,11 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 . . .
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
 
-```{r}
+```{r diamonds}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -591,7 +591,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "diamond-hist.png"))
 ```
 
-```{r}
+```{r diamonds-hist}
 #| eval: false
 #| echo: true
 ggplot(diamonds, aes(x = carat)) +
@@ -601,7 +601,7 @@ ggplot(diamonds, aes(x = carat)) +
 
 ::: {.column width="33%"}
 
-```{r}
+```{r cars}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -609,7 +609,7 @@ ggplot(diamonds, aes(x = carat)) +
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "cars-boxplot.png"))
 ```
 
-```{r}
+```{r cars-boxplot}
 #| eval: false
 #| echo: true
 ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
@@ -619,7 +619,7 @@ ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
 
 ::: {.column width="33%"}
 
-```{r}
+```{r diamonds2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -627,7 +627,7 @@ ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "diamonds-freqplot.png"))
 ```
 
-```{r}
+```{r diamonds-freqplot}
 #| eval: false
 #| echo: true
 ggplot(diamonds, aes(x = price, y = after_stat(density))) + 
@@ -649,10 +649,10 @@ ggplot(diamonds, aes(x = price, y = after_stat(density))) +
 **Same summary statistics, different distributions!**
 :::
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%}
-```{r}
+```{r anscombes}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -667,7 +667,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <br>
 <br>
 
-```{r}
+```{r datasaurus}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -678,7 +678,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::::
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 ::: {.center-text}
@@ -706,7 +706,7 @@ Datasaurus Dozen
 
 <br>
 
-```{r}
+```{r hawkins}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -730,7 +730,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-```{r}
+```{r lipponen}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -754,7 +754,7 @@ gif created from [Antti Lipponen](https://anttilip.net/){target="_blank"}'s [Tem
 
 <br>
 
-```{r}
+```{r sabbarao}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -779,10 +779,10 @@ gif created from [Mark SubbaRao](https://www.linkedin.com/in/msubbarao/){target=
 <br>
 <br>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
-```{r}
+```{r bremer1}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -792,7 +792,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r bremer2}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -802,7 +802,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="33%"}
-```{r}
+```{r bremer3}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -838,10 +838,10 @@ To enlarge, **Right click** > **Open Image in New Tab**
 
 <br>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="33%"}
-```{r}
+```{r scherer}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -858,7 +858,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-```{r}
+```{r anyene}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -873,7 +873,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.column width="33%"}
 
-```{r}
+```{r thompson}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -902,7 +902,7 @@ Find the data on the [TidyTuesday repo](https://github.com/rfordatascience/tidyt
 
 <hr>
 
-```{r}
+```{r vertices}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -910,7 +910,7 @@ Find the data on the [TidyTuesday repo](https://github.com/rfordatascience/tidyt
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "vertices.png"))
 ```
 
-::: footer
+::: {.footer}
 Vertices of Communication by [Alberto Cairo](https://www.albertocairo.com/){target="_blank"}, as presented by [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"} during his 2022 [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/){target="_blank"} workshop ([slides](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/materials/04_data_communication.pdf){target="_blank"})
 :::
 
@@ -922,7 +922,7 @@ Vertices of Communication by [Alberto Cairo](https://www.albertocairo.com/){targ
 
 <hr>
 
-:::: columns
+:::: {.columns}
 
 ::: {.column width="50%"}
 
@@ -942,7 +942,7 @@ Vertices of Communication by [Alberto Cairo](https://www.albertocairo.com/){targ
 <br>
 <br>
 
-```{r}
+```{r why-r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -962,7 +962,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 <!-- <p class="caption-text">*~ This is the end of Lesson 2 (of 3) ~*</p> -->
 </div>
 
-```{r}
+```{r end-countdown}
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,
