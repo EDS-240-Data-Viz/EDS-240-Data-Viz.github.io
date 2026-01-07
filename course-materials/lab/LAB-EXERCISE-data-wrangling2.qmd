@@ -1,0 +1,126 @@
+---
+title: "Week 1 Discussion: Exercise"
+subtitle: "Data wrangling with the `{tidyverse}`"
+description: "Thursday January 8^th^, 2026"
+---
+
+::: {.callout-note}
+It's up to you to organize your own `week1-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+:::
+
+[**Your goal is to transform the bee stressor data into a tidy format to answer the following question: What is the average percent of bee colonies that are affected by a particular stressor in each quarter for a specific state?**]{.teal-text}
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+
+#......................import colony and stressor data......................
+
+stressor <- read_csv(here::here("course-materials", "data", "lab", "stressor.csv")) 
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                        clean/wrangle bee data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+stressor_clean <- stressor |> 
+  
+  # Clean character strings 
+  mutate(state = str_replace_all(state, "[^A-Za-z ]", ""),
+         stressor = str_replace_all(stressor, "[^A-Za-z ]", "")) |>
+  
+  janitor:: clean_names() |>
+  
+  # Convert year variable from string to numeric--
+  mutate(year = as.numeric(year)) |>
+  
+  # Pivot table to make tidy--
+  pivot_longer(
+    cols = c("january_march", "april_june", "july_september",       "october_december"),
+    names_to = "months",
+    values_to = "stress_pct"
+  ) |>
+
+# Convert months to quarter number-- 
+  mutate(quarter = case_when(
+    months == "january_march" ~ 1,
+    months == "april_june" ~ 2, 
+    months == "july_september" ~ 3, 
+    months == "october_december" ~ 4
+  )) |>
+  
+  # Remove "United States" and "Other States" observations
+  filter(state != "United States", state != "Other States") |>
+  
+  # Select a specific stressor
+  filter(stressor == "Pesticides") |>
+  
+  # Select a specific state 
+  
+  filter(state == "California") |>
+  # Calculate quarterly average for each year --
+  group_by(year, quarter) |>
+  
+  summarise(avg_stress_pct = mean(stress_pct, na.rm = TRUE))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##          some exploratory data viz
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+stressor_clean |>
+  ggplot(aes(x = quarter, y = avg_stress_pct, color = factor(year), group = year)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  scale_color_brewer(palette = "Accent")+
+  scale_x_continuous(breaks = 1:4, labels = c("Q1", "Q2", "Q3", "Q4")) +
+  scale_y_continuous(labels = scales::label_number(suffix = "%")) +
+  labs(
+    title = "Pesticide Stress on California Bee Colonies",
+    subtitle = "Quarterly averages across years",
+    x = "Quarter",
+    y = "Average Stress",
+    color = "Year"
+  ) +
+  theme_minimal()
+```
+
+
+
+<br>
+
+1.Download the `stressor.csv` here[https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link]. [**Load the `{tidyverse}` and `{janitor}`  packages, and read in `stressor.csv`. Perform some basic data exploration.**]{.teal-text} Use the `{here}` package to read in your data and check out things like the dimensions, structure, types of variables, unique observations, etc. Read through the [metadata](https://esmis.nal.usda.gov/sites/default/release-files/rn301137d/8g84nk42x/00000x890/hcny0821.pdf){target="_blank"}. This data came from [tidytuesday](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11). In an effort to provide a data wrangling activity, the data was messified using the `messy` package in R. 
+
+2. [**Consider what data *cleaning* you might need to perform.**]{.teal-text} Discuss any curious data formatting (e.g. data types, inconsistent observation names, missing values, etc.) that you discovered during your data exploration step, above. What might you need to address in your next data wrangling steps?
+
+::: {.callout-important}
+## Pause for class discussion
+Take a moment to share some of your findings with the rest of the class.
+:::
+
+3. [**Clean / wrangle the data!**]{.teal-text} Using the packages loaded in step 1, perform the following operations (***NOTE:** Each step below corresponds to a single line of code*):
+    a. Remove all special characters in the `state` and `stressor` column observations
+    b. Convert all column names from CamelCase to snake_case (for ease of readability and to adhere to the [Tidyverse style guide](https://style.tidyverse.org/syntax.html#object-names){target="_blank"} recommendation)
+    c. Check the class of the `year` variable. Update the data type if necessary. 
+    d. Pivot your dataframe to make it tidy data. Remember, in tidy data: 
+         - Each variables forms a column
+         - Each observation forms a row
+         - Each cell is a single measurement
+  
+    e. Create a new column named `quarter` that contains the quarter number that the observation took place in
+    f. Remove any rows where the state is "United States" or "Other States"
+    g. Filter to select a single stressor and single state that interests you! 
+    h. Group by year and quarter to calculate the average stress level 
+    i. Create a data viz of your choice!
+    
+
+
+
