@@ -1,0 +1,153 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    # code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: console
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#047C91"} 
+
+[EDS 240: Lab 1]{.custom-title}
+
+[*Data Wrangling*]{.custom-subtitle}
+
+<hr class="hr-dark-blue">
+
+[Week 1 | January 8^th^, 2026]{.custom-subtitle3}
+
+---
+
+## {#what-is-data-wrangling data-menu-title="What is data wrangling?"}
+
+[What do we mean by "data wrangling?"]{.slide-title}
+
+<hr>
+
+>*"Data wrangling, sometimes referred to as data munging, is **the process of transforming and mapping data from one "raw" data form into another format** with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics."*
+
+::: {.right-align-text}
+-[Wikipedia](https://en.wikipedia.org/wiki/Data_wrangling)
+:::
+
+. . . 
+
+[Wrangling includes (but is not limited to):]{.body-text-m}
+
+- **data cleaning** (e.g. handling missing values, consistent naming of observations, ensuring variables are the correct data types, etc.)
+- **restructuring data** (e.g. tidying data (i.e. convert from wide > long format))
+- **combining data sets** (e.g. using key values to merge two related data sets)
+
+. . . 
+
+[Wrangling is a critical first step in building any sort of data visualization!]{.body-text-m}
+
+::: {.footer}
+You may have heard something like, "Data scientists spend 80% of their time preparing their data for analysis and / or visualization." And while that may not be totally accurate for all data scientists or all projects, you *will* spend lots of time wrestling with data.
+:::
+
+---
+
+## {#tidy-format data-menu-title="Tidy data"}
+
+[`{ggplot2}` plays best with *tidy* data]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-alt: "Stylized text providing an overview of Tidy Data. The top reads 'Tidy data is a standard way of mapping the meaning of a dataset to its structure. - Hadley Wickham.' On the left reads 'In tidy data: each variable forms a column; each observation forms a row; each cell is a single measurement.' There is an example table on the lower right with columns ‘id’, ‘name’ and ‘color’ with observations for different cats, illustrating tidy data structure."
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "horst-tidy-data-definition.png"))
+```
+
+::: {.center-text .body-text-s}
+Artwork by [Allison Horst](https://allisonhorst.com/allison-horst)
+:::
+
+<br>
+
+::: {.footer}
+**Reminder:** tidy data is not a `{ggplot2}`-specific concept. It's a broadly standardized way of organizing data.
+:::
+
+---
+
+## {#tidyverse data-menu-title="Tidyverse"}
+
+[The `{tidyverse}` provides lots of helpful tools]{.slide-title2}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "tidyverse-workflow.png"))
+```
+
+<br>
+
+::: {.center-text .body-text-s}
+The data science workflow, as described by Hadley Wickham, Mine Çetinkaya-Rundel and Garrett Grolemund in [R for Data Science (2e)](https://r4ds.hadley.nz/intro), with added [`{tidyverse}` packages](https://www.tidyverse.org/packages/) as they fit within this workflow.
+:::
+
+<br>
+
+::: {.footer}
+**Note** that there are a number of other non-tidyverse packages that are also incredibly helpful too (e.g. `{janitor}`, `{naniar}`)!
+:::
+
+---
+
+## {#fracfocus data-menu-title="FracFocus"}
+
+[Let's wrangle some bee stressor data]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "80%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "bee_stressors.png"))
+```
+
+::: {.footer}
+Source: [Nebraska Public Media](https://nebraskapublicmedia.org/en/news/news-articles/honeybees-are-still-on-the-decline-recent-survey-found-that-could-sting-crop-production/){target="_blank"}
+
+Interested in learning more about bee colony loss rates and stressors? Check out [this article](https://science.psu.edu/news/Chiaromonte1-2023){target="_blank"} from Penn State.
+:::
+
+---
+
+## {#messy-data data-menu-title="FracFocus' messy data"}
+
+[Download bee stressor data from Google Drive!]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.center-text .body-text-m}
+**You should already have downloaded these data from [Google Drive](https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link)**
+:::
+
+This data is available in a yearly report from the USDA. TidyTuesday processed this data into a csv in 2021. To achieve the goal of practicing data wrangling in this lab, this data was messified using the `messy` package in R, along with some `{tidyverse}` functions. 
+
+<br>
+
+. . . 
+
+::: {.center-text .body-text-l}
+Open up the [Week 1 Lab: Exercise](week1-exercise.qmd) for instructions / next steps.
+:::

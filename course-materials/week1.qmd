@@ -92,11 +92,12 @@ install.packages("usdata") # demographic data on the United States at the county
 
 ### B. Download necessary data
 
-[Download fracking data (`registryupload_1.csv`)](https://drive.google.com/file/d/1H2lilk6lF3oTZtAT8UP4Fa4MSuQ5VQ9Y/view?usp=sharing){target="_blank"} from Google Drive and save it to your class repo in the following location: `EDS-240-class-examples/week1/data/registryupload_1.csv` 
+[Download bee stressors data (`stressors.csv`)](https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link){target="_blank"} from Google Drive and save it to your class repo in the following location: `EDS-240-class-examples/week1/data/stressors.csv` 
 
 ::: {.callout-note collapse=true} 
-## Why are we downloading from Google Drive and not directly from FracFocus?
-These data were originally downloaded as a [zip file](https://drive.google.com/file/d/1XUW-660tXKhxTl0tSkWFqtvaJcRedD7r/view?usp=sharing){target="_blank"} from [FracFocus](https://fracfocus.org/data-download){target="_blank"} in November 2023 when they were still quite messy. Since then, FracFocus has published cleaner versions of these data, which is great, but also defeats the purpose of this exercise {{< fa face-smile title="a smiling face" >}}. For this reason, we'll be working with this saved version of the data, rather than downloading directly from [FracFocus's data download page](https://fracfocus.org/data-download){target="_blank"}.
+## Why are we downloading from Google Drive and not directly from USDA?
+
+This data is available in a yearly report from the USDA. TidyTuesday processed this data into a csv in 2021. To achieve the goal of practicing data wrangling in this lab, this data was messified using the `messy` package in R, along with some `{tidyverse}` functions. The original yearly bee stressors reports can be found [here](https://esmis.nal.usda.gov/publication/honey-bee-colonies) on the USDA website. The csv version of the 2015-2021 stressors data can be found on the [TidyTuesday  GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11).
 :::
 
 ### C. Add data to `.gitignore`
