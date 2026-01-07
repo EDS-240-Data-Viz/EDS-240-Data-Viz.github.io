@@ -78,7 +78,6 @@ Template `.qmd` files will be provided alongside (most) lecture slides to help k
 : {.hover .bordered tbl-colwidths="[50,25,25]"}
 
 ## {{< fa clipboard-list title="a clipboard with a To Do list" >}} Pre-lab Prep {#pre-lab-prep} 
-Coming soon! 
 
 ### A. Install required packages
 
@@ -88,18 +87,16 @@ Coming soon!
 #| code-line-numbers: false
 install.packages("here") # for reproducible, relative file paths
 install.packages("janitor") # tools for cleaning dirty data
-install.packages("usdata") # demographic data on the United States at the county and state levels spanning multiple years.
 ```
 
-### B. Download necessary data
+### B.Download the data {#download-data}
 
-[Download bee stressors data (`stressors.csv`)](https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link){target="_blank"} from Google Drive and save it to your class repo in the following location: `EDS-240-class-examples/week1/data/stressors.csv` 
+Save data to your class repo at `EDS-240-class-examples/week1/data/`:
 
-::: {.callout-note collapse=true} 
-## Why are we downloading from Google Drive and not directly from USDA?
-
-This data is available in a yearly report from the USDA. TidyTuesday processed this data into a csv in 2021. To achieve the goal of practicing data wrangling in this lab, this data was messified using the `messy` package in R, along with some `{tidyverse}` functions. The original yearly bee stressors reports can be found [here](https://esmis.nal.usda.gov/publication/honey-bee-colonies) on the USDA website. The csv version of the 2015-2021 stressors data can be found on the [TidyTuesday  GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11).
-:::
+| Dataset title | Download link | Notes |
+|---------------|---------------|-------|
+| HoneyBee Colonies | Download from [this google drive](https://drive.google.com/file/d/1T4cOrd6Fyyq-iep6Jg_6sFjmO-yYX1oK/view?usp=drive_link){target="_blank"} |While the original bee stressor data come from the [USDA](https://esmis.nal.usda.gov/publication/honey-bee-colonies), we will be using a compiled version of this data that come from the TidyTuesday organization, found [here](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-01-11). In order to achieve the goal of data wrangling in this week's lab, the data from TidyTuesday was 'messified' using the`{messy}` and `{tidyverse}` package in R. |
+: {.hover .bordered tbl-colwidths="[10,30,30,30]"} 
 
 ### C. Add data to `.gitignore`
 
@@ -138,7 +135,7 @@ Add a new blank file to your class repo -- you'll complete your lab exercises he
 
 | {{< fa person-chalkboard title="A person motioning at a chalkboard" >}} Lab Slides | {{< fa file-code title="A code file" >}} Exercise instructions | {{< fa key title="A key" >}} Exercise solutions |
 |-------------------|-------------------|--------------|
-| [Lab 1 slides: data wrangling](lab/LAB-SLIDES-data-wrangling.qmd){target="_blank"} | [Lab 1 exercise: wrangle fracking data](lab/LAB-EXERCISE-data-wrangling.qmd){target="_blank"} | [Lab 1 solution](lab/LAB-SOLUTION-data-wrangling.qmd){target="_blank"} |
+| [Lab 1 slides: data wrangling](lab/LAB-SLIDES-data-wrangling2.qmd){target="_blank"} | [Lab 1 exercise: wrangle bee colony stressor data](lab/LAB-EXERCISE-data-wrangling2.qmd){target="_blank"} | [Lab 1 solution](lab/LAB-SOLUTION-data-wrangling2.qmd){target="_blank"} |
 : {.hover .bordered tbl-colwidths="[35,35,30]"} 
 
 ## {{< fa pencil title="pencil" >}} Assignment Reminders {#assignment-reminders}

@@ -12,6 +12,7 @@ Remember, there is *rarely* (if ever) one single solution to solving a data scie
 
 ```{r}
 #| eval: false
+#| output: false
 #| echo: true
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,12 +54,12 @@ stressor_clean <- stressor |>
   
   # Pivot table to make tidy--
   pivot_longer(
-    cols = c("january_march", "april_june", "july_september",       "october_december"),
+    cols = c("january_march", "april_june", "july_september", "october_december"),
     names_to = "months",
     values_to = "stress_pct"
   ) |>
 
-# Convert months to quarter number-- 
+  # Convert months to quarter number-- 
   mutate(quarter = case_when(
     months == "january_march" ~ 1,
     months == "april_june" ~ 2, 
@@ -73,98 +74,11 @@ stressor_clean <- stressor |>
   filter(stressor == "Pesticides") |>
   
   # Select a specific state 
-  
   filter(state == "California") |>
+  
   # Calculate quarterly average for each year --
   group_by(year, quarter) |>
-  
   summarise(avg_stress_pct = mean(stress_pct, na.rm = TRUE))
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##          some exploratory data viz + a few plot mods for practice        ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-fracking_clean |> 
-  filter(state_name %in% c("Texas", "Colorado", "North Dakota")) |> 
-  filter(year == 2015) |> 
-  group_by(state_name) |> # pipe directly into ggplot
-  ggplot(aes(x = state_name, y = total_base_water_volume_gal)) +
-  geom_jitter(width = 0.3, alpha = 0.5, color = "gray15") +
-  geom_violin(color = "red4", alpha = 0.3) +
-  scale_y_continuous(labels = scales::label_comma()) +
-  labs(y = "Total base water volumn (gal)") +
-  coord_flip() +
-  theme_minimal() +
-  theme(
-    axis.title.y = element_blank()
-    ) 
-
-```
-
-<!-- Code that executes for website rendering:  -->
-
-```{r}
-#| eval: true
-#| echo: false
-#| warning: false
-#| message: false
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                                    setup                                 ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#..........................load packages.........................
-library(tidyverse)
-library(janitor)
-
-#......................import colony and stressor data......................
-
-stressor <- read_csv(here::here("course-materials", "data", "lab", "stressor.csv")) 
-
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##                        clean/wrangle bee data                       ----
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-stressor_clean <- stressor |> 
-  
-  # Clean character strings 
-  mutate(state = str_replace_all(state, "[^A-Za-z ]", ""),
-         stressor = str_replace_all(stressor, "[^A-Za-z ]", "")) |>
-  
-  janitor:: clean_names() |>
-  
-  # Convert year variable from string to numeric--
-  mutate(year = as.numeric(year)) |>
-  
-  # Pivot table to make tidy--
-  pivot_longer(
-    cols = c("january_march", "april_june", "july_september",       "october_december"),
-    names_to = "months",
-    values_to = "stress_pct"
-  ) |>
-
-# Convert months to quarter number-- 
-  mutate(quarter = case_when(
-    months == "january_march" ~ 1,
-    months == "april_june" ~ 2, 
-    months == "july_september" ~ 3, 
-    months == "october_december" ~ 4
-  )) |>
-  
-  # Remove "United States" and "Other States" observations
-  filter(state != "United States", state != "Other States") |>
-  
-  # Select a specific stressor
-  filter(stressor == "Pesticides") |>
-  
-  # Select a specific state 
-  
-  filter(state == "California") |>
-  # Calculate quarterly average for each year --
-  group_by(year, quarter) |>
-  
-  summarise(avg_stress_pct = mean(stress_pct, na.rm = TRUE))
-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##          some exploratory data viz + a few plot mods for practice        ----
@@ -185,6 +99,7 @@ stressor_clean |>
     color = "Year"
   ) +
   theme_minimal()
+
 ```
 
 
