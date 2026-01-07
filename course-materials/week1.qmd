@@ -4,7 +4,7 @@ subtitle: "Week 1"
 description: "Wednesday January 7^th^, 2026"
 ---
 
-```{r}
+```{r header-image}
 #| eval: true 
 #| echo: false
 #| fig-align: "center"
@@ -17,12 +17,13 @@ knitr::include_graphics(here::here("images", "ggplot2.png"))
 
 ### A. Install required packages {#install-pkgs}
 
-```{r}
+```{r install-pkgs-lecture}
 #| eval: false
 #| echo: true
 #| code-line-numbers: false
 install.packages("palmerpenguins") # a package containing the `penguins` data set, which we'll use for plotting practice
 install.packages("tidyverse") # a collection of packages used for data wrangling / manipulation and visualization (including {ggplot2})
+install.packages("patchwork") # makes it super easy to combine individual plots into a single graphic
 ```
 
 ### B. Create & organize your `EDS-240-class-examples` repository {#create-class-repo}
@@ -54,7 +55,7 @@ We'll be coding together quite a bit throughout this course. To stay organized, 
 
 3. **Update your `.gitignore` file** to prevent yourself from accidentally committing data files ([GitHub limits the size of files](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github){target="_blank"} allowed in repos). Open your `.gitignore` file and add the following:
 
-```{r}
+```{r ignore-data}
 #| eval: false
 #| echo: true
 # ignore any folder named `data/` within folders named `week*` (* acts as a wildcard)
