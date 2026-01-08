@@ -78,7 +78,7 @@ stressor_clean <- stressor |>
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 stressor_clean |>
-  ggplot(aes(x = quarter, y = avg_stress_pct, color = factor(year), group = year)) +
+  ggplot(aes(x = quarter, y = avg_stress_pct, color = factor(year))) +
   geom_line(linewidth = 1) +
   geom_point(size = 3) +
   scale_color_brewer(palette = "Accent")+
@@ -88,7 +88,7 @@ stressor_clean |>
     title = "Pesticide Stress on California Bee Colonies",
     subtitle = "Quarterly averages across years",
     x = "Quarter",
-    y = "Average Stress",
+    y = "Average Percent of Bee Colonies Affected",
     color = "Year"
   ) +
   theme_minimal()
