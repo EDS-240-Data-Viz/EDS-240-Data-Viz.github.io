@@ -1334,4 +1334,73 @@ countdown::countdown(
   font_size = "2em",
   )
 ```
+---
 
+## {#extra-time data-menu-title="Extra Time?"} 
+
+[Extra time? Let's practice.]{.slide-title2}
+
+<hr>
+
+
+[TidyTuesday published a [dataset on palm traits](https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-03-18){target="_blank"} on March 18, 2025, sourced from the [PalmTraits 1.0 Database](https://www.nature.com/articles/s41597-019-0189-0){target="_blank"}. With your learning partners, explore these data and visualize the distribution of one or more palm traits of your choosing. Be intentional about how you group the data and whether those groupings are appropriate for the chart types you choose. Apply the visualization and design considerations discussed in lecture. Begin by importing the data directly from the tidytuesday repo:]{.body-text-s}
+
+```{r palms-data}
+#| eval: false
+#| echo: true
+palmtrees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv')
+
+```
+
+<br>
+
+```{r palms-bren}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "70%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "palms-bren.png"))
+```
+
+::: {.footer}
+Image source: [Bren](https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management/tuition-and-finance/fellowships){target="_blank"}
+:::
+
+
+```{r}
+#| eval: false
+#| echo: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# load packages -----
+library(tidyverse)
+
+# import data ----
+palmtrees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv')
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                              palm subfamilies                            ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# boxplot ----
+palmtrees |> 
+  filter(palm_subfamily != "Nypoideae") |> 
+  ggplot(aes(x = max_leaf_number, y = palm_subfamily)) +
+  geom_boxplot()
+
+# histogram ----
+palmtrees |> 
+  filter(palm_subfamily != "Nypoideae") |> 
+  ggplot(aes(x = max_leaf_number, fill = palm_subfamily)) +
+  geom_histogram(position = "identity", alpha = 0.5)
+
+# violin ----
+palmtrees |> 
+  filter(palm_subfamily != "Nypoideae") |> 
+  ggplot(aes(x = max_leaf_number, y = palm_subfamily)) +
+  geom_violin() + 
+  geom_boxplot(width = 0.1, fill = "gray", color = "gray30", alpha = 0.5) 
+
+```
