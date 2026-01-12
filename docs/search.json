@@ -7194,5 +7194,19 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text-activity.html",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text-activity.html",
+    "title": "Week 2 Lab: Exercise",
+    "section": "",
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!)."
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text-activity.html#example-1-palmerpenguins-ggplot",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text-activity.html#example-1-palmerpenguins-ggplot",
+    "title": "Week 2 Lab: Exercise",
+    "section": "Example 1: {palmerpenguins} ggplot",
+    "text": "Example 1: {palmerpenguins} ggplot\n\nCopy the following code into your week3-lab.qmd file and add code chunk options that:\n\nrender the output (i.e. plot), but not the code\nsuppress any warnings or messages\n\nAdd alt text using the fig-alt: code chunk option\n“Inspect” your plot (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram(alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Body mass (g)\",\n       y = \"Frequency\",\n       title = \"Penguin body masses\")"
   }
 ]

@@ -1,0 +1,36 @@
+---
+title: "Week 2 Lab: Exercise"
+subtitle: "Writing alt text"
+description: "January 15^th^, 2026"
+---
+
+::: {.callout-note}
+It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+:::
+
+## Example 1: `{palmerpenguins}` ggplot
+
+1. Copy the following code into your `week3-lab.qmd` file and add code chunk options that:
+    - render the output (i.e. plot), but not the code
+    - suppress any warnings or messages
+2. Add alt text using the `fig-alt:` code chunk option
+3. "Inspect" your plot (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| output: false
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram(alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Body mass (g)",
+       y = "Frequency",
+       title = "Penguin body masses")
+```
+
