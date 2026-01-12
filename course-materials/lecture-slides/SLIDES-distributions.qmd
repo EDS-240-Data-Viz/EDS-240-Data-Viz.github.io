@@ -206,7 +206,6 @@ Download data from the [EDI Data Portal](https://portal.edirepository.org/nis/ma
 
 #..........................load packages.........................
 library(tidyverse)
-library(chron)
 library(naniar)
 library(ggridges)
 library(gghighlight)
@@ -225,16 +224,12 @@ mko_clean <- mko |>
   # keep only necessary columns ----
   select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
 
-  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
-  unite(date, year, month, day, sep = "-", remove = FALSE) |>
-  mutate(time = chron::times(decimal_time)) |>
-  unite(date_time, date, time, sep = " ") |>
-
-  # coerce data types ----
-  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-         year = as.factor(year),
-         month = as.factor(month),
-         day = as.numeric(day)) |>
+  # convert year, month, day & decimal_time cols to a date_time col ----
+  # (not totally necessary for our plots, but helpful to know!)
+  mutate(
+  date_time = make_datetime(year, month, day, tz = "GMT") +
+              seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
+  ) |>
 
   # add month name by indexing the built-in `month.name` vector ----
   mutate(month_name = month.name[month]) |> 
@@ -255,7 +250,7 @@ mko_clean <- mko |>
 # It's important to explore your data for missing values so that you can decide if and how to handle them
 # Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
 # We can use {naniar} to explore the frequency and patterns in missing data
-# Below is a short example of some naniar tools for doing so
+# Below is a short example of some {naniar} tools for doing so
 # Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
 
 #..........counts & percentages of missing data by year..........
@@ -280,7 +275,6 @@ missing_temps <- naniar::vis_miss(bottom)
 
 #..........................load packages.........................
 library(tidyverse)
-library(chron)
 library(naniar)
 library(ggridges)
 library(gghighlight)
@@ -300,16 +294,12 @@ mko_clean <- mko |>
   # keep only necessary columns ----
   select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
 
-  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
-  unite(date, year, month, day, sep = "-", remove = FALSE) |>
-  mutate(time = chron::times(decimal_time)) |>
-  unite(date_time, date, time, sep = " ") |>
-
-  # coerce data types ----
-  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-         year = as.factor(year),
-         month = as.factor(month),
-         day = as.numeric(day)) |>
+  # convert year, month, day & decimal_time cols to a date_time col ----
+  # (not totally necessary for our plots, but helpful to know!)
+  mutate(
+  date_time = make_datetime(year, month, day, tz = "GMT") +
+              seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
+  ) |>
 
   # add month name by indexing the built-in `month.name` vector ----
   mutate(month_name = month.name[month]) |> 
@@ -330,7 +320,7 @@ mko_clean <- mko |>
 # It's important to explore your data for missing values so that you can decide if and how to deal handle them
 # Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
 # We can use {naniar} to explore the frequency and patterns in missing data
-# Below is a short example of some naniar tools for doing so
+# Below is a short example of some {naniar} tools for doing so
 # Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
 
 #..........counts & percentages of missing data by year..........
@@ -343,6 +333,14 @@ see_NAs <- mko_clean |>
 bottom <- mko_clean |> select(Temp_bot)
 missing_temps <- naniar::vis_miss(bottom)
 ```
+
+::: {.notes}
+If `decimal_time = 0.5` (noon):
+
+- `0.5 * 86400 = 43200` seconds
+- `seconds(43200)` creates a duration of 43200 seconds (12 hours)
+- Adding it to midnight gives you 12:00:00 that same day
+:::
 
 ```{r}
 # # created / saved for lecture 4.3 ----
@@ -381,7 +379,7 @@ missing_temps <- naniar::vis_miss(bottom)
 
 <hr>
 
-Both of these plots show the distribution of a numeric variable (ocean bottom temperature in °C). 
+Histograms and density plots are often talked about as somewhat interchangeable. Below, they're both used to show the distribution of a numeric variable (ocean bottom temperature in °C). 
 
 <br>
 
@@ -423,8 +421,24 @@ mko_clean |>
 ::::
 
 ::: {.center-text .dark-blue-text .body-text-m}
-***What can you glean from each of these?***
+***How would you interpret each of these?***
 :::
+
+```{r hist-vs-dens-countdown}
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 
 ---
 
@@ -452,7 +466,7 @@ mko_clean |>
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
-::: {.center-text}
+::: {.center-text .body-text-s}
 Numeric variable is divided into several bins. The height of each bar represents the number of observations in that bin. 
 ::: 
 :::
@@ -472,15 +486,17 @@ mko_clean |>
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
-::: {.center-text}
-Smoothed versions of a histogram, which use a kernel density estimate (KDE) to show the variable's probability density function. The y-axis represents the estimated density, i.e. the relative likelihood of a value occurring. The area under each curve sums to 1. 
+::: {.center-text .body-text-s}
+Smoothed versions of a histogram, where the y-axis represents density (i.e. how concentrated your data is at each value). Taller parts of the curve indicate more common values, and shorter parts indicate rarer values. The area under the entire curve always equals 1, representing 100% of your data.
+<!-- Smoothed versions of a histogram, which use a kernel density estimate (KDE) to show the variable's probability density function. The y-axis represents the estimated density, i.e. the relative likelihood of a value occurring. The area under each curve sums to 1.  -->
+
 :::
 :::
 
 ::::
 
 ::: {.footer}
-Check out [this cool interactive tool](https://mathisonian.github.io/kde/){target="_blank"}, by [Matthew Conlen](https://mathisonian.com/){target="_blank"}, for a visual explanation of KDE.
+Check out [this cool interactive tool](https://mathisonian.github.io/kde/){target="_blank"}, by [Matthew Conlen](https://mathisonian.com/){target="_blank"}, for a visual explanation of Kernal Density Estimate (KDE). KDE is the method used for visualizing the distribution in a density plot.
 :::
 
 ::: {.notes}
@@ -546,7 +562,7 @@ ggplot(dummy_data, aes(x = value, fill = group)) +
 
 ::: {.column width="50%"}
 
-[We lose information about sample size in our density plot (note that both curves are ~the same height, despite group `B` having 2x as many observations). However, they're** great for visualizing the shape of our distributions** since they are unaffected by the number of bins.]{.body-text-s}
+[We lose information about sample size in our density plot (note that both curves are ~the same height, despite group `B` having 2x as many observations). However, they're **great for visualizing the shape of our distributions** since they are unaffected by the number of bins.]{.body-text-s}
 
 ```{r dummy-dens}
 #| eval: true
@@ -1012,9 +1028,9 @@ mko_clean |>
 #| echo: true
 #| fig-align: "center"
 mko_clean |> 
-  mutate(month_name = factor(month_name, levels = rev(month.name))) |> # alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`
-  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.
-  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) + # `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap
+  mutate(month_name = factor(month_name, levels = rev(month.name))) |> 
+  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `after_stat(x)` tells ggplot: "Don't use the original data for coloring. Instead, wait until you've drawn the density curve, then color each part of that curve based on its x-axis position (Temp_bot)." This creates a color gradient that flows along the curve from cold to warm temperatures.
+  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) + 
   scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
 ```
 :::
