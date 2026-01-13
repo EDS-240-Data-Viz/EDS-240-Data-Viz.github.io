@@ -314,6 +314,8 @@ mko_clean |>
 ## Boxplots
 
 - great for *summarizing* the distribution of a numeric variable for multiple to many groups
+- consider flipping your axes when you have long labels
+- consider highlighting a group(s) of interest to focus attention
 
 ```{r basic-boxplot}
 #| eval: true
@@ -321,10 +323,12 @@ mko_clean |>
 #| warning: false
 
 #...................boxplot with all 12 months...................
-ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
+ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
   geom_boxplot() +
   scale_x_discrete(limits = rev(month.name)) + # an alt way to reorder groups within ggplot, rather than during data wrangling
-  coord_flip()
+  gghighlight::gghighlight(month_name == "October") +
+  coord_flip() +
+  theme(legend.position = "none")
 ```
 
 ::: {.callout-note}
@@ -332,29 +336,13 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 What are the tradeoffs between reordering groups within a ggplot (as above) vs. during the data wrangling stage (e.g. as we did for our histogram and density and ridgeline plots)?
 :::
 
-### Highlight group(s) of interest to focus attention
-
-```{r boxplot-highlight}
-#| eval: true
-#| echo: true
-#| warning: false
-
-#..................highlight a particular group..................
-ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
-  geom_boxplot() +
-  scale_x_discrete(limits = rev(month.name)) +
-  gghighlight::gghighlight(month_name == "October") +
-  coord_flip() +
-  theme(legend.position = "none")
-```
-
 ### Overlay jittered data, if appropriate 
 
 ```{r boxplot-jitter}
 #| eval: true
 #| echo: true
 #| warning: false
-
+#| layout-ncol: 2
 #........does not work if you have too many observations.........
 ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
@@ -389,7 +377,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 #| warning: false
 
 #......................dodge groups by year......................
-ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = factor(year))) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))

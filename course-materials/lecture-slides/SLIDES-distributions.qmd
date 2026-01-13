@@ -1258,7 +1258,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = factor(year))) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))
