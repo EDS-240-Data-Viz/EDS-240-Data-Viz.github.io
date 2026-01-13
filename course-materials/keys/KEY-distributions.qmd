@@ -24,7 +24,6 @@ This key follows the [visualizing distributions slides](../lecture-slides/SLIDES
 
 #..........................load packages.........................
 library(tidyverse)
-library(chron)
 library(naniar)
 library(ggridges)
 library(gghighlight)
@@ -43,16 +42,12 @@ mko_clean <- mko |>
   # keep only necessary columns ----
   select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
 
-  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
-  unite(date, year, month, day, sep = "-", remove = FALSE) |>
-  mutate(time = chron::times(decimal_time)) |>
-  unite(date_time, date, time, sep = " ") |>
-
-  # coerce data types ----
-  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-         year = as.factor(year),
-         month = as.factor(month),
-         day = as.numeric(day)) |>
+  # convert year, month, day & decimal_time cols to a date_time col ----
+  # (not totally necessary for our plots, but helpful to know!)
+  mutate(
+  date_time = make_datetime(year, month, day, tz = "GMT") +
+              seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
+  ) |>
 
   # add month name by indexing the built-in `month.name` vector ----
   mutate(month_name = month.name[month]) |> 
@@ -240,9 +235,10 @@ mko_clean |>
   facet_wrap(~month_name)
 ```
 
-### Consider plotting fewer groups + update colors
+### Consider plotting fewer groups + update colors + modify bin / band widths
 
 - histograms & density plots are best suited for visualizing the distribution of one to a small number of groups
+-  consider your scale of interest e.g. does a bin width of 1 (°C) make sense for our histogram? Does your density plot's bandwidth show the true underlying data distribution shape while reducing noise?
 
 ```{r fewer-groups}
 #| eval: true
@@ -262,7 +258,7 @@ mko_clean |>
 mko_clean |> 
   filter(month_name %in% c("April", "June", "October")) |> 
   ggplot(aes(x = Temp_bot, fill = month_name)) +
-  geom_density(alpha = 0.5) + 
+  geom_density(alpha = 0.5, adjust = 0.5) + 
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
@@ -270,32 +266,6 @@ mko_clean |>
 ## Question:
 Why are the months in our density plot still in chronological order, despite not reordering them using `mutate()` (as we do for our histogram)?
 :::
-
-### Modify bin / band widths
-
--  consider your scale of interest e.g. does a bin width of 1 (°C) make sense for our histogram? Does your density plot's bandwidth show the true underlying data distribution shape while reducing noise?
-
-```{r modify-bins-bands}
-#| eval: true
-#| echo: true
-#| warning: false
-#| layout-ncol: 2
-
-#...............histogram with modified bin widths...............
-mko_clean |> 
-  filter(month_name %in% c("April", "June", "October")) |> 
-  mutate(month_name = factor(month_name, levels = month.name)) |> 
-  ggplot(aes(x = Temp_bot, fill = month_name)) +
-  geom_histogram(position = "identity", alpha = 0.5, binwidth = 1) +
-  scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
-
-#..............density plot with modified bin widths.............
-mko_clean |> 
-  filter(month_name %in% c("April", "June", "October")) |> 
-  ggplot(aes(x = Temp_bot, fill = month_name)) +
-  geom_density(alpha = 0.5, adjust = 0.5) + 
-  scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
-```
 
 ### Overlay histogram & density plots as a sanity check
 
@@ -336,7 +306,7 @@ mko_clean |>
 #....................fill with color gradient....................
 mko_clean |> 
   mutate(month_name = factor(month_name, levels = rev(month.name))) |> 
-  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.
+  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `after_stat(x)` tells ggplot: "Don't use the original data for coloring. Instead, wait until you've drawn the density curve, then color each part of that curve based on its x-axis position (Temp_bot)." This creates a color gradient that flows along the curve from cold to warm temperatures.
   ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
   scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
 ```
@@ -344,6 +314,8 @@ mko_clean |>
 ## Boxplots
 
 - great for *summarizing* the distribution of a numeric variable for multiple to many groups
+- consider flipping your axes when you have long labels
+- consider highlighting a group(s) of interest to focus attention
 
 ```{r basic-boxplot}
 #| eval: true
@@ -351,10 +323,12 @@ mko_clean |>
 #| warning: false
 
 #...................boxplot with all 12 months...................
-ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
+ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
   geom_boxplot() +
   scale_x_discrete(limits = rev(month.name)) + # an alt way to reorder groups within ggplot, rather than during data wrangling
-  coord_flip()
+  gghighlight::gghighlight(month_name == "October") +
+  coord_flip() +
+  theme(legend.position = "none")
 ```
 
 ::: {.callout-note}
@@ -362,29 +336,13 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 What are the tradeoffs between reordering groups within a ggplot (as above) vs. during the data wrangling stage (e.g. as we did for our histogram and density and ridgeline plots)?
 :::
 
-### Highlight group(s) of interest to focus attention
-
-```{r boxplot-highlight}
-#| eval: true
-#| echo: true
-#| warning: false
-
-#..................highlight a particular group..................
-ggplot(mko_clean, aes(x = month_name, y = Temp_bot, fill = month_name)) +
-  geom_boxplot() +
-  scale_x_discrete(limits = rev(month.name)) +
-  gghighlight::gghighlight(month_name == "October") +
-  coord_flip() +
-  theme(legend.position = "none")
-```
-
 ### Overlay jittered data, if appropriate 
 
 ```{r boxplot-jitter}
 #| eval: true
 #| echo: true
 #| warning: false
-
+#| layout-ncol: 2
 #........does not work if you have too many observations.........
 ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
@@ -419,7 +377,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 #| warning: false
 
 #......................dodge groups by year......................
-ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = factor(year))) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))
