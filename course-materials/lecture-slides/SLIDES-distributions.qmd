@@ -206,7 +206,6 @@ Download data from the [EDI Data Portal](https://portal.edirepository.org/nis/ma
 
 #..........................load packages.........................
 library(tidyverse)
-library(chron)
 library(naniar)
 library(ggridges)
 library(gghighlight)
@@ -225,16 +224,12 @@ mko_clean <- mko |>
   # keep only necessary columns ----
   select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
 
-  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
-  unite(date, year, month, day, sep = "-", remove = FALSE) |>
-  mutate(time = chron::times(decimal_time)) |>
-  unite(date_time, date, time, sep = " ") |>
-
-  # coerce data types ----
-  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-         year = as.factor(year),
-         month = as.factor(month),
-         day = as.numeric(day)) |>
+  # convert year, month, day & decimal_time cols to a date_time col ----
+  # (not totally necessary for our plots, but helpful to know!)
+  mutate(
+  date_time = make_datetime(year, month, day, tz = "America/Los_Angeles") + # find tz identifiers: https://en.wikipedia.org/wiki/
+              seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
+  ) |>
 
   # add month name by indexing the built-in `month.name` vector ----
   mutate(month_name = month.name[month]) |> 
@@ -255,7 +250,7 @@ mko_clean <- mko |>
 # It's important to explore your data for missing values so that you can decide if and how to handle them
 # Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
 # We can use {naniar} to explore the frequency and patterns in missing data
-# Below is a short example of some naniar tools for doing so
+# Below is a short example of some {naniar} tools for doing so
 # Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
 
 #..........counts & percentages of missing data by year..........
@@ -280,7 +275,6 @@ missing_temps <- naniar::vis_miss(bottom)
 
 #..........................load packages.........................
 library(tidyverse)
-library(chron)
 library(naniar)
 library(ggridges)
 library(gghighlight)
@@ -300,16 +294,12 @@ mko_clean <- mko |>
   # keep only necessary columns ----
   select(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) |>
 
-  # create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----
-  unite(date, year, month, day, sep = "-", remove = FALSE) |>
-  mutate(time = chron::times(decimal_time)) |>
-  unite(date_time, date, time, sep = " ") |>
-
-  # coerce data types ----
-  mutate(date_time = as_datetime(date_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
-         year = as.factor(year),
-         month = as.factor(month),
-         day = as.numeric(day)) |>
+  # convert year, month, day & decimal_time cols to a date_time col ----
+  # (not totally necessary for our plots, but helpful to know!)
+  mutate(
+  date_time = make_datetime(year, month, day, tz = "America/Los_Angeles") + # find tz identifiers: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+              seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
+  ) |>
 
   # add month name by indexing the built-in `month.name` vector ----
   mutate(month_name = month.name[month]) |> 
@@ -330,7 +320,7 @@ mko_clean <- mko |>
 # It's important to explore your data for missing values so that you can decide if and how to deal handle them
 # Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)
 # We can use {naniar} to explore the frequency and patterns in missing data
-# Below is a short example of some naniar tools for doing so
+# Below is a short example of some {naniar} tools for doing so
 # Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance
 
 #..........counts & percentages of missing data by year..........
@@ -344,10 +334,18 @@ bottom <- mko_clean |> select(Temp_bot)
 missing_temps <- naniar::vis_miss(bottom)
 ```
 
+::: {.notes}
+If `decimal_time = 0.5` (noon):
+
+- `0.5 * 86400 = 43200` seconds
+- `seconds(43200)` creates a duration of 43200 seconds (12 hours)
+- Adding it to midnight gives you 12:00:00 that same day
+:::
+
 ```{r}
 # # created / saved for lecture 4.3 ----
 # ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
-#   ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
+#   ggridges::geom_density_ridges_gradient(rel_min_height = 0.001, scale = 3) +
 #   geom_vline(xintercept = mean(mko_clean$Temp_bot, na.rm = TRUE), linetype = "dashed") +
 #   geom_vline(xintercept = 11, linetype = "dashed", color = "darkgray") +
 #   geom_vline(xintercept = 16, linetype = "dashed", color = "darkgray") +
@@ -381,7 +379,7 @@ missing_temps <- naniar::vis_miss(bottom)
 
 <hr>
 
-Both of these plots show the distribution of a numeric variable (ocean bottom temperature in °C). 
+Histograms and density plots are often talked about as somewhat interchangeable. Below, they're both used to show the distribution of a numeric variable (ocean bottom temperature in °C). 
 
 <br>
 
@@ -423,8 +421,24 @@ mko_clean |>
 ::::
 
 ::: {.center-text .dark-blue-text .body-text-m}
-***What can you glean from each of these?***
+***How would you interpret each of these?***
 :::
+
+```{r hist-vs-dens-countdown}
+countdown::countdown(
+  minutes = 2,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 
 ---
 
@@ -452,7 +466,7 @@ mko_clean |>
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
-::: {.center-text}
+::: {.center-text .body-text-s}
 Numeric variable is divided into several bins. The height of each bar represents the number of observations in that bin. 
 ::: 
 :::
@@ -472,15 +486,17 @@ mko_clean |>
   scale_fill_manual(values = c("#2C5374", "#ADD8E6", "#8B3A3A"))
 ```
 
-::: {.center-text}
-Smoothed versions of a histogram, which use a kernel density estimate (KDE) to show the variable's probability density function. The y-axis represents the estimated density, i.e. the relative likelihood of a value occurring. The area under each curve sums to 1. 
+::: {.center-text .body-text-s}
+Smoothed versions of a histogram, where the y-axis represents density (i.e. how concentrated your data is at each value). Taller parts of the curve indicate more common values, and shorter parts indicate rarer values. The area under the entire curve always equals 1, representing 100% of your data.
+<!-- Smoothed versions of a histogram, which use a kernel density estimate (KDE) to show the variable's probability density function. The y-axis represents the estimated density, i.e. the relative likelihood of a value occurring. The area under each curve sums to 1.  -->
+
 :::
 :::
 
 ::::
 
 ::: {.footer}
-Check out [this cool interactive tool](https://mathisonian.github.io/kde/){target="_blank"}, by [Matthew Conlen](https://mathisonian.com/){target="_blank"}, for a visual explanation of KDE.
+Check out [this cool interactive tool](https://mathisonian.github.io/kde/){target="_blank"}, by [Matthew Conlen](https://mathisonian.com/){target="_blank"}, for a visual explanation of Kernal Density Estimate (KDE). KDE is the method used for visualizing the distribution in a density plot.
 :::
 
 ::: {.notes}
@@ -546,7 +562,7 @@ ggplot(dummy_data, aes(x = value, fill = group)) +
 
 ::: {.column width="50%"}
 
-[We lose information about sample size in our density plot (note that both curves are ~the same height, despite group `B` having 2x as many observations). However, they're** great for visualizing the shape of our distributions** since they are unaffected by the number of bins.]{.body-text-s}
+[We lose information about sample size in our density plot (note that both curves are ~the same height, despite group `B` having 2x as many observations). However, they're **great for visualizing the shape of our distributions** since they are unaffected by the number of bins.]{.body-text-s}
 
 ```{r dummy-dens}
 #| eval: true
@@ -692,7 +708,7 @@ mko_clean |>
 #| echo: true
 #| out-width: "90%"
 #| fig-align: "center"
-#| code-line-numbers: "3,5"
+#| code-line-numbers: "3-5"
 mko_clean |> 
   mutate(month_name = factor(month_name, levels = month.name)) |> 
   ggplot(aes(x = Temp_bot)) +
@@ -765,7 +781,7 @@ mko_clean |>
 
 ::: {.column width="50%"}
 
-[Modify `binwidth` (30 `bins` by default) – does a bin width of 1 (degree Celsius) actually make sense? Consider scale of interest. Also be mindful when using bins – too few bins will result in loss of distribution shape.]{.body-text-s}
+[Modify `binwidth` (30 `bins` by default) – does a bin width of 1 (°C) actually make sense? Consider scale of interest. Also be mindful when using bins – too few will result in loss of distribution shape, too many adds noise.]{.body-text-s}
 
 ```{r histogram-bins}
 #| eval: true
@@ -803,7 +819,7 @@ mko_clean |>
 ::::
 
 ::: {.footer}
-`geom_density()` relies on `density()`, which uses the `nrd0` bandwidth selector (Silverman's rule-of-thumb-style estimator). This is a reliable starting point, but you may consider other selectors based on your data. Check out [thius article](https://aakinshin.net/posts/kde-bw/) to read more about bandwidth selection.
+`geom_density()` relies on `density()`, which uses the `nrd0` bandwidth selector (Silverman's rule-of-thumb-style estimator). This is a reliable starting point, but you may consider other selectors based on your data. Check out [this article](https://aakinshin.net/posts/kde-bw/){target="_blank"} to read more about bandwidth selection.
 :::
 
 ::: {.notes}
@@ -826,8 +842,9 @@ Default value: adjust = 1. This uses the default bandwidth provided by the under
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-ggplot(mko_clean, aes(x = Temp_bot, y = after_stat(density))) + # scale down hist to match density curve
-  geom_histogram(fill = "gray", color = "black", alpha = 0.75) +
+ggplot(mko_clean, aes(x = Temp_bot)) + 
+  geom_histogram(aes(y = after_stat(density)), # scale hist to match density curve
+                 fill = "gray", color = "black", alpha = 0.75) +
   geom_density(linewidth = 1) 
 ```
 
@@ -924,7 +941,7 @@ Ridgeline plots, box plots, and violin plots are better suited for visualizing t
 #| echo: false
 #| fig-align: "center"
 ggplot(mko_clean, aes(x = Temp_bot, y = month_name, fill = after_stat(x))) +
-  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) +
+  ggridges::geom_density_ridges_gradient(rel_min_height = 0.001, scale = 3) +
   scale_y_discrete(limits = rev(month.name)) +
   scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
 ```
@@ -999,7 +1016,7 @@ ggplot(mko_clean, aes(x = month_name, y = Temp_bot)) +
 mko_clean |> 
   mutate(month_name = factor(month_name, levels = rev(month.name))) |> # alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`
   ggplot(aes(x = Temp_bot, y = month_name)) +
-  ggridges::geom_density_ridges(rel_min_height = 0.01, scale = 3)  # `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap
+  ggridges::geom_density_ridges(rel_min_height = 0.001, scale = 3)  # `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap
 ```
 :::
 
@@ -1012,9 +1029,9 @@ mko_clean |>
 #| echo: true
 #| fig-align: "center"
 mko_clean |> 
-  mutate(month_name = factor(month_name, levels = rev(month.name))) |> # alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`
-  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.
-  ggridges::geom_density_ridges_gradient(rel_min_height = 0.01, scale = 3) + # `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap
+  mutate(month_name = factor(month_name, levels = rev(month.name))) |> 
+  ggplot(aes(x = Temp_bot, y = month_name, fill = after_stat(x))) + # `after_stat(x)` tells ggplot: "Don't use the original data for coloring. Instead, wait until you've drawn the density curve, then color each part of that curve based on its x-axis position."
+  ggridges::geom_density_ridges_gradient(rel_min_height = 0.001, scale = 3) + 
   scale_fill_gradientn(colors = c("#2C5374","#849BB4", "#D9E7EC", "#EF8080", "#8B3A3A"))
 ```
 :::
@@ -1023,6 +1040,19 @@ mko_clean |>
 
 ::: {.notes}
 Ridgeline plots work well when there is a clear pattern in the result (e.g. if there is an obvious ranking in groups) and / or when visualizing changes in distributions over time or space
+
+`fill = after_stat(x)` = “Wait until you’ve computed the density ridge, then color each segment of the ridge based on its x-position.”
+`after_stat(x)` uses the x-values of the smoothed density curve, not the original data points, to determine color.
+
+What` after_stat(x)` means:
+- When you make a density ridgeline plot, ggplot doesn’t draw the curve directly from your raw temperature points.
+- Instead, for each month, ggplot:
+1. Looks at all the Temp_bot values for that month
+2. Draws a smooth curve that represents where temperatures are more or less common
+3. Builds that curve out of many tiny points from cold to warm temperatures
+
+- Those tiny points each have: an x position (how cold or warm) & a height (how tall the curve is there)
+- when you write, `fill = after_stat(x)`, you're saying, *“Color each tiny piece of the density curve based on how cold or warm it is.”*
 :::
 
 <!-- ---
@@ -1242,7 +1272,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 #| eval: true
 #| echo: true
 #| fig-align: "center"
-ggplot(penguins, aes(x = species, y = body_mass_g, color = as.factor(year))) +
+ggplot(penguins, aes(x = species, y = body_mass_g, color = factor(year))) +
   geom_boxplot(outlier.shape = NA) + # remember to remove outliers!
   geom_point(alpha = 0.5, 
              position = position_jitterdodge(jitter.width = 0.2))

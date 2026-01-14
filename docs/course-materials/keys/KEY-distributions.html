@@ -283,14 +283,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#distinction" id="toc-distinction" class="nav-link" data-scroll-target="#distinction">Distinction</a></li>
   <li><a href="#avoid-plotting-too-many-groups" id="toc-avoid-plotting-too-many-groups" class="nav-link" data-scroll-target="#avoid-plotting-too-many-groups">Avoid plotting too many groups</a></li>
   <li><a href="#consider-faceting-small-multiples" id="toc-consider-faceting-small-multiples" class="nav-link" data-scroll-target="#consider-faceting-small-multiples">Consider faceting (small multiples)</a></li>
-  <li><a href="#consider-plotting-fewer-groups-update-colors" id="toc-consider-plotting-fewer-groups-update-colors" class="nav-link" data-scroll-target="#consider-plotting-fewer-groups-update-colors">Consider plotting fewer groups + update colors</a></li>
-  <li><a href="#modify-bin-band-widths" id="toc-modify-bin-band-widths" class="nav-link" data-scroll-target="#modify-bin-band-widths">Modify bin / band widths</a></li>
+  <li><a href="#consider-plotting-fewer-groups-update-colors-modify-bin-band-widths" id="toc-consider-plotting-fewer-groups-update-colors-modify-bin-band-widths" class="nav-link" data-scroll-target="#consider-plotting-fewer-groups-update-colors-modify-bin-band-widths">Consider plotting fewer groups + update colors + modify bin / band widths</a></li>
   <li><a href="#overlay-histogram-density-plots-as-a-sanity-check" id="toc-overlay-histogram-density-plots-as-a-sanity-check" class="nav-link" data-scroll-target="#overlay-histogram-density-plots-as-a-sanity-check">Overlay histogram &amp; density plots as a sanity check</a></li>
   </ul></li>
   <li><a href="#ridgeline-plots" id="toc-ridgeline-plots" class="nav-link" data-scroll-target="#ridgeline-plots">Ridgeline plots</a></li>
   <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a>
   <ul class="collapse">
-  <li><a href="#highlight-groups-of-interest-to-focus-attention" id="toc-highlight-groups-of-interest-to-focus-attention" class="nav-link" data-scroll-target="#highlight-groups-of-interest-to-focus-attention">Highlight group(s) of interest to focus attention</a></li>
   <li><a href="#overlay-jittered-data-if-appropriate" id="toc-overlay-jittered-data-if-appropriate" class="nav-link" data-scroll-target="#overlay-jittered-data-if-appropriate">Overlay jittered data, if appropriate</a></li>
   <li><a href="#beeswarm-plots-as-an-alternative" id="toc-beeswarm-plots-as-an-alternative" class="nav-link" data-scroll-target="#beeswarm-plots-as-an-alternative">Beeswarm plots as an alternative</a></li>
   <li><a href="#dodge-when-you-have-an-additional-grouping-variable" id="toc-dodge-when-you-have-an-additional-grouping-variable" class="nav-link" data-scroll-target="#dodge-when-you-have-an-additional-grouping-variable">Dodge when you have an additional grouping variable</a></li>
@@ -329,67 +327,62 @@ Note
 <span id="cb1-4"><a href="#cb1-4"></a></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="co">#..........................load packages.........................</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(chron)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(naniar)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(gghighlight)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(ggbeeswarm)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#..........................import data...........................</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week2"</span>, <span class="st">"data"</span>, <span class="st">"mohawk_mooring_mko_20250117.csv"</span>))</span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="do">##                                wrangle data                              ----</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a></span>
-<span id="cb1-21"><a href="#cb1-21"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>  <span class="co"># keep only necessary columns ----</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a></span>
-<span id="cb1-26"><a href="#cb1-26"></a>  <span class="co"># create datetime column (not totally necessary for our plots, but it can be helpful to know how to do this!) ----</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">unite</span>(date, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> chron<span class="sc">::</span><span class="fu">times</span>(decimal_time)) <span class="sc">|&gt;</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">unite</span>(date_time, date, time, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a></span>
-<span id="cb1-31"><a href="#cb1-31"></a>  <span class="co"># coerce data types ----</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a>  <span class="fu">mutate</span>(<span class="at">date_time =</span> <span class="fu">as_datetime</span>(date_time, <span class="st">"%Y-%m-%d %H:%M:%S"</span>, <span class="at">tz =</span> <span class="st">"GMT"</span>), </span>
-<span id="cb1-33"><a href="#cb1-33"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year),</span>
-<span id="cb1-34"><a href="#cb1-34"></a>         <span class="at">month =</span> <span class="fu">as.factor</span>(month),</span>
-<span id="cb1-35"><a href="#cb1-35"></a>         <span class="at">day =</span> <span class="fu">as.numeric</span>(day)) <span class="sc">|&gt;</span></span>
-<span id="cb1-36"><a href="#cb1-36"></a></span>
-<span id="cb1-37"><a href="#cb1-37"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(palmerpenguins) <span class="co"># for some minimal examples</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#..........................import data...........................</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>mko <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"week2"</span>, <span class="st">"data"</span>, <span class="st">"mohawk_mooring_mko_20250117.csv"</span>))</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="do">##                                wrangle data                              ----</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>mko_clean <span class="ot">&lt;-</span> mko <span class="sc">|&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="co"># keep only necessary columns ----</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">select</span>(year, month, day, decimal_time, Temp_bot, Temp_top, Temp_mid) <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="co"># convert year, month, day &amp; decimal_time cols to a date_time col ----</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="co"># (not totally necessary for our plots, but helpful to know!)</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="at">date_time =</span> <span class="fu">make_datetime</span>(year, month, day, <span class="at">tz =</span> <span class="st">"America/Los_Angeles"</span>) <span class="sc">+</span> <span class="co"># find tz identifiers: https://en.wikipedia.org/wiki/</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>              <span class="fu">seconds</span>(decimal_time <span class="sc">*</span> <span class="dv">86400</span>)  <span class="co"># decimal_time is fraction of day; 86400 seconds in a day</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a>  <span class="co"># add month name by indexing the built-in `month.name` vector ----</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> month.name[month]) <span class="sc">|&gt;</span> </span>
+<span id="cb1-34"><a href="#cb1-34"></a></span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-37"><a href="#cb1-37"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
+<span id="cb1-38"><a href="#cb1-38"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb1-39"><a href="#cb1-39"></a></span>
-<span id="cb1-40"><a href="#cb1-40"></a>  <span class="co"># replace 9999s with NAs ----</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">Temp_bot =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-42"><a href="#cb1-42"></a>                                         <span class="at">Temp_top =</span> <span class="dv">9999</span>, </span>
-<span id="cb1-43"><a href="#cb1-43"></a>                                         <span class="at">Temp_mid =</span> <span class="dv">9999</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-44"><a href="#cb1-44"></a></span>
-<span id="cb1-45"><a href="#cb1-45"></a>  <span class="co"># select/reorder desired columns ----</span></span>
-<span id="cb1-46"><a href="#cb1-46"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
-<span id="cb1-47"><a href="#cb1-47"></a></span>
-<span id="cb1-48"><a href="#cb1-48"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-49"><a href="#cb1-49"></a><span class="do">##                            explore missing data                          ----</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb1-51"><a href="#cb1-51"></a></span>
-<span id="cb1-52"><a href="#cb1-52"></a><span class="co"># Missing data can have unexpected effects on your analyses</span></span>
-<span id="cb1-53"><a href="#cb1-53"></a><span class="co"># It's important to explore your data for missing values so that you can decide if and how to handle them</span></span>
-<span id="cb1-54"><a href="#cb1-54"></a><span class="co"># Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)</span></span>
-<span id="cb1-55"><a href="#cb1-55"></a><span class="co"># We can use {naniar} to explore the frequency and patterns in missing data</span></span>
-<span id="cb1-56"><a href="#cb1-56"></a><span class="co"># Below is a short example of some naniar tools for doing so</span></span>
-<span id="cb1-57"><a href="#cb1-57"></a><span class="co"># Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance</span></span>
-<span id="cb1-58"><a href="#cb1-58"></a></span>
-<span id="cb1-59"><a href="#cb1-59"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
-<span id="cb1-60"><a href="#cb1-60"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb1-61"><a href="#cb1-61"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb1-62"><a href="#cb1-62"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-63"><a href="#cb1-63"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
-<span id="cb1-64"><a href="#cb1-64"></a></span>
-<span id="cb1-65"><a href="#cb1-65"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
-<span id="cb1-66"><a href="#cb1-66"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
-<span id="cb1-67"><a href="#cb1-67"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-40"><a href="#cb1-40"></a>  <span class="co"># select/reorder desired columns ----</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  <span class="fu">select</span>(date_time, year, month, day, month_name, Temp_bot, Temp_mid, Temp_top)</span>
+<span id="cb1-42"><a href="#cb1-42"></a></span>
+<span id="cb1-43"><a href="#cb1-43"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="do">##                            explore missing data                          ----</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a></span>
+<span id="cb1-47"><a href="#cb1-47"></a><span class="co"># Missing data can have unexpected effects on your analyses</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a><span class="co"># It's important to explore your data for missing values so that you can decide if and how to handle them</span></span>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="co"># Data loggers can be prone to missingness (e.g. full memory, dead batteries, replacement logger)</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a><span class="co"># We can use {naniar} to explore the frequency and patterns in missing data</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="co"># Below is a short example of some naniar tools for doing so</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="co"># Check out The Missing Book (https://tmb.njtierney.com/) by Nick Tierney and Allison Horst for some great guidance</span></span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="co">#..........counts &amp; percentages of missing data by year..........</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>see_NAs <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb1-57"><a href="#cb1-57"></a>  naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Temp_bot"</span>)</span>
+<span id="cb1-59"><a href="#cb1-59"></a></span>
+<span id="cb1-60"><a href="#cb1-60"></a><span class="co">#...................visualize missing Temp_bot...................</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>bottom <span class="ot">&lt;-</span> mko_clean <span class="sc">|&gt;</span> <span class="fu">select</span>(Temp_bot)</span>
+<span id="cb1-62"><a href="#cb1-62"></a>missing_temps <span class="ot">&lt;-</span> naniar<span class="sc">::</span><span class="fu">vis_miss</span>(bottom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="histograms-density-plots" class="level2">
@@ -476,10 +469,11 @@ Note
 </div>
 </div>
 </section>
-<section id="consider-plotting-fewer-groups-update-colors" class="level3">
-<h3 class="anchored" data-anchor-id="consider-plotting-fewer-groups-update-colors">Consider plotting fewer groups + update colors</h3>
+<section id="consider-plotting-fewer-groups-update-colors-modify-bin-band-widths" class="level3">
+<h3 class="anchored" data-anchor-id="consider-plotting-fewer-groups-update-colors-modify-bin-band-widths">Consider plotting fewer groups + update colors + modify bin / band widths</h3>
 <ul>
 <li>histograms &amp; density plots are best suited for visualizing the distribution of one to a small number of groups</li>
+<li>consider your scale of interest e.g.&nbsp;does a bin width of 1 (°C) make sense for our histogram? Does your density plot’s bandwidth show the true underlying data distribution shape while reducing noise?</li>
 </ul>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#..................histogram with fewer months...................</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
@@ -492,7 +486,7 @@ Note
 <span id="cb5-9"><a href="#cb5-9"></a>mko_clean <span class="sc">|&gt;</span> </span>
 <span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -518,35 +512,6 @@ Question:
 </div>
 </div>
 </section>
-<section id="modify-bin-band-widths" class="level3">
-<h3 class="anchored" data-anchor-id="modify-bin-band-widths">Modify bin / band widths</h3>
-<ul>
-<li>consider your scale of interest e.g.&nbsp;does a bin width of 1 (°C) make sense for our histogram? Does your density plot’s bandwidth show the true underlying data distribution shape while reducing noise?</li>
-</ul>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#...............histogram with modified bin widths...............</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> month.name)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#..............density plot with modified bin widths.............</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">filter</span>(month_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"April"</span>, <span class="st">"June"</span>, <span class="st">"October"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb6-13"><a href="#cb6-13"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>, <span class="st">"#ADD8E6"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/modify-bins-bands-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="KEY-distributions_files/figure-html/modify-bins-bands-2.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</div>
-</section>
 <section id="overlay-histogram-density-plots-as-a-sanity-check" class="level3">
 <h3 class="anchored" data-anchor-id="overlay-histogram-density-plots-as-a-sanity-check">Overlay histogram &amp; density plots as a sanity check</h3>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -563,10 +528,10 @@ Question:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#..................overlay histogram &amp; density...................</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#..................overlay histogram &amp; density...................</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span> <span class="co"># scale down hist to match density curve</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -582,17 +547,17 @@ Question:
 <ul>
 <li>great for comparing distribution shapes of a numeric variable across many ordered groups</li>
 </ul>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#......................basic ridgeline plot......................</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> <span class="co"># alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>)  <span class="co"># `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#....................fill with color gradient....................</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>mko_clean <span class="sc">|&gt;</span> </span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> </span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span> <span class="co"># `fill = after_stat(x)` tells ggplot to compute the `x` values (representing `Temp_bot`) after the statistical transformation (density estimation) and map those computed `x` values to the `fill` aesthetic. As a result, the gradient fill of each density curve will reflect the temperature values along the x-axis.</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>,<span class="st">"#849BB4"</span>, <span class="st">"#D9E7EC"</span>, <span class="st">"#EF8080"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#......................basic ridgeline plot......................</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> <span class="co"># alt, within ggplot: `scale_y_discrete(limits = rev(month.name))`</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>)  <span class="co"># `rel_min_height` sets threshold for relative height of density curves (any values below threshold treated as 0); `scale` controls extent to which different densities overlap</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#....................fill with color gradient....................</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>mko_clean <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">mutate</span>(<span class="at">month_name =</span> <span class="fu">factor</span>(month_name, <span class="at">levels =</span> <span class="fu">rev</span>(month.name))) <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp_bot, <span class="at">y =</span> month_name, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span> <span class="co"># `after_stat(x)` tells ggplot: "Don't use the original data for coloring. Instead, wait until you've drawn the density curve, then color each part of that curve based on its x-axis position (Temp_bot)." This creates a color gradient that flows along the curve from cold to warm temperatures.</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges_gradient</span>(<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, <span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2C5374"</span>,<span class="st">"#849BB4"</span>, <span class="st">"#D9E7EC"</span>, <span class="st">"#EF8080"</span>, <span class="st">"#8B3A3A"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -608,13 +573,17 @@ Question:
 <h2 class="anchored" data-anchor-id="boxplots">Boxplots</h2>
 <ul>
 <li>great for <em>summarizing</em> the distribution of a numeric variable for multiple to many groups</li>
+<li>consider flipping your axes when you have long labels</li>
+<li>consider highlighting a group(s) of interest to focus attention</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#...................boxplot with all 12 months...................</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span> <span class="co"># an alt way to reorder groups within ggplot, rather than during data wrangling</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#...................boxplot with all 12 months...................</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span> <span class="co"># an alt way to reorder groups within ggplot, rather than during data wrangling</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -636,50 +605,25 @@ Question:
 <p>What are the tradeoffs between reordering groups within a ggplot (as above) vs.&nbsp;during the data wrangling stage (e.g.&nbsp;as we did for our histogram and density and ridgeline plots)?</p>
 </div>
 </div>
-<section id="highlight-groups-of-interest-to-focus-attention" class="level3">
-<h3 class="anchored" data-anchor-id="highlight-groups-of-interest-to-focus-attention">Highlight group(s) of interest to focus attention</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#..................highlight a particular group..................</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot, <span class="at">fill =</span> month_name)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(month_name <span class="sc">==</span> <span class="st">"October"</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/boxplot-highlight-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="overlay-jittered-data-if-appropriate" class="level3">
 <h3 class="anchored" data-anchor-id="overlay-jittered-data-if-appropriate">Overlay jittered data, if appropriate</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#........does not work if you have too many observations.........</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span> <span class="co"># an alt way to reorder groups within ggplot, rather than during data wrangling</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#........does not work if you have too many observations.........</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span> <span class="co"># an alt way to reorder groups within ggplot, rather than during data wrangling</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#...........but great when you have fewer observations...........</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-1.png" class="img-fluid" width="672"></p>
 </div>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#...........but great when you have fewer observations...........</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="KEY-distributions_files/figure-html/boxplot-jitter-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -687,10 +631,10 @@ Question:
 <section id="beeswarm-plots-as-an-alternative" class="level3">
 <h3 class="anchored" data-anchor-id="beeswarm-plots-as-an-alternative">Beeswarm plots as an alternative</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#.......................boxplot + beeswarm.......................</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#.......................boxplot + beeswarm.......................</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  ggbeeswarm<span class="sc">::</span><span class="fu">geom_beeswarm</span>(<span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -703,11 +647,11 @@ Question:
 <section id="dodge-when-you-have-an-additional-grouping-variable" class="level3">
 <h3 class="anchored" data-anchor-id="dodge-when-you-have-an-additional-grouping-variable">Dodge when you have an additional grouping variable</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#......................dodge groups by year......................</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb14-5"><a href="#cb14-5"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#......................dodge groups by year......................</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># remember to remove outliers!</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb11-5"><a href="#cb11-5"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -725,12 +669,12 @@ Question:
 <li>consider overlaying another chart type for added context</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#........................violin + box plot.......................</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"gray30"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#........................violin + box plot.......................</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">ggplot</span>(mko_clean, <span class="fu">aes</span>(<span class="at">x =</span> month_name, <span class="at">y =</span> Temp_bot)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">color =</span> <span class="st">"gray30"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(month.name)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
