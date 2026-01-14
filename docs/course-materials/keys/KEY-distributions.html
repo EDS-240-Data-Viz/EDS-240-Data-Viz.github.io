@@ -348,7 +348,7 @@ Note
 <span id="cb1-25"><a href="#cb1-25"></a>  <span class="co"># convert year, month, day &amp; decimal_time cols to a date_time col ----</span></span>
 <span id="cb1-26"><a href="#cb1-26"></a>  <span class="co"># (not totally necessary for our plots, but helpful to know!)</span></span>
 <span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="at">date_time =</span> <span class="fu">make_datetime</span>(year, month, day, <span class="at">tz =</span> <span class="st">"GMT"</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="at">date_time =</span> <span class="fu">make_datetime</span>(year, month, day, <span class="at">tz =</span> <span class="st">"America/Los_Angeles"</span>) <span class="sc">+</span> <span class="co"># find tz identifiers: https://en.wikipedia.org/wiki/</span></span>
 <span id="cb1-29"><a href="#cb1-29"></a>              <span class="fu">seconds</span>(decimal_time <span class="sc">*</span> <span class="dv">86400</span>)  <span class="co"># decimal_time is fraction of day; 86400 seconds in a day</span></span>
 <span id="cb1-30"><a href="#cb1-30"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb1-31"><a href="#cb1-31"></a></span>

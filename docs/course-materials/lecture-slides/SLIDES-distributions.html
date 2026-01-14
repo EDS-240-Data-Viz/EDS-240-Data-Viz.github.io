@@ -564,7 +564,7 @@
 <span id="cb1-25"><a></a>  <span class="co"># convert year, month, day &amp; decimal_time cols to a date_time col ----</span></span>
 <span id="cb1-26"><a></a>  <span class="co"># (not totally necessary for our plots, but helpful to know!)</span></span>
 <span id="cb1-27"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-28"><a></a>  <span class="at">date_time =</span> <span class="fu">make_datetime</span>(year, month, day, <span class="at">tz =</span> <span class="st">"GMT"</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a></a>  <span class="at">date_time =</span> <span class="fu">make_datetime</span>(year, month, day, <span class="at">tz =</span> <span class="st">"America/Los_Angeles"</span>) <span class="sc">+</span> <span class="co"># find tz identifiers: https://en.wikipedia.org/wiki/</span></span>
 <span id="cb1-29"><a></a>              <span class="fu">seconds</span>(decimal_time <span class="sc">*</span> <span class="dv">86400</span>)  <span class="co"># decimal_time is fraction of day; 86400 seconds in a day</span></span>
 <span id="cb1-30"><a></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb1-31"><a></a></span>
@@ -659,7 +659,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_a4894fd5" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_fd267eb5" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1444,7 +1444,7 @@ penguins |>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_b4b205e6" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_3bf3f509" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

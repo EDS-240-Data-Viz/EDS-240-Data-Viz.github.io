@@ -227,7 +227,7 @@ mko_clean <- mko |>
   # convert year, month, day & decimal_time cols to a date_time col ----
   # (not totally necessary for our plots, but helpful to know!)
   mutate(
-  date_time = make_datetime(year, month, day, tz = "GMT") +
+  date_time = make_datetime(year, month, day, tz = "America/Los_Angeles") + # find tz identifiers: https://en.wikipedia.org/wiki/
               seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
   ) |>
 
@@ -297,7 +297,7 @@ mko_clean <- mko |>
   # convert year, month, day & decimal_time cols to a date_time col ----
   # (not totally necessary for our plots, but helpful to know!)
   mutate(
-  date_time = make_datetime(year, month, day, tz = "GMT") +
+  date_time = make_datetime(year, month, day, tz = "America/Los_Angeles") + # find tz identifiers: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
               seconds(decimal_time * 86400)  # decimal_time is fraction of day; 86400 seconds in a day
   ) |>
 
