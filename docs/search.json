@@ -3224,7 +3224,7 @@
     "href": "course-materials/lab/LAB-EXERCISE-alt-text.html",
     "title": "Week 2 Lab: Exercise",
     "section": "",
-    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-lab.qmd file (i.e. there is no template). You may (should) discuss and work through today’s exercise with a partner (or two!)."
+    "text": "Note\n\n\n\nIt’s up to you to organize your own week3-lab.qmd file (i.e. there is no template).\nToday you’ll be practicing writing alt text with a partner by following the steps below:"
   },
   {
     "objectID": "course-materials/lab/LAB-EXERCISE-alt-text.html#example-1-palmerpenguins-ggplot",
@@ -3574,7 +3574,7 @@
     "href": "course-materials/lab/LAB-SOLUTION-alt-text.html",
     "title": "Week 2 Lab: Solution",
     "section": "",
-    "text": "Your answers might look a bit different! Discuss with your own answers with one another.\n\n\n\nWhile you should generally follow the alt text formula, your final answers may look a bit different than those listed here."
+    "text": "NoteYour answers might look a bit different! Discuss with your own answers with one another.\n\n\n\nWhile you should generally follow the alt text formula, your final answers may look a bit different than those listed here."
   },
   {
     "objectID": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-1-palmerpenguins-ggplot",
@@ -7194,5 +7194,54 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text.html#partner-1",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text.html#partner-1",
+    "title": "Week 2 Lab: Exercise",
+    "section": "Partner 1",
+    "text": "Partner 1\n\nlibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(palmerpenguins)\n\nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram(alpha = 0.5, \n                 position = \"identity\") +\n  scale_fill_manual(values = c(\"darkorange\",\"purple\",\"cyan4\")) +\n  labs(x = \"Body mass (g)\",\n       y = \"Frequency\",\n       title = \"Penguin body masses\")"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text.html#partner-2",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text.html#partner-2",
+    "title": "Week 2 Lab: Exercise",
+    "section": "Partner 2",
+    "text": "Partner 2\n\n#install.packages(\"lterdatasampler\")\nlibrary(lterdatasampler)\nlibrary(tidyr)\nlibrary(ggplot2)\n\npie_crab %&gt;%\n\n  ggplot(aes(y=latitude, x = size, group = latitude)) +\n\n  geom_boxplot() +\n\n  scale_x_continuous(breaks = seq(from = 7, to = 23, by = 2), limits = c(6.5,24))+\n\n  scale_y_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29, 43.5)) +\n\n  labs(title = \"Crab carapace size (mm) by latitude\")"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text.html#more-alt-text-examples",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text.html#more-alt-text-examples",
+    "title": "Week 2 Lab: Exercise",
+    "section": "More alt text Examples",
+    "text": "More alt text Examples\n\nExample 1 (from The New York Times):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using Markdown syntax and add alt text:\n\n\n![](file/path/to/your/image){fig-alt=\"Alt text goes here\"}\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThis graphic form is called a dot plot.\nDot plots are particularly useful for visualizing variability within a single measured numerical variable – here, that’s how much temperature deviates from the 20th-century average for each month in a given year. Year is treated as a categorical variable.\nIt’s easy to confuse dot plots with scatter plots, which alternatively are used to visualize a relationship between two (or sometimes three) numeric variables."
+  },
+  {
+    "objectID": "course-materials/lab/LAB-EXERCISE-alt-text.html#example-2-fig-1a-from-chapman-et-al.-2024",
+    "href": "course-materials/lab/LAB-EXERCISE-alt-text.html#example-2-fig-1a-from-chapman-et-al.-2024",
+    "title": "Week 2 Lab: Exercise",
+    "section": "Example 2 (Fig 1A from Chapman et al. 2024):",
+    "text": "Example 2 (Fig 1A from Chapman et al. 2024):\n\nDownload this viz (right click &gt; Save Image As… &gt; save to your class repo)\nEmbed the viz in week3-lab.qmd using HTML syntax and add alt text (you’ll also need to include the width attribute to make the image a bit smaller):\n\n\n&lt;img src=\"file/path/to/image\" alt=\"Alt text goes here\" width=\"700px\"&gt;\n\n\n“Inspect” your image (right click &gt; Inspect) to verify that the alt attribute and text is added to the HTML\n\n\n\n\n\n\n\nNote\n\n\n\nThe associated figure caption for this figure:\n\nThe &gt;2.6 billion species observations in the Global Biodiversity Information Facility (GBIF) database are disproportionately from high-income countries."
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-2-lterdatasampler-ggplot",
+    "href": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-2-lterdatasampler-ggplot",
+    "title": "Week 2 Lab: Solution",
+    "section": "Example 2: {lterdatasampler} ggplot",
+    "text": "Example 2: {lterdatasampler} ggplot\nAlt text: Horizontal boxplots of crab carapace size at different latitudes where crabs tend to be larger at higher latitudes, with median sizes ranging from approximately 11 mm at 30° latitude to 18/19 mm at latitudes 41°- 43°.\n\n#install.packages(\"lterdatasampler\")\nlibrary(lterdatasampler)\nlibrary(tidyr)\nlibrary(ggplot2)\n\npie_crab %&gt;%\n\n  ggplot(aes(y=latitude, x = size, group = latitude)) +\n\n  geom_boxplot() +\n\n  scale_x_continuous(breaks = seq(from = 7, to = 23, by = 2), limits = c(6.5,24))+\n\n  scale_y_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29, 43.5)) +\n\n  labs(title = \"Crab carapace size (mm) by latitude\")"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-3-from-the-new-york-times",
+    "href": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-3-from-the-new-york-times",
+    "title": "Week 2 Lab: Solution",
+    "section": "Example 3 (from The New York Times):",
+    "text": "Example 3 (from The New York Times):\nAlt text: A dot plot of monthly global temperatures compared to the 20th-century average, where monthly global temperatures are increasing over time. Nearly every month since the mid-1970s is warmer than the 20th-century average, with 12 record-breaking hot months occurring between 2015-2023."
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-4-fig-1a-from-chapman-et-al.-2024",
+    "href": "course-materials/lab/LAB-SOLUTION-alt-text.html#example-4-fig-1a-from-chapman-et-al.-2024",
+    "title": "Week 2 Lab: Solution",
+    "section": "Example 4 (Fig 1A from Chapman et al. 2024):",
+    "text": "Example 4 (Fig 1A from Chapman et al. 2024):\nAlt text: A heatmap of global species observations where the highest concentration of observations occur in high-income countries, particularly in the USA and European nations."
   }
 ]
