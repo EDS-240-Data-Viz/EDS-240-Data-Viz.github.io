@@ -31,7 +31,7 @@ editor_options:
 >"Exams will have a total of 137 points rather than the usual 100. This scoring system has no effect on the grade you get in the course, but it seems to make you happier"
 
 ::: {.right-align-text}
--[Richard H. Thaler](https://www.chicagobooth.edu/faculty/directory/t/richard-h-thaler){target="_blank"}, economist & professor
+-[Richard H. Thaler](https://faculty.chicagobooth.edu/richard-thaler){target="_blank"}, economist & professor
 :::
 
 - [**Early years:** exam graded 0 - 100 with an average score of 72 points = lots of complaints]{.body-text-s}
@@ -143,7 +143,7 @@ Alberto Cairo's visualization of the scores from Thaler's exam case study, from 
 
 ```{r countdown-mapping-properties}
 countdown::countdown(
-  minutes = 2,
+  minutes = 3,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -576,7 +576,7 @@ Spend a couple minutes exploring these tools.
 
 ```{r countdown-decision-trees}
 countdown::countdown(
-  minutes = 2,
+  minutes = 3,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -696,6 +696,87 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ::: {.footer}
 *Art by [Allison Horst](https://allisonhorst.com/)*
 :::
+
+---
+
+## {#practice-sasquatch data-menu-title="Practice sasquatch"}
+
+[Practice - Sasquatch]{.slide-title}
+
+<hr>
+
+::: {.center-text}
+You’re a dedicated Squatcher gearing up for your next Bigfoot research expedition. Luckily, you have access to a comprehensive database of Bigfoot sightings across North America (yes, this exists; see [BFRO](https://www.bfro.net/){target="_blank"} & [TidyTuesday (Sep 13, 2022)](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-09-13){target="_blank"}). **You want to explore how sightings differ by season** so you can time your search for peak Bigfoot activity.
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "bigfoot.png"))
+```
+
+::: {.footer}
+Image source: [UC Berkeley](https://alumni.berkeley.edu/california-magazine/online/so-why-do-people-believe-bigfoot-anyway/){target="_blank"}
+:::
+
+```{r countdown-sasquatch}
+countdown::countdown(
+  minutes = 3,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
+
+---
+
+## {#practice-water-quality data-menu-title="Practice water quality"}
+
+[Practice - Water Quality]{.slide-title}
+
+<hr>
+
+
+::: {.center-text}
+You’re a microbiologist tasked with advising beachgoers in Sydney, Australia on which beaches are safest for swimming. You have collected ocean temperature (°C) and Enterococci bacteria levels (CFUs per 100 mL) at all major Sydney beaches multiple times a day, every day since 1991 (see this [TidyTuesday dataset from Mar 20, 2025](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-05-20/readme.md){target="_blank"}). **You want to understand how water temperature is related to bacteria levels, and whether this relationship differs by beach,** so that you can provide more nuanced safety recommendations.
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "sydney-beach.jpeg"))
+```
+
+::: {.footer}
+Image source: [CNN](https://www.cnn.com/travel/article/australia-best-beaches){target="_blank"}
+:::
+
+```{r countdown-water-quality}
+countdown::countdown(
+  minutes = 3,
+  # left = 0, right = 0,
+  # Fanfare when it's over
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+  )
+```
 
 ---
 
@@ -838,7 +919,7 @@ joined_precip_geom |>
   geom_bar(stat = "identity", width = 0.9, fill = "#635F5F") +
   coord_flip() +
   labs(x = "", y = "Total Precipitation (inches)",
-       title = "California counties with the highest rainfall (Nov 2020 - Oct 2025)") +
+       title = "California counties with the highest cumulative rainfall (Nov 2020 - Oct 2025)") +
   theme_classic() +
   theme(
     plot.title.position = "plot",
