@@ -50,18 +50,47 @@ ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
        title = "Penguin body masses")
 ```
 
-## Example 2 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
+## Example 2: `{lterdatasampler}` ggplot
+
+**Alt text:** Horizontal boxplots of crab carapace size at different latitudes where crabs tend to be larger at higher latitudes, with median sizes ranging from approximately 11 mm at 30° latitude to 18/19 mm at latitudes 41°- 43°. 
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| output: false
+#| fig-alt: "Horizontal boxplots of crab carapace size at different latitudes where crabs tend to be larger at higher latitudes, with median sizes ranging from approximately 11 mm at 30° latitude to 18/19 mm at latitudes 41°- 43°"
+
+#install.packages("lterdatasampler")
+library(lterdatasampler)
+library(tidyr)
+library(ggplot2)
+
+pie_crab %>%
+
+  ggplot(aes(y=latitude, x = size, group = latitude)) +
+
+  geom_boxplot() +
+
+  scale_x_continuous(breaks = seq(from = 7, to = 23, by = 2), limits = c(6.5,24))+
+
+  scale_y_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29, 43.5)) +
+
+  labs(title = "Crab carapace size (mm) by latitude")
+```
+
+
+
+## Example 3 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
 
 **Alt text:** A dot plot of monthly global temperatures compared to the 20th-century average, where monthly global temperatures are increasing over time. Nearly every month since the mid-1970s is warmer than the 20th-century average, with 12 record-breaking hot months occurring between 2015-2023.
 
 ![](../images/lab-materials/nyt-monthly-temp.png){fig-alt="A dot plot of monthly global temperatures compared to the 20th-century average, where monthly global temperatures are increasing over time. Nearly every month since the mid-1970s is warmer than the 20th-century average, with 12 record-breaking hot months occurring between 2015-2023."}
 
-## Example 3 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
+
+## Example 4 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
 
 **Alt text:** A heatmap of global species observations where the highest concentration of observations occur in high-income countries, particularly in the USA and European nations.
 
 <img src="../images/lab-materials/chapman-etal-2024.png" alt="A heatmap of global species observations where the highest concentration of observations occur in high-income countries, particularly in the USA and European nations." width="700px">
-
-## Example 4 (Write alt text for a viz of your choice)
-
-Viz and associated alt text will vary!

@@ -5,23 +5,61 @@ description: "January 15^th^, 2026"
 ---
 
 ::: {.callout-note}
-It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no template). 
 :::
 
-## Example 1: `{palmerpenguins}` ggplot
 
-1. Copy the following code into your `week3-lab.qmd` file and add code chunk options that:
-    - render the output (i.e. plot), but not the code
-    - suppress any warnings or messages
-2. Add alt text using the `fig-alt:` code chunk option
-3. "Inspect" your plot (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
+
+
+Today you'll be practicing writing alt text with a partner by following the steps below:
+
+#### Setup:
+
+1. Find a partner and decide who will be Partner 1 and Partner 2
+2. If you are Partner #1, copy the [Partner #1 code chunk](#partner-1) below into your qmd. If you are Partner #2, copy the [Partner #2 code chunk](#partner-2) below into your qmd. 
+
+Keep your screen private from your partner throughout the activity!
+
+#### Create Alt Text:
+3. Individually, run your code chunk and view the plot it produces
+4. On your piece of paper, write alt text that describes your plot
+5. Once you're finished, close your laptop
+
+#### Test the Alt Text:
+6. Exchange papers with your partner
+7. Read your partner's alt text and draw the data visualization they described based solely on their written description
+
+#### Reflect and Revise:
+9. Open your laptops and compare the drawings to the original plots
+10. Discuss with your partner:
+
+- How similar is the drawing to the actual plot?
+- What key information was missing or unclear in the alt text?
+- What details were most helpful for recreating the visualization?
+
+
+Based on this feedback, revise your alt text to make it more complete and accurate.
+
+
+#### Adding alt text to the plot. 
+Now that you have revised your alt text, it is time to embed it in your plot! 
+
+11. Add alt text using the `fig-alt:` code chunk option
+12. Render your qmd file to html
+13. "Inspect" your plot (right click > Inspect) to verify that the `alt` attribute and text is added to the HTML
+
+
+
+## Partner 1
 
 ```{r}
 #| eval: true
 #| echo: true
 #| warning: false
 #| message: false
+#| output: false
 library(ggplot2)
+library(tidyverse)
 library(palmerpenguins)
 
 ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
@@ -33,7 +71,39 @@ ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
        title = "Penguin body masses")
 ```
 
-## Example 2 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
+
+
+
+## Partner 2
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
+#| output: false
+
+#install.packages("lterdatasampler")
+library(lterdatasampler)
+library(tidyr)
+library(ggplot2)
+
+pie_crab %>%
+
+  ggplot(aes(y=latitude, x = size, group = latitude)) +
+
+  geom_boxplot() +
+
+  scale_x_continuous(breaks = seq(from = 7, to = 23, by = 2), limits = c(6.5,24))+
+
+  scale_y_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29, 43.5)) +
+
+  labs(title = "Crab carapace size (mm) by latitude")
+```
+## More alt text Examples
+
+### Example 1 (from [The New York Times](https://www.nytimes.com/2024/01/31/learning/lesson-plans/teach-about-climate-change-with-30-graphs-from-the-new-york-times.html){target="_blank"}):
 
 1. Download this viz (right click > Save Image As... > save to your class repo)
 2. Embed the viz in `week3-lab.qmd` using Markdown syntax *and* add alt text:
@@ -57,7 +127,7 @@ It's easy to confuse dot plots with scatter plots, which alternatively are used 
 
 ![](../images/lab-materials/nyt-monthly-temp.png){fig-alt="Alt text goes here"}
 
-## Example 3 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
+## Example 2 (Fig 1A from [Chapman et al. 2024](https://www.science.org/doi/full/10.1126/science.adh8874){target="_blank"}):
 
 1. Download this viz (right click > Save Image As... > save to your class repo)
 2. Embed the viz in `week3-lab.qmd` using HTML syntax *and* add alt text (you'll also need to include the `width` attribute to make the image a bit smaller):
@@ -78,9 +148,3 @@ The associated figure caption for this figure:
 :::
  
 <img src="../images/lab-materials/chapman-etal-2024.png" alt="Alt text goes here" width="700px">
-
-## Example 4 (Write alt text for a viz of your choice)
-
-1. Save and embed a data viz of your choice using Markdown or HTML syntax
-2. Add alt text 
-3. Share and discuss your alt text with a partner / group
