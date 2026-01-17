@@ -403,7 +403,7 @@ Note
 <li>show evolution of one or more numeric variables; similar to scatter plots but points are ordered (typically by x-axis value) and joined with straight line segments</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># line chart ----</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a> <span class="co">#...........................line chart...........................</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="fu">ggplot</span>(lyme_pop, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span> </span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -420,11 +420,11 @@ Note
 <ul>
 <li>highlight groups or values of interest to focus attention</li>
 </ul>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># highlight one group ----</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#.......................highlight on group.......................</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">ggplot</span>(lyme_pop, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(state <span class="sc">==</span> <span class="st">"New Jersey"</span>) </span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># highlight based on criteria ----</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#..................highlight based on criteria...................</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="fu">ggplot</span>(lyme_pop, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">color =</span> state)) <span class="sc">+</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb3-8"><a href="#cb3-8"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(<span class="fu">max</span>(cases_per100k) <span class="sc">&gt;</span> <span class="dv">100</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -444,13 +444,13 @@ Note
 <ul>
 <li>line graphs encode data <strong>by position</strong> and <strong>not length</strong></li>
 </ul>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># ggplot cuts y-axis by default ----</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#..................ggplot cuts y-axis by default.................</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span><span class="sc">:</span><span class="dv">2019</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Vermont"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_line</span>()</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># force y-axis origin at 0 ----</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#....................force y-axis origin at 0....................</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span><span class="sc">:</span><span class="dv">2019</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Vermont"</span>) <span class="sc">|&gt;</span> </span>
@@ -488,7 +488,7 @@ Note
 <li>ggplot automatically adjusts aspect ratio so that plot is easier to read</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># default aspect ratio (with added tick marks) ----</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#..........default aspect ratio (with added tick marks)..........</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Vermont"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span></span>
@@ -507,7 +507,7 @@ Note
 <li><code>ratio</code> is expressed as <code>y / x</code> and is set to <code>1</code> by default (see grid lines)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># fixed aspect ratio ----</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#.......................fixed aspect ratio.......................</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Vermont"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span></span>
@@ -530,7 +530,7 @@ Note
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># adjusted aspect ratio ----</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#......................adjusted aspect ratio.....................</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Vermont"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state)) <span class="sc">+</span></span>
@@ -552,7 +552,7 @@ Note
 <li>similar to line chart; indicates change in a numeric variable through time, but the space between x-axis and line is shaded in</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># area chart of lyme disease incidence in NJ ----</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#...........area chart of lyme disease incidence in NJ...........</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"New Jersey"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">fill =</span> state)) <span class="sc">+</span></span>
@@ -575,7 +575,7 @@ Note
 <li>show evolution of the whole + relative proportions of each group</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># stacked area chart ----</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#.......................stacked area chart.......................</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Maine"</span>, <span class="st">"Rhode Island"</span>, <span class="st">"New Hampshire"</span>, <span class="st">"Vermont"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">fill =</span> state)) <span class="sc">+</span></span>
@@ -595,7 +595,7 @@ Note
 <li>plot percentage contributions rather than absolute numbers on y-axis</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># proportional stacked area chart ----</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#................proportional stacked area chart.................</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Maine"</span>, <span class="st">"Rhode Island"</span>, <span class="st">"New Hampshire"</span>, <span class="st">"Vermont"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">fill =</span> state)) <span class="sc">+</span></span>
@@ -615,12 +615,12 @@ Note
 <ul>
 <li>the stacked area chart and faceted line graph both show the same data</li>
 </ul>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># stacked area chart ----</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#.......................stacked area chart.......................</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Maine"</span>, <span class="st">"Rhode Island"</span>, <span class="st">"New Hampshire"</span>, <span class="st">"Vermont"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">fill =</span> state)) <span class="sc">+</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">geom_area</span>()</span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># same data, but as a line chart &amp; faceted by state ----</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#........same data, but as a line chart &amp; faceted by state.......</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>lyme_pop <span class="sc">|&gt;</span> </span>
 <span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Maine"</span>, <span class="st">"Rhode Island"</span>, <span class="st">"New Hampshire"</span>, <span class="st">"Vermont"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases_per100k, <span class="at">group =</span> state, <span class="at">color =</span> state)) <span class="sc">+</span></span>

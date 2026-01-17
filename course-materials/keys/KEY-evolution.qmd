@@ -171,7 +171,7 @@ lyme_pop <- left_join(lyme_clean, us_state_pop) |>
 ```{r}
 #| eval: true
 #| echo: true
-# line chart ----
+ #...........................line chart...........................
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
   geom_line() +
   geom_point()
@@ -188,12 +188,12 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
 #| message: false
 #| layout-ncol: 2
 
-# highlight one group ----
+#.......................highlight on group.......................
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) +
   geom_line() +
   gghighlight::gghighlight(state == "New Jersey") 
 
-# highlight based on criteria ----
+#..................highlight based on criteria...................
 ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state)) +
   geom_line() +
   gghighlight::gghighlight(max(cases_per100k) > 100) 
@@ -208,14 +208,14 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state))
 #| echo: true
 #| layout-ncol: 2
 
-# ggplot cuts y-axis by default ----
+#..................ggplot cuts y-axis by default.................
 lyme_pop |> 
   filter(year %in% c(2013:2019)) |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
   geom_line()
 
-# force y-axis origin at 0 ----
+#....................force y-axis origin at 0....................
 lyme_pop |> 
   filter(year %in% c(2013:2019)) |> 
   filter(state == "Vermont") |> 
@@ -236,7 +236,7 @@ We've added tick marks for every value on the y-axis on the plot below to help v
 ```{r}
 #| eval: true
 #| echo: true
-# default aspect ratio (with added tick marks) ----
+#..........default aspect ratio (with added tick marks)..........
 lyme_pop |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
@@ -250,7 +250,7 @@ lyme_pop |>
 ```{r}
 #| eval: true
 #| echo: true
-# fixed aspect ratio ----
+#.......................fixed aspect ratio.......................
 lyme_pop |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
@@ -266,7 +266,7 @@ lyme_pop |>
 ```{r}
 #| eval: true
 #| echo: true
-# adjusted aspect ratio ----
+#......................adjusted aspect ratio.....................
 lyme_pop |> 
   filter(state == "Vermont") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state)) +
@@ -281,7 +281,7 @@ lyme_pop |>
 ```{r}
 #| eval: true
 #| echo: true
-# area chart of lyme disease incidence in NJ ----
+#...........area chart of lyme disease incidence in NJ...........
 lyme_pop |> 
   filter(state == "New Jersey") |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
@@ -299,7 +299,7 @@ lyme_pop |>
 ```{r}
 #| eval: true
 #| echo: true
-# stacked area chart ----
+#.......................stacked area chart.......................
 lyme_pop |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
@@ -313,7 +313,7 @@ lyme_pop |>
 ```{r}
 #| eval: true
 #| echo: true
-# proportional stacked area chart ----
+#................proportional stacked area chart.................
 lyme_pop |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
@@ -329,13 +329,13 @@ lyme_pop |>
 #| eval: true
 #| echo: true
 #| layout-ncol: 2
-# stacked area chart ----
+#.......................stacked area chart.......................
 lyme_pop |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
   geom_area()
 
-# same data, but as a line chart & faceted by state ----
+#........same data, but as a line chart & faceted by state.......
 lyme_pop |> 
   filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
   ggplot(aes(x = year, y = cases_per100k, group = state, color = state)) +
