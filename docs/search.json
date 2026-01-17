@@ -5674,7 +5674,7 @@
     "href": "course-materials/lecture-slides/SLIDES-evolution.html#cut-y",
     "title": "EDS 240",
     "section": "",
-    "text": "It’s okay to cut the y-axis of line graphs\n\nLine graphs encode data by position and not length (e.g. as in the height of a bar graph), therefore, you can choose to include the 0 origin only if it makes sense.\n\n\n\nLyme disease incidence from 2013 - 2019\n(cut y-axis = default)\n\n\nlyme_pop |&gt; \n  filter(year %in% c(2013:2019)) |&gt; \n  filter(state == \"Vermont\") |&gt; \n  ggplot(aes(x = year, y = cases_per100k, group = state)) +\n  geom_line()\n\n\n\n\n\n\n\n\n\n\nLyme disease incidence from 2013 - 2019\n(force y-axis origin at 0)\n\n\nlyme_pop |&gt; \n  filter(year %in% c(2013:2019)) |&gt; \n  filter(state == \"Vermont\") |&gt; \n  ggplot(aes(x = year, y = cases_per100k, group = state)) +\n  geom_line() +\n  scale_y_continuous(limits = c(0, NA))"
+    "text": "ggplot cuts the y-axis if 0 isn’t relevant \n\nLine graphs encode data by position and not length (e.g. as in the height of a bar graph). It’s generally considered acceptable to include the 0 origin only if it makes sense.\n\n\n\nLyme disease incidence from 2013 - 2019\n(cut y-axis = default)\n\n\nlyme_pop |&gt; \n  filter(year %in% c(2013:2019)) |&gt; \n  filter(state == \"Vermont\") |&gt; \n  ggplot(aes(x = year, y = cases_per100k, group = state)) +\n  geom_line()\n\n\n\n\n\n\n\n\n\n\nLyme disease incidence from 2013 - 2019\n(force y-axis origin at 0)\n\n\nlyme_pop |&gt; \n  filter(year %in% c(2013:2019)) |&gt; \n  filter(state == \"Vermont\") |&gt; \n  ggplot(aes(x = year, y = cases_per100k, group = state)) +\n  geom_line() +\n  scale_y_continuous(limits = c(0, NA))\n\n\n\n\n\n\n\n\n\n\nTruncating the Y-Axis: Threat or Menace?, (Correll, Bertini & Franconeri 2020), which explores"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-evolution.html#cut-y-dow",
@@ -7222,5 +7222,26 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-evolution.html#deceptive-y",
+    "href": "course-materials/lecture-slides/SLIDES-evolution.html#deceptive-y",
+    "title": "EDS 240",
+    "section": "",
+    "text": "When is cutting the y-axis deceptive?\n\n\n\nFig. 1 in Truncating the Y-Axis: Threat or Menace?, (Correll, Bertini & Franconeri 2020)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-evolution.html#deceptive-vs-not",
+    "href": "course-materials/lecture-slides/SLIDES-evolution.html#deceptive-vs-not",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The y-axis starts at 34%, making an increase of 5% look quite dramatic. This misleading drama is why we are often told to never ever ever start the y-axis of a bar chart from anything other than 0, to avoid the scenario where the visual difference between bars becomes disconnected from the actual difference in the data…Sometimes, however, the effect sizes you care about don’t care about your 0s. An increase in global average temperature of even a degree or so is a big deal, so starting the y-axis at 0ºF obscures the important changes over time you’d want to see. This is why, when we design line charts, we pay special attention to the aspect ratio of our charts so that people can correctly estimate the rate of change in the data.\n\n\nSource: Medium Article, Truncating the Y-Axis: Threat or Menace?, (Correll, Bertini & Franconeri 2020), based on their CHI 2020 paper, Truncating the Y-Axis: Threat or Menace?"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-evolution.html#designer-responsibility",
+    "href": "course-materials/lecture-slides/SLIDES-evolution.html#designer-responsibility",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Important takeaway\n\n\nSince the designer of the chart has control over the perceived importance of the effect size, the designer must actively take responsibility for choosing the visual size of the effect in the chart. Think about what counts as an important change in the data. Think about whether 0 is an important “landmark” in your data. These questions will be dependent on your domain, your audience, and your data: they are not questions for which a one-size-fits-all rule is going to help you. There is no shortcut for thinking critically about your audience and your messaging. Truncate your axis or don’t, but don’t fall back on defaults unthinkingly.\n\n\nSource: Medium Article, Truncating the Y-Axis: Threat or Menace?, (Correll, Bertini & Franconeri 2020), based on their CHI 2020 paper, Truncating the Y-Axis: Threat or Menace?"
   }
 ]

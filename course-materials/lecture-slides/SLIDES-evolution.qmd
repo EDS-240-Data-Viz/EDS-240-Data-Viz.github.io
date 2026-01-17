@@ -417,11 +417,12 @@ ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state, color = state))
 
 ## {#cut-y data-menu-title="Cutting y-axis"} 
 
-[It's okay to cut the y-axis of line graphs]{.slide-title}
+[ggplot cuts the y-axis if 0 isn't relevant]{.slide-title}
+<!-- [It's okay to cut the y-axis of line graphs]{.slide-title} -->
 
 <hr>
 
-Line graphs encode data **by position** and **not length** (e.g. as in the height of a bar graph), therefore, you can choose to include the 0 origin only if it makes sense.
+Line graphs encode data **by position** and **not length** (e.g. as in the height of a bar graph). It's generally considered acceptable to include the 0 origin only if it makes sense.
 
 :::: {.columns} 
 
@@ -468,7 +469,43 @@ lyme_pop |>
 
 ::::
 
+::: {.footer}
+[Truncating the Y-Axis: Threat or Menace?](https://www.tableau.com/sites/default/files/2023-01/CHI-truncation-embedded.pdf){target="_blank"}, (Correll, Bertini & Franconeri 2020), which explores 
+:::
+
 ---
+
+## {#deceptive-y data-menu-title="Deceptive y?"} 
+
+[When is cutting the y-axis deceptive?]{.slide-title}
+
+<hr>
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "fig1-truncating.png"))
+```
+
+::: {.footer}
+Fig. 1 in [Truncating the Y-Axis: Threat or Menace?](https://www.tableau.com/sites/default/files/2023-01/CHI-truncation-embedded.pdf){target="_blank"}, (Correll, Bertini & Franconeri 2020)
+:::
+
+---
+
+## {#deceptive-vs-not data-menu-title="Deceptive vs. Not"} 
+
+<br>
+
+>[The y-axis starts at 34%, making an increase of 5% look quite dramatic. This misleading drama is why we are often told to never ever ever start the y-axis of a bar chart from anything other than 0, to **avoid the scenario where the visual difference between bars becomes disconnected from the actual difference in the data**...**Sometimes, however, the effect sizes you care about don’t care about your 0s.** An increase in global average temperature of even a degree or so is a big deal, so starting the y-axis at 0ºF obscures the important changes over time you’d want to see. This is why, when we design line charts, we p**ay special attention to the aspect ratio** of our charts so that people can correctly estimate the rate of change in the data.]{.body-text-m}
+
+::: {.footer}
+Source: Medium Article, [Truncating the Y-Axis: Threat or Menace?](https://mcorrell.medium.com/truncating-the-y-axis-threat-or-menace-d0bce66d4d08){target="_blank"}, (Correll, Bertini & Franconeri 2020), based on their CHI 2020 paper, [Truncating the Y-Axis: Threat or Menace?](https://www.tableau.com/sites/default/files/2023-01/CHI-truncation-embedded.pdf){target="_blank"}
+:::
+
+<!-- ---
 
 ## {#cut-y-dow data-menu-title="Cutting y-axis (Dow)"} 
 
@@ -542,7 +579,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.footer}
 Example from [Meghan Hall](https://meghan.rbind.io/){target="_blank"}'s [Statistical Graphics & Visualization](https://cmu-36315.netlify.app/){target="_blank"} course [Lecture 5 slides](https://cmu-36315.netlify.app/slides/36-315_summer2021_lec5#1){target="_blank"}.
-:::
+::: -->
 
 --- 
 
@@ -739,6 +776,20 @@ lyme_pop |>
 
 ::: {.center-text}
 Playing around with the `ratio` value yourself is the best way to get a sense for how the aspect ratio of a given ggplot will change.
+:::
+
+---
+
+## {#designer-responsibility data-menu-title="Designer responsibility"} 
+
+[Important takeaway]{.slide-title}
+
+<hr>
+
+>[**Since the designer of the chart has control over the perceived importance of the effect size, the designer must actively take responsibility for choosing the visual size of the effect in the chart.** Think about what counts as an important change in the data. Think about whether 0 is an important “landmark” in your data. These questions will be dependent on your domain, your audience, and your data: they are not questions for which a one-size-fits-all rule is going to help you. There is no shortcut for thinking critically about your audience and your messaging. **Truncate your axis or don’t, but don’t fall back on defaults unthinkingly.**]{.body-text-m}
+
+::: {.footer}
+Source: Medium Article, [Truncating the Y-Axis: Threat or Menace?](https://mcorrell.medium.com/truncating-the-y-axis-threat-or-menace-d0bce66d4d08){target="_blank"}, (Correll, Bertini & Franconeri 2020), based on their CHI 2020 paper, [Truncating the Y-Axis: Threat or Menace?](https://www.tableau.com/sites/default/files/2023-01/CHI-truncation-embedded.pdf){target="_blank"}
 :::
 
 ---
