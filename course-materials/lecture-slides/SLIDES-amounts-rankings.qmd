@@ -13,7 +13,7 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 3.2]{.custom-title}
+[EDS 240: Lecture 3.1]{.custom-title}
 
 [*Visualizing amounts / rankings*]{.custom-subtitle}
 
@@ -569,8 +569,8 @@ ca_region |>
 #| fig-align: "center"
 ggplot(ca_region, aes(x = subregion_name)) +
   geom_bar() +
-  scale_y_continuous(label = scales::label_comma()) + 
-  coord_flip() 
+  coord_flip() +
+  scale_y_continuous(label = scales::label_comma()) 
 ```
 :::
 
@@ -666,6 +666,11 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 ::: {.footer}
 Create a dot plot using `geom_point()`, then adjust `panel.grid` lines inside `theme()` | You'll see these county-level [FEMA National Risk Index](https://www.fema.gov/flood-maps/products-tools/national-risk-index){target="_blank"} scores in [Homework #2](https://eds-240-data-viz.github.io/course-materials/assignments/HW2.html){target="_blank"}!
+:::
+
+::: {.notes}
+- Bar charts are like measuring heights of people from the ground—you need the ground (zero) as reference
+- Dot plots are like plotting temperature over time—you care about the differences and trends, not the distance from absolute zero
 :::
 
 ---
@@ -797,7 +802,7 @@ countdown::countdown(
 ```
 
 ::: {.footer}
-Image source: [Data Viz Project](https://datavizproject.com/data-type/stacked-bar-chart/){target="_blank"}. **Take a few minutes to run and understand this wrangling code with your learning partners. Note down any questions you have.**
+Image source: [Data Viz Project](https://datavizproject.com/data-type/stacked-bar-chart/){target="_blank"}. **Take a few minutes to run and understand this wrangling code with your learning partners. Note any questions you have.**
 :::
 
 ---
@@ -982,12 +987,12 @@ order_2015 <- heatmap_data |>
   filter(year == 2015) |> 
   arrange(annual_mean_sui) |> 
   mutate(order = row_number()) |> 
-  select(annual_mean_sui, order) 
+  select(subregion_name, order) 
 
 #........join order with rest of data to set factor levels.......
 heatmap_order <- heatmap_data |> 
   left_join(order_2015) |> 
-  mutate(name = fct_reorder(.f = subregion_name, .x = order))
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = order))
 ```
 :::
 ::::
@@ -1013,7 +1018,7 @@ heatmap_order <- heatmap_data |>
 #| fig-align: "center"
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
-  labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + # caption = "A higher index value indicates greater water stress."
+  labs(fill = "Annual Mean Surface Water-Supply and\nUse Index (SUI)") + 
   scale_fill_viridis_c() +
   scale_x_continuous(breaks = seq(2010, 2020, by = 2)) +
   guides(fill = guide_colorbar(barwidth = 15, barheight = 0.75, title.position = "top")) +

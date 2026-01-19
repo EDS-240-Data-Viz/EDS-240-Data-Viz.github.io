@@ -168,35 +168,33 @@ ca_region |>
 
 ## Note 1: `geom_col()` vs. `geom_bar()`
 
-Use `geom_col()` when you want the heights of your bars to represent values in your data:
+- Use `geom_col()` when you want the heights of your bars to represent values in your data
+- Use `geom_bar()` if you want the heights of your bars to be proportional to the number of cases in each group
 
 ```{r}
 #| eval: true
 #| echo: true
+#| layout-ncol: 2
 #......................`geom_col()` example......................
+# How does mean SUI compare across subregions?
 ca_region |> 
   group_by(subregion_name) |> 
   summarise(mean_sui_2010_2020 = mean(sui_frac, na.rm = TRUE)) |> 
   ggplot(aes(x = mean_sui_2010_2020, y = subregion_name)) +
   geom_col() 
-```
 
-Use `geom_bar()` if you want the heights of your bars to be proportional to the number of cases in each group:
-
-```{r}
-#| eval: true
-#| echo: true
 #......................`geom_bar()` example......................
+# How many observations (rows) exist for each subregion?
 ggplot(ca_region, aes(x = subregion_name)) +
   geom_bar() +
-  scale_y_continuous(label = scales::label_comma()) +
-  coord_flip() 
+  coord_flip() +
+  scale_y_continuous(label = scales::label_comma()) 
 ```
 
 ## Stacked Bar Plots
 
 - great for part-to-whole comparisons
-- use a percentage stacked bar char twhen you want the focus to be on relative proportions
+- use a percentage stacked bar chart when you want the focus to be on relative proportions
 - encode values by LENGTH
 
 ***Our goal:** create a stacked bar chart that shows how CA subwatersheds (HUC 12s) are distributed across SUI categories*
@@ -259,7 +257,7 @@ ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
 
 ## Heatmaps
 
-- great for visulizing matrices of data (e.g. 2 categorical + 1 numeric)
+- great for visualizing matrices of data (e.g. 2 categorical + 1 numeric)
 - focus is on patterns rather than precise amounts
 - consider audience familiarity (may require more explanation than a basic bar plot)
 - encodes values using COLOR
@@ -271,6 +269,8 @@ First, we need to do a bit of wrangling:
 ```{r}
 #| eval: true
 #| echo: true
+#| message: false
+#| warning: false
 #............df of annual mean SUI by subregion & year...........
 heatmap_data <- ca_region |> 
   group_by(subregion_name, year) |> 
@@ -282,19 +282,19 @@ order_2015 <- heatmap_data |>
   filter(year == 2015) |> 
   arrange(annual_mean_sui) |> 
   mutate(order = row_number()) |> 
-  select(annual_mean_sui, order) 
+  select(subregion_name, order)
 
 #........join order with rest of data to set factor levels.......
 heatmap_order <- heatmap_data |> 
   left_join(order_2015) |> 
-  mutate(name = fct_reorder(.f = subregion_name, .x = order))
+  mutate(subregion_name = fct_reorder(.f = subregion_name, .x = order))
 ```
 
 Then, create heatmap:
 
 ```{r}
 #| eval: true
-#| echo: false
+#| echo: true
 #.........................create heatmap.........................
 ggplot(heatmap_order, aes(x = year, y = subregion_name, fill = annual_mean_sui)) +
   geom_tile() +
@@ -336,7 +336,7 @@ sbc_subbasin_monthly <- ca_region |>
   summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
             mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
   mutate(month = month.abb[month],
-          month = factor(month, levels = c(month.abb[10:12], month.abb[1:9])))
+          month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
 ```
 
 Then, create dumbbell plot: 
