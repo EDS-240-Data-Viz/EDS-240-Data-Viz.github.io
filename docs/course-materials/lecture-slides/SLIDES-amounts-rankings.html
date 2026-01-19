@@ -399,7 +399,7 @@
 
 <section id="title-slide" class="slide level2 center" data-menu-title="Title Slide" data-background="#053660">
 <h2></h2>
-<p><span class="custom-title">EDS 240: Lecture 3.2</span></p>
+<p><span class="custom-title">EDS 240: Lecture 3.1</span></p>
 <p><span class="custom-subtitle"><em>Visualizing amounts / rankings</em></span></p>
 <hr class="hr-teal">
 <p><span class="custom-subtitle3">Week 3 | January 21<sup>st</sup>, 2026</span></p>
@@ -788,8 +788,8 @@ For some more advanced label manipulation, see [A Quick How-to on Labelling Bar 
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(ca_region, <span class="fu">aes</span>(<span class="at">x =</span> subregion_name)) <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span> </span>
-<span id="cb11-4"><a></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -865,6 +865,22 @@ For some more advanced label manipulation, see [A Quick How-to on Labelling Bar 
 <div class="footer">
 <p>Create a dot plot using <code>geom_point()</code>, then adjust <code>panel.grid</code> lines inside <code>theme()</code> | You’ll see these county-level <a href="https://www.fema.gov/flood-maps/products-tools/national-risk-index" target="_blank">FEMA National Risk Index</a> scores in <a href="https://eds-240-data-viz.github.io/course-materials/assignments/HW2.html" target="_blank">Homework #2</a>!</p>
 </div>
+<aside class="notes">
+<ul>
+<li>Bar charts are like measuring heights of people from the ground—you need the ground (zero) as reference</li>
+<li>Dot plots are like plotting temperature over time—you care about the differences and trends, not the distance from absolute zero</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="cat-not-cont" class="slide level2" data-menu-title="Bar plots for categorical data">
 <h2></h2>
@@ -973,14 +989,14 @@ Stacked bar charts
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_ff530ad0" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_0c1d5e96" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 <div class="footer">
-<p>Image source: <a href="https://datavizproject.com/data-type/stacked-bar-chart/" target="_blank">Data Viz Project</a>. <strong>Take a few minutes to run and understand this wrangling code with your learning partners. Note down any questions you have.</strong></p>
+<p>Image source: <a href="https://datavizproject.com/data-type/stacked-bar-chart/" target="_blank">Data Viz Project</a>. <strong>Take a few minutes to run and understand this wrangling code with your learning partners. Note any questions you have.</strong></p>
 </div>
 </section>
 <section id="stacked-bar-improvements" class="slide level2" data-menu-title="Stacked bar plot improvements?">
@@ -995,7 +1011,7 @@ Stacked bar charts
 </div>
 <img data-src="SLIDES-amounts-rankings_files/figure-revealjs/improvements-needed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_fab91e63" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_e2f6ea5f" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1139,12 +1155,12 @@ Heatmaps
 <span id="cb18-10"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb18-11"><a></a>  <span class="fu">arrange</span>(annual_mean_sui) <span class="sc">|&gt;</span> </span>
 <span id="cb18-12"><a></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb18-13"><a></a>  <span class="fu">select</span>(annual_mean_sui, order) </span>
+<span id="cb18-13"><a></a>  <span class="fu">select</span>(subregion_name, order) </span>
 <span id="cb18-14"><a></a></span>
 <span id="cb18-15"><a></a><span class="co">#........join order with rest of data to set factor levels.......</span></span>
 <span id="cb18-16"><a></a>heatmap_order <span class="ot">&lt;-</span> heatmap_data <span class="sc">|&gt;</span> </span>
 <span id="cb18-17"><a></a>  <span class="fu">left_join</span>(order_2015) <span class="sc">|&gt;</span> </span>
-<span id="cb18-18"><a></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-18"><a></a>  <span class="fu">mutate</span>(<span class="at">subregion_name =</span> <span class="fu">fct_reorder</span>(<span class="at">.f =</span> subregion_name, <span class="at">.x =</span> order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
 </section>
@@ -1321,7 +1337,7 @@ Dumbbell plots
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_b5d52d83" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_82836e65" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

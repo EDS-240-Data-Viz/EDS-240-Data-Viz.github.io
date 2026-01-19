@@ -313,10 +313,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="install-pkgs">A. Install required packages</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>) <span class="co"># for editing .Renviron (see step C. in pre-class prep)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"naniar"</span>) <span class="co"># tools for exploring &amp; handing missing data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidytuesdayR"</span>) <span class="co"># used to download TidyTuesday data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>) <span class="co"># an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>) <span class="co"># provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes (installed automatically with {ggplot2} or {tidyverse})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-data" class="level3">
@@ -340,21 +339,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>3.1</td>
+<td>USGS National Water Availability Assessment Outputs (CONUS 2025)</td>
+<td>download the combined IWA .csv file from the <a href="https://water.usgs.gov/nwaa-data/data-file-directory?path=data/integrated-water-availability/iwa-assessment-outputs-conus-2025/" target="_blank">National Water Availability Assessment Data Companion (NWDC)</a> <em>(<a href="https://drive.google.com/file/d/1dtgqfB_62M0o0l8iHUs1enUUMyuZtUQ7/view?usp=drive_link" target="_blank">Google Drive backup link</a>, in case the NWDC is unavailable)</em></td>
+<td>These data are modeled estimates of monthly water supply and use (not empirical measurements from sensors / gauges); <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025" target="_blank">Read more about the model &amp; data</a></td>
+</tr>
+<tr class="even">
+<td>3.2</td>
 <td>Lyme Disease Cases by State or Locality</td>
 <td><a href="https://www.cdc.gov/lyme/media/files/2025/02/2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv">download link</a> <em>(<a href="https://drive.google.com/file/d/1Cyxx8_T-3Ih1BxrGJcD7ZxRREVUGkP6D/view?usp=sharing" target="_blank">Google Drive backup link</a>, in case CDC portal is unavailable)</em></td>
 <td>Data made available by the CDC (read more on the CDC’s <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html" target="_blank">Lyme Disease Surveillance Data page</a>; see other available data under <a href="https://www.cdc.gov/lyme/data-research/facts-stats/surveillance-data-1.html#:~:text=jurisdictions%20are%20incomplete.-,Dashboard%20data%20files,-Note%3A%20some" target="_blank">Dashboard data files</a>)</td>
 </tr>
-<tr class="even">
-<td>3.1</td>
+<tr class="odd">
+<td>3.2</td>
 <td>US Census Bureau Population Estimates Program</td>
 <td><strong>we’ll use the <code>{tidycensus}</code> package to interface with the US Census Bureau’s API and download the data programmatically (see step C, below, for setup instructions),</strong> <em>however, in the event that the API is down, you can access a backup copy of the 2019 vintage on <a href="https://drive.google.com/file/d/1eBmts5q1PaOz8yaGbyfZonzAfG_l5TA7/view?usp=sharing" target="_blank">Google Drive</a></em></td>
 <td>Read more about The Census Bureau’s <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank">Population Estimates Program (PEP)</a></td>
-</tr>
-<tr class="odd">
-<td>3.2</td>
-<td>USGS National Water Availability Assessment Outputs (CONUS 2025)</td>
-<td>download the combined IWA .csv file from the <a href="combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv" target="_blank">National Water Availability Assessment Data Companion (NWDC)</a> <em>(<a href="https://drive.google.com/file/d/1dtgqfB_62M0o0l8iHUs1enUUMyuZtUQ7/view?usp=drive_link" target="_blank">Google Drive backup link</a>, in case the NWDC is unavailable)</em></td>
-<td>These data are modeled estimates of monthly water supply and use (not empirical measurements from sensors / gauges); <a href="https://water.usgs.gov/nwaa-data/data-catalog/sector/integrated-water-availability/model/iwa-assessment-outputs-conus-2025" target="_blank">Read more about the model &amp; data</a></td>
 </tr>
 </tbody>
 </table>
@@ -429,14 +428,14 @@ What exactly is <code>.Renviron</code>?
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../course-materials/lecture-slides/SLIDES-evolution.html" target="_blank">Lecture 3.1: visualizing evolution</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-evolution.qmd" target="_blank">3.1 template</a></td>
-<td><a href="../course-materials/keys/KEY-evolution.html" target="_blank">3.1 key</a></td>
+<td><a href="../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">Lecture 3.1: visualizing amounts / rankings</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-amounts-rankings.qmd" target="_blank">3.1 template</a></td>
+<td><a href="../course-materials/keys/KEY-amounts-rankings.html" target="_blank">3.1 key</a></td>
 </tr>
 <tr class="even">
-<td><a href="../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">Lecture 3.2: visualizing amounts / rankings</a></td>
-<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-amounts-rankings.qmd" target="_blank">3.2 template</a></td>
-<td><a href="../course-materials/keys/KEY-amounts-rankings.html" target="_blank">3.2 key</a></td>
+<td><a href="../course-materials/lecture-slides/SLIDES-evolution.html" target="_blank">Lecture 3.2: visualizing evolution</a></td>
+<td><a href="https://github.com/EDS-240-Data-Viz/code-along-templates/blob/main/TEMPLATE-evolution.qmd" target="_blank">3.2 template</a></td>
+<td><a href="../course-materials/keys/KEY-evolution.html" target="_blank">3.2 key</a></td>
 </tr>
 </tbody>
 </table>
