@@ -346,17 +346,31 @@ Note
 <span id="cb1-34"><a href="#cb1-34"></a></span>
 <span id="cb1-35"><a href="#cb1-35"></a><span class="co">#......create df with just CA water resource region (HUC 18).....</span></span>
 <span id="cb1-36"><a href="#cb1-36"></a>ca_region <span class="ot">&lt;-</span> iwa_data <span class="sc">|&gt;</span> </span>
-<span id="cb1-37"><a href="#cb1-37"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-38"><a href="#cb1-38"></a>  <span class="fu">mutate</span>(<span class="at">region_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">2</span>),</span>
-<span id="cb1-39"><a href="#cb1-39"></a>         <span class="at">subregion_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">4</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb1-40"><a href="#cb1-40"></a>  <span class="fu">filter</span>(region_HUC <span class="sc">==</span> <span class="st">"18"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-41"><a href="#cb1-41"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols =</span> year_month,</span>
-<span id="cb1-42"><a href="#cb1-42"></a>                       <span class="at">delim =</span> <span class="st">"-"</span>,</span>
-<span id="cb1-43"><a href="#cb1-43"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>)) <span class="sc">|&gt;</span>                     </span>
-<span id="cb1-44"><a href="#cb1-44"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year),</span>
-<span id="cb1-45"><a href="#cb1-45"></a>         <span class="at">month =</span> <span class="fu">as.numeric</span>(month)) <span class="sc">|&gt;</span> </span>
-<span id="cb1-46"><a href="#cb1-46"></a>  <span class="fu">left_join</span>(subregion_names) <span class="sc">|&gt;</span> </span>
-<span id="cb1-47"><a href="#cb1-47"></a>  <span class="fu">select</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>  <span class="co"># make nicer column names ----</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-40"><a href="#cb1-40"></a></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  <span class="co"># create columns for 2-unit (region-level) &amp; 4-unit (subregion-level) HUC using full 12-unit HUC ----</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>  <span class="fu">mutate</span>(<span class="at">region_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">2</span>),</span>
+<span id="cb1-43"><a href="#cb1-43"></a>         <span class="at">subregion_HUC =</span> <span class="fu">str_sub</span>(<span class="at">string =</span> huc12_id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">4</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-44"><a href="#cb1-44"></a>  </span>
+<span id="cb1-45"><a href="#cb1-45"></a>  <span class="co"># filter for just CA region (HUC 18) ----</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a>  <span class="fu">filter</span>(region_HUC <span class="sc">==</span> <span class="st">"18"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-47"><a href="#cb1-47"></a></span>
+<span id="cb1-48"><a href="#cb1-48"></a>  <span class="co"># separate year and month into two columns ----</span></span>
+<span id="cb1-49"><a href="#cb1-49"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols =</span> year_month,</span>
+<span id="cb1-50"><a href="#cb1-50"></a>                       <span class="at">delim =</span> <span class="st">"-"</span>,</span>
+<span id="cb1-51"><a href="#cb1-51"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-52"><a href="#cb1-52"></a></span>
+<span id="cb1-53"><a href="#cb1-53"></a>  <span class="co"># convert year and month from chr to num ---                            </span></span>
+<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year),</span>
+<span id="cb1-55"><a href="#cb1-55"></a>         <span class="at">month =</span> <span class="fu">as.numeric</span>(month)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-56"><a href="#cb1-56"></a>  </span>
+<span id="cb1-57"><a href="#cb1-57"></a>  <span class="co"># join subregion names ----</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>  <span class="fu">left_join</span>(subregion_names) <span class="sc">|&gt;</span> </span>
+<span id="cb1-59"><a href="#cb1-59"></a>  </span>
+<span id="cb1-60"><a href="#cb1-60"></a>  <span class="co"># keep necessary columns &amp; reorder in more logical way -----</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>  <span class="fu">select</span>(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- RUN THIS -->
 </section>

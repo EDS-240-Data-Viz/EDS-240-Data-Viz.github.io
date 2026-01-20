@@ -54,16 +54,30 @@ subregion_names <- tribble(
 
 #......create df with just CA water resource region (HUC 18).....
 ca_region <- iwa_data |> 
+
+  # make nicer column names ----
   clean_names() |> 
+
+  # create columns for 2-unit (region-level) & 4-unit (subregion-level) HUC using full 12-unit HUC ----
   mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
          subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  
+  # filter for just CA region (HUC 18) ----
   filter(region_HUC == "18") |> 
+
+  # separate year and month into two columns ----
   separate_wider_delim(cols = year_month,
                        delim = "-",
-                       names = c("year", "month")) |>                     
+                       names = c("year", "month")) |> 
+
+  # convert year and month from chr to num ---                            
   mutate(year = as.numeric(year),
          month = as.numeric(month)) |> 
+  
+  # join subregion names ----
   left_join(subregion_names) |> 
+  
+  # keep necessary columns & reorder in more logical way -----
   select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 ```
 
@@ -110,16 +124,30 @@ subregion_names <- tribble(
 
 #......create df with just CA water resource region (HUC 18).....
 ca_region <- iwa_data |> 
+
+  # make nicer column names ----
   clean_names() |> 
+
+  # create columns for 2-unit (region-level) & 4-unit (subregion-level) HUC using full 12-unit HUC ----
   mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
          subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  
+  # filter for just CA region (HUC 18) ----
   filter(region_HUC == "18") |> 
+
+  # separate year and month into two columns ----
   separate_wider_delim(cols = year_month,
                        delim = "-",
-                       names = c("year", "month")) |>                          
+                       names = c("year", "month")) |> 
+
+  # convert year and month from chr to num ---                            
   mutate(year = as.numeric(year),
          month = as.numeric(month)) |> 
+  
+  # join subregion names ----
   left_join(subregion_names) |> 
+  
+  # keep necessary columns & reorder in more logical way -----
   select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
 ```
 
