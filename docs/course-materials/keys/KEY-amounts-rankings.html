@@ -444,33 +444,25 @@ Note
 <p><em><strong>Our goal:</strong> create a stacked bar chart that shows how CA subwatersheds (HUC 12s) are distributed across SUI categories</em></p>
 <p>First we need to do a bit of wrangling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#.................find total # SUI obs per month.................</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>tot_sui_per_month <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">rename</span>(<span class="at">tot_sui_per_month =</span> n)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#................create df classifying SUI values................</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>sui_severity <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="at">sui_category =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-11"><a href="#cb4-11"></a>      sui_frac <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">~</span> <span class="st">"Very low"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.4</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.4</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.6</span> <span class="sc">~</span> <span class="st">"Moderate"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.6</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.8</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.8</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Severe"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>    )) <span class="sc">|&gt;</span> </span>
-<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">group_by</span>(month, sui_category) <span class="sc">|&gt;</span> </span>
-<span id="cb4-19"><a href="#cb4-19"></a>  <span class="fu">summarize</span>(<span class="at">tot_sui_per_cat =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb4-20"><a href="#cb4-20"></a>  <span class="fu">drop_na</span>(sui_category) <span class="sc">|&gt;</span> </span>
-<span id="cb4-21"><a href="#cb4-21"></a>  <span class="fu">left_join</span>(tot_sui_per_month) <span class="sc">|&gt;</span> </span>
-<span id="cb4-22"><a href="#cb4-22"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> month.abb[month],</span>
-<span id="cb4-23"><a href="#cb4-23"></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">c</span>(month.abb[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]))) <span class="sc">|&gt;</span> </span>
-<span id="cb4-24"><a href="#cb4-24"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> (tot_sui_per_cat<span class="sc">/</span>tot_sui_per_month) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-25"><a href="#cb4-25"></a>  <span class="fu">mutate</span>(<span class="at">sui_category =</span> <span class="fu">factor</span>(sui_category, </span>
-<span id="cb4-26"><a href="#cb4-26"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Very low"</span>, <span class="st">"Low"</span>,</span>
-<span id="cb4-27"><a href="#cb4-27"></a>                                          <span class="st">"Moderate"</span>, <span class="st">"High"</span>, <span class="st">"Severe"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#................create df classifying SUI values................</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>sui_severity <span class="ot">&lt;-</span> ca_region <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">sui_category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-5"><a href="#cb4-5"></a>      sui_frac <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">~</span> <span class="st">"Very low"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.4</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.4</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.6</span> <span class="sc">~</span> <span class="st">"Moderate"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.6</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;</span> <span class="fl">0.8</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9"></a>      sui_frac <span class="sc">&gt;=</span> <span class="fl">0.8</span> <span class="sc">&amp;</span> sui_frac <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Severe"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    )) <span class="sc">|&gt;</span> </span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">group_by</span>(month, sui_category) <span class="sc">|&gt;</span> </span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">summarize</span>(<span class="at">tot_num_sui =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">drop_na</span>(sui_category) <span class="sc">|&gt;</span> </span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> month.abb[month],</span>
+<span id="cb4-16"><a href="#cb4-16"></a>         <span class="at">month =</span> <span class="fu">factor</span>(month, <span class="at">levels =</span> <span class="fu">c</span>(month.abb[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]))) <span class="sc">|&gt;</span> </span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="fu">mutate</span>(<span class="at">sui_category =</span> <span class="fu">factor</span>(sui_category, </span>
+<span id="cb4-18"><a href="#cb4-18"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Very low"</span>, <span class="st">"Low"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>                                          <span class="st">"Moderate"</span>, <span class="st">"High"</span>, <span class="st">"Severe"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then create a stacked bar plot:</p>
 <div class="cell">
@@ -483,10 +475,10 @@ Note
 <span id="cb5-7"><a href="#cb5-7"></a>                <span class="st">"Very low"</span> <span class="ot">=</span> <span class="st">"#217AB5"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8"></a></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="co">#......................% stacked bar chart.......................</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">ggplot</span>(sui_severity, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> perc, <span class="at">fill =</span> sui_category)) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">ggplot</span>(sui_severity, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> tot_num_sui, <span class="at">fill =</span> sui_category)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
 <span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> sui_colors) <span class="sc">+</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">100</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
