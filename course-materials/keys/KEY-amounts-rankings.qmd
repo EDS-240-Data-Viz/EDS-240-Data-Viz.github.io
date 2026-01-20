@@ -205,12 +205,6 @@ First we need to do a bit of wrangling:
 #| eval: true
 #| echo: true
 #| message: false
-#.................find total # SUI obs per month.................
-tot_sui_per_month <- ca_region |> 
-  group_by(month) |> 
-  count() |> 
-  rename(tot_sui_per_month = n)
-
 #................create df classifying SUI values................
 sui_severity <- ca_region |>
   mutate(
@@ -223,12 +217,10 @@ sui_severity <- ca_region |>
       TRUE ~ NA
     )) |> 
   group_by(month, sui_category) |> 
-  summarize(tot_sui_per_cat = n()) |> 
+  summarize(tot_num_sui = n()) |> 
   drop_na(sui_category) |> 
-  left_join(tot_sui_per_month) |> 
   mutate(month = month.abb[month],
          month = factor(month, levels = c(month.abb[10:12], month.abb[1:9]))) |> 
-  mutate(perc = (tot_sui_per_cat/tot_sui_per_month) * 100) |> 
   mutate(sui_category = factor(sui_category, 
                                levels = c("Very low", "Low",
                                           "Moderate", "High", "Severe")))
@@ -249,10 +241,10 @@ sui_colors <- c("Severe" = "#720C0F",
                 "Very low" = "#217AB5")
 
 #......................% stacked bar chart.......................
-ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
-  geom_col() +
+ggplot(sui_severity, aes(x = month, y = tot_num_sui, fill = sui_category)) +
+  geom_col(position = "fill") +
   scale_fill_manual(values = sui_colors) +
-  scale_y_continuous(labels = scales::label_percent(scale = 1))  
+  scale_y_continuous(labels = scales::label_percent(scale = 100))  
 ```
 
 ## Heatmaps

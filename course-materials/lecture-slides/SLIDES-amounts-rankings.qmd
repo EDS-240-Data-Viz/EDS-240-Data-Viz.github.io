@@ -813,7 +813,7 @@ Image source: [Data Viz Project](https://datavizproject.com/data-type/stacked-ba
 
 <hr>
 
-[The code for a stacked bar plot is not so different from a standard bar plot -- just add a numeric variable as your `fill`:]{.body-text-s}
+[The code for a stacked bar plot is not so different from a standard bar plot -- just add a categorical variable as your `fill`:]{.body-text-s}
 
 ```{r improvements-needed}
 #| eval: true
@@ -824,50 +824,9 @@ ggplot(sui_severity, aes(x = month, y = tot_num_sui, fill = sui_category)) +
   geom_col()
 ```
 
-```{r improvements-countdown}
-countdown::countdown(
-  minutes = 1,
-  # left = 0, right = 0,
-  # Fanfare when it's over
-  play_sound = TRUE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "2em",
-  )
-```
-
 . . .
 
-[To make interpretation easier, we should **reorder** our `sui-categories` so that the most important (Severe) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), convert our y-axis values to **percentages**, and update our **colors** (we can adopt those used by USGS -- see [this slide](SLIDES-amounts-rankings.qmd#water-use-data){target="_blank"})]{.body-text-s}
-
----
-
-## {#revise-wrangling-totals data-menu-title="Revise wrangling 1"} 
-
-[Let's first update our wrangling code]{.slide-title}
-
-<hr>
-
-To convert our absolute values into percentages, we'll need to calculate:
-
-$$(total\:SUI\:values\:per\:category\:/\:total\:SUI\:values\:per\:month)*100$$ 
-
-In theory, we should have the same number of SUI values per month, but it's good to check:
-
-```{r tot_sui_per_month}
-#| eval: true
-#| echo: true
-tot_sui_per_month <- ca_region |> 
-  group_by(month) |> 
-  count() |> 
-  rename(tot_sui_per_month = n)
-
-tot_sui_per_month
-```
+[To make interpretation easier, we should (1) **reorder** `sui_category` so that they're in a logical order and that the most important (`Severe`) is on the bottom (making it easier to read against the y-axis; we should update our legend order to reflect this as well), (2) convert our y-axis values to **percentages**, and (3) update our **colors** (we can adopt those used by USGS -- see [this slide](SLIDES-amounts-rankings.qmd#water-use-data){target="_blank"})]{.body-text-s}
 
 ---
 
@@ -877,12 +836,12 @@ tot_sui_per_month
 
 <hr>
 
-Then, we need to calculate our percentages and reorder our category levels: 
+Reorder the `sui_category` groups from "Very low" > "Severe":
 
 ```{r updated-wrangling}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "14,17-20"
+#| code-line-numbers: "16-18"
 sui_severity <- ca_region |>
   mutate(
     sui_category = case_when(
@@ -894,12 +853,10 @@ sui_severity <- ca_region |>
       TRUE ~ NA
     )) |> 
   group_by(month, sui_category) |> 
-  summarize(tot_sui_per_cat = n()) |> 
+  summarize(tot_num_sui = n()) |> 
   drop_na(sui_category) |> 
-  left_join(tot_sui_per_month) |> # join total number of SUI observations per month
   mutate(month = month.abb[month],
          month = factor(month, levels = c(month.abb[10:12], month.abb[1:9]))) |> 
-  mutate(perc = (tot_sui_per_cat/tot_sui_per_month) * 100) |> # add col with calculated %s
   mutate(sui_category = factor(sui_category, # reorder categories
                                levels = c("Very low", "Low",
                                           "Moderate", "High", "Severe")))
@@ -909,7 +866,7 @@ sui_severity <- ca_region |>
 
 ## {#percentage-stacked-bar data-menu-title="Create percentage stacked bar chart"} 
 
-[Convert to percentage stacked bar chart]{.slide-title}
+[Then, convert to percentage stacked bar chart]{.slide-title2}
 
 <hr>
 
@@ -927,10 +884,10 @@ sui_colors <- c("Severe" = "#720C0F",
                 "Very low" = "#217AB5")
 
 #...................create % stacked bar chart...................
-ggplot(sui_severity, aes(x = month, y = perc, fill = sui_category)) +
-  geom_col() +
+ggplot(sui_severity, aes(x = month, y = tot_num_sui, fill = sui_category)) +
+  geom_col(position = "fill") +
   scale_fill_manual(values = sui_colors) +
-  scale_y_continuous(labels = scales::label_percent(scale = 1))  
+  scale_y_continuous(labels = scales::label_percent(scale = 100))  
 ```
 
 ::: {.footer}
