@@ -312,26 +312,34 @@ Note
 <span id="cb1-13"><a href="#cb1-13"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-14"><a href="#cb1-14"></a></span>
 <span id="cb1-15"><a href="#cb1-15"></a>drought_clean <span class="ot">&lt;-</span> drought <span class="sc">|&gt;</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a>  <span class="co"># select cols of interest &amp; update names for clarity (as needed) ----</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">select</span>(<span class="at">date =</span> valid_start, state_abb, drought_lvl, area_pct) <span class="sc">|&gt;</span> </span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a>  <span class="co"># add year, month &amp; day cols using {lubridate} fxns ----</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
-<span id="cb1-23"><a href="#cb1-23"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-24"><a href="#cb1-24"></a>         <span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a></span>
-<span id="cb1-26"><a href="#cb1-26"></a>  <span class="co"># add drought level conditions names ----</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a>  <span class="fu">mutate</span>(<span class="at">drought_lvl_long =</span> <span class="fu">factor</span>(drought_lvl,</span>
-<span id="cb1-28"><a href="#cb1-28"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"D4"</span>, <span class="st">"D3"</span>, <span class="st">"D2"</span>, <span class="st">"D1"</span>,<span class="st">"D0"</span>, <span class="st">"None"</span>),</span>
-<span id="cb1-29"><a href="#cb1-29"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"(D4) Exceptional"</span>, <span class="st">"(D3) Extreme"</span>,</span>
-<span id="cb1-30"><a href="#cb1-30"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, </span>
-<span id="cb1-31"><a href="#cb1-31"></a>                                       <span class="st">"(D0) Abnormally Dry"</span>, </span>
-<span id="cb1-32"><a href="#cb1-32"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a>  </span>
-<span id="cb1-34"><a href="#cb1-34"></a>  <span class="co"># reorder cols ----</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">relocate</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-16"><a href="#cb1-16"></a>  </span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="co"># Pivot table to be in tidy form</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> None<span class="sc">:</span>D4, <span class="at">names_to =</span> <span class="st">"drought_lvl"</span>,    <span class="at">values_to =</span> <span class="st">"area_pct"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>  </span>
+<span id="cb1-20"><a href="#cb1-20"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>  </span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="co"># Rename state abbreviation column</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>   <span class="fu">rename</span>(<span class="at">state_abb =</span> state_abbreviation) <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="co"># select cols of interest &amp; update names for clarity (as needed) ----</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="fu">select</span>(<span class="at">date =</span> valid_start, state_abb, drought_lvl, area_pct) <span class="sc">|&gt;</span> </span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  <span class="co"># add year, month &amp; day cols using {lubridate} fxns ----</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: this step isn't necessary for our plot, but I'm including as examples of how to extract different date elements from a object of class `Date` using {lubridate} ----</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
+<span id="cb1-31"><a href="#cb1-31"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-32"><a href="#cb1-32"></a>         <span class="at">day =</span> <span class="fu">day</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  <span class="co"># add drought level conditions names ----</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">mutate</span>(<span class="at">drought_lvl_long =</span> <span class="fu">factor</span>(drought_lvl,</span>
+<span id="cb1-36"><a href="#cb1-36"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"D4"</span>, <span class="st">"D3"</span>, <span class="st">"D2"</span>, <span class="st">"D1"</span>,<span class="st">"D0"</span>, <span class="st">"None"</span>),</span>
+<span id="cb1-37"><a href="#cb1-37"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"(D4) Exceptional"</span>, <span class="st">"(D3) Extreme"</span>,</span>
+<span id="cb1-38"><a href="#cb1-38"></a>                                       <span class="st">"(D2) Severe"</span>, <span class="st">"(D1) Moderate"</span>, </span>
+<span id="cb1-39"><a href="#cb1-39"></a>                                       <span class="st">"(D0) Abnormally Dry"</span>, </span>
+<span id="cb1-40"><a href="#cb1-40"></a>                                       <span class="st">"No Drought"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  </span>
+<span id="cb1-42"><a href="#cb1-42"></a>  <span class="co"># reorder cols ----</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>  <span class="fu">relocate</span>(date, year, month, day, state_abb, drought_lvl, drought_lvl_long, area_pct)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>We still need to filter for just California data and remove any observations where <code>drought_lvl</code> is <code>"None"</code>. It makes some sense to perform these filters separate from our data wrangling code (in case we ever want to use <code>drought_clean</code> to make a similar plot for a different state(s)). Let’s filter <code>drought_clean</code>, then pipe directly into our gpplot:</li>
@@ -356,7 +364,7 @@ Note
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/lab-materials/usdm.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="640"></p>
+<p><img src="../images/lab-materials/usdm.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1280"></p>
 </figure>
 </div>
 </div>
