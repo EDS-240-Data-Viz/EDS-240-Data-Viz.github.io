@@ -10,6 +10,8 @@ It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no templ
 
 1. Begin by copying the following setup and data wrangling code into your `week3-lab.qmd` file. Run through and review the code, and explore the resulting `drought_clean` data frame.
 
+
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -30,6 +32,14 @@ drought <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 drought_clean <- drought |>
+  
+  # Pivot table to be in tidy form
+  pivot_longer(cols = None:D4, names_to = "drought_lvl",    values_to = "area_pct") |>
+  
+  janitor::clean_names() |>
+  
+  # Rename state abbreviation column
+   rename(state_abb = state_abbreviation) |>
 
   # select cols of interest & update names for clarity (as needed) ----
   select(date = valid_start, state_abb, drought_lvl, area_pct) |> 
@@ -76,7 +86,7 @@ drought_clean |>
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-knitr::include_graphics(here::here("course-materials", "images", "lab-materials", "usdm.png"))
+knitr::include_graphics(here::here("course-materials", "images", "usdm.png"))
 ```
 
 It can be helpful to tackle one small(ish) thing at a time. Consider the following "stages":
