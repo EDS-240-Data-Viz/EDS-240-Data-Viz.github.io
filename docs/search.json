@@ -4309,7 +4309,7 @@
     "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lab 2\nRecreating US Drought Monitor viz\nPart 1: graphic form\n\nWeek 2 | January 14th, 2025"
+    "text": "EDS 240: Lab 2\nRecreating US Drought Monitor viz\n\nWeek 3 | January 22nd, 2026"
   },
   {
     "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#what-is-USDM",
@@ -4337,7 +4337,7 @@
     "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#gameplan",
     "title": "EDS 240",
     "section": "",
-    "text": "Let’s recreate this USDM viz!\n\nWe’ll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the Droughts in California Wikipedia page!):\n\nThis week, we’ll focus on the data layer, geometric layer, and scales. During week 4 lab, we’ll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor’s version."
+    "text": "Let’s recreate this USDM viz!\n\nWe’ll be recreating this data visualization produced by U.S. Drought Monitor (you can find on the Droughts in California Wikipedia page!\n\nWe will first focus on the data layer, geometric layer, and scales. Then, we’ll work on tweaking the theme (all non-data elements) to get it to look just like the U.S. Drought Monitor’s version.\nReference the graphic on the previous slide (and of course, documentation – run ?theme or check out online documentation) to start tweaking plot elements until it matches the original USDM graphic (below). It’s common to start with a pre-built theme and modify from there.\n\nImage source: US Drought Monitor via Wikipedia"
   },
   {
     "objectID": "index.html#course-description",
@@ -7222,5 +7222,40 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n~ This is the end of Lesson 1 (of 3) ~\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#ggplot-theme",
+    "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#ggplot-theme",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Themes modify non-data plot elements\n\n\n\nThemes are used to modify the non-data components of plots (e.g. titles, labels, fonts, background, gridlines, legend).\n\nIn addition to using pre-built themes (available via the {ggplot2} package and also from extension packages), you can fine-tune the appearance of your plots theme by making adjustments using the theme() function."
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#prebuilt-themes",
+    "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#prebuilt-themes",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Pre-built themes\n\n{ggplot2} comes with eight complete themes, which can be applied as-is, or further modified using theme(). There are also many additional themes which can be applied via ggplot extension packages. A small handful of packages with additional themes:\n\n{ggthemes}: a collection of popular themes, some of which also come with corresponding color scales\n{hrbrthemes}: typographic-centric themes and theme components -{ggthemr}: a collection of color palettes and plot layouts for quickly setting a ggplot theme\n{ggtech}: themes based off large tech company color palettes\n{ggdark}: dark mode for ggplot complete themes\n{firatheme}: a ggplot theme with Fira font\n{urbnthemes}: tools for creating Urban Institute-themed plots and maps in R (also check out the Urban Institute Data Visualization Style Guide for a really great example of how an organization enforces a cohesive style across all published data viz content)\n{bbplot}: tools for creating ggplots in the style used by the BBC News data team\n{ggpomological}: a ggplot2 theme based on the USDA Pomological Watercolor Collection\n{tvthemes}: a collection of ggplot themes and color / fill palettes based on everybody’s favorite TV shows"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#plot-specific-themes",
+    "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#plot-specific-themes",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Keep an eye out for plot-specific themes\n\nKeep your eye out for extension packages that supply both a geom(s) and a pre-build theme(s) designed specifically to work with that geom. For example, the {ggridges} package provides both a few different ridgeline plot geoms and a pre-built theme_ridges() theme to pair with them:"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#theme",
+    "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#theme",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Use ggplot2::theme() for fine-tune control\n\n\n\nAdapted from Reproducible Science for Busy Researchers: How to Save Time using Literate Programming, by Andrew P. Lapointe"
+  },
+  {
+    "objectID": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#recreate-plot",
+    "href": "course-materials/lab/LAB-SLIDES-usdm-graphic-form.html#recreate-plot",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Time to recreate this USDM plot\n\nReference the graphic on the previous slide (and of course, documentation – run ?theme or check out online documentation) to start tweaking plot elements until it matches the original USDM graphic (below). It’s common to start with a pre-built theme and modify from there.\n\n\nImage source: US Drought Monitor via Wikipedia"
   }
 ]
