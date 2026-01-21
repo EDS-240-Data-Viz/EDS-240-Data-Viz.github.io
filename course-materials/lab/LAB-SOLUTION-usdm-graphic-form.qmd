@@ -9,8 +9,6 @@ description: "Thursday January 22^nd^, 2026"
 #| echo: true
 #| warning: false
 #| message: false
-#| fig-align: "center"
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,7 +62,7 @@ drought_clean |>
   geom_area(position = position_stack(reverse = TRUE)) +
   
   # update colors to match US Drought Monitor ----
- # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) 
+  # (colors identified using ColorPick Eyedropper extension on the original USDM data viz) 
   scale_fill_manual(values = c("#853904", "#FF0000", "#FFC100", "#FFD965", "#FFFF00")) +
   
   # set x-axis breaks & remove padding between data and x-axis ----
@@ -77,10 +75,8 @@ drought_clean |>
                      labels = scales::label_percent(scale = 1)) +
   
   # add title ----
-  labs(title = "Drought area in California") 
-
-
-
+  labs(title = "Drought area in California") +
+  
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                                                            --
 ##-------------------------  THEME CODE!-----------------------------
@@ -120,5 +116,5 @@ drought_clean |>
     plot.background = element_rect(color = "#686868"),
     plot.margin = margin(t = 10, r = 10, b = 10, l = 10)
   )
-
 ```
+

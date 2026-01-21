@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="do">##                                    setup                                 ----</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
@@ -334,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-51"><a href="#cb1-51"></a>  <span class="fu">geom_area</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
 <span id="cb1-52"><a href="#cb1-52"></a>  </span>
 <span id="cb1-53"><a href="#cb1-53"></a>  <span class="co"># update colors to match US Drought Monitor ----</span></span>
-<span id="cb1-54"><a href="#cb1-54"></a> <span class="co"># (colors identified using ColorPick Eyedropper extension on the original USDM data viz) </span></span>
+<span id="cb1-54"><a href="#cb1-54"></a>  <span class="co"># (colors identified using ColorPick Eyedropper extension on the original USDM data viz) </span></span>
 <span id="cb1-55"><a href="#cb1-55"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#853904"</span>, <span class="st">"#FF0000"</span>, <span class="st">"#FFC100"</span>, <span class="st">"#FFD965"</span>, <span class="st">"#FFFF00"</span>)) <span class="sc">+</span></span>
 <span id="cb1-56"><a href="#cb1-56"></a>  </span>
 <span id="cb1-57"><a href="#cb1-57"></a>  <span class="co"># set x-axis breaks &amp; remove padding between data and x-axis ----</span></span>
@@ -347,427 +347,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-64"><a href="#cb1-64"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb1-65"><a href="#cb1-65"></a>  </span>
 <span id="cb1-66"><a href="#cb1-66"></a>  <span class="co"># add title ----</span></span>
-<span id="cb1-67"><a href="#cb1-67"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Drought area in California"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-67"><a href="#cb1-67"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Drought area in California"</span>) <span class="sc">+</span></span>
+<span id="cb1-68"><a href="#cb1-68"></a>  </span>
+<span id="cb1-69"><a href="#cb1-69"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a><span class="do">##                                                                            --</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a><span class="do">##-------------------------  THEME CODE!-----------------------------</span></span>
+<span id="cb1-72"><a href="#cb1-72"></a><span class="do">##                                                                            --</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a></span>
+<span id="cb1-75"><a href="#cb1-75"></a>  <span class="co"># set theme minimal (includes major/minor grid lines, no axes) ----</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-77"><a href="#cb1-77"></a>  </span>
+<span id="cb1-78"><a href="#cb1-78"></a>  <span class="co"># fine-tune adjustments to plot theme ----</span></span>
+<span id="cb1-79"><a href="#cb1-79"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-80"><a href="#cb1-80"></a>    </span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="co"># update axis lines &amp; ticks color ----</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#5A9CD6"</span>),</span>
+<span id="cb1-83"><a href="#cb1-83"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#5A9CD6"</span>),</span>
+<span id="cb1-84"><a href="#cb1-84"></a>    </span>
+<span id="cb1-85"><a href="#cb1-85"></a>    <span class="co"># adjust length of axis ticks ----</span></span>
+<span id="cb1-86"><a href="#cb1-86"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">2</span>, <span class="st">"cm"</span>),</span>
+<span id="cb1-87"><a href="#cb1-87"></a>    </span>
+<span id="cb1-88"><a href="#cb1-88"></a>    <span class="co"># center plot title ----</span></span>
+<span id="cb1-89"><a href="#cb1-89"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">20</span>,</span>
+<span id="cb1-90"><a href="#cb1-90"></a>                              <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">15</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb1-91"><a href="#cb1-91"></a>    </span>
+<span id="cb1-92"><a href="#cb1-92"></a>    <span class="co"># remove axis &amp; legend titles ----</span></span>
+<span id="cb1-93"><a href="#cb1-93"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-94"><a href="#cb1-94"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-95"><a href="#cb1-95"></a>    </span>
+<span id="cb1-96"><a href="#cb1-96"></a>    <span class="co"># axis text color &amp; size ----</span></span>
+<span id="cb1-97"><a href="#cb1-97"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb1-98"><a href="#cb1-98"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb1-99"><a href="#cb1-99"></a>    </span>
+<span id="cb1-100"><a href="#cb1-100"></a>    <span class="co"># move legend below plot ----</span></span>
+<span id="cb1-101"><a href="#cb1-101"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb1-102"><a href="#cb1-102"></a>    <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"cm"</span>),</span>
+<span id="cb1-103"><a href="#cb1-103"></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>, <span class="st">"cm"</span>),</span>
+<span id="cb1-104"><a href="#cb1-104"></a>    </span>
+<span id="cb1-105"><a href="#cb1-105"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"#686868"</span>),</span>
+<span id="cb1-106"><a href="#cb1-106"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">10</span>)</span>
+<span id="cb1-107"><a href="#cb1-107"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="LAB-SOLUTION-usdm-graphic-form_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="LAB-SOLUTION-usdm-graphic-form_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="do">##                                                                            --</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="do">##-------------------------  THEME CODE!-----------------------------</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="do">##                                                                            --</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="co"># set theme minimal (includes major/minor grid lines, no axes) ----</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>  </span>
-<span id="cb2-10"><a href="#cb2-10"></a>  <span class="co"># fine-tune adjustments to plot theme ----</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">theme</span>(</span>
-<span id="cb2-12"><a href="#cb2-12"></a>    </span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="co"># update axis lines &amp; ticks color ----</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#5A9CD6"</span>),</span>
-<span id="cb2-15"><a href="#cb2-15"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#5A9CD6"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    </span>
-<span id="cb2-17"><a href="#cb2-17"></a>    <span class="co"># adjust length of axis ticks ----</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">2</span>, <span class="st">"cm"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19"></a>    </span>
-<span id="cb2-20"><a href="#cb2-20"></a>    <span class="co"># center plot title ----</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">20</span>,</span>
-<span id="cb2-22"><a href="#cb2-22"></a>                              <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">15</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb2-23"><a href="#cb2-23"></a>    </span>
-<span id="cb2-24"><a href="#cb2-24"></a>    <span class="co"># remove axis &amp; legend titles ----</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb2-26"><a href="#cb2-26"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb2-27"><a href="#cb2-27"></a>    </span>
-<span id="cb2-28"><a href="#cb2-28"></a>    <span class="co"># axis text color &amp; size ----</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb2-30"><a href="#cb2-30"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#686868"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb2-31"><a href="#cb2-31"></a>    </span>
-<span id="cb2-32"><a href="#cb2-32"></a>    <span class="co"># move legend below plot ----</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb2-34"><a href="#cb2-34"></a>    <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"cm"</span>),</span>
-<span id="cb2-35"><a href="#cb2-35"></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>, <span class="st">"cm"</span>),</span>
-<span id="cb2-36"><a href="#cb2-36"></a>    </span>
-<span id="cb2-37"><a href="#cb2-37"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"#686868"</span>),</span>
-<span id="cb2-38"><a href="#cb2-38"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">10</span>)</span>
-<span id="cb2-39"><a href="#cb2-39"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;theme&gt; List of 144
- $ line                            : &lt;ggplot2::element_line&gt;
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ lineend      : chr "butt"
-  ..@ linejoin     : chr "round"
-  ..@ arrow        : logi FALSE
-  ..@ arrow.fill   : chr "black"
-  ..@ inherit.blank: logi TRUE
- $ rect                            : &lt;ggplot2::element_rect&gt;
-  ..@ fill         : chr "white"
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ linejoin     : chr "round"
-  ..@ inherit.blank: logi TRUE
- $ text                            : &lt;ggplot2::element_text&gt;
-  ..@ family       : chr ""
-  ..@ face         : chr "plain"
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : chr "black"
-  ..@ size         : num 11
-  ..@ hjust        : num 0.5
-  ..@ vjust        : num 0.5
-  ..@ angle        : num 0
-  ..@ lineheight   : num 0.9
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
-  ..@ debug        : logi FALSE
-  ..@ inherit.blank: logi TRUE
- $ title                           : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ point                           : &lt;ggplot2::element_point&gt;
-  ..@ colour       : chr "black"
-  ..@ shape        : num 19
-  ..@ size         : num 1.5
-  ..@ fill         : chr "white"
-  ..@ stroke       : num 0.5
-  ..@ inherit.blank: logi TRUE
- $ polygon                         : &lt;ggplot2::element_polygon&gt;
-  ..@ fill         : chr "white"
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ linejoin     : chr "round"
-  ..@ inherit.blank: logi TRUE
- $ geom                            : &lt;ggplot2::element_geom&gt;
-  ..@ ink        : chr "black"
-  ..@ paper      : chr "white"
-  ..@ accent     : chr "#3366FF"
-  ..@ linewidth  : num 0.5
-  ..@ borderwidth: num 0.5
-  ..@ linetype   : int 1
-  ..@ bordertype : int 1
-  ..@ family     : chr ""
-  ..@ fontsize   : num 3.87
-  ..@ pointsize  : num 1.5
-  ..@ pointshape : num 19
-  ..@ colour     : NULL
-  ..@ fill       : NULL
- $ spacing                         : 'simpleUnit' num 5.5points
-  ..- attr(*, "unit")= int 8
- $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
- $ aspect.ratio                    : NULL
- $ axis.title                      : &lt;ggplot2::element_blank&gt;
- $ axis.title.x                    : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 0
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.x.bottom             : NULL
- $ axis.title.y                    : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : num 90
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.y.left               : NULL
- $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : num -90
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text                       : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : chr "#686868"
-  ..@ size         : num 12
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi FALSE
- $ axis.text.x                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.y                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 1
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.theta                 : NULL
- $ axis.text.r                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 0.5
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.ticks                      : &lt;ggplot2::element_line&gt;
-  ..@ colour       : chr "#5A9CD6"
-  ..@ linewidth    : NULL
-  ..@ linetype     : NULL
-  ..@ lineend      : NULL
-  ..@ linejoin     : NULL
-  ..@ arrow        : logi FALSE
-  ..@ arrow.fill   : chr "#5A9CD6"
-  ..@ inherit.blank: logi FALSE
- $ axis.ticks.x                    : NULL
- $ axis.ticks.x.top                : NULL
- $ axis.ticks.x.bottom             : NULL
- $ axis.ticks.y                    : NULL
- $ axis.ticks.y.left               : NULL
- $ axis.ticks.y.right              : NULL
- $ axis.ticks.theta                : NULL
- $ axis.ticks.r                    : NULL
- $ axis.minor.ticks.x.top          : NULL
- $ axis.minor.ticks.x.bottom       : NULL
- $ axis.minor.ticks.y.left         : NULL
- $ axis.minor.ticks.y.right        : NULL
- $ axis.minor.ticks.theta          : NULL
- $ axis.minor.ticks.r              : NULL
- $ axis.ticks.length               : 'simpleUnit' num 0.2cm
-  ..- attr(*, "unit")= int 1
- $ axis.ticks.length.x             : NULL
- $ axis.ticks.length.x.top         : NULL
- $ axis.ticks.length.x.bottom      : NULL
- $ axis.ticks.length.y             : NULL
- $ axis.ticks.length.y.left        : NULL
- $ axis.ticks.length.y.right       : NULL
- $ axis.ticks.length.theta         : NULL
- $ axis.ticks.length.r             : NULL
- $ axis.minor.ticks.length         : 'rel' num 0.75
- $ axis.minor.ticks.length.x       : NULL
- $ axis.minor.ticks.length.x.top   : NULL
- $ axis.minor.ticks.length.x.bottom: NULL
- $ axis.minor.ticks.length.y       : NULL
- $ axis.minor.ticks.length.y.left  : NULL
- $ axis.minor.ticks.length.y.right : NULL
- $ axis.minor.ticks.length.theta   : NULL
- $ axis.minor.ticks.length.r       : NULL
- $ axis.line                       : &lt;ggplot2::element_line&gt;
-  ..@ colour       : chr "#5A9CD6"
-  ..@ linewidth    : NULL
-  ..@ linetype     : NULL
-  ..@ lineend      : NULL
-  ..@ linejoin     : NULL
-  ..@ arrow        : logi FALSE
-  ..@ arrow.fill   : chr "#5A9CD6"
-  ..@ inherit.blank: logi FALSE
- $ axis.line.x                     : NULL
- $ axis.line.x.top                 : NULL
- $ axis.line.x.bottom              : NULL
- $ axis.line.y                     : NULL
- $ axis.line.y.left                : NULL
- $ axis.line.y.right               : NULL
- $ axis.line.theta                 : NULL
- $ axis.line.r                     : NULL
- $ legend.background               : &lt;ggplot2::element_blank&gt;
- $ legend.margin                   : NULL
- $ legend.spacing                  : 'rel' num 2
- $ legend.spacing.x                : NULL
- $ legend.spacing.y                : NULL
- $ legend.key                      : &lt;ggplot2::element_blank&gt;
- $ legend.key.size                 : 'simpleUnit' num 1.2lines
-  ..- attr(*, "unit")= int 3
- $ legend.key.height               : 'simpleUnit' num 0.25cm
-  ..- attr(*, "unit")= int 1
- $ legend.key.width                : 'simpleUnit' num 0.4cm
-  ..- attr(*, "unit")= int 1
- $ legend.key.spacing              : NULL
- $ legend.key.spacing.x            : NULL
- $ legend.key.spacing.y            : NULL
- $ legend.key.justification        : NULL
- $ legend.frame                    : NULL
- $ legend.ticks                    : NULL
- $ legend.ticks.length             : 'rel' num 0.2
- $ legend.axis.line                : NULL
- $ legend.text                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : chr "#686868"
-  ..@ size         : num 12
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi FALSE
- $ legend.text.position            : NULL
- $ legend.title                    : &lt;ggplot2::element_blank&gt;
- $ legend.title.position           : NULL
- $ legend.position                 : chr "bottom"
- $ legend.position.inside          : NULL
- $ legend.direction                : NULL
- $ legend.byrow                    : NULL
- $ legend.justification            : chr "center"
- $ legend.justification.top        : NULL
- $ legend.justification.bottom     : NULL
- $ legend.justification.left       : NULL
- $ legend.justification.right      : NULL
- $ legend.justification.inside     : NULL
-  [list output truncated]
- @ complete: logi TRUE
- @ validate: logi TRUE</code></pre>
 </div>
 </div>
 
