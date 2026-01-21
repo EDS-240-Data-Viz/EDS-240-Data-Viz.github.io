@@ -1,7 +1,7 @@
 ---
-title: "Week 2 Lab: Solution"
-subtitle: "Recreating the USDM visualization (graphic form)"
-description: "Tuesday January 14^th^, 2025"
+title: "Week 3 Lab: Solution"
+subtitle: "Recreating the USDM visualization"
+description: "Thursday January 22^nd^, 2026"
 ---
 
 ```{r}
@@ -78,5 +78,47 @@ drought_clean |>
   
   # add title ----
   labs(title = "Drought area in California") 
+
+
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                                                            --
+##-------------------------  THEME CODE!-----------------------------
+##                                                                            --
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  # set theme minimal (includes major/minor grid lines, no axes) ----
+  theme_minimal() +
+  
+  # fine-tune adjustments to plot theme ----
+  theme(
+    
+    # update axis lines & ticks color ----
+    axis.line = element_line(color = "#5A9CD6"),
+    axis.ticks = element_line(color = "#5A9CD6"),
+    
+    # adjust length of axis ticks ----
+    axis.ticks.length = unit(.2, "cm"),
+    
+    # center plot title ----
+    plot.title = element_text(hjust = 0.5, color = "#686868", size = 20,
+                              margin = margin(t = 10, r = 0, b = 15, l = 0)),
+    
+    # remove axis & legend titles ----
+    axis.title = element_blank(),
+    legend.title = element_blank(),
+    
+    # axis text color & size ----
+    axis.text = element_text(color = "#686868", size = 12),
+    legend.text = element_text(color = "#686868", size = 12),
+    
+    # move legend below plot ----
+    legend.position = "bottom",
+    legend.key.width = unit(0.4, "cm"),
+    legend.key.height = unit(0.25, "cm"),
+    
+    plot.background = element_rect(color = "#686868"),
+    plot.margin = margin(t = 10, r = 10, b = 10, l = 10)
+  )
 
 ```

@@ -1,14 +1,14 @@
 ---
-title: "Week 2 Discussion: Exercise"
-subtitle: "Recreating the USDM visualization (graphic form)"
-description: "Tuesday January 14^th^, 2025"
+title: "Week 3 Discussion: Exercise"
+subtitle: "Recreating the USDM visualization"
+description: "Thursday January 22^nd^, 2026"
 ---
 
 ::: {.callout-note}
-It's up to you to organize your own `week2-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
+It's up to you to organize your own `week3-lab.qmd` file (i.e. there is no template). You may (should) discuss and work through today's exercise with a partner (or two!).
 :::
 
-1. Begin by copying the following setup and data wrangling code into your `week2-lab.qmd` file. Run through and review the code, and explore the resulting `drought_clean` data frame.
+1. Begin by copying the following setup and data wrangling code into your `week3-lab.qmd` file. Run through and review the code, and explore the resulting `drought_clean` data frame.
 
 ```{r}
 #| eval: false
@@ -70,7 +70,7 @@ drought_clean |>
   # pipe into ggplot here!
 ```
 
-3. Build that ggplot! Here's the original plot that we want to create (we're only focusing on the data layer, geometric layer, and scales today):
+3. Build that ggplot! Here's the original plot that we want to create (we're only focusing on the data layer, geometric layer, and scales here):
 
 ```{r}
 #| eval: true
@@ -88,3 +88,14 @@ It can be helpful to tackle one small(ish) thing at a time. Consider the followi
   e. Adjust your y-axis "breaks" (i.e. the tick mark value that represent percentage of affected area) -- **Hint:** check out `scale_y_continous()` and `scales::label_percent()`
   f. Remove the "padding" (i.e. space) between your area chart and the x- and y-axes -- **Hint:** check out the `expand` argument in `scale_x_date()` and `scale_y_continuous()`
   g. update the plot title
+  
+  
+4. Iterate on this ggplot until it closely resembles the [original USDM plot](week4-slides.qmd#recreate-plot){target="_blank"}. **Tip:** begin with a [complete theme](https://ggplot2.tidyverse.org/reference/ggtheme.html){target="_blank"}, then use `theme()` to tweak plot elements from there.
+
+::: {.callout-important}
+## Use the Zoom button to check out your plot as you iterate
+
+Your plot will appear slightly different in the RStudio plot window vs. a zoom window vs. rendered in a Quarto doc -- I recommend checking it out in the zoom window while you iterate.
+
+**Importantly, how you theme a data visualization depends on how you plan to package / present it.** For example, your plot margin sizes may differ when you prepare a standalone plot vs. one that you plan to embed in a rendered Quarto doc. We'll explore this idea more during week 4 discussion!
+:::
