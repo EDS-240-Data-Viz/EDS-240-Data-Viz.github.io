@@ -210,7 +210,7 @@ drought_clean <- drought |>
          month = month(date, label = TRUE, abbr = TRUE),
          day = day(date)) |>
 
-  # add drought level conditions names ----
+  # add drought level conditions names ---- 
   mutate(drought_lvl_long = factor(drought_lvl,
                             levels = c("D4", "D3", "D2", "D1","D0", "None"),
                             labels = c("D4 (Exceptional)", "(D3) Extreme",
@@ -224,7 +224,6 @@ drought_clean <- drought |>
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##       create stacked area plot of CA drought conditions through time     ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 drought_clean |> 
   
   # remove drought_lvl "None" & filter for just CA ----
@@ -244,7 +243,7 @@ drought_clean |>
   # set x-axis breaks & remove padding between data and x-axis ----
   scale_x_date(breaks = scales::breaks_pretty(n = 13),
                 limits = as.Date(c("2000-01-01", "2026-12-31")),
-               expand = c(0, 0)) +
+               expand = c(0,0)) +
 
   # set y-axis breaks & remove padding between data and y-axis & convert values to percentages ----
   scale_y_continuous(breaks = seq(0, 100, by = 10),
@@ -294,5 +293,6 @@ drought_clean |>
     plot.background = element_rect(color = "#686868"),
     plot.margin = margin(t = 10, r = 40, b = 10, l = 40)
   )
+
 ```
 
