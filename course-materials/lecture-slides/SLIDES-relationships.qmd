@@ -67,7 +67,7 @@ Line graphs (e.g. from our [visualizing evolution lecture](SLIDES-evolution.qmd)
 
 <br>
 
-In this lesson, we'll be exploring two main primary chart types:
+In this lesson, we'll be exploring two main chart types:
 
 <br>
 
@@ -114,7 +114,7 @@ In this lesson, we'll be exploring two main primary chart types:
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r hbef-map}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -131,7 +131,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these data on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"}.]{.body-text-s}
+[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these data on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F14){target="_blank"}.]{.body-text-s}
 
 [These long-term data have contributed to important research, including the **discovery of acid rain** in North America.]{.body-text-s}
 
@@ -167,7 +167,7 @@ library(ggdensity)
 metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F14%2F024b6acc5cb2e03a14fff5558bbffc0c",
                  path = here::here("week4")) 
 
-#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
+#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's automatically ignored by your repo's .gitignore! ~
 
 #....................read in downloaded files....................
 stream_chem_all <- metajam::read_d1_files(here::here("week4", "data"))
@@ -190,7 +190,7 @@ See [`{metajam}`'s README](https://github.com/NCEAS/metajam?tab=readme-ov-file#h
 
 <hr>
 
-The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g. see [Erlandsson et al. 2010](https://doi.org/10.1029/2009JG001082){target="_blank"} & [Zhou et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019){target="_blank"}.). To start, let's look at the **effects of DOC on pH** for just the most recent water year (2021): 
+The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g. see [Erlandsson et al. 2010](https://doi.org/10.1029/2009JG001082){target="_blank"} & [Zhou et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019){target="_blank"}.). To start, let's look at the **effects of DOC on pH** for just the most recent water year (2024): 
 
 ```{r basic-scatter}
 #| eval: true
@@ -198,7 +198,7 @@ The pH of surface water and topsoil may be lower in the presence of dissolved or
 #| out-width: "60%"
 #| fig-align: "center"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5)
 ```
@@ -220,7 +220,7 @@ Rug plots add distribution marks (one narrow line for each data point) along the
 #| fig-align: "center"
 #| code-line-numbers: "5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
   geom_rug()
@@ -246,7 +246,7 @@ The [`{ggExtra}` package](https://cran.r-project.org/web/packages/ggExtra/vignet
 #| fig-align: "center"
 #| code-line-numbers: "6"
 p1 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5)
 
@@ -262,7 +262,7 @@ ggExtra::ggMarginal(p1, type = "histogram")
 #| fig-align: "center"
 #| code-line-numbers: "6"
 p1 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5)
 
@@ -278,7 +278,7 @@ ggExtra::ggMarginal(p1, type = "density")
 #| fig-align: "center"
 #| code-line-numbers: "6"
 p1 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5)
 
@@ -307,7 +307,7 @@ Here, we color points by `site`. It can be helpful to move the legend above or b
 #| fig-align: "center"
 #| code-line-numbers: "3,5,7"
 p2 <- stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5) +
   theme(legend.position = "bottom")
@@ -323,7 +323,7 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 
 <hr>
 
-[You may consider adding a best fit line to help you readers more easily identify trends in your data. Let's do that for a subset of our data (site W5, years 2011-2021).]{.body-text-s}
+[You may consider adding a best fit line to help you readers more easily identify trends in your data. Let's do that for a subset of our data (site W5, years 2014-2024).]{.body-text-s}
 
 . . . 
 
@@ -336,7 +336,7 @@ ggExtra::ggMarginal(p2, type = "density", groupFill = TRUE, groupColour = TRUE)
 #| eval: false
 #| echo: true
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
+  filter(waterYr %in% c(2014:2024)) |> 
   filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
@@ -351,7 +351,7 @@ stream_chem_data |>
 #| fig-align: "center"
 #| out-width: "100%"
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
+  filter(waterYr %in% c(2014:2024)) |> 
   filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
@@ -384,7 +384,7 @@ stream_chem_data |>
 #| echo: true
 #| fig-align: "center"
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
+  filter(waterYr %in% c(2014:2024)) |> 
   filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
@@ -400,7 +400,7 @@ stream_chem_data |>
 #| out-width: "100%"
 #| code-line-numbers: "6"
 stream_chem_data |> 
-  filter(waterYr %in% c(2011:2021)) |> 
+  filter(waterYr %in% c(2014:2024)) |> 
   filter(site == "W5") |> 
   ggplot(aes(x = DOC, y = pH)) + 
   geom_point(alpha = 0.5) +
@@ -420,9 +420,9 @@ stream_chem_data |>
 
 <hr>
 
-[Low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/){target="_blank"} of aquatic species.]{.body-text-s}
+[We can use a bubble chart to represent a third numeric variable through the size of our scatter plot points.]{.body-text-s} 
 
-[We can use a bubble chart to represent this third numeric variable (Al) through the size of our scatter plot points. Here, we also update our x-axis and legend titles:]{.body-text-s}
+[E.g. low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/){target="_blank"} of aquatic species.]{.body-text-s}
 
 ```{r bubble}
 #| eval: true
@@ -431,7 +431,7 @@ stream_chem_data |>
 #| fig-align: "center"
 #| code-line-numbers: "3,5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   labs(x = "DOC (mg/L)", size = "Al (mg/L)", color = "Site")
@@ -451,7 +451,7 @@ stream_chem_data |>
 
 ::: {.incremental}
 - we (humans) generally have an easier time perceiving differences in position rather than size -- the **relationship between your x- and y-axis variables will be the primary focus**
-- it can be **hard to compare the strengths of different associations** -- is there an alternative (e.g. 2+ separate scatter plots) way of presenting your data to better highlight this?
+- it can be **hard to compare the strengths of different associations** -- is there an alternative way of presenting your data to better highlight this (e.g. using 2+ separate scatter plots)?
 - it's difficult to see small differences in size -- **if the range of values mapped to size is small, your bubbles will look indistinguishable from one another** 
 - it can be difficult to match a bubble's size to the scale of difference in the legend -- **consider adjusting the size range of your scale**
 :::
@@ -473,7 +473,7 @@ Use `scale_size()` to adjust the **area** range of the bubbles:
 #| fig-align: "center"
 #| code-line-numbers: "5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   scale_size(range = c(1, 10)) +
@@ -510,7 +510,7 @@ Scaling size by area using `scale_size()`
 #| fig-align: "center"
 #| code-line-numbers: "5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   scale_size(range = c(1, 10)) +
@@ -531,7 +531,7 @@ Scaling size by radius using `scale_radius()`
 #| fig-align: "center"
 #| code-line-numbers: "5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site, size = Al_ICP)) + 
   geom_point(alpha = 0.5) +
   scale_radius(range = c(1, 10)) +
@@ -559,7 +559,7 @@ Rather than coloring points by `site`, we can map color to them based on our thi
 #| fig-align: "center"
 #| code-line-numbers: "3,5"
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = Al_ICP)) + 
   geom_point(alpha = 0.5, size = 2) +
   scale_color_viridis_c() +
@@ -589,7 +589,7 @@ Visualizing the effect of `DOC` on `pH`
 
 ```{r two-plots1}
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = DOC, y = pH, color = site)) + 
   geom_point(alpha = 0.5)
 ```
@@ -602,7 +602,7 @@ Visualizing the effect of `Al_ICP` on `pH`
 
 ```{r two-plots2}
 stream_chem_data |> 
-  filter(waterYr == 2021) |> 
+  filter(waterYr == 2024) |> 
   ggplot(aes(x = Al_ICP, y = pH, color = site)) + 
   geom_point(alpha = 0.5)
 ```
@@ -618,7 +618,7 @@ stream_chem_data |>
 
 <hr>
 
-Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot *all* data (not just the 2021 water year subset)? Here, we plot **sulfate concentration (`SO4`)
+Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot *all* data (not just the 2024 water year subset)? Here, we plot **sulfate concentration (`SO4`)
 against pH**:
 
 ```{r overplotting}
@@ -766,7 +766,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_hex() +
   scale_fill_viridis_c() + 
   guides(fill = guide_colorbar(title = "Count", 
-                                barwidth = 1, barheight = 15))
+                               barwidth = 1, barheight = 15))
 ```
 
 ---
