@@ -8,7 +8,7 @@
 
 <meta name="description" content="Wednesday March 11th, 2026">
 
-<title>TBD, Wrap-up – EDS 240</title>
+<title>Data visualization in JavaScript, with Dr.&nbsp;Allison Horst, Wrap-up – EDS 240</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -176,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week10.html">
- <span class="dropdown-text">week 10 (3/11) - <strong>TBD, wrap-up</strong></span></a>
+ <span class="dropdown-text">week 10 (3/11) - <strong>OJS, wrap-up</strong></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../course-materials/week11.html">
@@ -243,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">TBD, Wrap-up</h1>
+      <h1 class="title">Data visualization in JavaScript, with Dr.&nbsp;Allison Horst, Wrap-up</h1>
             <p class="subtitle lead">Week 10</p>
                   <div>
         <div class="description">
@@ -270,11 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a>
-  <ul class="collapse">
-  <li><a href="#a.-install-required-packages" id="toc-a.-install-required-packages" class="nav-link" data-scroll-target="#a.-install-required-packages">A. Install required packages</a></li>
-  <li><a href="#b.-download-.qmd-templates" id="toc-b.-download-.qmd-templates" class="nav-link" data-scroll-target="#b.-download-.qmd-templates">B. Download .qmd templates</a></li>
-  </ul></li>
+  <li><a href="#pre-class-prep" id="toc-pre-class-prep" class="nav-link active" data-scroll-target="#pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</a></li>
   <li><a href="#lecture-materials" id="toc-lecture-materials" class="nav-link" data-scroll-target="#lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</a></li>
   <li><a href="#pre-lab-prep" id="toc-pre-lab-prep" class="nav-link" data-scroll-target="#pre-lab-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-lab Prep</a>
   <ul class="collapse">
@@ -306,17 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="pre-class-prep" class="level2">
 <h2 class="anchored" data-anchor-id="pre-class-prep"><i class="fa-solid fa-clipboard-list" title="a clipboard with a To Do list" aria-label="clipboard-list"></i> Pre-class Prep</h2>
-<section id="a.-install-required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="a.-install-required-packages">A. Install required packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waffle) <span class="co"># for making waffle (square pie) charts in R</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbump) <span class="co"># a geom for creating bump charts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="b.-download-.qmd-templates" class="level3">
-<h3 class="anchored" data-anchor-id="b.-download-.qmd-templates">B. Download .qmd templates</h3>
-<p>Download all necessary templates (links in the table below) and save them to a <code>EDS-240-data-viz-examples/week10/</code> folder. No need to review any of the code ahead of class – we’ll be walking through it all together.</p>
-</section>
+<p><em>No required prep for this week’s lecture!</em></p>
 </section>
 <section id="lecture-materials" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-materials"><i class="fa-solid fa-person-chalkboard" title="a person pointing at a chalkboard" aria-label="person-chalkboard"></i> Lecture Materials</h2>
@@ -335,6 +287,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td><em>NA</em></td>
+<td>Data Visualization in JavaScript (template)</td>
+<td>Data Visualization in JavaScript (key)</td>
+</tr>
+<tr class="even">
 <td><a href="../course-materials/lecture-slides/SLIDES-recap.html" target="_blank">Lecture 10.1: quarter recap</a></td>
 <td><em>NA</em></td>
 <td><em>NA</em></td>
@@ -355,7 +312,7 @@ TODO
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>data viz hackathon instead of practice presentations? depends on what lecture 10 ends up being</li>
+<li>data viz hackathon instead of practice presentations</li>
 </ul>
 </div>
 </div>

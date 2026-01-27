@@ -67,7 +67,7 @@ Line graphs (e.g. from our [visualizing evolution lecture](SLIDES-evolution.qmd)
 
 <br>
 
-In this lesson, we'll be exploring two main primary chart types:
+In this lesson, we'll be exploring two main chart types:
 
 <br>
 
@@ -114,7 +114,7 @@ In this lesson, we'll be exploring two main primary chart types:
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r hbef-map}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -131,7 +131,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 
 <br>
 
-[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these data on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F11){target="_blank"}.]{.body-text-s}
+[Since 1963, researchers have collected and analyzed weekly stream and precipitation data from the forest's watersheds. [Read about these data on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-hbr%2F208%2F14){target="_blank"}.]{.body-text-s}
 
 [These long-term data have contributed to important research, including the **discovery of acid rain** in North America.]{.body-text-s}
 
@@ -167,7 +167,7 @@ library(ggdensity)
 metajam::download_d1_data("https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fknb-lter-hbr%2F208%2F14%2F024b6acc5cb2e03a14fff5558bbffc0c",
                  path = here::here("week4")) 
 
-#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's ignored by .gitignore! ~
+#  ~ NOTE: You should rename the downloaded folder to 'data/' so that it's automatically ignored by your repo's .gitignore! ~
 
 #....................read in downloaded files....................
 stream_chem_all <- metajam::read_d1_files(here::here("week4", "data"))
@@ -420,9 +420,9 @@ stream_chem_data |>
 
 <hr>
 
-[Low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/){target="_blank"} of aquatic species.]{.body-text-s}
+[We can use a bubble chart to represent a third numeric variable through the size of our scatter plot points.]{.body-text-s} 
 
-[We can use a bubble chart to represent this third numeric variable (Al) through the size of our scatter plot points. Here, we also update our x-axis and legend titles:]{.body-text-s}
+[E.g. low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can [limit the growth and reproduction](https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/){target="_blank"} of aquatic species.]{.body-text-s}
 
 ```{r bubble}
 #| eval: true
@@ -451,7 +451,7 @@ stream_chem_data |>
 
 ::: {.incremental}
 - we (humans) generally have an easier time perceiving differences in position rather than size -- the **relationship between your x- and y-axis variables will be the primary focus**
-- it can be **hard to compare the strengths of different associations** -- is there an alternative (e.g. 2+ separate scatter plots) way of presenting your data to better highlight this?
+- it can be **hard to compare the strengths of different associations** -- is there an alternative way of presenting your data to better highlight this (e.g. using 2+ separate scatter plots)?
 - it's difficult to see small differences in size -- **if the range of values mapped to size is small, your bubbles will look indistinguishable from one another** 
 - it can be difficult to match a bubble's size to the scale of difference in the legend -- **consider adjusting the size range of your scale**
 :::
@@ -766,7 +766,7 @@ ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
   geom_hex() +
   scale_fill_viridis_c() + 
   guides(fill = guide_colorbar(title = "Count", 
-                                barwidth = 1, barheight = 15))
+                               barwidth = 1, barheight = 15))
 ```
 
 ---
