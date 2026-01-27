@@ -510,10 +510,10 @@
 <h2></h2>
 <p><span class="slide-title">Basic scatter plot</span></p>
 <hr>
-<p>The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g.&nbsp;see <a href="https://doi.org/10.1029/2009JG001082" target="_blank">Erlandsson et al.&nbsp;2010</a> &amp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019" target="_blank">Zhou et al.&nbsp;2019</a>.). To start, let’s look at the <strong>effects of DOC on pH</strong> for just the most recent water year (2021):</p>
+<p>The pH of surface water and topsoil may be lower in the presence of dissolved organic matter (e.g.&nbsp;see <a href="https://doi.org/10.1029/2009JG001082" target="_blank">Erlandsson et al.&nbsp;2010</a> &amp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798867/#:~:text=In%20general%2C%20pH%20values%20in,Gan%20%26%20Chen%2C%202019" target="_blank">Zhou et al.&nbsp;2019</a>.). To start, let’s look at the <strong>effects of DOC on pH</strong> for just the most recent water year (2024):</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb2-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -526,7 +526,7 @@
 <p>Rug plots add distribution marks (one narrow line for each data point) along the x and y axes of your plot:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb3-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb3-5"><a></a>  <span class="fu">geom_rug</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -542,7 +542,7 @@
 <div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb4-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb4-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
 <span id="cb4-5"><a></a></span>
@@ -558,7 +558,7 @@
 </div><div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb5-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
 <span id="cb5-5"><a></a></span>
@@ -574,7 +574,7 @@
 </div><div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>p1 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb6-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
 <span id="cb6-5"><a></a></span>
@@ -597,7 +597,7 @@
 <p>Here, we color points by <code>site</code>. It can be helpful to move the legend above or below the plot so that the marginal plot sit cleanly against the right-hand side of graph:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3,5,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>p2 <span class="ot">&lt;-</span> stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site)) <span class="sc">+</span> </span>
 <span id="cb7-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb7-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
@@ -610,7 +610,7 @@
 <h2></h2>
 <p><span class="slide-title">Adding trend lines – default behavior</span></p>
 <hr>
-<p><span class="body-text-s">You may consider adding a best fit line to help you readers more easily identify trends in your data. Let’s do that for a subset of our data (site W5, years 2011-2021).</span></p>
+<p><span class="body-text-s">You may consider adding a best fit line to help you readers more easily identify trends in your data. Let’s do that for a subset of our data (site W5, years 2014-2024).</span></p>
 <div class="fragment">
 <p><span class="body-text-s">If you have <strong>&lt;1000 data points, <code>geom_smooth()</code> defaults to using a method called “<a href="https://en.wikipedia.org/wiki/Local_regression" target="_blank">LOESS</a>” (locally estimated scatter plot smoothing)</strong>, which draws a line that’s similar to a moving average. It will also include a confidence interval ribbon:</span></p>
 <div class="columns">
@@ -618,7 +618,7 @@
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2014</span><span class="sc">:</span><span class="dv">2024</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb8-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -650,7 +650,7 @@
 <p><br></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2014</span><span class="sc">:</span><span class="dv">2024</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"W5"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb9-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -677,7 +677,7 @@
 <p><span class="body-text-s">E.g. low pH levels can increase the solubility of heavy metals, like aluminum (Al). High levels of Al can <a href="https://www.fondriest.com/environmental-measurements/parameters/water-quality/ph/" target="_blank">limit the growth and reproduction</a> of aquatic species.</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10" data-code-line-numbers="3,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb10-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb10-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb10-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"DOC (mg/L)"</span>, <span class="at">size =</span> <span class="st">"Al (mg/L)"</span>, <span class="at">color =</span> <span class="st">"Site"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -706,7 +706,7 @@
 <p>Use <code>scale_size()</code> to adjust the <strong>area</strong> range of the bubbles:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb11-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb11-5"><a></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
@@ -730,7 +730,7 @@
 </div>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb12-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb12-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb12-5"><a></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
@@ -749,7 +749,7 @@
 </div>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb13-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> site, <span class="at">size =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb13-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb13-5"><a></a>  <span class="fu">scale_radius</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
@@ -771,7 +771,7 @@
 <p>Rather than coloring points by <code>site</code>, we can map color to them based on our third continuous numeric variable, <code>Al_ICP</code>. We’ll also apply the viridis color map:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14" data-code-line-numbers="3,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>stream_chem_data <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a></a>  <span class="fu">filter</span>(waterYr <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DOC, <span class="at">y =</span> pH, <span class="at">color =</span> Al_ICP)) <span class="sc">+</span> </span>
 <span id="cb14-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb14-5"><a></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
@@ -819,7 +819,7 @@
 <h2></h2>
 <p><span class="slide-title">Overplotting can disguise trends</span></p>
 <hr>
-<p>Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot <em>all</em> data (not just the 2021 water year subset)? Here, we plot <strong>sulfate concentration (<code>SO4</code>) against pH</strong>:</p>
+<p>Sometimes, we just have too many data points for a traditional scatter plot to be effective. For example, what if we want to plot <em>all</em> data (not just the 2024 water year subset)? Here, we plot <strong>sulfate concentration (<code>SO4</code>) against pH</strong>:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(stream_chem_data, <span class="fu">aes</span>(<span class="at">x =</span> SO4, <span class="at">y =</span> pH)) <span class="sc">+</span> </span>
 <span id="cb15-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1052,7 +1052,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_a46c8518" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
+<div class="countdown" id="timer_42138450" data-update-every="1" data-play-sound="true" tabindex="0" style="right:0;bottom:0;font-size:2em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
