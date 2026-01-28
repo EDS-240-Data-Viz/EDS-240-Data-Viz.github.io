@@ -24,16 +24,28 @@ editor_options:
 ---
 
 ## {#fundamental-charts data-menu-title="Fundamental charts"}
-
-[We've learned how and when to create a number of "fundamental charts" so far!]{.slide-title2}
-
+[Choosing the Right Chart for Your Story]{.slide-title2}
 <hr>
+
+[Over the past four weeks, we've built a toolkit of fundamental chart types—each designed to highlight different patterns, relationships, and insights in your data.]{.body-text-m}
+
+. . .
+
+[**Today's Goals:**]{.body-text-m}
+
+[- Select the most effective chart type for your data and message]{.body-text-m}
+
+[- Apply design principles to create clear, compelling visualizations]{.body-text-m}
+
+. . .
+
+[Let's review the charts in our toolkit and when to use each one!]{.body-text-m .teal-text}
 
 ---
 
 ## {#distributions data-menu-title="Distributions"}
 
-[**Distributions**]{.body-text-m}
+[**Distributions**]{.slide-title}
 ```{r load-pkgs}
 #| eval: true
 #| echo: false
@@ -126,7 +138,7 @@ ggplot(penguins, aes(x = body_mass_g, y = species, fill = species)) +
 
 ## {#distributions data-menu-title="Distribution considerations"}
 
-[**Distribution Considerations**]{.slide-title2}
+[**Distribution Considerations**]{.slide-title}
 
 - Use when you have a lot of values with meaningful differences between those values 
 - Avoid plotting too many groups at once
@@ -140,7 +152,7 @@ ggplot(penguins, aes(x = body_mass_g, y = species, fill = species)) +
 
 ## {#rankings data-menu-title="Rankings"}
 
-[**Rankings**]{.body-text-m}
+[**Rankings**]{.slide-title}
 ```{r}
 #| eval: true
 #| echo: false
@@ -279,23 +291,367 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 - Make space for long x axis labels (`coord_flip`)
 - Reordering groups helps readers to draw quicker insights
 - Add direct labels if the exact values are important
-- Use bar plots for cateogorical data
--
+
+
 
 ---
 
 ## {#evolution data-menu-title="Evolution"}
 
-[**Evolution**]{.body-text-m}
+[**Evolution**]{.slide-title}
 
-- line charts
-- area plots
+:::: columns
+
+```{r data-wrangling}
+#| eval: true
+#| echo: false
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................load libraries.........................
+library(tidycensus)
+library(tidyverse)
+library(gghighlight)
+library(scales)
+
+#..........................import data...........................
+lyme <- read_csv(here::here("course-materials", "data", "lecture",  "2023_CaseIncid-Lyme-Disease-Cases-by-State-or-Locality.csv"))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          wrangle lyme disease data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#............wide to long (plus some other wrangling)............
+lyme_clean <- lyme |> 
+  
+  rename(state = State) |> 
+  
+  # remove special character from State names that have it ----
+  mutate(state = str_replace(string = state, pattern = "\x86", replacement = "")) |> 
+  
+  # remove total cases row ----
+  filter(state != "U.S. Total") |> 
+  
+  # wide to long (tidy) years ----
+  pivot_longer(cols = 2:17, names_to = "year", values_to = "reported_cases") |> 
+  
+  # reorder columns ----
+  relocate(year, state, reported_cases) |> 
+  
+  # filter for years 2010 - 2020 ----
+  filter(year %in% c(2010:2020))
+  
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                          get & wrangle census data                       ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# NOTE: {tidycensus} functions (e.g. `get_estimates()`) internally call `Sys.getenv("CENSUS_API_KEY)` to retrieve your key from `.Renviron` 
+# Meaning you don't need to explicitly call `Sys.getenv("CENSUS_API_KEY)` in your code -- `{tidycensus}` handles that for you!
+
+#...................get pop estimates by state...................
+us_state_pop <- get_estimates(geography = "state", 
+                              product = "population",
+                              state = NULL, 
+                              year = 2019) |> # request 2019 vintage for the 2010s (see documentation)
+  filter(variable == "POP") |> 
+  select(state = NAME, population = value) |> 
+  filter(state != "Puerto Rico")
+
+#........................write data to csv.......................
+# OPTIONAL, but recommended in case you want to work offline, the API is down, etc. 
+# (if so, you can then read in your saved data file rather than run the above code)
+# write_csv(us_state_pop, file = here::here("week3", "data", "us_state_pop_2019vintage.csv"))  
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                            join lyme & pop dfs                           ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+lyme_pop <- left_join(lyme_clean, us_state_pop) |>  
+  
+  # add col with num of 100k people per state ----
+  mutate(pop100k = population/100000) |> 
+  
+  # calculate num cases per 100k people (common way of reporting disease incidence) ----
+  mutate(cases_per100k = reported_cases/pop100k) 
+```
+
+
+
+
+
+::: {.column width="33%"}
+::: {.center-text}
+**Line Charts**
+:::
+```{r line-point}
+#| eval: true
+#| echo: false
+ggplot(lyme_pop, aes(x = year, y = cases_per100k, group = state)) + 
+  geom_line() +
+  geom_point()
+```
+:::
+
+::: {.column width="33%"}
+::: {.center-text}
+**Area plots**
+:::
+```{r}
+#| eval: true
+#| echo: false
+lyme_pop |> 
+  filter(state == "New Jersey") |> 
+  ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
+  geom_area() +
+  scale_fill_manual(values = c("#047C90")) +
+  scale_x_discrete(expand = c(0, NA)) +
+  scale_y_continuous(expand = c(0, NA)) +
+  theme(legend.position = "none")
+```
+:::
+
+
+
+::: {.column width="33%"}
+::: {.center-text}
+**Stacked area plots**
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+lyme_pop |> 
+  filter(state %in% c("Maine", "Rhode Island", "New Hampshire", "Vermont")) |> 
+  ggplot(aes(x = year, y = cases_per100k, group = state, fill = state)) +
+  geom_area()
+```
+:::
+
+::::
+
+:::: columns
+
+
+::: {.column width="33%"}
+::: {.left-text}
+- Too many lines can be hard to read 
+- Highlight important trends using `gghighlight()`
+- Manipulating the aspect ration can be deceptive! Tread carefully!
+:::
+:::
+
+
+
+::: {.column width="33%"}
+::: {.left-text}
+- If number of observations is low, a connected scatter plot might be a better fit! 
+:::
+:::
+
+
+
+::: {.column width="33%"}
+::: {.left-text}
+- Group order matters!
+- Not meant for studying the evolution of individual groups
+
+:::
+:::
+
+
+
+
+
+
+::::
+
+
+
 
 ---
 
 ## {#relationships data-menu-title="Numeric Relationships"}
 
-[**Numeric Relationships**]{.body-text-m}
+[**Numeric Relationships**]{.slide-title}
 
-- scatter plots
-- 2d density plots
+
+
+```{r metajam-echo}
+#| eval: true
+#| echo: false
+#..........................load packages.........................
+library(metajam) 
+library(tidyverse)
+library(ggExtra)
+library(ggdensity)
+library(dplyr)
+
+#........................get the data file.......................
+stream_chem_data <- read_csv(here::here("course-materials", "data", "lecture", "https_pasta_lternet_edu_package_metadata_eml_knb-lter-hbr_208_14__HubbardBrook_weekly_stream_chemistry_1963-2025__csv",  "HubbardBrook_weekly_stream_chemistry_1963-2025.csv"))
+```
+
+::::columns
+
+
+::: {.column width="50%"}
+::: {.center-text}
+**Scatter Plots**
+:::
+
+```{r basic-scatter}
+#| eval: true
+#| echo: false
+
+stream_chem_data %>% 
+  filter(waterYr == 2024) %>%  
+  ggplot(aes(x = DOC, y = pH)) + 
+  geom_point(alpha = 0.5)
+```
+:::
+
+
+::: {.column width="50%"}
+::: {.center-text}
+**2D density plots**
+:::
+
+```{r 2d-density}
+ggplot(stream_chem_data, aes(x = SO4, y = pH)) +
+  geom_density_2d_filled()
+```
+:::
+
+::::
+
+
+:::: columns
+
+
+::: {.column width="50%"}
+::: {.left-text}
+[- The `{ggExtra}` can be used to add marginal histograms/ boxplots/ density plots to ggplot scatter plots]{.body-text-s}
+
+[- If suitable, you can add a trend line or line of best fit using `geom_smooth()`]{.body-text-s}
+
+[- You can add in a third numeric variable by creating a bubble chart or using color (Use caution and address these [challenges]( https://eds-240-data-viz.github.io/course-materials/lecture-slides/SLIDES-relationships.html#/third-var-difficult))]{.body-text-s}
+
+[- Overplotting can disguise trends]{.body-text-s} 
+
+:::
+:::
+
+
+
+::: {.column width="50%"}
+::: {.left-text}
+[- The `{ggdensity}` provides alternative functions for contour lines and filled contours]{.body-text-s} 
+:::
+:::
+
+
+
+::::
+
+## {#tips data-menu-title="Tips for choosing a graph"}
+
+[Tips for choosing the right graphic form]{.slide-title}
+
+<hr>
+
+. . .
+
+1. [**Think about the task(s) you want to enable or message(s) you want to convey.**]{.teal-text} For example, do you want to compare, see change or flow, reveal relationships or connections, envision temporal or spatial patterns, show big picture trends or allow for comparisons of individual values.
+
+. . .
+
+2. [**Consider the number of variables and the number of data points, as well as the data types you're working with.**]{.teal-text} For example, do you have several vs. many data points? How many categorical and/or numeric variables? Are your variables ordered or not ordered? Data types can dictate which graphical form is appropriate.
+
+. . .
+
+3. [**Try multiple different graphic forms,**]{.teal-text} especially if you have more than one task to enable or message to convey.
+
+. . .
+
+4. [**Arrange the components of the graphic**]{.teal-text} to make it as easy as possible to extract meaning from your graphic quickly.
+
+. . .
+
+5. [**Test the outcomes of your graphic on others,**]{.teal-text} particularly on those who are representative of the audience you are trying to reach.
+
+::: footer
+[*Most of the above tips are adapted from [Alberto Cairo's](https://www.albertocairo.com/){target="_blank"} [The Truthful Art](https://www.amazon.com/gp/product/0321934075/ref=as_li_qf_sp_asin_il_tl?camp=1789&creative=9325&creativeASIN=0321934075&ie=UTF8&linkCode=as2&linkId=A7BVNPNHHPEPJU7K&tag=thefunart03-20){target="_blank"}*]{.gray-text .body-text-s}
+:::
+
+---
+
+
+## {#data-to-viz data-menu-title="Data to Viz Resource"}
+[From Data to Viz]{.slide-title2}
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[**A Decision Tree for Data Visualization**]{.body-text-l .teal-text}
+
+[The [From Data to Vis](https://www.data-to-viz.com/) website helps you:]{.body-text-m}
+
+[- Navigate from your **data type** to the right chart]{.body-text-s}
+
+[- Understand the **purpose** of each visualization]{.body-text-s}
+
+[- See **real examples** with code (in R!)]{.body-text-s}
+
+[- Avoid common **visualization pitfalls**]{.body-text-s}
+
+[**Bookmark this!** It's an invaluable reference when you're stuck choosing a chart type.]{.body-text-s .teal-text}
+:::
+
+::: {.column width="50%"}
+![](../images/lab-materials/data_to_viz.png){fig-align="center"}
+
+[*Interactive decision tree walks you through fundamental chart selection*]{.body-text-s .gray-text}
+:::
+
+::::
+
+[{{< fa link >}} [www.data-to-viz.com](https://www.data-to-viz.com/)]{.body-text-m}
+
+
+
+
+
+## {#good-viz data-menu-title="good-viz"} 
+
+[Once you have picked an appropiate graphic form, it's time to make your viz look its best!]{.slide-title}
+
+<hr>
+
+<br>
+
+::: {.center-text .body-text-m}
+Choosing the right graphic form is just the first step! It's important to consider how you can enhance your visualization by: 
+:::
+
+<br>
+
+::: {.center-text}
+{{< fa palette title="a paint palette" >}} applying pre-made and custom color palettes
+:::
+
+::: {.center-text}
+{{< fa font title="a stylized capital letter 'A'" >}} updating fonts
+:::
+
+::: {.center-text}
+{{< fa pencil title="pencil" >}} adding annotations
+:::
+
+::: {.center-text}
+{{< fa chart-line title="a line chart with an upwards trending line" >}} fine-tuning themes
+:::
+
+::: {.center-text}
+{{< fa highlighter title="highlighter" >}} centering our primary message
+:::
