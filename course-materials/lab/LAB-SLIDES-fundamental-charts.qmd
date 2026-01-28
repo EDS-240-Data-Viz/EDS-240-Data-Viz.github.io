@@ -13,7 +13,7 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#047C91"} 
 
-[EDS 240: Lab 5]{.custom-title}
+[EDS 240: Lab 4]{.custom-title}
 
 [*Fundamental chart types in review*]{.custom-subtitle}
 
@@ -655,3 +655,36 @@ Choosing the right graphic form is just the first step! It's important to consid
 ::: {.center-text}
 {{< fa highlighter title="highlighter" >}} centering our primary message
 :::
+
+
+
+## {#data-viz-hackathon data-menu-title="Data Viz Hackathon"}
+[Data Viz Fundamental Chart Hackathon!]{.slide-title2}
+<hr>
+. . .
+
+[Access Your Assigned Data]{.body-text-l .teal-text}
+
+Now that you have drawn your dataset, find your specific folder in [this repository](https://github.com/EDS-240-Data-Viz/fundamental-charts-lab-data/tree/main)
+
+. . .
+
+
+[How to Load Data]{.body-text-l .teal-text}
+
+To pull your data directly into R without downloading files to your computer:
+
+1.  **Open** your assigned folder.
+2.  **Click** on the `.csv` file.
+3.  **Click the "Raw" button** at the top right of the file preview.
+4.  **Copy the URL** from your browser's address bar.
+
+```{r}
+#| eval: false
+#| echo: true
+
+url <- "PASTE_YOUR_RAW_URL_HERE"
+data <- read_csv(url)
+
+```
+
