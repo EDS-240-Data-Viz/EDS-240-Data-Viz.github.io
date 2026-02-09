@@ -4,25 +4,24 @@ subtitle: "Scrollytelling"
 description: "February 12^th^, 2026"
 format: 
   closeread-html:
-    css: styles_closeread.css
-    narrative-font-family: Montserrat
-    narrative-text-color-sidebar: "#212529"
-    include-in-header:
-      text: |
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    code-copy: hover
+    theme: 
+      - closeread-styles.scss
 ---
 
 
 ::::{.cr-section layout="sidebar-right"}
 
 
-@cr-scrollytelling
+@cr-scrollytelling 
   
-:::{#cr-scrollytelling .large-fixed-text-left}
+:::{#cr-scrollytelling .body-text-xl style="margin-top: 200px; margin-left: 50px;"}
 Have you every wanted to go beyond the traditional strucutre of a qmd? Is the interactivity on website not cutting it for you? Scrollytelling is a powerful data storytelling tool that allows you to invite your reader to "take a walk in the datas shoes". The `closeread` quarto extension provides flexibility on interactive customizations to tell your story the way you want. 
 :::
 
+:::{.body-text-l}
 Let's walk through how you create your own scrollytelling story with `closeread`! 
+:::
 
 ::::
 
@@ -31,14 +30,80 @@ Let's walk through how you create your own scrollytelling story with `closeread`
 
 @cr-setup
 
-::: {#cr-setup .large-fixed-text-left}
+::: {#cr-setup .body-text-l style="margin-top: 200px; margin-left: 50px;"}
 To start, make sure you have added the closeread quarto extension. Navigate to your project directory where you plan to use closeread. Scroll to find out what to paste into your terminal!
 :::
 
+:::{focus-on="cr-setup"}
+
+:::{style="font-size: 24px;"}
 ```{bash}
 quarto add qmd-lab/closeread
 ```
+:::
 
+<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Copy the above command here! </button>
+
+:::{.body-text-m}  
+<br>
 Type "Yes" when prompted to allow the extension to execute code
+:::
+:::
+::::
+
+
+
+
+::::{.cr-section layout="sidebar-right"}
+
+@cr-lets-get-started
+
+:::{#cr-lets-get-started style="font-size: 60px; margin-top: 200px; margin-left: 75px;"}
+Now that the setup is done, let's get started!!
+:::
 
 ::::
+
+::::{.cr-section layout="sidebar-right"}
+
+:::{focus-on="cr-section-syntax" .body-text-l style="margin-top: 200px; margin-left: 50px;"}
+Every closeread document is built from sections. Within each section, you'll specify a layout that controls where your narrative and sticky content appear. There are five layout options to choose from.
+:::
+
+:::{#cr-section-syntax style="font-size: 28px; padding: 40px;"}
+```
+::::{.cr-section layout="LAYOUT-NAME"}
+Content goes here!
+::::
+```
+:::
+
+
+
+
+:::{focus-on="cr-section-syntax"}
+**sidebar-left** (default)  
+Narrative scrolls on the left
+
+**sidebar-right**  
+Narrative scrolls on the right
+
+**overlay-left**  
+Full-screen sticky with floating narrative on left
+
+**overlay-center**  
+Full-screen sticky with centered floating narrative
+
+**overlay-right**  
+Full-screen sticky with floating narrative on right
+
+<br><br>
+**Choose the layout that best showcases your story!**
+:::
+
+
+
+
+::::
+
+

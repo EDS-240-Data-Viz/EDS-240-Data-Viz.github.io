@@ -1,65 +1,65 @@
+/* Import Montserrat Font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
+/* Define Size Variables */
+:root {
+  --size-small: 1.25rem;      /* 20px */
+  --size-medium: 1.75rem;     /* 28px - INCREASED */
+  --size-large: 2.5rem;       /* 40px - REDUCED */
+  --size-xlarge: 4rem;        /* 64px - for really big text */
+  --col-text: #212529;
+}
 
-
-.large-fixed-text-left {
-  font-size:var(--size-large);
-  font-family:Montserrat;
-  padding-left:50px;
-  font-weight: 800;
+/* Small Text */
+.small-text {
+  font-size: var(--size-small);
+  font-family: 'Montserrat', sans-serif;
   color: var(--col-text);
 }
 
-
-p {
+/* Medium Text - better for body text */
+.medium-text {
+  font-size: var(--size-medium);
+  font-family: 'Montserrat', sans-serif;
   color: var(--col-text);
 }
 
 .medium-fixed-text {
-  font-size:var(--size-medium);
-  font-family:Montserrat;
-  padding-right:30px;
+  font-size: var(--size-medium);
+  font-family: 'Montserrat', sans-serif;
+  padding-right: 50px;
   color: var(--col-text);
 }
 
-.medium-fixed-text p{
+.medium-fixed-text p {
   margin-bottom: 100px;
 }
 
-/*
-.sticky-col-stack {
-    container-name: sticks;
-    container-type: size;
-  }
+/* Large Text - for headers */
+.large-text {
+  font-size: var(--size-large);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  color: var(--col-text);
+}
 
+.large-fixed-text-left {
+  font-size: var(--size-large);
+  font-family: 'Montserrat', sans-serif;
+  padding-left: 50px;
+  font-weight: 800;
+  color: var(--col-text);
+}
 
-.sticky-col-stack video {
-    width: 100cqw !important;
-    height: 100cqh !important;
-  }
-*/
+/* Extra Large Text - for dramatic effect like your screenshot */
+.xlarge-text {
+  font-size: var(--size-xlarge);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  color: var(--col-text);
+}
 
-:root {
-  --size-large: clamp(32px, 4vw, 92px);
-  --size-medium: clamp(24px, 2.5vw, 69px);
-  --size-normal: clamp(18px, 2vw, 52px);
-  --col-text:#212529;
-  --col-religion: #819ECE;
-  --col-volunteer: #3C886E;
-  --col-phone: #C28AF3;
-  --col-misc: #E1937B;
-  --col-sleeping: #DDD346;
-  --col-personal-care: #4288F1;
-  --col-eat: #6EBA38;
-  --col-edu: #EF8632;
-  --col-work: #CA42A0;
-  --col-housework: #5DCAF3;
-  --col-household-care: #D44A62;
-  --col-nonhouse-care: #86594C;
-  --col-shopping: #6EAB8A;
-  --col-pro-care: #9D79C3;
-  --col-leisure: #6175E4;
-  --col-sports: #D879BF;
-  --col-travel: #BBBBBB;
-
+/* Default paragraph styling */
+p {
+  color: var(--col-text);
 }
