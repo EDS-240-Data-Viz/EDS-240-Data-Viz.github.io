@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
 
 </div>
 </div>
-<div class="trigger">
+<div class="trigger" style="margin-left: 50px;">
 <div class="body-text-l narrative">
 <p>Let’s walk through how you create your own scrollytelling story with <code>closeread</code>!</p>
 </div>
@@ -264,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="sticky-col">
 <div class="sticky-col-stack">
 <div id="cr-scrollytelling" class="body-text-xl sticky" style="margin-top: 200px; margin-left: 50px;">
-<p>Have you every wanted to go beyond the traditional strucutre of a qmd? Is the interactivity on website not cutting it for you? Scrollytelling is a powerful data storytelling tool that allows you to invite your reader to “take a walk in the datas shoes”. The <code>closeread</code> quarto extension provides flexibility on interactive customizations to tell your story the way you want.</p>
+<p>Have you ever wanted to go beyond the traditional structure of a qmd? Is the interactivity on your website not cutting it for you? Scrollytelling is a powerful data storytelling tool that allows you to invite your reader to “take a walk in the data’s shoes”. The <code>closeread</code> quarto extension provides flexibility on interactive customizations to tell your story the way you want.</p>
 </div>
 </div>
 </div>
@@ -278,14 +278,14 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="trigger new-trigger" data-focus-on="cr-setup">
 <div class="narrative">
-<div style="font-size: 24px;">
-<pre class="{bash}"><code>quarto add qmd-lab/closeread</code></pre>
+<div class="body-text-m">
+
 </div>
-<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-family: 'Nunito', sans-serif;">
 Copy the above command here!
 </button>
 <div class="body-text-m">
-<p><br> Type “Yes” when prompted to allow the extension to execute code</p>
+<p><br> Type <strong>“Yes”</strong> when prompted to allow the extension to execute code</p>
 </div>
 </div>
 </div>
@@ -308,8 +308,104 @@ Copy the above command here!
 </div>
 <div class="sticky-col">
 <div class="sticky-col-stack">
-<div id="cr-lets-get-started" class="sticky" style="font-size: 60px; margin-top: 200px; margin-left: 75px;">
+<div id="cr-lets-get-started" class="body-text-xl teal-text sticky" style="margin-top: 200px; margin-left: 75px;">
 <p>Now that the setup is done, let’s get started!!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen overlay-center">
+<div class="narrative-col">
+<div class="trigger new-trigger" style="height: 100vh;" data-focus-on="cr-title">
+<div class="narrative">
+
+</div>
+</div>
+<div class="trigger new-trigger" style="height: 100vh;" data-focus-on="cr-stickies">
+<div class="narrative">
+
+</div>
+</div>
+<div class="trigger new-trigger" style="height: 100vh;" data-focus-on="cr-triggers">
+<div class="narrative">
+
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-title" class="body-text-xl dark-blue-text sticky" style="padding: 40px;">
+<p><strong>The Main Components</strong></p>
+</div>
+<div id="cr-stickies" class="body-text-l dark-blue-text sticky" style="padding: 40px; text-align: left;">
+<p><strong>The Main Components</strong></p>
+<p><span class="teal-text"><strong>Stickies:</strong></span> Think of the stickies as a sticky note - stuck in place! As the user starts to scroll, stickies remain in place. Stickies can take the form of text, an image, or a code chunk.</p>
+</div>
+<div id="cr-triggers" class="body-text-l dark-blue-text sticky" style="padding: 40px; text-align: left;">
+<p><strong>The Main Components</strong></p>
+<p><span class="teal-text"><strong>Stickies:</strong></span> Think of the stickies as a sticky note - stuck in place! As the user starts to scroll, stickies remain in place. Stickies can take the form of text, an image, or a code chunk.</p>
+<p><span class="teal-text"><strong>Triggers:</strong></span> Prompt the moving text, image, or plot that moves past your stickies.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-stickie-ex">
+<div class="narrative">
+<p><span class="body-text-l">This is an example of a trigger! It moves as you scroll!</span></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-stickie-ex">
+<div class="narrative">
+<p><span class="body-text-l">This is a second example of a trigger! Notice how our stickie is still there!</span></p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-stickie-ex" class="body-text-xl teal-text sticky" style="margin-left: 50px;">
+<p>This is an example of a stickie!! As you scroll, the text will stay in place until you get to a new section.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-stickie-ex2">
+<div class="narrative">
+<p><span class="body-text-l">Triggers can also be plots! Scroll to see</span></p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="LAB-EXERCISE-scrollytelling_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-stickie-ex2">
+<div class="narrative">
+
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-stickie-ex2" class="sticky">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="LAB-EXERCISE-scrollytelling_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -323,17 +419,17 @@ Copy the above command here!
 </div>
 <div class="trigger new-trigger" data-focus-on="cr-section-syntax">
 <div class="narrative">
-<p><strong>sidebar-left</strong> (default)<br>
-Narrative scrolls on the left</p>
-<p><strong>sidebar-right</strong><br>
-Narrative scrolls on the right</p>
-<p><strong>overlay-left</strong><br>
+<p><span class="teal-text"><strong>sidebar-left</strong> (default)</span></p>
+<p>Narrative scrolls on the left</p>
+<p><span class="teal-text"><strong>sidebar-right</strong></span></p>
+<p>Narrative scrolls on the right</p>
+<p><span class="teal-text"><strong>overlay-left</strong></span><br>
 Full-screen sticky with floating narrative on left</p>
-<p><strong>overlay-center</strong><br>
+<p><span class="teal-text"><strong>overlay-center</strong></span><br>
 Full-screen sticky with centered floating narrative</p>
-<p><strong>overlay-right</strong><br>
+<p><span class="teal-text"><strong>overlay-right</strong></span><br>
 Full-screen sticky with floating narrative on right</p>
-<p><br><br> <strong>Choose the layout that best showcases your story!</strong></p>
+<p><br><br> <span class="dark-blue-text body-text-m"><strong>Choose the layout that best showcases your story!</strong></span></p>
 </div>
 </div>
 </div>
@@ -343,6 +439,98 @@ Full-screen sticky with floating narrative on right</p>
 <pre><code>::::{.cr-section layout="LAYOUT-NAME"}
 Content goes here!
 ::::</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen overlay-center">
+<div class="narrative-col">
+<div class="trigger new-trigger" style="height: 50vh;" data-focus-on="cr-scroll-back">
+<div class="narrative">
+
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-scroll-back" class="body-text-xl dark-blue-text sticky" style="padding: 40px; text-align: center; margin-top: 40px">
+<p>Scroll back up if the terms <strong>stickie</strong> or <strong>trigger</strong> aren’t making sense yet. Otherwise, keep scrolling to find out how to code them!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-sticky-syntax">
+<div class="narrative">
+<p><span class="body-text-m">To create a sticky, wrap your element in a fenced div and provide an ID prefixed with <code>cr-</code>. Stickies will look like this in your qmd file:</span></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-trigger-syntax">
+<div class="narrative">
+<p><span class="body-text-m">To create a trigger, reference your sticky ID using the <code>@cr-</code> syntax. When this text scrolls into view, it will reveal your sticky!</span></p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-sticky-syntax" class="body-text-m sticky" style="padding: 40px; margin-top:150px">
+<p><span class="teal-text"><strong>Creating a Sticky:</strong></span></p>
+<pre><code>:::{#cr-YOUR-ID}
+Your content goes here!
+(text, image, plot, code, etc.)
+:::</code></pre>
+<ul>
+<li>Must start with <code>#cr-</code></li>
+<li>ID must be unique</li>
+<li>Can contain any element</li>
+</ul>
+</div>
+<div id="cr-trigger-syntax" class="body-text-m sticky" style="padding: 40px;">
+<p><span class="teal-text"><strong>Creating a Trigger:</strong></span></p>
+<pre><code>Your narrative text goes here. @cr-YOUR-ID</code></pre>
+<p>Or wrap multiple blocks:</p>
+<pre><code>:::{focus-on="cr-YOUR-ID"}
+Your narrative text goes here.
+More text here too!
+:::</code></pre>
+<ul>
+<li><code>@cr-</code> for single paragraph triggers</li>
+<li><code>focus-on=</code> for multi-block triggers</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-live-example">
+<div class="narrative">
+<p><span class="body-text-m">Let’s see it in action! This text you’re reading right now is a <strong>trigger</strong>. It scrolls past while the sticky on the left stays fixed.</span></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-live-example">
+<div class="narrative">
+<p><span class="body-text-m">See how this text is different from the sticky? This is a second trigger - it scrolls into view while the sticky stays put!</span></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-live-example">
+<div class="narrative">
+<p><span class="body-text-m">And this is a third trigger! No matter how many triggers reference the same sticky, it stays locked in place until you scroll to a new section.</span></p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-live-example" class="body-text-m sticky" style="padding: 40px; border-left: 5px solid #047C90;">
+<p><span class="teal-text"><strong>I am the STICKY!</strong></span></p>
+<p>I stay fixed in place while the triggers on the right scroll past me.</p>
+<p>In your <code>.qmd</code> file I look like this:</p>
+<pre><code>:::{#cr-live-example}
+I am the sticky!
+:::</code></pre>
+<p>And my triggers look like this:</p>
+<pre><code>This text is a trigger! @cr-live-example</code></pre>
 </div>
 </div>
 </div>

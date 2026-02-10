@@ -12,14 +12,13 @@ format:
 
 ::::{.cr-section layout="sidebar-right"}
 
-
 @cr-scrollytelling 
   
 :::{#cr-scrollytelling .body-text-xl style="margin-top: 200px; margin-left: 50px;"}
-Have you every wanted to go beyond the traditional strucutre of a qmd? Is the interactivity on website not cutting it for you? Scrollytelling is a powerful data storytelling tool that allows you to invite your reader to "take a walk in the datas shoes". The `closeread` quarto extension provides flexibility on interactive customizations to tell your story the way you want. 
+Have you ever wanted to go beyond the traditional structure of a qmd? Is the interactivity on your website not cutting it for you? Scrollytelling is a powerful data storytelling tool that allows you to invite your reader to "take a walk in the data's shoes". The `closeread` quarto extension provides flexibility on interactive customizations to tell your story the way you want. 
 :::
 
-:::{.body-text-l}
+:::{.body-text-l style="margin-left: 50px;"}
 Let's walk through how you create your own scrollytelling story with `closeread`! 
 :::
 
@@ -30,39 +29,128 @@ Let's walk through how you create your own scrollytelling story with `closeread`
 
 @cr-setup
 
-::: {#cr-setup .body-text-l style="margin-top: 200px; margin-left: 50px;"}
+:::{#cr-setup .body-text-l style="margin-top: 200px; margin-left: 50px;"}
 To start, make sure you have added the closeread quarto extension. Navigate to your project directory where you plan to use closeread. Scroll to find out what to paste into your terminal!
 :::
 
 :::{focus-on="cr-setup"}
 
-:::{style="font-size: 24px;"}
+:::{.body-text-m}
 ```{bash}
+#| eval: false
 quarto add qmd-lab/closeread
 ```
 :::
 
-<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Copy the above command here! </button>
+<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-family: 'Nunito', sans-serif;">Copy the above command here!</button>
 
 :::{.body-text-m}  
 <br>
-Type "Yes" when prompted to allow the extension to execute code
+Type **"Yes"** when prompted to allow the extension to execute code
 :::
+
 :::
+
 ::::
-
-
 
 
 ::::{.cr-section layout="sidebar-right"}
 
 @cr-lets-get-started
 
-:::{#cr-lets-get-started style="font-size: 60px; margin-top: 200px; margin-left: 75px;"}
+:::{#cr-lets-get-started .body-text-xl .teal-text style="margin-top: 200px; margin-left: 75px;"}
 Now that the setup is done, let's get started!!
 :::
 
 ::::
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-title" style="height: 100vh;"}
+:::
+
+:::{#cr-title .body-text-xl .dark-blue-text style="padding: 40px;"}
+**The Main Components**
+:::
+
+:::{focus-on="cr-stickies" style="height: 100vh;"}
+:::
+
+:::{#cr-stickies .body-text-l .dark-blue-text style="padding: 40px; text-align: left;"}
+**The Main Components**
+
+[**Stickies:**]{.teal-text} Think of the stickies as a sticky note - stuck in place! As the user starts to scroll, stickies remain in place. Stickies can take the form of text, an image, or a code chunk. 
+:::
+
+:::{focus-on="cr-triggers" style="height: 100vh;"}
+:::
+
+:::{#cr-triggers .body-text-l .dark-blue-text style="padding: 40px; text-align: left;"}
+**The Main Components**
+
+[**Stickies:**]{.teal-text} Think of the stickies as a sticky note - stuck in place! As the user starts to scroll, stickies remain in place. Stickies can take the form of text, an image, or a code chunk. 
+
+[**Triggers:**]{.teal-text} Prompt the moving text, image, or plot that moves past your stickies.
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+[This is an example of a trigger! It moves as you scroll!]{.body-text-l} @cr-stickie-ex
+
+[This is a second example of a trigger! Notice how our stickie is still there!]{.body-text-l} @cr-stickie-ex
+
+:::{#cr-stickie-ex .body-text-xl .teal-text style="margin-left: 50px;"}
+This is an example of a stickie!! As you scroll, the text will stay in place until you get to a new section. 
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+[Triggers can also be plots! Scroll to see]{.body-text-l} @cr-stickie-ex2
+
+```{r}
+#| message: false
+#| warning: false
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Bill Length vs Bill Depth",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    color = "Species"
+  ) +
+  theme_minimal()
+```
+
+@cr-stickie-ex2
+
+:::{#cr-stickie-ex2}
+```{r}
+#| message: false
+#| warning: false
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Flipper Length vs Body Mass",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)",
+    color = "Species"
+  ) +
+  theme_minimal()
+```
+:::
+
+::::
+
 
 ::::{.cr-section layout="sidebar-right"}
 
@@ -82,28 +170,117 @@ Content goes here!
 
 
 :::{focus-on="cr-section-syntax"}
-**sidebar-left** (default)  
+[**sidebar-left** (default)]{.teal-text}
+
 Narrative scrolls on the left
 
-**sidebar-right**  
+[**sidebar-right** ]{.teal-text}
+
 Narrative scrolls on the right
 
-**overlay-left**  
+[**overlay-left**]{.teal-text}  
 Full-screen sticky with floating narrative on left
 
-**overlay-center**  
+[**overlay-center**]{.teal-text}  
 Full-screen sticky with centered floating narrative
 
-**overlay-right**  
+[**overlay-right**]{.teal-text}  
 Full-screen sticky with floating narrative on right
 
 <br><br>
-**Choose the layout that best showcases your story!**
+[**Choose the layout that best showcases your story!**]{.dark-blue-text .body-text-m}
 :::
-
-
 
 
 ::::
 
 
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-scroll-back" style="height: 50vh;"}
+:::
+
+:::{#cr-scroll-back .body-text-xl .dark-blue-text style="padding: 40px; text-align: center; margin-top: 40px"}
+Scroll back up if the terms **stickie** or **trigger** aren't making sense yet. Otherwise, keep scrolling to find out how to code them!
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-left"}
+
+:::{focus-on="cr-sticky-syntax"}
+[To create a sticky, wrap your element in a fenced div and provide an ID prefixed with `cr-`. Stickies will look like this in your qmd file:]{.body-text-m}
+:::
+
+:::{#cr-sticky-syntax .body-text-m style="padding: 40px; margin-top:150px"}
+[**Creating a Sticky:**]{.teal-text}
+
+```
+:::{#cr-YOUR-ID}
+Your content goes here!
+(text, image, plot, code, etc.)
+:::
+```
+
+- Must start with `#cr-`
+- ID must be unique
+- Can contain any element
+:::
+
+:::{focus-on="cr-trigger-syntax"}
+[To create a trigger, reference your sticky ID using the `@cr-` syntax. When this text scrolls into view, it will reveal your sticky!]{.body-text-m}
+:::
+
+:::{#cr-trigger-syntax .body-text-m style="padding: 40px;"}
+[**Creating a Trigger:**]{.teal-text}
+
+```
+Your narrative text goes here. @cr-YOUR-ID
+```
+
+Or wrap multiple blocks:
+
+```
+:::{focus-on="cr-YOUR-ID"}
+Your narrative text goes here.
+More text here too!
+:::
+```
+
+- `@cr-` for single paragraph triggers
+- `focus-on=` for multi-block triggers
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+[Let's see it in action! This text you're reading right now is a **trigger**. It scrolls past while the sticky on the left stays fixed.]{.body-text-m} @cr-live-example
+
+[See how this text is different from the sticky? This is a second trigger - it scrolls into view while the sticky stays put!]{.body-text-m} @cr-live-example
+
+[And this is a third trigger! No matter how many triggers reference the same sticky, it stays locked in place until you scroll to a new section.]{.body-text-m} @cr-live-example
+
+:::{#cr-live-example .body-text-m style="padding: 40px; border-left: 5px solid #047C90;"}
+[**I am the STICKY!**]{.teal-text}
+
+I stay fixed in place while the triggers on the right scroll past me.
+
+In your `.qmd` file I look like this:
+
+```
+:::{#cr-live-example}
+I am the sticky!
+:::
+```
+
+And my triggers look like this:
+
+```
+This text is a trigger! @cr-live-example
+```
+:::
+
+::::
