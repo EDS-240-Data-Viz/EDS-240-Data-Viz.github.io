@@ -1,0 +1,221 @@
+/*-- scss:defaults --*/
+
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito:wght@300;800&family=Roboto+Mono:wght@300;400&family=Sanchez&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap'); // for lecture 4.3
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;800&family=Roboto+Mono:wght@300;400&family=Sanchez&display=swap');
+
+// fonts
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-serif: 'Sanchez', serif;
+$font-family-monospace: 'Roboto Mono', monospace;
+$nanum: 'Nanum Myeongjo', serif;
+
+// colors
+$baby-blue: #d2e3f3;
+$teal: #047C90;
+$dark-blue: #003660;
+$white: #FFFFFF;
+$green: #78A540;
+$magenta: #900C3F;
+$white: #FFFFFF;
+$off-white: #F7F7F7;
+$gray: #ADADAD;
+$medium-gray: #90959c; //#81858b; //#616469;
+$dark-gray: #373A3E;
+$peach: #DF8073;
+
+// scss variables
+$presentation-title-slide-text-align: "left";
+$body-bg: $white;
+$link-color: $green;
+$code-color: $magenta;
+$code-bg: $off-white;  // was $white
+$code-block-font-size: 0.8em;
+$code-block-bg: $off-white;
+$presentation-font-size-root: 25px;
+
+/*-- scss:rules --*/
+
+p {
+  line-spacing: 1px
+}
+
+
+
+// horizontal line (default dark blue)
+hr {
+  border: 4px solid $dark-blue;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+// teal horizontal line
+.hr-teal {
+  border: 4px solid $teal;
+}
+
+
+
+// custom slide title
+.custom-title {
+  font-family: $font-family-serif;
+  color: $baby-blue;
+  font-size: 3em; //1.7em;
+  //position: absolute;
+  left: 20px;
+}
+
+
+.large-fa-icon {
+  font-size: 2.5em;
+}
+
+// XL body text
+.body-text-xl {
+  font-family: $font-family-sans-serif !important;
+  font-size: 2em !important;
+}
+
+// L body text
+.body-text-l {
+  font-size: 1.5em !important;
+	line-height: 1.9em !important;
+	margin-bottom: 1em !important;
+}
+
+// M body text
+.body-text-m {
+	font-size: 1.3em !important;
+	line-height: 1.3em !important;
+	margin-bottom: 1em !important;
+}
+
+// S body text
+.body-text-s {
+  font-size: 20px !important;
+	line-height: 0.5em !important;
+}
+
+// XS body text
+.body-text-xs {
+  font-size: 0.5em !important;
+	line-height: 1.8em !important;
+}
+
+// sanchez font family
+.sanchez-font {
+  font-family: $font-family-serif !important;
+}
+
+// baby blue text
+.baby-blue-text {
+  color: $baby-blue;
+}
+
+// dark blue text
+.dark-blue-text {
+  color: $dark-blue;
+}
+
+// white text
+.white-text {
+  color: $white;
+}
+
+// teal text
+.teal-text {
+  color: $teal;
+}
+
+// gray text
+.gray-text {
+  color: $medium-gray;
+}
+
+// magenta text
+.magenta-text {
+  color: $magenta;
+}
+
+.pink-highlight {
+  background-color: rgba(217, 178, 189, 0.5);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 8px;
+  border-radius: 25px;
+}
+
+
+.white-highlight {
+  background-color: $off-white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 8px;
+  border-radius: 25px;
+}
+
+.blue-underline {
+  text-decoration: underline $dark-blue;
+  text-underline-offset: 10px; // https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset
+  text-decoration-thickness: 4px;
+}
+
+// center text (horizontally)
+.center-text{
+  text-align: center;
+}
+
+// right-align text
+.right-align-text{
+  text-align: right;
+}
+
+// left-align text
+.left-align-text{
+  text-align: left;
+}
+
+// center text vertically (??)
+.vertical-center {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+// center text vertically and horizontally (??)
+.page-center {
+  line-height: 700px;
+  text-align: center;
+}
+
+// extra space above line
+ .topbr {
+    display: block;
+    margin-top: 1em;
+}
+
+// extra space below line
+ .bottombr {
+    display: block;
+    margin-bottom: 1em;
+}
+
+// smaller break
+.br-smaller {
+  line-height: 6px;
+}
+
+// tab font sizes
+.panel-tabset {
+  font-size: 25px;
+}
+
+
+
