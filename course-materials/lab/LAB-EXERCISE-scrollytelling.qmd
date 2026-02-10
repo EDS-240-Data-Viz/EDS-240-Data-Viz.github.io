@@ -4,6 +4,7 @@ subtitle: "Scrollytelling"
 description: "February 12^th^, 2026"
 format: 
   closeread-html:
+    remove-header-space: true
     code-copy: hover
     theme: 
       - closeread-styles.scss
@@ -38,11 +39,11 @@ To start, make sure you have added the closeread quarto extension. Navigate to y
 :::{.body-text-m}
 ```{bash}
 #| eval: false
+#| echo: true
 quarto add qmd-lab/closeread
 ```
 :::
 
-<button onclick="navigator.clipboard.writeText('quarto add qmd-lab/closeread')" style="padding: 8px 16px; background: #047C90; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-family: 'Nunito', sans-serif;">Copy the above command here!</button>
 
 :::{.body-text-m}  
 <br>
@@ -70,7 +71,7 @@ Now that the setup is done, let's get started!!
 :::{focus-on="cr-title" style="height: 100vh;"}
 :::
 
-:::{#cr-title .body-text-xl .dark-blue-text style="padding: 40px;"}
+:::{#cr-title .body-text-xl .dark-blue-text style="padding: 40px; margin-top: 200px"}
 **The Main Components**
 :::
 
@@ -155,7 +156,9 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
 ::::{.cr-section layout="sidebar-right"}
 
 :::{focus-on="cr-section-syntax" .body-text-l style="margin-top: 200px; margin-left: 50px;"}
-Every closeread document is built from sections. Within each section, you'll specify a layout that controls where your narrative and sticky content appear. There are five layout options to choose from.
+Every closeread document is built from sections. Within each section, you'll specify a layout that controls where your narrative and sticky content appear. There are five layout options to choose from. 
+
+[Note: Any content that is not within a closeread section will apear as regular markdown on a qmd, with no scrolling aspect to it]{.teal-text}
 :::
 
 :::{#cr-section-syntax style="font-size: 28px; padding: 40px;"}
@@ -255,32 +258,440 @@ More text here too!
 ::::
 
 
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-together-title" style="height: 50vh;"}
+:::
+
+:::{#cr-together-title .body-text-xl .dark-blue-text style="padding: 40px; text-align: center;"}
+**Putting It All Together**
+:::
+
+::::
+
+
 ::::{.cr-section layout="sidebar-right"}
 
-[Let's see it in action! This text you're reading right now is a **trigger**. It scrolls past while the sticky on the left stays fixed.]{.body-text-m} @cr-live-example
+[👈 That box on the left? That's a **sticky**. It has the ID `#cr-together`. Look at the code in the sticky — you can find exactly where it's defined!]{.body-text-m} @cr-together
 
-[See how this text is different from the sticky? This is a second trigger - it scrolls into view while the sticky stays put!]{.body-text-m} @cr-live-example
+[This line of text is a **trigger**. Notice how it ends with `\@cr-together`? That's what links it to the sticky and keeps it locked in place while you scroll.]{.body-text-m} @cr-together
 
-[And this is a third trigger! No matter how many triggers reference the same sticky, it stays locked in place until you scroll to a new section.]{.body-text-m} @cr-live-example
+[This is a third trigger — still referencing the same sticky. Scroll through the code on the left and find all three triggers!]{.body-text-m} @cr-together
 
-:::{#cr-live-example .body-text-m style="padding: 40px; border-left: 5px solid #047C90;"}
-[**I am the STICKY!**]{.teal-text}
+[Once you scroll past this section, the sticky disappears. That's because stickies only live inside their `cr-section` wrapper.]{.body-text-m} @cr-together
 
-I stay fixed in place while the triggers on the right scroll past me.
-
-In your `.qmd` file I look like this:
-
+:::{#cr-together .body-text-m style="padding: 40px; border-left: 5px solid #047C90; margin-top: 30px;"}
+[**The code creating this exact section:**]{.teal-text}
 ```
-:::{#cr-live-example}
-I am the sticky!
+::::{.cr-section layout="sidebar-right"}
+
+That box on the left? That's a sticky... \@cr-together
+
+This line of text is a trigger... \@cr-together
+
+This is a third trigger... \@cr-together
+
+Once you scroll past this section... \@cr-together
+
+:::{#cr-together}              ← this is the sticky!
+The code creating this exact section!
 :::
-```
 
-And my triggers look like this:
-
-```
-This text is a trigger! @cr-live-example
+::::
 ```
 :::
 
 ::::
+
+
+
+:::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-advanced-title" style="height: 50vh;"}
+:::
+
+:::{#cr-advanced-title .body-text-xl .dark-blue-text style="padding: 40px; text-align: center;"}
+**Going Deeper with Closeread**
+:::
+
+::::
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-hl-section-title" style="height: 30vh;"}
+:::
+
+:::{#cr-hl-section-title .body-text-xl .teal-text style="padding: 40px; text-align: center;"}
+**Feature 1: Highlighting**
+:::
+
+::::
+
+
+
+
+
+::::{.cr-section layout="sidebar-right"}
+
+:::{focus-on="cr-hl-code-demo"}
+:::{.body-text-m}
+The most reliable way to use `highlight=` in closeread is with **code blocks**. The sticky on the left shows an R script — scroll to watch specific lines light up!
+:::
+:::
+
+:::{focus-on="cr-hl-code-demo" highlight="1,2"}
+:::{.body-text-m}
+**`highlight="1,2"`** — lines 1 and 2 are highlighted. Here we're loading our packages. You can highlight a single line or multiple lines separated by commas.
+:::
+:::
+
+:::{focus-on="cr-hl-code-demo" highlight="4"}
+:::{.body-text-m}
+**`highlight="4"`** — now just line 4. We're pointing to where the data is being loaded.
+:::
+:::
+
+:::{focus-on="cr-hl-code-demo" highlight="6,7,8"}
+:::{.body-text-m}
+**`highlight="6,7,8"`** — lines 6 through 8. This is where the ggplot is being built. Highlighting a range of lines is great for walking through a block of logic step by step.
+:::
+:::
+
+:::{focus-on="cr-hl-code-syntax"}
+:::{.body-text-m}
+Here's how to write this in your `.qmd` file:
+:::
+:::
+
+:::{#cr-hl-code-demo style="padding: 40px; margin-top: 30px;"}
+````r
+library(ggplot2)
+library(palmerpenguins)
+
+penguins_clean <- na.omit(penguins)
+
+ggplot(penguins_clean, aes(x = bill_length_mm,
+                           y = bill_depth_mm,
+                           color = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  theme_minimal()
+````
+:::
+
+:::{#cr-hl-code-syntax .body-text-m style="padding: 40px; border-left: 5px solid #047C90;"}
+[**How to write `highlight=` for code blocks:**]{.teal-text}
+````
+/* highlight= goes on the focus-on block */
+/* numbers refer to line numbers in the code block */
+
+/* single line */
+:::{focus-on="cr-YOUR-STICKY" highlight="1"}
+Narrative text here.
+:::
+
+/* multiple lines */
+:::{focus-on="cr-YOUR-STICKY" highlight="1,2"}
+Narrative text here.
+:::
+
+/* your sticky just needs a regular code block */
+:::{#cr-YOUR-STICKY}
+```r
+library(ggplot2)        ← line 1
+library(palmerpenguins) ← line 2
+```
+:::
+````
+
+[Note: `highlight=` with line numbers only works on **code block** stickies — for prose text, use the span ID approach instead.]{.teal-text}
+:::
+
+::::
+
+
+
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-scale-title" style="height: 30vh;"}
+:::
+
+:::{#cr-scale-title .body-text-xl .teal-text style="padding: 40px; text-align: center;"}
+**Feature 2: Transforms — `scale-by`**
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+:::{focus-on="cr-scale-demo"}
+[Default view — no transform. The full plot is visible in the sticky.]{.body-text-m}
+:::
+
+:::{focus-on="cr-scale-demo" scale-by="1.5"}
+[**`scale-by="1.5"`** — zoomed in 50%. The species clusters are now much easier to compare. Values above 1 zoom in.]{.body-text-m}
+:::
+
+:::{focus-on="cr-scale-demo" scale-by="2.5"}
+[**`scale-by="2.5"`** — zoomed in 150%. Great for dense plots with small labels.]{.body-text-m}
+:::
+
+:::{focus-on="cr-scale-demo" scale-by="0.7"}
+[**`scale-by="0.7"`** — zoomed out. Values below 1 shrink the sticky.]{.body-text-m}
+:::
+
+:::{focus-on="cr-scale-demo"}
+[Back to default. Each trigger sets its own zoom level independently — they don't stack.]{.body-text-m}
+:::
+
+[Here's the code that produced this section:]{.body-text-m} @cr-scale-code
+
+:::{#cr-scale-demo style="margin-top: 30px;"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Bill Length vs. Bill Depth",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    color = "Species"
+  ) +
+  theme_minimal(base_size = 14)
+```
+:::
+
+:::{#cr-scale-code .body-text-m style="padding: 40px; border-left: 5px solid #047C90;"}
+[**`scale-by` goes on your `focus-on` trigger:**]{.teal-text}
+```
+/* Default — no transform */
+:::{focus-on="cr-scale-demo"}
+No transform.
+:::
+
+/* Zoom in 50% */
+:::{focus-on="cr-scale-demo" scale-by="1.5"}
+Zoomed in!
+:::
+
+/* Zoom in 150% */
+:::{focus-on="cr-scale-demo" scale-by="2.5"}
+Even closer!
+:::
+
+/* Zoom out */
+:::{focus-on="cr-scale-demo" scale-by="0.7"}
+Zoomed out.
+:::
+```
+:::
+
+::::
+
+
+
+
+
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-scss-title" style="height: 30vh;"}
+:::
+
+:::{#cr-scss-title .body-text-xl .teal-text style="padding: 40px; text-align: center;"}
+**Feature 3: Custom Styling with SCSS**
+:::
+
+::::
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-scss-what-title" style="height: 30vh;"}
+:::
+
+:::{#cr-scss-what-title .body-text-xl .dark-blue-text style="padding: 40px; text-align: center;"}
+**What Can You Customize?**
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+:::{focus-on="cr-scss-overview"}
+:::{.body-text-m style="margin-left: 50px;"}
+closeread works seamlessly with SCSS, giving you control over four major areas. Scroll to see each one!
+:::
+:::
+
+:::{focus-on="cr-scss-overview" highlight="1,2"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Background**]{.teal-text} — the canvas behind everything. Set a background color or image for your closeread sections.
+:::
+:::
+
+:::{focus-on="cr-scss-overview" highlight="4,5"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Sticky Elements**]{.teal-text} — the container holding your stickies. Control background color, padding, borders, and shadows.
+:::
+:::
+
+:::{focus-on="cr-scss-overview" highlight="7,8"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Narrative Elements**]{.teal-text} — the scrolling text column. Adjust background, padding, and width.
+:::
+:::
+
+:::{focus-on="cr-scss-overview" highlight="10,11,12"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Fonts**]{.teal-text} — size, family, and color. Define reusable utility classes you can apply anywhere in your `.qmd`.
+:::
+:::
+
+:::{#cr-scss-overview style="padding: 40px; margin-top: 30px;"}
+````scss
+/* 1. Background */
+.cr-section { background-color: ...; }
+
+/* 2. Sticky element */
+.sticky-col-stack { ... }
+
+/* 3. Narrative element */
+.narrative-col { ... }
+
+/* 4. Fonts */
+font-family: ...;
+font-size: ...;
+color: ...;
+````
+:::
+
+::::
+
+
+::::{.cr-section layout="overlay-center"}
+
+:::{focus-on="cr-scss-how-title" style="height: 30vh;"}
+:::
+
+:::{#cr-scss-how-title .body-text-xl .dark-blue-text style="padding: 40px; text-align: center;"}
+**How To Customize: Writing Your SCSS**
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+:::{focus-on="cr-scss-setup-how"}
+:::{.body-text-m style="margin-left: 50px;"}
+Before writing any styles, you need two things: a `.scss` file and a link to it in your YAML front matter. Scroll to see both!
+:::
+:::
+
+:::{focus-on="cr-scss-setup-how" highlight="1,2,3,4,5,6,7"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Step 1 — Your YAML:**]{.teal-text} Add a `theme` key under `closeread-html` that points to your SCSS file. Make sure it's in the same folder as your `.qmd`.
+:::
+:::
+
+:::{focus-on="cr-scss-setup-how" highlight="9,10,11"}
+:::{.body-text-m style="margin-left: 50px;"}
+[**Step 2 — Your SCSS file:**]{.teal-text} Create `closeread-styles.scss` in that same project directory. Standard SCSS syntax — no special closeread magic required.
+:::
+:::
+
+:::{#cr-scss-setup-how style="padding: 40px; margin-top: 30px;"}
+````yaml
+---
+title: "My Closeread Story"
+format:
+  closeread-html:
+    theme:
+      - closeread-styles.scss
+---
+````
+
+````scss
+/* closeread-styles.scss */
+/* Your custom styles go here! */
+````
+:::
+
+::::
+
+
+::::{.cr-section layout="sidebar-right"}
+
+[Now let's look at each style category. On the left is the code for **background**, **stickies**, **narrative**, and **fonts** all in one file. Scroll through to see each block!]{.body-text-m} @cr-full-scss
+
+[**Background** targets `.cr-section`. Use `background-color` for a solid fill or `background-image` for a photo. Set `color` here too so your text stays readable against whatever background you choose.]{.body-text-m} @cr-full-scss
+
+[**Sticky elements** target `.sticky-col-stack`. This is the container wrapping all your `:::{#cr-YOUR-ID}` content. Round the corners, add a shadow, give it a background — whatever fits your story.]{.body-text-m} @cr-full-scss
+
+[**Narrative elements** target `.narrative-col` — the scrolling text column. A semi-transparent `rgba` background works especially well with `overlay-*` layouts, where narrative floats over a full-screen sticky.]{.body-text-m} @cr-full-scss
+
+[**Fonts** — import a Google Font at the top, set `font-family` on `body`, then define reusable utility classes like `.teal-text` or `.body-text-xl`. These are the exact classes used throughout this document!]{.body-text-m} @cr-full-scss
+
+:::{#cr-full-scss .body-text-m style="padding: 40px; border-left: 5px solid #047C90; margin-top: 30px;"}
+[**Your complete `closeread-styles.scss`:**]{.teal-text}
+````scss
+/* ── Google Fonts ────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?
+  family=Lato:wght@400;700&display=swap');
+
+/* ── Base Body ───────────────────────────── */
+body {
+  font-family: 'Lato', sans-serif;
+  line-height: 1.65;
+}
+
+/* ── Section Background ──────────────────── */
+.cr-section {
+  background-color: #f4f1ec;
+  background-image: url("your-image.jpg");
+  background-size: cover;
+  color: #1a1a2e;
+}
+
+/* ── Sticky Container ────────────────────── */
+.sticky-col-stack {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+/* ── Narrative Column ────────────────────── */
+.narrative-col {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  max-width: 480px;
+}
+
+/* ── Font Size Utilities ─────────────────── */
+.body-text-xl { font-size: 2rem; }
+.body-text-l  { font-size: 1.5rem; }
+.body-text-m  { font-size: 1.15rem; }
+.body-text-s  { font-size: 0.9rem; }
+
+/* ── Color Utilities ─────────────────────── */
+.teal-text      { color: #047C90; }
+.dark-blue-text { color: #1a1a2e; }
+.white-text     { color: #ffffff; }
+````
+:::
+
+::::
+
+
