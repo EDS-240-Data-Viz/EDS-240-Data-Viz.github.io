@@ -94,31 +94,35 @@ Setup done — let's get started!
 <!-- =============================== -->
 <!-- MAIN COMPONENTS                 -->
 <!-- =============================== -->
-
 ::::{.cr-section layout="sidebar-right"}
 :::{focus-on="cr-title" style="height: 100vh;"}
-
 :::
-:::{#cr-title .body-text-xl .dark-blue-text style="padding: 40px; margin-top: 200px"}
+:::{#cr-title .body-text-xl .dark-blue-text style="padding: 40px; margin-top: 50px;"}
 **The Main Components**
 :::
 :::{focus-on="cr-stickies" style="height: 100vh;"}
 :::
-:::{#cr-stickies .body-text-l .dark-blue-text style="padding: 40px; text-align: left;"}
+:::{#cr-stickies .body-text-l .dark-blue-text style="padding: 40px; margin-top: 90px; text-align: left;"}
 **The Main Components**
+<br>
 <br>
 [**Stickies:**]{.teal-text} Think of a sticky like a sticky note — stuck in place! As the user scrolls, stickies remain fixed on screen. They can be text, an image, a plot, or a code chunk. 
 :::
 :::{focus-on="cr-triggers" style="height: 100vh;"}
 :::
-:::{#cr-triggers .body-text-l .dark-blue-text style="padding: 40px; text-align: left;"}
+:::{#cr-triggers .body-text-l .dark-blue-text style="padding: 40px; margin-top: 90px; text-align: left;"}
 **The Main Components**
+<br>
 <br>
 [**Stickies:**]{.teal-text} Think of a sticky like a sticky note — stuck in place! As the user scrolls, stickies remain fixed on screen. They can be text, an image, a plot, or a code chunk. 
 <br>
+<br>
+
 [**Triggers:**]{.teal-text} The scrolling content — text, images, or plots — that moves past your stickies and controls what appears on screen.
 :::
 ::::
+
+
 
 <!-- =============================== -->
 <!-- STICKY & TRIGGER DEMO           -->
@@ -902,15 +906,33 @@ format:
 
 [Now let's look at each style category. On the left is the code for **background**, **stickies**, **narrative**, and **fonts** all in one file. Scroll through to see each block!]{.body-text-m} @cr-full-scss
 
-[**Background** targets `.cr-section`. Use `background-color` for a solid fill or `background-image` for a photo. Set `color` here too so your text stays readable.]{.body-text-m} @cr-full-scss
+:::{focus-on="cr-full-scss" zoom-to="15" highlight="11,12,13,14,15,16,17"}
+:::{.body-text-m}
+**Background** targets `.cr-section`. Use `background-color` for a solid fill or `background-image` for a photo. Set `color` here too so your text stays readable.
+:::
+:::
 
-[**Sticky elements** target `.sticky-col-stack` — the container wrapping your `:::{#cr-YOUR-ID}` content. Round the corners, add a shadow, give it a background — whatever fits your story.]{.body-text-m} @cr-full-scss
 
-[**Narrative elements** target `.narrative-col` — the scrolling text column. A semi-transparent `rgba` background works especially well with `overlay-*` layouts, where narrative floats over a full-screen sticky.]{.body-text-m} @cr-full-scss
+:::{focus-on="cr-full-scss"  zoom-to="25" highlight="19,20,21,22,23,24,25,26"}
+:::{.body-text-m}
+**Sticky elements** target `.sticky-col-stack` — the container wrapping your `:::{#cr-YOUR-ID}` content. Round the corners, add a shadow, give it a background — whatever fits your story.
+:::
+:::
 
-[**Fonts** — import a Google Font at the top, set `font-family` on `body`, then define reusable utility classes like `.teal-text` or `.body-text-xl`. These are the exact classes used throughout this document!]{.body-text-m} @cr-full-scss
+:::{focus-on="cr-full-scss" zoom-to="40" highlight="28,29,30,31,32,33,34"}
+:::{.body-text-m}
+**Narrative elements** target `.narrative-col` — the scrolling text column. A semi-transparent `rgba` background works especially well with `overlay-*` layouts, where narrative floats over a full-screen sticky.
+:::
+:::
 
-:::{#cr-full-scss .body-text-m style="padding: 40px; border-left: 5px solid #047C90; margin-top: 30px;"}
+
+:::{focus-on="cr-full-scss" zoom-to="45" highlight="35,36,37,38,39,40,41,42,43,44,45,46,47"}
+:::{.body-text-m}
+**Fonts** — import a Google Font at the top, set `font-family` on `body`, then define reusable utility classes like `.teal-text` or `.body-text-xl`. These are the exact classes used throughout this document!
+:::
+:::
+
+:::{#cr-full-scss .body-text-s style="padding: 40px; border-left: 5px solid #047C90; margin-top: 30px;"}
 [**Your complete `closeread-styles.scss`:**]{.teal-text}
 ````scss
 /* ── Google Fonts ────────────────────────── */
