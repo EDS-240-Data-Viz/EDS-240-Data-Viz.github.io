@@ -317,7 +317,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall our original dumbbell plot from the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html#dumbbell-plot-example" target="_blank">amounts / rankings lecture</a>. Today, we’ll focus on adding text and updating our theme and fonts.</p>
+<p>Recall our original dumbbell plot from the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html#dumbbell-plot-example" target="_blank">amounts / rankings lecture</a>. Here, we’ll focus on adding text and updating our theme and fonts.</p>
 </div>
 </div>
 <!-- CODE RENDERS BUT DOES NOT RUN -->
@@ -360,17 +360,13 @@ Note
 <span id="cb1-36"><a href="#cb1-36"></a><span class="co">#....................import Font Awesome fonts...................</span></span>
 <span id="cb1-37"><a href="#cb1-37"></a><span class="co"># we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections</span></span>
 <span id="cb1-38"><a href="#cb1-38"></a><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">"fa-brands"</span>,</span>
-<span id="cb1-39"><a href="#cb1-39"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Brands-Regular-400.otf"</span>))</span>
-<span id="cb1-40"><a href="#cb1-40"></a></span>
-<span id="cb1-41"><a href="#cb1-41"></a><span class="co">#......enable {showtext} rendering for all newly opened GDs......</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb1-43"><a href="#cb1-43"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-39"><a href="#cb1-39"></a>         <span class="at">regular =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fonts"</span>, <span class="st">"Font Awesome 7 Brands-Regular-400.otf"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
 </section>
 <section id="wrangle-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-data">Wrangle data</h2>
-<p>This is the same code we saw in the <a href="../../course-materials/lecture-slides/SLIDES-amounts-rankings.html" target="_blank">amounts / rankings lecture</a>.</p>
+<p>This is the same code we saw in the <a href="https://eds-240-data-viz.github.io/course-materials/lecture-slides/SLIDES-amounts-rankings.html#/title-slide" target="_blank">amounts / rankings lecture</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#......create df with just CA water resource region (HUC 18).....</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>ca_region <span class="ot">&lt;-</span> iwa_data <span class="sc">|&gt;</span> </span>
@@ -436,7 +432,7 @@ Note
 <span id="cb3-33"><a href="#cb3-33"></a><span class="st">  or stored reserves."</span></span>
 <span id="cb3-34"><a href="#cb3-34"></a>)</span>
 <span id="cb3-35"><a href="#cb3-35"></a> </span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#..........................updated plot..........................</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#..............................plot..............................</span></span>
 <span id="cb3-37"><a href="#cb3-37"></a>water_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sbc_subbasin_monthly) <span class="sc">+</span></span>
 <span id="cb3-38"><a href="#cb3-38"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, </span>
 <span id="cb3-39"><a href="#cb3-39"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
@@ -455,17 +451,17 @@ Note
 <span id="cb3-52"><a href="#cb3-52"></a>             <span class="at">shape =</span> <span class="dv">21</span>,</span>
 <span id="cb3-53"><a href="#cb3-53"></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
 <span id="cb3-54"><a href="#cb3-54"></a>             <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, </span>
+<span id="cb3-55"><a href="#cb3-55"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"segment"</span>, </span>
 <span id="cb3-56"><a href="#cb3-56"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="fl">3.5</span>,</span>
 <span id="cb3-57"><a href="#cb3-57"></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">1</span>, <span class="co"># or y = "Jun", yend = "Sep"</span></span>
 <span id="cb3-58"><a href="#cb3-58"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
 <span id="cb3-59"><a href="#cb3-59"></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb3-60"><a href="#cb3-60"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"segment"</span>,</span>
 <span id="cb3-61"><a href="#cb3-61"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
 <span id="cb3-62"><a href="#cb3-62"></a>           <span class="at">y =</span> <span class="dv">4</span>, <span class="at">yend =</span> <span class="dv">4</span>, </span>
 <span id="cb3-63"><a href="#cb3-63"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
 <span id="cb3-64"><a href="#cb3-64"></a>           <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-65"><a href="#cb3-65"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb3-65"><a href="#cb3-65"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"segment"</span>,</span>
 <span id="cb3-66"><a href="#cb3-66"></a>           <span class="at">x =</span> <span class="fl">3.5</span>, <span class="at">xend =</span> <span class="dv">3</span>,</span>
 <span id="cb3-67"><a href="#cb3-67"></a>           <span class="at">y =</span> <span class="dv">1</span>, <span class="at">yend =</span> <span class="dv">1</span>, </span>
 <span id="cb3-68"><a href="#cb3-68"></a>           <span class="at">color =</span> pal[<span class="st">"light_gray"</span>],</span>
