@@ -804,9 +804,75 @@ Let's improve this plot by adding text, modifying the theme, and using some new 
 
 This code should look familiar (copied from the [amounts / rankings lecture](SLIDES-amounts-rankings.qmd){target="_blank"}):
 
-```{r dumbbell-original-wrangle}
-#| eval: true
+<!-- CODE RENDERS ON SLIDE BUT DOES NOT RUN -->
+
+```{r dumbbell-original-wrangle-echo-true}
+#| eval: false
 #| echo: true
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(janitor)
+
+#..........................import data...........................
+iwa_data <- read_csv(here::here("week3", "data", "combined_iwa-assessment-outputs-conus-2025_CONUS_200910-202009_long.csv"))
+
+#..................create df of subregions names.................
+# data only contain HUC codes; must manually join names if we want to include those in our viz (which we do! we'll mainly be looking at CA subregions)
+# subregions (& others) identified in: https://water.usgs.gov/GIS/wbd_huc8.pdf
+# there may be a downloadable dataset containing HUCs & names out there...but I couldn't find it
+subregion_names <- tribble(
+  ~subregion_HUC, ~subregion_name,
+  "1801", "Klamath-Northern California Coastal",
+  "1802", "Sacramento",
+  "1803", "Tulare-Buena Vista Lakes",
+  "1804", "San Joaquin",
+  "1805", "San Francisco Bay",
+  "1806", "Central California Coastal",
+  "1807", "Southern California Coastal",
+  "1808", "North Lahontan", 
+  "1809", "Northern Mojave-Mono Lake",
+  "1810", "Southern Mojave-Salton Sea",
+)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#......create df with just CA water resource region (HUC 18).....
+ca_region <- iwa_data |> 
+  clean_names() |> 
+  mutate(region_HUC = str_sub(string = huc12_id, start = 1, end = 2),
+         subregion_HUC = str_sub(string = huc12_id, start = 1, end = 4)) |> 
+  filter(region_HUC == "18") |> 
+  separate_wider_delim(cols = year_month,
+                       delim = "-",
+                       names = c("year", "month")) |>                            
+  mutate(year = as.numeric(year),
+         month = as.numeric(month)) |> 
+  left_join(subregion_names) |> 
+  select(year, month, huc12_id, region_HUC, subregion_HUC, subregion_name, availab_mm_mo, consum_mm_mo, sui_frac)
+
+#.................create df of just SBC subbasin.................
+sbc_subbasin_monthly <- ca_region |> 
+  mutate(subbasin_HUC = str_sub(string = huc12_id, start = 1, end = 8)) |> 
+  filter(subbasin_HUC == "18060013") |> #
+  group_by(month) |> 
+  summarize(mean_avail = mean(availab_mm_mo, na.rm = TRUE),
+            mean_consum = mean(consum_mm_mo, na.rm = TRUE)) |> 
+  mutate(month = month.abb[month],
+         month = factor(month, levels = rev(c(month.abb[10:12], month.abb[1:9]))))
+```   
+
+<!-- CODE RUNS BUT DOES NOT RENDER -->
+
+```{r dumbbell-original-wrangle-eval-true}
+#| eval: true
+#| echo: false
 #| out-width: "50%"
 #| fig-align: "center"
 
@@ -1381,18 +1447,19 @@ showtext_auto(enable = FALSE)
 
 <hr>
 
-[[Font Awesome](https://fontawesome.com/){target="_blank"} is a library of icons, which can be imported and used similar to Google Fonts. You'll need to download the font files first (see today's [pre-class prep instructions](../week7.qmd#pre-class-prep){target="_blank"}). We can then use `showtext::font_add()` to make them available for use in our ggplots:]{.body-text-s}
+[[Font Awesome](https://fontawesome.com/){target="_blank"} is a library of icons, which can be imported and used similar to Google Fonts. You'll need to download the font files first (see today's [pre-class prep instructions](../week7.qmd#pre-class-prep){target="_blank"}). We can then use `font_add()` to make them available for use in our ggplots:]{.body-text-s}
 
 ```{r import-fa}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "16-19"
+#| code-line-numbers: "17-20"
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #..........................load packages.........................
 library(tidyverse)
+library(janitor)
 library(showtext)
 
 #......................import Google Fonts.......................

@@ -14,7 +14,7 @@ This template follows the [typography](../lecture-slides/SLIDES-typography.qmd){
 ## Setup 
 
 ::: {.callout-note}
-Recall our original dumbbell plot from the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd#dumbbell-plot-example){target="_blank"}. Today, we'll focus on adding text and updating our theme and fonts.
+Recall our original dumbbell plot from the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd#dumbbell-plot-example){target="_blank"}. Here, we'll focus on adding text and updating our theme and fonts.
 :::
 
 <!-- CODE RENDERS BUT DOES NOT RUN -->
@@ -64,10 +64,6 @@ font_add_google(name = "Red Hat Mono", family = "red")
 # we'll only be using an icon from the brands collection today; you'll need to import the other .otf files if you also plan to use icons from those collections
 font_add(family = "fa-brands",
          regular = here::here("fonts", "Font Awesome 7 Brands-Regular-400.otf"))
-
-#......enable {showtext} rendering for all newly opened GDs......
-showtext_auto()
-showtext_opts(dpi = 300)
 ```
 
 <!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
@@ -121,7 +117,7 @@ font_add(family = "fa-brands",
 
 ## Wrangle data
 
-This is the same code we saw in the [amounts / rankings lecture](../lecture-slides/SLIDES-amounts-rankings.qmd){target="_blank"}.
+This is the same code we saw in the [amounts / rankings lecture](https://eds-240-data-viz.github.io/course-materials/lecture-slides/SLIDES-amounts-rankings.html#/title-slide){target="_blank"}.
 
 ```{r wrangle-data}
 #| eval: true
@@ -197,7 +193,7 @@ annotation <- glue::glue(
   or stored reserves."
 )
  
-#..........................updated plot..........................
+#..............................plot..............................
 water_plot <- ggplot(sbc_subbasin_monthly) +
   geom_vline(xintercept = 0, 
              linetype = "dashed", 
