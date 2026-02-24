@@ -2251,7 +2251,7 @@
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#title-slide",
     "title": "EDS 240",
     "section": "",
-    "text": "EDS 240: Lecture 9.1\nData storytelling\n\nWeek 9 | March 3rdth, 2025"
+    "text": "EDS 240: Lecture 8.1\nData storytelling\n\nWeek 8 | February 25th, 2026"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#good-design",
@@ -2300,14 +2300,14 @@
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#tell-story1",
     "title": "EDS 240",
     "section": "",
-    "text": "Tell a story about this plot\n\n\n\n\n\n−+\n02:00"
+    "text": "Tell a story about this plot\n\n\n\n\n\n−+\n01:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#tell-story2",
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#tell-story2",
     "title": "EDS 240",
     "section": "",
-    "text": "Tell a story about this plot\n\n\n\n\n\n−+\n02:00"
+    "text": "Tell a story about this plot\n\n\n\n\n\n−+\n01:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#tell-story3",
@@ -2321,21 +2321,21 @@
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#plot-code",
     "title": "EDS 240",
     "section": "",
-    "text": "Complete code (in case you’re interested)\n\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(showtext)\n\n#...........................load fonts...........................\nfont_add_google(name = \"Montserrat\", family = \"montserrat\")\nshowtext_auto()\n\n#.................get and assemble penguin image.................\n# only need to run these first two lines once to download image: \n# url &lt;- \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png\"\n# utils::download.file(url = url, destfile =  here::here(\"week8\", \"images\", \"penguin.png\"))\nmy_img &lt;- png::readPNG(here::here(\"week8\", \"images\", \"penguin.png\"))\nmy_raster_img &lt;- grid::rasterGrob(my_img)\n\n#...........................build plot...........................\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +\n  geom_point(alpha = 0.8, size = 2) +\n  ggforce::geom_mark_ellipse(aes(group = species, label = species),\n                    color = \"black\") +\n  scale_color_gradientn(colors = c(\"#F3E5B1\", \"#6C7B1A\", \"#044148\")) +\n  guides(color = guide_colorbar(barwidth = 20, barheight = 0.5, \n                                title.position = \"top\", title.hjust = 0.5,\n                                ticks = FALSE)) +\n  scale_x_continuous(breaks = seq(25, 65, 5),\n                     limits = c(25, 65),\n                     expand = c(0,0)) +\n  scale_y_continuous(breaks = seq(12, 24, 2),\n                     limits = c(12, 24),\n                     expand = c(0,0)) +\n  labs(x = \"**Bill Length** (mm)\",\n       y = \"**Bill Depth** (mm)\",\n       color = \"Body Mass (g)\",\n       title = \"**Bill Dimensions of Brush-Tailed Penguins (*Phygoscelis*)**\",\n       caption = \"Data: Gorman, Williams, Fraser (2014) PLoS ONE | Illustration: Allison Horst\") +\n  theme_light() +\n  theme(\n    plot.title.position = \"plot\",\n    legend.position = \"top\",\n    text = element_text(family = \"montserrat\"),\n    plot.title = ggtext::element_textbox_simple(size = 20,\n                                                margin = margin(0.5, 0, 1, 0.25, \"lines\")),\n    axis.title.x = ggtext::element_markdown(size = 15,\n                                            margin = margin(1, 0, 0, 0, \"lines\")),\n    axis.title.y = ggtext::element_markdown(size = 15,\n                                            margin = margin(0, 1, 0, 0, \"lines\")),\n    axis.text = element_text(size = 10),\n    axis.ticks = element_blank(),\n    legend.title = element_text(size = 14),\n    legend.text = element_text(size = 10),\n    plot.caption = element_text(face = \"italic\",\n                                margin = margin(2, 0, 0, 0, \"lines\")),\n    panel.grid.minor = element_blank()\n  ) +\n  coord_cartesian(clip = \"off\") +\n  annotation_custom(my_raster_img, \n                    xmin = 56.8, xmax = 65.8,\n                    ymin = 22, ymax = 30) \n\n\nNote: The positioning / size of text, penguin image, etc. was chosen based on how it looked as rendered in the slides. You may need to modify for viewing on your own device."
+    "text": "Complete code (in case you’re interested)\n\n\n#..........................load packages.........................\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(showtext)\n\n#...........................load fonts...........................\nfont_add_google(name = \"Montserrat\", family = \"montserrat\")\n\n#.................get and assemble penguin image.................\n# only need to run these first two lines once to download image: \n# url &lt;- \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png\"\n# utils::download.file(url = url, destfile =  here::here(\"week8\", \"images\", \"penguin.png\"))\nmy_img &lt;- png::readPNG(here::here(\"week8\", \"images\", \"penguin.png\"))\nmy_raster_img &lt;- grid::rasterGrob(my_img)\n\n#........................enable showtext.........................\nshowtext_auto(enable = TRUE)\n\n#...........................build plot...........................\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +\n  geom_point(alpha = 0.8, size = 2) +\n  ggforce::geom_mark_ellipse(aes(group = species, label = species),\n                    color = \"black\") +\n  scale_color_gradientn(colors = c(\"#F3E5B1\", \"#6C7B1A\", \"#044148\")) +\n  guides(color = guide_colorbar(barwidth = 20, barheight = 0.5, \n                                title.position = \"top\", title.hjust = 0.5,\n                                ticks = FALSE)) +\n  scale_x_continuous(breaks = seq(25, 65, 5),\n                     limits = c(25, 65),\n                     expand = c(0,0)) +\n  scale_y_continuous(breaks = seq(12, 24, 2),\n                     limits = c(12, 24),\n                     expand = c(0,0)) +\n  labs(x = \"**Bill Length** (mm)\",\n       y = \"**Bill Depth** (mm)\",\n       color = \"Body Mass (g)\",\n       title = \"**Bill Dimensions of Brush-Tailed Penguins (*Phygoscelis*)**\",\n       caption = \"Data: Gorman, Williams, Fraser (2014) PLoS ONE | Illustration: Allison Horst\") +\n  theme_light() +\n  theme(\n    plot.title.position = \"plot\",\n    legend.position = \"top\",\n    text = element_text(family = \"montserrat\"),\n    plot.title = ggtext::element_textbox_simple(size = 20,\n                                                margin = margin(0.5, 0, 1, 0.25, \"lines\")),\n    axis.title.x = ggtext::element_markdown(size = 15,\n                                            margin = margin(1, 0, 0, 0, \"lines\")),\n    axis.title.y = ggtext::element_markdown(size = 15,\n                                            margin = margin(0, 1, 0, 0, \"lines\")),\n    axis.text = element_text(size = 10),\n    axis.ticks = element_blank(),\n    legend.title = element_text(size = 14),\n    legend.text = element_text(size = 10),\n    plot.caption = element_text(face = \"italic\",\n                                margin = margin(2, 0, 0, 0, \"lines\")),\n    panel.grid.minor = element_blank()\n  ) +\n  coord_cartesian(clip = \"off\") +\n  annotation_custom(my_raster_img, \n                    xmin = 56.8, xmax = 65.8,\n                    ymin = 22, ymax = 30) \n\n#........................turn off showtext.......................\nshowtext_auto(enable = FALSE)\n\n\nNote: The positioning / size of text, penguin image, etc. was chosen based on how it looked as rendered in the slides. You may need to modify for viewing on your own device."
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#scroll-stories",
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#scroll-stories",
     "title": "EDS 240",
     "section": "",
-    "text": "Scrollable data stories help to weave longer narratives\n\n\nTake some time to explore these with your learning partners and be prepared to share out some thoughts.\n\n\nA fishery in a sea of change, by Amalia Harrington, Jennie Rheuban, and Carolina Bastidas\nWhat’s that bug?, by Esri’s StoryMaps Team\nWhy Arctic fires are releasing more carbon, by Simon Scarr\nThe collapse of insects, by Julia Janicki, Gloria Dickie, Simon Scarr and Jitesh Chowdhury\nPlastic Air, by Giorgia Lupi\nThe fry universe, by Chris Williams\nU.S. Gun Deaths in 2013, by Periscopic\nBussed Out: How American moves its homeless, by the Outside in America team\nThe unexpected link between imperiled whales and Greenland’s melting ice, by NPR\nHow Close Are the Planet’s Climate Tipping Points?, by The New York Times\nReuters graphics (a collection)\n20 Best Data Storytelling Examples (Updated for 2023), by Zach Gemignani\n\n\n\n\n−+\n08:00"
+    "text": "Scrollable data stories help to weave longer narratives\n\n\n\n‘Unsafe to Inhabit’: The Toxic Homes of LA, by Hiroko Tabuchi, Jonah Smith, Jack Begg, Alain Delaquérière, Susan C. Beachy and Sheelagh McNeill\nHow California fights fires from the skies, by Simon Scarr, Vijdan Mohammad Kawoosa and Sudev Kiyada\nHere’s What the Rise of Clean Energy Looks Like From Space, by Mira Rojanasakul\nHow A.I. Is Changing the Way the World Builds Computers, by Cade Metz, Karen Weise, Marco Hernandez, Mike Isaac and Anjali Singhvi\nA fishery in a sea of change, by Amalia Harrington, Jennie Rheuban, and Carolina Bastidas\nDrowning in Plastic, by Simon Scarr and Marco Hernandez\nWhat’s that bug?, by Esri’s StoryMaps Team\nWhy Arctic fires are releasing more carbon, by Simon Scarr\nThe collapse of insects, by Julia Janicki, Gloria Dickie, Simon Scarr and Jitesh Chowdhury\nPlastic Air, by Giorgia Lupi\nThe unexpected link between imperiled whales and Greenland’s melting ice, by NPR\nHow Close Are the Planet’s Climate Tipping Points?, by The New York Times    \n\n\nFor more, see Reuters graphics (a collection) & New York Times 2025: The Year in Visual Stories and Graphics & Datawrapper’s Data vis lists, 2025\n\n\n\n\n−+\n08:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#static-viz-stories",
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#static-viz-stories",
     "title": "EDS 240",
     "section": "",
-    "text": "We’ve shown that static viz can also tell stories\n\n\nThe next ten slides (14 - 23) each have a different static visualization. With your learning partner(s), discuss the following:\n\n\nwhat story(ies) is the viz being used to tell?\nwhat design elements (e.g. text, color, images) do they authors use to help tell the story?\nhow do the authors provide context (may be related to your above answer)?\nwhat is the purpose of this viz (e.g. to answer a question, spark additional questions, etc.)?\nwhat do you find effective? what don’t you find effective?\n\n\nNote: You don’t need to get to every viz! There are lots of options so you can explore those that peak your interest most.\n\n\n\n−+\n08:00"
+    "text": "We’ve shown that static viz can also tell stories\n\n\nThe next eight slides (14 - 21) each have a different static visualization. With your learning partner(s), discuss the following:\n\n\nwhat story(ies) is the viz being used to tell?\nwhat design elements (e.g. text, color, images) do they authors use to help tell the story?\nhow do the authors provide context (may be related to your above answer)?\nwhat is the purpose of this viz (e.g. to answer a question, spark additional questions, etc.)?\nwhat do you find effective? what don’t you find effective?\n\n\nNote: You don’t need to get to every viz! There are lots of options so you can explore those that peak your interest most.\n\n\n\n−+\n06:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#jan6",
@@ -2363,7 +2363,7 @@
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#ca-oil",
     "title": "EDS 240",
     "section": "",
-    "text": "‘Catastrophic’ California oil spill kills fish, damaages wetlands (Reuters)"
+    "text": "‘Catastrophic’ California oil spill kills fish, damages wetlands (Reuters)"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#clean-fuel",
@@ -2433,21 +2433,21 @@
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#chalabi",
     "title": "EDS 240",
     "section": "",
-    "text": "Consider the audience\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nendangered species that could (almost) fit in a single train carriage, by Mona Chalabi (two of seven shown here)\n\n\n\n\n−+\n02:00"
+    "text": "Consider the audience\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nendangered species that could (almost) fit in a single train carriage, by Mona Chalabi (two of seven shown here)\n\n\n\n\n−+\n01:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#ingeman",
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#ingeman",
     "title": "EDS 240",
     "section": "",
-    "text": "Consider the audience\n\n\n\n\nFig. 3, by Ingeman et al. 2022: Glimmers of hope and critical cases. Find figure caption online.\n\n\n\n\n−+\n02:00"
+    "text": "Consider the audience\n\n\n\n\nFig. 3, by Ingeman et al. 2022: Glimmers of hope and critical cases. Find figure caption online.\n\n\n\n\n−+\n01:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#scherer",
     "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#scherer",
     "title": "EDS 240",
     "section": "",
-    "text": "Consider the audience\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlants in Danger, by Cédric Scherer (code)\n\n\n\n\n−+\n02:00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Cédric Scherer’s talk, Effective Data Visualization and Graphic Design with ggplot2 workshop"
+    "text": "Consider the audience\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlants in Danger, by Cédric Scherer (code)\n\n\n\n\n−+\n02:00"
   },
   {
     "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#break",
@@ -4295,7 +4295,7 @@
     "href": "course-materials/week7.html#pre-lab-prep",
     "title": "Enhancing visualizations (typography & annotations)",
     "section": " Pre-lab Prep",
-    "text": "Pre-lab Prep\nFrom here on out, we’ll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:\n\nA. Prepare your data viz slide\nFPM #3, asks you to draft all three required visualizations that will become a part of your final project infographic. Find your assigned slide from the Google Slide deck (see table, under the Lab Materials section, below) and add the following:\n\none of your three visualizations\nthe question that you’re visualization helps to answer\n\nThe visualization you bring should meet the FPM #3 requirements (see part V under the Description section) – this should be a well-constructed, carefully thought-through and polished plot. You should be prepared to discuss your design choices and receive constructive feedback from your peers.\n\n\nB. Read up on how to give / receive feedback\nGiving, receiving and implementing feedback is an important part of any creative process (including building data visualizations!). Review the tips in the drop down, below:\n\n\n\n\n\n\nTipImportant tips for giving / receiving / implementing feedback:\n\n\n\n\n\nThe following tips were largely adapted from this LinkedIn article.\nFor giving feedback:\n\nfocus on the strengths / weakness of the visualization itself, not the person who created it\nbalance positive and negative feedback, and start with the positives!\nstay objective when suggesting improvements (e.g. “This part might benefit from some clarity…”)\nbe specific (e.g. instead of saying, “This chart is confusing,” point out exactly what is unclear or misleading)\nsuggest actionable solutions and / or alternatives, rather than only problems or criticisms\n\nFor receiving feedback:\n\nreceiving feedback can be stressful – this is a very normal feeling!\nlisten carefully without disrupting / defending yourself\ntake notes, ask questions, and thank your feedback giver(s)\nevaluate your feedback objectively to decide what to keep / reject / modify\n\nFor applying feedback:\n\nprioritize feedback based on relevance, importance, and feasibility\ncreate a plan and a timeline to implement\ncritically evaluate / compare your before and after versions\nseek new feedback!\n\n\n\n\nPlease also read the following articles on critiquing data viz:\n\nDesign and Redesign, by Fernanda Viégas & Martin Wattenberg\nA Better Path Toward Criticizing Data Visualizations, on PolicyViz"
+    "text": "Pre-lab Prep\nFrom here on out, we’ll be using lab sections to share drafts of final project data visualizations and receive feedback from peers. Please complete the following before coming to section:\n\nA. Prepare your data viz slide\nFPM #3, asks you to draft all three required visualizations that will become a part of your final project infographic. Find your assigned slide from the Google Slide deck (see table, under the Lab Materials section, below) and add the following:\n\none of your three visualizations\nthe question that you’re visualization helps to answer\n\nThe visualization you bring should meet the FPM #3 requirements (see part V under the Description section) – this should be a well-constructed, carefully thought-through and polished plot. You should be prepared to discuss your design choices and receive constructive feedback from your peers.\n\n\nB. Read up on how to give / receive feedback\nGiving, receiving and implementing feedback is an important part of any creative process (including building data visualizations!). Review the tips in the drop down, below:\n\n\n\n\n\n\nImportant tips for giving / receiving / implementing feedback:\n\n\n\n\n\nThe following tips were largely adapted from this LinkedIn article.\nFor giving feedback:\n\nfocus on the strengths / weakness of the visualization itself, not the person who created it\nbalance positive and negative feedback, and start with the positives!\nstay objective when suggesting improvements (e.g. “This part might benefit from some clarity…”)\nbe specific (e.g. instead of saying, “This chart is confusing,” point out exactly what is unclear or misleading)\nsuggest actionable solutions and / or alternatives, rather than only problems or criticisms\n\nFor receiving feedback:\n\nreceiving feedback can be stressful – this is a very normal feeling!\nlisten carefully without disrupting / defending yourself\ntake notes, ask questions, and thank your feedback giver(s)\nevaluate your feedback objectively to decide what to keep / reject / modify\n\nFor applying feedback:\n\nprioritize feedback based on relevance, importance, and feasibility\ncreate a plan and a timeline to implement\ncritically evaluate / compare your before and after versions\nseek new feedback!\n\n\n\n\nPlease also read the following articles on critiquing data viz:\n\nDesign and Redesign, by Fernanda Viégas & Martin Wattenberg\nA Better Path Toward Criticizing Data Visualizations, on PolicyViz"
   },
   {
     "objectID": "course-materials/week7.html#lab-materials",
@@ -7362,5 +7362,26 @@
     "title": "EDS 240",
     "section": "",
     "text": "EDS 240: Lab 7\nPeer feedback\n\nWeek 7 | February 19th, 2026"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#ev-costs",
+    "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#ev-costs",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Screenshot from Instagram | Full article: How Much It Costs to Drive an E.V. and a Gas Car in Every State (New York Times)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#drug-claims",
+    "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#drug-claims",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Screenshot from Instagram | Full article: Health Insurers Are Denying More Drug Claims, Data Shows (New York Times)"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-data-storytelling.html#break-end",
+    "href": "course-materials/lecture-slides/SLIDES-data-storytelling.html#break-end",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Take a Break\n\n\n\n\n\n\n−+\n05:00"
   }
 ]
