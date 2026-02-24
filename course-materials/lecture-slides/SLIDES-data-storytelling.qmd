@@ -13,13 +13,13 @@ editor_options:
 
 ## {#title-slide data-menu-title="Title Slide" background="#053660"} 
 
-[EDS 240: Lecture 9.1]{.custom-title}
+[EDS 240: Lecture 8.1]{.custom-title}
 
 [*Data storytelling*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
-[Week 9 | March 3rd^th^, 2025]{.custom-subtitle3}
+[Week 8 | February 25^th^, 2026]{.custom-subtitle3}
 
 ---
 
@@ -188,7 +188,7 @@ For each version, consider the following questions:
 
 <hr>
 
-```{r}
+```{r penguin-story1}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -233,9 +233,9 @@ p1 <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_m
 p1
 ```
 
-```{r}
+```{r penguin-story1-countdown}
 countdown::countdown(
-  minutes = 2,
+  minutes = 1,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -257,7 +257,7 @@ countdown::countdown(
 
 <hr>
 
-```{r}
+```{r penguin-story2}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -314,9 +314,9 @@ p2 <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_m
 p2
 ```
 
-```{r}
+```{r penguin-story2-countdown}
 countdown::countdown(
-  minutes = 2,
+  minutes = 1,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -338,7 +338,7 @@ countdown::countdown(
 
 <hr>
 
-```{r}
+```{r penguin-story3}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -409,7 +409,7 @@ p3 <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_m
 p3
 ```
 
-```{r}
+```{r penguin-story3-countdown}
 countdown::countdown(
   minutes = 2,
   # left = 0, right = 0,
@@ -437,7 +437,7 @@ Recreated based on Cédric Scherer's visualization as showcased in his talk, [gg
 
 <hr>
 
-```{r}
+```{r penguin-story-code}
 #| eval: false
 #| echo: true
 #..........................load packages.........................
@@ -447,7 +447,6 @@ library(showtext)
 
 #...........................load fonts...........................
 font_add_google(name = "Montserrat", family = "montserrat")
-showtext_auto()
 
 #.................get and assemble penguin image.................
 # only need to run these first two lines once to download image: 
@@ -455,6 +454,9 @@ showtext_auto()
 # utils::download.file(url = url, destfile =  here::here("week8", "images", "penguin.png"))
 my_img <- png::readPNG(here::here("week8", "images", "penguin.png"))
 my_raster_img <- grid::rasterGrob(my_img)
+
+#........................enable showtext.........................
+showtext_auto(enable = TRUE)
 
 #...........................build plot...........................
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)) +
@@ -499,6 +501,9 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)
   annotation_custom(my_raster_img, 
                     xmin = 56.8, xmax = 65.8,
                     ymin = 22, ymax = 30) 
+
+#........................turn off showtext.......................
+showtext_auto(enable = FALSE)
 ```
 
 ::: {.footer}
@@ -513,24 +518,32 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = body_mass_g)
 
 <hr>
 
-::: {.center-text}
-**Take some time to explore these with your learning partners and be prepared to share out some thoughts.**
+<!-- ::: {.center-text}
+**Explore these with your learning partners & be prepared to share out your thoughts**
+::: -->
+
+- [['Unsafe to Inhabit': The Toxic Homes of LA](https://www.nytimes.com/interactive/2025/06/24/realestate/los-angeles-fires-toxic-homes.html){target="_blank"}, by Hiroko Tabuchi, Jonah Smith, Jack Begg, Alain Delaquérière, Susan C. Beachy and Sheelagh McNeill]{.body-text-s}
+- [[How California fights fires from the skies](https://www.reuters.com/graphics/CALIFORNIA-WILDFIRES/AIRCRAFTS/egvbjgkajvq/){target="_blank"}, by Simon Scarr, Vijdan Mohammad Kawoosa and Sudev Kiyada]{.body-text-s}
+- [[Here’s What the Rise of Clean Energy Looks Like From Space](https://www.nytimes.com/interactive/2025/03/20/climate/clean-energy-solar-wind-sites-space.html){target="_blank"}, by Mira Rojanasakul]{.body-text-s}
+- [[How A.I. Is Changing the Way the World Builds Computers](https://www.nytimes.com/interactive/2025/03/16/technology/ai-data-centers.html){target="_blank"}, by Cade Metz, Karen Weise, Marco Hernandez, Mike Isaac and Anjali Singhvi]{.body-text-s}
+- [[A fishery in a sea of change](https://storymaps.arcgis.com/stories/f50bd80b84d349048e9d814769dc29cd){target="_blank"}, by Amalia Harrington, Jennie Rheuban, and Carolina Bastidas]{.body-text-s}
+- [[Drowning in Plastic](https://www.reuters.com/graphics/ENVIRONMENT-PLASTIC/0100B275155/){target="_blank"}, by Simon Scarr and Marco Hernandez]{.body-text-s}
+- [[What's that bug?](https://storymaps.arcgis.com/stories/033b34f9c6224f56b9369c06562929a1?adumkts=social&utm_source=social&aduc=social&adum=external&adusf=linkedin&sf_id=7015x000000aYlKAAU&aduca=mi_employee_advocacy_hootsuite_amplify_soc_ex&adut=6c17fe77-0644-410e-b3fd-dd5d10a217d4){target="_blank"}, by Esri's StoryMaps Team]{.body-text-s}
+- [[Why Arctic fires are releasing more carbon](https://www.reuters.com/graphics/CLIMATE-CHANGE/WILDFIRE-EMISSIONS/zjvqkrwmnvx/){target="_blank"}, by Simon Scarr]{.body-text-s}
+- [[The collapse of insects](https://www.reuters.com/graphics/GLOBAL-ENVIRONMENT/INSECT-APOCALYPSE/egpbykdxjvq/index.html){target="_blank"}, by Julia Janicki, Gloria Dickie, Simon Scarr and Jitesh Chowdhury]{.body-text-s}
+- [[Plastic Air](https://giorgialupi.com/plastic-air){target="_blank"}, by Giorgia Lupi]{.body-text-s}
+- [[The unexpected link between imperiled whales and Greenland’s melting ice](https://apps.npr.org/arctic-ice-melting-climate-change/greenland-whales.html){target="_blank"}, by NPR]{.body-text-s}
+- [[How Close Are the Planet’s Climate Tipping Points?](https://www.nytimes.com/interactive/2024/08/11/climate/earth-warming-climate-tipping-points.html){target="_blank"}, by The New York Times]{.body-text-s}
+<!-- - [[U.S. Gun Deaths in 2013](https://guns.periscopic.com/?year=2013){target="_blank"}, by Periscopic]{.body-text-s} -->
+<!-- - [[Bussed Out: How American moves its homeless](https://www.theguardian.com/us-news/ng-interactive/2017/dec/20/bussed-out-america-moves-homeless-people-country-study){target="_blank"}, by the Outside in America team]{.body-text-s} -->
+<!-- - [20 Best Data Storytelling Examples (Updated for 2023)](https://www.juiceanalytics.com/writing/20-best-data-storytelling-examples){target="_blank"}, by Zach Gemignani -->
+<!-- - [The fry universe](https://www.chris-williams.me/fry-universe){target="_blank"}, by Chris Williams -->
+
+::: {.footer}
+For more, see [Reuters graphics (a collection)](https://www.reuters.com/graphics/){target="_blank"} & [New York Times 2025: The Year in Visual Stories and Graphics](https://www.nytimes.com/interactive/2025/12/22/us/2025-year-in-graphics.html){target="_blank"} & [Datawrapper's Data vis lists, 2025](https://www.datawrapper.de/blog/data-vis-dispatch-december-30-2025){target="_blank"}
 :::
 
-- [A fishery in a sea of change](https://storymaps.arcgis.com/stories/f50bd80b84d349048e9d814769dc29cd){target="_blank"}, by Amalia Harrington, Jennie Rheuban, and Carolina Bastidas
-- [What's that bug?](https://storymaps.arcgis.com/stories/033b34f9c6224f56b9369c06562929a1?adumkts=social&utm_source=social&aduc=social&adum=external&adusf=linkedin&sf_id=7015x000000aYlKAAU&aduca=mi_employee_advocacy_hootsuite_amplify_soc_ex&adut=6c17fe77-0644-410e-b3fd-dd5d10a217d4){target="_blank"}, by Esri's StoryMaps Team
-- [Why Arctic fires are releasing more carbon](https://www.reuters.com/graphics/CLIMATE-CHANGE/WILDFIRE-EMISSIONS/zjvqkrwmnvx/){target="_blank"}, by Simon Scarr
-- [The collapse of insects](https://www.reuters.com/graphics/GLOBAL-ENVIRONMENT/INSECT-APOCALYPSE/egpbykdxjvq/index.html){target="_blank"}, by Julia Janicki, Gloria Dickie, Simon Scarr and Jitesh Chowdhury
-- [Plastic Air](https://giorgialupi.com/plastic-air){target="_blank"}, by Giorgia Lupi
-- [The fry universe](https://www.chris-williams.me/fry-universe){target="_blank"}, by Chris Williams
-- [U.S. Gun Deaths in 2013](https://guns.periscopic.com/?year=2013){target="_blank"}, by Periscopic
-- [Bussed Out: How American moves its homeless](https://www.theguardian.com/us-news/ng-interactive/2017/dec/20/bussed-out-america-moves-homeless-people-country-study){target="_blank"}, by the Outside in America team
-- [The unexpected link between imperiled whales and Greenland’s melting ice](https://apps.npr.org/arctic-ice-melting-climate-change/greenland-whales.html){target="_blank"}, by NPR
-- [How Close Are the Planet’s Climate Tipping Points?](https://www.nytimes.com/interactive/2024/08/11/climate/earth-warming-climate-tipping-points.html){target="_blank"}, by The New York Times
-- [Reuters graphics (a collection)](https://www.reuters.com/graphics/){target="_blank"}
-- [20 Best Data Storytelling Examples (Updated for 2023)](https://www.juiceanalytics.com/writing/20-best-data-storytelling-examples){target="_blank"}, by Zach Gemignani
-
-```{r}
+```{r scrollable-datastores-countdown}
 countdown::countdown(
   minutes = 8,
   # left = 0, right = 0,
@@ -556,7 +569,7 @@ countdown::countdown(
 
 <br>
 
-The next ten slides (14 - 23) each have a different static visualization. With your learning partner(s), discuss the following:
+The next nine slides (14 - 22) each have a different static visualization. With your learning partner(s), discuss the following:
 
 <br>
 
@@ -570,9 +583,9 @@ The next ten slides (14 - 23) each have a different static visualization. With y
 
 **Note:** You don't need to get to every viz! There are lots of options so you can explore those that peak your interest most.
 
-```{r}
+```{r static-datastories-countdown}
 countdown::countdown(
-  minutes = 8,
+  minutes = 6,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -588,41 +601,41 @@ countdown::countdown(
 
 ---
 
-## {#jan6 data-menu-title="Jan 6 (1/10)"} 
+## {#ev-costs data-menu-title="EV vs. Gas"} 
 
-```{r}
+```{r ev}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "jan6.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "ev-costs.png"))
 ```
 
-::: {.center-text .body-text-s}
-[The Jan. 6 inquiry, by the numbers](https://twitter.com/nytimes/status/1743025807491027261){target="_blank"} (New York Times)
+::: {.footer}
+Screenshot from Instagram | Full article: [How Much It Costs to Drive an E.V. and a Gas Car in Every State](https://www.nytimes.com/2025/10/08/upshot/ev-versus-gas-car-comparison-cost.html){target="_blank"} (New York Times)
 :::
 
 ---
 
-## {#china-pop data-menu-title="China's population (2/10)"} 
+## {#freshwater-fish data-menu-title="Freshwater fish"} 
 
-```{r}
+```{r freshwater-fish}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "china-pop.png"))
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "freshwater-fish.png"))
 ```
 
-::: {.center-text .body-text-s}
-[China's population continues to shrink as deaths outnumber births](https://twitter.com/nytimes/status/1747729285329084482){target="_blank"} (New York Times)
+::: {.footer}
+[Freshwater Biodiversity](https://biodiversitystripes.info/freshwater/fish){target="_blank"} by [biodiversitystripes.info](https://biodiversitystripes.info/global){target="_blank"} & [livingplanetindex.org](https://www.livingplanetindex.org/){target="_blank"}
 :::
 
 ---
 
-## {#can-fires data-menu-title="Canada's wildfires (3/10)"} 
+## {#can-fires data-menu-title="Canada's wildfires"} 
 
-```{r}
+```{r can-fires}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -630,15 +643,31 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "can-fires.png"))
 ```
 
-::: {.center-text .body-text-s}
+::: {.footer}
 [Wildfires in Canada burned this much land so far this year](https://twitter.com/prinzmagtulis/status/1693684342818574675){target="_blank"} (Reuters)
 :::
 
 ---
 
-## {#ca-oil data-menu-title="CA oil spill (4/10)"} 
+## {#drug-claims data-menu-title="Drug claims"} 
 
-```{r}
+```{r drug-claims}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "drug-claims.png"))
+```
+
+::: {.footer}
+Screenshot from Instagram | Full article: [Health Insurers Are Denying More Drug Claims, Data Shows](https://www.nytimes.com/2025/07/18/health/health-insurance-prescription-claim-denials.html){target="_blank"} (New York Times)
+:::
+
+---
+
+## {#ca-oil data-menu-title="CA oil spill"} 
+
+```{r ca-oil}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -646,15 +675,15 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "ca-oil.png"))
 ```
 
-::: {.center-text .body-text-s}
-['Catastrophic' California oil spill kills fish, damaages wetlands](https://twitter.com/ReutersGraphics/status/1445052808349241346){target="_blank"} (Reuters)
+::: {.footer}
+['Catastrophic' California oil spill kills fish, damages wetlands](https://twitter.com/ReutersGraphics/status/1445052808349241346){target="_blank"} (Reuters)
 :::
 
 ---
 
-## {#clean-fuel data-menu-title="Clean fuel (5/10)"} 
+## {#clean-fuel data-menu-title="Clean fuel"} 
 
-```{r}
+```{r clean-fuel}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -662,15 +691,15 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "clean-fuel.png"))
 ```
 
-::: {.center-text .body-text-s}
+::: {.footer}
 [Access to clean fuels and technologies for cooking](https://twitter.com/ReutersGraphics/status/1558098980831383552){target="_blank"} (Reuters)
 :::
 
 ---
 
-## {#cacti data-menu-title="Cacti (6/10)"} 
+## {#cacti data-menu-title="Cacti"} 
 
-```{r}
+```{r cacti}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -678,47 +707,15 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "cacti.png"))
 ```
 
-::: {.center-text .body-text-s}
+::: {.footer}
 [Almost half of U.S. cacti are vulnerable to extinction](https://twitter.com/ReutersGraphics/status/1622631279282774016){target="_blank"} (Reuters)
 :::
 
 ---
 
-## {#messi data-menu-title="Messi (7/10)"} 
+## {#employed data-menu-title="Employed"} 
 
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "messi.png"))
-```
-
-::: {.center-text .body-text-s}
-[Lionel Messi: all 672 goals for Barcelona by season](https://twitter.com/ReutersGraphics/status/1424701147789541386){target="_blank"} (Reuters)
-:::
-
----
-
-## {#refugees data-menu-title="Refugees (8/10)"} 
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "refugees.png"))
-```
-
-::: {.center-text .body-text-s}
-[Refugees resettled in the United States](https://twitter.com/ReutersGraphics/status/1430289471426207745){target="_blank"} (Reuters)
-:::
-
----
-
-## {#employed data-menu-title="Employed (9/10)"} 
-
-```{r}
+```{r employed}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
@@ -726,15 +723,15 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "employed.png"))
 ```
 
-::: {.center-text .body-text-s}
+::: {.footer}
 [How employed people spend their day](https://us.gestalten.com/blogs/journal/visualizing-a-new-new-york-times){target="_blank"} (New York Times)
 :::
 
 ---
 
-## {#hockey-stick data-menu-title="Hockey stick (10/10)"} 
+## {#hockey-stick data-menu-title="Hockey stick"} 
 
-```{r}
+```{r hockey-stic}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -742,11 +739,11 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "mann-etal-hockey-stick.png"))
 ```
 
-::: {.center-text .body-text-s}
+::: {.footer}
 ["Hockey Stick" graph](https://en.wikipedia.org/wiki/Hockey_stick_graph_(global_temperature){target="_blank"}), by [Mann et al. (1999)](https://doi.org/10.1029/1999GL900070){target="_blank"}
 :::
 
-::: notes
+::: {.notes}
 Data from thermometers (red) and from tree rings, corals, ice cores, and historical records (blue).
 :::
 
@@ -836,7 +833,7 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{r}
+```{r chalabi-kingfishers}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -846,7 +843,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r chalabi-vaquitas}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -861,9 +858,9 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 [endangered species that could (almost) fit in a single train carriage](https://www.theguardian.com/environment/gallery/2018/sep/17/endangered-species-on-a-train){target="_blank"}, by [Mona Chalabi](https://monachalabi.com/){target="_blank"} (two of seven shown here)
 :::
 
-```{r}
+```{r chalabi-countdown}
 countdown::countdown(
-  minutes = 2,
+  minutes = 1,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -885,7 +882,7 @@ countdown::countdown(
 
 <hr>
 
-```{r}
+```{r ingeman-fig3}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -899,9 +896,9 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 Fig. 3, by [Ingeman et al. 2022](https://www.nature.com/articles/s41598-022-13671-7){target="_blank"}: Glimmers of hope and critical cases. Find [figure caption online](https://www.nature.com/articles/s41598-022-13671-7/figures/3){target="_blank"}.
 :::
 
-```{r}
+```{r ingeman-fig3-countdown}
 countdown::countdown(
-  minutes = 2,
+  minutes = 1,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -930,7 +927,7 @@ countdown::countdown(
 ::: {.column width="50%"}
 <br>
 
-```{r}
+```{r scherer-plants1}
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -941,7 +938,7 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 :::
 
 ::: {.column width="50%"}
-```{r}
+```{r scherer-plants2} 
 #| eval: true
 #| echo: false
 #| out-width: "100%"
@@ -956,9 +953,9 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 [Plants in Danger](https://github.com/Z3tt/TidyTuesday/tree/main/plots/2020_34){target="_blank"}, by [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"} ([code](https://github.com/z3tt/TidyTuesday/blob/main/R/2020_34_ExtinctPlants.Rmd){target="_blank"})
 :::
 
-```{r}
+```{r scherer-plants-countdown}
 countdown::countdown(
-  minutes = 2,
+  minutes = 1,
   # left = 0, right = 0,
   # Fanfare when it's over
   play_sound = TRUE,
@@ -1075,9 +1072,9 @@ countdown::countdown(
 
 <!-- :::: -->
 
-::: footer
+<!-- ::: {.footer}
 From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, [Effective Data Visualization](https://www.youtube.com/watch?v=swzFdMc6WPk){target="_blank"} and [Graphic Design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/){target="_blank"} workshop
-:::
+::: -->
 
 
 <!-- --- -->
@@ -1236,14 +1233,14 @@ From [Cédric Scherer](https://www.cedricscherer.com/){target="_blank"}'s talk, 
 
 ---
 
-##  {#break data-menu-title="# Break #" background="#047C90"}
+##  {#end-break data-menu-title="# Break / End #" background="#047C90"}
 
 <div class="page-center vertical-center">
 <p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
-<p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p>
+<!-- <p class="caption-text">*~ This is the end of Lesson 1 (of 2) ~*</p> -->
 </div>
 
-```{r}
+```{r break-countdown}
 countdown::countdown(
   minutes = 5,
   # left = 0, right = 0,
