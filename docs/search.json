@@ -7348,5 +7348,201 @@
     "title": "EDS 240",
     "section": "",
     "text": "Take a Break\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#title-slide",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#title-slide",
+    "title": "EDS 240",
+    "section": "",
+    "text": "EDS 240: Lecture 9.1\nInteractive Data Visualization\n\nWeek 9 | March 4th, 2026"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#good-design",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#good-design",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Good data visualization design considers:\n\n\ndata-ink ratio (less is more, within reason)\nhow to reduce eye movement and improve readability / interpretability\nputting things in context\nhow to draw the main attention to the most important info\nconsistent use of colors, spacing, typefaces, weights\ntypeface / font choices and how they affect readability and perception\nusing visual hierarchy to guide the reader\ncolor choices (incl. palette types, emotions, readability)\nhow to engage your audience through interactive exploration\nwhen and how to add interactivity without overwhelming the reader\n\n\nThis lesson focuses on adding interactivity to your data visualizations using plotly and htmlwidgets."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#interactivity-section",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#interactivity-section",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Interactivity lets readers become explorers — not just observers"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#why-interactivity",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#why-interactivity",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Why add interactivity to data visualizations?\n\n\n\nInteractive charts can provide more information to the viewer, without cluttering your visualization — viewers can:\n\nhover to surface exact values\nzoom into regions of interest\nfilter by toggling groups on/off\nanimate through time or categories\nexplore at their own pace\n\n\nInteractive charts are especially powerful for:\n\nDatasets with many overlapping points\nTime series data with many time steps\nVisualizations embedded in HTML reports"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#when-interactivity",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#when-interactivity",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Interactivity is not always the right choice\n\n\n\n Good use cases:\n\nExploratory dashboards where interactivity is expected\nLarge datasets where labelling every point is impossible\nPresentations in HTML/web format\nAnimated trends across many time steps\nScenarios where readers might want to know specific values\n\n\n Be cautious when:\n\nThe chart will be printed or embedded in a PDF\nA single static annotation tells the story more clearly\nInteractivity adds complexity without insight\nThe audience isn’t expected to interact (e.g., a quick social post)\n\n\n\n\nThe goal is always communication — use interactivity when it genuinely helps the reader understand the data, not just because you can."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-section",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-section",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The htmlwidgets framework brings interactive JavaScript libraries to R"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-what",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-what",
+    "title": "EDS 240",
+    "section": "",
+    "text": "htmlwidgets — a shared framework for interactive R objects\n\nThe {htmlwidgets} package provides a standard interface for bundling interactive JavaScript visualizations as R objects.\n\nPackages built on htmlwidgets:\n\n\n\nPackage\nWhat it does\n\n\n\n\n{plotly}\nInteractive charts (scatter, bar, line, bubble, …)\n\n\n{leaflet}\nInteractive maps with zoom and click\n\n\n{DT}\nSearchable, sortable tables\n\n\n{dygraphs}\nInteractive time series\n\n\n\n\n\n\nAll of these can be saved with saveWidget() and embedded in Quarto / R Markdown HTML output — no server or Shiny needed."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-save",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#htmlwidgets-save",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Sharing widgets — saveWidget()\n\nAny htmlwidget can be saved as a standalone HTML file that anyone can open in a browser — no R installation required.\n\n\nlibrary(htmlwidgets)\n\n# Assign your widget to an object, then save it\nmy_chart &lt;- plot_ly(...)\n\nsaveWidget(my_chart,\n           file  = \"my_chart.html\")"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#quarto-embed",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#quarto-embed",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Embedding widgets in Quarto — it’s automatic\n\nIn a .qmd (or .rmd), you do not need saveWidget(). Simply print the widget object inside a code chunk.\n\n\nmy_chart &lt;- plot_ly(storms, x = ~wind, y = ~pressure,\n                    type = \"scatter\", mode = \"markers\")\n\nmy_chart   # printing embeds it in the rendered HTML output"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#plotly-section",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#plotly-section",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Two paths to interactive charts with {plotly}"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#two-approaches",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#two-approaches",
+    "title": "EDS 240",
+    "section": "",
+    "text": "ggplotly() vs. plot_ly()\n\n\n\nggplotly()\n\nStart with a ggplot2 chart you already have\nWrap it: ggplotly(my_plot)\nInherits ggplot2 aesthetics and layers\nLess control over hover content\n\n\nplot_ly()\n\nBuild charts directly in plotly’s own grammar\nUses formula notation: ~variable\nFull access to Plotly’s feature set\nMore control over tooltips, layout, animation\n\n\n\n\n\nWe’ll go over both approaches today! In general, start with ggplotly() if you already have a ggplot2 workflow — switch to plot_ly() when you need animation or fine-grained control."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-section",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-section",
+    "title": "EDS 240",
+    "section": "",
+    "text": "ggplotly() — one function turns any ggplot interactive"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-how",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-how",
+    "title": "EDS 240",
+    "section": "",
+    "text": "ggplotly() — wrapping an existing ggplot\n\n\n# Step 1: build a normal ggplot\np &lt;- ggplot(storms_2010, aes(x = wind, y = pressure,\n                              color = status,\n                              text  = name)) +   # 'text' becomes the hover label\n  geom_point(alpha = 0.6) +\n  labs(title = \"Atlantic Storm Intensity (2010)\",\n       x = \"Max Wind Speed (knots)\",\n       y = \"Min Pressure (mb)\") +\n  theme_minimal()\n\np   # view static version first\n\n\n \n\n# Step 2: one line makes it interactive\nggplotly(p, tooltip = c(\"text\", \"x\", \"y\"))"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-tooltips",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-tooltips",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Customizing tooltip content\n\nThe tooltip argument accepts a vector of aesthetic names from your aes() call:\n\n# Map a formatted label to the 'text' aesthetic\nstorms_2010 &lt;- storms_2010 |&gt;\n  mutate(label = paste0(\n    \"&lt;b&gt;\", name, \"&lt;/b&gt;&lt;br&gt;\",\n    \"Status: \", status, \"&lt;br&gt;\",\n    \"Wind: \", wind, \" knots&lt;br&gt;\",\n    \"Pressure: \", pressure, \" mb\"\n  ))\n\np &lt;- ggplot(storms_2010,\n            aes(x = wind, y = pressure,\n                color = status, text = label)) +\n  geom_point(alpha = 0.6) +\n  theme_minimal()\n\nggplotly(p, tooltip = \"text\")   # only show our custom label\n\n\nPlotly tooltips render basic HTML — use &lt;b&gt; for bold and &lt;br&gt; for line breaks to format multi-line labels."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-limits",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-limits",
+    "title": "EDS 240",
+    "section": "",
+    "text": "ggplotly() — limitations to be aware of\n\nggplotly() is convenient but not a perfect conversion. Some things that don’t translate well:\n\nCustom fonts loaded via {showtext}\nMany theme() styling details (font families, some margins)\ngeom_sf() and spatial geometries\nFaceted plots (can work, but often imperfectly)\nComplex custom annotations\n\n\n\n\nWhen ggplotly() doesn’t give you what you need, use plot_ly() instead"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-exercise",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-exercise",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Exercise 1 — ggplotly()\n\nWith your learning partner(s):\nUsing the storms dataset (from {dplyr}), complete the following:\n\nFilter to storms from 2000 onward using filter(year &gt;= 2000)\nBuild a ggplot scatter plot of wind (x) vs. pressure (y), coloured by status\nMap name to the text aesthetic\nWrap with ggplotly() and set tooltip = c(\"text\", \"x\", \"y\")\nStretch: modify the text aesthetic to build a formatted multi-line label using paste0() and HTML tags"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#break",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#break",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Take a Break"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-section",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-section",
+    "title": "EDS 240",
+    "section": "",
+    "text": "plot_ly() — native plotly for full control and animation"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-grammar",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-grammar",
+    "title": "EDS 240",
+    "section": "",
+    "text": "The plot_ly() grammar\n\nplot_ly() has its own grammar, distinct from ggplot2:\n\n\nggplot2 grammar:\n\nggplot(data, aes(x = var1,\n                  y = var2,\n                  color = var3)) +\n  geom_point()\n\n\nUses bare variable names\nLayers added with +\naes() for aesthetic mappings\n\n\nplot_ly() grammar:\n\nplot_ly(data,\n        x     = ~var1,\n        y     = ~var2,\n        color = ~var3,\n        type  = \"scatter\",\n        mode  = \"markers\")\n\n\nUses formula notation ~variable\nLayers added with |&gt; and add_*()\nType & mode set the geometry"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-hover",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#plot-ly-hover",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Controlling hover content with text and hoverinfo\n\n\nplot_ly(\n  data      = storms_2010,\n  x         = ~wind,\n  y         = ~pressure,\n  color     = ~status,\n  type      = \"scatter\",\n  mode      = \"markers\",\n  text      = ~paste0(\"&lt;b&gt;\", name, \"&lt;/b&gt;&lt;br&gt;\",   # custom hover text\n                      \"Category: \", category, \"&lt;br&gt;\",\n                      \"Wind: \", wind, \" kt\"),\n  hoverinfo = \"text\"    # show ONLY our custom text (suppress x/y/trace defaults)\n) |&gt;\n  layout(\n    title = \"Atlantic Storm Intensity\",\n    xaxis = list(title = \"Max Wind Speed (knots)\"),\n    yaxis = list(title = \"Min Pressure (mb)\")\n  )\n\n\n\nhoverinfo controls what appears in the tooltip — options include \"text\", \"x\", \"y\", \"x+y\", \"text+x+y\", \"none\", and more. Combining with + shows multiple pieces."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#animation-intro",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#animation-intro",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Animation — the frame argument\n\nThe single most powerful feature of native plot_ly() is animation. Adding frame = ~variable creates one slide per unique value and automatically generates a Play/Pause button.\n\nstorms |&gt;\n  plot_ly(\n    x         = ~wind,\n    y         = ~pressure,\n    color     = ~status,\n    size      = ~tropicalstorm_force_diameter,\n    frame     = ~year,            # &lt;-- this creates the animation\n    text      = ~name,\n    hoverinfo = \"text+x+y\",\n    type      = \"scatter\",\n    mode      = \"markers\"\n  )\n\n\n\nHit Play → the chart steps through each year. Use the slider to jump to a specific year. Click any point to isolate it across frames."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#animation-opts",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#animation-opts",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Tuning the animation with animation_opts()\n\n\nstorms |&gt;\n  plot_ly(x = ~wind, y = ~pressure, color = ~status,\n          frame = ~year, type = \"scatter\", mode = \"markers\") |&gt;\n  layout(xaxis = list(title = \"Wind (knots)\"),\n         yaxis = list(title = \"Pressure (mb)\")) |&gt;\n  animation_opts(\n    frame     = 800,          # milliseconds per frame\n    easing    = \"cubic-in-out\", # transition style\n    redraw    = FALSE         # faster: don't redraw entire plot per frame\n  ) |&gt;\n  animation_button(\n    x = 1.05, xanchor = \"right\",\n    y = 0,    yanchor = \"bottom\"\n  )\n\n\nCommon easing options:\n\n\n\nValue\nEffect\n\n\n\n\n\"linear\"\nConstant speed\n\n\n\"cubic-in-out\"\nSlow start and end\n\n\n\"elastic\"\nBouncy overshoot\n\n\n\"bounce\"\nBounces at end"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#layout-add-traces",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#layout-add-traces",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Building up a chart — layout() and add_*()\n\nUse |&gt; to pipe additional layers onto a plot_ly() chart:\n\nstorms |&gt;\n  filter(year &gt;= 2000) |&gt;\n  group_by(year, status) |&gt;\n  summarise(mean_wind = mean(wind), .groups = \"drop\") |&gt;\n  plot_ly(x = ~year, y = ~mean_wind, color = ~status,\n          type = \"scatter\", mode = \"lines+markers\") |&gt;\n  add_segments(                             # reference line\n    x = ~min(year), xend = ~max(year),\n    y = 64, yend = 64,\n    line = list(color = \"grey50\", dash = \"dot\"),\n    name = \"Hurricane threshold (64 kt)\",\n    inherit = FALSE\n  ) |&gt;\n  layout(\n    title  = \"Mean Wind Speed by Storm Status (2000–2021)\",\n    xaxis  = list(title = \"Year\"),\n    yaxis  = list(title = \"Mean Max Wind (knots)\"),\n    legend = list(title = list(text = \"Click to toggle:\"))\n  )\n\n\nadd_segments(), add_lines(), add_markers(), add_bars() and more — see plotly-r.com for the full list."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#plotly-exercise",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#plotly-exercise",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Exercise 2 — plot_ly() & animation\n\nWith your learning partner(s):\n\nUse storms (all years) to build an animated scatter plot of wind vs. pressure, animated by year and coloured by status\nSet hoverinfo = \"text\" and build a custom text label showing name, year, wind, and pressure\nAdd animation_opts() with easing = \"linear\" and frame = 600\nStretch: add a horizontal reference line at y = 920 mb (a rough threshold for major hurricanes) using add_segments()"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#before-after",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#before-after",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Before & after — static vs. interactive\n\n\n\nStatic (ggplot2):\n\nReader can see the pattern\nOverlapping points are opaque\nNo way to identify individual storms\n\n\nInteractive (plotly):\n\nHover reveals storm name & exact values\nZoom into dense clusters\nToggle status categories on/off\nAnimation reveals temporal patterns"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#summary",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#summary",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Summary — choosing your approach\n\n\n\n\n\n\n\n\n\n\nggplotly()\nplot_ly()\n\n\n\n\nStarting point\nExisting ggplot2 chart\nBuild from scratch\n\n\nTooltip control\ntooltip = c(...)\ntext = + hoverinfo =\n\n\nAnimation\nNot supported\nframe = ~var\n\n\nFaceting\nInherited (imperfect)\nsubplot()\n\n\nStyling fidelity\n~80% of ggplot theme\nFull control via layout()\n\n\nBest for\nQuick wins, existing code\nAnimations, complex hover, dashboards\n\n\n\n\n\nUse ggplotly() first. Graduate to plot_ly() when you need what it can’t give you.\n\n\nFurther reading: plotly-r.com (free book by Carson Sievert) · htmlwidgets.org · Quarto interactivity docs"
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#final-exercise",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#final-exercise",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Final Exercise — putting it all together\n\nOpen your KEY-interactivity.qmd and complete the Final Exercise section at the bottom.\nYou will build a short Quarto HTML report containing:\n\nAn animated scatter plot (from Exercise 2)\nA line chart showing a trend of your choice over time\nA third chart of your choice using either ggplotly() or plot_ly()\n\nThen Render to HTML and confirm all three charts are interactive."
+  },
+  {
+    "objectID": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-tooltips-units",
+    "href": "course-materials/lecture-slides/SLIDES-interactivity.html#ggplotly-tooltips-units",
+    "title": "EDS 240",
+    "section": "",
+    "text": "Repeat the units your data is measured in\n\n\n\nImage source: What to consider when using text in data visualizations"
   }
 ]
