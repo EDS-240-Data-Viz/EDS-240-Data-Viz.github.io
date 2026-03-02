@@ -1,0 +1,609 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    highlight-style: a11y
+    chalkboard: true
+    theme: 
+      - ../../meds-slides-styles.scss
+editor_options: 
+  chunk_output_type: inline
+---
+
+## {#title-slide data-menu-title="Title Slide" background="#053660"} 
+
+[EDS 240: Lecture 9.1]{.custom-title}
+
+[*Interactive Data Visualization*]{.custom-subtitle}
+
+<hr class="hr-teal">
+
+[Week 9 | March 4^th^, 2026]{.custom-subtitle3}
+
+---
+
+##  {#interactivity-section data-menu-title="Interactivity Overview" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">Interactivity lets readers become explorers — not just observers</p>
+</div>
+
+---
+
+## {#why-interactivity data-menu-title="Why add interactivity?"}
+
+[Why add interactivity to data visualizations?]{.slide-title}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
+**Interactive charts** can provide more information to the viewer, without cluttering your visualization — viewers can:
+
+- **hover** to surface exact values
+- **zoom** into regions of interest
+- **filter** by toggling groups on/off
+- **animate** through time or categories
+- **explore** at their own pace
+
+:::
+
+
+
+::: {.column .fragment width="50%"}
+
+
+Interactive charts are especially powerful for:
+
+- Datasets with **many overlapping points**
+- **Time series** data with many time steps
+- Visualizations embedded in **HTML reports**
+
+
+:::
+
+<br>
+
+
+
+::::
+
+---
+
+## {#when-interactivity data-menu-title="When to use interactivity"}
+
+[Interactivity is not always the right choice]{.slide-title2}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**{{< fa circle-check title="green check" >}} Good use cases:**
+
+- Exploratory dashboards where interactivity is expected
+- Large datasets where labelling every point is impossible
+- Presentations in HTML/web format
+- Animated trends across many time steps
+- Scenarios where readers might want to know specific values
+
+:::
+
+::: {.column .fragment width="50%"}
+
+**{{< fa circle-xmark title="red x" >}} Be cautious when:**
+
+- The chart will be printed or embedded in a PDF
+- A single static annotation tells the story more clearly
+- Interactivity adds complexity without insight
+- The audience isn't expected to interact (e.g., a quick social post)
+
+:::
+
+::::
+
+. . .
+
+::: {.center-text .teal-text}
+**The goal is always communication — use interactivity when it genuinely helps the reader understand the data, not just because you can.**
+:::
+
+---
+
+##  {#htmlwidgets-section data-menu-title="html Widgets " background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">The `htmlwidgets` framework brings interactive JavaScript libraries to R</p>
+</div>
+
+---
+
+## {#htmlwidgets-what data-menu-title="What are html widgets?"}
+
+[htmlwidgets — a shared framework for interactive R objects]{.slide-title2}
+
+<hr>
+
+The [`{htmlwidgets}`](https://www.htmlwidgets.org/){target="_blank"} package provides a standard interface for bundling interactive JavaScript visualizations as R objects.
+
+<br>
+
+**Packages built on `htmlwidgets`:**
+
+| Package | What it does |
+|---------|-------------|
+| [`{plotly}`](https://plotly.com/r/){target="_blank"} | Interactive charts (scatter, bar, line, bubble, ...) |
+| [`{leaflet}`](https://rstudio.github.io/leaflet/){target="_blank"} | Interactive maps with zoom and click |
+| [`{DT}`](https://rstudio.github.io/DT/){target="_blank"} | Searchable, sortable tables |
+| [`{dygraphs}`](https://rstudio.github.io/dygraphs/){target="_blank"} | Interactive time series |
+
+. . .
+
+<br>
+
+::: {.center-text .body-text-s .gray-text}
+All of these can be saved with `saveWidget()` and embedded in Quarto / R Markdown HTML output — **no server or Shiny needed**.
+:::
+
+---
+
+
+## {#two-approaches data-menu-title="Two approaches to plotly"}
+
+[`ggplotly()` vs. `plot_ly()`]{.slide-title2}
+
+<hr>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**`ggplotly()`** 
+
+- Start with a `ggplot2` chart you already have
+- Wrap it: `ggplotly(my_plot)`
+- Inherits `ggplot2` aesthetics and layers
+- Less control over hover content
+
+:::
+
+::: {.column width="50%"}
+
+**`plot_ly()`** 
+
+- Build charts directly in plotly's own grammar
+- Uses formula notation: `~variable`
+- Full access to Plotly's feature set
+- **More control** over tooltips, layout, animation
+:::
+
+::::
+
+. . .
+
+<br>
+
+::: {.center-text .teal-text}
+**We'll go over both approaches today! In general, start with `ggplotly()` if you already have a `ggplot2` workflow — switch to `plot_ly()` when you need animation or fine-grained control.**
+:::
+
+---
+
+##  {#ggplotly-section data-menu-title="ggplotly() " background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">`ggplotly()` — one function turns any ggplot interactive</p>
+</div>
+
+---
+
+## {#ggplotly-how data-menu-title="How ggplotly() works"}
+
+[`ggplotly()` — wrapping an existing ggplot]{.slide-title}
+
+<hr>
+
+```{r ggplotly-step1}
+#| eval: false
+#| echo: true
+
+# Step 1: build a normal ggplot
+p <- ggplot(storms_2010, aes(x = wind, y = pressure,
+                              color = status,
+                              text  = name)) +   # 'text' becomes the hover label
+  geom_point(alpha = 0.6) +
+  labs(title = "Atlantic Storm Intensity (2010)",
+       x = "Max Wind Speed (knots)",
+       y = "Min Pressure (mb)") +
+  theme_minimal()
+
+p   # view static version first
+```
+
+. . .
+
+<br>
+<br>
+
+
+```{r ggplotly-step2}
+#| eval: false
+#| echo: true
+
+# Step 2: one line makes it interactive
+ggplotly(p, tooltip = c("text", "x", "y"))
+```
+
+
+---
+
+## {#ggplotly-tooltips data-menu-title="Customizing ggplotly tooltips"}
+
+[Customizing tooltip content]{.slide-title}
+
+<hr>
+
+The `tooltip` argument accepts a vector of **aesthetic names** from your `aes()` call:
+
+```{r ggplotly-tooltip-demo}
+#| eval: false
+#| echo: true
+
+# Map a formatted label to the 'text' aesthetic
+storms_2010 <- storms_2010 |>
+  mutate(label = paste0(
+    "<b>", name, "</b><br>",
+    "Status: ", status, "<br>",
+    "Wind: ", wind, " knots<br>",
+    "Pressure: ", pressure, " mb"
+  ))
+
+p <- ggplot(storms_2010,
+            aes(x = wind, y = pressure,
+                color = status, text = label)) +
+  geom_point(alpha = 0.6) +
+  theme_minimal()
+
+ggplotly(p, tooltip = "text")   # only show our custom label
+```
+
+::: {.footer}
+Plotly tooltips render basic HTML — use `<b>` for bold and `<br>` for line breaks to format multi-line labels.
+:::
+
+---
+
+## {#ggplotly-tooltips-units data-menu-title="Add units to tooltips"}
+
+[Repeat the units your data is measured in]{.slide-title}
+
+<hr>
+```{r include-units-image}
+#| eval: true
+#| echo: false
+#| out-width: "70%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "tooltip_units.png"))
+```
+
+::: {.center-text .body-text-s .gray-text}
+Image source: [What to consider when using text in data visualizations](https://www.datawrapper.de/blog/text-in-data-visualizations){target="_blank"}
+:::
+
+## {#ggplotly-limits data-menu-title="Limitations of ggplotly()"}
+
+[`ggplotly()` — limitations to be aware of]{.slide-title}
+
+<hr>
+
+`ggplotly()` is convenient but **not a perfect conversion**. Some things that don't translate well:
+
+- Custom fonts loaded via `{showtext}`
+- Many `theme()` styling details (font families, some margins)
+- `geom_sf()` and spatial geometries
+- Faceted plots (can work, but often imperfectly)
+- Complex custom annotations
+
+. . .
+
+<br>
+
+::: {.center-text .teal-text}
+**When `ggplotly()` doesn't give you what you need, use `plot_ly()` instead**
+:::
+
+---
+
+
+
+##  {#plot-ly-section data-menu-title="# plot_ly()" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">`plot_ly()` — native plotly for full control and animation</p>
+</div>
+
+---
+
+## {#plot-ly-grammar data-menu-title="plot_ly() grammar"}
+
+[The `plot_ly()` grammar]{.slide-title}
+
+<hr>
+
+`plot_ly()` has its own grammar, distinct from `ggplot2`:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**`ggplot2` grammar:**
+```{r ggplot-grammar}
+#| eval: false
+#| echo: true
+
+ggplot(data, aes(x = var1,
+                  y = var2,
+                  color = var3)) +
+  geom_point()
+```
+
+- Uses bare variable names
+- Layers added with `+`
+- `aes()` for aesthetic mappings
+
+:::
+
+::: {.column width="50%"}
+
+**`plot_ly()` grammar:**
+```{r plotly-grammar}
+#| eval: false
+#| echo: true
+
+plot_ly(data,
+        x     = ~var1,
+        y     = ~var2,
+        color = ~var3,
+        type  = "scatter",
+        mode  = "markers")
+```
+
+- Uses **formula notation** `~variable`
+- Layers added with `|>` and `add_*()`
+- Type & mode set the geometry
+
+:::
+
+::::
+
+---
+
+## {#plot-ly-hover data-menu-title="Controlling hover in plot_ly()"}
+
+[Controlling hover content with `text` and `hoverinfo`]{.slide-title2}
+
+<hr>
+
+```{r plotly-hover-demo}
+#| eval: false
+#| echo: true
+
+plot_ly(
+  data      = storms_2010,
+  x         = ~wind,
+  y         = ~pressure,
+  color     = ~status,
+  type      = "scatter",
+  mode      = "markers",
+  text      = ~paste0("<b>", name, "</b><br>",   # custom hover text
+                      "Category: ", category, "<br>",
+                      "Wind: ", wind, " kt"),
+  hoverinfo = "text"    # show ONLY our custom text (suppress x/y/trace defaults)
+) |>
+  layout(
+    title = "Atlantic Storm Intensity",
+    xaxis = list(title = "Max Wind Speed (knots)"),
+    yaxis = list(title = "Min Pressure (mb)")
+  )
+```
+
+. . .
+
+::: {.body-text-s}
+`hoverinfo` controls what appears in the tooltip — options include `"text"`, `"x"`, `"y"`, `"x+y"`, `"text+x+y"`, `"none"`, and more. Combining with `+` shows multiple pieces.
+:::
+
+---
+
+## {#animation-intro data-menu-title="Animation with frame ="}
+
+[Animation — the `frame` argument]{.slide-title}
+
+<hr>
+
+The single most powerful feature of native `plot_ly()` is **animation**. Adding `frame = ~variable` creates one slide per unique value and automatically generates a Play/Pause button.
+
+```{r animation-demo}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "7"
+
+storms |>
+  plot_ly(
+    x         = ~wind,
+    y         = ~pressure,
+    color     = ~status,
+    size      = ~tropicalstorm_force_diameter,
+    frame     = ~year,            # <-- this creates the animation
+    text      = ~name,
+    hoverinfo = "text+x+y",
+    type      = "scatter",
+    mode      = "markers"
+  )
+```
+
+. . .
+
+::: {.center-text .body-text-s .gray-text}
+Hit **Play** → the chart steps through each year. Use the **slider** to jump to a specific year. Click any point to isolate it across frames.
+:::
+
+---
+
+## {#animation-opts data-menu-title="animation_opts()"}
+
+[Tuning the animation with `animation_opts()`]{.slide-title2}
+
+<hr>
+
+```{r animation-opts-demo}
+#| eval: false
+#| echo: true
+
+storms |>
+  plot_ly(x = ~wind, y = ~pressure, color = ~status,
+          frame = ~year, type = "scatter", mode = "markers") |>
+  layout(xaxis = list(title = "Wind (knots)"),
+         yaxis = list(title = "Pressure (mb)")) |>
+  animation_opts(
+    frame     = 800,          # milliseconds per frame
+    easing    = "cubic-in-out", # transition style
+    redraw    = FALSE         # faster: don't redraw entire plot per frame
+  ) |>
+  animation_button(
+    x = 1.05, xanchor = "right",
+    y = 0,    yanchor = "bottom"
+  )
+```
+
+. . .
+
+[**Common `easing` options:**]{.body-text-s}
+
+| Value | Effect |
+|---|---|
+| `"linear"` | Constant speed  |
+| `"cubic-in-out"` | Slow start and end  |
+| `"elastic"` | Bouncy overshoot  |
+| `"bounce"` | Bounces at end |
+
+---
+
+## {#layout-add-traces data-menu-title="layout() and add_*()"}
+
+[Building up a chart — `layout()` and `add_*()`]{.slide-title2}
+
+<hr>
+
+Use `|>` to pipe additional layers onto a `plot_ly()` chart:
+
+```{r layout-demo}
+#| eval: false
+#| echo: true
+
+storms |>
+  filter(year >= 2000) |>
+  group_by(year, status) |>
+  summarise(mean_wind = mean(wind), .groups = "drop") |>
+  plot_ly(x = ~year, y = ~mean_wind, color = ~status,
+          type = "scatter", mode = "lines+markers") |>
+  add_segments(                             # reference line
+    x = ~min(year), xend = ~max(year),
+    y = 64, yend = 64,
+    line = list(color = "grey50", dash = "dot"),
+    name = "Hurricane threshold (64 kt)",
+    inherit = FALSE
+  ) |>
+  layout(
+    title  = "Mean Wind Speed by Storm Status (2000–2021)",
+    xaxis  = list(title = "Year"),
+    yaxis  = list(title = "Mean Max Wind (knots)"),
+    legend = list(title = list(text = "Click to toggle:"))
+  )
+```
+
+::: {.footer}
+`add_segments()`, `add_lines()`, `add_markers()`, `add_bars()` and more — see [plotly-r.com](https://plotly-r.com){target="_blank"} for the full list.
+:::
+
+---
+
+
+
+## {#htmlwidgets-save data-menu-title="saveWidget()"}
+
+[Sharing widgets — `saveWidget()`]{.slide-title}
+
+<hr>
+
+Any htmlwidget can be saved as a **standalone HTML file** that anyone can open in a browser — no R installation required.
+
+<br>
+
+```{r save-widget-demo}
+#| eval: false
+#| echo: true
+
+library(htmlwidgets)
+
+# Assign your widget to an object, then save it
+my_chart <- plot_ly(...)
+
+saveWidget(my_chart,
+           file  = "my_chart.html")
+```
+
+
+
+
+---
+
+## {#quarto-embed data-menu-title="Embedding in Quarto"}
+
+[Embedding widgets in Quarto — it's automatic]{.slide-title2}
+
+<hr>
+
+In a `.qmd` (or `.rmd`), you do **not** need `saveWidget()`. Simply **print the widget object** inside a code chunk.
+
+<br>
+
+```{r quarto-embed-demo}
+#| eval: false
+#| echo: true
+
+my_chart <- plot_ly(storms, x = ~wind, y = ~pressure,
+                    type = "scatter", mode = "markers")
+
+my_chart   # printing embeds it in the rendered HTML output
+```
+
+
+---
+
+
+##  {#break data-menu-title="# Break #" background="#047C90"}
+
+<div class="page-center vertical-center">
+<p class="custom-subtitle bottombr">{{< fa mug-hot title="a mug with steam rising out the top" >}} Take a Break</p>
+</div>
+
+```{r countdown-break}
+countdown::countdown(
+  minutes = 5,
+  play_sound = TRUE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "2em",
+)
+```
+
+
