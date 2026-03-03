@@ -340,39 +340,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-46"><a href="#cb1-46"></a></span>
 <span id="cb1-47"><a href="#cb1-47"></a><span class="co">#................enable {showtext} for rendering.................</span></span>
 <span id="cb1-48"><a href="#cb1-48"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-49"><a href="#cb1-49"></a></span>
-<span id="cb1-50"><a href="#cb1-50"></a><span class="co">#......................create waffle chart.......................</span></span>
-<span id="cb1-51"><a href="#cb1-51"></a><span class="fu">ggplot</span>(ca_season_counts, <span class="fu">aes</span>(<span class="at">fill =</span> season, <span class="at">values =</span> n)) <span class="sc">+</span></span>
-<span id="cb1-52"><a href="#cb1-52"></a>  <span class="fu">geom_waffle</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.3</span>, <span class="at">n_rows =</span> <span class="dv">10</span>,</span>
-<span id="cb1-53"><a href="#cb1-53"></a>              <span class="at">make_proportional =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb1-55"><a href="#cb1-55"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> season_palette) <span class="sc">+</span></span>
-<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
-<span id="cb1-57"><a href="#cb1-57"></a>       <span class="at">subtitle =</span> subtitle,</span>
-<span id="cb1-58"><a href="#cb1-58"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
-<span id="cb1-59"><a href="#cb1-59"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
-<span id="cb1-60"><a href="#cb1-60"></a>  <span class="fu">theme</span>(</span>
-<span id="cb1-61"><a href="#cb1-61"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"ultra"</span>, </span>
-<span id="cb1-62"><a href="#cb1-62"></a>                              <span class="co">#size = rel(1), </span></span>
-<span id="cb1-63"><a href="#cb1-63"></a>                              <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1-64"><a href="#cb1-64"></a>                              <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fl">0.3</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb1-65"><a href="#cb1-65"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
-<span id="cb1-66"><a href="#cb1-66"></a>                                 <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>),</span>
-<span id="cb1-67"><a href="#cb1-67"></a>                                 <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1-68"><a href="#cb1-68"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb1-69"><a href="#cb1-69"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
-<span id="cb1-70"><a href="#cb1-70"></a>                                <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.6</span>),</span>
-<span id="cb1-71"><a href="#cb1-71"></a>                                <span class="at">color =</span> plot_palette[<span class="st">"gray"</span>], </span>
-<span id="cb1-72"><a href="#cb1-72"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="fl">0.75</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb1-73"><a href="#cb1-73"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb1-74"><a href="#cb1-74"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-75"><a href="#cb1-75"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
-<span id="cb1-76"><a href="#cb1-76"></a>                               <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb1-77"><a href="#cb1-77"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> plot_palette[<span class="st">"beige"</span>], </span>
-<span id="cb1-78"><a href="#cb1-78"></a>                                   <span class="at">color =</span> plot_palette[<span class="st">"beige"</span>]),</span>
-<span id="cb1-79"><a href="#cb1-79"></a>    <span class="co">#plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")</span></span>
-<span id="cb1-80"><a href="#cb1-80"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="st">"cm"</span>)</span>
-<span id="cb1-81"><a href="#cb1-81"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="fu">showtext_opts</span>(<span class="at">dpi =</span> <span class="dv">144</span>) </span>
+<span id="cb1-50"><a href="#cb1-50"></a></span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="co">#......................create waffle chart.......................</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="fu">ggplot</span>(ca_season_counts, <span class="fu">aes</span>(<span class="at">fill =</span> season, <span class="at">values =</span> n)) <span class="sc">+</span></span>
+<span id="cb1-53"><a href="#cb1-53"></a>  <span class="fu">geom_waffle</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.3</span>, <span class="at">n_rows =</span> <span class="dv">10</span>,</span>
+<span id="cb1-54"><a href="#cb1-54"></a>              <span class="at">make_proportional =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb1-55"><a href="#cb1-55"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb1-56"><a href="#cb1-56"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> season_palette) <span class="sc">+</span></span>
+<span id="cb1-57"><a href="#cb1-57"></a>  <span class="fu">labs</span>(<span class="at">title =</span> title,</span>
+<span id="cb1-58"><a href="#cb1-58"></a>       <span class="at">subtitle =</span> subtitle,</span>
+<span id="cb1-59"><a href="#cb1-59"></a>       <span class="at">caption =</span> caption) <span class="sc">+</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-62"><a href="#cb1-62"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"ultra"</span>, </span>
+<span id="cb1-63"><a href="#cb1-63"></a>                              <span class="co">#size = rel(1), </span></span>
+<span id="cb1-64"><a href="#cb1-64"></a>                              <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-65"><a href="#cb1-65"></a>                              <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fl">0.3</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb1-66"><a href="#cb1-66"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="cb1-67"><a href="#cb1-67"></a>                                 <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>),</span>
+<span id="cb1-68"><a href="#cb1-68"></a>                                 <span class="at">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-69"><a href="#cb1-69"></a>                                 <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb1-70"><a href="#cb1-70"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="cb1-71"><a href="#cb1-71"></a>                                <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.6</span>),</span>
+<span id="cb1-72"><a href="#cb1-72"></a>                                <span class="at">color =</span> plot_palette[<span class="st">"gray"</span>], </span>
+<span id="cb1-73"><a href="#cb1-73"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="fl">0.75</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb1-74"><a href="#cb1-74"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb1-75"><a href="#cb1-75"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-76"><a href="#cb1-76"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"josefin"</span>,</span>
+<span id="cb1-77"><a href="#cb1-77"></a>                               <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb1-78"><a href="#cb1-78"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> plot_palette[<span class="st">"beige"</span>], </span>
+<span id="cb1-79"><a href="#cb1-79"></a>                                   <span class="at">color =</span> plot_palette[<span class="st">"beige"</span>]),</span>
+<span id="cb1-80"><a href="#cb1-80"></a>    <span class="co">#plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")</span></span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="st">"cm"</span>)</span>
+<span id="cb1-82"><a href="#cb1-82"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
