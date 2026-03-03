@@ -1,0 +1,391 @@
+---
+title: "KEY - interactive data visualization"
+subtitle: "plotly & htmlwidgets"
+author: "Your Name"
+date: today
+toc: true
+toc-depth: 3
+editor_options: 
+  chunk_output_type: inline
+---
+
+::: {.callout-note}
+This template follows the [interactive data visualization](../lecture-slides/SLIDES-interactivity.qmd){target="_blank"} slides. Please be sure to cross-reference the slides, which contain important conceptual context and comparisons!
+:::
+
+## Setup
+
+::: {.callout-note}
+We use the `storms` dataset from `{dplyr}` throughout this lab — no external file needed. It contains Atlantic storm tracks with wind speed, pressure, storm status, and geographic position from 1975 to 2022.
+:::
+
+<!-- CODE RENDERS BUT DOES NOT RUN -->
+
+```{r setup-echo}
+#| eval: false
+#| echo: true
+#| warning: false
+#| message: false
+
+#..........................load packages.........................
+library(tidyverse)
+library(plotly)
+library(htmlwidgets)
+library(scales)
+
+#.......................preview the dataset.......................
+glimpse(storms)
+```
+
+<!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
+
+```{r setup-eval}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(plotly)
+library(htmlwidgets)
+library(scales)
+```
+
+**Key variables in `storms`:**
+
+| Variable | Type | Description |
+|---|---|---|
+| `name` | character | Storm name |
+| `year`, `month`, `day`, `hour` | numeric | Date & time of observation |
+| `lat`, `long` | numeric | Storm center position |
+| `status` | factor | `"tropical depression"`, `"tropical storm"`, `"hurricane"`, etc. |
+| `category` | numeric | Saffir-Simpson category (1–5; `NA` for non-hurricanes) |
+| `wind` | numeric | Max sustained wind speed (knots) |
+| `pressure` | numeric | Min central pressure (millibars) |
+| `tropicalstorm_force_diameter` | numeric | Diameter (nautical miles) of TS-force winds |
+
+```{r preview-data}
+#| eval: true
+#| echo: true
+#| message: false
+
+glimpse(storms)
+```
+
+## Wrangle data
+
+We create a few focused subsets used throughout the lab.
+
+```{r wrangle-data}
+#| eval: true
+#| echo: true
+#| message: false
+
+#........one observation per storm-year (peak intensity).........
+# storms has multiple rows per storm (one per 6-hour observation)
+# we summarise to peak wind per named storm per year
+storms_peak <- storms |>
+    filter(status %in% c("tropical depression", "tropical storm", "tropical wave")) |>
+  group_by(name, year, status) |>
+  summarise(
+    peak_wind     = max(wind, na.rm = TRUE),
+    min_pressure  = min(pressure, na.rm = TRUE),
+    max_category  = max(category, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    # clean up category for labelling
+    category_label = case_when(
+      max_category == 1  ~ "Cat 1",
+      max_category == 2  ~ "Cat 2",
+      max_category == 3  ~ "Cat 3",
+      max_category == 4  ~ "Cat 4",
+      max_category == 5  ~ "Cat 5",
+      TRUE               ~ status
+    )
+  )
+
+#.............annual summaries by storm status...................
+storms_annual <- storms |>
+  filter(status %in% c("tropical depression", "tropical storm", "tropical wave")) |>
+  group_by(year, status) |>
+  summarise(
+    mean_wind      = mean(wind, na.rm = TRUE),
+    n_observations = n(),
+    .groups = "drop"
+  )
+
+#...........filter to recent decades for cleaner plots...........
+storms_2000 <- storms_peak |>
+  filter(year >= 2000) |>
+   mutate(
+    status_label = recode(status,
+      "tropical depression" = "Depression",
+      "tropical storm"      = "Tropical Storm",
+      "tropical wave"       = "Tropical Wave"
+    ),
+    status_label = factor(status_label,
+      levels = c("Depression", "Tropical Storm", "Tropical Wave")),
+    label = paste0(
+      "<b>", name, " (", year, ")</b><br>",
+      "Peak wind: ", peak_wind, " kt  ·  Min pressure: ", min_pressure, " mb"
+    )
+  )
+
+pal <- c(
+  "Depression"     = "#7FB3D3",
+  "Tropical Storm" = "#E8936A",
+  "Wave"           = "#82C99A"
+)
+
+
+glimpse(storms_peak)
+```
+
+---
+
+## Part 1: `ggplotly()` — converting a static ggplot
+
+See slides: [Two approaches](../lecture-slides/SLIDES-interactivity.qmd#two-approaches){target="_blank"} and [ggplotly()](../lecture-slides/SLIDES-interactivity.qmd#ggplotly-how){target="_blank"}
+
+### Build a static ggplot
+
+We start with a scatter plot of peak wind speed vs. minimum pressure for storms since 2000. 
+
+```{r static-ggplot}
+#| eval: true
+#| echo: true
+#| warning: false
+#| fig-align: "center"
+#| out-width: "80%"
+
+#...................add formatted hover label....................
+storms_2000 <- storms_2000 |>
+  mutate(label = paste0(
+    "<b>", name, " (", year, ")</b><br>",
+    "Status: ", category_label, "<br>",
+    "Peak wind: ", peak_wind, " kt<br>",
+    "Min pressure: ", min_pressure, " mb"
+  ))
+
+#............................build plot..........................
+p <- ggplot(storms_2000,
+            aes(x = peak_wind, y = min_pressure,
+                color = status_label, text = label)) +
+  geom_jitter(size = 2.5, alpha = 0.65, width = 0.8, height = 0) +  # jitter x only
+  scale_color_manual(values = pal, name = NULL) +
+  labs(
+    title = "Atlantic Storm Peak Intensity (2000–2022)",
+    x     = "Peak Wind Speed (kt)",
+    y     = "Minimum Pressure (mb)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "grey93"),
+    legend.position  = "top",
+    legend.text      = element_text(size = 11)
+  )
+
+
+p
+
+```
+
+### Convert to interactive with `ggplotly()`
+
+```{r ggplotly-basic}
+#| eval: true
+#| echo: true
+#| warning: false
+
+ggplotly(p, tooltip = "text")
+```
+
+::: {.callout-tip}
+**Try it:** Hover over any point to see the formatted label. Click a status category in the legend to hide it.Double click a status category to view only that category. Drag to zoom; double-click to reset. The toolbar in the top-right gives additional controls.
+:::
+
+### Customising `ggplotly()` output
+
+A few small tweaks make `ggplotly()` output cleaner:
+
+```{r ggplotly-polished}
+#| eval: true
+#| echo: true
+#| warning: false
+
+ggplotly(p, tooltip = "text") |>
+  layout(
+    legend     = list(orientation = "h", x = 0, y = 1.1),
+    hoverlabel = list(bgcolor = "white", bordercolor = "grey80",
+                      font = list(size = 12))
+  ) |>
+  config(displaylogo = FALSE,
+         modeBarButtonsToRemove = list("select2d", "lasso2d"))
+```
+
+---
+
+## Part 2: `plot_ly()` — native plotly for more control
+
+See slides: [plot_ly() grammar](../lecture-slides/SLIDES-interactivity.qmd#plot-ly-grammar){target="_blank"} and [animation](../lecture-slides/SLIDES-interactivity.qmd#animation-intro){target="_blank"}
+
+### 2A — Animated scatter: storm intensity across decades
+
+The `frame` argument is the key to animation. Plotly creates one frame per unique value and adds a Play/Pause button and year slider automatically.
+
+```{r animated-scatter}
+#| eval: true
+#| echo: true
+#| warning: false
+
+
+storms_peak <- storms |>
+  group_by(name, year, status) |>
+  summarise(
+    peak_wind     = max(wind, na.rm = TRUE),
+    min_pressure  = min(pressure, na.rm = TRUE),
+    max_category  = max(category, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    # clean up category for labelling
+    category_label = case_when(
+      max_category == 1  ~ "Cat 1",
+      max_category == 2  ~ "Cat 2",
+      max_category == 3  ~ "Cat 3",
+      max_category == 4  ~ "Cat 4",
+      max_category == 5  ~ "Cat 5",
+      TRUE               ~ status
+    )
+  )
+
+storms_peak |>
+  mutate(
+    # build hover label
+    hover_text = paste0(
+      "<b>", name, "</b><br>",
+      "Year: ", year, "<br>",
+      "Status: ", category_label, "<br>",
+      "Peak wind: ", peak_wind, " kt<br>",
+      "Min pressure: ", min_pressure, " mb"
+    )
+  ) |>
+  plot_ly(
+    x         = ~peak_wind,
+    y         = ~min_pressure,
+    color     = ~status,
+    frame     = ~year,           # one frame per year → animation
+    text      = ~hover_text,
+    hoverinfo = "text",
+    type      = "scatter",
+    mode      = "markers",
+    marker    = list(size = 8, opacity = 0.7)
+  ) |>
+  layout(
+    title  = "Atlantic Storm Peak Intensity by Year (1975–2022)",
+    xaxis  = list(title = "Peak Wind Speed (knots)", range = c(0, 175)),
+    yaxis  = list(title = "Min Central Pressure (mb)", range = c(880, 1020)),
+    legend = list(title = list(text = "Storm status:"))
+  ) |>
+  animation_opts(
+    frame   = 700,              # ms per year frame
+    easing  = "linear",         # constant speed — clearest for data trends
+    redraw  = FALSE
+  ) |>
+  animation_button(
+    x = 1.08, xanchor = "right",
+    y = 0,    yanchor = "bottom"
+  )
+```
+
+
+
+
+###  2B: Bar chart: storm counts by status and decade
+
+```{r bar-chart}
+#| eval: true
+#| echo: true
+#| warning: false
+
+storms_peak |>
+  mutate(decade = paste0(floor(year / 10) * 10, "s")) |>
+  count(decade, status) |>
+  plot_ly(
+    x         = ~decade,
+    y         = ~n,
+    color     = ~status,
+    type      = "bar",
+    text      = ~paste0(status, "<br>n = ", n),
+    hoverinfo = "text"
+  ) |>
+  layout(
+    barmode = "stack",
+    title   = "Atlantic Storm Counts by Decade and Status",
+    xaxis   = list(title = "Decade"),
+    yaxis   = list(title = "Number of Named Storms"),
+    legend  = list(title = list(text = "Storm status:"))
+  )
+```
+
+---
+
+## Part 3: Saving and embedding widgets
+
+See slides: [saveWidget()](../lecture-slides/SLIDES-interactivity.qmd#htmlwidgets-save){target="_blank"} and [embedding in Quarto](../lecture-slides/SLIDES-interactivity.qmd#quarto-embed){target="_blank"}
+
+### Save a widget to a standalone HTML file
+
+```{r save-widget}
+#| eval: false
+#| echo: true
+
+#...............assign the animated chart to an object...........
+animated_storms <- storms_peak |>
+  mutate(hover_text = paste0("<b>", name, "</b><br>",
+                             "Year: ", year, "<br>",
+                             "Peak wind: ", peak_wind, " kt")) |>
+  plot_ly(x = ~peak_wind, y = ~min_pressure, color = ~status,
+          frame = ~year, text = ~hover_text, hoverinfo = "text",
+          type = "scatter", mode = "markers") |>
+  layout(xaxis = list(title = "Peak Wind (knots)"),
+         yaxis = list(title = "Min Pressure (mb)"),
+         title = "Atlantic Storm Intensity (animated)")
+
+#.....save as a self-contained HTML — anyone can open this file.....
+saveWidget(animated_storms,
+           file          = here::here("week9", "outputs", "storms_animated.html"),
+           selfcontained = TRUE)
+```
+
+::: {.callout-note}
+`selfcontained = TRUE` bundles all JavaScript and CSS into a single ~3 MB file. Set it to `FALSE` if you are hosting the file on a web server — this produces a smaller HTML plus a `_files/` folder.
+:::
+
+### Embedding works automatically in Quarto
+
+In a Quarto HTML document, you do **not** need `saveWidget()`. Just print the widget object inside a code chunk — Quarto handles embedding automatically when you click **Render**.
+
+```{r embed-demo}
+#| eval: true
+#| echo: true
+#| warning: false
+
+# Assign and print — Quarto embeds this in the rendered HTML
+trend_widget <- storms_annual |>
+  filter(status %in% c("tropical storm", "hurricane")) |>
+  plot_ly(x = ~year, y = ~mean_wind, color = ~status,
+          type = "scatter", mode = "lines+markers",
+          text  = ~paste0(status, " (", year, "): ",
+                          round(mean_wind, 1), " kt"),
+          hoverinfo = "text") |>
+  layout(title = "Mean Storm Wind Speed by Status",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "Mean Wind (knots)"))
+
+trend_widget   # printing here embeds it in the rendered output
+```
+
