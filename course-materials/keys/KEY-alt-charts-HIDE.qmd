@@ -1,16 +1,11 @@
 ---
-title: "Lecture 10.1 KEY"
-subtitle: "Misc. chart types"
+title: "KEY - alternative chart types"
 author: "Your Name"
-date: 2025-03-10
+date: 2026-03-04
 toc: true
 editor_options: 
   chunk_output_type: inline
 ---
-
-::: {.callout-note}
-This template follows [lecture 10.1 slides](../lecture-slides/lecture10.1-misc-charts-slides.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
-:::
 
 ## Waffle chart 
 
@@ -35,9 +30,6 @@ bigfoot <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 #..........................import fonts..........................
 font_add_google(name = "Ultra", family = "ultra")
 font_add_google(name = "Josefin Sans", family = "josefin")
-
-#................enable {showtext} for rendering.................
-showtext_auto()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
@@ -69,26 +61,30 @@ title <- "Summer is the season of Bigfoot sightings in CA"
 subtitle <- "Winter, on the other hand, is a rare time to spot Sasquatch"
 caption <- "Source: Bigfoot Field Researchers Organization"
 
+#................enable {showtext} for rendering.................
+showtext_auto(enable = TRUE)
+
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
-  geom_waffle(color = "white", size = 0.3, n_rows = 10) +
+  geom_waffle(color = "white", size = 0.3, n_rows = 10,
+              make_proportional = TRUE) +
   coord_fixed() +
   scale_fill_manual(values = season_palette) +
   labs(title = title,
        subtitle = subtitle,
        caption = caption) +
-  theme_void() +
+  theme_void(base_size = 17) +
   theme(
     plot.title = element_text(family = "ultra", 
-                              size = 17, 
+                              #size = rel(1), 
                               hjust = 0.5,
                               margin = margin(t = 0, r = 0, b = 0.3, l = 0, "cm")),
     plot.subtitle = element_text(family = "josefin",
-                                 size = 16,
+                                 size = rel(0.9),
                                  hjust = 0.5,
                                  margin = margin(t = 0, r = 0, b = 0.5, l = 0, "cm")),
     plot.caption = element_text(family = "josefin",
-                                size = 10,
+                                size = rel(0.6),
                                 color = plot_palette["gray"], 
                                 margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
     legend.position = "bottom",
@@ -97,50 +93,59 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                size = 12),
     plot.background = element_rect(fill = plot_palette["beige"], 
                                    color = plot_palette["beige"]),
+    #plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
     plot.margin = margin(t = 2, r = 2, b = 2, l = 2, "cm")
   )
+
+#..................turn off {showtext} rendering.................
+showtext_auto(enable = FALSE)
 ```
 
 ```{r}
-#| eval: true
-#| echo: true
+#| eval: false
+#| echo: false
 #| message: false
 #| warning: false
 #| fig-align: "center"
-#................create proportional waffle chart................
-ggplot(ca_season_counts, aes(fill = season, values = n)) +
-  geom_waffle(color = "white", size = 0.3, n_rows = 10,
-              make_proportional = TRUE) + # <1>
-  coord_fixed() +
-  scale_fill_manual(values = season_palette) +
-  theme_void() +
-  theme(
-    plot.title = element_text(family = "ultra", 
-                              size = 18, 
-                              hjust = 0.5,
-                              margin = margin(t = 1, r = 0, b = 0.3, l = 1, "cm")),
-    plot.subtitle = element_text(family = "josefin",
-                                 size = 16,
-                                 hjust = 0.5,
-                                 margin = margin(t = 0, r = 0, b = 0.5, l = 0, "cm")),
-    plot.caption = element_text(family = "josefin",
-                                size = 10,
-                                color = plot_palette["gray"], 
-                                hjust = 0,
-                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
-    legend.position = "bottom",
-    legend.title = element_blank(),
-    legend.text = element_text(family = "josefin",
-                               size = 12),
-    plot.background = element_rect(fill = plot_palette["beige"], 
-                                   color = plot_palette["beige"]),
-    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, "cm")
-  )
 
-#........................turn off showtext.......................
-showtext_auto(FALSE)
+# #................enable {showtext} for rendering.................
+# showtext_auto(enable = TRUE)
+
+# #................create proportional waffle chart................
+# ggplot(ca_season_counts, aes(fill = season, values = n)) +
+#   geom_waffle(color = "white", size = 0.3, n_rows = 10,
+#               make_proportional = TRUE) + # <1>
+#   coord_fixed() +
+#   scale_fill_manual(values = season_palette) +
+#   theme_void() +
+#   theme(
+#     plot.title = element_text(family = "ultra", 
+#                               size = 18, 
+#                               hjust = 0.5,
+#                               margin = margin(t = 1, r = 0, b = 0.3, l = 1, "cm")),
+#     plot.subtitle = element_text(family = "josefin",
+#                                  size = 16,
+#                                  hjust = 0.5,
+#                                  margin = margin(t = 0, r = 0, b = 0.5, l = 0, "cm")),
+#     plot.caption = element_text(family = "josefin",
+#                                 size = 10,
+#                                 color = plot_palette["gray"], 
+#                                 hjust = 0,
+#                                 margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
+#     legend.position = "bottom",
+#     legend.title = element_blank(),
+#     legend.text = element_text(family = "josefin",
+#                                size = 12),
+#     plot.background = element_rect(fill = plot_palette["beige"], 
+#                                    color = plot_palette["beige"]),
+#     plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
+#   )
+
+# #........................turn off showtext.......................
+# showtext_auto(FALSE)
 ```
-1. Set `make_proportional = TRUE` (`FALSE` by default)
+
+<!-- 1. Set `make_proportional = TRUE` (`FALSE` by default) -->
 
 ## Bump chart
 
