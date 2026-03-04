@@ -15,7 +15,7 @@ editor_options:
 
 [EDS 240: Lecture 9.2]{.custom-title}
 
-[*Alternative chart type practice (waffle & bump charts)*]{.custom-subtitle}
+[*Alternative chart type practice (waffles, bump charts & stream graphs)*]{.custom-subtitle}
 
 <hr class="hr-teal">
 
@@ -144,7 +144,6 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
 showtext_auto(enable = FALSE)
 ```
 
-
 ---
 
 ## {#prop-waffle data-menu-title="Proportional waffle"} 
@@ -182,7 +181,7 @@ subtitle <- "Only 10% of Sasquatch sightings occur in the winter"
 caption <- "Source: Bigfoot Field Researchers Organization"
 
 #................enable {showtext} for rendering.................
-showtext_auto()
+showtext_auto(enable = TRUE)
 
 #......................create waffle chart.......................
 ggplot(ca_season_counts, aes(fill = season, values = n)) +
@@ -207,7 +206,7 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                 size = 10,
                                 color = plot_palette["gray"], 
                                 hjust = 0,
-                               margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
+                                margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
     legend.position = "bottom",
     legend.title = element_blank(),
     legend.text = element_text(family = "josefin",
@@ -421,6 +420,142 @@ salary_rank_by_year |>
 showtext_auto(enable = FALSE)
 ```
 
+## {#whats-a-stream data-menu-title="What's a stream graph?"}
+
+[Stream graphs offer an alternative to stacked area charts for showing evolution]{.slide-title3}
+
+<hr>
+
+```{r movie-stream}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("course-materials", "images", "lecture-slides", "movie-stream.png"))
+```
+ 
+::: {.center-text .gray-text .body-text-s}
+Image source: [Streamgraphs: how to make them and what you need to know](https://flourish.studio/blog/streamgraphs/){target="_blank"}
+:::
+
+---
+
+## {#stream-graph data-menu-title="Stream graph"} 
+
+[Stream graphs for showing US energy capacity through time]{.slide-title3}
+
+<hr>
+
+[[Berkeley Lab](https://emp.lbl.gov/utility-scale-solar){target="_blank"}'s "Utility-Scale Solar, 2021 Edition" provides data on energy capacity by type (e.g. solar, wind, gas, etc.) in the United States. TidyTuesday featured these compiled data on [2022-05-03](https://github.com/rfordatascience/tidytuesday/blob/main/data/2022/2022-05-03/readme.md){target="_blank"}.]{.body-text-s}
+
+<br>
+
+```{r energy-stream}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(ggstream)
+library(ggtext)
+library(showtext)
+
+#..........................import data...........................
+capacity <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2022/2022-05-03/capacity.csv")
+
+#..........................import fonts..........................
+font_add_google(name = "Exo 2", family = "exo")
+font_add_google(name = "Open Sans", family = "open")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+capacity_clean <- capacity |> 
+  mutate(type = factor(type, levels = c("Solar", "Wind", "Storage", "Gas", "Nuclear", "Coal", "Other")))
+
+text_data <- capacity_clean |> 
+  filter(year == 2020) |> 
+  mutate(year_val = year + 0.1,
+         y = c(225, -125, -350, -500, -560, -610, -660))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                stream graph                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................create palette.........................
+pal <- paletteer::paletteer_d("MetBrewer::Archambault", n = 7)
+
+#.......................construct subtitle.......................
+subtitle <- glue::glue("In large part, due to increases in 
+                      <span style='color:#88A0DCFF;'>**solar**</span>,
+                      <span style='color:#381A61FF;'>**wind**</span>,
+                      and 
+                      <span style='color:#7C4B73FF;'>**storage**</span>
+                      capacities")
+
+#......................create stream graph.......................
+energy_stream <- ggplot(capacity_clean, aes(x = year, y = total_gw, fill = type)) + 
+  geom_stream(bw = 0.85,
+              extra_span = 0.2,
+              #sorting = "none",
+              color = "white") +
+  geom_text(data = text_data, 
+            aes(x = year_val, y = y, 
+                label = type, 
+                color = type),
+            family = "exo",
+            size = 4,
+            hjust = 0) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  labs(title = "Energy Capacity in the United States has Grown Steadily",
+       subtitle = subtitle,
+       caption = "Data: Berkeley Lab's Utility-Scale Solar, 2021 Edition") +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 17, 
+                base_family = "open") +
+  theme(
+    text = element_text(color = "#333333"),
+    plot.title = element_text(family = "exo", 
+                              size = rel(1), 
+                              hjust = 0,
+                              face = "bold"),
+    plot.subtitle = ggtext::element_markdown(size = rel(0.8), 
+                                             hjust = 0,
+                                             margin = margin(t = 3, b = 3)),
+    plot.caption = element_text(size = rel(0.6), 
+                                hjust = 1,
+                                margin = margin(t = 20, b = 5)),
+    legend.position = "none",
+    panel.grid = element_blank(),
+    plot.background = element_rect(fill = "#FFF5E0", color = "#FFF5E0"),
+    panel.background = element_rect(fill = "#FFF5E0", color = "#FFF5E0"),
+    plot.margin = margin(t = 1, r = 2, b = 1, l = 1, "cm"),
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(family = "exo", 
+                               size = rel(0.75),
+                               color = "#333333")
+  )
+
+#................enable {showtext} for rendering.................
+showtext_auto(enable = TRUE)
+
+#...........................print plot...........................
+energy_stream
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
+```
+
+
 ---
 
 ## {#recreate data-menu-title="Activity: Recreate viz"} 
@@ -431,17 +566,18 @@ showtext_auto(enable = FALSE)
 
 <br>
 
-[Choose one of the prior two examples to recreate:]{.body-text-l}
+[Choose at least one of the prior three examples to recreate:]{.body-text-l}
 
 - [Sasquatch sighting waffle chart]{.body-text-m}
 - [Occupation salary bump chart]{.body-text-m}
+- [Energy capacity stream graph]{.body-text-m}
 
 [You may work alone or with your learning partners.]{.body-text-l}
 
 <br>
 
 ::: {.center-text}
-*Templates are available on the [week 9 course website page](../week9.qmd). Keys will be shared after class.*
+*A (minimal) template is available on the [week 9 course website page](../week9.qmd). The key will be shared after class.*
 :::
 
 ---
