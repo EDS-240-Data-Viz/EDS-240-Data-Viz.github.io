@@ -81,7 +81,7 @@ Interactive charts are especially powerful for:
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column .fragment width="50%"}
 
 **{{< fa circle-check title="green check" >}} Good use cases:**
 
@@ -207,37 +207,58 @@ All of these can be saved with `saveWidget()` and embedded in Quarto / R Markdow
 
 <hr>
 
+
+```{r}
+#| eval: true
+#| echo: false
+
+library(dplyr)
+storms_clean <- storms |>
+  mutate(status = tools::toTitleCase(gsub("-", " ", status))) |>
+  filter(!is.na(wind), !is.na(pressure), !is.na(status)) |>
+  filter(wind > 0, pressure > 800, pressure < 1030) |> 
+    group_by(name, year, status) |>
+  summarise(
+    wind     = mean(wind, na.rm = TRUE),
+    pressure = mean(pressure, na.rm = TRUE),
+    .groups  = "drop"
+  )
+
+```
+
+
 ```{r ggplotly-step1}
 #| eval: false
 #| echo: true
-
 # Step 1: build a normal ggplot
-p <- ggplot(storms_2010, aes(x = wind, y = pressure,
-                              color = status,
-                              text  = name)) +   # 'text' becomes the hover label
-  geom_point(alpha = 0.6) +
-  labs(title = "Atlantic Storm Intensity (2010)",
-       x = "Max Wind Speed (knots)",
-       y = "Min Pressure (mb)") +
-  theme_minimal()
+ggplot_static <- storms_clean |>
+  ggplot(aes(
+    x     = pressure,
+    y     = wind,
+    color = status,
+    text  = label
+  )) +
+  geom_jitter(alpha = 0.35, size = 0.9, width = 1.5, height = 1.5) +
+  scale_color_brewer(palette = "Set3") +
+  labs(
+    title  = "Wind Speed vs. Pressure by Storm Status",
+    x      = "Pressure (mb)",
+    y      = "Wind Speed (knots)",
+    color  = "Status"
+  ) +
+  theme_minimal(base_size = 13)
 
-p   # view static version first
+ggplot_static
 ```
 
-. . .
-
-<br>
-<br>
-
-
+::: {.fragment}
 ```{r ggplotly-step2}
 #| eval: false
 #| echo: true
-
 # Step 2: one line makes it interactive
-ggplotly(p, tooltip = c("text", "x", "y"))
+ggplotly(ggplot_static, tooltip = "text")
 ```
-
+:::
 
 ---
 
@@ -254,19 +275,22 @@ The `tooltip` argument accepts a vector of **aesthetic names** from your `aes()`
 #| echo: true
 
 # Map a formatted label to the 'text' aesthetic
-storms_2010 <- storms_2010 |>
+storms_clean <- storms_clean |>
   mutate(label = paste0(
-    "<b>", name, "</b><br>",
+    "<b>", name, " (", year, ")</b><br>",
     "Status: ", status, "<br>",
-    "Wind: ", wind, " knots<br>",
-    "Pressure: ", pressure, " mb"
+    "Wind: ", round(wind, 1), " kt<br>",
+    "Pressure: ", round(pressure, 1), " mb"
   ))
 
-p <- ggplot(storms_2010,
-            aes(x = wind, y = pressure,
-                color = status, text = label)) +
-  geom_point(alpha = 0.6) +
-  theme_minimal()
+ggplot_static <- storms_clean |>
+  ggplot(aes(
+    x     = pressure,
+    y     = wind,
+    color = status,
+    text  = label
+  )) ...
+
 
 ggplotly(p, tooltip = "text")   # only show our custom label
 ```
@@ -392,22 +416,24 @@ plot_ly(data,
 #| eval: false
 #| echo: true
 
-plot_ly(
-  data      = storms_2010,
-  x         = ~wind,
-  y         = ~pressure,
-  color     = ~status,
-  type      = "scatter",
-  mode      = "markers",
-  text      = ~paste0("<b>", name, "</b><br>",   # custom hover text
-                      "Category: ", category, "<br>",
-                      "Wind: ", wind, " kt"),
-  hoverinfo = "text"    # show ONLY our custom text (suppress x/y/trace defaults)
-) |>
+storms_clean |>
+  plot_ly(
+    x             = ~decade,
+    y             = ~n,
+    color         = ~status,
+    colors        = RColorBrewer::brewer.pal(8, "Paired"),
+    type          = "bar",
+    text          = ~paste0("<b>", status, "</b><br>n = ", n),
+    textposition  = "none",
+    hoverinfo     = "text",
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
   layout(
-    title = "Atlantic Storm Intensity",
-    xaxis = list(title = "Max Wind Speed (knots)"),
-    yaxis = list(title = "Min Pressure (mb)")
+    barmode = "stack",
+    title   = "Atlantic Storm Counts by Decade and Status",
+    xaxis   = list(title = "Decade"),
+    yaxis = list(title = "", showticklabels = FALSE),
+    legend  = list(title = list(text = "<b>Status</b>"))
   )
 ```
 
@@ -425,25 +451,37 @@ plot_ly(
 
 <hr>
 
-The single most powerful feature of native `plot_ly()` is **animation**. Adding `frame = ~variable` creates one slide per unique value and automatically generates a Play/Pause button.
+A powerful feature of native `plot_ly()` is **animation**. Adding `frame = ~variable` creates one slide per unique value and automatically generates a Play/Pause button.
 
 ```{r animation-demo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "7"
+#| code-line-numbers: "2"
 
-storms |>
-  plot_ly(
-    x         = ~wind,
-    y         = ~pressure,
-    color     = ~status,
-    size      = ~tropicalstorm_force_diameter,
-    frame     = ~year,            # <-- this creates the animation
-    text      = ~name,
-    hoverinfo = "text+x+y",
-    type      = "scatter",
-    mode      = "markers"
-  )
+plot_ly(storms, lat = ~lat, lon = ~long,
+        frame = ~year, 
+        type = "scattergeo", mode = "markers",
+        color = ~as.factor(category), colors = RColorBrewer::brewer.pal(5, "BuPu"),
+        marker = list(size = 6, opacity = 0.7),
+        text = ~paste0("<b>", name, "</b><br>Category: ", category),
+        hoverinfo = "text") |>
+  layout(
+    title = "Atlantic Storm Positions by Year",
+    geo = list(
+      scope        = "north america",
+      showland     = TRUE,  landcolor  = "#2d3436",
+      showocean    = TRUE,  oceancolor = "#1a1a2e",
+      showcoastlines = TRUE, coastlinecolor = "#636e72",
+      showlakes    = TRUE,  lakecolor  = "#1a1a2e",
+      bgcolor      = "#1a1a2e",
+      projection   = list(type = "mercator"),
+      lonaxis      = list(range = c(-110, -10)),
+      lataxis      = list(range = c(5, 60))
+    ),
+    paper_bgcolor = "#1a1a2e",
+    font = list(color = "white")
+  ) |>
+  animation_opts(frame = 1000, transition = 0)
 ```
 
 . . .
@@ -453,85 +491,6 @@ Hit **Play** → the chart steps through each year. Use the **slider** to jump t
 :::
 
 ---
-
-## {#animation-opts data-menu-title="animation_opts()"}
-
-[Tuning the animation with `animation_opts()`]{.slide-title2}
-
-<hr>
-
-```{r animation-opts-demo}
-#| eval: false
-#| echo: true
-
-storms |>
-  plot_ly(x = ~wind, y = ~pressure, color = ~status,
-          frame = ~year, type = "scatter", mode = "markers") |>
-  layout(xaxis = list(title = "Wind (knots)"),
-         yaxis = list(title = "Pressure (mb)")) |>
-  animation_opts(
-    frame     = 800,          # milliseconds per frame
-    easing    = "cubic-in-out", # transition style
-    redraw    = FALSE         # faster: don't redraw entire plot per frame
-  ) |>
-  animation_button(
-    x = 1.05, xanchor = "right",
-    y = 0,    yanchor = "bottom"
-  )
-```
-
-. . .
-
-[**Common `easing` options:**]{.body-text-s}
-
-| Value | Effect |
-|---|---|
-| `"linear"` | Constant speed  |
-| `"cubic-in-out"` | Slow start and end  |
-| `"elastic"` | Bouncy overshoot  |
-| `"bounce"` | Bounces at end |
-
----
-
-## {#layout-add-traces data-menu-title="layout() and add_*()"}
-
-[Building up a chart — `layout()` and `add_*()`]{.slide-title2}
-
-<hr>
-
-Use `|>` to pipe additional layers onto a `plot_ly()` chart:
-
-```{r layout-demo}
-#| eval: false
-#| echo: true
-
-storms |>
-  filter(year >= 2000) |>
-  group_by(year, status) |>
-  summarise(mean_wind = mean(wind), .groups = "drop") |>
-  plot_ly(x = ~year, y = ~mean_wind, color = ~status,
-          type = "scatter", mode = "lines+markers") |>
-  add_segments(                             # reference line
-    x = ~min(year), xend = ~max(year),
-    y = 64, yend = 64,
-    line = list(color = "grey50", dash = "dot"),
-    name = "Hurricane threshold (64 kt)",
-    inherit = FALSE
-  ) |>
-  layout(
-    title  = "Mean Wind Speed by Storm Status (2000–2021)",
-    xaxis  = list(title = "Year"),
-    yaxis  = list(title = "Mean Max Wind (knots)"),
-    legend = list(title = list(text = "Click to toggle:"))
-  )
-```
-
-::: {.footer}
-`add_segments()`, `add_lines()`, `add_markers()`, `add_bars()` and more — see [plotly-r.com](https://plotly-r.com){target="_blank"} for the full list.
-:::
-
----
-
 
 
 ## {#htmlwidgets-save data-menu-title="saveWidget()"}
@@ -547,7 +506,7 @@ Any htmlwidget can be saved as a **standalone HTML file** that anyone can open i
 ```{r save-widget-demo}
 #| eval: false
 #| echo: true
-
+ 
 library(htmlwidgets)
 
 # Assign your widget to an object, then save it
