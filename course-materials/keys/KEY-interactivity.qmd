@@ -16,10 +16,9 @@ This template follows the [interactive data visualization](../lecture-slides/SLI
 We use the `storms` dataset from `{dplyr}` throughout this lab — no external file needed. It contains Atlantic storm tracks with wind speed, pressure, storm status, and geographic position from 1975 to 2022.
 :::
 
-<!-- CODE RENDERS BUT DOES NOT RUN -->
 
 ```{r setup-echo}
-#| eval: false
+#| eval: true
 #| echo: true
 #| warning: false
 #| message: false
@@ -35,21 +34,6 @@ library(dplyr)
 glimpse(storms)
 ```
 
-<!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
-
-```{r setup-eval}  
-#| eval: true
-#| echo: false
-#| warning: false
-#| message: false
-
-library(tidyverse)
-library(plotly)
-library(htmlwidgets)
-library(scales)
-library(dplyr)
-
-```
 
 **Key variables in `storms`:**
 
@@ -64,13 +48,6 @@ library(dplyr)
 | `pressure` | numeric | Min central pressure (millibars) |
 | `tropicalstorm_force_diameter` | numeric | Diameter (nautical miles) of TS-force winds |
 
-```{r preview-data}
-#| eval: true
-#| echo: true
-#| message: false
-
-glimpse(storms)
-```
 
 ## Wrangle data
 
@@ -118,7 +95,7 @@ ggplot_static <- storms_clean %>%
     )
   )) +
   geom_jitter(alpha = 0.35, size = 0.9, width = 1.5, height = 1.5) +
-  scale_color_brewer(palette = "Set3") +
+  scale_color_brewer(palette = "Paired") +
   labs(
     title  = "Atlantic Storm Intensity by Status",
     x      = "Pressure (mb)",
@@ -196,7 +173,7 @@ storms_clean |>
     barmode = "stack",
     title   = "Atlantic Storm Counts by Decade and Status",
     xaxis   = list(title = "Decade"),
-    yaxis = list(title = "", showticklabels = FALSE),
+    yaxis = list(title = ""),
     legend  = list(title = list(text = "<b>Status</b>"))
   )
 ```
@@ -205,29 +182,38 @@ storms_clean |>
 #| warning: false
 #| message: false
 
-plot_ly(storms, lat = ~lat, lon = ~long,
-        frame = ~year, type = "scattergeo", mode = "markers",
-        color = ~as.factor(category), colors = RColorBrewer::brewer.pal(5, "BuPu"),
+land <- "#2d3436"
+water <- "#1a1a2e"
+
+plot_ly(storms, 
+        lat = ~lat,
+        lon = ~long,
+        frame = ~year,
+        type = "scattergeo", 
+        mode = "markers", 
+        color = ~as.factor(category),
+        colors = RColorBrewer::brewer.pal(5, "BuPu"),
         marker = list(size = 6, opacity = 0.7),
         text = ~paste0("<b>", name, "</b><br>Category: ", category),
         hoverinfo = "text") |>
   layout(
     title = "Atlantic Storm Positions by Year",
     geo = list(
-      scope        = "north america",
-      showland     = TRUE,  landcolor  = "#2d3436",
-      showocean    = TRUE,  oceancolor = "#1a1a2e",
+      scope        = "north america", 
+      showland     = TRUE,  landcolor  = land, 
+      showocean    = TRUE,  oceancolor = water,
       showcoastlines = TRUE, coastlinecolor = "#636e72",
-      showlakes    = TRUE,  lakecolor  = "#1a1a2e",
-      bgcolor      = "#1a1a2e",
+      showlakes    = TRUE,  lakecolor  = water,
+      bgcolor      = water,
       projection   = list(type = "mercator"),
       lonaxis      = list(range = c(-110, -10)),
       lataxis      = list(range = c(5, 60))
     ),
-    paper_bgcolor = "#1a1a2e",
+    paper_bgcolor = water, 
     font = list(color = "white")
   ) |>
-  animation_opts(frame = 1000, transition = 0)
+  animation_opts(frame = 1000)
+
 ```
 
 ---

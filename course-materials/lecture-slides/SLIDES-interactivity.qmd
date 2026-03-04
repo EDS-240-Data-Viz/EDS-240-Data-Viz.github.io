@@ -237,7 +237,7 @@ ggplot_static <- storms_clean |>
     text  = label
   )) +
   geom_jitter(alpha = 0.35, size = 0.9, width = 1.5, height = 1.5) +
-  scale_color_brewer(palette = "Set3") +
+  scale_color_brewer(palette = "Paired") +
   labs(
     title  = "Wind Speed vs. Pressure by Storm Status",
     x      = "Pressure (mb)",
@@ -327,11 +327,11 @@ Image source: [What to consider when using text in data visualizations](https://
 
 - Including that your chart is interactive depends on how you use interactivity
 
-- Keep the same alt text formula discussed previously : "Chart type of type of data where reason for including chart". If suitable, include interactive context by adding a sentence like this to the end of your alt text: 
+- Keep the same alt text formula discussed previously :[**Chart type**]{.teal-text} of [**type of data**]{.magenta-text} where [**reason for including chart**]{.dark-blue-text}.  If suitable, include interactive context by adding a sentence like this to the end of your alt text: 
 
 > The chart is interactive, and each data point can be hovered over to reveal.....
 
-- The simplest way to include alt text for interactivty plots is still via the `fig-alt` chunk option
+- The simplest way to include alt text for interactive plots is still via the `fig-alt` chunk option
 
 
 
@@ -447,7 +447,7 @@ storms_clean |>
     barmode = "stack",
     title   = "Atlantic Storm Counts by Decade and Status",
     xaxis   = list(title = "Decade"),
-    yaxis = list(title = "", showticklabels = FALSE),
+    yaxis = list(title = ""),
     legend  = list(title = list(text = "<b>Status</b>"))
   )
 ```
@@ -471,32 +471,38 @@ A powerful feature of native `plot_ly()` is **animation**. Adding `frame = ~vari
 ```{r animation-demo}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "2"
-
-plot_ly(storms, lat = ~lat, lon = ~long,
-        frame = ~year, 
-        type = "scattergeo", mode = "markers",
-        color = ~as.factor(category), colors = RColorBrewer::brewer.pal(5, "BuPu"),
+#| code-line-numbers: "6"
+land <- "#2d3436"
+water <- "#1a1a2e"
+plot_ly(storms, 
+        lat = ~lat,
+        lon = ~long,
+        frame = ~year,
+        type = "scattergeo", 
+        mode = "markers", # other options is lines or text
+        color = ~as.factor(category), # so its not on a continuous scale
+        colors = RColorBrewer::brewer.pal(5, "BuPu"),
         marker = list(size = 6, opacity = 0.7),
         text = ~paste0("<b>", name, "</b><br>Category: ", category),
         hoverinfo = "text") |>
   layout(
     title = "Atlantic Storm Positions by Year",
     geo = list(
-      scope        = "north america",
-      showland     = TRUE,  landcolor  = "#2d3436",
-      showocean    = TRUE,  oceancolor = "#1a1a2e",
+      scope        = "north america", # default is world
+      showland     = TRUE,  landcolor  = land, 
+      showocean    = TRUE,  oceancolor = water,
       showcoastlines = TRUE, coastlinecolor = "#636e72",
-      showlakes    = TRUE,  lakecolor  = "#1a1a2e",
-      bgcolor      = "#1a1a2e",
+      showlakes    = TRUE,  lakecolor  = water,
+      bgcolor      = water,
       projection   = list(type = "mercator"),
       lonaxis      = list(range = c(-110, -10)),
       lataxis      = list(range = c(5, 60))
     ),
-    paper_bgcolor = "#1a1a2e",
+    paper_bgcolor = water, # rectangular box outside of plot
     font = list(color = "white")
   ) |>
-  animation_opts(frame = 1000, transition = 0)
+  # each frame for 1000 milliseconds ( 1 second)
+  animation_opts(frame = 1000)
 ```
 
 . . .

@@ -366,7 +366,7 @@ The <code>htmlwidgets</code> framework brings interactive JavaScript libraries t
 <span id="cb1-7"><a></a>    <span class="at">text  =</span> label</span>
 <span id="cb1-8"><a></a>  )) <span class="sc">+</span></span>
 <span id="cb1-9"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.9</span>, <span class="at">width =</span> <span class="fl">1.5</span>, <span class="at">height =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb1-10"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Paired"</span>) <span class="sc">+</span></span>
 <span id="cb1-11"><a></a>  <span class="fu">labs</span>(</span>
 <span id="cb1-12"><a></a>    <span class="at">title  =</span> <span class="st">"Wind Speed vs. Pressure by Storm Status"</span>,</span>
 <span id="cb1-13"><a></a>    <span class="at">x      =</span> <span class="st">"Pressure (mb)"</span>,</span>
@@ -430,13 +430,13 @@ The <code>htmlwidgets</code> framework brings interactive JavaScript libraries t
 <ul>
 <li><p>Interactive plots still need alt text, but it is important to note that screen readers <strong>cannot</strong> convey hover tooltips, animations, or interactivity</p></li>
 <li><p>Including that your chart is interactive depends on how you use interactivity</p></li>
-<li><p>Keep the same alt text formula discussed previously : “Chart type of type of data where reason for including chart”. If suitable, include interactive context by adding a sentence like this to the end of your alt text:</p></li>
+<li><p>Keep the same alt text formula discussed previously :<span class="teal-text"><strong>Chart type</strong></span> of <span class="magenta-text"><strong>type of data</strong></span> where <span class="dark-blue-text"><strong>reason for including chart</strong></span>. If suitable, include interactive context by adding a sentence like this to the end of your alt text:</p></li>
 </ul>
 <blockquote>
 <p>The chart is interactive, and each data point can be hovered over to reveal…..</p>
 </blockquote>
 <ul>
-<li>The simplest way to include alt text for interactivty plots is still via the <code>fig-alt</code> chunk option</li>
+<li>The simplest way to include alt text for interactive plots is still via the <code>fig-alt</code> chunk option</li>
 </ul>
 </section>
 <section id="ggplotly-limits" class="slide level2" data-menu-title="Limitations of ggplotly()">
@@ -521,7 +521,7 @@ The <code>htmlwidgets</code> framework brings interactive JavaScript libraries t
 <span id="cb6-12"><a></a>    <span class="at">barmode =</span> <span class="st">"stack"</span>,</span>
 <span id="cb6-13"><a></a>    <span class="at">title   =</span> <span class="st">"Atlantic Storm Counts by Decade and Status"</span>,</span>
 <span id="cb6-14"><a></a>    <span class="at">xaxis   =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Decade"</span>),</span>
-<span id="cb6-15"><a></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">""</span>, <span class="at">showticklabels =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb6-15"><a></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">""</span>),</span>
 <span id="cb6-16"><a></a>    <span class="at">legend  =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text =</span> <span class="st">"&lt;b&gt;Status&lt;/b&gt;"</span>))</span>
 <span id="cb6-17"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -537,30 +537,37 @@ The <code>htmlwidgets</code> framework brings interactive JavaScript libraries t
 <hr>
 <p>A powerful feature of native <code>plot_ly()</code> is <strong>animation</strong>. Adding <code>frame = ~variable</code> creates one slide per unique value and automatically generates a Play/Pause button.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">plot_ly</span>(storms, <span class="at">lat =</span> <span class="sc">~</span>lat, <span class="at">lon =</span> <span class="sc">~</span>long,</span>
-<span id="cb7-2"><a></a>        <span class="at">frame =</span> <span class="sc">~</span>year, </span>
-<span id="cb7-3"><a></a>        <span class="at">type =</span> <span class="st">"scattergeo"</span>, <span class="at">mode =</span> <span class="st">"markers"</span>,</span>
-<span id="cb7-4"><a></a>        <span class="at">color =</span> <span class="sc">~</span><span class="fu">as.factor</span>(category), <span class="at">colors =</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"BuPu"</span>),</span>
-<span id="cb7-5"><a></a>        <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>, <span class="at">opacity =</span> <span class="fl">0.7</span>),</span>
-<span id="cb7-6"><a></a>        <span class="at">text =</span> <span class="sc">~</span><span class="fu">paste0</span>(<span class="st">"&lt;b&gt;"</span>, name, <span class="st">"&lt;/b&gt;&lt;br&gt;Category: "</span>, category),</span>
-<span id="cb7-7"><a></a>        <span class="at">hoverinfo =</span> <span class="st">"text"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-8"><a></a>  <span class="fu">layout</span>(</span>
-<span id="cb7-9"><a></a>    <span class="at">title =</span> <span class="st">"Atlantic Storm Positions by Year"</span>,</span>
-<span id="cb7-10"><a></a>    <span class="at">geo =</span> <span class="fu">list</span>(</span>
-<span id="cb7-11"><a></a>      <span class="at">scope        =</span> <span class="st">"north america"</span>,</span>
-<span id="cb7-12"><a></a>      <span class="at">showland     =</span> <span class="cn">TRUE</span>,  <span class="at">landcolor  =</span> <span class="st">"#2d3436"</span>,</span>
-<span id="cb7-13"><a></a>      <span class="at">showocean    =</span> <span class="cn">TRUE</span>,  <span class="at">oceancolor =</span> <span class="st">"#1a1a2e"</span>,</span>
-<span id="cb7-14"><a></a>      <span class="at">showcoastlines =</span> <span class="cn">TRUE</span>, <span class="at">coastlinecolor =</span> <span class="st">"#636e72"</span>,</span>
-<span id="cb7-15"><a></a>      <span class="at">showlakes    =</span> <span class="cn">TRUE</span>,  <span class="at">lakecolor  =</span> <span class="st">"#1a1a2e"</span>,</span>
-<span id="cb7-16"><a></a>      <span class="at">bgcolor      =</span> <span class="st">"#1a1a2e"</span>,</span>
-<span id="cb7-17"><a></a>      <span class="at">projection   =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"mercator"</span>),</span>
-<span id="cb7-18"><a></a>      <span class="at">lonaxis      =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">110</span>, <span class="sc">-</span><span class="dv">10</span>)),</span>
-<span id="cb7-19"><a></a>      <span class="at">lataxis      =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">60</span>))</span>
-<span id="cb7-20"><a></a>    ),</span>
-<span id="cb7-21"><a></a>    <span class="at">paper_bgcolor =</span> <span class="st">"#1a1a2e"</span>,</span>
-<span id="cb7-22"><a></a>    <span class="at">font =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
-<span id="cb7-23"><a></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-24"><a></a>  <span class="fu">animation_opts</span>(<span class="at">frame =</span> <span class="dv">1000</span>, <span class="at">transition =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>land <span class="ot">&lt;-</span> <span class="st">"#2d3436"</span></span>
+<span id="cb7-2"><a></a>water <span class="ot">&lt;-</span> <span class="st">"#1a1a2e"</span></span>
+<span id="cb7-3"><a></a><span class="fu">plot_ly</span>(storms, </span>
+<span id="cb7-4"><a></a>        <span class="at">lat =</span> <span class="sc">~</span>lat,</span>
+<span id="cb7-5"><a></a>        <span class="at">lon =</span> <span class="sc">~</span>long,</span>
+<span id="cb7-6"><a></a>        <span class="at">frame =</span> <span class="sc">~</span>year,</span>
+<span id="cb7-7"><a></a>        <span class="at">type =</span> <span class="st">"scattergeo"</span>, </span>
+<span id="cb7-8"><a></a>        <span class="at">mode =</span> <span class="st">"markers"</span>, <span class="co"># other options is lines or text</span></span>
+<span id="cb7-9"><a></a>        <span class="at">color =</span> <span class="sc">~</span><span class="fu">as.factor</span>(category), <span class="co"># so its not on a continuous scale</span></span>
+<span id="cb7-10"><a></a>        <span class="at">colors =</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"BuPu"</span>),</span>
+<span id="cb7-11"><a></a>        <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>, <span class="at">opacity =</span> <span class="fl">0.7</span>),</span>
+<span id="cb7-12"><a></a>        <span class="at">text =</span> <span class="sc">~</span><span class="fu">paste0</span>(<span class="st">"&lt;b&gt;"</span>, name, <span class="st">"&lt;/b&gt;&lt;br&gt;Category: "</span>, category),</span>
+<span id="cb7-13"><a></a>        <span class="at">hoverinfo =</span> <span class="st">"text"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a></a>  <span class="fu">layout</span>(</span>
+<span id="cb7-15"><a></a>    <span class="at">title =</span> <span class="st">"Atlantic Storm Positions by Year"</span>,</span>
+<span id="cb7-16"><a></a>    <span class="at">geo =</span> <span class="fu">list</span>(</span>
+<span id="cb7-17"><a></a>      <span class="at">scope        =</span> <span class="st">"north america"</span>, <span class="co"># default is world</span></span>
+<span id="cb7-18"><a></a>      <span class="at">showland     =</span> <span class="cn">TRUE</span>,  <span class="at">landcolor  =</span> land, </span>
+<span id="cb7-19"><a></a>      <span class="at">showocean    =</span> <span class="cn">TRUE</span>,  <span class="at">oceancolor =</span> water,</span>
+<span id="cb7-20"><a></a>      <span class="at">showcoastlines =</span> <span class="cn">TRUE</span>, <span class="at">coastlinecolor =</span> <span class="st">"#636e72"</span>,</span>
+<span id="cb7-21"><a></a>      <span class="at">showlakes    =</span> <span class="cn">TRUE</span>,  <span class="at">lakecolor  =</span> water,</span>
+<span id="cb7-22"><a></a>      <span class="at">bgcolor      =</span> water,</span>
+<span id="cb7-23"><a></a>      <span class="at">projection   =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"mercator"</span>),</span>
+<span id="cb7-24"><a></a>      <span class="at">lonaxis      =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">110</span>, <span class="sc">-</span><span class="dv">10</span>)),</span>
+<span id="cb7-25"><a></a>      <span class="at">lataxis      =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">60</span>))</span>
+<span id="cb7-26"><a></a>    ),</span>
+<span id="cb7-27"><a></a>    <span class="at">paper_bgcolor =</span> water, <span class="co"># rectangular box outside of plot</span></span>
+<span id="cb7-28"><a></a>    <span class="at">font =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
+<span id="cb7-29"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-30"><a></a>  <span class="co"># each frame for 1000 milliseconds ( 1 second)</span></span>
+<span id="cb7-31"><a></a>  <span class="fu">animation_opts</span>(<span class="at">frame =</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <div class="center-text body-text-s gray-text">
@@ -606,7 +613,7 @@ The <code>htmlwidgets</code> framework brings interactive JavaScript libraries t
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_8ad8fde0" minutes="5" seconds="0" update-every="1" play-sound="true" tabindex="0" style="right:0;bottom:0;--countdown-font-size:2em;--countdown-color-border:#FFFFFF;--countdown-color-text:#7aa81e;--countdown-color-running-background:#7aa81e;--countdown-color-running-text:#FFFFFF;--countdown-color-finished-background:#ffa07a;--countdown-color-finished-text:#FFFFFF;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_9701b0e4" minutes="5" seconds="0" update-every="1" play-sound="true" tabindex="0" style="right:0;bottom:0;--countdown-font-size:2em;--countdown-color-border:#FFFFFF;--countdown-color-text:#7aa81e;--countdown-color-running-background:#7aa81e;--countdown-color-running-text:#FFFFFF;--countdown-color-finished-background:#ffa07a;--countdown-color-finished-text:#FFFFFF;"></countdown-timer>
 </div>
 </div>
 
