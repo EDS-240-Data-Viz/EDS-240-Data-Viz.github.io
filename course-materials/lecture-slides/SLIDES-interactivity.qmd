@@ -38,7 +38,7 @@ editor_options:
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column .fragment width="50%"}
 
 
 **Interactive charts** can provide more information to the viewer, without cluttering your visualization — viewers can:
@@ -317,6 +317,25 @@ knitr::include_graphics(here::here("course-materials", "images", "lecture-slides
 ::: {.center-text .body-text-s .gray-text}
 Image source: [What to consider when using text in data visualizations](https://www.datawrapper.de/blog/text-in-data-visualizations){target="_blank"}
 :::
+
+
+## {#alt-text-interactive data-menu-title="Alt text for interactive plots"}
+
+[Writing alt text for interactive plots]{.slide-title}
+
+<hr>
+
+- Interactive plots still need alt text, but it is important to note that screen readers **cannot** convey hover tooltips, animations, or interactivity
+
+- Including that your chart is interactive depends on how you use interactivity
+
+- Keep the same alt text formula discussed previously : "Chart type of type of data where reason for including chart". If suitable, include interactive context by adding a sentence like this to the end of your alt text: 
+
+> The chart is interactive, and each data point can be hovered over to reveal.....
+
+- The simplest way to include alt text for interactivty plots is still via the `fig-alt` chunk option
+
+
 
 ## {#ggplotly-limits data-menu-title="Limitations of ggplotly()"}
 
