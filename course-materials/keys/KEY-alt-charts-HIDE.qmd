@@ -7,7 +7,11 @@ editor_options:
   chunk_output_type: inline
 ---
 
-## Waffle chart 
+::: {.callout-note}
+This key accompanies the [alternative chart types practice slides](../lecture-slides/SLIDES-alt-charts.qmd){target="_blank}. Please be sure to cross-reference the slides, which contain important information and additional context!
+:::
+
+## Waffle chart (Sasquatch sightings)
 
 ```{r}
 #| eval: true
@@ -34,6 +38,7 @@ font_add_google(name = "Josefin Sans", family = "josefin")
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ca_season_counts <- bigfoot |> 
   filter(state == "California") |> 
   group_by(season) |> 
@@ -58,15 +63,11 @@ plot_palette <- c(gray = "#757473",
 
 #.......................create plot labels.......................
 title <- "Summer is the season of Bigfoot sightings in CA"
-subtitle <- "Winter, on the other hand, is a rare time to spot Sasquatch"
+subtitle <- "Only 10% of Sasquatch sightings occur in winter"
 caption <- "Source: Bigfoot Field Researchers Organization"
 
-#................enable {showtext} for rendering.................
-showtext_auto(enable = TRUE)
-showtext_opts(dpi = 144) 
-
 #......................create waffle chart.......................
-ggplot(ca_season_counts, aes(fill = season, values = n)) +
+sasquatch_plot <- ggplot(ca_season_counts, aes(fill = season, values = n)) +
   geom_waffle(color = "white", size = 0.3, n_rows = 10,
               make_proportional = TRUE) +
   coord_fixed() +
@@ -77,7 +78,7 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
   theme_void(base_size = 17) +
   theme(
     plot.title = element_text(family = "ultra", 
-                              #size = rel(1), 
+                              size = rel(1), 
                               hjust = 0.5,
                               margin = margin(t = 0, r = 0, b = 0.3, l = 0, "cm")),
     plot.subtitle = element_text(family = "josefin",
@@ -85,8 +86,9 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                  hjust = 0.5,
                                  margin = margin(t = 0, r = 0, b = 0.5, l = 0, "cm")),
     plot.caption = element_text(family = "josefin",
-                                size = rel(0.6),
+                                size = 10,
                                 color = plot_palette["gray"], 
+                                hjust = 0,
                                 margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
     legend.position = "bottom",
     legend.title = element_blank(),
@@ -94,70 +96,51 @@ ggplot(ca_season_counts, aes(fill = season, values = n)) +
                                size = 12),
     plot.background = element_rect(fill = plot_palette["beige"], 
                                    color = plot_palette["beige"]),
-    #plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
-    plot.margin = margin(t = 2, r = 2, b = 2, l = 2, "cm")
+    plot.margin = margin(t = 1, r = 8, b = 1, l = 8, "cm")
   )
+
+#................enable {showtext} for rendering.................
+showtext_auto(enable = TRUE)
+
+#...........................print plot...........................
+sasquatch_plot
 
 #..................turn off {showtext} rendering.................
 showtext_auto(enable = FALSE)
-```
 
-```{r}
-#| eval: false
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                save as png                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# #................enable {showtext} for rendering.................
+# #..............enable {showtext} for newly opened GD.............
 # showtext_auto(enable = TRUE)
 
-# #................create proportional waffle chart................
-# ggplot(ca_season_counts, aes(fill = season, values = n)) +
-#   geom_waffle(color = "white", size = 0.3, n_rows = 10,
-#               make_proportional = TRUE) + # <1>
-#   coord_fixed() +
-#   scale_fill_manual(values = season_palette) +
-#   theme_void() +
-#   theme(
-#     plot.title = element_text(family = "ultra", 
-#                               size = 18, 
-#                               hjust = 0.5,
-#                               margin = margin(t = 1, r = 0, b = 0.3, l = 1, "cm")),
-#     plot.subtitle = element_text(family = "josefin",
-#                                  size = 16,
-#                                  hjust = 0.5,
-#                                  margin = margin(t = 0, r = 0, b = 0.5, l = 0, "cm")),
-#     plot.caption = element_text(family = "josefin",
-#                                 size = 10,
-#                                 color = plot_palette["gray"], 
-#                                 hjust = 0,
-#                                 margin = margin(t = 0.75, r = 0, b = 0, l = 0, "cm")),
-#     legend.position = "bottom",
-#     legend.title = element_blank(),
-#     legend.text = element_text(family = "josefin",
-#                                size = 12),
-#     plot.background = element_rect(fill = plot_palette["beige"], 
-#                                    color = plot_palette["beige"]),
-#     plot.margin = margin(t = 1.5, r = 9, b = 1.5, l = 8, "cm")
-#   )
+# #...................set resolution to match GD...................
+# showtext_opts(dpi = 300)
 
-# #........................turn off showtext.......................
-# showtext_auto(FALSE)
+# #..............write plot to file (aka save as png)..............
+# ggsave(
+#   filename = here::here( "week9", "images", "sasquatch.png"),
+#   plot = ,
+#   device = "png",
+#   width = 9, 
+#   height = 6,
+#   unit = "in",
+#   dpi = 300
+# )
+
+# #...............turn off {showtext} text rendering...............
+# showtext_auto(enable = FALSE)
 ```
 
-<!-- 1. Set `make_proportional = TRUE` (`FALSE` by default) -->
-
-## Bump chart
+## Bump chart (highest paying occupations)
 
 ```{r}
 #| eval: true
 #| echo: true
-#| warning: false
 #| message: false
+#| warning: false
 #| fig-align: "center"
-#| out-width: "100%"
-#| fig-asp: 0.7
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                    setup                                 ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,9 +157,6 @@ jobs <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 #..........................import fonts..........................
 font_add_google(name = "Passion One", family = "passion")
 font_add_google(name = "Oxygen", family = "oxygen")
-
-#................enable {showtext} for rendering.................
-showtext_auto()
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                wrangle data                              ----
@@ -230,7 +210,7 @@ subtitle <- "Medical professionals held onto the same top three spots across yea
 caption <- "Data Source: Bureau of Labor Statistics"
 
 #........................create bump chart.......................
-salary_rank_by_year |> 
+salary_rank <- salary_rank_by_year |> 
   filter(occupation %in% top2016) |> 
   ggplot(aes(x = year, y = rank, color = occupation)) + 
   geom_point(shape = "|", size = 6) + 
@@ -291,6 +271,167 @@ salary_rank_by_year |>
     plot.margin = margin(t = 1, r = 1, b = 1, l = 1, "cm")
   )
 
-#........................turn off showtext.......................
-showtext_auto(FALSE)
+#................enable {showtext} for rendering.................
+showtext_auto(enable = TRUE)
+
+#...........................print plot...........................
+salary_rank
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                save as png                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# #..............enable {showtext} for newly opened GD.............
+# showtext_auto(enable = TRUE)
+
+# #...................set resolution to match GD...................
+# showtext_opts(dpi = 300)
+
+# #..............write plot to file (aka save as png)..............
+# ggsave(
+#   filename = here::here("week9", "images", "salary.png"), 
+#   plot = ,
+#   device = "png",
+#   width = 9, 
+#   height = 6,
+#   unit = "in",
+#   dpi = 300
+# )
+
+# #...............turn off {showtext} text rendering...............
+# showtext_auto(enable = FALSE)
+```
+
+## Stream graph (energy production)
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-align: "center"
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                    setup                                 ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#..........................load packages.........................
+library(tidyverse)
+library(ggstream)
+library(ggtext)
+library(showtext)
+
+#..........................import data...........................
+capacity <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2022/2022-05-03/capacity.csv")
+
+#..........................import fonts..........................
+font_add_google(name = "Exo 2", family = "exo")
+font_add_google(name = "Open Sans", family = "open")
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                wrangle data                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+capacity_clean <- capacity |> 
+  mutate(type = factor(type, levels = c("Solar", "Wind", "Storage", "Gas", "Nuclear", "Coal", "Other")))
+
+text_data <- capacity_clean |> 
+  filter(year == 2020) |> 
+  mutate(year_val = year + 0.1,
+         y = c(225, -125, -350, -500, -560, -610, -660))
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                stream graph                              ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#.........................create palette.........................
+pal <- paletteer::paletteer_d("MetBrewer::Archambault", n = 7)
+
+#.......................construct subtitle.......................
+subtitle <- glue::glue("In large part, due to increases in 
+                      <span style='color:#88A0DCFF;'>**solar**</span>,
+                      <span style='color:#381A61FF;'>**wind**</span>,
+                      and 
+                      <span style='color:#7C4B73FF;'>**storage**</span>
+                      capacities")
+
+#......................create stream graph.......................
+energy_stream <- ggplot(capacity_clean, aes(x = year, y = total_gw, fill = type)) + 
+  geom_stream(bw = 0.85,
+              extra_span = 0.2,
+              #sorting = "none",
+              color = "white") +
+  geom_text(data = text_data, 
+            aes(x = year_val, y = y, 
+                label = type, 
+                color = type),
+            family = "exo",
+            size = 4,
+            hjust = 0) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  labs(title = "Energy Capacity in the United States has Grown Steadily",
+       subtitle = subtitle,
+       caption = "Data: Berkeley Lab's Utility-Scale Solar, 2021 Edition") +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 17, 
+                base_family = "open") +
+  theme(
+    text = element_text(color = "#333333"),
+    plot.title = element_text(family = "exo", 
+                              size = rel(1), 
+                              hjust = 0,
+                              face = "bold"),
+    plot.subtitle = ggtext::element_markdown(size = rel(0.8), 
+                                             hjust = 0,
+                                             margin = margin(t = 3, b = 3)),
+    plot.caption = element_text(size = rel(0.6), 
+                                hjust = 1,
+                                margin = margin(t = 20, b = 5)),
+    legend.position = "none",
+    panel.grid = element_blank(),
+    plot.background = element_rect(fill = "#FFF5E0", color = "#FFF5E0"),
+    panel.background = element_rect(fill = "#FFF5E0", color = "#FFF5E0"),
+    plot.margin = margin(t = 1, r = 2, b = 1, l = 1, "cm"),
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(family = "exo", 
+                               size = rel(0.75),
+                               color = "#333333")
+  )
+
+#................enable {showtext} for rendering.................
+showtext_auto(enable = TRUE)
+
+#...........................print plot...........................
+energy_stream
+
+#...............turn off {showtext} text rendering...............
+showtext_auto(enable = FALSE)
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                save as png                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# #..............enable {showtext} for newly opened GD.............
+# showtext_auto(enable = TRUE)
+
+# #...................set resolution to match GD...................
+# showtext_opts(dpi = 300)
+
+# #..............write plot to file (aka save as png)..............
+# ggsave(
+#   filename = here::here("week9", "images", "energy.png"), 
+#   plot = ,
+#   device = "png",
+#   width = 9, 
+#   height = 6,
+#   unit = "in",
+#   dpi = 300
+# )
+
+# #...............turn off {showtext} text rendering...............
+# showtext_auto(enable = FALSE)
 ```
