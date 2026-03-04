@@ -29,6 +29,7 @@ library(tidyverse)
 library(plotly)
 library(htmlwidgets)
 library(scales)
+library(dplyr)
 
 #.......................preview the dataset.......................
 glimpse(storms)
@@ -36,7 +37,7 @@ glimpse(storms)
 
 <!-- CODE RUNS BUT DOES NOT RENDER (FOR FILE PATH) -->
 
-```{r setup-eval}
+```{r setup-eval}  
 #| eval: true
 #| echo: false
 #| warning: false
@@ -46,6 +47,8 @@ library(tidyverse)
 library(plotly)
 library(htmlwidgets)
 library(scales)
+library(dplyr)
+
 ```
 
 **Key variables in `storms`:**
@@ -72,11 +75,9 @@ glimpse(storms)
 ## Wrangle data
 
 ```{r}
-storms_clean <- storms %>%
-  mutate(status = tools::toTitleCase(gsub("-", " ", status))) %>%
+storms_clean <- storms |>
   filter(!is.na(wind), !is.na(pressure), !is.na(status)) %>%
-  filter(wind > 0, pressure > 800, pressure < 1030) %>% 
-    group_by(name, year, status) %>%
+  group_by(name, year, status) %>%
   summarise(
     wind     = mean(wind, na.rm = TRUE),
     pressure = mean(pressure, na.rm = TRUE),
@@ -124,7 +125,7 @@ ggplot_static <- storms_clean %>%
     y      = "Wind Speed (knots)",
     color  = "Status"
   ) +
-  theme_minimal(base_size = 13)
+  theme_minimal()
 
 ggplot_static
 ```
@@ -190,9 +191,7 @@ storms_clean |>
     type          = "bar",
     text          = ~paste0("<b>", status, "</b><br>n = ", n),
     textposition  = "none",
-    hoverinfo     = "text",
-    hovertemplate = "%{text}<extra></extra>"
-  ) |>
+    hoverinfo     = "text"  ) |>
   layout(
     barmode = "stack",
     title   = "Atlantic Storm Counts by Decade and Status",
@@ -201,6 +200,7 @@ storms_clean |>
     legend  = list(title = list(text = "<b>Status</b>"))
   )
 ```
+
 ```{r}
 #| warning: false
 #| message: false
