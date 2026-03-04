@@ -214,10 +214,8 @@ All of these can be saved with `saveWidget()` and embedded in Quarto / R Markdow
 
 library(dplyr)
 storms_clean <- storms |>
-  mutate(status = tools::toTitleCase(gsub("-", " ", status))) |>
   filter(!is.na(wind), !is.na(pressure), !is.na(status)) |>
-  filter(wind > 0, pressure > 800, pressure < 1030) |> 
-    group_by(name, year, status) |>
+  group_by(name, year, status) |>
   summarise(
     wind     = mean(wind, na.rm = TRUE),
     pressure = mean(pressure, na.rm = TRUE),
@@ -444,9 +442,7 @@ storms_clean |>
     type          = "bar",
     text          = ~paste0("<b>", status, "</b><br>n = ", n),
     textposition  = "none",
-    hoverinfo     = "text",
-    hovertemplate = "%{text}<extra></extra>"
-  ) |>
+    hoverinfo     = "text"  ) |>
   layout(
     barmode = "stack",
     title   = "Atlantic Storm Counts by Decade and Status",
