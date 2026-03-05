@@ -394,7 +394,7 @@ Note
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="KEY-alt-charts-HIDE_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="KEY-alt-charts_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -567,7 +567,7 @@ Note
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="KEY-alt-charts-HIDE_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="KEY-alt-charts_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -623,83 +623,84 @@ Note
 <span id="cb5-19"><a href="#cb5-19"></a><span class="do">##                                wrangle data                              ----</span></span>
 <span id="cb5-20"><a href="#cb5-20"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb5-21"><a href="#cb5-21"></a></span>
-<span id="cb5-22"><a href="#cb5-22"></a>capacity_clean <span class="ot">&lt;-</span> capacity <span class="sc">|&gt;</span> </span>
-<span id="cb5-23"><a href="#cb5-23"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Solar"</span>, <span class="st">"Wind"</span>, <span class="st">"Storage"</span>, <span class="st">"Gas"</span>, <span class="st">"Nuclear"</span>, <span class="st">"Coal"</span>, <span class="st">"Other"</span>)))</span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a>text_data <span class="ot">&lt;-</span> capacity_clean <span class="sc">|&gt;</span> </span>
-<span id="cb5-26"><a href="#cb5-26"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-27"><a href="#cb5-27"></a>  <span class="fu">mutate</span>(<span class="at">year_val =</span> year <span class="sc">+</span> <span class="fl">0.1</span>,</span>
-<span id="cb5-28"><a href="#cb5-28"></a>         <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">225</span>, <span class="sc">-</span><span class="dv">125</span>, <span class="sc">-</span><span class="dv">350</span>, <span class="sc">-</span><span class="dv">500</span>, <span class="sc">-</span><span class="dv">560</span>, <span class="sc">-</span><span class="dv">610</span>, <span class="sc">-</span><span class="dv">660</span>))</span>
-<span id="cb5-29"><a href="#cb5-29"></a></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="do">##                                stream graph                              ----</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#......................clean capacity data.......................</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a>capacity_clean <span class="ot">&lt;-</span> capacity <span class="sc">|&gt;</span> </span>
+<span id="cb5-24"><a href="#cb5-24"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Solar"</span>, <span class="st">"Wind"</span>, <span class="st">"Storage"</span>, <span class="st">"Gas"</span>, <span class="st">"Nuclear"</span>, <span class="st">"Coal"</span>, <span class="st">"Other"</span>)))</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#..........create df with text labels &amp; their positions..........</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>text_data <span class="ot">&lt;-</span> capacity_clean <span class="sc">|&gt;</span> </span>
+<span id="cb5-28"><a href="#cb5-28"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-29"><a href="#cb5-29"></a>  <span class="fu">mutate</span>(<span class="at">year_val =</span> year <span class="sc">+</span> <span class="fl">0.1</span>,</span>
+<span id="cb5-30"><a href="#cb5-30"></a>         <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">225</span>, <span class="sc">-</span><span class="dv">125</span>, <span class="sc">-</span><span class="dv">350</span>, <span class="sc">-</span><span class="dv">500</span>, <span class="sc">-</span><span class="dv">560</span>, <span class="sc">-</span><span class="dv">610</span>, <span class="sc">-</span><span class="dv">660</span>))</span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
 <span id="cb5-32"><a href="#cb5-32"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span id="cb5-33"><a href="#cb5-33"></a></span>
-<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#.........................create palette.........................</span></span>
-<span id="cb5-35"><a href="#cb5-35"></a>pal <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"MetBrewer::Archambault"</span>, <span class="at">n =</span> <span class="dv">7</span>)</span>
-<span id="cb5-36"><a href="#cb5-36"></a></span>
-<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#.......................construct subtitle.......................</span></span>
-<span id="cb5-38"><a href="#cb5-38"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"In large part, due to increases in </span></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="st">                      &lt;span style='color:#88A0DCFF;'&gt;**solar**&lt;/span&gt;,</span></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="st">                      &lt;span style='color:#381A61FF;'&gt;**wind**&lt;/span&gt;,</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a><span class="st">                      and </span></span>
-<span id="cb5-42"><a href="#cb5-42"></a><span class="st">                      &lt;span style='color:#7C4B73FF;'&gt;**storage**&lt;/span&gt;</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a><span class="st">                      capacities"</span>)</span>
-<span id="cb5-44"><a href="#cb5-44"></a></span>
-<span id="cb5-45"><a href="#cb5-45"></a><span class="co">#......................create stream graph.......................</span></span>
-<span id="cb5-46"><a href="#cb5-46"></a>energy_stream <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(capacity_clean, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_gw, <span class="at">fill =</span> type)) <span class="sc">+</span> </span>
-<span id="cb5-47"><a href="#cb5-47"></a>  <span class="fu">geom_stream</span>(<span class="at">bw =</span> <span class="fl">0.85</span>,</span>
-<span id="cb5-48"><a href="#cb5-48"></a>              <span class="at">extra_span =</span> <span class="fl">0.2</span>,</span>
-<span id="cb5-49"><a href="#cb5-49"></a>              <span class="co">#sorting = "none",</span></span>
-<span id="cb5-50"><a href="#cb5-50"></a>              <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb5-51"><a href="#cb5-51"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> text_data, </span>
-<span id="cb5-52"><a href="#cb5-52"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year_val, <span class="at">y =</span> y, </span>
-<span id="cb5-53"><a href="#cb5-53"></a>                <span class="at">label =</span> type, </span>
-<span id="cb5-54"><a href="#cb5-54"></a>                <span class="at">color =</span> type),</span>
-<span id="cb5-55"><a href="#cb5-55"></a>            <span class="at">family =</span> <span class="st">"exo"</span>,</span>
-<span id="cb5-56"><a href="#cb5-56"></a>            <span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb5-57"><a href="#cb5-57"></a>            <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb5-58"><a href="#cb5-58"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb5-59"><a href="#cb5-59"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb5-60"><a href="#cb5-60"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Energy Capacity in the United States has Grown Steadily"</span>,</span>
-<span id="cb5-61"><a href="#cb5-61"></a>       <span class="at">subtitle =</span> subtitle,</span>
-<span id="cb5-62"><a href="#cb5-62"></a>       <span class="at">caption =</span> <span class="st">"Data: Berkeley Lab's Utility-Scale Solar, 2021 Edition"</span>) <span class="sc">+</span></span>
-<span id="cb5-63"><a href="#cb5-63"></a>  <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
-<span id="cb5-64"><a href="#cb5-64"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">17</span>, </span>
-<span id="cb5-65"><a href="#cb5-65"></a>                <span class="at">base_family =</span> <span class="st">"open"</span>) <span class="sc">+</span></span>
-<span id="cb5-66"><a href="#cb5-66"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-67"><a href="#cb5-67"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#333333"</span>),</span>
-<span id="cb5-68"><a href="#cb5-68"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"exo"</span>, </span>
-<span id="cb5-69"><a href="#cb5-69"></a>                              <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>), </span>
-<span id="cb5-70"><a href="#cb5-70"></a>                              <span class="at">hjust =</span> <span class="dv">0</span>,</span>
-<span id="cb5-71"><a href="#cb5-71"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb5-72"><a href="#cb5-72"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.8</span>), </span>
-<span id="cb5-73"><a href="#cb5-73"></a>                                             <span class="at">hjust =</span> <span class="dv">0</span>,</span>
-<span id="cb5-74"><a href="#cb5-74"></a>                                             <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">3</span>)),</span>
-<span id="cb5-75"><a href="#cb5-75"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.6</span>), </span>
-<span id="cb5-76"><a href="#cb5-76"></a>                                <span class="at">hjust =</span> <span class="dv">1</span>,</span>
-<span id="cb5-77"><a href="#cb5-77"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="dv">5</span>)),</span>
-<span id="cb5-78"><a href="#cb5-78"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb5-79"><a href="#cb5-79"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-80"><a href="#cb5-80"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFF5E0"</span>, <span class="at">color =</span> <span class="st">"#FFF5E0"</span>),</span>
-<span id="cb5-81"><a href="#cb5-81"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFF5E0"</span>, <span class="at">color =</span> <span class="st">"#FFF5E0"</span>),</span>
-<span id="cb5-82"><a href="#cb5-82"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>),</span>
-<span id="cb5-83"><a href="#cb5-83"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-84"><a href="#cb5-84"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-85"><a href="#cb5-85"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"exo"</span>, </span>
-<span id="cb5-86"><a href="#cb5-86"></a>                               <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>),</span>
-<span id="cb5-87"><a href="#cb5-87"></a>                               <span class="at">color =</span> <span class="st">"#333333"</span>)</span>
-<span id="cb5-88"><a href="#cb5-88"></a>  )</span>
-<span id="cb5-89"><a href="#cb5-89"></a></span>
-<span id="cb5-90"><a href="#cb5-90"></a><span class="co">#................enable {showtext} for rendering.................</span></span>
-<span id="cb5-91"><a href="#cb5-91"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-92"><a href="#cb5-92"></a></span>
-<span id="cb5-93"><a href="#cb5-93"></a><span class="co">#...........................print plot...........................</span></span>
-<span id="cb5-94"><a href="#cb5-94"></a>energy_stream</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="do">##                                stream graph                              ----</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="do">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#.........................create palette.........................</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a>pal <span class="ot">&lt;-</span> paletteer<span class="sc">::</span><span class="fu">paletteer_d</span>(<span class="st">"MetBrewer::Archambault"</span>, <span class="at">n =</span> <span class="dv">7</span>)</span>
+<span id="cb5-38"><a href="#cb5-38"></a></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#.......................construct subtitle.......................</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a>subtitle <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"In large part, due to increases in </span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="st">                      &lt;span style='color:#88A0DCFF;'&gt;**solar**&lt;/span&gt;,</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a><span class="st">                      &lt;span style='color:#381A61FF;'&gt;**wind**&lt;/span&gt;,</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a><span class="st">                      and </span></span>
+<span id="cb5-44"><a href="#cb5-44"></a><span class="st">                      &lt;span style='color:#7C4B73FF;'&gt;**storage**&lt;/span&gt;</span></span>
+<span id="cb5-45"><a href="#cb5-45"></a><span class="st">                      capacities"</span>)</span>
+<span id="cb5-46"><a href="#cb5-46"></a></span>
+<span id="cb5-47"><a href="#cb5-47"></a><span class="co">#......................create stream graph.......................</span></span>
+<span id="cb5-48"><a href="#cb5-48"></a>energy_stream <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(capacity_clean, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_gw, <span class="at">fill =</span> type)) <span class="sc">+</span> </span>
+<span id="cb5-49"><a href="#cb5-49"></a>  <span class="fu">geom_stream</span>(<span class="at">bw =</span> <span class="fl">0.85</span>,</span>
+<span id="cb5-50"><a href="#cb5-50"></a>              <span class="at">extra_span =</span> <span class="fl">0.2</span>,</span>
+<span id="cb5-51"><a href="#cb5-51"></a>              <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb5-52"><a href="#cb5-52"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> text_data, </span>
+<span id="cb5-53"><a href="#cb5-53"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year_val, <span class="at">y =</span> y, </span>
+<span id="cb5-54"><a href="#cb5-54"></a>                <span class="at">label =</span> type, </span>
+<span id="cb5-55"><a href="#cb5-55"></a>                <span class="at">color =</span> type),</span>
+<span id="cb5-56"><a href="#cb5-56"></a>            <span class="at">family =</span> <span class="st">"exo"</span>,</span>
+<span id="cb5-57"><a href="#cb5-57"></a>            <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb5-58"><a href="#cb5-58"></a>            <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb5-60"><a href="#cb5-60"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb5-61"><a href="#cb5-61"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Energy Capacity in the United States has Grown Steadily"</span>,</span>
+<span id="cb5-62"><a href="#cb5-62"></a>       <span class="at">subtitle =</span> subtitle,</span>
+<span id="cb5-63"><a href="#cb5-63"></a>       <span class="at">caption =</span> <span class="st">"Data: Berkeley Lab's Utility-Scale Solar, 2021 Edition"</span>) <span class="sc">+</span></span>
+<span id="cb5-64"><a href="#cb5-64"></a>  <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb5-65"><a href="#cb5-65"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">17</span>, </span>
+<span id="cb5-66"><a href="#cb5-66"></a>                <span class="at">base_family =</span> <span class="st">"open"</span>) <span class="sc">+</span></span>
+<span id="cb5-67"><a href="#cb5-67"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-68"><a href="#cb5-68"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#333333"</span>),</span>
+<span id="cb5-69"><a href="#cb5-69"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"exo"</span>, </span>
+<span id="cb5-70"><a href="#cb5-70"></a>                              <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>), </span>
+<span id="cb5-71"><a href="#cb5-71"></a>                              <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb5-72"><a href="#cb5-72"></a>                              <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb5-73"><a href="#cb5-73"></a>    <span class="at">plot.subtitle =</span> ggtext<span class="sc">::</span><span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.8</span>), </span>
+<span id="cb5-74"><a href="#cb5-74"></a>                                             <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb5-75"><a href="#cb5-75"></a>                                             <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">3</span>)),</span>
+<span id="cb5-76"><a href="#cb5-76"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.6</span>), </span>
+<span id="cb5-77"><a href="#cb5-77"></a>                                <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb5-78"><a href="#cb5-78"></a>                                <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="dv">5</span>)),</span>
+<span id="cb5-79"><a href="#cb5-79"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb5-80"><a href="#cb5-80"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-81"><a href="#cb5-81"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFF5E0"</span>, <span class="at">color =</span> <span class="st">"#FFF5E0"</span>),</span>
+<span id="cb5-82"><a href="#cb5-82"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFF5E0"</span>, <span class="at">color =</span> <span class="st">"#FFF5E0"</span>),</span>
+<span id="cb5-83"><a href="#cb5-83"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">r =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">l =</span> <span class="dv">1</span>, <span class="st">"cm"</span>),</span>
+<span id="cb5-84"><a href="#cb5-84"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-85"><a href="#cb5-85"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-86"><a href="#cb5-86"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"exo"</span>, </span>
+<span id="cb5-87"><a href="#cb5-87"></a>                               <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>),</span>
+<span id="cb5-88"><a href="#cb5-88"></a>                               <span class="at">color =</span> <span class="st">"#333333"</span>)</span>
+<span id="cb5-89"><a href="#cb5-89"></a>  )</span>
+<span id="cb5-90"><a href="#cb5-90"></a></span>
+<span id="cb5-91"><a href="#cb5-91"></a><span class="co">#................enable {showtext} for rendering.................</span></span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-93"><a href="#cb5-93"></a></span>
+<span id="cb5-94"><a href="#cb5-94"></a><span class="co">#...........................print plot...........................</span></span>
+<span id="cb5-95"><a href="#cb5-95"></a>energy_stream</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="KEY-alt-charts-HIDE_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="KEY-alt-charts_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>

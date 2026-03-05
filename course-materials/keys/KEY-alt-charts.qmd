@@ -334,9 +334,11 @@ font_add_google(name = "Open Sans", family = "open")
 ##                                wrangle data                              ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#......................clean capacity data.......................
 capacity_clean <- capacity |> 
   mutate(type = factor(type, levels = c("Solar", "Wind", "Storage", "Gas", "Nuclear", "Coal", "Other")))
 
+#..........create df with text labels & their positions..........
 text_data <- capacity_clean |> 
   filter(year == 2020) |> 
   mutate(year_val = year + 0.1,
@@ -361,7 +363,6 @@ subtitle <- glue::glue("In large part, due to increases in
 energy_stream <- ggplot(capacity_clean, aes(x = year, y = total_gw, fill = type)) + 
   geom_stream(bw = 0.85,
               extra_span = 0.2,
-              #sorting = "none",
               color = "white") +
   geom_text(data = text_data, 
             aes(x = year_val, y = y, 
