@@ -188,6 +188,55 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
 
 
 <!-- =============================== -->
+<!-- TRIGGERS CAN BE PLOTLY          -->
+<!-- =============================== -->
+
+::::{.cr-section layout="sidebar-right"}
+
+[Stickies can also be **interactive** Plotly charts! Hover over the points on the left — you'll see live tooltips.]{.body-text-l} @cr-plotly-ex
+
+[Click a species in the legend to hide or show that group. Plotly's built-in interactivity works exactly as expected inside a sticky.]{.body-text-l} @cr-plotly-ex
+
+[You can include an interactive plot the same way you would include a static `ggplot` in your scrollytelling - simply by calling the name of your plot! ]{.body-text-l} @cr-plotly-ex
+
+:::{#cr-plotly-ex}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(plotly)
+library(palmerpenguins)
+
+penguins_clean <- na.omit(penguins)
+
+plot_ly(
+  data      = penguins_clean,
+  x         = ~bill_length_mm,
+  y         = ~bill_depth_mm,
+  color     = ~species,
+  type      = "scatter",
+  mode      = "markers",
+  marker    = list(size = 9, opacity = 0.75),
+  text      = ~paste(
+    "Species:", species,
+    "<br>Bill Length:", bill_length_mm, "mm",
+    "<br>Bill Depth:",  bill_depth_mm,  "mm"
+  ),
+  hoverinfo = "text"
+) |>
+  layout(
+    title  = "Bill Length vs. Bill Depth",
+    xaxis  = list(title = "Bill Length (mm)"),
+    yaxis  = list(title = "Bill Depth (mm)"),
+    legend = list(title = list(text = "Species"))
+  )
+```
+:::
+
+::::
+
+
+<!-- =============================== -->
 <!-- SECTION SYNTAX                  -->
 <!-- =============================== -->
 
